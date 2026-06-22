@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>리뷰 — 온보딩 인터랙션</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+    integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+    integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+    integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --canvas: #ffffff;
+      --accent: #6D58F2;
+      --accent-bg: rgba(109, 88, 242, 0.06);
+      --accent-bd: rgba(109, 88, 242, 0.42);
+      --kakao: #FEE500;
+      --kakao-ink: #3A2A24;
+      --tile: #f4f3f1;
+      --tile-bd: rgba(17, 17, 17, 0.06);
+      --white: #ffffff;
+      --ink: #1a1a1a;
+      --ink-mid: rgba(26, 26, 26, 0.5);
+      --ink-soft: rgba(26, 26, 26, 0.34);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--canvas);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px 20px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      width: 700px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(109, 88, 242, 0.06) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    #root {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    /* ━━━━ DEMO CARD ━━━━ */
+    .demo {
+      width: 100%;
+      max-width: 600px;
+      background: var(--white);
+      border-radius: 28px;
+      padding: 28px 24px 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 14px 44px rgba(20, 20, 50, 0.13);
+      cursor: pointer;
+    }
+
+    .demo.running,
+    .demo.done {
+      cursor: default;
+    }
+
+    /* ━━━━ TOP ROW ━━━━ */
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink);
+      background: #f4f3f1;
+      border: 1px solid var(--tile-bd);
+      padding: 5px 12px;
+      border-radius: 9999px;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .count-pill {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      background: #f0f0f0;
+      color: var(--ink-mid);
+      white-space: nowrap;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .count-pill.on {
+      background: var(--accent);
+      color: white;
+    }
+
+    .count-pill .num {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 12.5px;
+    }
+
+    /* ━━━━ HEADLINE ━━━━ */
+    .headline {
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
+      letter-spacing: -0.025em;
+      margin-bottom: 20px;
+    }
+
+    /* ━━━━ CUSTOMER PANEL ━━━━ */
+    .panel {
+      background: var(--tile);
+      border: 1.5px solid var(--tile-bd);
+      border-radius: 16px;
+      padding: 13px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: border-color 0.3s ease;
+    }
+
+    .panel.idle {
+      animation: idlePulse 2.6s ease-in-out infinite;
+    }
+
+    .bag {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      flex-shrink: 0;
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+    }
+
+    .panel-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      line-height: 1.25;
+    }
+
+    .panel-id {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .panel-sub {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      letter-spacing: -0.01em;
+    }
+
+    .panel-tag {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-bd);
+      border-radius: 9999px;
+      padding: 3px 9px;
+      white-space: nowrap;
+    }
+
+    /* ━━━━ KAKAO ALIMTALK ━━━━ */
+    .kakao {
+      margin-top: 14px;
+    }
+
+    .kakao-head {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 7px;
+    }
+
+    .kakao-ic {
+      width: 19px;
+      height: 19px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      background: var(--kakao);
+      display: grid;
+      place-items: center;
+    }
+
+    .kakao-name {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .kakao-time {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .kakao-bubble {
+      background: var(--kakao);
+      border-radius: 4px 16px 16px 16px;
+      padding: 13px 14px;
+    }
+
+    .kb-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--kakao-ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .kb-body {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: rgba(58, 42, 36, 0.78);
+      letter-spacing: -0.01em;
+      line-height: 1.45;
+    }
+
+    .kb-body b {
+      font-weight: 800;
+      color: var(--kakao-ink);
+    }
+
+    .kb-btn {
+      margin-top: 11px;
+      background: var(--white);
+      border-radius: 8px;
+      padding: 9px;
+      text-align: center;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+      cursor: default;
+      transition: transform 0.12s ease, background 0.18s ease;
+    }
+
+    .kb-btn.await {
+      cursor: pointer;
+      animation: btnAttn 1.7s ease-in-out infinite;
+    }
+
+    .kb-btn.await:hover {
+      background: #f3f0ff;
+    }
+
+    .kb-btn.tap {
+      animation: tapPress 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ━━━━ REVIEW FEED ━━━━ */
+    .feed {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .review {
+      background: var(--white);
+      border: 1.5px solid var(--tile-bd);
+      border-radius: 14px;
+      padding: 12px 13px;
+      animation: riseIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .rv-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+
+    .rv-av {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .rv-av.cust {
+      background: #b9b4d6;
+    }
+
+    .rv-av.staff {
+      background: var(--accent);
+    }
+
+    .rv-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .rv-staff-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-bd);
+      border-radius: 9999px;
+      padding: 2px 7px;
+      margin-left: 1px;
+    }
+
+    .rv-stars {
+      margin-left: auto;
+      display: flex;
+      gap: 1px;
+    }
+
+    .rv-text {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      letter-spacing: -0.01em;
+      line-height: 1.45;
+    }
+
+    .star {
+      transition: none;
+    }
+
+    .star-pop {
+      animation: popBadge 0.34s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    /* ━━━━ STAT (phase 4) ━━━━ */
+    .stat {
+      margin-top: 14px;
+      background: var(--accent-bg);
+      border: 1.5px solid var(--accent-bd);
+      border-radius: 16px;
+      padding: 16px;
+      animation: riseIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .stat-from {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      font-family: var(--font-mono);
+    }
+
+    .stat-arrow {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .stat-to {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .stat-cap {
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink-mid);
+      margin-top: 9px;
+      letter-spacing: -0.01em;
+    }
+
+    .stat-bar {
+      margin-top: 12px;
+      height: 7px;
+      border-radius: 9999px;
+      background: rgba(109, 88, 242, 0.14);
+      overflow: hidden;
+    }
+
+    .stat-fill {
+      height: 100%;
+      width: 10%;
+      border-radius: 9999px;
+      background: var(--accent);
+      transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .stat-fill.full {
+      width: 100%;
+    }
+
+    /* ━━━━ STATUS ━━━━ */
+    .status {
+      text-align: center;
+      min-height: 40px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: white;
+      background: linear-gradient(110deg,
+          color-mix(in srgb, var(--accent), black 10%) 0%,
+          var(--accent) 50%,
+          color-mix(in srgb, var(--accent), white 22%) 100%);
+      border-radius: 14px;
+      padding: 14px 18px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 18px color-mix(in srgb, var(--accent), transparent 44%);
+    }
+
+    .hint::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(105deg,
+          transparent 0%, rgba(255, 255, 255, 0.52) 50%, transparent 100%);
+      animation: shimmerSweep 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .s-line {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--ink);
+      animation: riseIn 0.38s ease both;
+    }
+
+    .replay-btn {
+      margin-top: 2px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      background: none;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      cursor: pointer;
+      animation: riseIn 0.38s 0.16s ease both;
+      transition: color 0.18s ease, background 0.18s ease;
+    }
+
+    .replay-btn:hover {
+      color: var(--ink);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    /* ━━━━ CONFETTI ━━━━ */
+    .conf-wrap {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: inherit;
+    }
+
+    .conf-piece {
+      position: absolute;
+      animation: confDrop linear forwards;
+    }
+
+    /* ━━━━ KEYFRAMES ━━━━ */
+    @keyframes idlePulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0px rgba(109, 88, 242, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 0 5px rgba(109, 88, 242, 0.12);
+      }
+    }
+
+    @keyframes popBadge {
+      0% {
+        transform: scale(0) rotate(-12deg);
+        opacity: 0;
+      }
+
+      65% {
+        transform: scale(1.2) rotate(3deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pushIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes tapPress {
+      0% {
+        transform: scale(1);
+      }
+
+      40% {
+        transform: scale(0.94);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes btnAttn {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(109, 88, 242, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 0 4px rgba(109, 88, 242, 0.2);
+      }
+    }
+
+    @keyframes breathe {
+
+      0%,
+      100% {
+        opacity: 0.4;
+      }
+
+      50% {
+        opacity: 0.82;
+      }
+    }
+
+    @keyframes shimmerSweep {
+      0% {
+        transform: translateX(-180%);
+      }
+
+      100% {
+        transform: translateX(350%);
+      }
+    }
+
+    100% {
+      background-position: 200% center;
+    }
+    }
+
+    35% {
+      transform: scale(0.55);
+      opacity: 0.65;
+    }
+
+    60% {
+      transform: scale(1.38);
+      opacity: 1;
+    }
+    }
+
+    @keyframes confDrop {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(640px) rotate(520deg);
+        opacity: 0;
+      }
+    }
+  </style>
+<style id="embed-fill">html,body{background:#fff!important}body{margin:0!important;padding:0!important;min-height:100vh;display:flex!important;flex-direction:column!important}#root{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;width:100%!important}.demo{flex:1 1 auto!important;max-width:none!important;width:100%!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;border-radius:0!important;box-shadow:none!important}.panel{flex:1 1 0!important;min-height:0!important}.kakao{flex:2 1 0!important;min-height:0!important;display:flex!important;flex-direction:column!important}.kakao-bubble{flex:1 1 0!important;min-height:0!important;display:flex!important;flex-direction:column!important;justify-content:center!important}.feed{flex:2 1 0!important;min-height:0!important;justify-content:center!important}.stat{display:flex!important;flex-direction:column!important;justify-content:center!important}.status{margin-top:auto!important;width:100%!important}.hint{width:100%!important;box-sizing:border-box!important}.replay-btn{width:100%!important;box-sizing:border-box!important;padding:14px 18px!important;margin-top:0!important}</style>
+<style id="embed-enlarge">.panel{flex:0 0 auto!important;padding:14px 15px!important}.bag{width:42px!important;height:42px!important;border-radius:11px!important}.bag svg{width:22px!important;height:22px!important}.panel-id{font-size:15px!important}.panel-sub{font-size:12.5px!important}.panel-tag{font-size:12px!important;padding:5px 11px!important}.kakao-name{font-size:13px!important}.kakao-bubble{padding:18px!important}.kb-title{font-size:16px!important;margin-bottom:6px!important}.kb-body{font-size:14px!important;line-height:1.6!important}.kb-btn{font-size:13.5px!important;padding:12px!important;margin-top:13px!important}.feed{justify-content:flex-start!important;gap:12px!important}.review{flex:1 1 0!important;min-height:0!important;display:flex!important;flex-direction:column!important;justify-content:center!important;padding:16px!important}.rv-head{margin-bottom:9px!important}.rv-av{width:34px!important;height:34px!important;font-size:14px!important}.rv-name{font-size:14px!important}.rv-staff-tag{font-size:11px!important}.rv-text{font-size:14px!important;line-height:1.6!important}.stat-from{font-size:18px!important}.stat-to{font-size:40px!important}.stat-cap{font-size:13px!important}</style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useMemo } = React;
+
+    /* ── Icons ── */
+    const BagIcon = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 8h12l-1 12H7L6 8z" stroke="white" strokeWidth="1.8" strokeLinejoin="round" />
+        <path d="M9 8a3 3 0 0 1 6 0" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    );
+    const KakaoIcon = () => (
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9l-.9 3.3 3.8-2.2c.6.1 1.2.1 1.9.1 5 0 9-3.1 9-7s-4-7-9-7z" fill="#3A1D1D" />
+      </svg>
+    );
+    const Star = ({ filled, pop }) => (
+      <svg className={`star ${pop ? 'star-pop' : ''}`} width="14" height="14" viewBox="0 0 24 24"
+        fill={filled ? '#6D58F2' : 'none'} aria-hidden="true">
+        <path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.3l6.5-.9L12 2.5z"
+          stroke={filled ? '#6D58F2' : 'rgba(26,26,26,0.2)'} strokeWidth="1.6" strokeLinejoin="round" />
+      </svg>
+    );
+    const StarRow = ({ filled, animate }) => (
+      <div className="rv-stars">
+        {[0, 1, 2, 3, 4].map(i => (
+          <Star key={i} filled={i < filled} pop={animate && i < filled} />
+        ))}
+      </div>
+    );
+
+    /* ── Confetti ── */
+    const CONF_COLORS = ['#6D58F2', '#B9B4D6', '#FEE500', '#A7C0A1', '#9D8CF0', '#222222'];
+    const Confetti = () => {
+      const pieces = useMemo(() =>
+        Array.from({ length: 32 }, (_, i) => ({
+          id: i, left: 2 + Math.random() * 96,
+          color: CONF_COLORS[i % CONF_COLORS.length],
+          delay: Math.random() * 0.6, dur: 1.1 + Math.random() * 1.0,
+          w: 5 + Math.random() * 7, h: 5 + Math.random() * 7,
+          round: Math.random() > 0.45,
+        })), []
+      );
+      return (
+        <div className="conf-wrap">
+          {pieces.map(p => (
+            <div key={p.id} className="conf-piece" style={{
+              left: `${p.left}%`, top: -10, width: p.w, height: p.h,
+              background: p.color, borderRadius: p.round ? '50%' : '2px',
+              animationDelay: `${p.delay}s`, animationDuration: `${p.dur}s`,
+            }} />
+          ))}
+        </div>
+      );
+    };
+
+    /* ── Count-up hook (with backstop) ── */
+    const useCountUp = (target, durationMs, active) => {
+      const [val, setVal] = useState(0);
+      useEffect(() => {
+        if (!active) { setVal(0); return; }
+        let raf; const t0 = performance.now();
+        const tick = (ts) => {
+          const p = Math.min((ts - t0) / durationMs, 1);
+          setVal(Math.floor((1 - Math.pow(1 - p, 3)) * target));
+          if (p < 1) raf = requestAnimationFrame(tick); else setVal(target);
+        };
+        raf = requestAnimationFrame(tick);
+        const done = setTimeout(() => setVal(target), durationMs + 120);
+        return () => { cancelAnimationFrame(raf); clearTimeout(done); };
+      }, [active]);
+      return val;
+    };
+
+    /* ── Main Demo ── */
+    const Demo = () => {
+      const [phase, setPhase] = useState(0);   // 0 idle · 1 alimtalk · 2 customer review · 3 staff review · 4 surge
+      const ids = useRef([]);
+      const grown = useCountUp(30, 1600, phase === 4);
+      const reviews = phase >= 4 ? Math.max(3, grown) : 3;
+
+      const later = (fn, d) => ids.current.push(setTimeout(fn, d));
+      const stop = () => { ids.current.forEach(clearTimeout); ids.current = []; };
+      useEffect(() => stop, []);
+
+      const writeReview = (e) => {
+        e.stopPropagation();
+        if (phase !== 0) return;
+        setPhase(2);                       // customer review appears
+        later(() => setPhase(3), 1800);    // staff review added
+        later(() => setPhase(4), 3700);    // review count surges
+      };
+      const reset = (e) => { e.stopPropagation(); stop(); setPhase(0); };
+
+      return (
+        <div
+          className={`demo ${phase === 4 ? 'done' : 'running'}`}
+          data-screen-label={`phase-${phase}`}
+        >
+          {phase === 4 && <Confetti key="conf" />}
+
+          {/* top row */}
+          <div className="top-row">
+            <div className="badge">알파리뷰</div>
+            <div className={`count-pill ${phase >= 4 ? 'on' : ''}`}>
+              <span>리뷰</span><span className="num">{reviews}만</span>
+            </div>
+          </div>
+
+          {/* headline */}
+          <h2 className="headline">
+            구매하자마자,<br />
+            리뷰가 쌓이는 순간
+          </h2>
+
+          {/* customer panel */}
+          <div className="panel">
+            <div className="bag"><BagIcon /></div>
+            <div className="panel-meta">
+              <span className="panel-id">김지우 님</span>
+              <span className="panel-sub">방금 주문을 완료했어요</span>
+            </div>
+            <span className="panel-tag">구매 완료</span>
+          </div>
+
+          {/* kakao alimtalk */}
+          {phase === 0 && (
+            <div className="kakao" key="kakao">
+              <div className="kakao-head">
+                <span className="kakao-ic"><KakaoIcon /></span>
+                <span className="kakao-name">카카오 알림톡</span>
+                <span className="kakao-time">자동 발송 · 지금</span>
+              </div>
+              <div className="kakao-bubble">
+                <p className="kb-title">주문하신 상품, 만족하셨나요?</p>
+                <p className="kb-body">30초 리뷰만 남겨도 <b>3,000P</b> 적립해 드려요.</p>
+                <div
+                  className={`kb-btn ${phase === 0 ? 'await' : ''} ${phase >= 2 ? 'tap' : ''}`}
+                  onClick={phase === 0 ? writeReview : undefined}
+                >리뷰 작성하기</div>
+              </div>
+            </div>
+          )}
+
+          {/* review feed */}
+          {phase >= 2 && (
+            <div className="feed">
+              <div className="review" key="cust">
+                <div className="rv-head">
+                  <span className="rv-av cust">김</span>
+                  <span className="rv-name">김지우</span>
+                  <StarRow filled={5} animate={phase === 2} />
+                </div>
+                <p className="rv-text">포장도 꼼꼼하고 배송도 빨라요. 재구매 의사 100%!</p>
+              </div>
+
+              {phase >= 3 && (
+                <div className="review" key="staff">
+                  <div className="rv-head">
+                    <span className="rv-av staff">널</span>
+                    <span className="rv-name">널담</span>
+                    <span className="rv-staff-tag">스태프</span>
+                    <StarRow filled={5} animate={phase === 3} />
+                  </div>
+                  <p className="rv-text">이번 주 베스트 신상이에요. 사이즈는 정사이즈 추천드려요!</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* surge stat */}
+          {phase >= 4 && (
+            <div className="stat" key="stat">
+              <div className="stat-row">
+                <span className="stat-from">3만</span>
+                <span className="stat-arrow">→</span>
+                <span className="stat-to">{reviews}만</span>
+              </div>
+              <p className="stat-cap">널담은 이렇게 리뷰가 10배 늘었어요</p>
+              <div className="stat-bar"><div className="stat-fill full"></div></div>
+            </div>
+          )}
+
+          {/* status */}
+          <div className="status">
+            {phase === 0 && <p className="hint" onClick={writeReview}>리뷰 작성하기를 눌러보세요</p>}
+            {phase === 2 && <p className="s-line">고객이 30초 만에 리뷰 작성 완료</p>}
+            {phase === 3 && <p className="s-line">스태프 리뷰까지 더해 리뷰 수 가속</p>}
+            {phase === 4 && (
+              <>
+                <p className="s-line">리뷰가 폭발적으로 늘어나는 순간</p>
+                <button className="replay-btn" onClick={reset}>다시 보기</button>
+              </>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+  </script>
+</body>
+
+</html>

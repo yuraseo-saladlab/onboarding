@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>캔버스 — 온보딩 인터랙션</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+    integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+    integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+    integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --canvas: #ffffff;
+      --accent: #00B7A8;
+      --accent-bg: rgba(0, 183, 168, 0.07);
+      --accent-bd: rgba(0, 183, 168, 0.42);
+      --accent-deep: #009488;
+
+      --brand: #C2603F;
+      --brand-bg: rgba(194, 96, 63, 0.08);
+      --brand-bd: rgba(194, 96, 63, 0.22);
+
+      --tile: #f4f3f1;
+      --tile-bd: rgba(17, 17, 17, 0.06);
+      --white: #ffffff;
+      --ink: #1a1a1a;
+      --ink-mid: rgba(26, 26, 26, 0.5);
+      --ink-soft: rgba(26, 26, 26, 0.34);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--canvas);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px 20px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      width: 700px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(0, 183, 168, 0.06) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    #root {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    /* ━━━━ DEMO CARD ━━━━ */
+    .demo {
+      width: 100%;
+      max-width: 600px;
+      background: var(--white);
+      border-radius: 28px;
+      padding: 26px 24px 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 14px 44px rgba(20, 20, 50, 0.13);
+    }
+
+    /* ━━━━ TOP ROW ━━━━ */
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 13px;
+      gap: 12px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink);
+      background: #f4f3f1;
+      border: 1px solid var(--tile-bd);
+      padding: 5px 12px;
+      border-radius: 9999px;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .beta {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      color: var(--accent-deep);
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-bd);
+      border-radius: 9999px;
+      padding: 4px 7px;
+    }
+
+    .prog-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 9px 5px 12px;
+      border-radius: 9999px;
+      background: #f0f0f0;
+      color: var(--ink-mid);
+      white-space: nowrap;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .prog-pill.on {
+      background: var(--accent);
+      color: white;
+    }
+
+    .prog-pill .num {
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    .prog-track {
+      width: 36px;
+      height: 5px;
+      border-radius: 9999px;
+      background: rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .prog-pill.on .prog-track {
+      background: rgba(255, 255, 255, 0.32);
+    }
+
+    .prog-fill {
+      height: 100%;
+      border-radius: 9999px;
+      background: var(--accent);
+      transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .prog-pill.on .prog-fill {
+      background: white;
+    }
+
+    /* ━━━━ HEADLINE ━━━━ */
+    .headline {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.32;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+    }
+
+    /* ━━━━ STOREFRONT CANVAS ━━━━ */
+    .store {
+      border: 1.5px solid var(--tile-bd);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fbfbfa;
+    }
+
+    .store-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 13px;
+      background: var(--white);
+      border-bottom: 1px solid var(--tile-bd);
+    }
+
+    .store-bar .dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .store-bar .dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #dcdcd8;
+      display: block;
+    }
+
+    .store-bar .url {
+      margin-left: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink-mid);
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .brand-tag {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .brand-tag i {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--brand);
+      display: block;
+    }
+
+    .store-body {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-height: 118px;
+      max-height: 290px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      overscroll-behavior: contain;
+    }
+
+    .store-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .store-body::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.13);
+      border-radius: 9999px;
+    }
+
+    .store-body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .store-empty {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .store-empty span:first-child {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-mid);
+    }
+
+    .store-empty span:last-child {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-soft);
+    }
+
+    .sec {
+      animation: dropPop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    /* ── header (branded) ── */
+    .sec-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--white);
+      border: 1.5px solid var(--tile-bd);
+      border-radius: 9px;
+      padding: 9px 12px;
+    }
+
+    .hd-brand {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: var(--ink);
+    }
+
+    .hd-menu {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hd-menu span {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--ink-mid);
+    }
+
+    .hd-menu .cart {
+      color: var(--ink);
+      display: grid;
+    }
+
+    /* ── hero banner (branded) ── */
+    .sec-hero {
+      background: linear-gradient(135deg, #efe4da 0%, #ddc6b7 100%);
+      border-radius: 11px;
+      padding: 15px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .hero-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: var(--brand);
+    }
+
+    .hero-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #3a2b24;
+      line-height: 1.2;
+    }
+
+    .hero-sub {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(58, 43, 36, 0.6);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-cta {
+      align-self: flex-start;
+      background: var(--brand);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 7px;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    /* ── product collection (branded) ── */
+    .sec-coll {
+      background: var(--white);
+      border: 1.5px solid var(--tile-bd);
+      border-radius: 11px;
+      padding: 11px;
+    }
+
+    .coll-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 9px;
+    }
+
+    .coll-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .coll-more {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--brand);
+      letter-spacing: 0.02em;
+    }
+
+    .coll-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .p-card {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
+    }
+
+    .p-img {
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+    }
+
+    .p-img.a {
+      background: linear-gradient(140deg, #ddc7ba, #b8978a);
+    }
+
+    .p-img.b {
+      background: linear-gradient(140deg, #cbd6cf, #a3b9ac);
+    }
+
+    .p-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      background: var(--brand);
+      border-radius: 5px;
+      padding: 2px 5px;
+    }
+
+    .p-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .p-price {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── footer (branded) ── */
+    .sec-foot {
+      background: #f4f1ee;
+      border-radius: 11px;
+      padding: 13px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .foot-brand {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--ink);
+    }
+
+    .foot-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .foot-links span {
+      font-size: 9.5px;
+      font-weight: 500;
+      color: var(--ink-mid);
+    }
+
+    /* ── conversion widget bar (secondary feature) ── */
+    .wbar {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--brand-bg);
+      border: 1.5px solid var(--brand-bd);
+      border-radius: 10px;
+      padding: 9px 11px;
+    }
+
+    .wbar-ic {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      flex-shrink: 0;
+      background: var(--brand);
+      color: #fff;
+      display: grid;
+      place-items: center;
+    }
+
+    .wbar-tx {
+      font-size: 12px;
+      font-weight: 700;
+      color: #4d2a1b;
+      letter-spacing: -0.01em;
+    }
+
+    .wbar-cta {
+      margin-left: auto;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--brand);
+      border-radius: 6px;
+      padding: 5px 10px;
+      white-space: nowrap;
+    }
+
+    .wbar-time {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--brand);
+      font-size: 11.5px;
+    }
+
+    /* ── drop zone ── */
+    .dropzone {
+      border: 1.6px dashed rgba(0, 183, 168, 0.4);
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--accent-deep);
+      letter-spacing: -0.01em;
+      background: var(--accent-bg);
+      transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .dropzone.over {
+      background: rgba(0, 183, 168, 0.16);
+      border-color: var(--accent);
+      border-style: solid;
+      transform: scale(1.015);
+    }
+
+    .dropzone.idle {
+      animation: dzBreathe 2.4s ease-in-out infinite;
+    }
+
+    /* ━━━━ PALETTE ━━━━ */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: #f0efec;
+      border-radius: 10px;
+      padding: 3px;
+      margin: 14px 0 9px;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 7px 4px;
+      border-radius: 7px;
+      color: var(--ink-mid);
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tab.active {
+      background: var(--white);
+      color: var(--ink);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .tab .tcount {
+      color: var(--accent-deep);
+    }
+
+    .tab .badge-dot {
+      display: none;
+    }
+
+    .palette {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 1.5px solid var(--tile-bd);
+      border-radius: 11px;
+      padding: 9px 11px;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.12s ease, opacity 0.25s ease;
+    }
+
+    .chip:hover {
+      border-color: var(--accent-bd);
+      background: var(--accent-bg);
+    }
+
+    .chip:active {
+      transform: scale(0.95);
+    }
+
+    .chip.placed {
+      opacity: 0.45;
+      pointer-events: none;
+      border-color: var(--accent-bd);
+      background: var(--accent-bg);
+    }
+
+    .chip-ic {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      flex-shrink: 0;
+      background: var(--accent-bg);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+    }
+
+    .chip.placed .chip-ic {
+      background: var(--accent);
+      color: white;
+    }
+
+    .chip-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.015em;
+      white-space: nowrap;
+    }
+
+    .chip-add {
+      margin-left: auto;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent-bg);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1;
+      transition: background 0.18s ease;
+    }
+
+    .chip:hover .chip-add {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* ━━━━ STATUS ━━━━ */
+    .status {
+      text-align: center;
+      min-height: 38px;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: white;
+      background: linear-gradient(110deg,
+          color-mix(in srgb, var(--accent), black 10%) 0%,
+          var(--accent) 50%,
+          color-mix(in srgb, var(--accent), white 22%) 100%);
+      border-radius: 14px;
+      padding: 14px 18px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 18px color-mix(in srgb, var(--accent), transparent 44%);
+    }
+
+    .hint::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(105deg,
+          transparent 0%, rgba(255, 255, 255, 0.52) 50%, transparent 100%);
+      animation: shimmerSweep 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .s-line {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      animation: riseIn 0.38s ease both;
+    }
+
+    .s-line .so {
+      color: var(--accent);
+    }
+
+    .s-line .up {
+      color: var(--brand);
+    }
+
+    .replay-btn {
+      margin-top: 2px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      background: none;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      cursor: pointer;
+      animation: riseIn 0.38s 0.12s ease both;
+      transition: color 0.18s ease, background 0.18s ease;
+    }
+
+    .replay-btn:hover {
+      color: var(--ink);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    /* ━━━━ CONFETTI ━━━━ */
+    .conf-wrap {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: inherit;
+    }
+
+    .conf-piece {
+      position: absolute;
+      animation: confDrop linear forwards;
+    }
+
+    /* ━━━━ KEYFRAMES ━━━━ */
+    @keyframes dropPop {
+      0% {
+        transform: translateY(-7px) scale(0.96);
+      }
+
+      60% {
+        transform: translateY(0) scale(1.02);
+      }
+
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes dzBreathe {
+
+      0%,
+      100% {
+        border-color: rgba(0, 183, 168, 0.32);
+      }
+
+      50% {
+        border-color: rgba(0, 183, 168, 0.7);
+      }
+    }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes breathe {
+
+      0%,
+      100% {
+        opacity: 0.42;
+      }
+
+      50% {
+        opacity: 0.82;
+      }
+    }
+
+    @keyframes shimmerSweep {
+      0% {
+        transform: translateX(-180%);
+      }
+
+      100% {
+        transform: translateX(350%);
+      }
+    }
+
+    100% {
+      background-position: 200% center;
+    }
+    }
+
+    35% {
+      transform: scale(0.55);
+      opacity: 0.65;
+    }
+
+    60% {
+      transform: scale(1.38);
+      opacity: 1;
+    }
+    }
+
+    @keyframes confDrop {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(720px) rotate(520deg);
+        opacity: 0;
+      }
+    }
+  </style>
+<style id="embed-fill">html,body{background:#fff!important}body{margin:0!important;padding:0!important;min-height:100vh;display:flex!important;flex-direction:column!important}#root{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;width:100%!important}.demo{flex:1 1 auto!important;max-width:none!important;width:100%!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;border-radius:0!important;box-shadow:none!important}.store{display:flex!important;flex-direction:column!important;flex:1 1 0!important;min-height:0!important}.store-body{flex:1 1 0!important;max-height:none!important;min-height:0!important}.status{margin-top:auto!important;width:100%!important}.hint{width:100%!important;box-sizing:border-box!important}.replay-btn{width:100%!important;box-sizing:border-box!important;padding:14px 18px!important;margin-top:0!important}</style>
+<style id="embed-enlarge">.sec-hero{padding:22px 18px 18px!important}.hero-title{font-size:20px!important}.hero-sub{font-size:12px!important}.p-img{aspect-ratio:4/3.4!important}</style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useMemo } = React;
+
+    /* ── Icons ── */
+    const HeaderIcon = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3.5" y="5" width="17" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.7" />
+        <path d="M3.5 9.5h17" stroke="currentColor" strokeWidth="1.7" />
+      </svg>
+    );
+    const HeroIcon = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3.5" y="5" width="17" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.7" />
+        <circle cx="9" cy="10" r="1.6" fill="currentColor" />
+        <path d="M5 17l4-4 3.5 3 2.5-2.5L19 17" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+    const GridIcon = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="4" y="4" width="7" height="7" rx="1.6" stroke="currentColor" strokeWidth="1.7" />
+        <rect x="13" y="4" width="7" height="7" rx="1.6" stroke="currentColor" strokeWidth="1.7" />
+        <rect x="4" y="13" width="7" height="7" rx="1.6" stroke="currentColor" strokeWidth="1.7" />
+        <rect x="13" y="13" width="7" height="7" rx="1.6" stroke="currentColor" strokeWidth="1.7" />
+      </svg>
+    );
+    const FooterIcon = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3.5" y="5" width="17" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.7" />
+        <path d="M3.5 14.5h17" stroke="currentColor" strokeWidth="1.7" />
+      </svg>
+    );
+    const TicketIcon = () => (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2 2 2 0 0 0 0 4 2 2 0 0 1-2 2H6a2 2 0 0 1-2-2 2 2 0 0 0 0-4z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+        <path d="M13 6v12" stroke="currentColor" strokeWidth="1.7" strokeDasharray="2 2.4" />
+      </svg>
+    );
+    const ClockIcon = () => (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.7" />
+        <path d="M12 7.5V12l3 1.8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+    const BellIcon = () => (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+        <path d="M10 19a2 2 0 0 0 4 0" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      </svg>
+    );
+    const StarIcon = () => (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 3l2.5 5.1 5.6.8-4 4 .95 5.6L12 21l-5.05 2.5L7.9 17.9l-4-4 5.6-.8L12 3z" />
+      </svg>
+    );
+    // GripIcon removed
+    const CartIcon = () => (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="9" cy="20" r="1.3" fill="currentColor" /><circle cx="18" cy="20" r="1.3" fill="currentColor" />
+        <path d="M2 4h2.2l2 11.2a1.4 1.4 0 0 0 1.4 1.1h8.6a1.4 1.4 0 0 0 1.4-1.05L20.5 8H5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+    const CheckIcon = () => (
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 12.5L10 17L19 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+    const ICONS = {
+      header: HeaderIcon, hero: HeroIcon, grid: GridIcon, footer: FooterIcon,
+      coupon: TicketIcon, timer: ClockIcon, live: BellIcon, review: StarIcon,
+    };
+
+    /* ── Catalogue ── */
+    const LAYOUT = [
+      { id: 'header', icon: 'header', label: '헤더 / 메뉴' },
+      { id: 'hero', icon: 'hero', label: '히어로 배너' },
+      { id: 'grid', icon: 'grid', label: '상품 컬렉션' },
+      { id: 'footer', icon: 'footer', label: '푸터' },
+    ];
+    const WIDGETS = [
+      { id: 'coupon', icon: 'coupon', label: '할인 쿠폰', delta: 2.6 },
+      { id: 'timer', icon: 'timer', label: '타임 세일', delta: 2.2 },
+      { id: 'live', icon: 'live', label: '실시간 알림', delta: 1.9 },
+      { id: 'review', icon: 'review', label: '리뷰 별점', delta: 1.6 },
+    ];
+    const LAYOUT_IDS = LAYOUT.map(b => b.id);
+    const BY_ID = Object.fromEntries([...LAYOUT, ...WIDGETS].map(b => [b.id, b]));
+    const BASE_CONV = 2.4;
+
+    /* ── Storefront section renderer (layout + conversion widgets) ── */
+    const Section = ({ id }) => {
+      switch (id) {
+        case 'header': return (
+          <div className="sec sec-header">
+            <span className="hd-brand">MAISON</span>
+            <span className="hd-menu"><span>NEW</span><span>BEST</span><span>SALE</span><span className="cart"><CartIcon /></span></span>
+          </div>
+        );
+        case 'hero': return (
+          <div className="sec sec-hero">
+            <span className="hero-eyebrow">2026 SPRING COLLECTION</span>
+            <span className="hero-title">지금, 새로운 무드</span>
+            <span className="hero-sub">봄을 여는 신상 컬렉션을 만나보세요</span>
+            <span className="hero-cta">컬렉션 보기</span>
+          </div>
+        );
+        case 'grid': return (
+          <div className="sec sec-coll">
+            <div className="coll-head"><span className="coll-title">베스트 셀러</span><span className="coll-more">전체보기</span></div>
+            <div className="coll-grid">
+              <div className="p-card"><div className="p-img a"></div><span className="p-badge">BEST</span><span className="p-name">캐시미어 블렌드 코트</span><span className="p-price">189,000원</span></div>
+              <div className="p-card"><div className="p-img b"></div><span className="p-name">오버핏 니트 가디건</span><span className="p-price">59,000원</span></div>
+            </div>
+          </div>
+        );
+        case 'footer': return (
+          <div className="sec sec-foot">
+            <span className="foot-brand">MAISON</span>
+            <span className="foot-links"><span>이용약관</span><span>고객센터</span><span>@maison.official</span></span>
+          </div>
+        );
+        case 'coupon': return (
+          <div className="sec wbar"><span className="wbar-ic"><TicketIcon /></span><span className="wbar-tx">첫 구매 10% 할인 쿠폰</span><span className="wbar-cta">받기</span></div>
+        );
+        case 'timer': return (
+          <div className="sec wbar"><span className="wbar-ic"><ClockIcon /></span><span className="wbar-tx">타임 특가 마감까지</span><span className="wbar-time">02:14:09</span></div>
+        );
+        case 'live': return (
+          <div className="sec wbar"><span className="wbar-ic"><BellIcon /></span><span className="wbar-tx">방금 3명이 구매했어요</span></div>
+        );
+        case 'review': return (
+          <div className="sec wbar"><span className="wbar-ic"><StarIcon /></span><span className="wbar-tx">★ 4.9 · 리뷰 12,402개</span></div>
+        );
+        default: return null;
+      }
+    };
+
+    /* ── Confetti ── */
+    const CONF_COLORS = ['#00B7A8', '#C2603F', '#ECD9CE', '#7FD4C9', '#009488', '#222222'];
+    const Confetti = () => {
+      const pieces = useMemo(() =>
+        Array.from({ length: 30 }, (_, i) => ({
+          id: i, left: 2 + Math.random() * 96,
+          color: CONF_COLORS[i % CONF_COLORS.length],
+          delay: Math.random() * 0.55, dur: 1.1 + Math.random() * 1.0,
+          w: 5 + Math.random() * 7, h: 5 + Math.random() * 7,
+          round: Math.random() > 0.45,
+        })), []
+      );
+      return (
+        <div className="conf-wrap">
+          {pieces.map(p => (
+            <div key={p.id} className="conf-piece" style={{
+              left: `${p.left}%`, top: -10, width: p.w, height: p.h,
+              background: p.color, borderRadius: p.round ? '50%' : '2px',
+              animationDelay: `${p.delay}s`, animationDuration: `${p.dur}s`,
+            }} />
+          ))}
+        </div>
+      );
+    };
+
+    /* ── Main Demo ── */
+    const Demo = () => {
+      const [placed, setPlaced] = useState([]);   // ids in placement order
+      const [tab, setTab] = useState('layout');   // 'layout' | 'widget'
+      const bodyRef = useRef(null);
+
+      const placedLayout = LAYOUT_IDS.filter(id => placed.includes(id));
+      const placedWidgets = placed.filter(id => !LAYOUT_IDS.includes(id));
+      const layoutDone = placedLayout.length === LAYOUT.length;
+      const everythingDone = placed.length === LAYOUT.length + WIDGETS.length;
+      const progress = Math.round((placedLayout.length / LAYOUT.length) * 100);
+      const conv = BASE_CONV + placedWidgets.reduce((s, id) => s + BY_ID[id].delta, 0);
+
+      // build a coherent page: header → hero → grid → [widgets] → footer
+      const renderList = useMemo(() => {
+        const out = [];
+        const hasFooter = placedLayout.includes('footer');
+        placedLayout.forEach(id => {
+          if (id === 'footer') { out.push(...placedWidgets); out.push('footer'); }
+          else out.push(id);
+        });
+        if (!hasFooter) out.push(...placedWidgets);
+        return out;
+      }, [placed.join(',')]);
+
+      const place = (id) => setPlaced(p => (p.includes(id) ? p : [...p, id]));
+      const handleChip = (id) => () => { if (!placed.includes(id)) place(id); };
+      const reset = () => { setPlaced([]); setTab('layout'); };
+
+
+      // once the layout is built, guide the user to the conversion widgets
+      useEffect(() => { if (layoutDone) setTab('widget'); }, [layoutDone]);
+
+      // keep the newest block in view as the page grows
+      useEffect(() => {
+        const el = bodyRef.current;
+        if (el) el.scrollTop = el.scrollHeight;
+      }, [placed.length, everythingDone]);
+
+      const groups = { layout: LAYOUT, widget: WIDGETS };
+
+      return (
+        <div className="demo" data-screen-label={`L${placedLayout.length}-W${placedWidgets.length}`}>
+          {layoutDone && <Confetti key="conf" />}
+
+          {/* top row */}
+          <div className="top-row">
+            <div className="brand-group">
+              <div className="badge">알파캔버스</div>
+              <span className="beta">BETA</span>
+            </div>
+            {!layoutDone ? (
+              <div className={`prog-pill ${placedLayout.length ? 'on' : ''}`}>
+                <span>완성도 <span className="num">{progress}%</span></span>
+                <span className="prog-track"><span className="prog-fill" style={{ width: `${Math.max(progress, 4)}%` }}></span></span>
+              </div>
+            ) : (
+              <div className="prog-pill on">
+                <span>구매 전환율 <span className="num">{conv.toFixed(1)}%</span></span>
+              </div>
+            )}
+          </div>
+
+          {/* headline */}
+          <h2 className="headline">
+            클릭 한 번으로,<br />
+            내 브랜드 쇼핑몰 만들기
+          </h2>
+
+          {/* storefront canvas */}
+          <div className="store">
+            <div className="store-bar">
+              <span className="dots"><i></i><i></i><i></i></span>
+              <span className="url">maison.co.kr</span>
+              <span className="brand-tag"><i></i>Maison</span>
+            </div>
+            <div className="store-body" ref={bodyRef}>
+              {renderList.map((id, i) => <Section key={id + i} id={id} />)}
+
+              {placed.length === 0 && (
+                <div className="store-empty">
+                  <span>빈 페이지</span>
+                  <span>블록을 탭해서 추가하세요</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* palette */}
+          {!everythingDone && (
+            <>
+              <div className="tabs">
+                <div className={`tab ${tab === 'layout' ? 'active' : ''}`} onClick={() => setTab('layout')}>
+                  레이아웃 <span className="tcount">{placedLayout.length}/{LAYOUT.length}</span>
+                </div>
+                <div className={`tab ${tab === 'widget' ? 'active' : ''}`} onClick={() => setTab('widget')}>
+                  전환 위젯 <span className="tcount">{placedWidgets.length}/{WIDGETS.length}</span>
+                </div>
+              </div>
+              <div className="palette">
+                {groups[tab].map(b => {
+                  const Ic = ICONS[b.icon];
+                  const isPlaced = placed.includes(b.id);
+                  return (
+                    <div
+                      key={b.id}
+                      className={`chip ${isPlaced ? 'placed' : ''}`}
+                      onClick={handleChip(b.id)}
+                    >
+                      <span className="chip-ic">{isPlaced ? <CheckIcon /> : <Ic />}</span>
+                      <span className="chip-label">{b.label}</span>
+                      <span className="chip-add">{isPlaced ? '' : '+'}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
+
+          {/* status */}
+          <div className="status">
+            {placed.length === 0 && (
+              <p className="hint">원하는 레이아웃을 클릭해보세요</p>
+            )}
+            {layoutDone && placedWidgets.length === 0 && (
+              <p className="hint">원하는 전환위젯을 클릭해보세요</p>
+            )}
+            {placed.length > 0 && !layoutDone && (
+              <p className="s-line"><span className="so">So easy!</span> 레이아웃 {placedLayout.length}/{LAYOUT.length} 구축 중</p>
+            )}
+
+            {layoutDone && placedWidgets.length > 0 && !everythingDone && (
+              <>
+                <p className="s-line">전환 위젯 배치 · 구매 전환율 <span className="up">{conv.toFixed(1)}%</span></p>
+                <button className="replay-btn" onClick={reset}>다시 만들기</button>
+              </>
+            )}
+            {everythingDone && (
+              <>
+                <p className="s-line">레이아웃 + 전환 위젯까지 완성 <span className="so">So easy!</span></p>
+                <button className="replay-btn" onClick={reset}>다시 만들기</button>
+              </>
+            )}
+          </div>
+
+
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+  </script>
+</body>
+
+</html>

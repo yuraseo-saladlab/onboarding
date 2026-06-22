@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>알파앱스 온보딩 — 맞춤 솔루션 선택</title>
+<style>
+  :root {
+    --bg:#FFFFFF; --ink:#16162A; --ink-dim:#6B6B80; --ink-faint:#A0A0B5;
+    --line:#E8E8F0; --line-soft:#F3F3F8;
+    --accent:#6B5BFF; --accent-soft:#F0EEFF; --accent-line:#C9C0FF;
+    --panel-a:#423F5C; --panel-b:#2B2940; --ok:#12B886; --r:14px;
+    --c-canvas:#12B886; --c-insta:#E84B7E; --c-review:#7B5BFF; --c-push:#3B82F6; --c-upsell:#EF4444;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { height:100%; }
+  body { font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',system-ui,sans-serif; background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased; display:flex; flex-direction:column; min-height:100%; }
+
+  .stepper { display:flex; align-items:center; padding:20px 40px; border-bottom:1px solid var(--line); }
+  .step { display:flex; align-items:center; gap:10px; color:var(--ink-faint); font-size:14px; font-weight:600; white-space:nowrap; }
+  .step.done, .step.active { cursor:pointer; }
+  .step.done:hover .num { box-shadow:0 0 0 4px var(--accent-soft); }
+  .step:not(.done):not(.active) { cursor:not-allowed; }
+  .step .num { width:26px; height:26px; border-radius:50%; display:grid; place-items:center; font-size:13px; font-weight:700; background:var(--line-soft); color:var(--ink-faint); }
+  .step.done .num { background:var(--accent-soft); color:var(--accent); } .step.done { color:var(--ink-dim); }
+  .step.active .num { background:var(--accent); color:#fff; } .step.active { color:var(--ink); }
+  .seg { flex:1; height:1px; background:var(--line); margin:0 14px; min-width:30px; } .seg.done { background:var(--accent-line); }
+
+  .main { flex:1; display:grid; grid-template-columns:440px 1fr; padding:44px 40px 28px; max-width:1600px; width:100%; margin:0 auto; }
+  .left { padding-right:40px; }
+  .left h1 { font-size:27px; letter-spacing:-0.03em; line-height:1.3; margin-bottom:10px; }
+  .left .sub { font-size:14px; color:var(--ink-dim); margin-bottom:22px; line-height:1.5; }
+
+  .chips { display:flex; flex-direction:column; gap:10px; }
+  .chip { display:flex; align-items:center; gap:14px; width:100%; background:#fff; border:1.5px solid var(--line); border-radius:var(--r); padding:16px 18px; font-family:inherit; text-align:left; position:relative; transition:all .16s ease; }
+  /* 체크박스 = 선택 전용 (호버 강조) */
+  .chip .check { flex:0 0 24px; width:24px; height:24px; border-radius:7px; border:2px solid var(--line); display:grid; place-items:center; transition:all .18s ease; color:#fff; font-size:14px; font-weight:900; cursor:pointer; }
+  .chip:not(.locked) .check:hover { border-color:var(--accent); transform:scale(1.12); }
+  /* 본문 = 보기 전용 */
+  .chip .meta { flex:1; min-width:0; cursor:pointer; }
+  .chip .meta:hover .q { color:var(--accent); }
+  .chip .q { font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-0.01em; line-height:1.35; transition:color .15s; }
+  .chip .sol { font-size:12.5px; font-weight:700; margin-top:3px; }
+  .chip .sol .lk { font-weight:600; opacity:.85; }
+  .chip.viewing { border-color:var(--accent); box-shadow:0 4px 16px rgba(107,91,255,0.12); }
+  .chip.selected { background:#FCFCFF; }
+  .chip.selected .check { border-color:transparent; }
+  .chip.locked .check { background:var(--ink-faint); border-color:transparent; font-size:12px; cursor:default; }
+  .chip.locked .q { color:var(--ink-dim); }
+
+  .right { min-width:0; }
+  .panel { height:100%; min-height:560px; background:linear-gradient(150deg,var(--panel-a),var(--panel-b)); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; color:#fff; box-shadow:0 24px 50px rgba(40,38,70,0.22); }
+  .panel-head { display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:1px solid rgba(255,255,255,0.08); }
+  .panel-head .pname { font-size:14px; font-weight:700; display:flex; align-items:center; gap:9px; } .panel-head .pname .d { width:8px; height:8px; border-radius:50%; }
+  .panel-head .stat { font-size:12px; color:rgba(255,255,255,0.5); }
+  /* 데모 토글 (실제 제품엔 없음) */
+  .demo-toggle { position:fixed; left:50%; top:14px; transform:translateX(-50%); z-index:80; background:#16162A; color:#fff; border:none; border-radius:999px; padding:8px 14px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; box-shadow:0 8px 24px rgba(0,0,0,0.25); display:flex; align-items:center; gap:8px; opacity:.85; }
+  #selectView { flex:1; display:flex; flex-direction:column; }
+  .demo-toggle:hover { opacity:1; }
+
+  /* ── 소개 시퀀스 (스텝퍼 유지, 본문 영역만 교체 — 여전히 스텝3) ── */
+  .intro { flex:1; background:radial-gradient(900px 500px at 50% -10%,rgba(139,107,255,0.2),transparent 60%),linear-gradient(160deg,#2B2940,#15142A); display:none; flex-direction:column; }
+  .intro.on { display:flex; animation:fade .3s ease; }
+  @keyframes fade { from{opacity:0;} to{opacity:1;} }
+  .intro-bar { display:flex; align-items:center; gap:16px; padding:18px 32px; flex:0 0 auto; }
+  .intro-lbl { font-size:13px; font-weight:700; color:rgba(255,255,255,0.75); white-space:nowrap; }
+  .intro-prog { flex:1; display:flex; gap:6px; }
+  .intro-prog i { flex:1; height:4px; border-radius:2px; background:rgba(255,255,255,0.15); }
+  .intro-prog i.done { background:#6FE9BD; } .intro-prog i.cur { background:#A99CFF; }
+  .intro-close { background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.8); border:none; border-radius:8px; padding:8px 14px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; }
+  .intro-close:hover { background:rgba(255,255,255,0.18); }
+
+  .intro-body { flex:1; display:flex; flex-direction:column; align-items:center; padding:0 32px; min-height:0; overflow:auto; }
+  .intro-top { text-align:center; color:#fff; flex:0 0 auto; padding-top:4px; }
+  .ic-kicker { font-size:13px; font-weight:700; color:#A99CFF; letter-spacing:0.02em; }
+  .ic-name { display:inline-flex; align-items:center; gap:9px; font-size:15px; font-weight:700; margin:8px 0 10px; color:rgba(255,255,255,0.9); }
+  .ic-name .ic-dot { width:9px; height:9px; border-radius:50%; }
+  .ic-vp { font-size:30px; font-weight:800; letter-spacing:-0.03em; line-height:1.3; max-width:760px; margin:0 auto; }
+  .ic-trust { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px; margin-top:14px; }
+  .ic-trust .f { font-size:12.5px; font-weight:600; color:rgba(255,255,255,0.6); }
+  .ic-trust .f:not(:last-child)::after { content:'·'; margin-left:6px; color:rgba(255,255,255,0.3); }
+  .ic-trust .f .c { display:inline-block; width:5px; height:5px; border-radius:50%; background:#6FE9BD; margin-right:5px; vertical-align:middle; }
+
+  /* 큰 데모 브라우저 — 서비스를 실제로 들여다보는 느낌 */
+  .intro-demo { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; width:100%; min-height:0; padding:24px 0 8px; }
+  .demo-browser { width:100%; max-width:720px; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 40px 90px rgba(0,0,0,0.5); color:#1a1530; cursor:pointer; transition:transform .5s ease; animation:cardIn .4s ease; }
+  @keyframes cardIn { from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:none;} }
+  .db-bar { height:44px; background:#f3f0fb; display:flex; align-items:center; gap:7px; padding:0 16px; }
+  .db-dot { width:11px; height:11px; border-radius:50%; background:#d6cef0; }
+  .db-url { margin-left:14px; font-size:12.5px; color:#9a90c4; background:#fff; border-radius:7px; padding:5px 14px; flex:1; max-width:340px; }
+  .db-screen { padding:26px 28px; min-height:300px; position:relative; }
+  .db-row { display:flex; gap:14px; align-items:center; padding:14px 0; border-bottom:1px solid #f0edf9; }
+  .db-thumb { width:56px; height:56px; border-radius:10px; background:linear-gradient(135deg,#ece8f7,#ddd6f3); flex:0 0 56px; }
+  .db-lines { flex:1; display:flex; flex-direction:column; gap:9px; }
+  .db-lines .dl { height:12px; border-radius:6px; background:#ece8f7; } .db-lines .dl.s { width:55%; }
+  .db-pop { position:absolute; left:28px; right:28px; bottom:24px; background:linear-gradient(135deg,#6B5BFF,#A99CFF); color:#fff; border-radius:13px; padding:18px 20px; font-size:15px; font-weight:700; transform:translateY(24px) scale(.97); opacity:0; transition:all .55s cubic-bezier(.2,.9,.3,1.2); box-shadow:0 16px 40px rgba(107,91,255,0.4); }
+  .demo-browser.s1 .db-pop { transform:none; opacity:1; }
+  .db-metric { position:absolute; top:20px; right:24px; background:var(--ok); color:#042b1f; font-weight:800; font-size:14px; padding:7px 15px; border-radius:999px; opacity:0; transform:scale(.8); transition:.5s ease .2s; box-shadow:0 8px 24px rgba(18,184,134,0.4); }
+  .demo-browser.s2 .db-metric { opacity:1; transform:scale(1); }
+  .demo-browser.s2 { transform:translateY(-6px) scale(1.01); }
+  .ic-hint { font-size:12.5px; color:rgba(255,255,255,0.55); background:rgba(0,0,0,0.25); padding:6px 14px; border-radius:999px; flex:0 0 auto; }
+
+  /* USP/스토리 단계 — 큰 화면 아래, 동기화. 단계 수 가변(3~5) */
+  .ic-usp { list-style:none; display:flex; flex-wrap:wrap; gap:8px; width:100%; max-width:720px; flex:0 0 auto; padding-bottom:8px; }
+  .ic-usp li { flex:1 1 0; min-width:120px; display:flex; gap:9px; align-items:flex-start; padding:11px 13px; border-radius:11px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); transition:.35s; cursor:pointer; }
+  .ic-usp li:hover { background:rgba(255,255,255,0.11); }
+  .ic-usp li .n { display:grid; place-items:center; width:21px; height:21px; flex:0 0 21px; border-radius:50%; font-size:11px; font-weight:800; background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.6); transition:.35s; }
+  .ic-usp li .tx b { display:block; font-size:12.5px; font-weight:700; color:rgba(255,255,255,0.8); letter-spacing:-0.01em; line-height:1.3; }
+  .ic-usp li .tx span { font-size:11.5px; color:rgba(255,255,255,0.5); line-height:1.4; margin-top:3px; display:none; }
+  .ic-usp li.active { flex:1.4 1 0; background:rgba(139,107,255,0.3); border-color:#A99CFF; box-shadow:0 8px 24px rgba(107,91,255,0.25); }
+  .ic-usp li.active .n { background:#A99CFF; color:#1a1530; } .ic-usp li.active .tx b { color:#fff; }
+  .ic-usp li.active .tx span { display:block; } /* 현재 단계만 설명 표시 */
+  .ic-usp li.passed .n { background:#6FE9BD; color:#042b1f; }
+
+  .intro-foot { display:flex; justify-content:space-between; padding:18px 32px 26px; max-width:780px; width:100%; margin:0 auto; flex:0 0 auto; }
+  .intro-prev, .intro-next { border-radius:10px; padding:13px 30px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:.2s; }
+  .intro-prev { background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.8); border:none; }
+  .intro-prev:hover { background:rgba(255,255,255,0.18); } .intro-prev:disabled { opacity:.4; cursor:default; }
+  .intro-next { background:#fff; color:#16162A; border:none; }
+  .intro-next:hover { background:#F0EEFF; }
+  @media (max-width:820px){ .ic-usp { flex-direction:column; } .ic-vp { font-size:24px; } }
+
+  /* ── 스텝 4·5 공통 (스텝퍼 아래 본문 영역) ── */
+  .step-view { flex:1; display:none; flex-direction:column; }
+  .step-view.on { display:flex; animation:fade .3s ease; }
+  /* 4-A 리뷰 위젯 미리보기 */
+  #reviewWidget .sv-head { text-align:center; padding:28px 32px 0; position:relative; }
+  .sv-title { font-size:22px; font-weight:800; letter-spacing:-0.02em; }
+  .sv-sub { font-size:13.5px; color:var(--ink-dim); margin-top:6px; }
+  .sv-tabs { display:inline-flex; gap:22px; margin-top:18px; }
+  .svt { background:none; border:none; font-size:14px; font-weight:700; color:var(--ink-faint); cursor:pointer; font-family:inherit; padding-bottom:8px; }
+  .svt.active { color:var(--ink); border-bottom:2px solid var(--ink); }
+  .sv-preview { flex:1; display:grid; place-items:center; padding:24px; background:linear-gradient(180deg,#FBF6F7,#F7F4FB); overflow:auto; }
+  .shop-mock { width:340px; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.12); position:relative; }
+  .sm-top { background:#1a1a1a; color:#fff; font-size:11px; text-align:center; padding:7px; }
+  .sm-brand { text-align:center; font-size:18px; font-weight:800; padding:16px; letter-spacing:-0.02em; } .sm-brand b { color:var(--accent); }
+  .sm-hero { height:230px; background:linear-gradient(135deg,#dbe2f5,#c3cdea); }
+  .sm-tags { display:flex; gap:5px; padding:14px 16px 0; } .sm-tags .t { font-size:10px; font-weight:800; padding:2px 6px; border-radius:3px; color:#fff; } .t.new{background:#f59e0b;} .t.best{background:#3b82f6;} .t.sale{background:#ef4444;}
+  .sm-name { padding:8px 16px 0; font-size:14px; font-weight:600; }
+  .sm-price { padding:6px 16px 14px; font-size:15px; } .sm-price s { color:#bbb; font-size:12px; } .sm-price b { color:#ef4444; }
+  .sm-review { margin:0 16px 16px; border:1px solid #eee; border-radius:10px; padding:12px; }
+  .smr-head { font-size:13px; font-weight:700; margin-bottom:10px; }
+  .smr-row { display:flex; gap:10px; align-items:center; padding:7px 0; }
+  .smr-thumb { width:40px; height:40px; border-radius:8px; background:linear-gradient(135deg,#ece8f7,#ddd6f3); flex:0 0 40px; }
+  .smr-lines { flex:1; display:flex; flex-direction:column; gap:6px; } .smr-lines i { height:9px; border-radius:5px; background:#eee; } .smr-lines i.s { width:55%; }
+  .sm-badge { position:absolute; bottom:12px; right:12px; background:var(--accent); color:#fff; font-size:11px; font-weight:700; padding:5px 10px; border-radius:7px; box-shadow:0 6px 16px rgba(107,91,255,0.4); }
+  .sv-foot, .cf-foot { display:flex; align-items:center; justify-content:space-between; padding:18px 40px 26px; border-top:1px solid var(--line); }
+  .sv-skip { background:none; border:none; color:var(--ink-faint); font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; }
+  .sv-btns { display:flex; gap:10px; }
+  .sv-prev { background:#fff; border:1px solid var(--line); color:var(--ink-dim); border-radius:10px; padding:11px 26px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .sv-next, .cf-done { background:var(--ink); border:none; color:#fff; border-radius:10px; padding:11px 26px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .sv-next:hover, .cf-done:hover { background:#000; }
+  /* 4-B SNS 연결 */
+  #snsConnect { background:linear-gradient(160deg,#F2EFFF,#F7F5FF); align-items:center; justify-content:center; }
+  .sns-card { width:100%; max-width:560px; background:#fff; border-radius:20px; padding:36px; box-shadow:0 24px 60px rgba(60,50,120,0.1); }
+  .sns-title { font-size:22px; font-weight:800; line-height:1.4; letter-spacing:-0.02em; } .sns-title b { color:var(--accent); }
+  .sns-points { list-style:none; margin:18px 0 22px; display:flex; flex-direction:column; gap:10px; }
+  .sns-points li { font-size:13.5px; color:var(--ink-dim); padding-left:26px; position:relative; }
+  .sns-points li::before { content:'✓'; position:absolute; left:0; top:0; width:18px; height:18px; border-radius:50%; background:var(--accent-soft); color:var(--accent); font-size:11px; font-weight:800; display:grid; place-items:center; }
+  .sns-feed { border:1px solid var(--line); border-radius:14px; padding:16px; }
+  .sf-head { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .sf-avatar { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#f0a,#fa0); }
+  .sf-head b { font-size:14px; } .sf-head span { font-size:12px; color:var(--ink-faint); display:block; }
+  .sf-ig { margin-left:auto; font-size:22px; }
+  .sf-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; }
+  .sf-grid i { aspect-ratio:1; border-radius:6px; background:linear-gradient(135deg,#e8e4f5,#d4ccee); }
+  .sns-btns { display:flex; gap:12px; margin-top:24px; }
+  .sns-skip { flex:1; background:#fff; border:1px solid var(--line); color:var(--ink-dim); border-radius:10px; padding:13px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .sns-connect { flex:1; background:var(--accent); border:none; color:#fff; border-radius:10px; padding:13px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .sns-connect:hover { background:#5a48f0; }
+  /* 5 카드 등록 */
+  #cardReg { align-items:center; padding:40px 32px; overflow:auto; }
+  .card-form { width:100%; max-width:460px; }
+  .cf-title { font-size:24px; font-weight:800; line-height:1.4; letter-spacing:-0.02em; margin-bottom:28px; } .cf-title b { color:var(--accent); }
+  .cf-label { display:block; font-size:13px; font-weight:700; color:var(--ink-dim); margin:18px 0 8px; }
+  .cf-seg { display:flex; background:var(--line-soft); border-radius:10px; padding:4px; }
+  .cf-seg button { flex:1; background:none; border:none; padding:10px; font-size:14px; font-weight:700; color:var(--ink-faint); cursor:pointer; font-family:inherit; border-radius:7px; }
+  .cf-seg button.active { background:#fff; color:var(--ink); box-shadow:0 1px 4px rgba(0,0,0,0.08); }
+  .cf-card { display:flex; gap:8px; } .cf-card input { flex:1; width:0; }
+  .cf-exp { display:flex; gap:8px; } .cf-exp input { flex:1; }
+  .card-form input { border:1px solid var(--line); border-radius:9px; padding:12px; font-size:14px; font-family:inherit; text-align:center; }
+  .card-form input:focus { outline:none; border-color:var(--accent); }
+  .cf-agree { display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:600; margin:22px 0 8px; cursor:pointer; }
+  .cf-note { font-size:12px; color:var(--ink-faint); line-height:1.5; }
+  .cf-foot { border-top:none; padding:24px 0 0; }
+  .cf-trust { text-align:center; font-size:13px; font-weight:700; color:var(--accent); margin-top:32px; }
+
+  /* ── 완료 화면 ── */
+  #doneView { align-items:center; justify-content:center; padding:32px; }
+  .done-wrap { width:100%; max-width:1200px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+  .done-title { font-size:32px; font-weight:800; letter-spacing:-0.03em; line-height:1.35; margin-bottom:32px; }
+  .done-sec { margin-bottom:24px; }
+  .done-sec h3 { font-size:17px; font-weight:800; margin-bottom:12px; }
+  .done-sols { display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; }
+  .done-sol-row { display:flex; align-items:center; gap:10px; width:100%; }
+  .done-sol { display:inline-flex; align-items:center; font-size:13px; font-weight:700; color:#fff; padding:6px 13px; border-radius:999px; }
+  .done-sol-cond { font-size:13.5px; color:var(--ink-dim); }
+  .done-sec p { font-size:14.5px; color:var(--ink); line-height:1.6; }
+  .done-note { font-size:13px; color:var(--ink-faint); margin-top:10px; line-height:1.6; } .done-note b { color:var(--accent); }
+  .done-cta { background:var(--ink); color:#fff; border:none; border-radius:12px; padding:15px 32px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; margin-top:8px; }
+  .done-cta:hover { background:#000; }
+  /* 일러스트 (가안 — 실제 3D 이미지로 교체) */
+  .done-right { display:grid; place-items:center; }
+  .done-illust { position:relative; width:360px; height:360px; }
+  .di-phone { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:150px; height:280px; background:linear-gradient(160deg,#fff,#f0edfb); border-radius:28px; box-shadow:0 30px 60px rgba(107,91,255,0.2); border:6px solid #2B2940; }
+  .di-shop { position:absolute; top:24px; left:50%; transform:translateX(-50%); width:90px; height:30px; background:repeating-linear-gradient(90deg,#A99CFF 0 15px,#fff 15px 30px); border-radius:6px 6px 0 0; }
+  .di-bag { position:absolute; top:90px; left:50%; transform:translateX(-50%); font-size:48px; }
+  .di-bar { position:absolute; bottom:30px; left:50%; transform:translateX(-50%); width:90px; height:18px; background:var(--accent); border-radius:9px; }
+  .di-review { position:absolute; top:10px; left:-10px; background:#fff; padding:12px 16px; border-radius:14px; box-shadow:0 16px 32px rgba(0,0,0,0.1); font-size:13px; }
+  .di-cart { position:absolute; top:30px; right:0; font-size:40px; background:#fff; padding:12px; border-radius:16px; box-shadow:0 16px 32px rgba(0,0,0,0.1); }
+  .di-bell { position:absolute; bottom:70px; left:-20px; font-size:28px; background:#fff; padding:10px; border-radius:14px; box-shadow:0 16px 32px rgba(0,0,0,0.1); }
+  .di-chart { position:absolute; bottom:10px; right:0; display:flex; align-items:flex-end; gap:6px; height:90px; }
+  .di-chart i { width:18px; border-radius:5px 5px 0 0; }
+  .di-chart i:nth-child(1){background:#12B886;} .di-chart i:nth-child(2){background:#A99CFF;} .di-chart i:nth-child(3){background:#3B82F6;} .di-chart i:nth-child(4){background:#EF4444;}
+  .di-box { position:absolute; bottom:0; left:30px; font-size:40px; }
+  @media (max-width:820px){ .done-wrap { grid-template-columns:1fr; } .done-right { display:none; } .done-title { font-size:24px; } }
+  .demo-toggle .sw { width:30px; height:16px; border-radius:999px; background:#5BE0B0; position:relative; transition:.2s; }
+  .demo-toggle .sw::after { content:''; position:absolute; top:2px; right:2px; width:12px; height:12px; border-radius:50%; background:#fff; transition:.2s; }
+  .demo-toggle.off .sw { background:#555; } .demo-toggle.off .sw::after { right:auto; left:2px; }
+  .panel-body { flex:1; display:flex; flex-direction:column; padding:26px; gap:18px; }
+  /* USP value prop (주장) = 위계 최상단 */
+  .vp { display:flex; flex-direction:column; gap:10px; }
+  .vp-head { font-size:19px; font-weight:800; letter-spacing:-0.02em; line-height:1.35; color:#fff; }
+  /* 신뢰 근거(trust) = 읽는 정보. 가볍고 잔잔하게, USP pill과 구분 */
+  .trust { display:flex; flex-direction:column; gap:7px; }
+  .trust-row { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
+  .trust .fact { position:relative; display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:rgba(255,255,255,0.6); padding:0; background:none; border:none; }
+  .trust .fact:not(:last-child)::after { content:'·'; margin-left:6px; color:rgba(255,255,255,0.25); }
+  .trust .fact .c { width:5px; height:5px; border-radius:50%; background:#6FE9BD; flex:0 0 5px; }
+  .trust .fact.diff { cursor:help; text-decoration:underline; text-decoration-style:dotted; text-decoration-color:rgba(255,255,255,0.3); text-underline-offset:3px; }
+  .trust .fact.diff:hover { color:rgba(255,255,255,0.95); text-decoration-color:rgba(255,255,255,0.6); }
+  /* 호버 툴팁 (차별점 설명) */
+  .trust .fact .tip { position:absolute; bottom:calc(100% + 8px); left:0; white-space:normal; width:max-content; max-width:240px; background:#16162A; color:#fff; font-size:12px; font-weight:500; line-height:1.4; padding:9px 12px; border-radius:9px; box-shadow:0 8px 24px rgba(0,0,0,0.35); opacity:0; transform:translateY(4px); pointer-events:none; transition:.18s ease; z-index:10; }
+  .trust .fact .tip::after { content:''; position:absolute; top:100%; left:16px; border:5px solid transparent; border-top-color:#16162A; }
+  .trust .fact.diff:hover .tip { opacity:1; transform:translateY(0); }
+  .trust .note { font-size:11px; color:rgba(255,255,255,0.35); font-weight:500; }
+  .usp-row { display:flex; gap:9px; }
+  .usp-pill { flex:1; display:flex; align-items:center; gap:9px; padding:11px 13px; border-radius:10px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); transition:all .35s ease; cursor:pointer; }
+  .usp-pill:hover { background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.2); }
+  .usp-pill .n { display:grid; place-items:center; width:20px; height:20px; flex:0 0 20px; border-radius:50%; font-size:11px; font-weight:800; background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.6); transition:.35s; }
+  .usp-pill b { font-size:12.5px; font-weight:700; color:rgba(255,255,255,0.75); line-height:1.25; transition:.35s; }
+  .usp-pill.active { background:rgba(139,107,255,0.3); border-color:#A99CFF; box-shadow:0 6px 20px rgba(107,91,255,0.3); }
+  .usp-pill.active .n { background:#A99CFF; color:#1a1530; } .usp-pill.active b { color:#fff; }
+  .usp-pill.passed .n { background:#6FE9BD; color:#042b1f; }
+  .stage-area { flex:1; border-radius:16px; background:radial-gradient(420px 240px at 60% 30%,rgba(139,107,255,0.16),transparent 60%),rgba(0,0,0,0.18); display:grid; place-items:center; position:relative; padding:20px; cursor:pointer; }
+  .mock { width:100%; max-width:320px; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 24px 50px rgba(0,0,0,0.4); color:#1a1530; transition:transform .5s ease; }
+  .mock .tb { height:34px; background:#f3f0fb; display:flex; align-items:center; padding:0 12px; gap:5px; } .mock .tb i { width:7px; height:7px; border-radius:50%; background:#d6cef0; }
+  .mock .bd { padding:16px; min-height:180px; position:relative; }
+  .mock .ln { height:11px; border-radius:5px; background:#ece8f7; margin-bottom:9px; } .mock .ln.s { width:58%; }
+  .mock .pop { position:absolute; left:16px; right:16px; bottom:16px; background:linear-gradient(135deg,#6B5BFF,#A99CFF); color:#fff; border-radius:10px; padding:12px; font-size:13px; font-weight:700; transform:translateY(18px) scale(.96); opacity:0; transition:all .5s cubic-bezier(.2,.9,.3,1.2); }
+  .mock.s1 .pop { transform:none; opacity:1; }
+  .mock .metric { position:absolute; top:12px; right:12px; background:var(--ok); color:#042b1f; font-weight:800; font-size:12px; padding:5px 11px; border-radius:999px; opacity:0; transform:scale(.8); transition:.45s ease .15s; }
+  .mock.s2 .metric { opacity:1; transform:scale(1); } .mock.s2 { transform:translateY(-5px); }
+  .tap-hint { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); font-size:12px; color:rgba(255,255,255,0.55); pointer-events:none; background:rgba(0,0,0,0.25); padding:5px 12px; border-radius:999px; transition:.3s; }
+  .panel-foot { padding:16px 24px; display:flex; align-items:center; gap:14px; border-top:1px solid rgba(255,255,255,0.08); }
+  .dots { display:flex; gap:5px; margin-right:auto; } .dots i { width:24px; height:4px; border-radius:2px; background:rgba(255,255,255,0.18); transition:.3s; } .dots i.on { background:#A99CFF; }
+  .sel-btn { border:none; border-radius:10px; padding:12px 22px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:.2s; display:flex; align-items:center; gap:7px; }
+  .sel-btn.off { background:#fff; color:var(--ink); } .sel-btn.off:hover { background:#F0EEFF; }
+  .sel-btn.on { background:rgba(18,184,134,0.22); color:#6FE9BD; }
+  .sel-btn:disabled { background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.5); cursor:default; }
+
+  .nav { border-top:1px solid var(--line); padding:16px 40px; display:flex; align-items:center; justify-content:space-between; }
+  .nav .summary { font-size:14px; color:var(--ink-dim); } .nav .summary b { color:var(--accent); font-weight:700; }
+  .nav .btns { display:flex; gap:10px; }
+  .nav button { border-radius:10px; padding:11px 26px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:.2s; }
+  .nav .prev { background:#fff; border:1px solid var(--line); color:var(--ink-dim); } .nav .prev:hover { border-color:var(--ink-faint); }
+  .nav .next { background:var(--ink); border:none; color:#fff; } .nav .next:hover { background:#000; }
+
+  @media (max-width:900px){ .main { grid-template-columns:1fr; gap:24px; } .left { padding-right:0; } }
+</style>
+</head>
+<body>
+  <div class="stepper" id="stepper">
+    <div class="step done" data-step="1"><span class="num">✓</span>담당자 정보 입력</div>
+    <div class="seg done"></div>
+    <div class="step done" data-step="2"><span class="num">✓</span>쇼핑몰 정보 입력</div>
+    <div class="seg done"></div>
+    <div class="step active" data-step="3"><span class="num">3</span>맞춤 솔루션 선택</div>
+    <div class="seg"></div>
+    <div class="step" data-step="4"><span class="num">4</span>위젯 설정</div>
+    <div class="seg"></div>
+    <div class="step" data-step="5"><span class="num">5</span>카드 등록</div>
+  </div>
+
+  <div id="selectView">
+  <div class="main">
+    <div class="left">
+      <h1>해결하고 싶은<br>문제를 골라보세요</h1>
+      <p class="sub">문제를 눌러 솔루션을 둘러보고, 체크박스나 오른쪽 버튼으로 선택하세요.</p>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="right">
+      <div class="panel">
+        <div class="panel-head"><span class="pname"><span class="d" id="pDot"></span><span id="pName">알파캔버스</span></span></div>
+        <div class="panel-body">
+          <div class="vp">
+            <h3 class="vp-head" id="vpHead">코딩 없이 직접 매력적인 페이지를 만들어요</h3>
+            <div class="trust" id="trust"></div>
+          </div>
+          <div class="usp-row" id="uspRow"></div>
+          <div class="stage-area" id="stage">
+            <div class="mock" id="mock"><div class="tb"><i></i><i></i><i></i></div><div class="bd"><div class="metric" id="metric">드래그로 편집</div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="pop" id="pop">드래그로 편집</div></div></div>
+            <div class="tap-hint" id="tapHint">화면을 탭하면 다음 단계 →</div>
+          </div>
+        </div>
+        <div class="panel-foot"><div class="dots"><i id="d0"></i><i id="d1"></i><i id="d2"></i></div><button class="sel-btn off" id="selBtn">+ 이 솔루션 선택</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <span class="summary"><b id="cnt">1개</b> 솔루션을 선택했어요</span>
+    <div class="btns"><button class="prev">이전</button><button class="next">다음</button></div>
+  </div>
+  </div>
+
+  <button class="demo-toggle" id="demoToggle"><span class="sw"></span>신뢰 근거 ON</button>
+
+  <!-- 소개 시퀀스: [다음] 누르면 선택한 프로덕트별로 1장씩 깊게 -->
+  <div class="intro" id="intro">
+    <div class="intro-bar">
+      <span class="intro-lbl">선택한 솔루션 자세히 보기</span>
+      <div class="intro-prog" id="introProg"></div>
+      <button class="intro-close" id="introClose">✕ 선택으로 돌아가기</button>
+    </div>
+
+    <div class="intro-body">
+      <!-- 상단: 제품 헤드라인 + 신뢰근거 -->
+      <div class="intro-top">
+        <span class="ic-kicker" id="icKicker">선택한 솔루션 1 / 3</span>
+        <div class="ic-name"><span class="ic-dot" id="icDot"></span><span id="icName">알파리뷰</span></div>
+        <h2 class="ic-vp" id="icVp">리뷰를 구매를 부르는 신뢰 자산으로 만들어요</h2>
+        <div class="ic-trust" id="icTrust"></div>
+      </div>
+
+      <!-- 가운데: 큰 데모 화면 -->
+      <div class="intro-demo" id="introDemo">
+        <div class="demo-browser" id="icMock">
+          <div class="db-bar"><span class="db-dot"></span><span class="db-dot"></span><span class="db-dot"></span><span class="db-url" id="icUrl">myshop.cafe24.com</span></div>
+          <div class="db-screen">
+            <div class="db-metric" id="icMetric">포토 리뷰 강조</div>
+            <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>
+            <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>
+            <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>
+            <div class="db-pop" id="icPop">포토 리뷰 강조</div>
+          </div>
+        </div>
+        <div class="ic-hint" id="icHint">화면을 탭하면 다음 단계 →</div>
+      </div>
+
+      <!-- 하단: USP 3단계 (큰 화면과 동기화) -->
+      <ul class="ic-usp" id="icUsp"></ul>
+    </div>
+
+    <div class="intro-foot">
+      <button class="intro-prev" id="introPrev">이전</button>
+      <button class="intro-next" id="introNext">다음 솔루션 →</button>
+    </div>
+  </div>
+
+  <!-- 스텝 4-A: 리뷰 위젯 미리보기 (리뷰 선택 시) -->
+  <div class="step-view" id="reviewWidget">
+    <div class="sv-head">
+      <h2 class="sv-title">자동 설치 리뷰 위젯 미리보기</h2>
+      <p class="sv-sub">기본 리뷰 위젯 중, 자동 설치되는 위젯들을 미리 확인해보세요</p>
+      <div class="sv-tabs"><button class="svt active">상세페이지</button><button class="svt">리뷰게시판</button></div>
+    </div>
+    <div class="sv-preview">
+      <div class="shop-mock">
+        <div class="sm-top">신규 회원가입 시 5,000원 할인 쿠폰 지급!</div>
+        <div class="sm-brand">Jenny <b>Ribbon</b></div>
+        <div class="sm-hero"></div>
+        <div class="sm-tags"><span class="t new">NEW</span><span class="t best">BEST</span><span class="t sale">SALE</span></div>
+        <div class="sm-name">제니리본 선염 범부타올 10장</div>
+        <div class="sm-price"><s>150,000원</s> <b>82,500원</b></div>
+        <div class="sm-review">
+          <div class="smr-head">⭐ 4.9 · 리뷰 1,284</div>
+          <div class="smr-row"><div class="smr-thumb"></div><div class="smr-lines"><i></i><i class="s"></i></div></div>
+          <div class="smr-row"><div class="smr-thumb"></div><div class="smr-lines"><i></i><i class="s"></i></div></div>
+        </div>
+        <span class="sm-badge">자동 설치된 리뷰 위젯</span>
+      </div>
+    </div>
+    <div class="sv-foot">
+      <button class="sv-skip" data-skip>건너뛰기</button>
+      <div class="sv-btns"><button class="sv-prev" data-prev>이전</button><button class="sv-next" data-next>다음</button></div>
+    </div>
+  </div>
+
+  <!-- 스텝 4-B: SNS 계정 연결 (인스타 선택 시) -->
+  <div class="step-view sns" id="snsConnect">
+    <div class="sns-card">
+      <h2 class="sns-title">계정을 연결하면<br><b>인스타그램 피드</b>를 보여줄 수 있어요!</h2>
+      <ul class="sns-points">
+        <li>인스타그램 게시글 업로드만 하면, 위젯에 바로 업데이트!</li>
+        <li>고객에게 쇼핑몰의 새로운 소식·이벤트를 알려줄 수 있어요.</li>
+      </ul>
+      <div class="sns-feed">
+        <div class="sf-head"><span class="sf-avatar"></span><div><b>@alphaapps_</b><span>팔로워 12</span></div><span class="sf-ig">📷</span></div>
+        <div class="sf-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="sns-btns">
+        <button class="sns-skip" data-skip>건너뛰기</button>
+        <button class="sns-connect" data-next>계정 연결하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 스텝 5: 카드 등록 -->
+  <div class="step-view" id="cardReg">
+    <div class="card-form">
+      <h2 class="cf-title">카드를 등록하면<br><b>14일간 무료체험</b>이 시작돼요!</h2>
+      <label class="cf-label">카드 유형</label>
+      <div class="cf-seg"><button class="active">개인</button><button>법인</button></div>
+      <label class="cf-label">카드 번호</label>
+      <div class="cf-card"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"></div>
+      <label class="cf-label">유효 기간</label>
+      <div class="cf-exp"><input placeholder="MM"><input placeholder="YYYY"></div>
+      <label class="cf-agree"><input type="checkbox" checked> 카드 정보 결제 서비스 업체 제공 동의</label>
+      <p class="cf-note">자동결제는 공인된 결제 대행사에서 진행되며, 알파앱스에 저장되지 않습니다. 카드 정보는 언제든 삭제 가능합니다.</p>
+      <div class="cf-foot">
+        <button class="sv-skip" data-skip>건너뛰기</button>
+        <div class="sv-btns"><button class="sv-prev" data-prev>이전</button><button class="cf-done" data-done>완료</button></div>
+      </div>
+      <div class="cf-trust">5,000+ 자사몰이 선택한 솔루션</div>
+    </div>
+  </div>
+
+  <!-- 완료 화면 -->
+  <div class="step-view" id="doneView">
+    <div class="done-wrap">
+      <div class="done-left">
+        <h1 class="done-title">자사몰 성장시키는<br>알파앱스 무료 체험 신청 완료!</h1>
+
+        <div class="done-sec">
+          <h3>선택한 솔루션</h3>
+          <div class="done-sols" id="doneSols"></div>
+        </div>
+
+        <div class="done-sec" id="autoSec">
+          <h3>자동 설치</h3>
+          <p id="autoList">알파리뷰 일부 기능, 인스타피드, 알파푸시</p>
+        </div>
+
+        <div class="done-sec" id="manualSec">
+          <h3>수동 설치</h3>
+          <p id="manualList">알파리뷰 일부 기능, 알파업셀</p>
+          <p class="done-note">수동 설치는 <b>설치 완료까지 영업일 기준 3~5일 소요</b>됩니다.<br>쇼핑몰에 위젯이 설치 완료되면, 카톡으로 안내해 드리겠습니다.</p>
+        </div>
+
+        <button class="done-cta">대시보드 둘러보기</button>
+      </div>
+      <div class="done-right">
+        <div class="done-illust">
+          <div class="di-phone"><div class="di-shop"></div><div class="di-bag">🛍️</div><div class="di-bar"></div></div>
+          <div class="di-review">⭐⭐⭐⭐⭐</div>
+          <div class="di-cart">🛒</div>
+          <div class="di-bell">🔔</div>
+          <div class="di-chart"><i style="height:30%"></i><i style="height:55%"></i><i style="height:75%"></i><i style="height:100%"></i></div>
+          <div class="di-box">📦</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const DATA = {
+  canvas:{name:'알파캔버스',vp:'코딩 없이 직접 매력적인 페이지를 만들어요',chip:'쇼핑몰 화면/콘텐츠 개선이 어려워요',pop:'드래그로 편집',metric:'드래그로 편집',
+    usp:[['자유로운 편집','드래그로 블록 배치'],['검증된 템플릿','잘 팔리는 구조 적용'],['빠른 완성','몇 분 만에 페이지']],
+    story:[['템플릿을 고르고','잘 팔리는 구조의 템플릿을 내 쇼핑몰에 가져와요'],['블록을 끌어다 놓으면','이미지·텍스트·버튼을 드래그로 자유롭게 배치해요'],['바로 게시돼요','코딩·디자이너 없이 몇 분 만에 페이지가 완성돼요']]},
+  insta:{name:'인스타피드',vp:'인스타 감성을 쇼핑몰 안으로 그대로 가져와요',chip:'인스타그램 콘텐츠를 쇼핑몰에서도 보여주고 싶어요',pop:'인스타 피드 연동',metric:'인스타 피드 연동',
+    usp:[['피드 자동 연동','인스타 게시물 불러오기'],['쇼핑몰에 노출','상품과 자연 연결'],['콘텐츠로 머물게','자연스러운 체류']],
+    story:[['계정을 연결하면','인스타그램 계정을 한 번만 연결하면 끝이에요'],['게시물이 자동으로 들어와요','새 게시글을 올릴 때마다 쇼핑몰 위젯에 바로 업데이트돼요'],['고객이 더 머물러요','감성 콘텐츠를 보며 자연스럽게 체류시간이 늘어나요']]},
+  review:{name:'알파리뷰',vp:'리뷰를 구매를 부르는 신뢰 자산으로 만들어요',chip:'구매가 발생해도 리뷰 수집과 노출이 안돼요',pop:'포토 리뷰 강조',metric:'포토 리뷰 강조',
+    usp:[['리뷰 자동 수집','알림톡으로 자동 요청'],['좋은 리뷰 위로','포토·동영상 리뷰 강조'],['구매 전환 UP','리뷰가 구매 이유로']],
+    story:[
+      ['포토·동영상 리뷰 위젯','마음껏 설치하는 리뷰 위젯으로 구매 전환을 끌어올려요'],
+      ['알림톡으로 리뷰 요청','구매 고객에게 작성 알림톡을 보내 클릭 한 번으로 리뷰가 쌓여요'],
+      ['체험단·인플루언서 발송','고객 정보만 있으면 리뷰 작성 알림톡을 손쉽게 보내요'],
+      ['SNS 콘텐츠를 리뷰로','인스타·네이버 블로그 시딩 콘텐츠를 쇼핑몰 리뷰로 가져와요'],
+      ['리뷰로 인사이트까지','치밀하게 설계된 리뷰로 상품 구매 정보를 파악해요'],
+    ]},
+  push:{name:'알파푸시',vp:'떠난 고객을 제때 다시 불러와요',chip:'이탈한 고객을 재방문시키고 싶어요',pop:'맞춤 알림 발송',metric:'맞춤 알림 발송',
+    usp:[['이탈 시점 포착','떠난 순간에 발송'],['개인화 메시지','관심 상품 기준'],['재방문 유도','다시 돌아오게']],
+    story:[['이탈을 감지하면','장바구니를 두고 떠난 고객의 행동을 자동으로 포착해요'],['맞춤 알림을 보내요','관심 본 상품 기준으로 개인화된 알림을 발송해요'],['다시 돌아와요','한 번의 알림으로 고객이 쇼핑몰로 재방문해요']]},
+  upsell:{name:'알파업셀',vp:'고객 한 명이 떠나기 전에 더 사게 만들어요',chip:'유입은 되는데 장바구니 구매 전환이 어려워요',pop:'추천 상품 위젯',metric:'추천 상품 위젯',
+    usp:[['구매 흐름에 노출','딱 맞는 추천 제시'],['클릭 한 번 추가','이탈 없이 담기'],['함께 사게','자연스러운 추가구매']],
+    story:[['구매 흐름을 분석해','장바구니·상세페이지에서 고객 행동을 읽어요'],['딱 맞는 상품을 추천','AI가 같이 살 만한 상품을 그 자리에 띄워요'],['장바구니가 커져요','클릭 한 번으로 담기면서 객단가가 올라가요']]},
+};
+const KEYS=['canvas','insta','review','push','upsell'];
+const LOCKED={canvas:'설치됨'};  // 이미 확정 — 해제 불가
+
+// ── 신뢰 근거(trust) ─────────────────────────────────
+// 원칙(서유라 trust 문서):
+//  1) 수치는 USP/Value Prop 문장에 직접 넣지 않고, 주장을 받치는 '근거'로만 사용
+//  2) 유료 고객사 수는 반드시 "유료" 한정어와 함께 (경쟁사 설치 기준과 비교축 통일)
+//  3) 검증 안 된 수치는 절대 넣지 않음 → 없으면 슬롯 자체를 비움(fallback)
+// 근거는 두 종류:
+//  - stat: 검증된 수치 (예: 유료 고객사 4,538사) — 한정어 필수
+//  - point: 우리만의 차별점 (라벨 + 쉬운 한 줄 설명) — 사실 서술
+let TRUST_ON = true; // 데모 토글용. 실제 제품에선 데이터 유무로 자동 판단.
+const TRUST = {
+  // 알파리뷰: 검증된 수치
+  review: {
+    stats: ['유료 고객사 4,538사', '라이브 25,000+ 쇼핑몰'],
+    note: '2026-06-18 기준 · 자사 데이터'
+  },
+  // 알파업셀: 차별점 (한 줄 칩, 호버 시 설명)
+  upsell: {
+    chips: [
+      ['AI 추가구매 추천', '같이 살 만한 상품을 AI가 골라줘요'],
+      ['가격 A/B 테스트', '할인율·구성을 바꿔가며 잘 팔리는 조합을 찾아요'],
+      ['매출 금액 인사이트', '얼마나 더 팔렸는지 금액으로 보여줘요'],
+    ]
+  },
+  // 알파푸시: 차별점 (한 줄 칩, 호버 시 설명)
+  push: {
+    chips: [
+      ['구매까지 잇는 알림', '클릭에서 끝나지 않고 구매 행동까지 이어줘요'],
+      ['원클릭 자동화', '복잡한 발송 과정을 한 번 설정으로 자동 처리해요'],
+    ]
+  },
+  // 알파캔버스: 차별점 (가안 — 실제 확정 USP로 교체 필요)
+  canvas: {
+    chips: [
+      ['드래그 한 번으로 편집', '디자이너·코딩 없이 직접 페이지를 구성해요'],  // TODO: 가안
+    ]
+  },
+  // 인스타피드: 차별점 (가안 — 실제 확정 USP로 교체 필요)
+  insta: {
+    chips: [
+      ['노코드 피드 연동', '개발 없이 인스타 게시물을 쇼핑몰로 자동으로 가져와요'],  // TODO: 가안
+    ]
+  },
+};
+function trustOf(k){ return TRUST_ON ? (TRUST[k]||null) : null; }
+// ────────────────────────────────────────────────────
+
+
+
+let cur='canvas', step=-1;
+let selected=new Set(Object.keys(LOCKED));
+const $=id=>document.getElementById(id);
+const cvar=k=>getComputedStyle(document.documentElement).getPropertyValue('--c-'+k).trim();
+
+function renderChips(){
+  const wrap=$('chips'); wrap.innerHTML='';
+  KEYS.forEach(k=>{
+    const d=DATA[k]; const color=cvar(k);
+    const isL=!!LOCKED[k], isS=selected.has(k), isV=(k===cur);
+    const chip=document.createElement('div');
+    chip.className='chip'+(isV?' viewing':'')+(isS?' selected':'')+(isL?' locked':'');
+    // 체크박스 = 선택
+    const check=document.createElement('div'); check.className='check'; check.tabIndex=isL?-1:0;
+    if(isS){ check.innerHTML=isL?'🔒':'✓'; check.style.background=isL?'':color; }
+    check.onclick=(e)=>{ e.stopPropagation(); if(!isL) toggle(k); };
+    check.onkeydown=(e)=>{ if((e.key==='Enter'||e.key===' ')&&!isL){ e.preventDefault(); toggle(k); } };
+    // 본문 = 보기
+    const meta=document.createElement('div'); meta.className='meta'; meta.tabIndex=0;
+    const qq=document.createElement('div'); qq.className='q'; qq.textContent=d.chip;
+    const sol=document.createElement('div'); sol.className='sol';
+    sol.style.color=isS?color:'var(--ink-faint)';
+    sol.innerHTML=isS?(isL?`${d.name} <span class="lk">· 이미 ${LOCKED[k]}</span>`:`${d.name} 선택됨`):d.name;
+    meta.appendChild(qq); meta.appendChild(sol);
+    meta.onclick=()=>{ cur=k; loadPanel(); };
+    meta.onkeydown=(e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); cur=k; loadPanel(); } };
+    chip.appendChild(check); chip.appendChild(meta);
+    wrap.appendChild(chip);
+  });
+}
+
+// 선택 토글 — 체크박스/오른쪽 버튼 공용. 패널 애니메이션은 건드리지 않음
+function toggle(k){
+  if(LOCKED[k]) return;
+  selected.has(k)?selected.delete(k):selected.add(k);
+  renderChips(); updateCount(); syncBtn();
+}
+function updateCount(){ $('cnt').textContent=selected.size+'개'; }
+
+function loadPanel(){
+  const d=DATA[cur];
+  $('pName').textContent=d.name; $('pDot').style.background=cvar(cur);
+  $('vpHead').textContent=d.vp;  // USP value prop (주장)
+  $('pop').textContent=d.pop; $('metric').textContent=d.metric;
+  // 신뢰 근거(trust): 검증된 수치/차별점 있을 때만. 없으면 빈 채로(fallback)
+  const tr=trustOf(cur); const tbox=$('trust'); tbox.innerHTML='';
+  let hasTrust=false;
+  if(tr){
+    const row=document.createElement('div'); row.className='trust-row';
+    // 1) 수치형 (한정어 포함)
+    if(tr.stats && tr.stats.length){
+      tr.stats.forEach(f=>{ const el=document.createElement('span'); el.className='fact'; el.innerHTML=`<span class="c"></span>${f}`; row.appendChild(el); });
+      hasTrust=true;
+    }
+    // 2) 차별점형 (한 줄 칩, 호버 시 설명 툴팁)
+    if(tr.chips && tr.chips.length){
+      tr.chips.forEach(p=>{ const el=document.createElement('span'); el.className='fact diff'; el.innerHTML=`${p[0]}<span class="tip">${p[1]}</span>`; row.appendChild(el); });
+      hasTrust=true;
+    }
+    if(hasTrust){
+      tbox.appendChild(row);
+      if(tr.note){ const n=document.createElement('span'); n.className='note'; n.textContent=tr.note; tbox.appendChild(n); }
+    }
+  }
+  tbox.style.display = hasTrust ? 'flex' : 'none';
+  const row=$('uspRow'); row.innerHTML='';
+  d.usp.forEach((u,i)=>{ const el=document.createElement('div'); el.className='usp-pill'; el.id='u'+i; el.innerHTML=`<span class="n">0${i+1}</span><b>${u[0]}</b>`; el.onclick=(e)=>{e.stopPropagation();go(i);}; row.appendChild(el); });
+  syncBtn(); renderChips();
+  reset(); setTimeout(()=>go(0),300);
+}
+function syncBtn(){
+  const b=$('selBtn');
+  if(LOCKED[cur]){ b.className='sel-btn on'; b.textContent='🔒 이미 '+LOCKED[cur]; b.disabled=true; }
+  else if(selected.has(cur)){ b.className='sel-btn on'; b.textContent='✓ 선택됨 (눌러서 해제)'; b.disabled=false; }
+  else { b.className='sel-btn off'; b.textContent='+ 이 솔루션 선택'; b.disabled=false; }
+}
+$('selBtn').onclick=()=>{ if(!LOCKED[cur]) toggle(cur); };
+
+function reset(){ step=-1; $('mock').className='mock'; sync(); }
+function go(n){ step=n; const m=$('mock'); m.className='mock'; if(n>=1)m.classList.add('s1'); if(n>=2)m.classList.add('s2'); sync(); }
+function sync(){
+  [0,1,2].forEach(i=>$('d'+i).classList.toggle('on',i<=step));
+  [0,1,2].forEach(i=>{const e=$('u'+i);if(!e)return;e.classList.remove('active','passed');if(i<step)e.classList.add('passed');if(i===step)e.classList.add('active');});
+  if(step<2){$('tapHint').textContent='화면을 탭하면 다음 단계 →';$('tapHint').style.color='';}
+  else{$('tapHint').textContent='마음에 들면 체크박스나 오른쪽 버튼으로 선택 →';$('tapHint').style.color='#9CF0CE';}
+}
+$('stage').onclick=()=>{ if(step<2) go(step+1); };
+
+$('stepper').addEventListener('click',(e)=>{ const s=e.target.closest('.step'); if(!s)return; if(s.classList.contains('done')||s.classList.contains('active')){/* 라우팅 자리 */} });
+
+// 데모 토글 — 신뢰 근거 데이터 있을 때 vs 없을 때 비교용 (실제 제품엔 없음)
+$('demoToggle').onclick=()=>{
+  TRUST_ON=!TRUST_ON;
+  const b=$('demoToggle');
+  b.className='demo-toggle'+(TRUST_ON?'':' off');
+  b.innerHTML=`<span class="sw"></span>신뢰 근거 ${TRUST_ON?'ON':'OFF'}`;
+  loadPanel();
+};
+
+renderChips(); updateCount(); loadPanel();
+
+// ── 소개 시퀀스: [다음] 누르면 선택한 프로덕트별로 1장씩 자세히 ──
+let introList=[], introIdx=0, introStep=-1;
+function openIntro(){
+  introList=KEYS.filter(k=>selected.has(k)); // 선택한 것만, 화면 순서대로
+  if(introList.length===0){ return; }
+  introIdx=0;
+  $('selectView').style.display='none';   // 선택 화면 숨김 (스텝퍼는 유지)
+  $('intro').classList.add('on');
+  const prog=$('introProg'); prog.innerHTML='';
+  introList.forEach(()=>{ const i=document.createElement('i'); prog.appendChild(i); });
+  loadIntro();
+}
+function closeIntro(){
+  $('intro').classList.remove('on');
+  $('selectView').style.display='';       // 선택 화면 복원
+}
+function loadIntro(){
+  const k=introList[introIdx]; const d=DATA[k];
+  $('icKicker').textContent=`선택한 솔루션 ${introIdx+1} / ${introList.length}`;
+  $('icName').textContent=d.name; $('icDot').style.background=cvar(k);
+  $('icVp').textContent=d.vp;
+  $('icPop').textContent=d.pop; $('icMetric').textContent=d.metric;
+  $('icUrl').textContent='myshop.cafe24.com';
+  const tr=TRUST[k]; const tb=$('icTrust'); tb.innerHTML='';
+  if(tr){
+    (tr.stats||[]).forEach(f=>{ const e=document.createElement('span'); e.className='f'; e.innerHTML=`<span class="c"></span>${f}`; tb.appendChild(e); });
+    (tr.chips||[]).forEach(p=>{ const e=document.createElement('span'); e.className='f'; e.textContent=p[0]; tb.appendChild(e); });
+    tb.style.display='flex';
+  } else tb.style.display='none';
+  const ul=$('icUsp'); ul.innerHTML='';
+  const steps = d.story || d.usp; // 소개 페이지는 과정형 스토리 사용
+  steps.forEach((u,i)=>{ const li=document.createElement('li'); li.id='iu'+i; li.innerHTML=`<span class="n">${i+1}</span><span class="tx"><b>${u[0]}</b><span>${u[1]}</span></span>`; li.onclick=()=>introGo(i); ul.appendChild(li); });
+  [...$('introProg').children].forEach((el,i)=>{ el.className=''; if(i<introIdx)el.classList.add('done'); if(i===introIdx)el.classList.add('cur'); });
+  $('introPrev').disabled=(introIdx===0);
+  $('introNext').textContent=(introIdx===introList.length-1)?'다음':'다음 솔루션 →';
+  introReset(); setTimeout(()=>introGo(0),300);
+}
+function introReset(){ introStep=-1; $('icMock').className='demo-browser'; introSync(); }
+function introGo(n){
+  const steps=DATA[introList[introIdx]].story||DATA[introList[introIdx]].usp;
+  introStep=n;
+  const m=$('icMock'); m.className='demo-browser';
+  if(n>=1)m.classList.add('s1');
+  if(n>=steps.length-1)m.classList.add('s2'); // 마지막 단계에 결과 강조
+  introSync();
+}
+function introSync(){
+  const steps=DATA[introList[introIdx]].story||DATA[introList[introIdx]].usp;
+  const last=steps.length-1;
+  [...$('icUsp').children].forEach((e,i)=>{ e.classList.remove('active','passed'); if(i<introStep)e.classList.add('passed'); if(i===introStep)e.classList.add('active'); });
+  // 데모 화면 팝업을 현재 단계 내용으로 (과정 시연)
+  if(introStep>=0 && steps[introStep]) $('icPop').textContent=steps[introStep][0];
+  $('icHint').textContent = introStep<last ? '화면을 탭하면 다음 단계 →' : '다 봤어요! 다음 솔루션으로 →';
+}
+$('icMock').onclick=()=>{ const steps=DATA[introList[introIdx]].story||DATA[introList[introIdx]].usp; if(introStep<steps.length-1) introGo(introStep+1); };
+$('introNext').onclick=()=>{
+  if(introIdx<introList.length-1){ introIdx++; loadIntro(); }
+  else { closeIntro(); goStep4(); } // 마지막 → 스텝 4(위젯 설정)로
+};
+$('introPrev').onclick=()=>{
+  if(introIdx>0){ introIdx--; loadIntro(); }
+  else { closeIntro(); } // 첫 솔루션에서 이전 → 선택 화면으로
+};
+$('introClose').onclick=()=>{ closeIntro(); }; // 건너뛰기 → 선택 화면으로
+
+// ── 스텝 4·5 시퀀스: 선택에 따라 동적으로 화면 큐 구성 ──
+// 리뷰 선택 → reviewWidget, 인스타 선택 → snsConnect, 항상 → cardReg
+let flowQueue=[], flowPos=0;
+function goStep4(){
+  flowQueue=[];
+  if(selected.has('review')) flowQueue.push({view:'reviewWidget', step:4});
+  if(selected.has('insta'))  flowQueue.push({view:'snsConnect', step:4});
+  flowQueue.push({view:'cardReg', step:5}); // 카드 등록은 항상
+  flowPos=0;
+  showFlow();
+}
+function showFlow(){
+  // 모든 스텝뷰 숨김
+  ['reviewWidget','snsConnect','cardReg'].forEach(id=>$(id).classList.remove('on'));
+  $('selectView').style.display='none';
+  $('intro').classList.remove('on');
+  const cur=flowQueue[flowPos];
+  $(cur.view).classList.add('on');
+  setStepper(cur.step);
+}
+function flowNext(){
+  if(flowPos<flowQueue.length-1){ flowPos++; showFlow(); }
+  else { finishOnboarding(); }
+}
+function flowPrev(){
+  if(flowPos>0){ flowPos--; showFlow(); }
+  else { // 첫 화면에서 이전 → 소개 시퀀스 마지막으로 복귀
+    $(flowQueue[0].view).classList.remove('on');
+    setStepper(3);
+    introIdx=introList.length-1; $('selectView').style.display='none'; $('intro').classList.add('on'); loadIntro();
+  }
+}
+function finishOnboarding(){
+  ['reviewWidget','snsConnect','cardReg'].forEach(id=>$(id).classList.remove('on'));
+  renderDone();
+  $('doneView').classList.add('on');
+  setStepper(6); // 모든 스텝 완료 표시
+}
+
+// 완료 화면 — 선택한 솔루션 기반으로 동적 구성
+const DONE_COND = { // 솔루션별 무료 조건
+  insta: '최초 사용 시 30건 무료 제공, 이후 매월 5건 무료 제공',
+  _default: '14일 무료 체험',
+};
+// 설치 방식 분류 (이미지 기준)
+const INSTALL = {
+  review: { auto:'알파리뷰 일부 기능', manual:'알파리뷰 일부 기능' },
+  insta:  { auto:'인스타피드' },
+  push:   { auto:'알파푸시' },
+  upsell: { manual:'알파업셀' },
+  canvas: { manual:'알파캔버스' },
+};
+function renderDone(){
+  const picked=KEYS.filter(k=>selected.has(k));
+  // 선택한 솔루션 + 조건
+  const box=$('doneSols'); box.innerHTML='';
+  // 인스타는 조건이 달라서 별도 줄, 나머지는 묶어서 14일 체험
+  const instaPicked=picked.includes('insta');
+  const others=picked.filter(k=>k!=='insta');
+  if(instaPicked){
+    const row=document.createElement('div'); row.className='done-sol-row';
+    row.innerHTML=`<span class="done-sol" style="background:${cvar('insta')}">인스타피드</span><span class="done-sol-cond">${DONE_COND.insta}</span>`;
+    box.appendChild(row);
+  }
+  if(others.length){
+    const row=document.createElement('div'); row.className='done-sol-row';
+    const chips=others.map(k=>`<span class="done-sol" style="background:${cvar(k)}">${DATA[k].name}</span>`).join('');
+    row.innerHTML=`${chips}<span class="done-sol-cond">${DONE_COND._default}</span>`;
+    box.appendChild(row);
+  }
+  // 자동/수동 설치
+  const auto=[], manual=[];
+  picked.forEach(k=>{ const i=INSTALL[k]; if(!i)return; if(i.auto)auto.push(i.auto); if(i.manual)manual.push(i.manual); });
+  $('autoSec').style.display = auto.length?'block':'none';
+  $('autoList').textContent = [...new Set(auto)].join(', ');
+  $('manualSec').style.display = manual.length?'block':'none';
+  $('manualList').textContent = [...new Set(manual)].join(', ');
+}
+document.querySelector('.done-cta').onclick=()=>{ alert('대시보드로 이동합니다 🎉'); };
+// 스텝퍼 현재 단계 갱신
+function setStepper(n){
+  [...document.querySelectorAll('.step')].forEach(s=>{
+    const d=+s.dataset.step;
+    s.classList.remove('done','active');
+    if(d<n){ s.classList.add('done'); s.querySelector('.num').textContent='✓'; }
+    else if(d===n){ s.classList.add('active'); s.querySelector('.num').textContent=d; }
+    else { s.querySelector('.num').textContent=d; }
+  });
+  // 세그먼트
+  [...document.querySelectorAll('.seg')].forEach((sg,i)=>{ sg.classList.toggle('done', i < n-1); });
+}
+// 스텝4·5 화면 내 버튼들 (이벤트 위임)
+['reviewWidget','snsConnect','cardReg'].forEach(id=>{
+  $(id).addEventListener('click',(e)=>{
+    if(e.target.closest('[data-next]')) flowNext();
+    else if(e.target.closest('[data-skip]')) flowNext();
+    else if(e.target.closest('[data-prev]')) flowPrev();
+    else if(e.target.closest('[data-done]')) finishOnboarding();
+  });
+});
+
+// 하단 [다음] = 소개 시퀀스 시작
+document.querySelector('.next').onclick=()=>{ openIntro(); };
+
+</script>
+</body>
+</html>

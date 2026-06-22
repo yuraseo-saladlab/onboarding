@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>업셀 — 온보딩 인터랙션</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+    integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+    integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+    integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+    crossorigin="anonymous"></script>
+
+  <style>
+    /* ── Saladlab design tokens ── */
+    :root {
+      --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* brand */
+      --canvas: #ffffff;
+      --spectrum: linear-gradient(90deg, #1d8aff 0%, #837aff 26%, #a13af0 52%, #c81aa5 78%, #f24233 100%);
+
+      /* demo widget palette — clean neutrals, red used only as the accent */
+      --accent: #E62C35;
+      --accent-bg: rgba(230, 44, 53, 0.06);
+      --accent-bd: rgba(230, 44, 53, 0.45);
+      --tile: #f4f3f1;
+      --tile-bd: rgba(17, 17, 17, 0.06);
+      --white: #ffffff;
+      --ink: #1a1a1a;
+      --ink-mid: rgba(26, 26, 26, 0.5);
+      --ink-soft: rgba(26, 26, 26, 0.34);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--canvas);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px 20px;
+    }
+
+    /* ambient glow behind card — barely-there warm accent */
+    body::before {
+      content: '';
+      position: fixed;
+      width: 700px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(230, 44, 53, 0.05) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    #root {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    /* ━━━━ DEMO CARD ━━━━ */
+    .demo {
+      width: 100%;
+      max-width: 600px;
+      background: var(--white);
+      border-radius: 28px;
+      padding: 28px 24px 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 14px 44px rgba(20, 20, 50, 0.13);
+      cursor: pointer;
+      /* no entrance animation — card is immediately visible */
+    }
+
+    .demo.done {
+      cursor: default;
+    }
+
+    /* ━━━━ TOP ROW ━━━━ */
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink);
+      background: #f4f3f1;
+      border: 1px solid var(--tile-bd);
+      padding: 5px 12px;
+      border-radius: 9999px;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .cart-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 9999px;
+      background: #f0f0f0;
+      color: var(--ink);
+      transition: background 0.28s ease, color 0.28s ease;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .cart-pill.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* ━━━━ HEADLINE ━━━━ */
+    .headline {
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
+      letter-spacing: -0.025em;
+      margin-bottom: 22px;
+    }
+
+    /* ━━━━ PRODUCTS ━━━━ */
+    .products {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .product {
+      flex: 1;
+      background: var(--tile);
+      border-radius: 14px;
+      padding: 16px 10px 13px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 11px;
+      position: relative;
+      border: 1.5px solid var(--tile-bd);
+      transition-property: border-color, background, transform;
+      transition-duration: 0.3s;
+      transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--td, 0s);
+    }
+
+    .product.idle {
+      animation: idlePulse 2.6s ease-in-out infinite;
+    }
+
+    .product.sel {
+      border-color: var(--accent-bd);
+      background: var(--accent-bg);
+    }
+
+    .product.tap {
+      animation: tapBounce 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .pname {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .price {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    /* ━━━━ BADGE CHIPS ━━━━ */
+    .chip {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      border: 2.5px solid white;
+      animation: popBadge 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) var(--bd, 0s) both;
+    }
+
+    .chip.plus {
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* ━━━━ STATUS TEXT ━━━━ */
+    .status {
+      text-align: center;
+      min-height: 66px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: white;
+      background: linear-gradient(110deg,
+          color-mix(in srgb, var(--accent), black 10%) 0%,
+          var(--accent) 50%,
+          color-mix(in srgb, var(--accent), white 22%) 100%);
+      border-radius: 14px;
+      padding: 14px 18px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 18px color-mix(in srgb, var(--accent), transparent 44%);
+    }
+
+    .hint::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(105deg,
+          transparent 0%, rgba(255, 255, 255, 0.52) 50%, transparent 100%);
+      animation: shimmerSweep 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .s-line {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      animation: riseIn 0.38s ease both;
+    }
+
+    .s-line strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .s-revenue {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      animation: riseIn 0.38s 0.1s ease both;
+    }
+
+    .replay-btn {
+      margin-top: 8px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      background: none;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      cursor: pointer;
+      animation: riseIn 0.38s 0.22s ease both;
+      transition: color 0.18s ease, background 0.18s ease;
+    }
+
+    .replay-btn:hover {
+      color: var(--ink);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    /* ━━━━ CONFETTI ━━━━ */
+    .conf-wrap {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: inherit;
+    }
+
+    .conf-piece {
+      position: absolute;
+      animation: confDrop linear forwards;
+    }
+
+    /* ━━━━ KEYFRAMES ━━━━ */
+    @keyframes cardEnter {
+      from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes idlePulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0px rgba(230, 44, 53, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 0 5px rgba(230, 44, 53, 0.14);
+      }
+    }
+
+    @keyframes tapBounce {
+      0% {
+        transform: scale(1);
+      }
+
+      35% {
+        transform: scale(0.91);
+      }
+
+      70% {
+        transform: scale(1.06);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes popBadge {
+      0% {
+        transform: scale(0) rotate(-15deg);
+        opacity: 0;
+      }
+
+      65% {
+        transform: scale(1.22) rotate(4deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(7px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes breathe {
+
+      0%,
+      100% {
+        opacity: 0.38;
+      }
+
+      50% {
+        opacity: 0.82;
+      }
+    }
+
+    @keyframes shimmerSweep {
+      0% {
+        transform: translateX(-180%);
+      }
+
+      100% {
+        transform: translateX(350%);
+      }
+    }
+
+    @keyframes confDrop {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(380px) rotate(520deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes cartPop {
+      0% {
+        transform: scale(0.9);
+      }
+
+      55% {
+        transform: scale(1.12);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+<style id="embed-fill">html,body{background:#fff!important}body{margin:0!important;padding:0!important;min-height:100vh;display:flex!important;flex-direction:column!important}#root{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;width:100%!important}.demo{flex:1 1 auto!important;max-width:none!important;width:100%!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;border-radius:0!important;box-shadow:none!important}.products{flex:1 1 0!important;min-height:0!important;align-items:stretch!important;margin-bottom:16px!important}.product{justify-content:center!important}.status{margin-top:auto!important;width:100%!important}.hint{width:100%!important;box-sizing:border-box!important}.replay-btn{width:100%!important;box-sizing:border-box!important;padding:14px 18px!important;margin-top:0!important}</style>
+<style id="embed-enlarge">.product{justify-content:center!important;gap:12px!important}.product>svg{width:100%!important;max-width:148px!important;height:auto!important}.price{font-size:15px!important}</style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useMemo } = React;
+
+    /* ── Three distinct product illustrations ── */
+    // 1) Pump bottle (serum) — warm tan
+    const PumpBottle = () => (
+      <svg width="44" height="60" viewBox="0 0 44 60" fill="none" aria-hidden="true">
+        <rect x="6" y="28" width="32" height="28" rx="9" fill="#D8B48A" />
+        <rect x="10" y="32" width="8" height="16" rx="4" fill="rgba(255,255,255,0.30)" />
+        <rect x="10" y="38" width="20" height="10" rx="3" fill="rgba(255,255,255,0.16)" />
+        <rect x="16" y="12" width="12" height="20" rx="6" fill="#D8B48A" />
+        <rect x="12" y="7" width="20" height="10" rx="5" fill="#C99B6E" />
+        <rect x="26" y="8.5" width="13" height="5" rx="2.5" fill="#B8895A" />
+        <circle cx="39" cy="11" r="3.5" fill="#B8895A" />
+      </svg>
+    );
+    // 2) Cream jar — muted sage
+    const CreamJar = () => (
+      <svg width="52" height="60" viewBox="0 0 52 60" fill="none" aria-hidden="true">
+        <rect x="9" y="28" width="34" height="28" rx="7" fill="#A7C0A1" />
+        <rect x="13" y="34" width="16" height="9" rx="2" fill="rgba(255,255,255,0.22)" />
+        <rect x="6" y="18" width="40" height="13" rx="5" fill="#8FAE89" />
+        <rect x="10" y="21" width="32" height="3" rx="1.5" fill="rgba(255,255,255,0.25)" />
+      </svg>
+    );
+    // 3) Dropper serum — muted rose/clay
+    const DropperBottle = () => (
+      <svg width="40" height="60" viewBox="0 0 40 60" fill="none" aria-hidden="true">
+        <rect x="10" y="24" width="20" height="32" rx="6" fill="#D49A92" />
+        <rect x="14" y="30" width="6" height="18" rx="3" fill="rgba(255,255,255,0.28)" />
+        <rect x="13" y="16" width="14" height="10" rx="2" fill="#C2837B" />
+        <rect x="16.5" y="3" width="7" height="15" rx="3.5" fill="#C2837B" />
+        <circle cx="20" cy="4" r="4" fill="#B0726A" />
+      </svg>
+    );
+
+    const PRODUCTS = [
+      { Art: PumpBottle, name: '시그니처 세럼', price: 18000 },
+      { Art: CreamJar, name: '데일리 크림', price: 22000 },
+      { Art: DropperBottle, name: '글로우 오일', price: 16000 },
+    ];
+    const UPSELL_REVENUE = PRODUCTS[1].price + PRODUCTS[2].price; // 38,000
+
+    const CheckIcon = () => (
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+        <path d="M2 5.5L4.5 8L9 3" stroke="white" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+
+    /* ── Confetti ── */
+    const CONF_COLORS = ['#E62C35', '#F2B5AE', '#D8B48A', '#A7C0A1', '#D49A92', '#222222'];
+
+    const Confetti = () => {
+      const pieces = useMemo(() =>
+        Array.from({ length: 28 }, (_, i) => ({
+          id: i,
+          left: 2 + Math.random() * 96,
+          color: CONF_COLORS[i % CONF_COLORS.length],
+          delay: Math.random() * 0.65,
+          dur: 1.0 + Math.random() * 1.0,
+          w: 5 + Math.random() * 7,
+          h: 5 + Math.random() * 7,
+          round: Math.random() > 0.45,
+        })), []
+      );
+      return (
+        <div className="conf-wrap">
+          {pieces.map(p => (
+            <div key={p.id} className="conf-piece" style={{
+              left: `${p.left}%`, top: -10,
+              width: p.w, height: p.h,
+              background: p.color,
+              borderRadius: p.round ? '50%' : '2px',
+              animationDelay: `${p.delay}s`,
+              animationDuration: `${p.dur}s`,
+            }} />
+          ))}
+        </div>
+      );
+    };
+
+    /* ── Count-up hook ── */
+    const useCountUp = (target, durationMs, active) => {
+      const [val, setVal] = useState(0);
+      useEffect(() => {
+        if (!active) { setVal(0); return; }
+        let raf;
+        const t0 = performance.now();
+        const tick = (ts) => {
+          const p = Math.min((ts - t0) / durationMs, 1);
+          setVal(Math.floor((1 - Math.pow(1 - p, 3)) * target));
+          if (p < 1) raf = requestAnimationFrame(tick);
+          else setVal(target);
+        };
+        raf = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(raf);
+      }, [active]);
+      return val;
+    };
+
+    /* ── Product Card ── */
+    const ProductCard = ({ idx, phase, onTap }) => {
+      const { Art, name, price } = PRODUCTS[idx];
+      const isPrimary = idx === 0;
+      const isSelected = isPrimary && phase >= 1;
+      const isUpsell = !isPrimary && phase >= 2;
+      const isAdded = !isPrimary && phase >= 3;
+      const showPlus = isUpsell && !isAdded;
+      const showCheck = isSelected || isAdded;
+      const badgeDelay = idx === 2 ? '0.14s' : '0s';
+      const transDelay = idx === 2 ? '0.1s' : '0s';
+
+      const cls = [
+        'product',
+        isPrimary && phase === 0 && 'idle',
+        isPrimary && phase === 1 && 'tap',
+        (isSelected || isUpsell) && 'sel',
+      ].filter(Boolean).join(' ');
+
+      return (
+        <div
+          className={cls}
+          style={{ '--td': transDelay }}
+          onClick={isPrimary && phase === 0 ? onTap : undefined}
+        >
+          {showPlus && (
+            <div className="chip plus" style={{ '--bd': badgeDelay }}>+1</div>
+          )}
+          {showCheck && (
+            <div className="chip" style={{ '--bd': badgeDelay }}>
+              <CheckIcon />
+            </div>
+          )}
+          <Art />
+          <span className="pname">{name}</span>
+          <span className="price">{price.toLocaleString('ko-KR')}원</span>
+        </div>
+      );
+    };
+
+    const CartIcon = () => (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="9" cy="20" r="1.4" fill="currentColor" />
+        <circle cx="18" cy="20" r="1.4" fill="currentColor" />
+        <path d="M2 3h2.2l2.1 11.2a1.5 1.5 0 0 0 1.5 1.2h8.9a1.5 1.5 0 0 0 1.45-1.1L21 7H5.2"
+          stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+
+    /* ── Cart Pill with bounce ── */
+    const CartPill = ({ count }) => {
+      const active = count > 0;
+      const ref = useRef(null);
+      const prev = useRef(count);
+      useEffect(() => {
+        if (count !== prev.current && ref.current) {
+          ref.current.style.animation = 'none';
+          void ref.current.offsetWidth;
+          ref.current.style.animation = 'cartPop 0.38s cubic-bezier(0.22,1,0.36,1)';
+        }
+        prev.current = count;
+      }, [count]);
+      return (
+        <div ref={ref} className={`cart-pill ${active ? 'active' : ''}`}>
+          <CartIcon />
+          <span>{count}</span>
+        </div>
+      );
+    };
+
+    /* ── Main Demo ── */
+    const Demo = () => {
+      const [phase, setPhase] = useState(0);
+      const [cart, setCart] = useState(0);
+      const ids = useRef([]);
+      const revenue = useCountUp(UPSELL_REVENUE, 900, phase === 4);
+
+      const later = (fn, d) => ids.current.push(setTimeout(fn, d));
+      const stop = () => { ids.current.forEach(clearTimeout); ids.current = []; };
+      useEffect(() => stop, []);   // cleanup on unmount
+
+      const start = () => {
+        if (phase !== 0) return;
+        setPhase(1); setCart(1);
+        later(() => setPhase(2), 800);   // upsell badges pop in
+        later(() => { setPhase(3); setCart(2); }, 1900);   // adding...
+        later(() => setCart(3), 2600);   // cart → 3
+        later(() => setPhase(4), 3100);   // 🎉
+      };
+
+      const reset = (e) => {
+        e.stopPropagation();
+        stop();
+        setPhase(0);
+        setCart(0);
+      };
+
+      return (
+        <div
+          className={`demo ${phase === 4 ? 'done' : ''}`}
+          data-screen-label={`phase-${phase}`}
+          onClick={phase === 0 ? start : undefined}
+        >
+          {phase === 4 && <Confetti key="conf" />}
+
+          {/* top row */}
+          <div className="top-row">
+            <div className="badge">알파업셀</div>
+            <CartPill count={cart} />
+          </div>
+
+          {/* headline */}
+          <h2 className="headline">
+            클릭 한 번에<br />
+            객단가가 오르는 순간
+          </h2>
+
+          {/* product cards */}
+          <div className="products">
+            <ProductCard idx={0} phase={phase} onTap={start} />
+            <ProductCard idx={1} phase={phase} />
+            <ProductCard idx={2} phase={phase} />
+          </div>
+
+          {/* status messages */}
+          <div className="status">
+            {phase === 0 && (
+              <p className="hint">상품을 탭해보세요</p>
+            )}
+            {phase === 1 && (
+              <p className="s-line">장바구니에 담겼어요</p>
+            )}
+            {phase === 2 && (
+              <p className="s-line">함께 쓰면 더 좋아요</p>
+            )}
+            {phase === 3 && (
+              <p className="s-line">장바구니에 {cart}개 담는 중…</p>
+            )}
+            {phase === 4 && (
+              <>
+                <p className="s-line">장바구니에 1개 → <strong>3개</strong></p>
+                <p className="s-revenue">
+                  객단가 +{revenue.toLocaleString('ko-KR')}원 증가
+                </p>
+                <button className="replay-btn" onClick={reset}>다시 보기</button>
+              </>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+  </script>
+</body>
+
+</html>
