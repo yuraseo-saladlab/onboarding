@@ -516,6 +516,8 @@ const DATA = {
 };
 const KEYS=['canvas','insta','review','push','upsell'];
 const LOCKED={canvas:'설치됨'};  // 이미 확정 — 해제 불가
+// 무료체험 이력이 있어 무료체험 불가(바로 결제) 제품 — 계정 데이터 연동 전 설정값. 키 추가/삭제로 제어
+const TRIAL_USED=new Set(['review']);
 
 // ── 신뢰 근거(trust) ──────────────────────────────
 // 원칙:
@@ -590,7 +592,7 @@ function renderChips(){
     const qq=document.createElement('div'); qq.className='q'; qq.textContent=d.chip;
     const sol=document.createElement('div'); sol.className='sol';
     sol.style.color=isS?color:'var(--ink-faint)';
-    sol.innerHTML=isS?(isL?`${d.name}<span class="lk"> · 앱스토어에서 선택함</span>`:`${d.name} 무료체험 선택`):d.name;
+    sol.innerHTML=isS?(isL?`${d.name}<span class="lk"> · 앱스토어에서 선택함</span>`:(TRIAL_USED.has(k)?`${d.name} 선택 · 바로 결제 시작`:`${d.name} 무료체험 선택`)):d.name;
     meta.appendChild(qq); meta.appendChild(sol);
     meta.onclick=()=>{ cur=k; loadPanel(); };
     meta.onkeydown=(e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); cur=k; loadPanel(); } };
@@ -777,8 +779,11 @@ function finishOnboarding(){
 
 const DONE_COND = {
   insta: '최초 사용 시 30건 무료 제공, 이후 매월 5건 무료 제공',
+  trialUsed: '무료체험 이력이 있어 바로 구독돼요',
   _default: '14일 무료 체험',
 };
+// 제품별 완료화면 조건 문구
+function condOf(k){ return k==='insta' ? DONE_COND.insta : (TRIAL_USED.has(k) ? DONE_COND.trialUsed : DONE_COND._default); }
 const INSTALL = {
   review: { auto:'알파리뷰 일부 기능', manual:'알파리뷰 일부 기능' },
   insta:  { auto:'인스타피드' },
@@ -789,19 +794,19 @@ const INSTALL = {
 function renderDone(){
   const picked=KEYS.filter(k=>selected.has(k));
   const box=$('doneSols'); box.innerHTML='';
-  const instaPicked=picked.includes('insta');
-  const others=picked.filter(k=>k!=='insta');
-  if(instaPicked){
+  // 조건 문구별로 그룹화 (인스타 무료제공 / 무료체험 이력 / 14일 무료체험)
+  const groups=[]; const gi={};
+  picked.forEach(k=>{
+    const c=condOf(k);
+    if(gi[c]===undefined){ gi[c]=groups.length; groups.push({cond:c, keys:[]}); }
+    groups[gi[c]].keys.push(k);
+  });
+  groups.forEach(g=>{
     const row=document.createElement('div'); row.className='done-sol-row';
-    row.innerHTML=`<span class="done-sol" style="background:${cvar('insta')}">인스타피드</span><span class="done-sol-cond">${DONE_COND.insta}</span>`;
+    const chips=g.keys.map(k=>`<span class="done-sol" style="background:${cvar(k)}">${DATA[k].name}</span>`).join('');
+    row.innerHTML=`${chips}<span class="done-sol-cond">${g.cond}</span>`;
     box.appendChild(row);
-  }
-  if(others.length){
-    const row=document.createElement('div'); row.className='done-sol-row';
-    const chips=others.map(k=>`<span class="done-sol" style="background:${cvar(k)}">${DATA[k].name}</span>`).join('');
-    row.innerHTML=`${chips}<span class="done-sol-cond">${DONE_COND._default}</span>`;
-    box.appendChild(row);
-  }
+  });
   const auto=[], manual=[];
   picked.forEach(k=>{ const i=INSTALL[k]; if(!i)return; if(i.auto)auto.push(i.auto); if(i.manual)manual.push(i.manual); });
   $('autoSec').style.display = auto.length?'block':'none';
