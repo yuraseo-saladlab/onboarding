@@ -59,10 +59,7 @@
   .ph-label b { font-size:14px; font-weight:800; color:#fff; }
   .ph-desc { font-size:12.5px; font-weight:600; color:rgba(255,255,255,0.5); }
   .ph-vp { font-size:23px; font-weight:800; letter-spacing:-0.025em; line-height:1.35; color:#fff; }
-  /* 데모 토글 (실제 제품엔 없음) */
-  .demo-toggle { position:fixed; left:50%; top:14px; transform:translateX(-50%); z-index:80; background:#16162A; color:#fff; border:none; border-radius:999px; padding:8px 14px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; box-shadow:0 8px 24px rgba(0,0,0,0.25); display:flex; align-items:center; gap:8px; opacity:.85; }
   #selectView { flex:1; display:flex; flex-direction:column; }
-  .demo-toggle:hover { opacity:1; }
 
   /* ── 시각 시퀀스 (스텝퍼 유지, 본문 영역만 교체 — 여전히 스텝3) ── */
   .intro { flex:1; background:radial-gradient(900px 500px at 50% -10%,rgba(139,107,255,0.2),transparent 60%),linear-gradient(160deg,#2B2940,#15142A); display:none; flex-direction:column; }
@@ -260,9 +257,6 @@
   .di-chart i:nth-child(1){background:#12B886;} .di-chart i:nth-child(2){background:#A99CFF;} .di-chart i:nth-child(3){background:#3B82F6;} .di-chart i:nth-child(4){background:#EF4444;}
   .di-box { position:absolute; bottom:0; left:30px; font-size:40px; }
   @media (max-width:820px){ .done-wrap { grid-template-columns:1fr; } .done-right { display:none; } .done-title { font-size:24px; } }
-  .demo-toggle .sw { width:30px; height:16px; border-radius:999px; background:#5BE0B0; position:relative; transition:.2s; }
-  .demo-toggle .sw::after { content:''; position:absolute; top:2px; right:2px; width:12px; height:12px; border-radius:50%; background:#fff; transition:.2s; }
-  .demo-toggle.off .sw { background:#555; } .demo-toggle.off .sw::after { right:auto; left:2px; }
   .panel-body { flex:1; display:flex; padding:0; }
   /* 클릭커블 애니메이션 영역 — 제품별 데모를 iframe으로 임베드 */
   .anim-area { flex:1; border-radius:0; background:#fff; overflow:hidden; min-height:340px; position:relative; }
@@ -428,7 +422,6 @@
   </div>
   </div>
 
-  <button class="demo-toggle" id="demoToggle"><span class="sw"></span>신뢰 근거 ON</button>
 
   <!-- 시각 시퀀스: [다음] 누르면 선택한 프로덕트별로 1장씩 깊게 -->
   <div class="intro" id="intro">
@@ -735,13 +728,6 @@ function loadPanel(){
 
 // 상단 스텝퍼 클릭 이동은 buildSteps()에서 노드별 onclick=goToStep(n)으로 처리
 
-$('demoToggle').onclick=()=>{
-  TRUST_ON=!TRUST_ON;
-  const b=$('demoToggle');
-  b.className='demo-toggle'+(TRUST_ON?'':' off');
-  b.innerHTML=`<span class="sw"></span>신뢰 근거 ${TRUST_ON?'ON':'OFF'}`;
-  loadPanel();
-};
 
 // 좌측 타이틀: 앱스토어에서 선택한(잠금) 제품 기준으로 동적 구성
 (function setLeftTitle(){
