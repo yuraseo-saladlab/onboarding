@@ -590,7 +590,7 @@ function renderChips(){
     const qq=document.createElement('div'); qq.className='q'; qq.textContent=d.chip;
     const sol=document.createElement('div'); sol.className='sol';
     sol.style.color=isS?color:'var(--ink-faint)';
-    sol.innerHTML=isS?(isL?`${d.name}<span class="lk"> · 앱스토어에서 선택함</span>`:`${d.name} 선택`):d.name;
+    sol.innerHTML=isS?(isL?`${d.name}<span class="lk"> · 앱스토어에서 선택함</span>`:`${d.name} 무료체험 선택`):d.name;
     meta.appendChild(qq); meta.appendChild(sol);
     meta.onclick=()=>{ cur=k; loadPanel(); };
     meta.onkeydown=(e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); cur=k; loadPanel(); } };
@@ -629,7 +629,7 @@ $('demoToggle').onclick=()=>{
 // 좌측 타이틀: 앱스토어에서 선택한(잠금) 제품 기준으로 동적 구성
 (function setLeftTitle(){
   const lockedKey=Object.keys(LOCKED)[0];
-  if(lockedKey) $('leftTitle').innerHTML=`${DATA[lockedKey].name}말고도 해결하고 싶은<br>문제가 있다면 골라보세요`;
+  if(lockedKey) $('leftTitle').innerHTML=`<span style="color:${cvar(lockedKey)}">${DATA[lockedKey].name}</span>말고도 해결하고 싶은<br>문제가 있다면 골라보세요`;
 })();
 
 renderChips(); updateCount(); loadPanel();
