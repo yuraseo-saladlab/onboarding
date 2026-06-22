@@ -1,3 +1,6 @@
+🔗 공개 웹링크
+https://yuraseo-saladlab.github.io/onboarding/
+
 # 알파앱스 온보딩 (Onboarding)
 
 쇼핑몰 온보딩 "맞춤 솔루션 선택" 화면과, 우측 프레임에 들어가는 제품별 **클릭커블 데모** 모음입니다.
