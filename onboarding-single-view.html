@@ -592,7 +592,7 @@ function renderChips(){
     const qq=document.createElement('div'); qq.className='q'; qq.textContent=d.chip;
     const sol=document.createElement('div'); sol.className='sol';
     sol.style.color=isS?color:'var(--ink-faint)';
-    sol.innerHTML=isS?(isL?`${d.name}<span class="lk"> · 앱스토어에서 선택함</span>`:(TRIAL_USED.has(k)?`${d.name} 무료체험 이력이 있어 바로 구독돼요`:`${d.name} 무료체험 선택`)):d.name;
+    sol.innerHTML=isS?(isL?`${d.name}<span class="lk"> · 앱스토어에서 선택함</span>`:(TRIAL_USED.has(k)?`${d.name} 체험 완료 · 구독 선택`:`${d.name} 무료체험 선택`)):d.name;
     meta.appendChild(qq); meta.appendChild(sol);
     meta.onclick=()=>{ cur=k; loadPanel(); };
     meta.onkeydown=(e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); cur=k; loadPanel(); } };
