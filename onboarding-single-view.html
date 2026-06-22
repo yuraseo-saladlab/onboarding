@@ -297,6 +297,7 @@
   /* 우측 폼 영역 */
   .iv-pane { flex:1; min-width:0; display:flex; flex-direction:column; background:#fff; }
   .iv-steps { display:flex; gap:12px; align-items:center; padding:16px 24px; border-bottom:1px solid #E3E4E7; }
+  .iv-steps.top { padding:16px 40px; background:#fff; }
   .iv-step { display:flex; align-items:center; gap:12px; flex:1; min-width:0; }
   .iv-step:last-child { flex:0 0 auto; }
   .iv-step .c { width:24px; height:24px; flex:0 0 24px; border-radius:32px; display:grid; place-items:center; font-size:14px; font-weight:500; }
@@ -403,17 +404,7 @@
     </div>
   </div>
 
-  <div class="stepper" id="stepper">
-    <div class="step done" data-step="1"><span class="num">✓</span>담당자 정보 입력</div>
-    <div class="seg done"></div>
-    <div class="step done" data-step="2"><span class="num">✓</span>쇼핑몰 정보 입력</div>
-    <div class="seg done"></div>
-    <div class="step active" data-step="3"><span class="num">3</span>맞춤 솔루션 선택</div>
-    <div class="seg"></div>
-    <div class="step" data-step="4"><span class="num">4</span>위젯 설정</div>
-    <div class="seg"></div>
-    <div class="step" data-step="5"><span class="num">5</span>카드 등록</div>
-  </div>
+  <div class="iv-steps top" id="stepper"></div>
 
   <div id="selectView">
   <div class="main">
@@ -742,7 +733,7 @@ function loadPanel(){
   renderChips();
 }
 
-$('stepper').addEventListener('click',(e)=>{ const s=e.target.closest('.step'); if(!s)return; if(s.classList.contains('done')||s.classList.contains('active')){/* 라우팅 자리 */} });
+// 상단 스텝퍼 클릭 이동은 buildSteps()에서 노드별 onclick=goToStep(n)으로 처리
 
 $('demoToggle').onclick=()=>{
   TRUST_ON=!TRUST_ON;
@@ -939,16 +930,7 @@ function renderDone(){
   $('manualList').textContent = [...new Set(manual)].join(', ');
 }
 document.querySelector('.done-cta').onclick=()=>{ alert('대시보드로 이동합니다 🎉'); };
-function setStepper(n){
-  [...document.querySelectorAll('.step')].forEach(s=>{
-    const d=+s.dataset.step;
-    s.classList.remove('done','active');
-    if(d<n){ s.classList.add('done'); s.querySelector('.num').textContent='✓'; }
-    else if(d===n){ s.classList.add('active'); s.querySelector('.num').textContent=d; }
-    else { s.querySelector('.num').textContent=d; }
-  });
-  [...document.querySelectorAll('.seg')].forEach((sg,i)=>{ sg.classList.toggle('done', i < n-1); });
-}
+function setStepper(n){ buildSteps($('stepper'), n); }
 ['reviewWidget','snsConnect','cardReg'].forEach(id=>{
   $(id).addEventListener('click',(e)=>{
     if(e.target.closest('[data-next]')) flowNext();
@@ -964,19 +946,24 @@ document.querySelector('.nav .next').onclick=()=>{ openIntro(); };
 // ───── 스텝1·2 (담당자/쇼핑몰 정보 입력) 네비게이션 ─────
 const INFO_LABELS=['담당자 정보 입력','쇼핑몰 정보 입력','맞춤 솔루션 선택','위젯 설정','카드 등록'];
 const CHECK_SVG='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#307AF3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5 9-10"/></svg>';
-function renderInfoSteps(){
-  document.querySelectorAll('.iv-steps').forEach(box=>{
-    const cur=+box.dataset.steps; box.innerHTML='';
-    INFO_LABELS.forEach((lbl,idx)=>{
-      const n=idx+1;
-      const st = n<cur?'done':(n===cur?'active':'todo');
-      const node=document.createElement('div');
-      node.className='iv-step '+st+(n<=2?' clickable':'');
-      node.innerHTML=`<span class="c">${st==='done'?CHECK_SVG:n}</span><span class="t">${lbl}</span>`+(n<5?'<span class="tail"></span>':'');
-      if(n<=2) node.onclick=()=>showInfo(n);
-      box.appendChild(node);
-    });
+// 공통 스텝퍼 렌더 (1·2번 페이지 우측 스텝퍼 + 상단 스텝퍼 동일 스타일)
+// 지난/현재 단계(n<=cur)만 클릭 가능 — 미완료 미래 단계로 건너뛰기 방지
+function buildSteps(box, cur){
+  if(!box) return;
+  box.innerHTML='';
+  INFO_LABELS.forEach((lbl,idx)=>{
+    const n=idx+1;
+    const st = n<cur?'done':(n===cur?'active':'todo');
+    const can = n<=cur;
+    const node=document.createElement('div');
+    node.className='iv-step '+st+(can?' clickable':'');
+    node.innerHTML=`<span class="c">${st==='done'?CHECK_SVG:n}</span><span class="t">${lbl}</span>`+(n<5?'<span class="tail"></span>':'');
+    if(can) node.onclick=()=>goToStep(n);
+    box.appendChild(node);
   });
+}
+function renderInfoSteps(){
+  document.querySelectorAll('.iv-steps[data-steps]').forEach(box=> buildSteps(box, +box.dataset.steps));
 }
 function showInfo(n){
   $('info1').classList.toggle('on', n===1);
@@ -985,13 +972,32 @@ function showInfo(n){
 }
 function hideInfo(){ $('info1').classList.remove('on'); $('info2').classList.remove('on'); }
 
-$('info1').querySelector('[data-next]').onclick=()=>showInfo(2);
-$('info2').querySelector('[data-prev]').onclick=()=>showInfo(1);
-$('info2').querySelector('[data-next]').onclick=()=>{ hideInfo(); setStepper(3); };
-document.querySelector('.nav .prev').onclick=()=>showInfo(2);  // 솔루션 선택(스텝3)에서 이전 → 스텝2
+// 임의 단계로 이동 (스텝퍼 클릭/네비게이션 공용)
+function goToStep(n){
+  $('intro').classList.remove('on');
+  ['reviewWidget','snsConnect','cardReg','doneView'].forEach(id=>$(id).classList.remove('on'));
+  if(n<=2){ $('selectView').style.display='none'; showInfo(n); setStepper(n); return; }
+  hideInfo();
+  if(n===3){ $('selectView').style.display=''; setStepper(3); window.scrollTo(0,0); return; }
+  // 4·5: 선택 기반 플로우 큐 구성 후 해당 단계로
+  $('selectView').style.display='none';
+  flowQueue=[];
+  if(selected.has('review')) flowQueue.push({view:'reviewWidget', step:4});
+  if(selected.has('insta'))  flowQueue.push({view:'snsConnect', step:4});
+  flowQueue.push({view:'cardReg', step:5});
+  let pos=flowQueue.findIndex(f=>f.step===n);
+  if(pos<0) pos = (n>=5 ? flowQueue.length-1 : 0);
+  flowPos=pos; showFlow();
+}
+
+$('info1').querySelector('[data-next]').onclick=()=>goToStep(2);
+$('info2').querySelector('[data-prev]').onclick=()=>goToStep(1);
+$('info2').querySelector('[data-next]').onclick=()=>goToStep(3);
+document.querySelector('.nav .prev').onclick=()=>goToStep(2);  // 솔루션 선택(스텝3)에서 이전 → 스텝2
 
 renderInfoSteps();
-showInfo(1);  // 진입 시 스텝1부터 시작
+setStepper(3);   // 상단 스텝퍼 초기 렌더
+showInfo(1);     // 진입 시 스텝1부터 시작
 </script>
 </body>
 </html>
