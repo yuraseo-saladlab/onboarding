@@ -1,335 +1,2278 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>알파앱스 온보딩 — 맞춤 솔루션 선택</title>
-<style>
-  :root {
-    --bg:#FFFFFF; --ink:#16162A; --ink-dim:#6B6B80; --ink-faint:#A0A0B5;
-    --line:#E8E8F0; --line-soft:#F3F3F8;
-    --accent:#6B5BFF; --accent-soft:#F0EEFF; --accent-line:#C9C0FF;
-    --panel-a:#423F5C; --panel-b:#2B2940; --ok:#12B886; --r:14px;
-    --c-canvas:#00B7A8; --c-insta:#EC4A7F; --c-review:#6D58F2; --c-push:#307AF3; --c-upsell:#E62C35;
-  }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  html, body { height:100%; }
-  body { font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',system-ui,sans-serif; background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased; display:flex; flex-direction:column; min-height:100%; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파앱스 온보딩 — 맞춤 솔루션 선택</title>
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --ink: #16162A;
+      --ink-dim: #6B6B80;
+      --ink-faint: #A0A0B5;
+      --line: #E8E8F0;
+      --line-soft: #F3F3F8;
+      --accent: #6B5BFF;
+      --accent-soft: #F0EEFF;
+      --accent-line: #C9C0FF;
+      --panel-a: #423F5C;
+      --panel-b: #2B2940;
+      --ok: #12B886;
+      --r: 14px;
+      --c-canvas: #00B7A8;
+      --c-insta: #EC4A7F;
+      --c-review: #6D58F2;
+      --c-push: #307AF3;
+      --c-upsell: #E62C35;
+    }
 
-  .stepper { display:flex; align-items:center; padding:20px 40px; border-bottom:1px solid var(--line); }
-  .step { display:flex; align-items:center; gap:10px; color:var(--ink-faint); font-size:14px; font-weight:600; white-space:nowrap; }
-  .step.done, .step.active { cursor:pointer; }
-  .step.done:hover .num { box-shadow:0 0 0 4px var(--accent-soft); }
-  .step:not(.done):not(.active) { cursor:not-allowed; }
-  .step .num { width:26px; height:26px; border-radius:50%; display:grid; place-items:center; font-size:13px; font-weight:700; background:var(--line-soft); color:var(--ink-faint); }
-  .step.done .num { background:var(--accent-soft); color:var(--accent); } .step.done { color:var(--ink-dim); }
-  .step.active .num { background:var(--accent); color:#fff; } .step.active { color:var(--ink); }
-  .seg { flex:1; height:1px; background:var(--line); margin:0 14px; min-width:30px; } .seg.done { background:var(--accent-line); }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  .main { flex:1; display:grid; grid-template-columns:440px 1fr; padding:44px 40px 28px; width:100%; margin:0 auto; }
-  .left { padding-right:40px; }
-  .left h1 { font-size:27px; letter-spacing:-0.03em; line-height:1.3; margin-bottom:10px; }
-  .left .sub { font-size:14px; color:var(--ink-dim); margin-bottom:22px; line-height:1.5; }
+    html,
+    body {
+      height: 100%;
+    }
 
-  .chips { display:flex; flex-direction:column; gap:10px; }
-  /* Figma 솔루션 선택 카드 (radius 12 / padding 16·20 / gap 16) */
-  .chip { display:flex; align-items:center; gap:16px; width:100%; background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 20px; font-family:inherit; text-align:left; position:relative; transition:border-color .16s ease, box-shadow .16s ease; }
-  /* 체크박스 = 선택 전용 */
-  .chip .check { flex:0 0 24px; width:24px; height:24px; border-radius:6px; border:1.5px solid #C9CCD6; display:grid; place-items:center; transition:all .18s ease; color:#fff; font-size:14px; font-weight:900; cursor:pointer; }
-  /* 본문 = 보기 전용 */
-  .chip .meta { flex:1; min-width:0; cursor:pointer; }
-  .chip .meta:hover .q { color:var(--chip-accent,var(--accent)); }
-  .chip .q { font-size:16px; font-weight:600; color:var(--ink); letter-spacing:-0.01em; line-height:1.5; transition:color .15s; }
-  .chip .sol { font-size:14px; font-weight:600; margin-top:4px; line-height:1.5; }
-  .chip .sol .lk { font-weight:800; }
-  /* 뷰잉 = accent 테두리 / hover = accent 테두리 + 3px ring */
-  .chip:not(.locked):hover { border-color:var(--chip-accent,var(--accent)); box-shadow:0 0 0 3px var(--line-soft); }
-  .chip.viewing { border-color:var(--chip-accent,var(--accent)); }
-  .chip.selected .check { border-color:transparent; }
-  /* locked = lock 글리프(박스 없음) + 내용 dim .6 */
-  .chip.locked .check { background:transparent; border-color:transparent; color:var(--ink-dim); cursor:default; }
-  .chip.locked .check, .chip.locked .meta { opacity:.6; }
-  .chip.locked .q { color:var(--ink-dim); }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
 
-  .right { min-width:0; }
-  .panel { height:100%; min-height:560px; background:#fff; border-radius:20px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 24px 50px rgba(40,38,70,0.14); border:1px solid var(--line); }
-  /* Figma 우측 패널 헤더: 제품명+USP설명 한 줄 + 굵은 VP 헤드라인 */
-  .panel-head { display:block; padding:24px 28px 22px; }
-  .ph-label { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; margin-bottom:10px; }
-  .ph-label b { font-size:14px; font-weight:800; color:#fff; }
-  .ph-desc { font-size:12.5px; font-weight:600; color:rgba(255,255,255,0.5); }
-  .ph-vp { font-size:23px; font-weight:800; letter-spacing:-0.025em; line-height:1.35; color:#fff; }
-  #selectView { flex:1; display:flex; flex-direction:column; }
+    .stepper {
+      display: flex;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--line);
+    }
 
-  /* ── 시각 시퀀스 (스텝퍼 유지, 본문 영역만 교체 — 여전히 스텝3) ── */
-  .intro { flex:1; background:radial-gradient(900px 500px at 50% -10%,rgba(139,107,255,0.2),transparent 60%),linear-gradient(160deg,#2B2940,#15142A); display:none; flex-direction:column; }
-  .intro.on { display:flex; animation:fade .3s ease; }
-  @keyframes fade { from{opacity:0;} to{opacity:1;} }
-  /* 스크롤 영역 + 가운데 컬럼 (헤더·데모·스텝 모두 같은 폭으로 좌측 정렬) */
-  .intro-body { flex:1; overflow:auto; padding:0 32px; min-height:0; }
-  .intro-inner { width:100%; max-width:720px; margin:0 auto; display:flex; flex-direction:column; }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink-faint);
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
 
-  /* 헤더 — 좌측 정렬: 뒤로가기 / (제품명·라벨 한 줄) / 헤드라인 / 신뢰 */
-  .intro-head { padding:26px 0 4px; }
-  .ih-back { background:none; border:none; color:rgba(255,255,255,0.65); font-size:13.5px; font-weight:600; cursor:pointer; font-family:inherit; padding:0; transition:.15s; margin-bottom:22px; }
-  .ih-back:hover { color:#fff; }
-  .ih-count { font-size:12.5px; font-weight:700; color:rgba(255,255,255,0.5); white-space:nowrap; }
-  .intro-prog { display:flex; gap:5px; width:64px; }
-  .intro-prog i { flex:1; height:3px; border-radius:2px; background:rgba(255,255,255,0.15); }
-  .intro-prog i.done { background:#6FE9BD; } .intro-prog i.cur { background:#A99CFF; }
-  .ih-eyebrow { display:flex; align-items:center; flex-wrap:wrap; gap:9px; margin-bottom:13px; font-size:13px; }
-  .ih-label { color:#A99CFF; font-weight:800; letter-spacing:0.01em; }
-  .ih-prod { display:inline-flex; align-items:center; gap:7px; position:relative; padding-left:13px; }
-  .ih-prod::before { content:'·'; position:absolute; left:4px; color:rgba(255,255,255,0.3); }
-  .ih-prod .ic-dot { width:8px; height:8px; border-radius:50%; flex:0 0 8px; }
-  .ih-prod b { font-size:13px; font-weight:800; color:rgba(255,255,255,0.92); }
-  .ic-vp { font-size:32px; font-weight:800; letter-spacing:-0.03em; line-height:1.28; color:#fff; }
-  .ic-trust { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:16px; }
-  .ic-trust .f { font-size:12.5px; font-weight:600; color:rgba(255,255,255,0.55); }
-  .ic-trust .f:not(:last-child)::after { content:'·'; margin-left:6px; color:rgba(255,255,255,0.3); }
-  .ic-trust .f .c { display:inline-block; width:5px; height:5px; border-radius:50%; background:#6FE9BD; margin-right:5px; vertical-align:middle; }
+    .step.done,
+    .step.active {
+      cursor: pointer;
+    }
 
-  /* 큰 데모 브라우저 — 서비스를 실제로 들여다보는 느낌 */
-  .intro-demo { display:flex; flex-direction:column; align-items:center; gap:16px; width:100%; padding:14px 0 8px; }
-  .demo-browser { width:100%; max-width:720px; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 40px 90px rgba(0,0,0,0.5); color:#1a1530; cursor:pointer; transition:transform .5s ease; animation:cardIn .4s ease; }
-  @keyframes cardIn { from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:none;} }
-  .db-bar { height:44px; background:#f3f0fb; display:flex; align-items:center; gap:7px; padding:0 16px; }
-  .db-dot { width:11px; height:11px; border-radius:50%; background:#d6cef0; }
-  .db-url { margin-left:14px; font-size:12.5px; color:#9a90c4; background:#fff; border-radius:7px; padding:5px 14px; flex:1; max-width:340px; }
-  .db-screen { padding:26px 28px; min-height:300px; position:relative; }
-  .db-row { display:flex; gap:14px; align-items:center; padding:14px 0; border-bottom:1px solid #f0edf9; }
-  .db-thumb { width:56px; height:56px; border-radius:10px; background:linear-gradient(135deg,#ece8f7,#ddd6f3); flex:0 0 56px; }
-  .db-lines { flex:1; display:flex; flex-direction:column; gap:9px; }
-  .db-lines .dl { height:12px; border-radius:6px; background:#ece8f7; } .db-lines .dl.s { width:55%; }
-  .db-pop { position:absolute; left:28px; right:28px; bottom:24px; background:linear-gradient(135deg,#6B5BFF,#A99CFF); color:#fff; border-radius:13px; padding:18px 20px; font-size:15px; font-weight:700; transform:translateY(24px) scale(.97); opacity:0; transition:all .55s cubic-bezier(.2,.9,.3,1.2); box-shadow:0 16px 40px rgba(107,91,255,0.4); }
-  .demo-browser.s1 .db-pop { transform:none; opacity:1; }
-  .db-metric { position:absolute; top:20px; right:24px; background:var(--ok); color:#042b1f; font-weight:800; font-size:14px; padding:7px 15px; border-radius:999px; opacity:0; transform:scale(.8); transition:.5s ease .2s; box-shadow:0 8px 24px rgba(18,184,134,0.4); }
-  .demo-browser.s2 .db-metric { opacity:1; transform:scale(1); }
-  .demo-browser.s2 { transform:translateY(-6px) scale(1.01); }
-  .ic-hint { font-size:12.5px; color:rgba(255,255,255,0.55); background:rgba(0,0,0,0.25); padding:6px 14px; border-radius:999px; flex:0 0 auto; }
+    .step.done:hover .num {
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
 
-  /* ── 알파리뷰 전용 데모 씬 (단계별 실제 제품 UI) ── */
-  .rv-scene { min-height:300px; display:flex; flex-direction:column; gap:14px; justify-content:center; animation:fade .35s ease; }
-  .rv-eyebrow { font-size:12px; font-weight:800; color:var(--accent); letter-spacing:0.02em; }
-  .rv-row { display:flex; justify-content:space-between; align-items:center; }
-  .rv-h { font-size:16px; font-weight:800; color:#16162A; letter-spacing:-0.02em; }
-  .rv-stars { color:#FFB020; font-weight:800; font-size:14px; } .rv-stars b { color:#16162A; margin-left:4px; }
-  .rv-cap { font-size:12.5px; color:#6B6B80; line-height:1.5; }
-  .rv-badge { align-self:flex-start; background:var(--ok); color:#053d2c; font-size:12px; font-weight:800; padding:6px 13px; border-radius:999px; }
-  .rv-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; }
-  .rv-ph { aspect-ratio:1; border-radius:10px; display:grid; place-items:center; font-size:22px; }
-  .rv-ph.a{background:linear-gradient(135deg,#EDE9FF,#C9C0FF);} .rv-ph.b{background:linear-gradient(135deg,#FFE3EC,#FFC2D6);} .rv-ph.c{background:linear-gradient(135deg,#DBF3EA,#A7E8CE);}
-  .rv-kakao { background:#9DB7CE; border-radius:14px; padding:18px; display:flex; justify-content:center; }
-  .rv-bub { background:#fff; border-radius:6px 16px 16px 16px; padding:16px; max-width:320px; box-shadow:0 4px 12px rgba(0,0,0,0.12); }
-  .rv-bub .kh { font-weight:800; font-size:13px; display:flex; align-items:center; gap:7px; margin-bottom:9px; }
-  .rv-bub .kh i { width:18px; height:18px; border-radius:5px; background:#FAE100; display:grid; place-items:center; font-size:9px; font-style:normal; color:#3c2e00; font-weight:900; }
-  .rv-bub p { font-size:13px; color:#333; line-height:1.6; }
-  .rv-bub .kbtn { margin-top:13px; background:#FAE100; color:#3c2e00; text-align:center; font-weight:800; font-size:13px; padding:11px; border-radius:8px; }
-  .rv-table { border:1px solid #eee; border-radius:11px; overflow:hidden; font-size:13px; }
-  .rv-tr { display:grid; grid-template-columns:1fr 1.3fr 0.8fr; padding:11px 16px; border-bottom:1px solid #f3f3f8; }
-  .rv-tr:last-child { border:none; } .rv-tr.h { background:#F3F3F8; font-weight:800; color:#6B6B80; font-size:12px; }
-  .rv-tr .ok { color:#12B886; font-weight:700; }
-  .rv-send { background:var(--accent-soft); border:1px dashed var(--accent-line); border-radius:11px; padding:13px 16px; font-weight:800; color:var(--accent); display:flex; justify-content:space-between; font-size:13px; }
-  .rv-sns { display:grid; grid-template-columns:repeat(6,1fr); gap:7px; }
-  .rv-ig { aspect-ratio:1; border-radius:10px; background:linear-gradient(135deg,#F9CE34,#EE2A7B 45%,#6228D7); } .rv-ig.n { background:linear-gradient(135deg,#03C75A,#86E0A8); }
-  .rv-snsrow { display:flex; align-items:center; gap:9px; font-size:13px; color:#6B6B80; } .rv-pill { background:var(--accent); color:#fff; font-size:12px; font-weight:700; padding:4px 11px; border-radius:999px; }
-  .rv-bars { display:flex; align-items:flex-end; gap:18px; height:140px; padding:18px 12px 0; }
-  .rv-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; justify-content:flex-end; }
-  .rv-bar { width:100%; max-width:48px; border-radius:8px 8px 0 0; background:linear-gradient(180deg,#A99CFF,#6B5BFF); position:relative; }
-  .rv-bar .val { position:absolute; top:-21px; left:0; right:0; text-align:center; font-size:12px; font-weight:800; color:#16162A; }
-  .rv-lb { font-size:12px; color:#6B6B80; font-weight:700; }
+    .step:not(.done):not(.active) {
+      cursor: not-allowed;
+    }
 
-  /* 현재 단계 캡션 (데모 바로 위) */
-  .ic-cap { width:100%; min-height:46px; margin-top:2px; }
-  .ic-cap .t { font-size:16px; font-weight:800; color:#fff; letter-spacing:-0.01em; display:flex; align-items:baseline; gap:9px; }
-  .ic-cap .t .num { color:#A99CFF; font-size:13px; font-weight:800; flex:0 0 auto; }
-  .ic-cap .d { font-size:13px; color:rgba(255,255,255,0.55); margin-top:6px; line-height:1.5; }
-  /* 번호 스텝퍼 (데모 바로 아래) */
-  .ic-steps { display:flex; align-items:center; width:100%; max-width:540px; }
-  .ic-step { display:flex; align-items:center; flex:1; }
-  .ic-step:last-child { flex:0 0 auto; }
-  .ic-step .dot { width:34px; height:34px; flex:0 0 34px; border-radius:50%; display:grid; place-items:center; font-size:13.5px; font-weight:800; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.5); cursor:pointer; transition:.25s; }
-  .ic-step .dot:hover { background:rgba(255,255,255,0.22); color:#fff; }
-  .ic-step .line { flex:1; height:3px; margin:0 9px; background:rgba(255,255,255,0.12); border-radius:2px; transition:.35s; }
-  .ic-step .line.fill { background:#6FE9BD; }
-  .ic-step.passed .dot { background:#6FE9BD; color:#042b1f; }
-  .ic-step.active .dot { background:#A99CFF; color:#1a1530; box-shadow:0 0 0 5px rgba(169,156,255,0.2); }
+    .step .num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--line-soft);
+      color: var(--ink-faint);
+    }
 
-  .intro-foot { display:flex; align-items:center; justify-content:space-between; padding:18px 32px 26px; max-width:784px; width:100%; margin:0 auto; flex:0 0 auto; }
-  .intro-prev, .intro-next { border-radius:10px; padding:13px 30px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:.2s; }
-  .intro-prev { background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.8); border:none; }
-  .intro-prev:hover { background:rgba(255,255,255,0.18); } .intro-prev:disabled { opacity:.4; cursor:default; }
-  .intro-next { background:#fff; color:#16162A; border:none; }
-  .intro-next:hover { background:#F0EEFF; }
-  @media (max-width:820px){ .ic-vp { font-size:25px; } .ic-cap .t { font-size:15px; } }
+    .step.done .num {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
 
-  /* ── 스텝 4·5 공통 (스텝퍼 아래 본문 영역) ── */
-  .step-view { flex:1; display:none; flex-direction:column; }
-  .step-view.on { display:flex; animation:fade .3s ease; }
-  /* 4-A 리뷰 위젯 미리보기 */
-  #reviewWidget .sv-head { text-align:center; padding:28px 32px 0; position:relative; }
-  .sv-title { font-size:22px; font-weight:800; letter-spacing:-0.02em; }
-  .sv-sub { font-size:13.5px; color:var(--ink-dim); margin-top:6px; }
-  .sv-tabs { display:inline-flex; gap:22px; margin-top:18px; }
-  .svt { background:none; border:none; font-size:14px; font-weight:700; color:var(--ink-faint); cursor:pointer; font-family:inherit; padding-bottom:8px; }
-  .svt.active { color:var(--ink); border-bottom:2px solid var(--ink); }
-  .sv-preview { flex:1; display:grid; place-items:center; padding:24px; background:linear-gradient(180deg,#FBF6F7,#F7F4FB); overflow:auto; }
-  .shop-mock { width:340px; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,0.12); position:relative; }
-  .sm-top { background:#1a1a1a; color:#fff; font-size:11px; text-align:center; padding:7px; }
-  .sm-brand { text-align:center; font-size:18px; font-weight:800; padding:16px; letter-spacing:-0.02em; } .sm-brand b { color:var(--accent); }
-  .sm-hero { height:230px; background:linear-gradient(135deg,#dbe2f5,#c3cdea); }
-  .sm-tags { display:flex; gap:5px; padding:14px 16px 0; } .sm-tags .t { font-size:10px; font-weight:800; padding:2px 6px; border-radius:3px; color:#fff; } .t.new{background:#f59e0b;} .t.best{background:#3b82f6;} .t.sale{background:#ef4444;}
-  .sm-name { padding:8px 16px 0; font-size:14px; font-weight:600; }
-  .sm-price { padding:6px 16px 14px; font-size:15px; } .sm-price s { color:#bbb; font-size:12px; } .sm-price b { color:#ef4444; }
-  .sm-review { margin:0 16px 16px; border:1px solid #eee; border-radius:10px; padding:12px; }
-  .smr-head { font-size:13px; font-weight:700; margin-bottom:10px; }
-  .smr-row { display:flex; gap:10px; align-items:center; padding:7px 0; }
-  .smr-thumb { width:40px; height:40px; border-radius:8px; background:linear-gradient(135deg,#ece8f7,#ddd6f3); flex:0 0 40px; }
-  .smr-lines { flex:1; display:flex; flex-direction:column; gap:6px; } .smr-lines i { height:9px; border-radius:5px; background:#eee; } .smr-lines i.s { width:55%; }
-  .sm-badge { position:absolute; bottom:12px; right:12px; background:var(--accent); color:#fff; font-size:11px; font-weight:700; padding:5px 10px; border-radius:7px; box-shadow:0 6px 16px rgba(107,91,255,0.4); }
-  .sv-foot, .cf-foot { display:flex; align-items:center; justify-content:space-between; padding:18px 40px 26px; border-top:1px solid var(--line); }
-  .sv-skip { background:none; border:none; color:var(--ink-faint); font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; }
-  .sv-btns { display:flex; gap:10px; }
-  .sv-prev { background:#fff; border:1px solid var(--line); color:var(--ink-dim); border-radius:10px; padding:11px 26px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
-  .sv-next, .cf-done { background:var(--ink); border:none; color:#fff; border-radius:10px; padding:11px 26px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
-  .sv-next:hover, .cf-done:hover { background:#000; }
-  /* 4-B SNS 연결 */
-  #snsConnect { background:linear-gradient(160deg,#F2EFFF,#F7F5FF); align-items:center; justify-content:center; }
-  .sns-card { width:100%; max-width:560px; background:#fff; border-radius:20px; padding:36px; box-shadow:0 24px 60px rgba(60,50,120,0.1); }
-  .sns-title { font-size:22px; font-weight:800; line-height:1.4; letter-spacing:-0.02em; } .sns-title b { color:var(--accent); }
-  .sns-points { list-style:none; margin:18px 0 22px; display:flex; flex-direction:column; gap:10px; }
-  .sns-points li { font-size:13.5px; color:var(--ink-dim); padding-left:26px; position:relative; }
-  .sns-points li::before { content:'✓'; position:absolute; left:0; top:0; width:18px; height:18px; border-radius:50%; background:var(--accent-soft); color:var(--accent); font-size:11px; font-weight:800; display:grid; place-items:center; }
-  .sns-feed { border:1px solid var(--line); border-radius:14px; padding:16px; }
-  .sf-head { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
-  .sf-avatar { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#f0a,#fa0); }
-  .sf-head b { font-size:14px; } .sf-head span { font-size:12px; color:var(--ink-faint); display:block; }
-  .sf-ig { margin-left:auto; font-size:22px; }
-  .sf-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; }
-  .sf-grid i { aspect-ratio:1; border-radius:6px; background:linear-gradient(135deg,#e8e4f5,#d4ccee); }
-  .sns-btns { display:flex; gap:12px; margin-top:24px; }
-  .sns-skip { flex:1; background:#fff; border:1px solid var(--line); color:var(--ink-dim); border-radius:10px; padding:13px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
-  .sns-connect { flex:1; background:var(--accent); border:none; color:#fff; border-radius:10px; padding:13px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
-  .sns-connect:hover { background:#5a48f0; }
-  /* 5 카드 등록 */
-  #cardReg { align-items:center; padding:40px 32px; overflow:auto; }
-  .card-form { width:100%; max-width:460px; }
-  .cf-title { font-size:24px; font-weight:800; line-height:1.4; letter-spacing:-0.02em; margin-bottom:28px; } .cf-title b { color:var(--accent); }
-  .cf-label { display:block; font-size:13px; font-weight:700; color:var(--ink-dim); margin:18px 0 8px; }
-  .cf-seg { display:flex; background:var(--line-soft); border-radius:10px; padding:4px; }
-  .cf-seg button { flex:1; background:none; border:none; padding:10px; font-size:14px; font-weight:700; color:var(--ink-faint); cursor:pointer; font-family:inherit; border-radius:7px; }
-  .cf-seg button.active { background:#fff; color:var(--ink); box-shadow:0 1px 4px rgba(0,0,0,0.08); }
-  .cf-card { display:flex; gap:8px; } .cf-card input { flex:1; width:0; }
-  .cf-exp { display:flex; gap:8px; } .cf-exp input { flex:1; }
-  .card-form input { border:1px solid var(--line); border-radius:9px; padding:12px; font-size:14px; font-family:inherit; text-align:center; }
-  .card-form input:focus { outline:none; border-color:var(--accent); }
-  .cf-agree { display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:600; margin:22px 0 8px; cursor:pointer; }
-  .cf-note { font-size:12px; color:var(--ink-faint); line-height:1.5; }
-  .cf-foot { border-top:none; padding:24px 0 0; }
-  .cf-trust { text-align:center; font-size:13px; font-weight:700; color:var(--accent); margin-top:32px; }
+    .step.done {
+      color: var(--ink-dim);
+    }
 
-  /* ── 완료 화면 ── */
-  #doneView { align-items:center; justify-content:center; padding:32px; }
-  .done-wrap { width:100%; max-width:1200px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
-  .done-title { font-size:32px; font-weight:800; letter-spacing:-0.03em; line-height:1.35; margin-bottom:32px; }
-  .done-sec { margin-bottom:24px; }
-  .done-sec h3 { font-size:17px; font-weight:800; margin-bottom:12px; }
-  .done-sols { display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; }
-  .done-sol-row { display:flex; align-items:center; gap:10px; width:100%; }
-  .done-sol { display:inline-flex; align-items:center; font-size:13px; font-weight:700; color:#fff; padding:6px 13px; border-radius:999px; }
-  .done-sol-cond { font-size:13.5px; color:var(--ink-dim); }
-  .done-sec p { font-size:14.5px; color:var(--ink); line-height:1.6; }
-  .done-note { font-size:13px; color:var(--ink-faint); margin-top:10px; line-height:1.6; } .done-note b { color:var(--accent); }
-  .done-cta { background:var(--ink); color:#fff; border:none; border-radius:12px; padding:15px 32px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; margin-top:8px; }
-  .done-cta:hover { background:#000; }
-  /* 일러스트 (가안 → 실제 3D 이미지로 교체) */
-  .done-right { display:grid; place-items:center; }
-  .done-illust { position:relative; width:360px; height:360px; }
-  .di-phone { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:150px; height:280px; background:linear-gradient(160deg,#fff,#f0edfb); border-radius:28px; box-shadow:0 30px 60px rgba(107,91,255,0.2); border:6px solid #2B2940; }
-  .di-shop { position:absolute; top:24px; left:50%; transform:translateX(-50%); width:90px; height:30px; background:repeating-linear-gradient(90deg,#A99CFF 0 15px,#fff 15px 30px); border-radius:6px 6px 0 0; }
-  .di-bag { position:absolute; top:90px; left:50%; transform:translateX(-50%); font-size:48px; }
-  .di-bar { position:absolute; bottom:30px; left:50%; transform:translateX(-50%); width:90px; height:18px; background:var(--accent); border-radius:9px; }
-  .di-review { position:absolute; top:10px; left:-10px; background:#fff; padding:12px 16px; border-radius:14px; box-shadow:0 16px 32px rgba(0,0,0,0.1); font-size:13px; }
-  .di-cart { position:absolute; top:30px; right:0; font-size:40px; background:#fff; padding:12px; border-radius:16px; box-shadow:0 16px 32px rgba(0,0,0,0.1); }
-  .di-bell { position:absolute; bottom:70px; left:-20px; font-size:28px; background:#fff; padding:10px; border-radius:14px; box-shadow:0 16px 32px rgba(0,0,0,0.1); }
-  .di-chart { position:absolute; bottom:10px; right:0; display:flex; align-items:flex-end; gap:6px; height:90px; }
-  .di-chart i { width:18px; border-radius:5px 5px 0 0; }
-  .di-chart i:nth-child(1){background:#12B886;} .di-chart i:nth-child(2){background:#A99CFF;} .di-chart i:nth-child(3){background:#3B82F6;} .di-chart i:nth-child(4){background:#EF4444;}
-  .di-box { position:absolute; bottom:0; left:30px; font-size:40px; }
-  @media (max-width:820px){ .done-wrap { grid-template-columns:1fr; } .done-right { display:none; } .done-title { font-size:24px; } }
-  .panel-body { flex:1; display:flex; padding:0; }
-  /* 클릭커블 애니메이션 영역 — 제품별 데모를 iframe으로 임베드 */
-  .anim-area { flex:1; border-radius:0; background:#fff; overflow:hidden; min-height:340px; position:relative; }
-  .anim-area iframe { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+    .step.active .num {
+      background: var(--accent);
+      color: #fff;
+    }
 
-  .nav { border-top:1px solid var(--line); padding:16px 40px; display:flex; align-items:center; justify-content:space-between; }
-  .nav .summary { font-size:14px; color:var(--ink-dim); } .nav .summary b { color:var(--accent); font-weight:700; }
-  .nav .btns { display:flex; gap:10px; }
-  .nav button { border-radius:10px; padding:11px 26px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; transition:.2s; }
-  .nav .prev { background:#fff; border:1px solid var(--line); color:var(--ink-dim); } .nav .prev:hover { border-color:var(--ink-faint); }
-  .nav .next { background:var(--ink); border:none; color:#fff; } .nav .next:hover { background:#000; }
+    .step.active {
+      color: var(--ink);
+    }
 
-  @media (max-width:900px){ .main { grid-template-columns:1fr; gap:24px; } .left { padding-right:0; } }
+    .seg {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+      margin: 0 14px;
+      min-width: 30px;
+    }
 
-  /* ───── 스텝1·2 (담당자/쇼핑몰 정보 입력) — Figma 좌우 분할 ───── */
-  .infoview { position:fixed; inset:0; z-index:100; background:#fff; display:none; }
-  .infoview.on { display:flex; }
-  /* 좌측 다크 히어로 */
-  .iv-hero { flex:1; min-width:0; position:relative; background:linear-gradient(105deg,#1B1739,#15132D); overflow:hidden; }
-  .iv-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; }
-  .iv-hero-top { position:absolute; top:64px; left:0; right:0; padding:0 32px; text-align:center; z-index:2; }
-  .iv-headline { font-size:32px; font-weight:800; line-height:1.3; letter-spacing:-0.02em; color:#fff; }
-  .iv-headline .g-pp { background:linear-gradient(90deg,#F7A1FF 8%,#837AFF 98%); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .iv-card { margin:20px auto 0; max-width:520px; border:1px solid rgba(255,255,255,0.16); border-radius:20px; padding:16px 24px; background:linear-gradient(103deg,rgba(255,255,255,0.08) 0%,rgba(255,255,255,0.02) 30%,rgba(255,255,255,0) 100%); box-shadow:0 4px 12px rgba(0,0,0,0.15); display:flex; flex-direction:column; gap:12px; align-items:center; backdrop-filter:blur(4px); }
-  .iv-card-row { display:flex; gap:8px; align-items:center; }
-  .iv-avs { display:flex; }
-  .iv-av { width:28px; height:28px; border-radius:100px; display:grid; place-items:center; color:#fff; font-size:14px; font-weight:600; box-shadow:0 4px 20px rgba(0,0,0,0.2), inset 0 4px 4px rgba(255,255,255,0.25), inset -2px -4px 12px rgba(0,0,0,0.5); }
-  .iv-av:not(:last-child){ margin-right:-8px; }
-  .iv-av.a{background:#837CF4;} .iv-av.b{background:#F64647;} .iv-av.c{background:#2EAC69;}
-  .iv-ctext { font-size:20px; line-height:1.3; color:#fff; font-weight:400; }
-  .iv-ctext .g-bl { background:linear-gradient(91deg,#3499FF 8%,#7DD6FF 98%); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:600; }
-  /* 우측 폼 영역 */
-  .iv-pane { flex:1; min-width:0; display:flex; flex-direction:column; background:#fff; }
-  .iv-steps { display:flex; gap:12px; align-items:center; padding:16px 24px; border-bottom:1px solid #E3E4E7; }
-  .iv-steps.top { padding:16px 40px; background:#fff; }
-  .iv-step { display:flex; align-items:center; gap:12px; flex:1; min-width:0; }
-  .iv-step:last-child { flex:0 0 auto; }
-  .iv-step .c { width:24px; height:24px; flex:0 0 24px; border-radius:32px; display:grid; place-items:center; font-size:14px; font-weight:500; }
-  .iv-step.todo .c { background:#E3E4E7; color:#8E929E; }
-  .iv-step.active .c { background:#307AF3; color:#fff; }
-  .iv-step.done .c { background:#D6E6FF; color:#307AF3; }
-  .iv-step .t { font-size:14px; letter-spacing:-0.01em; color:#8E929E; white-space:nowrap; }
-  .iv-step.active .t, .iv-step.done .t { color:#2A2D38; }
-  .iv-step .tail { flex:1; min-width:8px; height:1px; background:#E3E4E7; }
-  .iv-step.done .tail { background:#307AF3; }
-  .iv-step.clickable { cursor:pointer; }
-  .iv-body { flex:1; display:flex; align-items:center; justify-content:center; padding:32px; overflow:auto; }
-  .iv-form { width:100%; max-width:360px; display:flex; flex-direction:column; gap:24px; }
-  .iv-fhead { display:flex; flex-direction:column; gap:8px; }
-  .iv-title { font-size:24px; font-weight:800; color:#1E1E1E; letter-spacing:-0.02em; line-height:1.3; }
-  .iv-sub { font-size:14px; color:#5D6374; line-height:1.5; letter-spacing:-0.01em; }
-  .iv-field { display:flex; flex-direction:column; gap:4px; }
-  .iv-label { font-size:14px; font-weight:500; color:#424756; letter-spacing:-0.01em; }
-  .iv-input { height:48px; border:1px solid #D6D7DB; border-radius:6px; padding:0 12px; font-size:16px; color:#2A2D38; font-family:inherit; width:100%; display:flex; align-items:center; gap:8px; background:#fff; letter-spacing:-0.01em; }
-  input.iv-input::placeholder { color:#8E929E; }
-  input.iv-input:focus { outline:none; border-color:var(--accent); }
-  .iv-input.select { justify-content:space-between; cursor:pointer; }
-  .iv-input.select .chev { color:#8E929E; flex:0 0 auto; }
-  .iv-bare { flex:1; min-width:0; border:none; outline:none; background:transparent; font-size:16px; color:#2A2D38; font-family:inherit; letter-spacing:-0.01em; }
-  .iv-bare::placeholder { color:#8E929E; }
-  .iv-verify { background:var(--accent); color:#fff; border:none; border-radius:4px; height:30px; padding:0 12px; font-size:12px; font-weight:600; font-family:inherit; cursor:pointer; white-space:nowrap; flex:0 0 auto; }
-  .iv-verify:hover { background:#5a48f0; }
-  .iv-check { display:flex; gap:8px; align-items:center; height:32px; font-size:14px; color:#2A2D38; cursor:pointer; letter-spacing:-0.01em; }
-  .iv-check input { width:16px; height:16px; accent-color:var(--accent); }
-  .iv-actions { display:flex; gap:8px; justify-content:flex-end; }
-  .iv-btn { height:40px; padding:0 16px; border-radius:6px; font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; border:none; }
-  .iv-btn.prev { background:#fff; border:1px solid #D6D7DB; color:#2A2D38; }
-  .iv-btn.prev:hover { background:#F7F6FC; }
-  .iv-btn.next { background:#1A1D24; color:#fff; } .iv-btn.next:hover { background:#000; }
-  .iv-btn.ghost { visibility:hidden; }
-  @media (max-width:900px){ .iv-hero { display:none; } }
-</style>
+    .seg.done {
+      background: var(--accent-line);
+    }
+
+    .main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 440px 1fr;
+      padding: 44px 40px 28px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .left {
+      padding-right: 40px;
+    }
+
+    .left h1 {
+      font-size: 27px;
+      letter-spacing: -0.03em;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .left .sub {
+      font-size: 14px;
+      color: var(--ink-dim);
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .chips {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Figma 솔루션 선택 카드 (radius 12 / padding 16·20 / gap 16) */
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-family: inherit;
+      text-align: left;
+      position: relative;
+      transition: border-color .16s ease, box-shadow .16s ease;
+    }
+
+    /* 체크박스 = 선택 전용 */
+    .chip .check {
+      flex: 0 0 24px;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      border: 1.5px solid #C9CCD6;
+      display: grid;
+      place-items: center;
+      transition: all .18s ease;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    /* 본문 = 보기 전용 */
+    .chip .meta {
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+    }
+
+    .chip .meta:hover .q {
+      color: var(--chip-accent, var(--accent));
+    }
+
+    .chip .q {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      line-height: 1.5;
+      transition: color .15s;
+    }
+
+    .chip .sol {
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .chip .sol .lk {
+      font-weight: 800;
+    }
+
+    /* 뷰잉 = accent 테두리 / hover = accent 테두리 + 3px ring */
+    .chip:not(.locked):hover {
+      border-color: var(--chip-accent, var(--accent));
+      box-shadow: 0 0 0 3px var(--line-soft);
+    }
+
+    .chip.viewing {
+      border-color: var(--chip-accent, var(--accent));
+    }
+
+    .chip.selected .check {
+      border-color: transparent;
+    }
+
+    /* locked = lock 글리프(박스 없음) + 내용 dim .6 */
+    .chip.locked .check {
+      background: transparent;
+      border-color: transparent;
+      color: var(--ink-dim);
+      cursor: default;
+    }
+
+    .chip.locked .check,
+    .chip.locked .meta {
+      opacity: .6;
+    }
+
+    .chip.locked .q {
+      color: var(--ink-dim);
+    }
+
+    .right {
+      min-width: 0;
+    }
+
+    .panel {
+      height: 100%;
+      min-height: 560px;
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 50px rgba(40, 38, 70, 0.14);
+      border: 1px solid var(--line);
+    }
+
+    /* Figma 우측 패널 헤더: 제품명+USP설명 한 줄 + 굵은 VP 헤드라인 */
+    .panel-head {
+      display: block;
+      padding: 24px 28px 22px;
+    }
+
+    .ph-label {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .ph-label b {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .ph-desc {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .ph-vp {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.35;
+      color: #fff;
+    }
+
+    #selectView {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── 시각 시퀀스 (스텝퍼 유지, 본문 영역만 교체 — 여전히 스텝3) ── */
+    .intro {
+      flex: 1;
+      background: radial-gradient(900px 500px at 50% -10%, rgba(139, 107, 255, 0.2), transparent 60%), linear-gradient(160deg, #2B2940, #15142A);
+      display: none;
+      flex-direction: column;
+    }
+
+    .intro.on {
+      display: flex;
+      animation: fade .3s ease;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* 스크롤 영역 + 가운데 컬럼 (헤더·데모·스텝 모두 같은 폭으로 좌측 정렬) */
+    .intro-body {
+      flex: 1;
+      overflow: auto;
+      padding: 0 32px;
+      min-height: 0;
+    }
+
+    .intro-inner {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 헤더 — 좌측 정렬: 뒤로가기 / (제품명·라벨 한 줄) / 헤드라인 / 신뢰 */
+    .intro-head {
+      padding: 26px 0 4px;
+    }
+
+    .ih-back {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 0;
+      transition: .15s;
+      margin-bottom: 22px;
+    }
+
+    .ih-back:hover {
+      color: #fff;
+    }
+
+    .ih-count {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+      white-space: nowrap;
+    }
+
+    .intro-prog {
+      display: flex;
+      gap: 5px;
+      width: 64px;
+    }
+
+    .intro-prog i {
+      flex: 1;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .intro-prog i.done {
+      background: #6FE9BD;
+    }
+
+    .intro-prog i.cur {
+      background: #A99CFF;
+    }
+
+    .ih-eyebrow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 13px;
+      font-size: 13px;
+    }
+
+    .ih-label {
+      color: #A99CFF;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .ih-prod {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      position: relative;
+      padding-left: 13px;
+    }
+
+    .ih-prod::before {
+      content: '·';
+      position: absolute;
+      left: 4px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .ih-prod .ic-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex: 0 0 8px;
+    }
+
+    .ih-prod b {
+      font-size: 13px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .ic-vp {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.28;
+      color: #fff;
+    }
+
+    .ic-trust {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .ic-trust .f {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .ic-trust .f:not(:last-child)::after {
+      content: '·';
+      margin-left: 6px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .ic-trust .f .c {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #6FE9BD;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    /* 큰 데모 브라우저 — 서비스를 실제로 들여다보는 느낌 */
+    .intro-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 14px 0 8px;
+    }
+
+    .demo-browser {
+      width: 100%;
+      max-width: 720px;
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
+      color: #1a1530;
+      cursor: pointer;
+      transition: transform .5s ease;
+      animation: cardIn .4s ease;
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .db-bar {
+      height: 44px;
+      background: #f3f0fb;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 16px;
+    }
+
+    .db-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #d6cef0;
+    }
+
+    .db-url {
+      margin-left: 14px;
+      font-size: 12.5px;
+      color: #9a90c4;
+      background: #fff;
+      border-radius: 7px;
+      padding: 5px 14px;
+      flex: 1;
+      max-width: 340px;
+    }
+
+    .db-screen {
+      padding: 26px 28px;
+      min-height: 300px;
+      position: relative;
+    }
+
+    .db-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0edf9;
+    }
+
+    .db-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ece8f7, #ddd6f3);
+      flex: 0 0 56px;
+    }
+
+    .db-lines {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .db-lines .dl {
+      height: 12px;
+      border-radius: 6px;
+      background: #ece8f7;
+    }
+
+    .db-lines .dl.s {
+      width: 55%;
+    }
+
+    .db-pop {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 24px;
+      background: linear-gradient(135deg, #6B5BFF, #A99CFF);
+      color: #fff;
+      border-radius: 13px;
+      padding: 18px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      transform: translateY(24px) scale(.97);
+      opacity: 0;
+      transition: all .55s cubic-bezier(.2, .9, .3, 1.2);
+      box-shadow: 0 16px 40px rgba(107, 91, 255, 0.4);
+    }
+
+    .demo-browser.s1 .db-pop {
+      transform: none;
+      opacity: 1;
+    }
+
+    .db-metric {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: var(--ok);
+      color: #042b1f;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 7px 15px;
+      border-radius: 999px;
+      opacity: 0;
+      transform: scale(.8);
+      transition: .5s ease .2s;
+      box-shadow: 0 8px 24px rgba(18, 184, 134, 0.4);
+    }
+
+    .demo-browser.s2 .db-metric {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .demo-browser.s2 {
+      transform: translateY(-6px) scale(1.01);
+    }
+
+    .ic-hint {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.55);
+      background: rgba(0, 0, 0, 0.25);
+      padding: 6px 14px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+    }
+
+    /* ── 알파리뷰 전용 데모 씬 (단계별 실제 제품 UI) ── */
+    .rv-scene {
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      justify-content: center;
+      animation: fade .35s ease;
+    }
+
+    .rv-eyebrow {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .rv-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .rv-h {
+      font-size: 16px;
+      font-weight: 800;
+      color: #16162A;
+      letter-spacing: -0.02em;
+    }
+
+    .rv-stars {
+      color: #FFB020;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .rv-stars b {
+      color: #16162A;
+      margin-left: 4px;
+    }
+
+    .rv-cap {
+      font-size: 12.5px;
+      color: #6B6B80;
+      line-height: 1.5;
+    }
+
+    .rv-badge {
+      align-self: flex-start;
+      background: var(--ok);
+      color: #053d2c;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 13px;
+      border-radius: 999px;
+    }
+
+    .rv-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+
+    .rv-ph {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+    }
+
+    .rv-ph.a {
+      background: linear-gradient(135deg, #EDE9FF, #C9C0FF);
+    }
+
+    .rv-ph.b {
+      background: linear-gradient(135deg, #FFE3EC, #FFC2D6);
+    }
+
+    .rv-ph.c {
+      background: linear-gradient(135deg, #DBF3EA, #A7E8CE);
+    }
+
+    .rv-kakao {
+      background: #9DB7CE;
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .rv-bub {
+      background: #fff;
+      border-radius: 6px 16px 16px 16px;
+      padding: 16px;
+      max-width: 320px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .rv-bub .kh {
+      font-weight: 800;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 9px;
+    }
+
+    .rv-bub .kh i {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      background: #FAE100;
+      display: grid;
+      place-items: center;
+      font-size: 9px;
+      font-style: normal;
+      color: #3c2e00;
+      font-weight: 900;
+    }
+
+    .rv-bub p {
+      font-size: 13px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .rv-bub .kbtn {
+      margin-top: 13px;
+      background: #FAE100;
+      color: #3c2e00;
+      text-align: center;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 11px;
+      border-radius: 8px;
+    }
+
+    .rv-table {
+      border: 1px solid #eee;
+      border-radius: 11px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+
+    .rv-tr {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr 0.8fr;
+      padding: 11px 16px;
+      border-bottom: 1px solid #f3f3f8;
+    }
+
+    .rv-tr:last-child {
+      border: none;
+    }
+
+    .rv-tr.h {
+      background: #F3F3F8;
+      font-weight: 800;
+      color: #6B6B80;
+      font-size: 12px;
+    }
+
+    .rv-tr .ok {
+      color: #12B886;
+      font-weight: 700;
+    }
+
+    .rv-send {
+      background: var(--accent-soft);
+      border: 1px dashed var(--accent-line);
+      border-radius: 11px;
+      padding: 13px 16px;
+      font-weight: 800;
+      color: var(--accent);
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .rv-sns {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 7px;
+    }
+
+    .rv-ig {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #F9CE34, #EE2A7B 45%, #6228D7);
+    }
+
+    .rv-ig.n {
+      background: linear-gradient(135deg, #03C75A, #86E0A8);
+    }
+
+    .rv-snsrow {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13px;
+      color: #6B6B80;
+    }
+
+    .rv-pill {
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 999px;
+    }
+
+    .rv-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 18px;
+      height: 140px;
+      padding: 18px 12px 0;
+    }
+
+    .rv-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .rv-bar {
+      width: 100%;
+      max-width: 48px;
+      border-radius: 8px 8px 0 0;
+      background: linear-gradient(180deg, #A99CFF, #6B5BFF);
+      position: relative;
+    }
+
+    .rv-bar .val {
+      position: absolute;
+      top: -21px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: #16162A;
+    }
+
+    .rv-lb {
+      font-size: 12px;
+      color: #6B6B80;
+      font-weight: 700;
+    }
+
+    /* 현재 단계 캡션 (데모 바로 위) */
+    .ic-cap {
+      width: 100%;
+      min-height: 46px;
+      margin-top: 2px;
+    }
+
+    .ic-cap .t {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+    }
+
+    .ic-cap .t .num {
+      color: #A99CFF;
+      font-size: 13px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .ic-cap .d {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* 번호 스텝퍼 (데모 바로 아래) */
+    .ic-steps {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 540px;
+    }
+
+    .ic-step {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .ic-step:last-child {
+      flex: 0 0 auto;
+    }
+
+    .ic-step .dot {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 13.5px;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .ic-step .dot:hover {
+      background: rgba(255, 255, 255, 0.22);
+      color: #fff;
+    }
+
+    .ic-step .line {
+      flex: 1;
+      height: 3px;
+      margin: 0 9px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 2px;
+      transition: .35s;
+    }
+
+    .ic-step .line.fill {
+      background: #6FE9BD;
+    }
+
+    .ic-step.passed .dot {
+      background: #6FE9BD;
+      color: #042b1f;
+    }
+
+    .ic-step.active .dot {
+      background: #A99CFF;
+      color: #1a1530;
+      box-shadow: 0 0 0 5px rgba(169, 156, 255, 0.2);
+    }
+
+    .intro-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px 26px;
+      max-width: 784px;
+      width: 100%;
+      margin: 0 auto;
+      flex: 0 0 auto;
+    }
+
+    .intro-prev,
+    .intro-next {
+      border-radius: 10px;
+      padding: 13px 30px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .2s;
+    }
+
+    .intro-prev {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+      border: none;
+    }
+
+    .intro-prev:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .intro-prev:disabled {
+      opacity: .4;
+      cursor: default;
+    }
+
+    .intro-next {
+      background: #fff;
+      color: #16162A;
+      border: none;
+    }
+
+    .intro-next:hover {
+      background: #F0EEFF;
+    }
+
+    @media (max-width:820px) {
+      .ic-vp {
+        font-size: 25px;
+      }
+
+      .ic-cap .t {
+        font-size: 15px;
+      }
+    }
+
+    /* ── 스텝 4·5 공통 (스텝퍼 아래 본문 영역) ── */
+    .step-view {
+      flex: 1;
+      display: none;
+      flex-direction: column;
+    }
+
+    .step-view.on {
+      display: flex;
+      animation: fade .3s ease;
+    }
+
+    /* 4-A 리뷰 위젯 미리보기 */
+    #reviewWidget .sv-head {
+      text-align: center;
+      padding: 28px 32px 0;
+      position: relative;
+    }
+
+    .sv-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .sv-sub {
+      font-size: 13.5px;
+      color: var(--ink-dim);
+      margin-top: 6px;
+    }
+
+    .sv-tabs {
+      display: inline-flex;
+      gap: 22px;
+      margin-top: 18px;
+    }
+
+    .svt {
+      background: none;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-faint);
+      cursor: pointer;
+      font-family: inherit;
+      padding-bottom: 8px;
+    }
+
+    .svt.active {
+      color: var(--ink);
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .sv-preview {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: linear-gradient(180deg, #FBF6F7, #F7F4FB);
+      overflow: auto;
+    }
+
+    .shop-mock {
+      width: 340px;
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+      position: relative;
+    }
+
+    .sm-top {
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 11px;
+      text-align: center;
+      padding: 7px;
+    }
+
+    .sm-brand {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      padding: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .sm-brand b {
+      color: var(--accent);
+    }
+
+    .sm-hero {
+      height: 230px;
+      background: linear-gradient(135deg, #dbe2f5, #c3cdea);
+    }
+
+    .sm-tags {
+      display: flex;
+      gap: 5px;
+      padding: 14px 16px 0;
+    }
+
+    .sm-tags .t {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: #fff;
+    }
+
+    .t.new {
+      background: #f59e0b;
+    }
+
+    .t.best {
+      background: #3b82f6;
+    }
+
+    .t.sale {
+      background: #ef4444;
+    }
+
+    .sm-name {
+      padding: 8px 16px 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .sm-price {
+      padding: 6px 16px 14px;
+      font-size: 15px;
+    }
+
+    .sm-price s {
+      color: #bbb;
+      font-size: 12px;
+    }
+
+    .sm-price b {
+      color: #ef4444;
+    }
+
+    .sm-review {
+      margin: 0 16px 16px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .smr-head {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .smr-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 7px 0;
+    }
+
+    .smr-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ece8f7, #ddd6f3);
+      flex: 0 0 40px;
+    }
+
+    .smr-lines {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .smr-lines i {
+      height: 9px;
+      border-radius: 5px;
+      background: #eee;
+    }
+
+    .smr-lines i.s {
+      width: 55%;
+    }
+
+    .sm-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 7px;
+      box-shadow: 0 6px 16px rgba(107, 91, 255, 0.4);
+    }
+
+    .sv-foot,
+    .cf-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    .sv-skip {
+      background: none;
+      border: none;
+      color: var(--ink-faint);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .sv-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .sv-prev {
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink-dim);
+      border-radius: 10px;
+      padding: 11px 26px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .sv-next,
+    .cf-done {
+      background: var(--ink);
+      border: none;
+      color: #fff;
+      border-radius: 10px;
+      padding: 11px 26px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .sv-next:hover,
+    .cf-done:hover {
+      background: #000;
+    }
+
+    /* 4-B SNS 연결 */
+    #snsConnect {
+      background: linear-gradient(160deg, #F2EFFF, #F7F5FF);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sns-card {
+      width: 100%;
+      max-width: 560px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 24px 60px rgba(60, 50, 120, 0.1);
+    }
+
+    .sns-title {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+    }
+
+    .sns-title b {
+      color: var(--accent);
+    }
+
+    .sns-points {
+      list-style: none;
+      margin: 18px 0 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sns-points li {
+      font-size: 13.5px;
+      color: var(--ink-dim);
+      padding-left: 26px;
+      position: relative;
+    }
+
+    .sns-points li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+    }
+
+    .sns-feed {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .sf-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .sf-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f0a, #fa0);
+    }
+
+    .sf-head b {
+      font-size: 14px;
+    }
+
+    .sf-head span {
+      font-size: 12px;
+      color: var(--ink-faint);
+      display: block;
+    }
+
+    .sf-ig {
+      margin-left: auto;
+      font-size: 22px;
+    }
+
+    .sf-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+
+    .sf-grid i {
+      aspect-ratio: 1;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #e8e4f5, #d4ccee);
+    }
+
+    .sns-btns {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .sns-skip {
+      flex: 1;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink-dim);
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .sns-connect {
+      flex: 1;
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .sns-connect:hover {
+      background: #5a48f0;
+    }
+
+    /* 5 카드 등록 */
+    #cardReg {
+      align-items: center;
+      padding: 40px 32px;
+      overflow: auto;
+    }
+
+    .card-form {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .cf-title {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+    }
+
+    .cf-title b {
+      color: var(--accent);
+    }
+
+    .cf-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      margin: 18px 0 8px;
+    }
+
+    .cf-seg {
+      display: flex;
+      background: var(--line-soft);
+      border-radius: 10px;
+      padding: 4px;
+    }
+
+    .cf-seg button {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-faint);
+      cursor: pointer;
+      font-family: inherit;
+      border-radius: 7px;
+    }
+
+    .cf-seg button.active {
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .cf-card {
+      display: flex;
+      gap: 8px;
+    }
+
+    .cf-card input {
+      flex: 1;
+      width: 0;
+    }
+
+    .cf-exp {
+      display: flex;
+      gap: 8px;
+    }
+
+    .cf-exp input {
+      flex: 1;
+    }
+
+    .card-form input {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 12px;
+      font-size: 14px;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .card-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .cf-agree {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      margin: 22px 0 8px;
+      cursor: pointer;
+    }
+
+    .cf-note {
+      font-size: 12px;
+      color: var(--ink-faint);
+      line-height: 1.5;
+    }
+
+    .cf-foot {
+      border-top: none;
+      padding: 24px 0 0;
+    }
+
+    .cf-trust {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 32px;
+    }
+
+    /* ── 완료 화면 ── */
+    #doneView {
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .done-wrap {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .done-title {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.35;
+      margin-bottom: 32px;
+    }
+
+    .done-sec {
+      margin-bottom: 24px;
+    }
+
+    .done-sec h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .done-sols {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+    }
+
+    .done-sol-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .done-sol {
+      display: inline-flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      padding: 6px 13px;
+      border-radius: 999px;
+    }
+
+    .done-sol-cond {
+      font-size: 13.5px;
+      color: var(--ink-dim);
+    }
+
+    .done-sec p {
+      font-size: 14.5px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    .done-note {
+      font-size: 13px;
+      color: var(--ink-faint);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .done-note b {
+      color: var(--accent);
+    }
+
+    .done-cta {
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 15px 32px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 8px;
+    }
+
+    .done-cta:hover {
+      background: #000;
+    }
+
+    /* 일러스트 (가안 → 실제 3D 이미지로 교체) */
+    .done-right {
+      display: grid;
+      place-items: center;
+    }
+
+    .done-illust {
+      position: relative;
+      width: 360px;
+      height: 360px;
+    }
+
+    .di-phone {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 150px;
+      height: 280px;
+      background: linear-gradient(160deg, #fff, #f0edfb);
+      border-radius: 28px;
+      box-shadow: 0 30px 60px rgba(107, 91, 255, 0.2);
+      border: 6px solid #2B2940;
+    }
+
+    .di-shop {
+      position: absolute;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 30px;
+      background: repeating-linear-gradient(90deg, #A99CFF 0 15px, #fff 15px 30px);
+      border-radius: 6px 6px 0 0;
+    }
+
+    .di-bag {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 48px;
+    }
+
+    .di-bar {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 18px;
+      background: var(--accent);
+      border-radius: 9px;
+    }
+
+    .di-review {
+      position: absolute;
+      top: 10px;
+      left: -10px;
+      background: #fff;
+      padding: 12px 16px;
+      border-radius: 14px;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+      font-size: 13px;
+    }
+
+    .di-cart {
+      position: absolute;
+      top: 30px;
+      right: 0;
+      font-size: 40px;
+      background: #fff;
+      padding: 12px;
+      border-radius: 16px;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .di-bell {
+      position: absolute;
+      bottom: 70px;
+      left: -20px;
+      font-size: 28px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 14px;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .di-chart {
+      position: absolute;
+      bottom: 10px;
+      right: 0;
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 90px;
+    }
+
+    .di-chart i {
+      width: 18px;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .di-chart i:nth-child(1) {
+      background: #12B886;
+    }
+
+    .di-chart i:nth-child(2) {
+      background: #A99CFF;
+    }
+
+    .di-chart i:nth-child(3) {
+      background: #3B82F6;
+    }
+
+    .di-chart i:nth-child(4) {
+      background: #EF4444;
+    }
+
+    .di-box {
+      position: absolute;
+      bottom: 0;
+      left: 30px;
+      font-size: 40px;
+    }
+
+    @media (max-width:820px) {
+      .done-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .done-right {
+        display: none;
+      }
+
+      .done-title {
+        font-size: 24px;
+      }
+    }
+
+    .panel-body {
+      flex: 1;
+      display: flex;
+      padding: 0;
+    }
+
+    /* 클릭커블 애니메이션 영역 — 제품별 데모를 iframe으로 임베드 */
+    .anim-area {
+      flex: 1;
+      border-radius: 0;
+      background: #fff;
+      overflow: hidden;
+      min-height: 340px;
+      position: relative;
+    }
+
+    .anim-area iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .nav {
+      border-top: 1px solid var(--line);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav .summary {
+      font-size: 14px;
+      color: var(--ink-dim);
+    }
+
+    .nav .summary b {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .nav .btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav button {
+      border-radius: 10px;
+      padding: 11px 26px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .2s;
+    }
+
+    .nav .prev {
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink-dim);
+    }
+
+    .nav .prev:hover {
+      border-color: var(--ink-faint);
+    }
+
+    .nav .next {
+      background: var(--ink);
+      border: none;
+      color: #fff;
+    }
+
+    .nav .next:hover {
+      background: #000;
+    }
+
+    @media (max-width:900px) {
+      .main {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .left {
+        padding-right: 0;
+      }
+    }
+
+    /* ───── 스텝1·2 (담당자/쇼핑몰 정보 입력) — Figma 좌우 분할 ───── */
+    .infoview {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: #fff;
+      display: none;
+    }
+
+    .infoview.on {
+      display: flex;
+    }
+
+    /* 좌측 다크 히어로 */
+    .iv-hero {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+      background: linear-gradient(105deg, #1B1739, #15132D);
+      overflow: hidden;
+    }
+
+    .iv-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    .iv-hero-top {
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      padding: 0 32px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .iv-headline {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .iv-headline .g-pp {
+      background: linear-gradient(90deg, #F7A1FF 8%, #837AFF 98%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .iv-card {
+      margin: 20px auto 0;
+      max-width: 520px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      padding: 16px 24px;
+      background: linear-gradient(103deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 30%, rgba(255, 255, 255, 0) 100%);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .iv-card-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .iv-avs {
+      display: flex;
+    }
+
+    .iv-av {
+      width: 28px;
+      height: 28px;
+      border-radius: 100px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 4px 4px rgba(255, 255, 255, 0.25), inset -2px -4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .iv-av:not(:last-child) {
+      margin-right: -8px;
+    }
+
+    .iv-av.a {
+      background: #837CF4;
+    }
+
+    .iv-av.b {
+      background: #F64647;
+    }
+
+    .iv-av.c {
+      background: #2EAC69;
+    }
+
+    .iv-ctext {
+      font-size: 20px;
+      line-height: 1.3;
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .iv-ctext .g-bl {
+      background: linear-gradient(91deg, #3499FF 8%, #7DD6FF 98%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 600;
+    }
+
+    /* 우측 폼 영역 */
+    .iv-pane {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+
+    .iv-steps {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid #E3E4E7;
+    }
+
+    .iv-steps.top {
+      padding: 16px 40px;
+      background: #fff;
+    }
+
+    .iv-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .iv-step:last-child {
+      flex: 0 0 auto;
+    }
+
+    .iv-step .c {
+      width: 24px;
+      height: 24px;
+      flex: 0 0 24px;
+      border-radius: 32px;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .iv-step.todo .c {
+      background: #E3E4E7;
+      color: #8E929E;
+    }
+
+    .iv-step.active .c {
+      background: #307AF3;
+      color: #fff;
+    }
+
+    .iv-step.done .c {
+      background: #D6E6FF;
+      color: #307AF3;
+    }
+
+    .iv-step .t {
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      color: #8E929E;
+      white-space: nowrap;
+    }
+
+    .iv-step.active .t,
+    .iv-step.done .t {
+      color: #2A2D38;
+    }
+
+    .iv-step .tail {
+      flex: 1;
+      min-width: 8px;
+      height: 1px;
+      background: #E3E4E7;
+    }
+
+    .iv-step.done .tail {
+      background: #307AF3;
+    }
+
+    .iv-step.clickable {
+      cursor: pointer;
+    }
+
+    .iv-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      overflow: auto;
+    }
+
+    .iv-form {
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .iv-fhead {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .iv-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1E1E1E;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+
+    .iv-sub {
+      font-size: 14px;
+      color: #5D6374;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+    }
+
+    .iv-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .iv-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #424756;
+      letter-spacing: -0.01em;
+    }
+
+    .iv-input {
+      height: 48px;
+      border: 1px solid #D6D7DB;
+      border-radius: 6px;
+      padding: 0 12px;
+      font-size: 16px;
+      color: #2A2D38;
+      font-family: inherit;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    input.iv-input::placeholder {
+      color: #8E929E;
+    }
+
+    input.iv-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .iv-input.select {
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .iv-input.select .chev {
+      color: #8E929E;
+      flex: 0 0 auto;
+    }
+
+    .iv-bare {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 16px;
+      color: #2A2D38;
+      font-family: inherit;
+      letter-spacing: -0.01em;
+    }
+
+    .iv-bare::placeholder {
+      color: #8E929E;
+    }
+
+    .iv-verify {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      height: 30px;
+      padding: 0 12px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    .iv-verify:hover {
+      background: #5a48f0;
+    }
+
+    .iv-check {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      height: 32px;
+      font-size: 14px;
+      color: #2A2D38;
+      cursor: pointer;
+      letter-spacing: -0.01em;
+    }
+
+    .iv-check input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+    }
+
+    .iv-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .iv-btn {
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+    }
+
+    .iv-btn.prev {
+      background: #fff;
+      border: 1px solid #D6D7DB;
+      color: #2A2D38;
+    }
+
+    .iv-btn.prev:hover {
+      background: #F7F6FC;
+    }
+
+    .iv-btn.next {
+      background: #1A1D24;
+      color: #fff;
+    }
+
+    .iv-btn.next:hover {
+      background: #000;
+    }
+
+    .iv-btn.ghost {
+      visibility: hidden;
+    }
+
+    @media (max-width:900px) {
+      .iv-hero {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <!-- ───── 스텝1: 담당자 정보 입력 (Figma) ───── -->
   <div class="infoview" id="info1">
@@ -339,7 +2282,8 @@
         <div class="iv-headline">클릭 몇 번으로 자사몰을 성장시키는 솔루션<br>알파앱스를 <span class="g-pp">14일간 무료</span>로 경험해보세요</div>
         <div class="iv-card">
           <div class="iv-card-row">
-            <div class="iv-avs"><span class="iv-av a">A</span><span class="iv-av b">B</span><span class="iv-av c">C</span></div>
+            <div class="iv-avs"><span class="iv-av a">A</span><span class="iv-av b">B</span><span
+                class="iv-av c">C</span></div>
             <div class="iv-ctext">2,800+개 쇼핑몰이 설치한 서비스 말고도</div>
           </div>
           <div class="iv-ctext"><span class="g-bl">다른 서비스를 함께 사용하여 더 큰 매출</span>을 올리고 있어요</div>
@@ -355,10 +2299,21 @@
             <div class="iv-sub">알파앱스 사용을 위해 정보를 입력해주세요</div>
           </div>
           <div class="iv-field"><span class="iv-label">담당자 이름</span><input class="iv-input" value="신알파"></div>
-          <div class="iv-field"><span class="iv-label">담당자 직책</span><div class="iv-input select" tabindex="0"><span>대표</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></div>
-          <div class="iv-field"><span class="iv-label">담당자 이메일</span><input class="iv-input" value="shinalpha@company.io"></div>
-          <div class="iv-field"><span class="iv-label">담당자 연락처</span><div class="iv-input"><input class="iv-bare" value="010-1111-2222"><button class="iv-verify">인증</button></div></div>
-          <div class="iv-actions"><button class="iv-btn prev ghost">이전</button><button class="iv-btn next" data-next>다음</button></div>
+          <div class="iv-field"><span class="iv-label">담당자 직책</span>
+            <div class="iv-input select" tabindex="0"><span>대표</span><svg class="chev" width="16" height="16"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6" />
+              </svg></div>
+          </div>
+          <div class="iv-field"><span class="iv-label">담당자 이메일</span><input class="iv-input"
+              value="shinalpha@company.io"></div>
+          <div class="iv-field"><span class="iv-label">담당자 연락처</span>
+            <div class="iv-input"><input class="iv-bare" value="010-1111-2222"><button class="iv-verify">인증</button>
+            </div>
+          </div>
+          <div class="iv-actions"><button class="iv-btn prev ghost">이전</button><button class="iv-btn next"
+              data-next>다음</button></div>
         </div>
       </div>
     </div>
@@ -372,7 +2327,8 @@
         <div class="iv-headline">클릭 몇 번으로 자사몰을 성장시키는 솔루션<br>알파앱스를 <span class="g-pp">14일간 무료</span>로 경험해보세요</div>
         <div class="iv-card">
           <div class="iv-card-row">
-            <div class="iv-avs"><span class="iv-av a">A</span><span class="iv-av b">B</span><span class="iv-av c">C</span></div>
+            <div class="iv-avs"><span class="iv-av a">A</span><span class="iv-av b">B</span><span
+                class="iv-av c">C</span></div>
             <div class="iv-ctext">2,800+개 쇼핑몰이 설치한 서비스 말고도</div>
           </div>
           <div class="iv-ctext"><span class="g-bl">다른 서비스를 함께 사용하여 더 큰 매출</span>을 올리고 있어요</div>
@@ -388,11 +2344,20 @@
             <div class="iv-sub">맞춤 서비스 제공을 위해 쇼핑몰 정보를 입력해주세요</div>
           </div>
           <div class="iv-field"><span class="iv-label">쇼핑몰 이름</span><input class="iv-input" value="알파몰"></div>
-          <div class="iv-field"><span class="iv-label">쇼핑몰 카테고리</span><div class="iv-input select" tabindex="0"><span>데스크테리어</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></div>
-          <div class="iv-field"><span class="iv-label">카페24 ID</span><input class="iv-input" value="shinalpha@company.io"></div>
-          <div class="iv-field"><span class="iv-label">카페24 PW</span><input class="iv-input" type="password" value="alphaapps"></div>
+          <div class="iv-field"><span class="iv-label">쇼핑몰 카테고리</span>
+            <div class="iv-input select" tabindex="0"><span>데스크테리어</span><svg class="chev" width="16" height="16"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6" />
+              </svg></div>
+          </div>
+          <div class="iv-field"><span class="iv-label">카페24 ID</span><input class="iv-input"
+              value="shinalpha@company.io"></div>
+          <div class="iv-field"><span class="iv-label">카페24 PW</span><input class="iv-input" type="password"
+              value="alphaapps"></div>
           <label class="iv-check"><input type="checkbox" checked> 개인정보 처리 방침 및 약관 동의</label>
-          <div class="iv-actions"><button class="iv-btn prev" data-prev>이전</button><button class="iv-btn next" data-next>다음</button></div>
+          <div class="iv-actions"><button class="iv-btn prev" data-prev>이전</button><button class="iv-btn next"
+              data-next>다음</button></div>
         </div>
       </div>
     </div>
@@ -401,25 +2366,25 @@
   <div class="iv-steps top" id="stepper"></div>
 
   <div id="selectView">
-  <div class="main">
-    <div class="left">
-      <h1 id="leftTitle">해결하고 싶은<br>문제를 골라보세요</h1>
-      <p class="sub">문제를 눌러 솔루션을 둘러보고, 체크박스로 선택하세요.</p>
-      <div class="chips" id="chips"></div>
-    </div>
-    <div class="right">
-      <div class="panel">
-        <div class="panel-body">
-          <div class="anim-area"><iframe id="animFrame" title="제품 데모" loading="lazy"></iframe></div>
+    <div class="main">
+      <div class="left">
+        <h1 id="leftTitle">해결하고 싶은<br>문제를 골라보세요</h1>
+        <p class="sub">문제를 눌러 솔루션을 둘러보고, 체크박스로 선택하세요.</p>
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="right">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="anim-area"><iframe id="animFrame" title="제품 데모" loading="lazy"></iframe></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="nav">
-    <span class="summary"><b id="cnt">1개</b> 솔루션을 선택했어요</span>
-    <div class="btns"><button class="prev">이전</button><button class="next">다음</button></div>
-  </div>
+    <div class="nav">
+      <span class="summary"><b id="cnt">1개</b> 솔루션을 선택했어요</span>
+      <div class="btns"><button class="prev">이전</button><button class="next">다음</button></div>
+    </div>
   </div>
 
 
@@ -429,8 +2394,9 @@
       <div class="intro-inner">
         <!-- 헤더: 뒤로가기 / (제품명·라벨 한 줄) / 헤드라인 / 신뢰 -->
         <div class="intro-head">
-          <button class="ih-back" id="introClose">←  선택으로 돌아가기</button>
-          <span class="ih-eyebrow"><span class="ih-label">선택한 솔루션 자세히 보기</span><span class="ih-count" id="icKicker">1 / 3</span><span class="ih-prod"><span class="ic-dot" id="icDot"></span><b id="icName">알파리뷰</b></span></span>
+          <button class="ih-back" id="introClose">← 선택으로 돌아가기</button>
+          <span class="ih-eyebrow"><span class="ih-label">선택한 솔루션 자세히 보기</span><span class="ih-count" id="icKicker">1 /
+              3</span><span class="ih-prod"><span class="ic-dot" id="icDot"></span><b id="icName">알파리뷰</b></span></span>
           <h2 class="ic-vp" id="icVp">리뷰를 구매를 부르는 신뢰 자산으로 만들어요</h2>
           <div class="ic-trust" id="icTrust"></div>
         </div>
@@ -441,12 +2407,31 @@
         <!-- 큰 데모 화면 + 번호 스텝퍼 (데모 바로 아래) -->
         <div class="intro-demo" id="introDemo">
           <div class="demo-browser" id="icMock">
-            <div class="db-bar"><span class="db-dot"></span><span class="db-dot"></span><span class="db-dot"></span><span class="db-url" id="icUrl">myshop.cafe24.com</span></div>
+            <div class="db-bar"><span class="db-dot"></span><span class="db-dot"></span><span
+                class="db-dot"></span><span class="db-url" id="icUrl">myshop.cafe24.com</span></div>
             <div class="db-screen" id="icScreen">
               <div class="db-metric" id="icMetric"></div>
-              <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>
-              <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>
-              <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>
+              <div class="db-row">
+                <div class="db-thumb"></div>
+                <div class="db-lines">
+                  <div class="dl"></div>
+                  <div class="dl s"></div>
+                </div>
+              </div>
+              <div class="db-row">
+                <div class="db-thumb"></div>
+                <div class="db-lines">
+                  <div class="dl"></div>
+                  <div class="dl s"></div>
+                </div>
+              </div>
+              <div class="db-row">
+                <div class="db-thumb"></div>
+                <div class="db-lines">
+                  <div class="dl"></div>
+                  <div class="dl s"></div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="ic-steps" id="icSteps"></div>
@@ -473,20 +2458,28 @@
         <div class="sm-top">신규 회원가입 시 5,000원 할인 쿠폰 지급!</div>
         <div class="sm-brand">Jenny <b>Ribbon</b></div>
         <div class="sm-hero"></div>
-        <div class="sm-tags"><span class="t new">NEW</span><span class="t best">BEST</span><span class="t sale">SALE</span></div>
+        <div class="sm-tags"><span class="t new">NEW</span><span class="t best">BEST</span><span
+            class="t sale">SALE</span></div>
         <div class="sm-name">제니리본 데일리 베이직 티셔츠 10장</div>
         <div class="sm-price"><s>150,000원</s> <b>82,500원</b></div>
         <div class="sm-review">
           <div class="smr-head">⭐ 4.9 · 리뷰 1,284</div>
-          <div class="smr-row"><div class="smr-thumb"></div><div class="smr-lines"><i></i><i class="s"></i></div></div>
-          <div class="smr-row"><div class="smr-thumb"></div><div class="smr-lines"><i></i><i class="s"></i></div></div>
+          <div class="smr-row">
+            <div class="smr-thumb"></div>
+            <div class="smr-lines"><i></i><i class="s"></i></div>
+          </div>
+          <div class="smr-row">
+            <div class="smr-thumb"></div>
+            <div class="smr-lines"><i></i><i class="s"></i></div>
+          </div>
         </div>
         <span class="sm-badge">자동 설치된 리뷰 위젯</span>
       </div>
     </div>
     <div class="sv-foot">
       <button class="sv-skip" data-skip>건너뛰기</button>
-      <div class="sv-btns"><button class="sv-prev" data-prev>이전</button><button class="sv-next" data-next>다음</button></div>
+      <div class="sv-btns"><button class="sv-prev" data-prev>이전</button><button class="sv-next" data-next>다음</button>
+      </div>
     </div>
   </div>
 
@@ -499,7 +2492,9 @@
         <li>고객에게 쇼핑몰의 새로운 소식·이벤트를 알려줄 수 있어요.</li>
       </ul>
       <div class="sns-feed">
-        <div class="sf-head"><span class="sf-avatar"></span><div><b>@alphaapps_</b><span>팔로워 12</span></div><span class="sf-ig">📷</span></div>
+        <div class="sf-head"><span class="sf-avatar"></span>
+          <div><b>@alphaapps_</b><span>팔로워 12</span></div><span class="sf-ig">📷</span>
+        </div>
         <div class="sf-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
       <div class="sns-btns">
@@ -516,14 +2511,16 @@
       <label class="cf-label">카드 유형</label>
       <div class="cf-seg"><button class="active">개인</button><button>법인</button></div>
       <label class="cf-label">카드 번호</label>
-      <div class="cf-card"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"></div>
+      <div class="cf-card"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"><input
+          placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"></div>
       <label class="cf-label">유효 기간</label>
       <div class="cf-exp"><input placeholder="MM"><input placeholder="YYYY"></div>
       <label class="cf-agree"><input type="checkbox" checked> 카드 정보 결제 서비스 업체 제공 동의</label>
       <p class="cf-note">자동결제는 공인된 결제 대행사에서 진행되며, 알파앱스에 저장되지 않습니다. 카드 정보는 언제든 삭제 가능합니다.</p>
       <div class="cf-foot">
         <button class="sv-skip" data-skip>건너뛰기</button>
-        <div class="sv-btns"><button class="sv-prev" data-prev>이전</button><button class="cf-done" data-done>완료</button></div>
+        <div class="sv-btns"><button class="sv-prev" data-prev>이전</button><button class="cf-done" data-done>완료</button>
+        </div>
       </div>
       <div class="cf-trust">5,000+ 쇼핑몰이 선택한 솔루션</div>
     </div>
@@ -555,435 +2552,451 @@
       </div>
       <div class="done-right">
         <div class="done-illust">
-          <div class="di-phone"><div class="di-shop"></div><div class="di-bag">🛍️</div><div class="di-bar"></div></div>
+          <div class="di-phone">
+            <div class="di-shop"></div>
+            <div class="di-bag">🛍️</div>
+            <div class="di-bar"></div>
+          </div>
           <div class="di-review">⭐⭐⭐⭐⭐</div>
           <div class="di-cart">🛒</div>
           <div class="di-bell">🔔</div>
-          <div class="di-chart"><i style="height:30%"></i><i style="height:55%"></i><i style="height:75%"></i><i style="height:100%"></i></div>
+          <div class="di-chart"><i style="height:30%"></i><i style="height:55%"></i><i style="height:75%"></i><i
+              style="height:100%"></i></div>
           <div class="di-box">📦</div>
         </div>
       </div>
     </div>
   </div>
 
-<script>
-const DATA = {
-  canvas:{name:'알파캔버스',vp:'코딩 없이 직접 매력적인 페이지를 만들어요',chip:'쇼핑몰 화면/콘텐츠 개선이 어려워요',pop:'드래그로 편집',metric:'제작 시간 -70%',
-    usp:[['자유로운 편집','드래그로 블록 배치'],['검증된 템플릿','잘 팔리는 구조 적용'],['빠른 완성','몇 분 만에 페이지']],
-    story:[['템플릿을 고르고','잘 팔리는 구조의 템플릿을 내 쇼핑몰에 가져와요'],['블록을 끌어다 놓으면','이미지·텍스트·버튼을 드래그로 자유롭게 배치해요'],['바로 게시돼요','코딩·디자이너 없이 몇 분 만에 페이지가 완성돼요']]},
-  insta:{name:'인스타피드',vp:'인스타 감성을 쇼핑몰 안으로 그대로 가져와요',chip:'인스타그램 콘텐츠를 쇼핑몰에서도 보여주고 싶어요',pop:'인스타 피드 연동',metric:'체류 +25%',
-    usp:[['피드 자동 연동','인스타 게시물 불러오기'],['쇼핑몰에 노출','상품과 자연 연결'],['콘텐츠로 머물게','자연스러운 체류']],
-    story:[['계정을 연결하면','인스타그램 계정을 한 번만 연결하면 돼요'],['게시물이 자동으로 들어와요','새 게시글을 올릴 때마다 쇼핑몰 위젯에 바로 업데이트돼요'],['고객이 더 머물러요','감성 콘텐츠를 보며 자연스럽게 체류시간이 늘어나요']]},
-  review:{name:'알파리뷰',vp:'리뷰를 구매를 부르는 신뢰 자산으로 만들어요',chip:'구매가 발생해도 리뷰 수집과 노출이 안돼요',pop:'포토 리뷰 강조',metric:'구매 전환 +18%',
-    usp:[['리뷰 자동 수집','알림톡으로 자동 요청'],['좋은 리뷰 위로','포토·동영상 리뷰 강조'],['구매 전환 UP','리뷰가 구매 이유로']],
-    // 자세히보기 스토리 — 실제 제품 기능 5단계 (TO BE 시안 기반)
-    story:[
-      ['포토·영상 리뷰 위젯 설치','검증된 위젯을 상세페이지 최적 위치에 코딩 없이 자동 배치해요'],
-      ['알림톡으로 리뷰 요청','배송 완료 시점에 카카오 알림톡을 보내 버튼 한 번으로 포토 리뷰가 쌓여요'],
-      ['체험단·인플루언서 발송','고객 명단을 엑셀로 올리면 체험단·인플루언서에게 리뷰 요청을 일괄 발송해요'],
-      ['SNS 후기를 리뷰로','인스타그램·네이버 블로그 후기를 불러와 쇼핑몰 리뷰로 전환해요'],
-      ['설문 리뷰로 인사이트','만족도·재구매 의향을 설문으로 모아 상품 리뉴얼 근거로 활용해요'],
-    ],
-    // 단계별 데모 화면 — 실제 제품 UI를 닮은 목업 (placeholder 대체)
-    // ⓘ 안의 수치/이름(리뷰 1,284건, 248명, 적립금 1,000원 등)은 예시값 — 실데이터 확인 후 교체 // TODO
-    scenes:[
-      `<div class="rv-scene"><div class="rv-eyebrow">상품 상세페이지</div>
+  <script>
+    const DATA = {
+      canvas: {
+        name: '알파캔버스', vp: '코딩 없이 직접 매력적인 페이지를 만들어요', chip: '쇼핑몰 화면/콘텐츠 개선이 어려워요', pop: '드래그로 편집', metric: '제작 시간 -70%',
+        usp: [['자유로운 편집', '드래그로 블록 배치'], ['검증된 템플릿', '잘 팔리는 구조 적용'], ['빠른 완성', '몇 분 만에 페이지']],
+        story: [['템플릿을 고르고', '잘 팔리는 구조의 템플릿을 내 쇼핑몰에 가져와요'], ['블록을 끌어다 놓으면', '이미지·텍스트·버튼을 드래그로 자유롭게 배치해요'], ['바로 게시돼요', '코딩·디자이너 없이 몇 분 만에 페이지가 완성돼요']]
+      },
+      insta: {
+        name: '인스타피드', vp: '인스타 감성을 쇼핑몰 안으로 그대로 가져와요', chip: '인스타그램 콘텐츠를 쇼핑몰에서도 보여주고 싶어요', pop: '인스타 피드 연동', metric: '체류 +25%',
+        usp: [['피드 자동 연동', '인스타 게시물 불러오기'], ['쇼핑몰에 노출', '상품과 자연 연결'], ['콘텐츠로 머물게', '자연스러운 체류']],
+        story: [['계정을 연결하면', '인스타그램 계정을 한 번만 연결하면 돼요'], ['게시물이 자동으로 들어와요', '새 게시글을 올릴 때마다 쇼핑몰 위젯에 바로 업데이트돼요'], ['고객이 더 머물러요', '감성 콘텐츠를 보며 자연스럽게 체류시간이 늘어나요']]
+      },
+      review: {
+        name: '알파리뷰', vp: '리뷰를 구매를 부르는 신뢰 자산으로 만들어요', chip: '구매가 발생해도 리뷰 수집과 노출이 안돼요', pop: '포토 리뷰 강조', metric: '구매 전환 +18%',
+        usp: [['리뷰 자동 수집', '알림톡으로 자동 요청'], ['좋은 리뷰 위로', '포토·동영상 리뷰 강조'], ['구매 전환 UP', '리뷰가 구매 이유로']],
+        // 자세히보기 스토리 — 실제 제품 기능 5단계 (TO BE 시안 기반)
+        story: [
+          ['포토·영상 리뷰 위젯 설치', '검증된 위젯을 상세페이지 최적 위치에 코딩 없이 자동 배치해요'],
+          ['알림톡으로 리뷰 요청', '배송 완료 시점에 카카오 알림톡을 보내 버튼 한 번으로 포토 리뷰가 쌓여요'],
+          ['체험단·인플루언서 발송', '고객 명단을 엑셀로 올리면 체험단·인플루언서에게 리뷰 요청을 일괄 발송해요'],
+          ['SNS 후기를 리뷰로', '인스타그램·네이버 블로그 후기를 불러와 쇼핑몰 리뷰로 전환해요'],
+          ['설문 리뷰로 인사이트', '만족도·재구매 의향을 설문으로 모아 상품 리뉴얼 근거로 활용해요'],
+        ],
+        // 단계별 데모 화면 — 실제 제품 UI를 닮은 목업 (placeholder 대체)
+        // ⓘ 안의 수치/이름(리뷰 1,284건, 248명, 적립금 1,000원 등)은 예시값 — 실데이터 확인 후 교체 // TODO
+        scenes: [
+          `<div class="rv-scene"><div class="rv-eyebrow">상품 상세페이지</div>
         <div class="rv-row"><span class="rv-h">제니리본 데일리 티셔츠</span><span class="rv-stars">★★★★★<b>4.9</b></span></div>
         <div class="rv-grid"><div class="rv-ph a">📷</div><div class="rv-ph b">🎬</div><div class="rv-ph c">📷</div><div class="rv-ph b">📷</div><div class="rv-ph c">🎬</div><div class="rv-ph a">📷</div></div>
         <div class="rv-cap">실사용 포토·영상 리뷰 1,284건 · 최신순·평점순 자동 정렬</div>
         <div class="rv-badge">검증된 위젯 자동 설치 · 구매 전환 +18%</div></div>`,
-      `<div class="rv-scene"><div class="rv-eyebrow">리뷰 작성 알림톡</div>
+          `<div class="rv-scene"><div class="rv-eyebrow">리뷰 작성 알림톡</div>
         <div class="rv-kakao"><div class="rv-bub"><div class="kh"><i>톡</i>알파리뷰 알림톡</div>
         <p>주문하신 <b>제니리본 데일리 티셔츠</b>는 잘 받으셨나요?<br>지금 후기를 남기면 <b>적립금 1,000원</b>을 드려요 😊</p>
         <div class="kbtn">⭐ 별점·사진 남기기</div></div></div>
         <div class="rv-cap">배송 완료 시점 자동 발송 · 버튼 클릭 한 번으로 작성 완료</div></div>`,
-      `<div class="rv-scene"><div class="rv-eyebrow">체험단·인플루언서 리뷰 요청</div>
+          `<div class="rv-scene"><div class="rv-eyebrow">체험단·인플루언서 리뷰 요청</div>
         <div class="rv-table"><div class="rv-tr h"><span>이름</span><span>연락처</span><span>상태</span></div>
         <div class="rv-tr"><span>김서연</span><span>010-2···-8841</span><span class="ok">✓ 발송</span></div>
         <div class="rv-tr"><span>이도현</span><span>010-7···-1029</span><span class="ok">✓ 발송</span></div>
         <div class="rv-tr"><span>박민지</span><span>010-4···-5573</span><span class="ok">✓ 발송</span></div></div>
         <div class="rv-send"><span>엑셀 명단 일괄 발송</span><span>248명 요청 완료 →</span></div></div>`,
-      `<div class="rv-scene"><div class="rv-eyebrow">SNS 콘텐츠 수집</div>
+          `<div class="rv-scene"><div class="rv-eyebrow">SNS 콘텐츠 수집</div>
         <div class="rv-sns"><div class="rv-ig"></div><div class="rv-ig n"></div><div class="rv-ig"></div><div class="rv-ig"></div><div class="rv-ig n"></div><div class="rv-ig"></div></div>
         <div class="rv-snsrow"><span class="rv-pill">#브랜드해시태그</span> 인스타그램·네이버 블로그 후기를 자동 수집</div>
         <div class="rv-cap">실사용 콘텐츠를 쇼핑몰 리뷰로 전환해 신뢰도를 높여요</div></div>`,
-      `<div class="rv-scene"><div class="rv-eyebrow">설문 리뷰 인사이트</div>
+          `<div class="rv-scene"><div class="rv-eyebrow">설문 리뷰 인사이트</div>
         <div class="rv-bars">
         <div class="rv-col"><div class="rv-bar" style="height:82%"><span class="val">82%</span></div><span class="rv-lb">디자인</span></div>
         <div class="rv-col"><div class="rv-bar" style="height:64%"><span class="val">64%</span></div><span class="rv-lb">사이즈</span></div>
         <div class="rv-col"><div class="rv-bar" style="height:91%"><span class="val">91%</span></div><span class="rv-lb">배송</span></div>
         <div class="rv-col"><div class="rv-bar" style="height:76%"><span class="val">76%</span></div><span class="rv-lb">재구매</span></div></div>
         <div class="rv-cap">만족 요인·개선점을 데이터로 모아 상품 리뉴얼 근거로 활용해요</div></div>`,
-    ]},
-  push:{name:'알파푸시',vp:'떠난 고객을 정확히 다시 불러와요',chip:'이탈한 고객을 재방문시키고 싶어요',pop:'맞춤 알림 발송',metric:'재방문 +31%',
-    usp:[['이탈 시점 포착','떠난 순간에 발송'],['개인화 메시지','관심 상품 기준'],['재방문 유도','다시 돌아오게']],
-    story:[['이탈을 감지하면','장바구니를 두고 떠난 고객의 행동을 자동으로 포착해요'],['맞춤 알림을 보내요','관심 본 상품 기준으로 개인화된 알림을 발송해요'],['다시 돌아와요','한 번의 알림으로 고객이 쇼핑몰로 재방문해요']]},
-  upsell:{name:'알파업셀',vp:'고객 한 명이 더 떠나기 전에 더 사게 만들어요',chip:'유입은 되는데 장바구니 구매 전환이 어려워요',pop:'추천 상품 위젯',metric:'객단가 +23%',
-    usp:[['구매 흐름에 노출','딱 맞는 추천 제시'],['클릭 한 번 추가','이탈 없이 담기'],['함께 사게','자연스러운 추가구매']],
-    story:[['구매 흐름을 분석해','장바구니·상세페이지에서 고객 행동을 읽어요'],['딱 맞는 상품을 추천','AI가 같이 살 만한 상품을 그 자리에 띄워요'],['장바구니가 커져요','클릭 한 번으로 담으면서 객단가가 올라가요']]},
-};
-const KEYS=['canvas','insta','review','push','upsell'];
-const LOCKED={canvas:'설치됨'};  // 이미 확정 — 해제 불가
-// 무료체험 이력이 있어 무료체험 불가(바로 결제) 제품 — 계정 데이터 연동 전 설정값. 키 추가/삭제로 제어
-const TRIAL_USED=new Set(['review']);
+        ]
+      },
+      push: {
+        name: '알파푸시', vp: '떠난 고객을 정확히 다시 불러와요', chip: '이탈한 고객을 재방문시키고 싶어요', pop: '맞춤 알림 발송', metric: '재방문 +31%',
+        usp: [['이탈 시점 포착', '떠난 순간에 발송'], ['개인화 메시지', '관심 상품 기준'], ['재방문 유도', '다시 돌아오게']],
+        story: [['이탈을 감지하면', '장바구니를 두고 떠난 고객의 행동을 자동으로 포착해요'], ['맞춤 알림을 보내요', '관심 본 상품 기준으로 개인화된 알림을 발송해요'], ['다시 돌아와요', '한 번의 알림으로 고객이 쇼핑몰로 재방문해요']]
+      },
+      upsell: {
+        name: '알파업셀', vp: '고객 한 명이 더 떠나기 전에 더 사게 만들어요', chip: '유입은 되는데 장바구니 구매 전환이 어려워요', pop: '추천 상품 위젯', metric: '객단가 +23%',
+        usp: [['구매 흐름에 노출', '딱 맞는 추천 제시'], ['클릭 한 번 추가', '이탈 없이 담기'], ['함께 사게', '자연스러운 추가구매']],
+        story: [['구매 흐름을 분석해', '장바구니·상세페이지에서 고객 행동을 읽어요'], ['딱 맞는 상품을 추천', 'AI가 같이 살 만한 상품을 그 자리에 띄워요'], ['장바구니가 커져요', '클릭 한 번으로 담으면서 객단가가 올라가요']]
+      },
+    };
+    const KEYS = ['canvas', 'insta', 'review', 'push', 'upsell'];
+    const LOCKED = { canvas: '설치됨' };  // 이미 확정 — 해제 불가
+    // 무료체험 이력이 있어 무료체험 불가(바로 결제) 제품 — 계정 데이터 연동 전 설정값. 키 추가/삭제로 제어
+    const TRIAL_USED = new Set(['review']);
 
-// ── 신뢰 근거(trust) ──────────────────────────────
-// 원칙:
-//  1) 수치는 USP/Value Prop 문장에 직접 넣지 않고, 주장을 받치는 '근거'로만 사용
-//  2) 유료 고객사 수는 반드시 "유료" 표기 (경쟁사 설치 기준과 비교 통일)
-//  3) 검증 안 된 수치는 넣지 않음 — 없으면 슬롯 자체를 비움(fallback)
-// 근거는 두 종류:
-//  - stat: 검증된 수치 (예: 유료 고객사 4,538사)
-//  - point: 우리만의 차별점 (라벨 + 호버 한 줄 설명)
-let TRUST_ON = true; // 데모 토글용. 실제는 솔루션별 데이터 유무로 자동 판단.
-const TRUST = {
-  review: {
-    stats: ['유료 고객사 4,538사', '라이브 25,000+ 쇼핑몰'],
-    note: '2026-06-18 기준 · 자사 데이터'
-  },
-  upsell: {
-    chips: [
-      ['AI 추가구매 추천', '같이 살 만한 상품을 AI가 골라줘요'],
-      ['가격 A/B 테스트', '할인율·구성을 바꿔가며 잘 팔리는 조합을 찾아요'],
-      ['매출 금액 인사이트', '얼마나 더 팔렸는지 금액으로 보여줘요'],
-    ]
-  },
-  push: {
-    chips: [
-      ['구매까지 자동 알림', '클릭에서 끝나지 않고 구매 행동까지 이어줘요'],
-      ['원클릭 자동화', '복잡한 발송 과정을 한 번 설정으로 자동 처리해요'],
-    ]
-  },
-  canvas: {
-    chips: [
-      ['드래그 한 번으로 편집', '디자이너·코딩 없이 직접 페이지를 구성해요'],  // TODO: 가안
-    ]
-  },
-  insta: {
-    chips: [
-      ['노코드 피드 연동', '개발 없이 인스타 게시물을 쇼핑몰로 자동으로 가져와요'],  // TODO: 가안
-    ]
-  },
-};
-function trustOf(k){ return TRUST_ON ? (TRUST[k]||null) : null; }
-// ────────────────────────────────────────────────
+    // ── 신뢰 근거(trust) ──────────────────────────────
+    // 원칙:
+    //  1) 수치는 USP/Value Prop 문장에 직접 넣지 않고, 주장을 받치는 '근거'로만 사용
+    //  2) 유료 고객사 수는 반드시 "유료" 표기 (경쟁사 설치 기준과 비교 통일)
+    //  3) 검증 안 된 수치는 넣지 않음 — 없으면 슬롯 자체를 비움(fallback)
+    // 근거는 두 종류:
+    //  - stat: 검증된 수치 (예: 유료 고객사 4,538사)
+    //  - point: 우리만의 차별점 (라벨 + 호버 한 줄 설명)
+    let TRUST_ON = true; // 데모 토글용. 실제는 솔루션별 데이터 유무로 자동 판단.
+    const TRUST = {
+      review: {
+        stats: ['유료 고객사 4,538사', '라이브 25,000+ 쇼핑몰'],
+        note: '2026-06-18 기준 · 자사 데이터'
+      },
+      upsell: {
+        chips: [
+          ['AI 추가구매 추천', '같이 살 만한 상품을 AI가 골라줘요'],
+          ['가격 A/B 테스트', '할인율·구성을 바꿔가며 잘 팔리는 조합을 찾아요'],
+          ['매출 금액 인사이트', '얼마나 더 팔렸는지 금액으로 보여줘요'],
+        ]
+      },
+      push: {
+        chips: [
+          ['구매까지 자동 알림', '클릭에서 끝나지 않고 구매 행동까지 이어줘요'],
+          ['원클릭 자동화', '복잡한 발송 과정을 한 번 설정으로 자동 처리해요'],
+        ]
+      },
+      canvas: {
+        chips: [
+          ['드래그 한 번으로 편집', '디자이너·코딩 없이 직접 페이지를 구성해요'],  // TODO: 가안
+        ]
+      },
+      insta: {
+        chips: [
+          ['노코드 피드 연동', '개발 없이 인스타 게시물을 쇼핑몰로 자동으로 가져와요'],  // TODO: 가안
+        ]
+      },
+    };
+    function trustOf(k) { return TRUST_ON ? (TRUST[k] || null) : null; }
+    // ────────────────────────────────────────────────
 
-// 제품별 클릭커블 애니메이션 데모 (anim-area iframe)
-const ANIM = {
-  canvas:'canvas-onboarding.html',
-  insta:'instafeed-onboarding.html',
-  review:'review-onboarding.html',
-  push:'push-onboarding.html',
-  upsell:'upsell-onboarding.html',
-};
+    // 제품별 클릭커블 애니메이션 데모 (anim-area iframe)
+    const ANIM = {
+      canvas: 'canvas-onboarding.html',
+      insta: 'instafeed-onboarding.html',
+      review: 'review-onboarding.html',
+      push: 'push-onboarding.html',
+      upsell: 'upsell-onboarding.html',
+    };
 
-let cur='canvas', step=-1;
-let selected=new Set(Object.keys(LOCKED));
-const $=id=>document.getElementById(id);
-const cvar=k=>getComputedStyle(document.documentElement).getPropertyValue('--c-'+k).trim();
+    let cur = 'canvas', step = -1;
+    let selected = new Set(Object.keys(LOCKED));
+    const $ = id => document.getElementById(id);
+    const cvar = k => getComputedStyle(document.documentElement).getPropertyValue('--c-' + k).trim();
 
-const LOCK_SVG='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
+    const LOCK_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
 
-function renderChips(){
-  const wrap=$('chips'); wrap.innerHTML='';
-  KEYS.forEach(k=>{
-    const d=DATA[k]; const color=cvar(k);
-    const isL=!!LOCKED[k], isS=selected.has(k), isV=(k===cur);
-    const chip=document.createElement('div');
-    chip.className='chip'+(isV?' viewing':'')+(isS?' selected':'')+(isL?' locked':'');
-    chip.style.setProperty('--chip-accent', color);
-    const check=document.createElement('div'); check.className='check'; check.tabIndex=isL?-1:0;
-    if(isS){ check.innerHTML=isL?LOCK_SVG:'✓'; check.style.background=isL?'':color; }
-    check.onclick=(e)=>{ e.stopPropagation(); if(!isL) toggle(k); };
-    check.onkeydown=(e)=>{ if((e.key==='Enter'||e.key===' ')&&!isL){ e.preventDefault(); toggle(k); } };
-    const meta=document.createElement('div'); meta.className='meta'; meta.tabIndex=0;
-    const qq=document.createElement('div'); qq.className='q'; qq.textContent=d.chip;
-    const sol=document.createElement('div'); sol.className='sol';
-    sol.style.color=isS?color:'var(--ink-faint)';
-    sol.innerHTML=isS?(isL?`${d.name}<span class="lk"> · 앱스토어에서 선택함</span>`:(TRIAL_USED.has(k)?`${d.name} 체험 완료 · 구독 선택`:`${d.name} 무료체험 선택`)):d.name;
-    meta.appendChild(qq); meta.appendChild(sol);
-    meta.onclick=()=>{ cur=k; loadPanel(); };
-    meta.onkeydown=(e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); cur=k; loadPanel(); } };
-    chip.appendChild(check); chip.appendChild(meta);
-    wrap.appendChild(chip);
-  });
-}
+    function renderChips() {
+      const wrap = $('chips'); wrap.innerHTML = '';
+      KEYS.forEach(k => {
+        const d = DATA[k]; const color = cvar(k);
+        const isL = !!LOCKED[k], isS = selected.has(k), isV = (k === cur);
+        const chip = document.createElement('div');
+        chip.className = 'chip' + (isV ? ' viewing' : '') + (isS ? ' selected' : '') + (isL ? ' locked' : '');
+        chip.style.setProperty('--chip-accent', color);
+        const check = document.createElement('div'); check.className = 'check'; check.tabIndex = isL ? -1 : 0;
+        if (isS) { check.innerHTML = isL ? LOCK_SVG : '✓'; check.style.background = isL ? '' : color; }
+        check.onclick = (e) => { e.stopPropagation(); if (!isL) toggle(k); };
+        check.onkeydown = (e) => { if ((e.key === 'Enter' || e.key === ' ') && !isL) { e.preventDefault(); toggle(k); } };
+        const meta = document.createElement('div'); meta.className = 'meta'; meta.tabIndex = 0;
+        const qq = document.createElement('div'); qq.className = 'q'; qq.textContent = d.chip;
+        const sol = document.createElement('div'); sol.className = 'sol';
+        sol.style.color = isS ? color : 'var(--ink-faint)';
+        sol.innerHTML = isS ? (isL ? `${d.name}<span class="lk"> · 앱스토어에서 선택함</span>` : (TRIAL_USED.has(k) ? `${d.name} 체험 완료 · 구독 선택` : `${d.name} 무료체험 선택`)) : d.name;
+        meta.appendChild(qq); meta.appendChild(sol);
+        meta.onclick = () => { cur = k; loadPanel(); };
+        meta.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cur = k; loadPanel(); } };
+        chip.appendChild(check); chip.appendChild(meta);
+        wrap.appendChild(chip);
+      });
+    }
 
-function toggle(k){
-  if(LOCKED[k]) return;
-  selected.has(k)?selected.delete(k):selected.add(k);
-  renderChips(); updateCount();
-}
-function updateCount(){ $('cnt').textContent=selected.size+'개'; }
+    function toggle(k) {
+      if (LOCKED[k]) return;
+      selected.has(k) ? selected.delete(k) : selected.add(k);
+      renderChips(); updateCount();
+    }
+    function updateCount() { $('cnt').textContent = selected.size + '개'; }
 
-function loadPanel(){
-  // 클릭커블 애니메이션: 제품이 바뀔 때만 iframe src 교체(불필요한 리로드 방지)
-  const frame=$('animFrame');
-  if(frame && ANIM[cur] && frame.getAttribute('data-key')!==cur){
-    frame.setAttribute('data-key',cur);
-    frame.src=ANIM[cur];
-  }
-  renderChips();
-}
+    function loadPanel() {
+      // 클릭커블 애니메이션: 제품이 바뀔 때만 iframe src 교체(불필요한 리로드 방지)
+      const frame = $('animFrame');
+      if (frame && ANIM[cur] && frame.getAttribute('data-key') !== cur) {
+        frame.setAttribute('data-key', cur);
+        frame.src = ANIM[cur];
+      }
+      renderChips();
+    }
 
-// 상단 스텝퍼 클릭 이동은 buildSteps()에서 노드별 onclick=goToStep(n)으로 처리
+    // 상단 스텝퍼 클릭 이동은 buildSteps()에서 노드별 onclick=goToStep(n)으로 처리
 
 
-// 좌측 타이틀: 앱스토어에서 선택한(잠금) 제품 기준으로 동적 구성
-(function setLeftTitle(){
-  const lockedKey=Object.keys(LOCKED)[0];
-  if(lockedKey) $('leftTitle').innerHTML=`<span style="color:${cvar(lockedKey)}">${DATA[lockedKey].name}</span>말고도 해결하고 싶은<br>문제가 있다면 골라보세요`;
-})();
+    // 좌측 타이틀: 앱스토어에서 선택한(잠금) 제품 기준으로 동적 구성
+    (function setLeftTitle() {
+      const lockedKey = Object.keys(LOCKED)[0];
+      if (lockedKey) $('leftTitle').innerHTML = `<span style="color:${cvar(lockedKey)}">${DATA[lockedKey].name}</span>말고도 해결하고 싶은<br>문제가 있다면 골라보세요`;
+    })();
 
-renderChips(); updateCount(); loadPanel();
+    renderChips(); updateCount(); loadPanel();
 
-// ── 시각 시퀀스: [다음] 누르면 선택한 프로덕트별로 1장씩 자세히 ──
-const GENERIC_SCREEN = `<div class="db-metric" id="icMetric"></div>
+    // ── 시각 시퀀스: [다음] 누르면 선택한 프로덕트별로 1장씩 자세히 ──
+    const GENERIC_SCREEN = `<div class="db-metric" id="icMetric"></div>
   <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>
   <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>
   <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>`;
-function hasScenes(k){ return !!(DATA[k] && DATA[k].scenes); }
-function introSteps(){ const d=DATA[introList[introIdx]]; return d.story||d.usp; }
+    function hasScenes(k) { return !!(DATA[k] && DATA[k].scenes); }
+    function introSteps() { const d = DATA[introList[introIdx]]; return d.story || d.usp; }
 
-let introList=[], introIdx=0, introStep=-1;
-function openIntro(){
-  introList=KEYS.filter(k=>selected.has(k));
-  if(introList.length===0){ return; }
-  introIdx=0;
-  $('selectView').style.display='none';
-  $('intro').classList.add('on');
-  loadIntro();
-}
-function closeIntro(){
-  $('intro').classList.remove('on');
-  $('selectView').style.display='';
-}
-function loadIntro(){
-  const k=introList[introIdx]; const d=DATA[k];
-  $('icKicker').textContent=`${introIdx+1} / ${introList.length}`;
-  $('icName').textContent=d.name; $('icDot').style.background=cvar(k);
-  $('icVp').textContent=d.vp;
-  $('icUrl').textContent='myshop.cafe24.com';
-  // 데모 화면: scenes가 있으면 단계별 실제 UI, 없으면 기존 placeholder
-  const m=$('icMock');
-  if(hasScenes(k)){
-    m.classList.add('scened');
-  } else {
-    m.classList.remove('scened');
-    $('icScreen').innerHTML=GENERIC_SCREEN;
-    $('icMetric').textContent=d.metric;
-  }
-  // 신뢰근거
-  const tr=TRUST[k]; const tb=$('icTrust'); tb.innerHTML='';
-  if(tr){
-    (tr.stats||[]).forEach(f=>{ const e=document.createElement('span'); e.className='f'; e.innerHTML=`<span class="c"></span>${f}`; tb.appendChild(e); });
-    (tr.chips||[]).forEach(p=>{ const e=document.createElement('span'); e.className='f'; e.textContent=p[0]; tb.appendChild(e); });
-    tb.style.display='flex';
-  } else tb.style.display='none';
-  // 하단 단계 스텝퍼 (번호 노드만 — 텍스트는 캡션 한 곳에서)
-  const steps = d.story || d.usp;
-  const sb=$('icSteps'); sb.innerHTML='';
-  steps.forEach((u,i)=>{
-    const node=document.createElement('div'); node.className='ic-step'; node.id='is'+i;
-    node.innerHTML=`<span class="dot">${i+1}</span>`+(i<steps.length-1?`<span class="line"></span>`:'');
-    node.querySelector('.dot').onclick=()=>introGo(i);
-    sb.appendChild(node);
-  });
-  $('introPrev').disabled=(introIdx===0);
-  $('introNext').textContent=(introIdx===introList.length-1)?'다음':'다음 솔루션 →';
-  introReset(); setTimeout(()=>introGo(0),300);
-}
-function introReset(){
-  introStep=-1;
-  const k=introList[introIdx];
-  if(!hasScenes(k)) $('icMock').className='demo-browser';
-  introSync();
-}
-function introGo(n){
-  const k=introList[introIdx];
-  const steps=introSteps();
-  introStep=n;
-  if(hasScenes(k)){ introSync(); return; }
-  const m=$('icMock'); m.className='demo-browser';
-  if(n>=1)m.classList.add('s1');
-  if(n>=steps.length-1)m.classList.add('s2');
-  introSync();
-}
-function introSync(){
-  const k=introList[introIdx];
-  const steps=introSteps();
-  const last=steps.length-1;
-  // 스텝 노드 상태 + 연결선 채움
-  [...$('icSteps').children].forEach((node,i)=>{
-    node.classList.remove('active','passed');
-    if(i<introStep) node.classList.add('passed');
-    if(i===introStep) node.classList.add('active');
-    const line=node.querySelector('.line');
-    if(line) line.classList.toggle('fill', i<introStep);
-  });
-  // 현재 단계 캡션 (제목 + 한 줄 설명)
-  const ci=Math.max(0,introStep); const cs=steps[ci];
-  $('icCap').innerHTML = cs ? `<div class="t"><span class="num">${String(ci+1).padStart(2,'0')}</span>${cs[0]}</div><div class="d">${cs[1]}</div>` : '';
-  if(hasScenes(k)){
-    const idx=Math.max(0,introStep);
-    $('icScreen').innerHTML=DATA[k].scenes[idx]||DATA[k].scenes[0];
-  }
-  $('icHint').textContent = introStep<last ? '화면을 탭하면 다음 단계 →' : '모든 기능을 살펴봤어요 ✓';
-}
-$('icMock').onclick=()=>{ const steps=introSteps(); if(introStep<steps.length-1) introGo(introStep+1); };
-$('introNext').onclick=()=>{
-  if(introIdx<introList.length-1){ introIdx++; loadIntro(); }
-  else { closeIntro(); goStep4(); }
-};
-$('introPrev').onclick=()=>{
-  if(introIdx>0){ introIdx--; loadIntro(); }
-  else { closeIntro(); }
-};
-$('introClose').onclick=()=>{ closeIntro(); };
+    let introList = [], introIdx = 0, introStep = -1;
+    function openIntro() {
+      introList = KEYS.filter(k => selected.has(k));
+      if (introList.length === 0) { return; }
+      introIdx = 0;
+      $('selectView').style.display = 'none';
+      $('intro').classList.add('on');
+      loadIntro();
+    }
+    function closeIntro() {
+      $('intro').classList.remove('on');
+      $('selectView').style.display = '';
+    }
+    function loadIntro() {
+      const k = introList[introIdx]; const d = DATA[k];
+      $('icKicker').textContent = `${introIdx + 1} / ${introList.length}`;
+      $('icName').textContent = d.name; $('icDot').style.background = cvar(k);
+      $('icVp').textContent = d.vp;
+      $('icUrl').textContent = 'myshop.cafe24.com';
+      // 데모 화면: scenes가 있으면 단계별 실제 UI, 없으면 기존 placeholder
+      const m = $('icMock');
+      if (hasScenes(k)) {
+        m.classList.add('scened');
+      } else {
+        m.classList.remove('scened');
+        $('icScreen').innerHTML = GENERIC_SCREEN;
+        $('icMetric').textContent = d.metric;
+      }
+      // 신뢰근거
+      const tr = TRUST[k]; const tb = $('icTrust'); tb.innerHTML = '';
+      if (tr) {
+        (tr.stats || []).forEach(f => { const e = document.createElement('span'); e.className = 'f'; e.innerHTML = `<span class="c"></span>${f}`; tb.appendChild(e); });
+        (tr.chips || []).forEach(p => { const e = document.createElement('span'); e.className = 'f'; e.textContent = p[0]; tb.appendChild(e); });
+        tb.style.display = 'flex';
+      } else tb.style.display = 'none';
+      // 하단 단계 스텝퍼 (번호 노드만 — 텍스트는 캡션 한 곳에서)
+      const steps = d.story || d.usp;
+      const sb = $('icSteps'); sb.innerHTML = '';
+      steps.forEach((u, i) => {
+        const node = document.createElement('div'); node.className = 'ic-step'; node.id = 'is' + i;
+        node.innerHTML = `<span class="dot">${i + 1}</span>` + (i < steps.length - 1 ? `<span class="line"></span>` : '');
+        node.querySelector('.dot').onclick = () => introGo(i);
+        sb.appendChild(node);
+      });
+      $('introPrev').disabled = (introIdx === 0);
+      $('introNext').textContent = (introIdx === introList.length - 1) ? '다음' : '다음 솔루션 →';
+      introReset(); setTimeout(() => introGo(0), 300);
+    }
+    function introReset() {
+      introStep = -1;
+      const k = introList[introIdx];
+      if (!hasScenes(k)) $('icMock').className = 'demo-browser';
+      introSync();
+    }
+    function introGo(n) {
+      const k = introList[introIdx];
+      const steps = introSteps();
+      introStep = n;
+      if (hasScenes(k)) { introSync(); return; }
+      const m = $('icMock'); m.className = 'demo-browser';
+      if (n >= 1) m.classList.add('s1');
+      if (n >= steps.length - 1) m.classList.add('s2');
+      introSync();
+    }
+    function introSync() {
+      const k = introList[introIdx];
+      const steps = introSteps();
+      const last = steps.length - 1;
+      // 스텝 노드 상태 + 연결선 채움
+      [...$('icSteps').children].forEach((node, i) => {
+        node.classList.remove('active', 'passed');
+        if (i < introStep) node.classList.add('passed');
+        if (i === introStep) node.classList.add('active');
+        const line = node.querySelector('.line');
+        if (line) line.classList.toggle('fill', i < introStep);
+      });
+      // 현재 단계 캡션 (제목 + 한 줄 설명)
+      const ci = Math.max(0, introStep); const cs = steps[ci];
+      $('icCap').innerHTML = cs ? `<div class="t"><span class="num">${String(ci + 1).padStart(2, '0')}</span>${cs[0]}</div><div class="d">${cs[1]}</div>` : '';
+      if (hasScenes(k)) {
+        const idx = Math.max(0, introStep);
+        $('icScreen').innerHTML = DATA[k].scenes[idx] || DATA[k].scenes[0];
+      }
+      $('icHint').textContent = introStep < last ? '화면을 탭하면 다음 단계 →' : '모든 기능을 살펴봤어요 ✓';
+    }
+    $('icMock').onclick = () => { const steps = introSteps(); if (introStep < steps.length - 1) introGo(introStep + 1); };
+    $('introNext').onclick = () => {
+      if (introIdx < introList.length - 1) { introIdx++; loadIntro(); }
+      else { closeIntro(); goStep4(); }
+    };
+    $('introPrev').onclick = () => {
+      if (introIdx > 0) { introIdx--; loadIntro(); }
+      else { closeIntro(); }
+    };
+    $('introClose').onclick = () => { closeIntro(); };
 
-// ── 스텝 4·5 시퀀스: 선택에 따라 동적으로 화면 큐 구성 ──
-let flowQueue=[], flowPos=0;
-function goStep4(){
-  flowQueue=[];
-  if(selected.has('review')) flowQueue.push({view:'reviewWidget', step:4});
-  if(selected.has('insta'))  flowQueue.push({view:'snsConnect', step:4});
-  flowQueue.push({view:'cardReg', step:5});
-  flowPos=0;
-  showFlow();
-}
-function showFlow(){
-  ['reviewWidget','snsConnect','cardReg'].forEach(id=>$(id).classList.remove('on'));
-  $('selectView').style.display='none';
-  $('intro').classList.remove('on');
-  const cur=flowQueue[flowPos];
-  $(cur.view).classList.add('on');
-  setStepper(cur.step);
-}
-function flowNext(){
-  if(flowPos<flowQueue.length-1){ flowPos++; showFlow(); }
-  else { finishOnboarding(); }
-}
-function flowPrev(){
-  if(flowPos>0){ flowPos--; showFlow(); }
-  else {
-    $(flowQueue[0].view).classList.remove('on');
-    setStepper(3);
-    introIdx=introList.length-1; $('selectView').style.display='none'; $('intro').classList.add('on'); loadIntro();
-  }
-}
-function finishOnboarding(){
-  ['reviewWidget','snsConnect','cardReg'].forEach(id=>$(id).classList.remove('on'));
-  renderDone();
-  $('doneView').classList.add('on');
-  setStepper(6);
-}
+    // ── 스텝 4·5 시퀀스: 선택에 따라 동적으로 화면 큐 구성 ──
+    let flowQueue = [], flowPos = 0;
+    function goStep4() {
+      flowQueue = [];
+      if (selected.has('review')) flowQueue.push({ view: 'reviewWidget', step: 4 });
+      if (selected.has('insta')) flowQueue.push({ view: 'snsConnect', step: 4 });
+      flowQueue.push({ view: 'cardReg', step: 5 });
+      flowPos = 0;
+      showFlow();
+    }
+    function showFlow() {
+      ['reviewWidget', 'snsConnect', 'cardReg'].forEach(id => $(id).classList.remove('on'));
+      $('selectView').style.display = 'none';
+      $('intro').classList.remove('on');
+      const cur = flowQueue[flowPos];
+      $(cur.view).classList.add('on');
+      setStepper(cur.step);
+    }
+    function flowNext() {
+      if (flowPos < flowQueue.length - 1) { flowPos++; showFlow(); }
+      else { finishOnboarding(); }
+    }
+    function flowPrev() {
+      if (flowPos > 0) { flowPos--; showFlow(); }
+      else {
+        $(flowQueue[0].view).classList.remove('on');
+        setStepper(3);
+        introIdx = introList.length - 1; $('selectView').style.display = 'none'; $('intro').classList.add('on'); loadIntro();
+      }
+    }
+    function finishOnboarding() {
+      ['reviewWidget', 'snsConnect', 'cardReg'].forEach(id => $(id).classList.remove('on'));
+      renderDone();
+      $('doneView').classList.add('on');
+      setStepper(6);
+    }
 
-const DONE_COND = {
-  insta: '최초 사용 시 30건 무료 제공, 이후 매월 5건 무료 제공',
-  trialUsed: '무료체험 이력이 있어 바로 구독돼요',
-  _default: '14일 무료 체험',
-};
-// 제품별 완료화면 조건 문구
-function condOf(k){ return k==='insta' ? DONE_COND.insta : (TRIAL_USED.has(k) ? DONE_COND.trialUsed : DONE_COND._default); }
-const INSTALL = {
-  review: { auto:'알파리뷰 일부 기능', manual:'알파리뷰 일부 기능' },
-  insta:  { auto:'인스타피드' },
-  push:   { auto:'알파푸시' },
-  upsell: { manual:'알파업셀' },
-  canvas: { manual:'알파캔버스' },
-};
-function renderDone(){
-  const picked=KEYS.filter(k=>selected.has(k));
-  const box=$('doneSols'); box.innerHTML='';
-  // 조건 문구별로 그룹화 (인스타 무료제공 / 무료체험 이력 / 14일 무료체험)
-  const groups=[]; const gi={};
-  picked.forEach(k=>{
-    const c=condOf(k);
-    if(gi[c]===undefined){ gi[c]=groups.length; groups.push({cond:c, keys:[]}); }
-    groups[gi[c]].keys.push(k);
-  });
-  groups.forEach(g=>{
-    const row=document.createElement('div'); row.className='done-sol-row';
-    const chips=g.keys.map(k=>`<span class="done-sol" style="background:${cvar(k)}">${DATA[k].name}</span>`).join('');
-    row.innerHTML=`${chips}<span class="done-sol-cond">${g.cond}</span>`;
-    box.appendChild(row);
-  });
-  const auto=[], manual=[];
-  picked.forEach(k=>{ const i=INSTALL[k]; if(!i)return; if(i.auto)auto.push(i.auto); if(i.manual)manual.push(i.manual); });
-  $('autoSec').style.display = auto.length?'block':'none';
-  $('autoList').textContent = [...new Set(auto)].join(', ');
-  $('manualSec').style.display = manual.length?'block':'none';
-  $('manualList').textContent = [...new Set(manual)].join(', ');
-}
-document.querySelector('.done-cta').onclick=()=>{ alert('대시보드로 이동합니다 🎉'); };
-function setStepper(n){ buildSteps($('stepper'), n); }
-['reviewWidget','snsConnect','cardReg'].forEach(id=>{
-  $(id).addEventListener('click',(e)=>{
-    if(e.target.closest('[data-next]')) flowNext();
-    else if(e.target.closest('[data-skip]')) flowNext();
-    else if(e.target.closest('[data-prev]')) flowPrev();
-    else if(e.target.closest('[data-done]')) finishOnboarding();
-  });
-});
+    const DONE_COND = {
+      insta: '최초 사용 시 30건 무료 제공, 이후 매월 5건 무료 제공',
+      trialUsed: '무료체험 이력이 있어 바로 구독돼요',
+      _default: '14일 무료 체험',
+    };
+    // 제품별 완료화면 조건 문구
+    function condOf(k) { return k === 'insta' ? DONE_COND.insta : (TRIAL_USED.has(k) ? DONE_COND.trialUsed : DONE_COND._default); }
+    const INSTALL = {
+      review: { auto: '알파리뷰 일부 기능', manual: '알파리뷰 일부 기능' },
+      insta: { auto: '인스타피드' },
+      push: { auto: '알파푸시' },
+      upsell: { manual: '알파업셀' },
+      canvas: { manual: '알파캔버스' },
+    };
+    function renderDone() {
+      const picked = KEYS.filter(k => selected.has(k));
+      const box = $('doneSols'); box.innerHTML = '';
+      // 조건 문구별로 그룹화 (인스타 무료제공 / 무료체험 이력 / 14일 무료체험)
+      const groups = []; const gi = {};
+      picked.forEach(k => {
+        const c = condOf(k);
+        if (gi[c] === undefined) { gi[c] = groups.length; groups.push({ cond: c, keys: [] }); }
+        groups[gi[c]].keys.push(k);
+      });
+      groups.forEach(g => {
+        const row = document.createElement('div'); row.className = 'done-sol-row';
+        const chips = g.keys.map(k => `<span class="done-sol" style="background:${cvar(k)}">${DATA[k].name}</span>`).join('');
+        row.innerHTML = `${chips}<span class="done-sol-cond">${g.cond}</span>`;
+        box.appendChild(row);
+      });
+      const auto = [], manual = [];
+      picked.forEach(k => { const i = INSTALL[k]; if (!i) return; if (i.auto) auto.push(i.auto); if (i.manual) manual.push(i.manual); });
+      $('autoSec').style.display = auto.length ? 'block' : 'none';
+      $('autoList').textContent = [...new Set(auto)].join(', ');
+      $('manualSec').style.display = manual.length ? 'block' : 'none';
+      $('manualList').textContent = [...new Set(manual)].join(', ');
+    }
+    document.querySelector('.done-cta').onclick = () => { alert('대시보드로 이동합니다 🎉'); };
+    function setStepper(n) { buildSteps($('stepper'), n); }
+    ['reviewWidget', 'snsConnect', 'cardReg'].forEach(id => {
+      $(id).addEventListener('click', (e) => {
+        if (e.target.closest('[data-next]')) flowNext();
+        else if (e.target.closest('[data-skip]')) flowNext();
+        else if (e.target.closest('[data-prev]')) flowPrev();
+        else if (e.target.closest('[data-done]')) finishOnboarding();
+      });
+    });
 
-// 하단 [다음] = 시각 시퀀스 시작
-document.querySelector('.nav .next').onclick=()=>{ openIntro(); };
+    // 하단 [다음] = 시각 시퀀스 시작
+    document.querySelector('.nav .next').onclick = () => { openIntro(); };
 
-// ───── 스텝1·2 (담당자/쇼핑몰 정보 입력) 네비게이션 ─────
-const INFO_LABELS=['담당자 정보 입력','쇼핑몰 정보 입력','맞춤 솔루션 선택','위젯 설정','카드 등록'];
-const CHECK_SVG='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#307AF3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5 9-10"/></svg>';
-// 공통 스텝퍼 렌더 (1·2번 페이지 우측 스텝퍼 + 상단 스텝퍼 동일 스타일)
-// 지난/현재 단계(n<=cur)만 클릭 가능 — 미완료 미래 단계로 건너뛰기 방지
-function buildSteps(box, cur){
-  if(!box) return;
-  box.innerHTML='';
-  INFO_LABELS.forEach((lbl,idx)=>{
-    const n=idx+1;
-    const st = n<cur?'done':(n===cur?'active':'todo');
-    const can = n<=cur;
-    const node=document.createElement('div');
-    node.className='iv-step '+st+(can?' clickable':'');
-    node.innerHTML=`<span class="c">${st==='done'?CHECK_SVG:n}</span><span class="t">${lbl}</span>`+(n<5?'<span class="tail"></span>':'');
-    if(can) node.onclick=()=>goToStep(n);
-    box.appendChild(node);
-  });
-}
-function renderInfoSteps(){
-  document.querySelectorAll('.iv-steps[data-steps]').forEach(box=> buildSteps(box, +box.dataset.steps));
-}
-function showInfo(n){
-  $('info1').classList.toggle('on', n===1);
-  $('info2').classList.toggle('on', n===2);
-  window.scrollTo(0,0);
-}
-function hideInfo(){ $('info1').classList.remove('on'); $('info2').classList.remove('on'); }
+    // ───── 스텝1·2 (담당자/쇼핑몰 정보 입력) 네비게이션 ─────
+    const INFO_LABELS = ['담당자 정보 입력', '쇼핑몰 정보 입력', '맞춤 솔루션 선택', '위젯 설정', '카드 등록'];
+    const CHECK_SVG = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#307AF3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5 9-10"/></svg>';
+    // 공통 스텝퍼 렌더 (1·2번 페이지 우측 스텝퍼 + 상단 스텝퍼 동일 스타일)
+    // 지난/현재 단계(n<=cur)만 클릭 가능 — 미완료 미래 단계로 건너뛰기 방지
+    function buildSteps(box, cur) {
+      if (!box) return;
+      box.innerHTML = '';
+      INFO_LABELS.forEach((lbl, idx) => {
+        const n = idx + 1;
+        const st = n < cur ? 'done' : (n === cur ? 'active' : 'todo');
+        const can = n <= cur;
+        const node = document.createElement('div');
+        node.className = 'iv-step ' + st + (can ? ' clickable' : '');
+        node.innerHTML = `<span class="c">${st === 'done' ? CHECK_SVG : n}</span><span class="t">${lbl}</span>` + (n < 5 ? '<span class="tail"></span>' : '');
+        if (can) node.onclick = () => goToStep(n);
+        box.appendChild(node);
+      });
+    }
+    function renderInfoSteps() {
+      document.querySelectorAll('.iv-steps[data-steps]').forEach(box => buildSteps(box, +box.dataset.steps));
+    }
+    function showInfo(n) {
+      $('info1').classList.toggle('on', n === 1);
+      $('info2').classList.toggle('on', n === 2);
+      window.scrollTo(0, 0);
+    }
+    function hideInfo() { $('info1').classList.remove('on'); $('info2').classList.remove('on'); }
 
-// 임의 단계로 이동 (스텝퍼 클릭/네비게이션 공용)
-function goToStep(n){
-  $('intro').classList.remove('on');
-  ['reviewWidget','snsConnect','cardReg','doneView'].forEach(id=>$(id).classList.remove('on'));
-  if(n<=2){ $('selectView').style.display='none'; showInfo(n); setStepper(n); return; }
-  hideInfo();
-  if(n===3){ $('selectView').style.display=''; setStepper(3); window.scrollTo(0,0); return; }
-  // 4·5: 선택 기반 플로우 큐 구성 후 해당 단계로
-  $('selectView').style.display='none';
-  flowQueue=[];
-  if(selected.has('review')) flowQueue.push({view:'reviewWidget', step:4});
-  if(selected.has('insta'))  flowQueue.push({view:'snsConnect', step:4});
-  flowQueue.push({view:'cardReg', step:5});
-  let pos=flowQueue.findIndex(f=>f.step===n);
-  if(pos<0) pos = (n>=5 ? flowQueue.length-1 : 0);
-  flowPos=pos; showFlow();
-}
+    // 임의 단계로 이동 (스텝퍼 클릭/네비게이션 공용)
+    function goToStep(n) {
+      $('intro').classList.remove('on');
+      ['reviewWidget', 'snsConnect', 'cardReg', 'doneView'].forEach(id => $(id).classList.remove('on'));
+      if (n <= 2) { $('selectView').style.display = 'none'; showInfo(n); setStepper(n); return; }
+      hideInfo();
+      if (n === 3) { $('selectView').style.display = ''; setStepper(3); window.scrollTo(0, 0); return; }
+      // 4·5: 선택 기반 플로우 큐 구성 후 해당 단계로
+      $('selectView').style.display = 'none';
+      flowQueue = [];
+      if (selected.has('review')) flowQueue.push({ view: 'reviewWidget', step: 4 });
+      if (selected.has('insta')) flowQueue.push({ view: 'snsConnect', step: 4 });
+      flowQueue.push({ view: 'cardReg', step: 5 });
+      let pos = flowQueue.findIndex(f => f.step === n);
+      if (pos < 0) pos = (n >= 5 ? flowQueue.length - 1 : 0);
+      flowPos = pos; showFlow();
+    }
 
-$('info1').querySelector('[data-next]').onclick=()=>goToStep(2);
-$('info2').querySelector('[data-prev]').onclick=()=>goToStep(1);
-$('info2').querySelector('[data-next]').onclick=()=>goToStep(3);
-document.querySelector('.nav .prev').onclick=()=>goToStep(2);  // 솔루션 선택(스텝3)에서 이전 → 스텝2
+    $('info1').querySelector('[data-next]').onclick = () => goToStep(2);
+    $('info2').querySelector('[data-prev]').onclick = () => goToStep(1);
+    $('info2').querySelector('[data-next]').onclick = () => goToStep(3);
+    document.querySelector('.nav .prev').onclick = () => goToStep(2);  // 솔루션 선택(스텝3)에서 이전 → 스텝2
 
-renderInfoSteps();
-setStepper(3);   // 상단 스텝퍼 초기 렌더
-showInfo(1);     // 진입 시 스텝1부터 시작
-</script>
+    renderInfoSteps();
+    setStepper(3);   // 상단 스텝퍼 초기 렌더
+    showInfo(1);     // 진입 시 스텝1부터 시작
+  </script>
 </body>
+
 </html>
