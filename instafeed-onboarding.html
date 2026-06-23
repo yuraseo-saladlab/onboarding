@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>인스타피드 v2 — 게시글이 리뷰로, 그리고 피드로</title>
+  <title>인스타피드 — 태그된 게시글을 쇼핑몰 홈으로</title>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet"
@@ -30,7 +30,6 @@
       --magenta: #d300c5;
       --pink: #E13E88;
       --ig-grad: linear-gradient(90deg, #FFC700 0%, #FF6FB0 52%, #D300C5 100%);
-      --pink-grad: linear-gradient(90deg, #ff8fc3 0%, #E13E88 52%, #D300C5 100%);
 
       --bg-primary: #ffffff;
       --bg-tertiary: #f5f5f6;
@@ -92,25 +91,32 @@
       font-size: 13px; font-weight: 600; letter-spacing: -0.01em;
       transition: background 0.3s ease, color 0.3s ease;
     }
-    .counter.on { background: var(--pink); color: #fff; }
+    /* 마무리: 게시 완료 — 핑크 weak/outline (chip은 solid, 여긴 outline) */
+    .counter.done { background: rgba(225, 62, 136, 0.06); color: var(--pink); border: 1px solid rgba(225, 62, 136, 0.4); }
+    .counter.done .num { color: var(--pink); }
     .counter .num { font-variant-numeric: tabular-nums; }
 
     /* ━━━━ STAGE ━━━━ */
     .stage {
       flex: 1 1 0; min-height: 0;
       position: relative;
-      display: flex; gap: 24px;
-      align-items: stretch; justify-content: center;
+      display: flex;
       background: var(--bg-tertiary);
       border: 1px solid var(--border-default);
       border-radius: 16px;
-      padding: 24px;
+      overflow: hidden;
     }
 
-    .screen { display: contents; }
+    /* 진행 화면(사이드바+폰)은 안쪽 여백, 마무리(피드)는 가득 */
+    .screen {
+      flex: 1 1 0; min-width: 0;
+      display: flex; gap: 24px;
+      align-items: stretch; justify-content: center;
+      padding: 24px;
+    }
     .fade-in { animation: fadeIn 0.5s ease both; }
 
-    /* ── sidebar (tagged posts) ── */
+    /* ── sidebar (collected tagged posts) ── */
     .sidebar {
       flex: 1 1 0; min-width: 0; max-width: 380px;
       display: flex; flex-direction: column; gap: 14px; min-height: 0;
@@ -123,13 +129,22 @@
     .posts::-webkit-scrollbar { width: 5px; }
     .posts::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 9999px; }
 
+    /* empty placeholder (idle) */
+    .sb-empty {
+      flex: 1 1 0; min-height: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      border: 1.5px dashed var(--border-strong); border-radius: 12px;
+      color: var(--text-placeholder); text-align: center; padding: 24px;
+    }
+    .sb-empty .e-ic { color: var(--border-strong); }
+    .sb-empty .e-tx { font-size: 13px; font-weight: 500; line-height: 1.5; }
+
     .post {
       display: flex; align-items: center; gap: 12px;
       background: #fff; border: 1px solid var(--border-default);
       border-radius: 12px; padding: 12px;
-      transition: border-color 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+      animation: postIn 0.42s cubic-bezier(0.34,1.56,0.64,1) both;
     }
-    .post.linked { border-color: rgba(225, 62, 136, 0.4); background: rgba(225, 62, 136, 0.05); }
 
     .post-thumb { width: 50px; height: 50px; flex-shrink: 0; border-radius: 8px; object-fit: cover; background: #ededf0; }
     .post-body { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
@@ -140,34 +155,45 @@
     .post-tag {
       flex-shrink: 0; font-size: 11px; font-weight: 700; color: var(--pink);
       background: rgba(225, 62, 136, 0.1); border-radius: 9999px; padding: 4px 9px; white-space: nowrap;
-      opacity: 0; transform: scale(0.6);
-      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
     }
-    .post.linked .post-tag { opacity: 1; transform: scale(1); }
 
-    /* ── phone (shop review) ── */
+    /* ── phone (instagram source, pre-filled) ── */
     .phone { flex-shrink: 0; width: 300px; background: #1c1c22; border-radius: 30px; padding: 10px; box-shadow: 0 20px 44px rgba(0,0,0,0.28); display: flex; flex-direction: column; }
     .phone-screen { flex: 1 1 0; min-height: 0; background: #fff; border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; }
-    .ph-bar { display: flex; align-items: center; justify-content: center; padding: 12px; border-bottom: 1px solid var(--border-default); flex-shrink: 0; }
-    .ph-bar .rv { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: var(--text-primary); letter-spacing: 0.04em; }
-    .ph-bar .rv .star { color: #ff8a00; display: grid; }
-    .ph-prod { display: flex; align-items: center; gap: 10px; padding: 12px; border-bottom: 1px solid var(--border-default); flex-shrink: 0; }
-    .ph-prod img { width: 46px; height: 46px; border-radius: 8px; object-fit: cover; background: #ededf0; }
-    .ph-prod-info { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-    .ph-prod-name { font-size: 12px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .ph-prod-rate { font-size: 11px; font-weight: 600; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 4px; }
-    .ph-prod-rate .star { color: #ff8a00; }
+
+    .ph-bar { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--border-default); flex-shrink: 0; }
+    .ph-bar .ig { width: 24px; height: 24px; border-radius: 7px; background: var(--ig-grad); color: #fff; display: grid; place-items: center; flex-shrink: 0; }
+    .ph-bar .ig-handle { font-size: 13px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
+    .ph-bar .ig-sub { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--text-placeholder); }
+
     .ph-grid { flex: 1 1 0; min-height: 0; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; background: #fff; }
     .ph-grid::-webkit-scrollbar { width: 0; }
     .rcell { position: relative; aspect-ratio: 1; overflow: hidden; background: #f0f0f2; }
-    .rcell .ph-ico { position: absolute; inset: 0; display: grid; place-items: center; color: #cdced4; transition: opacity 0.3s ease; }
-    .rcell img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
-    .rcell.on .ph-ico { opacity: 0; }
-    .rcell.on img { opacity: 1; animation: popImg 0.46s cubic-bezier(0.34,1.56,0.64,1) both; }
-    .rcell .stars { position: absolute; left: 5px; bottom: 5px; display: flex; gap: 1px; background: rgba(0,0,0,0.42); border-radius: 5px; padding: 2px 4px; backdrop-filter: blur(2px); opacity: 0; transition: opacity 0.3s ease 0.2s; }
-    .rcell.on .stars { opacity: 1; }
+    .rcell img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
-    /* ━━━━ FINISH SCREEN: ourira storefront feed ━━━━ */
+    /* found = tagged badge appears on the phone post */
+    .rcell .tag-badge {
+      position: absolute; top: 5px; right: 5px;
+      display: inline-flex; align-items: center; gap: 3px;
+      background: var(--ig-grad); color: #fff;
+      font-size: 9px; font-weight: 700; letter-spacing: -0.01em;
+      padding: 3px 6px; border-radius: 9999px;
+      box-shadow: 0 2px 6px rgba(211,0,197,0.4);
+      opacity: 0; transform: scale(0.4);
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .rcell.found .tag-badge { opacity: 1; transform: scale(1); }
+    .rcell.found::after { content: ''; position: absolute; inset: 0; outline: 3px solid var(--magenta); outline-offset: -3px; }
+
+    /* scan sweep while finding */
+    .ph-grid.scanning::before {
+      content: ''; position: absolute; left: 0; right: 0; height: 40%;
+      background: linear-gradient(180deg, transparent, rgba(211,0,197,0.18), transparent);
+      pointer-events: none; z-index: 4;
+      animation: scanSweep 1.6s ease-in-out infinite;
+    }
+
+    /* ━━━━ FINISH: ourira homepage feed ━━━━ */
     .bz { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--border-strong); border-radius: 8px; overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
     .bz-chrome { display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: #f6f6f7; border-bottom: 1px solid var(--border-default); }
     .bz-chrome .dots { display: flex; gap: 6px; }
@@ -180,8 +206,7 @@
     .bz-logo { font-family: var(--font-serif); font-size: 22px; font-weight: 700; color: var(--text-primary); margin-right: 6px; }
     .bz-nav .nav-link { font-size: 13px; font-weight: 500; color: var(--text-secondary); white-space: nowrap; }
     .bz-nav .nav-right { margin-left: auto; display: flex; gap: 22px; }
-    .bz-body { flex: 1 1 0; min-height: 0; position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 20px 0 0; background: #fff; }
-    .handle { text-align: center; font-size: 16px; font-weight: 600; color: var(--text-secondary); letter-spacing: -0.02em; margin-bottom: 16px; flex-shrink: 0; }
+    .bz-body { flex: 1 1 0; min-height: 0; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #fff; }
     .feed { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; gap: 2px; background: var(--border-default); }
     .cell { position: relative; overflow: hidden; background: #ededf0; }
     .cell img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; animation: popImg 0.46s cubic-bezier(0.34,1.56,0.64,1) both; }
@@ -197,7 +222,7 @@
       backdrop-filter: blur(4px); animation: toastIn 0.4s ease both;
     }
 
-    /* ━━━━ BUTTON (v1 style: centered IG pill) ━━━━ */
+    /* ━━━━ BUTTON (centered IG pill) ━━━━ */
     .btn {
       position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%);
       z-index: 6;
@@ -242,7 +267,9 @@
 
     /* ━━━━ KEYFRAMES ━━━━ */
     @keyframes popImg { 0% { opacity: 0; transform: scale(0.82); } 65% { opacity: 1; transform: scale(1.05); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes postIn { 0% { opacity: 0; transform: translateX(-12px) scale(0.96); } 100% { opacity: 1; transform: translateX(0) scale(1); } }
     @keyframes hlPulse { 0%, 100% { outline-color: var(--magenta); } 50% { outline-color: #ff5fe6; } }
+    @keyframes scanSweep { 0% { top: -40%; } 100% { top: 100%; } }
     @keyframes fadeIn { from { opacity: 0; transform: scale(0.985); } to { opacity: 1; transform: scale(1); } }
     @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
     @keyframes btnPulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.04); } }
@@ -279,7 +306,9 @@
   <script type="text/babel">
     const { useState, useEffect, useRef } = React;
 
-    /* tagged posts → reviews (6), then storefront feed (8) */
+    /* 인스타(폰) 이미 채워진 게시글 — 이 중 태그된 것을 찾아 사이드바로 모음 */
+    const PHONE = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8'].map(n => `assets/insta/${n}.png`);
+
     const POSTS = [
       { img: 'f1', cap: '#ourira 데일리 코디 추천 🤍', likes: '5.3천', cmt: '125' },
       { img: 'f2', cap: '#ourira 린넨 셋업 후기', likes: '3.2천', cmt: '88' },
@@ -291,8 +320,9 @@
       { img: 'f8', cap: '#ourira 오피스 캐주얼 룩', likes: '2.9천', cmt: '64' },
     ].map(p => ({ ...p, src: `assets/insta/${p.img}.png` }));
 
+    /* 쇼핑몰 홈 피드 노출 순서 */
     const FEED = ['f2', 'f7', 'f1', 'f5', 'f8', 'f6', 'f4', 'f3'].map(n => `assets/insta/${n}.png`);
-    const HL = 2; // 강조 셀
+    const HL = 2;
 
     const InstaGlyph = ({ s = 16 }) => (
       <svg width={s} height={s} viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -303,7 +333,6 @@
     );
     const HeartIcon = () => (<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.6-9.3-9.1C1 7.6 2.8 4.5 6 4.5c2 0 3.2 1.2 4 2.3.8-1.1 2-2.3 4-2.3 3.2 0 5 3.1 3.3 6.4C19 15.4 12 20 12 20z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" /></svg>);
     const CommentIcon = () => (<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" /></svg>);
-    const Star = ({ s = 8, c = '#fff' }) => (<svg width={s} height={s} viewBox="0 0 24 24" fill={c}><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.3l6.5-.9L12 2.5z" /></svg>);
 
     const CONF_COLORS = ['#E1306C', '#feda75', '#fa7e1e', '#962fbf', '#4f5bd5', '#D300C5'];
     const Confetti = () => {
@@ -322,36 +351,36 @@
 
     /* ── Main ── */
     const Demo = () => {
-      // phase: 0 idle · 1 linking(리뷰 전환) · 2 feed(마무리: 쇼핑몰 피드)
+      // phase: 0 idle · 1 finding(태그 게시글 찾기) · 2 finish(홈 게시)
       const [phase, setPhase] = useState(0);
-      const [linked, setLinked] = useState(0);   // 폰 리뷰 채움 0..6
+      const [found, setFound] = useState(0);   // 찾아낸 태그 게시글 0..8
       const timers = useRef([]);
-      const gridRef = useRef(null);
+      const postsRef = useRef(null);
 
       const clearTimers = () => { timers.current.forEach(clearTimeout); timers.current = []; };
       useEffect(() => clearTimers, []);
 
-      const connect = () => {
+      const run = () => {
         if (phase !== 0) return;
         clearTimers();
         setPhase(1);
-        const STEP = 300;
+        const STEP = 280;
         for (let i = 1; i <= POSTS.length; i++) {
           const t = setTimeout(() => {
-            setLinked(i);
-            if (gridRef.current) gridRef.current.scrollTop = gridRef.current.scrollHeight;
+            setFound(i);
+            if (postsRef.current) postsRef.current.scrollTop = postsRef.current.scrollHeight;
           }, STEP * i);
           timers.current.push(t);
         }
-        // 리뷰 전환 끝 → 쇼핑몰 피드로 마무리
-        const fin = setTimeout(() => setPhase(2), STEP * POSTS.length + 700);
+        // 다 찾으면 → 쇼핑몰 홈에 게시
+        const fin = setTimeout(() => setPhase(2), STEP * POSTS.length + 750);
         timers.current.push(fin);
       };
 
-      const reset = () => { clearTimers(); setLinked(0); setPhase(0); };
+      const reset = () => { clearTimers(); setFound(0); setPhase(0); };
 
       const idle = phase === 0;
-      const linking = phase === 1;
+      const finding = phase === 1;
       const finish = phase === 2;
 
       return (
@@ -360,111 +389,105 @@
 
           {/* head */}
           <div className="head">
-            <div className="chips"><span className="chip-tag">알파인스타피드</span></div>
-            <h2 className="title">인스타 게시글이 상품 리뷰로 재탄생</h2>
-            <span className={`counter ${finish ? 'on' : ''}`}>
-              쇼핑몰 리뷰 <span className="num">{linked}개</span>
+            <div className="chips"><span className="chip-tag">인스타피드</span></div>
+            <h2 className="title">내 태그된 게시글이 쇼핑몰 홈으로</h2>
+            <span className={`counter ${finish ? 'done' : ''}`}>
+              {finish ? '✓ 쇼핑몰 홈 게시 ' : '태그된 게시글 '}<span className="num">{found}개</span>
             </span>
           </div>
 
-          {/* stage */}
-          <div className="stage">
-            {!finish ? (
-              /* ── Screen A: tagged posts + phone review ── */
+          {/* 진행 = .stage / 마무리 = .bz 로 통째 교체 */}
+          {!finish ? (
+            <div className="stage">
               <div className="screen">
                 <div className="sidebar">
                   <div className="sb-head">
                     <span className="sb-ic"><InstaGlyph s={15} /></span>
                     <span className="sb-title"># 내가 태그된 게시글</span>
                   </div>
-                  <div className="posts">
-                    {POSTS.map((p, i) => (
-                      <div key={i} className={`post ${i < linked ? 'linked' : ''}`}>
-                        <img className="post-thumb" src={p.src} alt="" />
-                        <div className="post-body">
-                          <span className="post-cap">{p.cap}</span>
-                          <span className="post-meta"><span><HeartIcon /> {p.likes}</span><span><CommentIcon /> {p.cmt}</span></span>
+                  {found === 0 ? (
+                    <div className="sb-empty">
+                      <span className="e-ic"><InstaGlyph s={30} /></span>
+                      <span className="e-tx">인스타에서 내 브랜드가<br />태그된 게시글을 찾아와요</span>
+                    </div>
+                  ) : (
+                    <div className="posts" ref={postsRef}>
+                      {POSTS.slice(0, found).map((p, i) => (
+                        <div key={i} className="post">
+                          <img className="post-thumb" src={p.src} alt="" />
+                          <div className="post-body">
+                            <span className="post-cap">{p.cap}</span>
+                            <span className="post-meta"><span><HeartIcon /> {p.likes}</span><span><CommentIcon /> {p.cmt}</span></span>
+                          </div>
+                          <span className="post-tag">태그됨</span>
                         </div>
-                        <span className="post-tag">리뷰 전환</span>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="phone">
                   <div className="phone-screen">
-                    <div className="ph-bar"><span className="rv"><span className="star"><Star s={14} c="#ff8a00" /></span>REVIEW</span></div>
-                    <div className="ph-prod">
-                      <img src="assets/insta/f1.png" alt="" />
-                      <div className="ph-prod-info">
-                        <span className="ph-prod-name">오버핏 트위드 자켓</span>
-                        <span className="ph-prod-rate"><span className="star"><Star s={11} c="#ff8a00" /></span>4.9 · 리뷰 {linked}개</span>
-                      </div>
+                    <div className="ph-bar">
+                      <span className="ig"><InstaGlyph s={15} /></span>
+                      <span className="ig-handle">@ourira</span>
+                      <span className="ig-sub">태그된 게시물</span>
                     </div>
-                    <div className="ph-grid" ref={gridRef}>
-                      {POSTS.map((p, i) => (
-                        <div key={i} className={`rcell ${i < linked ? 'on' : ''}`}>
-                          <span className="ph-ico"><InstaGlyph s={20} /></span>
-                          <img src={p.src} alt="" />
-                          <span className="stars">{[0,1,2,3,4].map(s => <Star key={s} s={7} />)}</span>
+                    <div className={`ph-grid ${finding ? 'scanning' : ''}`}>
+                      {PHONE.map((src, i) => (
+                        <div key={i} className={`rcell ${i < found ? 'found' : ''}`}>
+                          <img src={src} alt="" />
+                          <span className="tag-badge"><InstaGlyph s={9} />태그</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
               </div>
-            ) : (
-              /* ── Screen B (마무리): ourira storefront feed ── */
-              <div className="bz fade-in">
-                <div className="bz-chrome">
-                  <span className="dots"><i></i><i></i><i></i></span>
-                  <span className="url">🔒 ourira.co.kr</span>
-                </div>
-                <div className="bz-nav">
-                  <span className="bz-logo">ourira</span>
-                  <span className="nav-link">Shop</span>
-                  <span className="nav-link">Content</span>
-                  <span className="nav-link">Community</span>
-                  <span className="nav-right"><span className="nav-link">My page</span><span className="nav-link">Cart</span></span>
-                </div>
-                <div className="bz-body">
-                  <div className="handle">@ourira</div>
-                  <div className="feed">
-                    {FEED.map((src, i) => (
-                      <div key={i} className={`cell ${i === HL ? 'hl' : ''}`}>
-                        <img src={src} alt="" style={{ animationDelay: `${i * 0.06}s` }} />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="toast">인스타그램피드가 연동되었어요</div>
-                </div>
-              </div>
-            )}
 
-            {/* button (v1 style, centered) */}
-            {!linking && (
-              <>
-                <div
-                  className={`btn ${idle ? 'idle' : ''} ${finish ? 'reset' : ''}`}
-                  onClick={finish ? reset : connect}
-                >
-                  {!finish && <InstaGlyph s={18} />}
-                  {finish ? '다시 보기' : '상품 연동하고 리뷰 만들기'}
+              {/* button (진행 화면) */}
+              {idle && (
+                <>
+                  <div className="btn idle" onClick={run}>
+                    <InstaGlyph s={18} />내 태그된 게시글 가져오기
+                  </div>
+                  <span className="btn-ring"></span>
+                  <span className="btn-cursor">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.4 7.7-5.7 1.1 3.3 6-2.6 1.4-3.3-6-3.8 4.2z" stroke="#fff" strokeWidth="1.2" strokeLinejoin="round" /></svg>
+                  </span>
+                </>
+              )}
+              {finding && (
+                <div className="btn busy">태그된 게시글 찾는 중…</div>
+              )}
+            </div>
+          ) : (
+            /* 마무리: stage 대신 ourira 브라우저로 통째 교체 */
+            <div className="bz fade-in">
+              <div className="bz-chrome">
+                <span className="dots"><i></i><i></i><i></i></span>
+                <span className="url">🔒 ourira.co.kr</span>
+              </div>
+              <div className="bz-nav">
+                <span className="bz-logo">ourira</span>
+                <span className="nav-link">Shop</span>
+                <span className="nav-link">Content</span>
+                <span className="nav-link">Community</span>
+                <span className="nav-right"><span className="nav-link">My page</span><span className="nav-link">Cart</span></span>
+              </div>
+              <div className="bz-body">
+                <div className="feed">
+                  {FEED.map((src, i) => (
+                    <div key={i} className={`cell ${i === HL ? 'hl' : ''}`}>
+                      <img src={src} alt="" style={{ animationDelay: `${i * 0.06}s` }} />
+                    </div>
+                  ))}
                 </div>
-                {idle && (
-                  <>
-                    <span className="btn-ring"></span>
-                    <span className="btn-cursor">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.4 7.7-5.7 1.1 3.3 6-2.6 1.4-3.3-6-3.8 4.2z" stroke="#fff" strokeWidth="1.2" strokeLinejoin="round" /></svg>
-                    </span>
-                  </>
-                )}
-              </>
-            )}
-            {linking && (
-              <div className="btn busy">리뷰로 전환하는 중…</div>
-            )}
-          </div>
+                <div className="toast">태그된 게시글을 쇼핑몰 홈에 올렸어요</div>
+                <div className="btn reset" onClick={reset}>다시 보기</div>
+              </div>
+            </div>
+          )}
         </div>
       );
     };

@@ -179,9 +179,14 @@
       align-items: center;
       gap: 8px;
       background: var(--bg-tertiary);
+      border: 1px solid transparent;
       border-radius: var(--r-lg);
       padding: 8px 12px;
     }
+
+    /* 완료: teal weak/outline (모양 동일, 색만) */
+    .prog.done { background: rgba(0, 183, 168, 0.06); border-color: rgba(0, 183, 168, 0.4); }
+    .prog.done .prog-label, .prog.done .prog-label .num { color: var(--teal-600); }
 
     .prog-label {
       font-size: 12px;
@@ -1283,7 +1288,7 @@
           <div className="body">
             <div className="side">
               {/* 완성도 */}
-              <div className="prog">
+              <div className={`prog ${everythingDone ? 'done' : ''}`}>
                 <span className="prog-label">완성도 <span className="num">{everythingDone ? `전환율 ${conv.toFixed(1)}%` : `${progress}%`}</span></span>
                 <span className="prog-bar"><span className="prog-fill" style={{ width: `${Math.max(progress, 0)}%` }}></span></span>
               </div>
