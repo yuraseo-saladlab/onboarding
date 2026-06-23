@@ -10,7 +10,8 @@
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"
     integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
@@ -27,22 +28,31 @@
       --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
 
-      --canvas: #ffffff;
-      --accent: #00B7A8;
-      --accent-bg: rgba(0, 183, 168, 0.07);
-      --accent-bd: rgba(0, 183, 168, 0.42);
-      --accent-deep: #009488;
+      /* ── Figma design tokens ── */
+      --teal-500: #00B7A8;
+      --teal-600: #0D9488;
+      --teal-200: #92F3E6;
+      --teal-deep: #00A597;
+      --teal-light: #38C7BB;
+
+      --bg-primary: #ffffff;
+      --bg-tertiary: #f5f5f6;
+      --border-default: #e3e4e7;
+      --gray-200: #d6d7db;
+
+      --text-primary: #2a2d38;
+      --text-tertiary: #5d6374;
+      --text-placeholder: #8e929e;
+      --ink: #1a1a1a;
 
       --brand: #C2603F;
       --brand-bg: rgba(194, 96, 63, 0.08);
       --brand-bd: rgba(194, 96, 63, 0.22);
-
-      --tile: #f4f3f1;
       --tile-bd: rgba(17, 17, 17, 0.06);
-      --white: #ffffff;
-      --ink: #1a1a1a;
-      --ink-mid: rgba(26, 26, 26, 0.5);
-      --ink-soft: rgba(26, 26, 26, 0.34);
+
+      --r-sm: 4px;
+      --r-lg: 8px;
+      --r-3xl: 20px;
     }
 
     *,
@@ -60,24 +70,12 @@
 
     body {
       font-family: var(--font-sans);
-      background: var(--canvas);
+      background: var(--bg-primary);
       min-height: 100vh;
       display: grid;
       place-items: center;
-      padding: 20px 20px;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      width: 700px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse at center, rgba(0, 183, 168, 0.06) 0%, transparent 70%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
+      padding: 20px;
+      color: var(--ink);
     }
 
     #root {
@@ -90,164 +88,436 @@
     /* ━━━━ DEMO CARD ━━━━ */
     .demo {
       width: 100%;
-      max-width: 600px;
-      background: var(--white);
-      border-radius: 28px;
-      padding: 26px 24px 22px;
+      max-width: 1200px;
+      background: var(--bg-primary);
+      border-radius: var(--r-3xl);
+      padding: 24px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 14px 44px rgba(20, 20, 50, 0.13);
+      box-shadow: 4px 16px 30px 0 rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    /* ━━━━ TOP ROW ━━━━ */
-    .top-row {
+    /* ── head ── */
+    .head {
       display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .chip-tag {
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 13px;
+      justify-content: center;
+      height: 24px;
+      padding: 0 8px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      background: var(--teal-500);
+      color: #fff;
+    }
+
+    .chip-tag.beta {
+      background: transparent;
+      color: var(--teal-600);
+      border: 1px solid var(--teal-200);
+    }
+
+    .title {
+      font-size: clamp(22px, 3.4vw, 40px);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+
+    /* ━━━━ BODY (2-column) ━━━━ */
+    .body {
+      flex: 1 1 0;
+      min-height: 0;
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    /* ── sidebar ── */
+    .side {
+      width: 180px;
+      flex-shrink: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
       gap: 12px;
     }
 
-    .brand-group {
+    /* 완성도 / CTA는 고정, 블록 목록만 내부 스크롤 → CTA 항상 보임 */
+    .side-scroll {
       display: flex;
-      align-items: center;
-      gap: 7px;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .badge {
-      display: inline-flex;
+    .prog,
+    .cta {
+      flex-shrink: 0;
+    }
+
+    /* 완성도 pill */
+    .prog {
+      display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      background: var(--bg-tertiary);
+      border-radius: var(--r-lg);
+      padding: 8px 12px;
+    }
+
+    .prog-label {
       font-size: 12px;
-      font-weight: 600;
-      color: var(--ink);
-      background: #f4f3f1;
-      border: 1px solid var(--tile-bd);
-      padding: 5px 12px;
-      border-radius: 9999px;
+      font-weight: 500;
+      color: var(--text-tertiary);
       letter-spacing: -0.01em;
       white-space: nowrap;
     }
 
-    .badge::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
+    .prog-label .num {
+      font-variant-numeric: tabular-nums;
     }
 
-    .beta {
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      line-height: 1;
-      color: var(--accent-deep);
-      background: var(--accent-bg);
-      border: 1px solid var(--accent-bd);
-      border-radius: 9999px;
-      padding: 4px 7px;
-    }
-
-    .prog-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 5px 9px 5px 12px;
-      border-radius: 9999px;
-      background: #f0f0f0;
-      color: var(--ink-mid);
-      white-space: nowrap;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    .prog-pill.on {
-      background: var(--accent);
-      color: white;
-    }
-
-    .prog-pill .num {
-      font-family: var(--font-mono);
-      font-weight: 700;
-    }
-
-    .prog-track {
-      width: 36px;
+    .prog-bar {
+      flex: 1 1 0;
+      min-width: 0;
       height: 5px;
       border-radius: 9999px;
-      background: rgba(0, 0, 0, 0.1);
+      background: var(--gray-200);
       overflow: hidden;
-    }
-
-    .prog-pill.on .prog-track {
-      background: rgba(255, 255, 255, 0.32);
     }
 
     .prog-fill {
       height: 100%;
       border-radius: 9999px;
-      background: var(--accent);
+      background: var(--teal-500);
       transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .prog-pill.on .prog-fill {
-      background: white;
+    /* block / widget groups */
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    /* ━━━━ HEADLINE ━━━━ */
-    .headline {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.32;
-      letter-spacing: -0.025em;
-      margin-bottom: 16px;
+    .group-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      letter-spacing: -0.01em;
     }
 
-    /* ━━━━ STOREFRONT CANVAS ━━━━ */
-    .store {
-      border: 1.5px solid var(--tile-bd);
-      border-radius: 16px;
-      overflow: hidden;
-      background: #fbfbfa;
-    }
-
-    .store-bar {
+    .item {
       display: flex;
       align-items: center;
-      gap: 7px;
-      padding: 8px 13px;
-      background: var(--white);
-      border-bottom: 1px solid var(--tile-bd);
+      gap: 8px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-lg);
+      padding: 9px 8px;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease, opacity 0.25s ease, transform 0.12s ease;
     }
 
-    .store-bar .dots {
+    .item:hover {
+      border-color: var(--teal-200);
+      background: rgba(0, 183, 168, 0.05);
+    }
+
+    .item:active {
+      transform: scale(0.98);
+    }
+
+    .item.placed {
+      opacity: 0.5;
+      pointer-events: none;
+      border-color: var(--teal-200);
+      background: rgba(0, 183, 168, 0.06);
+    }
+
+    .item-ic {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: var(--text-primary);
+      display: grid;
+      place-items: center;
+    }
+
+    .item.placed .item-ic {
+      color: var(--teal-600);
+    }
+
+    .item-label {
+      flex: 1 1 0;
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .item-add {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      border-radius: var(--r-sm);
+      display: grid;
+      place-items: center;
+      color: var(--text-tertiary);
+    }
+
+    .item:hover .item-add {
+      color: var(--teal-600);
+    }
+
+    .item.placed .item-add {
+      color: var(--teal-500);
+    }
+
+    /* CTA */
+    .cta {
+      width: 100%;
+      border: 1px solid var(--teal-500);
+      border-radius: var(--r-lg);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      background: linear-gradient(60.5deg, #00A597 13%, #00B7A8 50%, #38C7BB 87%);
+      box-shadow: 0 0 8px 0 rgba(0, 183, 168, 0.5);
+      transition: transform 0.12s ease, box-shadow 0.2s ease;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(84deg, rgba(255, 255, 255, 0) 3%, rgba(255, 255, 255, 0.52) 50%, rgba(255, 255, 255, 0) 97%);
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .cta.idle::before {
+      opacity: 1;
+      animation: shimmerSweep 2.4s ease-in-out infinite;
+    }
+
+    .cta:hover {
+      box-shadow: 0 4px 14px 0 rgba(0, 183, 168, 0.55);
+    }
+
+    .cta:active {
+      transform: scale(0.98);
+    }
+
+    .cta.busy {
+      cursor: default;
+      opacity: 0.92;
+    }
+
+    /* 다시 하기 — 중립 색 (teal CTA와 구분) */
+    .cta.reset {
+      background: #fff;
+      color: var(--text-tertiary);
+      border-color: var(--border-default);
+      box-shadow: none;
+    }
+
+    .cta.reset:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      box-shadow: none;
+    }
+
+    .cta .cta-label {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* idle 펄스 — 누르고 싶게 살짝 들썩 */
+    .cta.idle {
+      animation: ctaPulse 2.2s ease-in-out infinite;
+    }
+
+    /* 데모 커서 — CTA 위로 올라와 탭하는 모션 */
+    .cta-cursor {
+      position: absolute;
+      right: 16px;
+      bottom: 7px;
+      width: 22px;
+      height: 22px;
+      z-index: 3;
+      pointer-events: none;
+      color: #1a1a1a;
+      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+      animation: cursorTap 2.2s ease-in-out infinite;
+    }
+
+    .cta-cursor svg {
+      display: block;
+    }
+
+    /* 탭 순간 퍼지는 링 */
+    .cta-ring {
+      position: absolute;
+      right: 20px;
+      bottom: 16px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      z-index: 2;
+      pointer-events: none;
+      background: rgba(255, 255, 255, 0.7);
+      animation: ringPing 2.2s ease-out infinite;
+    }
+
+    @keyframes ctaPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 8px 0 rgba(0, 183, 168, 0.5);
+      }
+
+      50% {
+        transform: scale(1.025);
+        box-shadow: 0 6px 18px 0 rgba(0, 183, 168, 0.6);
+      }
+    }
+
+    @keyframes cursorTap {
+      0% {
+        transform: translate(8px, 14px) scale(1);
+        opacity: 0;
+      }
+
+      18% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+
+      40% {
+        transform: translate(0, 0) scale(0.82);
+        opacity: 1;
+      }
+
+      /* press */
+      52% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+
+      /* release */
+      82% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(8px, 14px) scale(1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes ringPing {
+
+      0%,
+      36% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+
+      44% {
+        transform: scale(0.5);
+        opacity: 0.85;
+      }
+
+      /* fires at press */
+      70% {
+        transform: scale(2.6);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(2.6);
+        opacity: 0;
+      }
+    }
+
+    /* ── browser preview ── */
+    .preview {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-default);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px 9px;
+      background: #fff;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.06);
+    }
+
+    .browser-bar .dots {
       display: flex;
       gap: 5px;
     }
 
-    .store-bar .dots i {
+    .browser-bar .dots i {
       width: 8px;
       height: 8px;
-      border-radius: 50%;
+      border-radius: var(--r-sm);
       background: #dcdcd8;
       display: block;
     }
 
-    .store-bar .url {
+    .browser-bar .url {
       margin-left: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ink-mid);
       font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 11px;
       letter-spacing: -0.02em;
+      color: rgba(26, 26, 26, 0.5);
       white-space: nowrap;
     }
 
-    .brand-tag {
+    .browser-bar .brand-tag {
       margin-left: auto;
       display: inline-flex;
       align-items: center;
@@ -258,7 +528,7 @@
       letter-spacing: 0.02em;
     }
 
-    .brand-tag i {
+    .browser-bar .brand-tag i {
       width: 9px;
       height: 9px;
       border-radius: 50%;
@@ -266,520 +536,345 @@
       display: block;
     }
 
-    .store-body {
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      min-height: 118px;
-      max-height: 290px;
+    .browser-body {
+      flex: 1 1 0;
+      min-height: 0;
       overflow-y: auto;
       scroll-behavior: smooth;
       overscroll-behavior: contain;
+      background: #f7f4f2;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .store-body::-webkit-scrollbar {
+    .browser-body.is-empty {
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 24px;
+    }
+
+    .browser-body::-webkit-scrollbar {
       width: 6px;
     }
 
-    .store-body::-webkit-scrollbar-thumb {
+    .browser-body::-webkit-scrollbar-thumb {
       background: rgba(0, 0, 0, 0.13);
       border-radius: 9999px;
     }
 
-    .store-body::-webkit-scrollbar-track {
+    .browser-body::-webkit-scrollbar-track {
       background: transparent;
     }
 
-    .store-empty {
-      flex: 1;
+    .empty {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 4px;
-      padding: 22px;
       text-align: center;
+      color: var(--text-placeholder);
     }
 
-    .store-empty span:first-child {
-      font-size: 12px;
+    .empty .e-title {
+      font-size: 24px;
       font-weight: 700;
-      color: var(--ink-mid);
+      letter-spacing: -0.02em;
+      line-height: 1.3;
     }
 
-    .store-empty span:last-child {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--ink-soft);
+    .empty .e-sub {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.5;
     }
 
+    /* ━━━━ placed storefront sections (MAISON) ━━━━ */
     .sec {
       animation: dropPop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
     }
 
-    /* ── header (branded) ── */
-    .sec-header {
+    /* ── header ── */
+    .sf-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--white);
-      border: 1.5px solid var(--tile-bd);
-      border-radius: 9px;
-      padding: 9px 12px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 18px;
     }
 
-    .hd-brand {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      color: var(--ink);
+    .sf-logo {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.4em;
+      color: #2b2422;
     }
 
-    .hd-menu {
+    .sf-nav {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 16px;
+      color: #6b5f58;
     }
 
-    .hd-menu span {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--ink-mid);
+    .sf-nav span {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
     }
 
-    .hd-menu .cart {
-      color: var(--ink);
-      display: grid;
+    .sf-nav .cart {
+      font-size: 15px;
+      line-height: 1;
     }
 
-    /* ── hero banner (branded) ── */
-    .sec-hero {
-      background: linear-gradient(135deg, #efe4da 0%, #ddc6b7 100%);
-      border-radius: 11px;
-      padding: 15px 16px 14px;
+    /* ── hero ── */
+    .sf-hero {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 22px 22px 20px;
+      min-height: 150px;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      justify-content: center;
+      gap: 9px;
+      background: linear-gradient(90deg, #d9c7b5 0%, #e5ddd2 100%);
+      isolation: isolate;
     }
 
-    .hero-eyebrow {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      color: var(--brand);
+    .sf-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/canvas/hero.png');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      z-index: -1;
     }
 
-    .hero-title {
-      font-size: 17px;
+    .sf-hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 56, 21, 0.3);
+    }
+
+    .sf-hero-eyebrow {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: #beff74;
+    }
+
+    .sf-hero-title {
+      font-size: 21px;
       font-weight: 700;
-      letter-spacing: -0.025em;
-      color: #3a2b24;
+      letter-spacing: -0.01em;
+      color: #fff;
       line-height: 1.2;
     }
 
-    .hero-sub {
-      font-size: 11px;
-      font-weight: 500;
-      color: rgba(58, 43, 36, 0.6);
-      margin-bottom: 8px;
+    .sf-hero-sub {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.92);
       letter-spacing: -0.01em;
     }
 
-    .hero-cta {
+    .sf-hero-cta {
       align-self: flex-start;
-      background: var(--brand);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 7px 14px;
-      border-radius: 7px;
+      margin-top: 4px;
+      background: rgba(255, 255, 255, 0.7);
+      color: #426c11;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 8px;
       letter-spacing: -0.01em;
       white-space: nowrap;
+      backdrop-filter: blur(2px);
     }
 
-    /* ── product collection (branded) ── */
-    .sec-coll {
-      background: var(--white);
-      border: 1.5px solid var(--tile-bd);
-      border-radius: 11px;
-      padding: 11px;
-    }
-
-    .coll-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 9px;
-    }
-
-    .coll-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-
-    .coll-more {
-      font-size: 9.5px;
-      font-weight: 700;
-      color: var(--brand);
-      letter-spacing: 0.02em;
-    }
-
-    .coll-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-    }
-
-    .p-card {
+    /* ── best seller ── */
+    .sf-coll {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      position: relative;
+      gap: 14px;
     }
 
-    .p-img {
-      aspect-ratio: 4 / 3;
-      border-radius: 8px;
-    }
-
-    .p-img.a {
-      background: linear-gradient(140deg, #ddc7ba, #b8978a);
-    }
-
-    .p-img.b {
-      background: linear-gradient(140deg, #cbd6cf, #a3b9ac);
-    }
-
-    .p-badge {
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      font-size: 8px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      color: var(--white);
-      background: var(--brand);
-      border-radius: 5px;
-      padding: 2px 5px;
-    }
-
-    .p-name {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-
-    .p-price {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-
-    /* ── footer (branded) ── */
-    .sec-foot {
-      background: #f4f1ee;
-      border-radius: 11px;
-      padding: 13px 14px;
+    .sf-coll-head {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
     }
 
-    .foot-brand {
-      font-size: 11.5px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      color: var(--ink);
+    .sf-coll-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2b2422;
+      letter-spacing: -0.02em;
     }
 
-    .foot-links {
-      display: flex;
+    .sf-coll-more {
+      font-size: 12px;
+      font-weight: 400;
+      color: #8b4e24;
+      letter-spacing: -0.01em;
+    }
+
+    .sf-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
     }
 
-    .foot-links span {
-      font-size: 9.5px;
-      font-weight: 500;
-      color: var(--ink-mid);
-    }
-
-    /* ── conversion widget bar (secondary feature) ── */
-    .wbar {
+    .sf-pcard {
       display: flex;
-      align-items: center;
-      gap: 9px;
-      background: var(--brand-bg);
-      border: 1.5px solid var(--brand-bd);
+      flex-direction: column;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .sf-pimg {
+      aspect-ratio: 1086 / 1448;
       border-radius: 10px;
-      padding: 9px 11px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #b49a86, rgba(180, 154, 134, 0.78));
     }
 
-    .wbar-ic {
-      width: 26px;
-      height: 26px;
-      border-radius: 7px;
-      flex-shrink: 0;
-      background: var(--brand);
-      color: #fff;
-      display: grid;
-      place-items: center;
+    .sf-pimg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    .wbar-tx {
-      font-size: 12px;
-      font-weight: 700;
-      color: #4d2a1b;
+    .sf-pname {
+      font-size: 12.5px;
+      font-weight: 400;
+      color: #2b2422;
       letter-spacing: -0.01em;
-    }
-
-    .wbar-cta {
-      margin-left: auto;
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #fff;
-      background: var(--brand);
-      border-radius: 6px;
-      padding: 5px 10px;
+      line-height: 1.4;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .wbar-time {
-      margin-left: auto;
-      font-family: var(--font-mono);
-      font-weight: 700;
-      color: var(--brand);
-      font-size: 11.5px;
-    }
-
-    /* ── drop zone ── */
-    .dropzone {
-      border: 1.6px dashed rgba(0, 183, 168, 0.4);
-      border-radius: 10px;
-      padding: 14px 12px;
-      text-align: center;
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--accent-deep);
-      letter-spacing: -0.01em;
-      background: var(--accent-bg);
-      transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
-    }
-
-    .dropzone.over {
-      background: rgba(0, 183, 168, 0.16);
-      border-color: var(--accent);
-      border-style: solid;
-      transform: scale(1.015);
-    }
-
-    .dropzone.idle {
-      animation: dzBreathe 2.4s ease-in-out infinite;
-    }
-
-    /* ━━━━ PALETTE ━━━━ */
-    .tabs {
+    .sf-pprice {
       display: flex;
       gap: 4px;
-      background: #f0efec;
-      border-radius: 10px;
-      padding: 3px;
-      margin: 14px 0 9px;
+      align-items: baseline;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
     }
 
-    .tab {
-      flex: 1;
-      text-align: center;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 7px 4px;
-      border-radius: 7px;
-      color: var(--ink-mid);
-      cursor: pointer;
-      letter-spacing: -0.01em;
-      white-space: nowrap;
-      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    .sf-pprice .off {
+      color: #e62c35;
     }
 
-    .tab.active {
-      background: var(--white);
-      color: var(--ink);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    .sf-pprice .amt {
+      color: #2b2422;
     }
 
-    .tab .tcount {
-      color: var(--accent-deep);
-    }
-
-    .tab .badge-dot {
-      display: none;
-    }
-
-    .palette {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    /* ── conversion widget row ── */
+    .sf-wrow {
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
     }
 
-    .chip {
+    .sf-wcard {
+      flex: 1 1 160px;
+      min-width: 0;
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: var(--white);
-      border: 1.5px solid var(--tile-bd);
-      border-radius: 11px;
-      padding: 9px 11px;
-      cursor: pointer;
-      transition: border-color 0.18s ease, background 0.18s ease, transform 0.12s ease, opacity 0.25s ease;
+      gap: 10px;
+      background: #efe7e2;
+      border-radius: 12px;
+      padding: 12px;
     }
 
-    .chip:hover {
-      border-color: var(--accent-bd);
-      background: var(--accent-bg);
-    }
-
-    .chip:active {
-      transform: scale(0.95);
-    }
-
-    .chip.placed {
-      opacity: 0.45;
-      pointer-events: none;
-      border-color: var(--accent-bd);
-      background: var(--accent-bg);
-    }
-
-    .chip-ic {
-      width: 26px;
-      height: 26px;
-      border-radius: 7px;
+    .sf-wic {
+      width: 32px;
+      height: 32px;
       flex-shrink: 0;
-      background: var(--accent-bg);
-      color: var(--accent);
+      border-radius: 8px;
+      background: #b5917b;
+      color: #fff;
       display: grid;
       place-items: center;
     }
 
-    .chip.placed .chip-ic {
-      background: var(--accent);
-      color: white;
+    .sf-wtx {
+      flex: 1 1 0;
+      min-width: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: #3a2e26;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .chip-label {
-      font-size: 12px;
+    .sf-wtx .star {
+      color: #ff6601;
+    }
+
+    .sf-wtime {
+      flex-shrink: 0;
+      font-size: 13px;
       font-weight: 600;
-      color: var(--ink);
-      letter-spacing: -0.015em;
+      color: #e62c35;
+      letter-spacing: -0.01em;
+    }
+
+    .sf-wbtn {
+      flex-shrink: 0;
+      background: #ac5216;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
       white-space: nowrap;
     }
 
-    .chip-add {
-      margin-left: auto;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--accent-bg);
-      color: var(--accent);
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 1;
-      transition: background 0.18s ease;
-    }
-
-    .chip:hover .chip-add {
-      background: var(--accent);
-      color: white;
-    }
-
-    /* ━━━━ STATUS ━━━━ */
-    .status {
-      text-align: center;
-      min-height: 38px;
-      margin-top: 14px;
+    /* ── footer ── */
+    .sf-foot {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 5px;
+      gap: 8px;
+      padding: 18px 0;
     }
 
-    .hint {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      width: 100%;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      color: white;
-      background: linear-gradient(110deg,
-          color-mix(in srgb, var(--accent), black 10%) 0%,
-          var(--accent) 50%,
-          color-mix(in srgb, var(--accent), white 22%) 100%);
-      border-radius: 14px;
-      padding: 14px 18px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 18px color-mix(in srgb, var(--accent), transparent 44%);
-    }
-
-    .hint::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 60%;
-      height: 100%;
-      background: linear-gradient(105deg,
-          transparent 0%, rgba(255, 255, 255, 0.52) 50%, transparent 100%);
-      animation: shimmerSweep 2s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    .s-line {
+    .sf-foot-brand {
       font-size: 13px;
-      font-weight: 600;
-      color: var(--ink);
-      animation: riseIn 0.38s ease both;
+      font-weight: 800;
+      letter-spacing: 0.4em;
+      color: #3a2e26;
     }
 
-    .s-line .so {
-      color: var(--accent);
+    .sf-foot-links {
+      display: flex;
+      gap: 16px;
     }
 
-    .s-line .up {
-      color: var(--brand);
-    }
-
-    .replay-btn {
-      margin-top: 2px;
-      font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--ink-mid);
-      background: none;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      border-radius: 9999px;
-      padding: 6px 14px;
-      cursor: pointer;
-      animation: riseIn 0.38s 0.12s ease both;
-      transition: color 0.18s ease, background 0.18s ease;
-    }
-
-    .replay-btn:hover {
-      color: var(--ink);
-      background: rgba(0, 0, 0, 0.04);
+    .sf-foot-links span {
+      font-size: 10px;
+      font-weight: 400;
+      color: #9c8f86;
     }
 
     /* ━━━━ CONFETTI ━━━━ */
@@ -811,66 +906,14 @@
       }
     }
 
-    @keyframes dzBreathe {
-
-      0%,
-      100% {
-        border-color: rgba(0, 183, 168, 0.32);
-      }
-
-      50% {
-        border-color: rgba(0, 183, 168, 0.7);
-      }
-    }
-
-    @keyframes riseIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes breathe {
-
-      0%,
-      100% {
-        opacity: 0.42;
-      }
-
-      50% {
-        opacity: 0.82;
-      }
-    }
-
     @keyframes shimmerSweep {
       0% {
-        transform: translateX(-180%);
+        transform: translateX(-120%);
       }
 
       100% {
-        transform: translateX(350%);
+        transform: translateX(120%);
       }
-    }
-
-    100% {
-      background-position: 200% center;
-    }
-    }
-
-    35% {
-      transform: scale(0.55);
-      opacity: 0.65;
-    }
-
-    60% {
-      transform: scale(1.38);
-      opacity: 1;
-    }
     }
 
     @keyframes confDrop {
@@ -884,9 +927,70 @@
         opacity: 0;
       }
     }
+
+    /* 넓은(2단) 레이아웃: 목록만 스크롤시켜 CTA를 사이드바 하단에 고정 */
+    @media (min-width: 561px) {
+      .side-scroll {
+        flex: 1 1 0;
+        min-height: 0;
+        overflow-y: auto;
+        padding-right: 2px;
+      }
+
+      .side-scroll::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      .side-scroll::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.12);
+        border-radius: 9999px;
+      }
+    }
+
+    /* stack to single column on narrow embeds */
+    @media (max-width: 560px) {
+      .body {
+        flex-direction: column;
+      }
+
+      .side {
+        width: 100%;
+      }
+
+      .preview {
+        min-height: 280px;
+      }
+    }
   </style>
-<style id="embed-fill">html,body{background:#fff!important}body{margin:0!important;padding:0!important;min-height:100vh;display:flex!important;flex-direction:column!important}#root{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;width:100%!important}.demo{flex:1 1 auto!important;max-width:none!important;width:100%!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;border-radius:0!important;box-shadow:none!important}.store{display:flex!important;flex-direction:column!important;flex:1 1 0!important;min-height:0!important}.store-body{flex:1 1 0!important;max-height:none!important;min-height:0!important}.status{margin-top:16px!important;width:100%!important}.hint{width:100%!important;box-sizing:border-box!important}.replay-btn{width:100%!important;box-sizing:border-box!important;padding:14px 18px!important;margin-top:0!important}</style>
-<style id="embed-enlarge">.sec-hero{padding:22px 18px 18px!important}.hero-title{font-size:20px!important}.hero-sub{font-size:12px!important}.p-img{aspect-ratio:4/3.4!important}</style>
+  <style id="embed-fill">
+    html,
+    body {
+      background: #fff !important;
+    }
+
+    body {
+      margin: 0 !important;
+      padding: 0 !important;
+      min-height: 100vh;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    #root {
+      flex: 1 1 auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100% !important;
+    }
+
+    .demo {
+      flex: 1 1 auto !important;
+      max-width: none !important;
+      width: 100% !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -895,7 +999,7 @@
   <script type="text/babel">
     const { useState, useEffect, useRef, useMemo } = React;
 
-    /* ── Icons ── */
+    /* ── Icons (16px line) ── */
     const HeaderIcon = () => (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <rect x="3.5" y="5" width="17" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.7" />
@@ -924,46 +1028,51 @@
       </svg>
     );
     const TicketIcon = () => (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2 2 2 0 0 0 0 4 2 2 0 0 1-2 2H6a2 2 0 0 1-2-2 2 2 0 0 0 0-4z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
         <path d="M13 6v12" stroke="currentColor" strokeWidth="1.7" strokeDasharray="2 2.4" />
       </svg>
     );
     const ClockIcon = () => (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.7" />
         <path d="M12 7.5V12l3 1.8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     );
     const BellIcon = () => (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
         <path d="M10 19a2 2 0 0 0 4 0" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
       </svg>
     );
     const StarIcon = () => (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M12 3l2.5 5.1 5.6.8-4 4 .95 5.6L12 21l-5.05 2.5L7.9 17.9l-4-4 5.6-.8L12 3z" />
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3.5l2.4 4.9 5.4.8-3.9 3.8.92 5.4L12 16.3 7.18 18.4l.92-5.4-3.9-3.8 5.4-.8L12 3.5z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
       </svg>
     );
-    // GripIcon removed
     const CartIcon = () => (
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <circle cx="9" cy="20" r="1.3" fill="currentColor" /><circle cx="18" cy="20" r="1.3" fill="currentColor" />
         <path d="M2 4h2.2l2 11.2a1.4 1.4 0 0 0 1.4 1.1h8.6a1.4 1.4 0 0 0 1.4-1.05L20.5 8H5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     );
-    const CheckIcon = () => (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M5 12.5L10 17L19 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+    const PlusIcon = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
     );
+    const CheckIcon = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 12.5L10 17L19 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+
     const ICONS = {
       header: HeaderIcon, hero: HeroIcon, grid: GridIcon, footer: FooterIcon,
-      coupon: TicketIcon, timer: ClockIcon, live: BellIcon, review: StarIcon,
+      coupon: TicketIcon, live: BellIcon, timer: ClockIcon, review: StarIcon,
     };
 
-    /* ── Catalogue ── */
+    /* ── Catalogue (order matches Figma) ── */
     const LAYOUT = [
       { id: 'header', icon: 'header', label: '헤더 / 메뉴' },
       { id: 'hero', icon: 'hero', label: '히어로 배너' },
@@ -972,57 +1081,83 @@
     ];
     const WIDGETS = [
       { id: 'coupon', icon: 'coupon', label: '할인 쿠폰', delta: 2.6 },
-      { id: 'timer', icon: 'timer', label: '타임 세일', delta: 2.2 },
       { id: 'live', icon: 'live', label: '실시간 알림', delta: 1.9 },
+      { id: 'timer', icon: 'timer', label: '타임 세일', delta: 2.2 },
       { id: 'review', icon: 'review', label: '리뷰 별점', delta: 1.6 },
     ];
     const LAYOUT_IDS = LAYOUT.map(b => b.id);
     const BY_ID = Object.fromEntries([...LAYOUT, ...WIDGETS].map(b => [b.id, b]));
     const BASE_CONV = 2.4;
 
-    /* ── Storefront section renderer (layout + conversion widgets) ── */
+    /* ── filled star (widget icon) ── */
+    const StarFill = () => (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 3.2l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.6 6.8 19.2l1-5.75-4.2-4.1 5.8-.85z" />
+      </svg>
+    );
+
+    /* ── storefront product catalogue (Figma) ── */
+    const PRODUCTS = [
+      { src: 'assets/canvas/p1.png', name: '여름 청순 바람막이', off: '48%', price: '36,000원', g: 'linear-gradient(145deg, #b49a86, rgba(180,154,134,.78))' },
+      { src: 'assets/canvas/p2.png', name: '여름맞이 린넨 카라 반팔티', off: '50%', price: '32,000원', g: 'linear-gradient(145deg, #a9bba4, rgba(169,187,164,.78))' },
+      { src: 'assets/canvas/p3.png', name: '시원한 워싱 데님 반바지', off: '50%', price: '29,900원', g: 'linear-gradient(145deg, #b8a6cc, rgba(184,166,204,.78))' },
+      { src: 'assets/canvas/p4.png', name: '마린 카라 민소매 플레어 원피스', off: '25%', price: '59,900원', g: 'linear-gradient(145deg, #a8b0c2, rgba(168,176,194,.78))' },
+    ];
+
+    /* ── conversion widget card content ── */
+    const WIDGET_CARD = {
+      coupon: { Icon: TicketIcon, body: <><span className="sf-wtx">첫 구매 10% 할인 쿠폰</span><span className="sf-wbtn">받기</span></> },
+      live: { Icon: BellIcon, body: <span className="sf-wtx">방금 3명이 구매했어요</span> },
+      timer: { Icon: ClockIcon, body: <><span className="sf-wtx">타임 특가 마감까지</span><span className="sf-wtime">02:14:09</span></> },
+      review: { Icon: StarFill, body: <span className="sf-wtx"><span className="star">4.9</span> · 리뷰 12,402개</span> },
+    };
+    const WidgetCard = ({ id }) => {
+      const { Icon, body } = WIDGET_CARD[id];
+      return (
+        <div className="sf-wcard">
+          <span className="sf-wic"><Icon /></span>
+          {body}
+        </div>
+      );
+    };
+
+    /* ── Storefront section renderer (layout blocks) ── */
     const Section = ({ id }) => {
       switch (id) {
         case 'header': return (
-          <div className="sec sec-header">
-            <span className="hd-brand">MAISON</span>
-            <span className="hd-menu"><span>NEW</span><span>BEST</span><span>SALE</span><span className="cart"><CartIcon /></span></span>
+          <div className="sec sf-header">
+            <span className="sf-logo">MAISON</span>
+            <span className="sf-nav"><span>NEW</span><span>BEST</span><span>SALE</span><span className="cart">🛒</span></span>
           </div>
         );
         case 'hero': return (
-          <div className="sec sec-hero">
-            <span className="hero-eyebrow">2026 SPRING COLLECTION</span>
-            <span className="hero-title">지금, 새로운 무드</span>
-            <span className="hero-sub">봄을 여는 신상 컬렉션을 만나보세요</span>
-            <span className="hero-cta">컬렉션 보기</span>
+          <div className="sec sf-hero">
+            <span className="sf-hero-bg"></span>
+            <span className="sf-hero-eyebrow">2026 SPRING COLLECTION</span>
+            <span className="sf-hero-title">지금, 새로운 무드</span>
+            <span className="sf-hero-sub">봄을 여는 신상 컬렉션을 만나보세요</span>
+            <span className="sf-hero-cta">컬렉션 보기</span>
           </div>
         );
         case 'grid': return (
-          <div className="sec sec-coll">
-            <div className="coll-head"><span className="coll-title">베스트 셀러</span><span className="coll-more">전체보기</span></div>
-            <div className="coll-grid">
-              <div className="p-card"><div className="p-img a"></div><span className="p-badge">BEST</span><span className="p-name">캐시미어 블렌드 코트</span><span className="p-price">189,000원</span></div>
-              <div className="p-card"><div className="p-img b"></div><span className="p-name">오버핏 니트 가디건</span><span className="p-price">59,000원</span></div>
+          <div className="sec sf-coll">
+            <div className="sf-coll-head"><span className="sf-coll-title">베스트 셀러</span><span className="sf-coll-more">전체보기</span></div>
+            <div className="sf-grid">
+              {PRODUCTS.map(p => (
+                <div className="sf-pcard" key={p.name}>
+                  <div className="sf-pimg" style={{ background: p.g }}><img src={p.src} alt={p.name} loading="lazy" /></div>
+                  <span className="sf-pname">{p.name}</span>
+                  <span className="sf-pprice"><span className="off">{p.off}</span><span className="amt">{p.price}</span></span>
+                </div>
+              ))}
             </div>
           </div>
         );
         case 'footer': return (
-          <div className="sec sec-foot">
-            <span className="foot-brand">MAISON</span>
-            <span className="foot-links"><span>이용약관</span><span>고객센터</span><span>@maison.official</span></span>
+          <div className="sec sf-foot">
+            <span className="sf-foot-brand">MAISON</span>
+            <span className="sf-foot-links"><span>이용약관</span><span>고객센터</span><span>@maison.official</span></span>
           </div>
-        );
-        case 'coupon': return (
-          <div className="sec wbar"><span className="wbar-ic"><TicketIcon /></span><span className="wbar-tx">첫 구매 10% 할인 쿠폰</span><span className="wbar-cta">받기</span></div>
-        );
-        case 'timer': return (
-          <div className="sec wbar"><span className="wbar-ic"><ClockIcon /></span><span className="wbar-tx">타임 특가 마감까지</span><span className="wbar-time">02:14:09</span></div>
-        );
-        case 'live': return (
-          <div className="sec wbar"><span className="wbar-ic"><BellIcon /></span><span className="wbar-tx">방금 3명이 구매했어요</span></div>
-        );
-        case 'review': return (
-          <div className="sec wbar"><span className="wbar-ic"><StarIcon /></span><span className="wbar-tx">★ 4.9 · 리뷰 12,402개</span></div>
         );
         default: return null;
       }
@@ -1053,11 +1188,24 @@
       );
     };
 
+    /* ── Sidebar item ── */
+    const Item = ({ b, placed, onClick }) => {
+      const Ic = ICONS[b.icon];
+      return (
+        <div className={`item ${placed ? 'placed' : ''}`} onClick={onClick}>
+          <span className="item-ic"><Ic /></span>
+          <span className="item-label">{b.label}</span>
+          <span className="item-add">{placed ? <CheckIcon /> : <PlusIcon />}</span>
+        </div>
+      );
+    };
+
     /* ── Main Demo ── */
     const Demo = () => {
       const [placed, setPlaced] = useState([]);   // ids in placement order
-      const [tab, setTab] = useState('layout');   // 'layout' | 'widget'
+      const [autoRunning, setAutoRunning] = useState(false);
       const bodyRef = useRef(null);
+      const timersRef = useRef([]);
 
       const placedLayout = LAYOUT_IDS.filter(id => placed.includes(id));
       const placedWidgets = placed.filter(id => !LAYOUT_IDS.includes(id));
@@ -1066,139 +1214,141 @@
       const progress = Math.round((placedLayout.length / LAYOUT.length) * 100);
       const conv = BASE_CONV + placedWidgets.reduce((s, id) => s + BY_ID[id].delta, 0);
 
-      // build a coherent page: header → hero → grid → [widgets] → footer
-      const renderList = useMemo(() => {
+      // build a coherent page: header → hero → grid → [widget row] → footer
+      // widgets collapse into a single '__widgets__' row token tucked above the footer
+      const renderTokens = useMemo(() => {
         const out = [];
-        const hasFooter = placedLayout.includes('footer');
+        let widgetsEmitted = false;
         placedLayout.forEach(id => {
-          if (id === 'footer') { out.push(...placedWidgets); out.push('footer'); }
-          else out.push(id);
+          if (id === 'footer') {
+            if (placedWidgets.length) { out.push('__widgets__'); widgetsEmitted = true; }
+            out.push('footer');
+          } else out.push(id);
         });
-        if (!hasFooter) out.push(...placedWidgets);
+        if (!widgetsEmitted && placedWidgets.length) out.push('__widgets__');
         return out;
       }, [placed.join(',')]);
 
+      const clearTimers = () => { timersRef.current.forEach(clearTimeout); timersRef.current = []; };
       const place = (id) => setPlaced(p => (p.includes(id) ? p : [...p, id]));
-      const handleChip = (id) => () => { if (!placed.includes(id)) place(id); };
-      const reset = () => { setPlaced([]); setTab('layout'); };
+      const handleItem = (id) => () => { if (!autoRunning) place(id); };
 
+      // 촤라라락: insert all blocks one-by-one with a stagger
+      const addAll = () => {
+        clearTimers();
+        // sidebar order so footer lands before widgets get tucked in between
+        const seq = [...LAYOUT_IDS, ...WIDGETS.map(w => w.id)].filter(id => !placed.includes(id));
+        if (!seq.length) return;
+        setAutoRunning(true);
+        const STEP = 260;
+        seq.forEach((id, i) => {
+          const t = setTimeout(() => {
+            place(id);
+            if (i === seq.length - 1) {
+              const done = setTimeout(() => setAutoRunning(false), 200);
+              timersRef.current.push(done);
+            }
+          }, STEP * (i + 1));
+          timersRef.current.push(t);
+        });
+      };
 
-      // once the layout is built, guide the user to the conversion widgets
-      useEffect(() => { if (layoutDone) setTab('widget'); }, [layoutDone]);
+      const reset = () => { clearTimers(); setAutoRunning(false); setPlaced([]); };
+
+      // cleanup on unmount
+      useEffect(() => clearTimers, []);
 
       // keep the newest block in view as the page grows
       useEffect(() => {
         const el = bodyRef.current;
         if (el) el.scrollTop = el.scrollHeight;
-      }, [placed.length, everythingDone]);
+      }, [placed.length]);
 
-      const groups = { layout: LAYOUT, widget: WIDGETS };
+      const isEmpty = placed.length === 0;
 
       return (
-        <div className="demo" data-screen-label={`L${placedLayout.length}-W${placedWidgets.length}`}>
+        <div className="demo">
           {layoutDone && <Confetti key="conf" />}
 
-          {/* top row */}
-          <div className="top-row">
-            <div className="brand-group">
-              <div className="badge">알파캔버스</div>
-              <span className="beta">BETA</span>
+          {/* head */}
+          <div className="head">
+            <div className="chips">
+              <span className="chip-tag">알파캔버스</span>
+              <span className="chip-tag beta">BETA</span>
             </div>
-            {!layoutDone ? (
-              <div className={`prog-pill ${placedLayout.length ? 'on' : ''}`}>
-                <span>완성도 <span className="num">{progress}%</span></span>
-                <span className="prog-track"><span className="prog-fill" style={{ width: `${Math.max(progress, 4)}%` }}></span></span>
-              </div>
-            ) : (
-              <div className="prog-pill on">
-                <span>구매 전환율 <span className="num">{conv.toFixed(1)}%</span></span>
-              </div>
-            )}
+            <h2 className="title">클릭 한 번으로 내 브랜드 쇼핑몰 만들기</h2>
           </div>
 
-          {/* headline */}
-          <h2 className="headline">
-            클릭 한 번으로,<br />
-            내 브랜드 쇼핑몰 만들기
-          </h2>
+          {/* body: sidebar + preview */}
+          <div className="body">
+            <div className="side">
+              {/* 완성도 */}
+              <div className="prog">
+                <span className="prog-label">완성도 <span className="num">{everythingDone ? `전환율 ${conv.toFixed(1)}%` : `${progress}%`}</span></span>
+                <span className="prog-bar"><span className="prog-fill" style={{ width: `${Math.max(progress, 0)}%` }}></span></span>
+              </div>
 
-          {/* storefront canvas */}
-          <div className="store">
-            <div className="store-bar">
-              <span className="dots"><i></i><i></i><i></i></span>
-              <span className="url">maison.co.kr</span>
-              <span className="brand-tag"><i></i>Maison</span>
-            </div>
-            <div className="store-body" ref={bodyRef}>
-              {renderList.map((id, i) => <Section key={id + i} id={id} />)}
-
-              {placed.length === 0 && (
-                <div className="store-empty">
-                  <span>빈 페이지</span>
-                  <span>블록을 탭해서 추가하세요</span>
+              {/* 목록(스크롤 영역) */}
+              <div className="side-scroll">
+                {/* 레이아웃 블록 */}
+                <div className="group">
+                  <span className="group-label">레이아웃 블록</span>
+                  {LAYOUT.map(b => (
+                    <Item key={b.id} b={b} placed={placed.includes(b.id)} onClick={handleItem(b.id)} />
+                  ))}
                 </div>
-              )}
-            </div>
-          </div>
 
-          {/* palette */}
-          {!everythingDone && (
-            <>
-              <div className="tabs">
-                <div className={`tab ${tab === 'layout' ? 'active' : ''}`} onClick={() => setTab('layout')}>
-                  레이아웃 <span className="tcount">{placedLayout.length}/{LAYOUT.length}</span>
-                </div>
-                <div className={`tab ${tab === 'widget' ? 'active' : ''}`} onClick={() => setTab('widget')}>
-                  전환 위젯 <span className="tcount">{placedWidgets.length}/{WIDGETS.length}</span>
+                {/* 구매전환 위젯 */}
+                <div className="group">
+                  <span className="group-label">구매전환 위젯</span>
+                  {WIDGETS.map(b => (
+                    <Item key={b.id} b={b} placed={placed.includes(b.id)} onClick={handleItem(b.id)} />
+                  ))}
                 </div>
               </div>
-              <div className="palette">
-                {groups[tab].map(b => {
-                  const Ic = ICONS[b.icon];
-                  const isPlaced = placed.includes(b.id);
-                  return (
-                    <div
-                      key={b.id}
-                      className={`chip ${isPlaced ? 'placed' : ''}`}
-                      onClick={handleChip(b.id)}
-                    >
-                      <span className="chip-ic">{isPlaced ? <CheckIcon /> : <Ic />}</span>
-                      <span className="chip-label">{b.label}</span>
-                      <span className="chip-add">{isPlaced ? '' : '+'}</span>
-                    </div>
-                  );
-                })}
+
+              {/* CTA */}
+              <div
+                className={`cta ${isEmpty && !autoRunning ? 'idle' : ''} ${autoRunning ? 'busy' : ''} ${everythingDone && !autoRunning ? 'reset' : ''}`}
+                onClick={autoRunning ? undefined : (everythingDone ? reset : addAll)}
+              >
+                <span className="cta-label">{autoRunning ? '추가하는 중…' : (everythingDone ? '다시 하기' : '블록과 위젯 추가하기')}</span>
+                {isEmpty && !autoRunning && (
+                  <>
+                    <span className="cta-ring"></span>
+                    <span className="cta-cursor">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M5.5 3.2l13.4 7.7-5.7 1.1 3.3 6-2.6 1.4-3.3-6-3.8 4.2z" stroke="#fff" strokeWidth="1.2" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </>
+                )}
               </div>
-            </>
-          )}
+            </div>
 
-          {/* status */}
-          <div className="status">
-            {placed.length === 0 && (
-              <p className="hint">원하는 레이아웃을 클릭해보세요</p>
-            )}
-            {layoutDone && placedWidgets.length === 0 && (
-              <p className="hint">원하는 전환위젯을 클릭해보세요</p>
-            )}
-            {placed.length > 0 && !layoutDone && (
-              <p className="s-line"><span className="so">So easy!</span> 레이아웃 {placedLayout.length}/{LAYOUT.length} 구축 중</p>
-            )}
-
-            {layoutDone && placedWidgets.length > 0 && !everythingDone && (
-              <>
-                <p className="s-line">전환 위젯 배치 · 구매 전환율 <span className="up">{conv.toFixed(1)}%</span></p>
-                <button className="replay-btn" onClick={reset}>다시 만들기</button>
-              </>
-            )}
-            {everythingDone && (
-              <>
-                <p className="s-line">레이아웃 + 전환 위젯까지 완성 <span className="so">So easy!</span></p>
-                <button className="replay-btn" onClick={reset}>다시 만들기</button>
-              </>
-            )}
+            {/* browser preview */}
+            <div className="preview">
+              <div className="browser-bar">
+                <span className="dots"><i></i><i></i><i></i></span>
+                <span className="url">maison.co.kr</span>
+                <span className="brand-tag"><i></i>Maison</span>
+              </div>
+              <div className={`browser-body ${isEmpty ? 'is-empty' : ''}`} ref={bodyRef}>
+                {isEmpty ? (
+                  <div className="empty">
+                    <span className="e-title">빈 페이지</span>
+                    <span className="e-sub">블록을 탭해서 추가하세요</span>
+                  </div>
+                ) : (
+                  renderTokens.map((tok, i) => (
+                    tok === '__widgets__'
+                      ? <div className="sec sf-wrow" key="wrow">{placedWidgets.map(wid => <WidgetCard key={wid} id={wid} />)}</div>
+                      : <Section key={tok + i} id={tok} />
+                  ))
+                )}
+              </div>
+            </div>
           </div>
-
-
         </div>
       );
     };
