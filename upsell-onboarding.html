@@ -289,6 +289,60 @@
       pointer-events: none;
     }
 
+    /* ━━ CTA 클릭 유도: 펄스 + 탭 커서 + 링 (캔버스·인스타피드 패턴) ━━ */
+    .hint {
+      animation: ctaPulse 2.2s ease-in-out infinite;
+    }
+
+    .hint-cursor {
+      position: absolute;
+      right: 16px;
+      bottom: 7px;
+      width: 22px;
+      height: 22px;
+      z-index: 3;
+      pointer-events: none;
+      color: #1a1a1a;
+      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+      animation: cursorTap 2.2s ease-in-out infinite;
+    }
+
+    .hint-cursor svg { display: block; }
+
+    .hint-ring {
+      position: absolute;
+      right: 20px;
+      bottom: 16px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      z-index: 2;
+      pointer-events: none;
+      background: rgba(255, 255, 255, 0.85);
+      animation: ringPing 2.2s ease-out infinite;
+    }
+
+    @keyframes ctaPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    @keyframes cursorTap {
+      0% { transform: translate(8px, 14px) scale(1); opacity: 0; }
+      18% { transform: translate(0, 0) scale(1); opacity: 1; }
+      40% { transform: translate(0, 0) scale(0.82); opacity: 1; }
+      52% { transform: translate(0, 0) scale(1); opacity: 1; }
+      82% { transform: translate(0, 0) scale(1); opacity: 1; }
+      100% { transform: translate(8px, 14px) scale(1); opacity: 0; }
+    }
+
+    @keyframes ringPing {
+      0%, 36% { transform: scale(0.3); opacity: 0; }
+      44% { transform: scale(0.5); opacity: 0.85; }
+      70% { transform: scale(2.6); opacity: 0; }
+      100% { transform: scale(2.6); opacity: 0; }
+    }
+
     .s-line {
       font-size: 14px;
       font-weight: 500;
@@ -308,24 +362,30 @@
       animation: riseIn 0.38s 0.1s ease both;
     }
 
+    /* 다시 보기 = CTA(.hint)와 같은 자리·같은 모양, 색만 중립 (캔버스·인스타피드 패턴) */
     .replay-btn {
-      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
       font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
       color: var(--ink-mid);
-      background: none;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      border-radius: 9999px;
-      padding: 6px 14px;
+      background: var(--white);
+      border: 1.5px solid var(--tile-bd);
+      border-radius: 14px;
+      padding: 14px 18px;
       cursor: pointer;
-      animation: riseIn 0.38s 0.22s ease both;
-      transition: color 0.18s ease, background 0.18s ease;
+      animation: riseIn 0.38s 0.16s ease both;
+      transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
     }
 
     .replay-btn:hover {
       color: var(--ink);
-      background: rgba(0, 0, 0, 0.04);
+      background: var(--tile);
+      border-color: rgba(0, 0, 0, 0.16);
     }
 
     /* ━━━━ CONFETTI ━━━━ */
@@ -697,7 +757,13 @@
           {/* status messages */}
           <div className="status">
             {phase === 0 && (
-              <p className="hint">상품을 탭해보세요</p>
+              <p className="hint">
+                상품을 탭해보세요
+                <span className="hint-ring"></span>
+                <span className="hint-cursor">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.4 7.7-5.7 1.1 3.3 6-2.6 1.4-3.3-6-3.8 4.2z" stroke="#fff" strokeWidth="1.2" strokeLinejoin="round" /></svg>
+                </span>
+              </p>
             )}
             {phase === 1 && (
               <p className="s-line">장바구니에 담겼어요</p>
@@ -710,7 +776,6 @@
             )}
             {phase === 4 && (
               <>
-                <p className="s-line">장바구니에 1개 → <strong>3개</strong></p>
                 <p className="s-revenue">
                   객단가 +{revenue.toLocaleString('ko-KR')}원 증가
                 </p>

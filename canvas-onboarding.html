@@ -933,8 +933,10 @@
       }
     }
 
-    /* 넓은(2단) 레이아웃: 목록만 스크롤시켜 CTA를 사이드바 하단에 고정 */
-    @media (min-width: 561px) {
+    /* 넓은(2단) 레이아웃: 목록만 스크롤시켜 CTA를 사이드바 하단에 고정.
+       임베드 우측 패널(창 960px≈438px / 1080px≈558px)에서도 2단을 유지해
+       예시·CTA가 잘리지 않게 함 */
+    @media (min-width: 360px) {
       .side-scroll {
         flex: 1 1 0;
         min-height: 0;
@@ -952,18 +954,29 @@
       }
     }
 
-    /* stack to single column on narrow embeds */
-    @media (max-width: 560px) {
+    /* 아주 좁은 화면(≤359): 세로 스택 — 목록만 스크롤해 CTA·미리보기는 항상 보이게 */
+    @media (max-width: 359px) {
       .body {
         flex-direction: column;
+        gap: 12px;
       }
 
       .side {
         width: 100%;
+        max-height: 46%;
+        min-height: 0;
+      }
+
+      .side-scroll {
+        flex: 1 1 0;
+        min-height: 0;
+        overflow-y: auto;
+        padding-right: 2px;
       }
 
       .preview {
-        min-height: 280px;
+        flex: 1 1 0;
+        min-height: 200px;
       }
     }
   </style>

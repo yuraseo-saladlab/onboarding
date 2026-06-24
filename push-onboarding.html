@@ -382,6 +382,53 @@
       white-space: nowrap;
     }
 
+    /* 인과 흐름: [액션] → [대상 매출] (왜 오르는지 한 줄로) */
+    .msg-flow {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .msg-cause {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .msg-arrow {
+      color: var(--ink-soft);
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .msg-effect {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      padding: 2px 9px;
+      border-radius: 9999px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      border: 1px solid var(--accent-bd);
+      white-space: nowrap;
+    }
+
+    /* 지금 매출이 오르는 대상(막대)을 강조 — 메시지와 같은 순간에 */
+    .bar-col.active .bar-lbl {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .recap-arrow {
+      color: var(--ink-soft);
+      font-weight: 800;
+      margin: 0 2px;
+    }
+
     .recap {
       width: 100%;
       display: flex;
@@ -462,6 +509,44 @@
       pointer-events: none;
     }
 
+    /* ━━ CTA 클릭 유도: 펄스 + 탭 커서 + 링 (캔버스·인스타피드 패턴) ━━ */
+    .hint {
+      animation: ctaPulse 2.2s ease-in-out infinite;
+    }
+
+    .hint-cursor {
+      position: absolute;
+      right: 16px;
+      bottom: 7px;
+      width: 22px;
+      height: 22px;
+      z-index: 3;
+      pointer-events: none;
+      color: #1a1a1a;
+      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+      animation: cursorTap 2.2s ease-in-out infinite;
+    }
+
+    .hint-cursor svg { display: block; }
+
+    .hint-ring {
+      position: absolute;
+      right: 20px;
+      bottom: 16px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      z-index: 2;
+      pointer-events: none;
+      background: rgba(255, 255, 255, 0.85);
+      animation: ringPing 2.2s ease-out infinite;
+    }
+
+    @keyframes ctaPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
     .s-line {
       font-size: 13.5px;
       font-weight: 500;
@@ -480,24 +565,30 @@
       font-size: 16px;
     }
 
+    /* 다시 보기 = CTA(.hint)와 같은 자리·같은 모양, 색만 중립 (캔버스·인스타피드 패턴) */
     .replay-btn {
-      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
       font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
       color: var(--ink-mid);
-      background: none;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      border-radius: 9999px;
-      padding: 6px 14px;
+      background: var(--white);
+      border: 1.5px solid var(--tile-bd);
+      border-radius: 14px;
+      padding: 14px 18px;
       cursor: pointer;
-      animation: riseIn 0.38s 0.2s ease both;
-      transition: color 0.18s ease, background 0.18s ease;
+      animation: riseIn 0.38s 0.16s ease both;
+      transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
     }
 
     .replay-btn:hover {
       color: var(--ink);
-      background: rgba(0, 0, 0, 0.04);
+      background: var(--tile);
+      border-color: rgba(0, 0, 0, 0.16);
     }
 
     /* ━━━━ CTA BUTTON (캔버스·인스타피드와 동일한 커서 스타일 / 푸시 제품컬러) ━━━━ */
@@ -911,7 +1002,7 @@
               <span className="rev-label">자동 메시지로 올라간 매출</span>
               <div className="rev-numrow">
                 <span className="rev-num">₩{rev.toLocaleString('ko-KR')}</span>
-                <span className={`rev-delta ${cur ? 'show' : ''}`}>▲ 숨은 매출 {cur ? cur.cap : ''}</span>
+                <span className={`rev-delta ${cur ? 'show' : ''}`}>▲ {cur ? `${cur.bar} ${cur.cap}` : ''}</span>
               </div>
             </div>
             <div className="chart">
@@ -919,7 +1010,7 @@
                 const grown = phase >= i + 1;
                 const active = phase === i + 1;
                 return (
-                  <div key={s.key} className={`bar-col ${grown ? 'on' : ''}`}>
+                  <div key={s.key} className={`bar-col ${grown ? 'on' : ''} ${active ? 'active' : ''}`}>
                     <div className="bar-wrap">
                       <div className={`bar ${active ? 'active' : ''} ${grown ? 'grown' : ''}`} style={{ height: grown ? `${s.h}%` : '0%' }}>
                         <span className="bar-cap">{s.cap}</span>
@@ -932,25 +1023,15 @@
             </div>
           </div>
 
-          {/* idle CTA — 캔버스·인스타피드와 동일한 커서 스타일, 클릭영역 = 버튼 */}
-          {phase === 0 && (
-            <>
-              <div className="btn idle" onClick={start}>탭하면 자동 메시지가 작동해요</div>
-              <span className="btn-ring"></span>
-              <span className="btn-cursor">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.4 7.7-5.7 1.1 3.3 6-2.6 1.4-3.3-6-3.8 4.2z" stroke="#fff" strokeWidth="1.2" strokeLinejoin="round" /></svg>
-              </span>
-            </>
-          )}
-
           {/* current automated message / recap */}
           <div className="msgslot">
             {cur && (
               <div className={`msgcard ${cur.key}`} key={cur.key}>
                 <span className="msg-ic"><cur.Icon /></span>
-                <div className="msg-tx">
-                  <span className="msg-tag">{cur.tag}</span>
-                  <span className="msg-title">{cur.title}</span>
+                <div className="msg-flow">
+                  <span className="msg-cause">{cur.title}</span>
+                  <span className="msg-arrow">→</span>
+                  <span className="msg-effect">{cur.bar} 매출</span>
                 </div>
                 <span className="msg-add">{cur.cap}</span>
               </div>
@@ -958,7 +1039,7 @@
             {phase === 4 && (
               <div className="recap">
                 {STAGES.map(s => (
-                  <span key={s.key} className="recap-chip"><span className="rc"><CheckIcon s={9} /></span>{s.title}</span>
+                  <span key={s.key} className="recap-chip"><span className="rc"><CheckIcon s={9} /></span>{s.title}<span className="recap-arrow">→</span>{s.bar}</span>
                 ))}
               </div>
             )}
@@ -966,14 +1047,22 @@
 
           {/* status */}
           <div className="status">
+            {phase === 0 && (
+              <p className="hint" onClick={start}>
+                탭하면 자동 메시지가 작동해요
+                <span className="hint-ring"></span>
+                <span className="hint-cursor">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 3.2l13.4 7.7-5.7 1.1 3.3 6-2.6 1.4-3.3-6-3.8 4.2z" stroke="#fff" strokeWidth="1.2" strokeLinejoin="round" /></svg>
+                </span>
+              </p>
+            )}
             {phase === 1 && <p className="s-line">온사이트 팝업으로 신규 고객을 즉시 회원으로</p>}
             {phase === 2 && <p className="s-line">카카오 알림톡으로 다시 부를 채널까지 확보</p>}
             {phase === 3 && <p className="s-line">맞춤 재구매 알림으로 반복 구매 고객 누적</p>}
             {phase === 4 && (
               <>
                 <p className="s-line">고객 유형마다 자동으로 — 숨은 매출이 단계별로 ↑</p>
-                <p className="s-stat">추가 매출 <b>₩{REV[3].toLocaleString('ko-KR')}</b></p>
-                <button className="btn reset" onClick={reset}>다시 보기</button>
+                <button className="replay-btn" onClick={reset}>다시 보기</button>
               </>
             )}
           </div>
