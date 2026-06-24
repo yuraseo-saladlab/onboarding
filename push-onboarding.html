@@ -176,316 +176,249 @@
       margin-bottom: 20px;
     }
 
-    /* ━━━━ CUSTOMER SIGNAL PANEL ━━━━ */
-    .panel {
-      background: var(--tile);
-      border: 1.5px solid var(--tile-bd);
-      border-radius: 16px;
-      padding: 15px 15px 16px;
-      transition: border-color 0.3s ease, background 0.3s ease;
-    }
-
-    .panel.idle {
-      animation: idlePulse 2.6s ease-in-out infinite;
-    }
-
-    .cust {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      margin-bottom: 13px;
-    }
-
-    .avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #e3e0db;
-      display: grid;
-      place-items: center;
-      color: var(--ink-mid);
-      flex-shrink: 0;
-    }
-
-    .cust-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      line-height: 1.2;
-    }
-
-    .cust-id {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-
-    .cust-sub {
-      font-size: 11.5px;
-      font-weight: 500;
-      color: var(--ink-mid);
-      letter-spacing: -0.01em;
-    }
-
-    .signals {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .signal {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      letter-spacing: -0.015em;
-      transition: color 0.3s ease;
-    }
-
-    .signal.done {
-      color: var(--ink);
-    }
-
-    .sig-ic {
-      width: 17px;
-      height: 17px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(26, 26, 26, 0.18);
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      background: transparent;
-      transition: background 0.25s ease, border-color 0.25s ease;
-    }
-
-    .signal.done .sig-ic {
-      background: var(--ink);
-      border-color: var(--ink);
-    }
-
-    .sig-done-anim {
-      animation: popBadge 0.36s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-    }
-
-    /* risk meter */
-    .risk {
-      margin-top: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .risk-label {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--ink-mid);
-      white-space: nowrap;
-      letter-spacing: -0.01em;
-    }
-
-    .risk-track {
+    /* ━━━━ REVENUE BOARD ━━━━ */
+    .board {
       flex: 1;
-      height: 6px;
-      border-radius: 9999px;
-      background: rgba(26, 26, 26, 0.08);
-      overflow: hidden;
-    }
-
-    .risk-fill {
-      height: 100%;
-      width: 8%;
-      border-radius: 9999px;
-      background: linear-gradient(90deg, #9db8e8, var(--accent));
-      transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .risk-fill.high {
-      width: 88%;
-    }
-
-    .risk-val {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--ink-mid);
-      white-space: nowrap;
-      transition: color 0.3s ease;
-    }
-
-    .risk-val.high {
-      color: var(--accent);
-    }
-
-    /* ━━━━ TRIGGER BANNER ━━━━ */
-    .trigger {
-      margin-top: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--accent-bg);
-      border: 1.5px solid var(--accent-bd);
-      border-radius: 13px;
-      padding: 11px 13px;
-      animation: riseIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-
-    .bolt {
-      width: 26px;
-      height: 26px;
-      border-radius: 8px;
-      flex-shrink: 0;
-      background: var(--accent);
-      display: grid;
-      place-items: center;
-    }
-
-    .trigger-txt {
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      line-height: 1.25;
+      gap: 16px;
+      min-height: 0;
+      border: 1.5px solid var(--tile-bd);
+      border-radius: 16px;
+      padding: 18px;
+      background: #fbfbfa;
     }
 
-    .trigger-rule {
-      font-size: 11px;
+    .rev {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .rev-label {
+      font-size: 12.5px;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--ink-mid);
       letter-spacing: -0.01em;
     }
 
-    .trigger-main {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.015em;
+    .rev-numrow {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    /* ━━━━ PUSH NOTIFICATION ━━━━ */
-    .push {
-      margin-top: 14px;
-      background: var(--white);
-      border: 1.5px solid var(--tile-bd);
-      border-radius: 16px;
-      padding: 13px 14px;
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.10);
-      animation: pushIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    .rev-num {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .rev-delta {
+      font-size: 14px;
+      font-weight: 800;
+      color: #12b886;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+
+    .rev-delta.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    .chart {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: stretch;
+      gap: 14px;
+      padding-top: 4px;
+    }
+
+    .bar-col {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .bar-wrap {
+      flex: 1;
+      min-height: 0;
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .bar {
+      width: 100%;
+      max-width: 60px;
+      height: 0;
+      border-radius: 10px 10px 0 0;
+      background: linear-gradient(180deg, #a9c4f2, #307af3);
+      transition: height .7s cubic-bezier(.22, 1, .36, 1), box-shadow .3s ease;
       position: relative;
     }
 
-    .push-head {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+    .bar.active {
+      box-shadow: 0 0 0 4px rgba(48, 122, 243, 0.15);
     }
 
-    .push-app {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      flex-shrink: 0;
-      background: var(--accent);
-      display: grid;
-      place-items: center;
-      color: white;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .push-app-name {
+    .bar-cap {
+      position: absolute;
+      top: -22px;
+      left: 0;
+      right: 0;
+      text-align: center;
       font-size: 11.5px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-
-    .push-time {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      margin-left: auto;
+      font-weight: 800;
+      color: #12b886;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity .3s ease .15s, transform .3s ease .15s;
       white-space: nowrap;
     }
 
-    .push-title {
-      font-size: 14.5px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.02em;
-      margin-bottom: 3px;
-      line-height: 1.3;
+    .bar.grown .bar-cap {
+      opacity: 1;
+      transform: none;
     }
 
-    .push-body {
-      font-size: 12.5px;
-      font-weight: 500;
-      color: var(--ink-mid);
-      letter-spacing: -0.01em;
-      line-height: 1.45;
-    }
-
-    .push-body b {
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .push-timer {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-family: var(--font-mono);
+    .bar-lbl {
       font-size: 12px;
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    .push-timer .clock {
-      display: inline-grid;
-      place-items: center;
-    }
-
-    .push-sent {
-      position: absolute;
-      top: 11px;
-      right: 12px;
-      font-size: 10px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--ink-soft);
-      font-family: var(--font-mono);
-      letter-spacing: 0.02em;
+      transition: color .3s ease;
+      white-space: nowrap;
+      text-align: center;
     }
 
-    /* converted overlay on push */
-    .push-converted {
-      margin-top: 11px;
+    .bar-col.on .bar-lbl {
+      color: var(--ink);
+    }
+
+    /* ━━━━ MESSAGE CARD ━━━━ */
+    .msgslot {
+      min-height: 66px;
       display: flex;
       align-items: center;
-      gap: 7px;
-      padding-top: 11px;
-      border-top: 1px solid var(--tile-bd);
-      animation: riseIn 0.4s ease both;
     }
 
-    .pc-check {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--accent);
+    .msgcard {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1.5px solid var(--tile-bd);
+      border-radius: 14px;
+      padding: 13px 14px;
+      background: var(--white);
+      animation: pushIn .42s cubic-bezier(.22, 1, .36, 1) both;
+    }
+
+    .msg-ic {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      border-radius: 11px;
       display: grid;
       place-items: center;
-      flex-shrink: 0;
-      animation: popBadge 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      color: #fff;
     }
 
-    .pc-text {
-      font-size: 12.5px;
+    .msgcard.onsite .msg-ic {
+      background: #307af3;
+    }
+
+    .msgcard.offsite .msg-ic {
+      background: #fee500;
+      color: #3a2e00;
+    }
+
+    .msgcard.retention .msg-ic {
+      background: #6b5bf2;
+    }
+
+    .msg-tx {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .msg-tag {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .msgcard.onsite .msg-tag {
+      color: #2f6fd6;
+    }
+
+    .msgcard.offsite .msg-tag {
+      color: #8a7a00;
+    }
+
+    .msgcard.retention .msg-tag {
+      color: #6b5bf2;
+    }
+
+    .msg-title {
+      font-size: 14px;
       font-weight: 700;
       color: var(--ink);
       letter-spacing: -0.01em;
     }
+
+    .msg-add {
+      font-size: 14px;
+      font-weight: 800;
+      color: #12b886;
+      white-space: nowrap;
+    }
+
+    .recap {
+      width: 100%;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: riseIn .4s ease both;
+    }
+
+    .recap-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink);
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-bd);
+      border-radius: 9999px;
+      padding: 7px 13px;
+    }
+
+    .recap-chip .rc {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      border-radius: 50%;
+      background: #12b886;
+      display: grid;
+      place-items: center;
+    }
+
 
     /* ━━━━ STATUS ━━━━ */
     .status {
@@ -674,22 +607,6 @@
       }
     }
 
-    100% {
-      background-position: 200% center;
-    }
-    }
-
-    35% {
-      transform: scale(0.55);
-      opacity: 0.65;
-    }
-
-    60% {
-      transform: scale(1.38);
-      opacity: 1;
-    }
-    }
-
     @keyframes confDrop {
       0% {
         transform: translateY(-10px) rotate(0deg);
@@ -712,8 +629,8 @@
       }
     }
   </style>
-<style id="embed-fill">html,body{background:#fff!important}body{margin:0!important;padding:0!important;min-height:100vh;display:flex!important;flex-direction:column!important}#root{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;width:100%!important}.demo{flex:1 1 auto!important;max-width:none!important;width:100%!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;border-radius:0!important;box-shadow:none!important}.panel{display:flex!important;flex-direction:column!important;flex:1 1 0!important;min-height:0!important}.signals{flex:1 1 0!important;min-height:0!important;justify-content:center!important}.status{margin-top:16px!important;width:100%!important}.hint{width:100%!important;box-sizing:border-box!important}.replay-btn{width:100%!important;box-sizing:border-box!important;padding:14px 18px!important;margin-top:0!important}</style>
-<style id="embed-enlarge">.signals{justify-content:center!important;gap:12px!important}.avatar{width:40px!important;height:40px!important}.cust-id{font-size:14.5px!important}.cust-sub{font-size:12.5px!important}.signal{font-size:14.5px!important;gap:11px!important}.sig-ic{width:22px!important;height:22px!important}.risk-label{font-size:13px!important}.risk-val{font-size:13px!important}.risk-track{height:8px!important}.trigger{flex:0 0 auto!important;padding:13px 15px!important}.bolt{width:30px!important;height:30px!important}.trigger-rule{font-size:12px!important}.trigger-main{font-size:14.5px!important}.push{flex:1 1 0!important;min-height:0!important;display:flex!important;flex-direction:column!important;justify-content:center!important;padding:16px!important}.push-app{width:26px!important;height:26px!important}.push-app-name{font-size:13px!important}.push-time{font-size:12px!important}.push-title{font-size:16px!important}.push-body{font-size:13.5px!important;line-height:1.55!important}</style>
+<style id="embed-fill">html,body{background:#fff!important}body{margin:0!important;padding:0!important;min-height:100vh;display:flex!important;flex-direction:column!important}#root{flex:1 1 auto!important;display:flex!important;flex-direction:column!important;width:100%!important}.demo{flex:1 1 auto!important;max-width:none!important;width:100%!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;border-radius:0!important;box-shadow:none!important}.board{flex:1 1 0!important;min-height:0!important}.status{margin-top:16px!important;width:100%!important}.hint{width:100%!important;box-sizing:border-box!important}.replay-btn{width:100%!important;box-sizing:border-box!important;padding:14px 18px!important;margin-top:0!important}</style>
+<style id="embed-enlarge">.rev-num{font-size:34px!important}.rev-label{font-size:13px!important}.bar{max-width:72px!important}.bar-lbl{font-size:12.5px!important}.msg-title{font-size:15px!important}.msgcard{padding:14px 16px!important}.recap-chip{font-size:13px!important}</style>
 </head>
 
 <body>
@@ -790,46 +707,54 @@
       return val;
     };
 
-    /* ── Behavior signals ── */
-    const SIGNALS = [
-      '상품 상세 3회 재방문',
-      '장바구니 담고 결제 직전 이탈',
-      '5분째 결제 망설이는 중',
-    ];
-
-    const Signal = ({ text, done }) => (
-      <div className={`signal ${done ? 'done' : ''}`}>
-        <span className={`sig-ic ${done ? 'sig-done-anim' : ''}`}>
-          {done && <CheckIcon s={9} />}
-        </span>
-        <span>{text}</span>
-      </div>
+    /* ── Stage icons ── */
+    const BubbleIcon = () => (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 5h16v11H9l-4 4V5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      </svg>
+    );
+    const RepeatIcon = () => (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 9a6 6 0 0 1 10-3M20 15a6 6 0 0 1-10 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M14 3v3.5h-3.5M10 21v-3.5h3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
     );
 
-    /* ── Live countdown (mm:ss) ── */
-    const Countdown = ({ running }) => {
-      const [sec, setSec] = useState(300);
+    /* ── Count-to hook (애니메이션: 이전값 → 새 target) ── */
+    const useCountTo = (target, dur = 700) => {
+      const [val, setVal] = useState(target);
+      const fromRef = useRef(target);
       useEffect(() => {
-        if (!running) return;
-        const t = setInterval(() => setSec(s => (s > 0 ? s - 1 : 0)), 1000);
-        return () => clearInterval(t);
-      }, [running]);
-      const mm = String(Math.floor(sec / 60)).padStart(2, '0');
-      const ss = String(sec % 60).padStart(2, '0');
-      return (
-        <div className="push-timer">
-          <span className="clock"><ClockIcon /></span>
-          <span>혜택 마감까지 {mm}:{ss}</span>
-        </div>
-      );
+        const from = fromRef.current;
+        if (from === target) { return; }
+        let raf; const t0 = performance.now();
+        const tick = (ts) => {
+          const p = Math.min((ts - t0) / dur, 1);
+          const e = 1 - Math.pow(1 - p, 3);
+          setVal(Math.round(from + (target - from) * e));
+          if (p < 1) raf = requestAnimationFrame(tick);
+          else { setVal(target); fromRef.current = target; }
+        };
+        raf = requestAnimationFrame(tick);
+        const done = setTimeout(() => { setVal(target); fromRef.current = target; }, dur + 120);
+        return () => { cancelAnimationFrame(raf); clearTimeout(done); };
+      }, [target]);
+      return val;
     };
+
+    /* ── 단계별 자동 메시지 (고객유형 → 온/오프사이트 → 매출) ── */
+    const STAGES = [
+      { key: 'onsite',    tag: '온사이트 · 신규 방문',  title: '1초 회원가입 팝업',     bar: '신규 유입', h: 42,  cap: '+182만', Icon: UserIcon },
+      { key: 'offsite',   tag: '오프사이트 · 이탈 고객', title: '카카오 알림톡 친구추가', bar: '재유입',   h: 72,  cap: '+253만', Icon: BubbleIcon },
+      { key: 'retention', tag: '리텐션 · 기존 고객',     title: '맞춤 재구매 알림',       bar: '반복 구매', h: 100, cap: '+377만', Icon: RepeatIcon },
+    ];
+    const REV = [0, 1820000, 4350000, 8120000]; // 누적 매출 (예시값) // TODO: 실데이터
 
     /* ── Main Demo ── */
     const Demo = () => {
-      const [phase, setPhase] = useState(0);   // 0 idle · 1 detect · 2 trigger · 3 push · 4 converted
-      const [sigDone, setSigDone] = useState(0);
+      const [phase, setPhase] = useState(0);   // 0 idle · 1 온사이트 · 2 오프사이트 · 3 리텐션 · 4 done
       const ids = useRef([]);
-      const conv = useCountUp(32, 800, phase === 4);
+      const rev = useCountTo(REV[Math.min(phase, 3)], 700);
 
       const later = (fn, d) => ids.current.push(setTimeout(fn, d));
       const stop = () => { ids.current.forEach(clearTimeout); ids.current = []; };
@@ -837,17 +762,14 @@
 
       const start = () => {
         if (phase !== 0) return;
-        setPhase(1);
-        later(() => setSigDone(1), 350);
-        later(() => setSigDone(2), 1050);
-        later(() => setSigDone(3), 1750);
-        later(() => setPhase(2), 2350);   // risk high → automation trigger
-        later(() => setPhase(3), 3350);   // push auto-sent
-        later(() => setPhase(4), 5400);   // converted
+        later(() => setPhase(1), 300);
+        later(() => setPhase(2), 1900);
+        later(() => setPhase(3), 3500);
+        later(() => setPhase(4), 5100);
       };
-      const reset = (e) => { e.stopPropagation(); stop(); setPhase(0); setSigDone(0); };
+      const reset = (e) => { e.stopPropagation(); stop(); setPhase(0); };
 
-      const riskHigh = phase >= 2;
+      const cur = (phase >= 1 && phase <= 3) ? STAGES[phase - 1] : null;
 
       return (
         <div
@@ -860,89 +782,76 @@
           {/* top row */}
           <div className="top-row">
             <div className="badge">알파푸시</div>
-            <div className={`auto-pill ${phase >= 2 ? 'on' : ''}`}>
+            <div className={`auto-pill ${phase >= 1 ? 'on' : ''}`}>
               <span className="dot"></span>
-              <span>{phase >= 2 ? '자동화 작동 중' : '자동화 대기'}</span>
+              <span>{phase >= 1 ? '자동 발송 중' : '자동 발송 대기'}</span>
             </div>
           </div>
 
           {/* headline */}
           <h2 className="headline">
-            망설이는 고객을<br />
-            자동으로 붙잡는 순간
+            비싸게 데려온 고객,<br />
+            흘리지 않고 매출까지
           </h2>
 
-          {/* signal panel */}
-          <div className={`panel ${phase === 0 ? 'idle' : ''}`}>
-            <div className="cust">
-              <div className="avatar"><UserIcon /></div>
-              <div className="cust-meta">
-                <span className="cust-id">고객 #1024</span>
-                <span className="cust-sub">결제 직전 이탈 징후</span>
+          {/* revenue board (grower) */}
+          <div className="board">
+            <div className="rev">
+              <span className="rev-label">자동 메시지로 올라간 매출</span>
+              <div className="rev-numrow">
+                <span className="rev-num">₩{rev.toLocaleString('ko-KR')}</span>
+                <span className={`rev-delta ${cur ? 'show' : ''}`}>▲ 숨은 매출 {cur ? cur.cap : ''}</span>
               </div>
             </div>
-
-            <div className="signals">
-              {SIGNALS.map((t, i) => (
-                <Signal key={i} text={t} done={sigDone > i} />
-              ))}
-            </div>
-
-            <div className="risk">
-              <span className="risk-label">이탈 위험</span>
-              <div className="risk-track">
-                <div className={`risk-fill ${riskHigh ? 'high' : ''}`}></div>
-              </div>
-              <span className={`risk-val ${riskHigh ? 'high' : ''}`}>
-                {riskHigh ? '매우 높음' : '감지 중'}
-              </span>
+            <div className="chart">
+              {STAGES.map((s, i) => {
+                const grown = phase >= i + 1;
+                const active = phase === i + 1;
+                return (
+                  <div key={s.key} className={`bar-col ${grown ? 'on' : ''}`}>
+                    <div className="bar-wrap">
+                      <div className={`bar ${active ? 'active' : ''} ${grown ? 'grown' : ''}`} style={{ height: grown ? `${s.h}%` : '0%' }}>
+                        <span className="bar-cap">{s.cap}</span>
+                      </div>
+                    </div>
+                    <span className="bar-lbl">{s.bar}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* trigger banner */}
-          {phase >= 2 && (
-            <div className="trigger">
-              <span className="bolt"><BoltIcon /></span>
-              <div className="trigger-txt">
-                <span className="trigger-rule">이탈하려는 바로 그 순간</span>
-                <span className="trigger-main">맞춤 푸시가 자동으로 나갔어요</span>
-              </div>
-            </div>
-          )}
-
-          {/* auto-sent push notification */}
-          {phase >= 3 && (
-            <div className="push" key="push">
-              <div className="push-head">
-                <span className="push-app">S</span>
-                <span className="push-app-name">살라드샵</span>
-                <span className="push-time">자동 발송 · 지금</span>
-              </div>
-              <p className="push-title">회원님, 지금 결제하면 더 쌉니다</p>
-              <p className="push-body">
-                장바구니에 담아둔 상품, <b>5분 안에 결제하면 10% 할인 + 무료배송</b>.
-                지금 안 사면 정가로 돌아가요.
-              </p>
-              <Countdown running={phase === 3} />
-              {phase >= 4 && (
-                <div className="push-converted">
-                  <span className="pc-check"><CheckIcon s={10} /></span>
-                  <span className="pc-text">푸시 한 번에 결제 완료</span>
+          {/* current automated message / recap */}
+          <div className="msgslot">
+            {cur && (
+              <div className={`msgcard ${cur.key}`} key={cur.key}>
+                <span className="msg-ic"><cur.Icon /></span>
+                <div className="msg-tx">
+                  <span className="msg-tag">{cur.tag}</span>
+                  <span className="msg-title">{cur.title}</span>
                 </div>
-              )}
-            </div>
-          )}
+                <span className="msg-add">{cur.cap}</span>
+              </div>
+            )}
+            {phase === 4 && (
+              <div className="recap">
+                {STAGES.map(s => (
+                  <span key={s.key} className="recap-chip"><span className="rc"><CheckIcon s={9} /></span>{s.title}</span>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* status */}
           <div className="status">
-            {phase === 0 && <p className="hint">탭하면 자동화가 작동해요</p>}
-            {phase === 1 && <p className="s-line">고객 행동 신호 감지 중…</p>}
-            {phase === 2 && <p className="s-line">이탈 위험 감지 — 자동화 트리거됨</p>}
-            {phase === 3 && <p className="s-line">맞춤 푸시 자동 발송됨</p>}
+            {phase === 0 && <p className="hint">탭하면 자동 메시지가 작동해요</p>}
+            {phase === 1 && <p className="s-line">온사이트 팝업으로 신규 고객을 즉시 회원으로</p>}
+            {phase === 2 && <p className="s-line">카카오 알림톡으로 다시 부를 채널까지 확보</p>}
+            {phase === 3 && <p className="s-line">맞춤 재구매 알림으로 반복 구매 고객 누적</p>}
             {phase === 4 && (
               <>
-                <p className="s-line">놓칠 뻔한 고객, 자동으로 전환</p>
-                <p className="s-stat">구매 전환율 <b>+{conv}%</b></p>
+                <p className="s-line">고객 유형마다 자동으로 — 숨은 매출이 단계별로 ↑</p>
+                <p className="s-stat">추가 매출 <b>₩{REV[3].toLocaleString('ko-KR')}</b></p>
                 <button className="replay-btn" onClick={reset}>다시 보기</button>
               </>
             )}
