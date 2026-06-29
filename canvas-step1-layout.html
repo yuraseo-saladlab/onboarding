@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파캔버스 — 레이아웃 선택 데모</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+  <style>
+    :root {
+      --teal: #00B7A8;
+      --teal-600: #0D9488;
+      --teal-200: #92F3E6;
+      --ink: #1a1a1a;
+      --dim: #5d6374;
+      --faint: #8e929e;
+      --line: #e3e4e7;
+      --soft: #f5f5f6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { flex: 1; display: flex; flex-direction: column; padding: 24px; gap: 16px; }
+    .head { display: flex; flex-direction: column; gap: 8px; }
+    .chips { display: flex; gap: 8px; }
+
+    .tag {
+      display: inline-flex; align-items: center; height: 24px; padding: 0 10px;
+      border-radius: 9999px; font-size: 12px; font-weight: 700; color: #fff; background: var(--teal);
+    }
+    .tag.step { background: transparent; color: var(--teal-600); border: 1px solid var(--teal-200); }
+
+    .title { font-size: clamp(20px, 3vw, 28px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.3; }
+    .sub { font-size: 14px; color: var(--dim); line-height: 1.6; }
+
+    /* 레이아웃 프리셋 선택 */
+    .presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+
+    .preset {
+      border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fff; cursor: pointer;
+      display: flex; flex-direction: column; gap: 8px; transition: border-color .16s, background .16s, transform .1s;
+    }
+    .preset:hover { border-color: var(--teal-200); background: rgba(0, 183, 168, .05); }
+    .preset:active { transform: scale(.98); }
+    .preset.on { border-color: var(--teal); background: rgba(0, 183, 168, .07); }
+
+    /* 미니 와이어프레임 썸네일 */
+    .thumb { display: flex; flex-direction: column; gap: 4px; height: 58px; }
+    .thumb i { background: #e3e0ea; border-radius: 3px; display: block; }
+    .thumb .hero { flex: 0 0 auto; background: linear-gradient(120deg, #cfeae6, #9fded6); }
+    .thumb .grid { flex: 1; display: grid; gap: 4px; }
+    .thumb .grid i { background: #dcd8e6; }
+
+    .preset-name { font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em; }
+    .preset.on .preset-name { color: var(--teal-600); }
+
+    /* 브라우저 미리보기 */
+    .preview {
+      flex: 1; min-height: 230px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+      background: var(--soft); display: flex; flex-direction: column;
+    }
+
+    .bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #fff; border-bottom: 1px solid rgba(17,17,17,.06); }
+    .bar i { width: 8px; height: 8px; border-radius: 3px; background: #dcdcd8; display: block; }
+    .bar .url { margin-left: 6px; font-size: 11px; font-weight: 600; color: rgba(26,26,26,.45); }
+
+    .page { flex: 1; overflow: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; background: #f7f4f2; }
+
+    .p-hero {
+      border-radius: 10px; background: linear-gradient(120deg, #0a3815, #00756b 60%, #00B7A8);
+      color: #fff; padding: 16px 18px; display: flex; flex-direction: column; justify-content: center; gap: 6px;
+      animation: pop .35s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    .p-hero .e { font-size: 9px; font-weight: 800; letter-spacing: .14em; color: #beff74; }
+    .p-hero .h { font-size: 16px; font-weight: 800; letter-spacing: -.01em; }
+
+    .p-grid { display: grid; gap: 8px; animation: pop .35s cubic-bezier(.34,1.56,.64,1) both; }
+    .p-card { background: #fff; border-radius: 9px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+    .p-card .ph { aspect-ratio: 1/1.1; background: linear-gradient(145deg, #b49a86, rgba(180,154,134,.78)); }
+    .p-card.row { display: flex; align-items: center; gap: 10px; padding: 8px; }
+    .p-card.row .ph { aspect-ratio: 1; width: 44px; flex: 0 0 44px; border-radius: 7px; }
+    .p-card .lines { flex: 1; display: flex; flex-direction: column; gap: 5px; padding: 8px; }
+    .p-card.row .lines { padding: 0; }
+    .p-card .lines b { height: 8px; border-radius: 4px; background: #e7e3ef; display: block; }
+    .p-card .lines s { height: 8px; width: 55%; border-radius: 4px; background: #efb9bd; display: block; }
+
+    @keyframes pop { from { opacity: 0; transform: translateY(-5px) scale(.98); } to { opacity: 1; transform: none; } }
+
+    .hint { font-size: 12.5px; color: var(--faint); text-align: center; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="head">
+      <div class="chips"><span class="tag">알파캔버스</span><span class="tag step">STEP 1</span></div>
+      <h1 class="title">원하는 레이아웃, 제약 없이</h1>
+      <p class="sub">정해진 틀 없이, 마음에 드는 레이아웃을 골라 페이지의 골격을 바로 잡아보세요.</p>
+    </div>
+
+    <div class="presets" id="presets"></div>
+
+    <div class="preview">
+      <div class="bar"><i></i><i></i><i></i><span class="url">maison.co.kr</span></div>
+      <div class="page" id="page"></div>
+    </div>
+    <p class="hint" id="hint">레이아웃을 눌러 미리보기를 바꿔보세요</p>
+  </div>
+
+  <script>
+    // 레이아웃 프리셋: hero 높이 + 상품 그리드 형태
+    const PRESETS = [
+      { id: 'basic', name: '베이직', heroH: 42, cols: 4, rows: 1, list: false, thumbCols: 4, thumbRows: 1 },
+      { id: 'magazine', name: '매거진', heroH: 86, cols: 2, rows: 1, list: false, thumbCols: 2, thumbRows: 1 },
+      { id: 'grid', name: '그리드 강조', heroH: 30, cols: 3, rows: 2, list: false, thumbCols: 3, thumbRows: 2 },
+      { id: 'list', name: '리스트형', heroH: 36, cols: 1, rows: 3, list: true, thumbCols: 1, thumbRows: 3 },
+    ];
+    let active = 'basic';
+
+    const presetsEl = document.getElementById('presets');
+    const page = document.getElementById('page');
+    const hint = document.getElementById('hint');
+
+    function thumb(p) {
+      const cells = Array.from({ length: p.thumbCols * p.thumbRows }, () => '<i></i>').join('');
+      return `<div class="thumb">
+        <i class="hero" style="height:${Math.max(10, p.heroH * 0.34)}px"></i>
+        <div class="grid" style="grid-template-columns:repeat(${p.thumbCols},1fr)">${cells}</div>
+      </div>`;
+    }
+
+    function renderPresets() {
+      presetsEl.innerHTML = '';
+      PRESETS.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'preset' + (p.id === active ? ' on' : '');
+        el.innerHTML = thumb(p) + `<span class="preset-name">${p.name}</span>`;
+        el.onclick = () => { active = p.id; render(); };
+        presetsEl.appendChild(el);
+      });
+    }
+
+    function render() {
+      renderPresets();
+      const p = PRESETS.find(x => x.id === active);
+      const count = p.cols * p.rows;
+      let cards = '';
+      for (let i = 0; i < count; i++) {
+        cards += p.list
+          ? `<div class="p-card row"><span class="ph"></span><span class="lines"><b></b><s></s></span></div>`
+          : `<div class="p-card"><span class="ph"></span><span class="lines"><b></b><s></s></span></div>`;
+      }
+      page.innerHTML = `
+        <div class="p-hero" style="min-height:${p.heroH}px"><span class="e">2026 SUMMER</span><span class="h">${p.name} 레이아웃</span></div>
+        <div class="p-grid" style="grid-template-columns:repeat(${p.list ? 1 : p.cols},1fr)">${cards}</div>`;
+      hint.textContent = `‘${p.name}’ 레이아웃 적용됨 · 다른 레이아웃도 눌러보세요`;
+    }
+    render();
+  </script>
+</body>
+
+</html>
