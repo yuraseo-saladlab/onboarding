@@ -2855,10 +2855,13 @@
     }
     function updateCount() { $('cnt').textContent = selected.size + '개'; }
 
+    // 데모 페이지 수정 시 이 값을 올리면 iframe이 옛 캐시 대신 최신본을 불러옵니다.
+    const DEMO_V = '7';
     function loadPanel() {
       // 프레임(데모) 교체: 캔버스는 활성 스텝의 demo, 그 외 제품은 기본 데모
       const frame = $('animFrame');
-      const url = STEPS[cur] ? STEPS[cur][activeStep].demo : ANIM[cur];
+      const base = STEPS[cur] ? STEPS[cur][activeStep].demo : ANIM[cur];
+      const url = base ? base + (base.includes('?') ? '&' : '?') + 'v=' + DEMO_V : base;
       if (frame && url && frame.getAttribute('data-key') !== url) {
         frame.setAttribute('data-key', url);
         frame.src = url;
