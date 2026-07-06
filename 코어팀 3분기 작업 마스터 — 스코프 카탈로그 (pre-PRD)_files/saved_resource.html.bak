@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<!-- saved from url=(0255)https://a75bb181-9a49-4d56-afcb-c7ceb8d3528d.frame.claudeusercontent.com/_f/1782713608-e5cd/?__frame_t=FY46VJ2EDUutXOS9yqFzKV0K.5a7a4c24-3852-462f-acc7-e68f43054ae4.8b242cc7-adba-4036-a44c-c67546ca014a.1782825983&__frame_v=5c752db9772119c9909d31903fc86c45 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--<base href="/_f/1782713608-e5cd/">--><base href="."><script>(function(){"use strict";const P="modulepreload",S=function(e){return"/"+e},M={},h=function(n,r,i){let s=Promise.resolve();function a(o){const t=new Event("vite:preloadError",{cancelable:!0});if(t.payload=o,window.dispatchEvent(t),!t.defaultPrevented)throw o}return s.then(o=>{for(const t of o||[])t.status==="rejected"&&a(t.reason);return n().catch(a)})};function v(e){if(e==null||typeof e!="object")return!1;const n=e.__frame_init;return n!=null&&typeof n=="object"}function p(e){if(window===top||e.type==="auxclick"&&e.button!==1)return;const n=e.composedPath?e.composedPath():[e.target];let r=null;for(let o=0;o<n.length;o++){const t=n[o];if(t&&t.matches&&t.matches("a[href],area[href]")){r=t;break}}if(!r&&e.target&&e.target.closest&&(r=e.target.closest("a[href],area[href]")),!r)return;const i=r.getAttribute("href");if(!i)return;let s,a;try{s=new URL(i,document.baseURI),a=new URL(document.baseURI).origin}catch{return}(s.protocol==="http:"||s.protocol==="https:")&&s.origin!==a&&(e.preventDefault(),parent.postMessage({__frame_nav:!0,url:s.href},"*"))}const f={};function u(e){if(window===top)return;const n=Date.now();n-(f[e]||0)<500||(f[e]=n,parent.postMessage({__frame_engaged:!0,kind:e},"*"))}function w(){addEventListener("click",p,!0),addEventListener("auxclick",p,!0)}function _(){addEventListener("scroll",()=>u("scroll"),{capture:!0,passive:!0}),addEventListener("pointermove",()=>u("pointer"),{capture:!0,passive:!0}),addEventListener("click",()=>u("click"),{capture:!0,passive:!0})}function E(e,n){const r=new Set(e.changes??[]),i=new Map;for(const s of r){const a=n[s];a&&i.set(s,a)}return{contract:e.contract,changes:r,flags:new Set(e.flags??[]),transforms:i}}var b={};const y=1e4,L=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function k(e,n,r){try{Object.defineProperty(e,n,{value:r,writable:!1,configurable:!1,enumerable:!0})}catch{}}const d=Object.getOwnPropertyDescriptor(window,"claude");if(window!==top&&!(d&&d.configurable===!1)){w(),_(),k(window,"claude",d?.value??{});let e=null,n=null,r=null,i=0;const s=t=>{t.source!==parent||!L.includes(t.origin)||v(t.data)&&(e=t.data.__frame_init,n=t.origin,removeEventListener("message",s),clearTimeout(i),r?.())};addEventListener("message",s),parent.postMessage({__frame_connect:!0},"*");const a=new Promise(t=>{r=t,i=setTimeout(()=>{removeEventListener("message",s),t()},y)}),o=document.readyState==="loading"?new Promise(t=>document.addEventListener("DOMContentLoaded",()=>t(),{once:!0})):Promise.resolve();a.then(async()=>{if(!e||!n)return;const t=c=>h(()=>import("/_runtime/"+c),void 0),m=Object.keys(e.capabilities??{}).map(c=>b[c]).filter(c=>!!c),[l]=await Promise.allSettled([t("_transforms.DYk1Ltlh.js"),...m.map(t)]);E(e,l.status==="fulfilled"&&l.value?.TRANSFORMS||{}),await o,parent.postMessage({__frame_ready:!0},n)})}})();</script><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>코어팀 3분기 작업 마스터 — 스코프 카탈로그 (pre-PRD)</title>
+<meta name="description" content="3전술 × 개별 스코프 인터랙티브 카탈로그 — 짭파카 코드 기반 구현 가능 수준의 인수조건">
+<style>
+  :root{
+    --paper:#F4F6F4; --surface:#FFFFFF; --surface-2:#FBFCFB;
+    --ink:#172019; --ink-2:#3D463F; --muted:#6E776F; --faint:#9AA39B;
+    --line:#E2E7E2; --line-2:#EDF0EC;
+    --accent:#155E63; --accent-2:#0E464A; --accent-bg:#E4EEEC;
+    --good:#2E7D54; --warn:#B07814; --none:#8A938B; --new:#B0392F;
+    --hepa:#1C6E8C; --alpa:#155E63; --unify:#4C7A4E;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,"JetBrains Mono",Menlo,monospace;
+    --font:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --shadow:0 1px 2px rgba(23,32,25,.05),0 1px 0 rgba(23,32,25,.02);
+  }
+  *{box-sizing:border-box} body{margin:0}
+  .wrap{font-family:var(--font);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+  .container{max-width:1200px;margin:0 auto;padding:0 22px}
+  header.top{background:linear-gradient(165deg,#0E464A,#155E63 60%,#1C6E8C);color:#EAF2F0;padding:34px 0 26px}
+  .eyebrow{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#9FC6C4;font-weight:600;margin:0 0 10px}
+  h1.title{font-size:24px;line-height:1.25;font-weight:800;margin:0;letter-spacing:-.01em}
+  .sub{margin:11px 0 0;font-size:14px;color:#BFD8D6;max-width:72ch}
+  .keys{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:11.5px;color:#A8CBC9;margin-top:12px}
+  .keys .k{display:flex;align-items:center;gap:6px}
+  .keys .d{width:9px;height:9px;border-radius:50%}
+  .kd.good{background:#7FBF9B}.kd.warn{background:#E0B870}.kd.none{background:#AEB6AE}
+  .keys .nb{font-size:9px;font-weight:800;color:#fff;background:var(--new);border-radius:3px;padding:1px 4px}
+
+  .layout{display:grid;grid-template-columns:1fr 1.15fr;gap:20px;padding:22px 0 70px;align-items:start}
+  .list{display:flex;flex-direction:column;gap:18px}
+  .tac{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+  .tachead{padding:12px 16px;color:#fff;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+  .T-hepa .tachead{background:linear-gradient(100deg,#155E69,#1C6E8C)}
+  .T-alpa .tachead{background:linear-gradient(100deg,#11484C,#155E63)}
+  .T-unify .tachead{background:linear-gradient(100deg,#3C6A45,#4C7A4E)}
+  .tachead .tk{font-family:var(--mono);font-size:11px;font-weight:700;opacity:.8}
+  .tachead .tn{font-size:15px;font-weight:800;letter-spacing:-.01em}
+  .tachead .tc{margin-left:auto;font-size:11px;opacity:.85;font-variant-numeric:tabular-nums}
+  .grp{border-top:1px solid var(--line)}
+  .gh{font-size:11.5px;font-weight:800;color:var(--ink-2);background:var(--surface-2);padding:8px 16px}
+  .gh .gsrc{font-weight:500;color:var(--faint);font-size:10.5px}
+  .sclist{display:flex;flex-direction:column}
+  .scbtn{display:grid;grid-template-columns:10px 1fr auto;gap:9px;align-items:center;text-align:left;width:100%;border:none;background:none;cursor:pointer;padding:8px 16px;border-top:1px solid var(--line-2);font-family:inherit;font-size:12.5px;color:var(--ink);line-height:1.35}
+  .scbtn:first-child{border-top:none}
+  .scbtn:hover{background:var(--surface-2)}
+  .scbtn.active{background:var(--accent-bg)}
+  .scbtn .sd{width:9px;height:9px;border-radius:50%;flex:none}
+  .sd.good{background:var(--good)} .sd.warn{background:var(--warn)} .sd.none{background:var(--none)}
+  .scbtn .nm{min-width:0}
+  .scbtn .nb{font-size:9px;font-weight:800;color:#fff;background:var(--new);border-radius:3px;padding:1px 4px;flex:none}
+  .scbtn.active .nm{font-weight:700}
+
+  .panel{position:sticky;top:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);overflow:hidden;max-height:calc(100vh - 28px);display:flex;flex-direction:column}
+  .pbar{height:5px;flex:none}
+  .pbar.T-hepa{background:var(--hepa)} .pbar.T-alpa{background:var(--alpa)} .pbar.T-unify{background:var(--unify)}
+  .pbody{padding:20px 22px 24px;overflow-y:auto}
+  .pcrumb{font-size:11.5px;color:var(--muted);margin:0 0 8px}
+  .pcrumb b{color:var(--ink-2)}
+  .ptitle{font-size:20px;font-weight:800;letter-spacing:-.01em;line-height:1.25;margin:0 0 10px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .pmeta{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+  .chip{font-size:11px;font-weight:600;border-radius:6px;padding:3px 9px;font-family:var(--mono)}
+  .chip.st-good{background:#E6F1EA;color:#1f6442} .chip.st-warn{background:#F6EDDC;color:#8a5e0f} .chip.st-none{background:#ECEFEC;color:#5f665f}
+  .chip.mod{background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+  .chip.nbg{background:#F6E2DF;color:var(--new)}
+  .psec{margin:0 0 16px}
+  .psec h3{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin:0 0 6px}
+  .psec .ptext{font-size:13.5px;color:var(--ink-2);line-height:1.6}
+  .psec .us{font-size:13.5px;color:var(--ink);line-height:1.6;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 13px}
+  .psec ul{margin:0;padding-left:6px;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .psec li{font-size:12.5px;color:var(--ink-2);line-height:1.55;padding-left:22px;position:relative}
+  .psec.ac li::before{content:"AC";position:absolute;left:0;top:1px;font-family:var(--mono);font-size:9px;font-weight:800;color:var(--accent);background:var(--accent-bg);border-radius:3px;padding:1px 3px}
+  .psec.ac code,.psec.demo code{font-family:var(--mono);font-size:11px;background:var(--line-2);padding:1px 4px;border-radius:3px;color:var(--accent-2)}
+  .psec.demo{counter-reset:d}
+  .psec.demo li{counter-increment:d;padding-left:24px}
+  .psec.demo li::before{content:counter(d);position:absolute;left:0;top:1px;width:15px;height:15px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  @media(max-width:840px){.layout{grid-template-columns:1fr}.panel{position:static;max-height:none}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="container">
+      <p class="eyebrow">코어팀 3분기 · 스코프 카탈로그</p>
+      <h1 class="title">3전술 × 개별 스코프 — 구현 가능 수준 AC</h1>
+      <p class="sub">스코프를 클릭하면 우측에 <b style="color:#EAF2F0">목적·유저스토리·인수조건(AC)·데모</b>가 펼쳐집니다. AC는 짭파카 실제 코드(파일·임계값·API·스키마)와 알파앱스 구현 목표 기반 — 일반론이 아니라 검증 가능한 형태.</p>
+      <div class="keys">
+        <span class="k"><span class="d kd good"></span>구현</span>
+        <span class="k"><span class="d kd warn"></span>부분</span>
+        <span class="k"><span class="d kd none"></span>미착수</span>
+        <span class="k"><span class="nb">✚</span> 초안 보완</span>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="layout">
+      <div class="list" id="list"><div class="tac T-hepa"><div class="tachead"><span class="tk">전술 1</span><span class="tn">헤파카 — 인사이트 허브</span><span class="tc">26 스코프</span></div><div class="grp"><div class="gh">H1 · 데이터 수집·커넥터 <span class="gsrc">· 초안: 제품DB 페더레이션·노션·채널톡</span></div><div class="sclist"><button class="scbtn" data-id="H1-1"><span class="sd warn"></span><span class="nm">카페24 원천 커넥터</span><span></span></button><button class="scbtn" data-id="H1-2"><span class="sd none"></span><span class="nm">위성 제품 DB 어댑터 (리뷰·업셀·푸시)</span><span class="nb">✚</span></button><button class="scbtn" data-id="H1-3"><span class="sd none"></span><span class="nm">노션 PMS 커넥터 + 사용 규칙</span><span></span></button><button class="scbtn" data-id="H1-4"><span class="sd none"></span><span class="nm">채널톡 데이터 커넥터 (CS 텍스트)</span><span></span></button><button class="scbtn" data-id="H1-5"><span class="sd none"></span><span class="nm">수집 멱등성·shop_id 격리·DLQ</span><span class="nb">✚</span></button></div></div><div class="grp"><div class="gh">H2 · 정제·시맨틱·쿼리 <span class="gsrc">· 초안: 스키마 의미 정의·분석용 쿼리 라이브러리</span></div><div class="sclist"><button class="scbtn" data-id="H2-1"><span class="sd none"></span><span class="nm">페더레이션 통합 스키마 · 시맨틱 레이어</span><span></span></button><button class="scbtn" data-id="H2-2"><span class="sd warn"></span><span class="nm">Fact 집계 파이프라인 (일·주·월)</span><span></span></button><button class="scbtn" data-id="H2-3"><span class="sd none"></span><span class="nm">분석용 쿼리 라이브러리</span><span></span></button><button class="scbtn" data-id="H2-4"><span class="sd warn"></span><span class="nm">지표 택소노미 정합성 검증</span><span class="nb">✚</span></button></div></div><div class="grp"><div class="gh">H3 · BI·리포트 <span class="gsrc">· 초안: 그라파나 BI·일/주간 통계 리포트</span></div><div class="sclist"><button class="scbtn" data-id="H3-1"><span class="sd none"></span><span class="nm">그라파나 BI 인프라 셋업</span><span></span></button><button class="scbtn" data-id="H3-2"><span class="sd none"></span><span class="nm">BI 데이터소스 연결·권한</span><span class="nb">✚</span></button><button class="scbtn" data-id="H3-3"><span class="sd none"></span><span class="nm">전사 대시보드 템플릿</span><span class="nb">✚</span></button><button class="scbtn" data-id="H3-4"><span class="sd none"></span><span class="nm">샵별 대시보드 템플릿</span><span class="nb">✚</span></button><button class="scbtn" data-id="H3-5"><span class="sd warn"></span><span class="nm">일간 자동 리포트</span><span></span></button><button class="scbtn" data-id="H3-6"><span class="sd warn"></span><span class="nm">주간 자동 리포트</span><span class="nb">✚</span></button><button class="scbtn" data-id="H3-7"><span class="sd none"></span><span class="nm">리포트 구독·발송</span><span class="nb">✚</span></button><button class="scbtn" data-id="H3-8"><span class="sd warn"></span><span class="nm">인사이트 알림 (이상감지 → 인박스)</span><span class="nb">✚</span></button></div></div><div class="grp"><div class="gh">H4 · 운영지식·KMS <span class="gsrc">· 초안: 위성 KMS·온보딩 자료·문의 커버리지</span></div><div class="sclist"><button class="scbtn" data-id="H4-1"><span class="sd none"></span><span class="nm">위성 제품 KMS 스키마 구축</span><span></span></button><button class="scbtn" data-id="H4-2"><span class="sd none"></span><span class="nm">위성 제품 KMS 연결</span><span class="nb">✚</span></button><button class="scbtn" data-id="H4-3"><span class="sd warn"></span><span class="nm">샐러드랩 온보딩 자료 → RAG 연결</span><span></span></button><button class="scbtn" data-id="H4-4"><span class="sd none"></span><span class="nm">코어팀 문의 처리 CS 지식베이스</span><span></span></button><button class="scbtn" data-id="H4-5"><span class="sd warn"></span><span class="nm">지식 청크 인덱싱·검색</span><span class="nb">✚</span></button></div></div><div class="grp"><div class="gh">H5 · 슈퍼어드민 <span class="gsrc">· 초안: 슈퍼어드민 실행 레이어(API/CRUD)</span></div><div class="sclist"><button class="scbtn" data-id="H5-1"><span class="sd warn"></span><span class="nm">범용 엔티티 CRUD API</span><span></span></button><button class="scbtn" data-id="H5-2"><span class="sd warn"></span><span class="nm">자산/엔티티 관리 UI (검증·핫리로드)</span><span></span></button><button class="scbtn" data-id="H5-3"><span class="sd none"></span><span class="nm">실행 액션 (재시드·재진단·배치 트리거)</span><span class="nb">✚</span></button><button class="scbtn" data-id="H5-4"><span class="sd none"></span><span class="nm">권한 · 감사 로그</span><span class="nb">✚</span></button></div></div></div><div class="tac T-alpa"><div class="tachead"><span class="tk">전술 2</span><span class="tn">알파카 — 에이전틱 알파카</span><span class="tc">28 스코프</span></div><div class="grp"><div class="gh">A1 · 쇼핑몰 진단 경험 <span class="gsrc">· 초안: 초기 설정 가이드·성장 진단·액션 제안</span></div><div class="sclist"><button class="scbtn" data-id="A1-1"><span class="sd warn"></span><span class="nm">초기 설정 가이드 (온보딩)</span><span></span></button><button class="scbtn" data-id="A1-2"><span class="sd warn"></span><span class="nm">쇼핑몰 분류 기준 정의</span><span class="nb">✚</span></button><button class="scbtn" data-id="A1-3"><span class="sd warn"></span><span class="nm">쇼핑몰 분류 런타임 적용</span><span class="nb">✚</span></button><button class="scbtn" data-id="A1-4"><span class="sd good"></span><span class="nm">성장 진단 (이상탐지→트리→랭킹)</span><span></span></button><button class="scbtn" data-id="A1-5"><span class="sd good"></span><span class="nm">액션 제안 (LLM 진단 카드)</span><span></span></button><button class="scbtn" data-id="A1-6"><span class="sd good"></span><span class="nm">진단 카드 대화 (그로스매니저·RAG)</span><span class="nb">✚</span></button><button class="scbtn" data-id="A1-7"><span class="sd warn"></span><span class="nm">진단 트리거 (자동 리포팅·브리핑)</span><span class="nb">✚</span></button></div></div><div class="grp"><div class="gh">A2 · 자산 구축(4종) <span class="gsrc">· 초안: 지표/기능 지도·플레이북·가드레일</span></div><div class="sclist"><button class="scbtn" data-id="A2-1"><span class="sd good"></span><span class="nm">지표 지도 완성</span><span></span></button><button class="scbtn" data-id="A2-2"><span class="sd good"></span><span class="nm">기능 지도 완성</span><span></span></button><button class="scbtn" data-id="A2-3"><span class="sd warn"></span><span class="nm">쇼핑몰 플레이북 완성</span><span></span></button><button class="scbtn" data-id="A2-4"><span class="sd warn"></span><span class="nm">가드레일/승인 제약 조건 완성</span><span></span></button><button class="scbtn" data-id="A2-5"><span class="sd warn"></span><span class="nm">해석 지식 KB</span><span class="nb">✚</span></button><button class="scbtn" data-id="A2-6"><span class="sd good"></span><span class="nm">자산 무결성 · ID 체계 계약</span><span class="nb">✚</span></button></div></div><div class="grp"><div class="gh">A3 · 거버넌스(카드 관리) <span class="gsrc">· 초안: 액션 카드·시나리오 카드 관리 체계</span></div><div class="sclist"><button class="scbtn" data-id="A3-1"><span class="sd good"></span><span class="nm">액션 카드 관리 체계</span><span></span></button><button class="scbtn" data-id="A3-2"><span class="sd none"></span><span class="nm">시나리오 카드 스키마 정의</span><span class="nb">✚</span></button><button class="scbtn" data-id="A3-3"><span class="sd none"></span><span class="nm">시나리오 카드 편집·검토 UI</span><span class="nb">✚</span></button><button class="scbtn" data-id="A3-4"><span class="sd good"></span><span class="nm">갭→역제안 루프</span><span class="nb">✚</span></button><button class="scbtn" data-id="A3-5"><span class="sd warn"></span><span class="nm">실행/성과/피드백 기록</span><span class="nb">✚</span></button><button class="scbtn" data-id="A3-6"><span class="sd none"></span><span class="nm">성과 측정 · 5% 대조군</span><span class="nb">✚</span></button></div></div><div class="grp"><div class="gh">A4 · 에이전트 런타임 <span class="gsrc">· 초안: 런타임 고도화·툴 레지스트리</span></div><div class="sclist"><button class="scbtn" data-id="A4-1"><span class="sd warn"></span><span class="nm">tool use 오케스트레이션</span><span></span></button><button class="scbtn" data-id="A4-2"><span class="sd warn"></span><span class="nm">모델 라우팅·캐싱·토큰 추적</span><span class="nb">✚</span></button><button class="scbtn" data-id="A4-3"><span class="sd warn"></span><span class="nm">위성 제품 연동 툴 레지스트리</span><span></span></button><button class="scbtn" data-id="A4-4"><span class="sd none"></span><span class="nm">툴 호출 컨벤션</span><span class="nb">✚</span></button><button class="scbtn" data-id="A4-5"><span class="sd good"></span><span class="nm">프롬프트 계약 + 출력 검증</span><span class="nb">✚</span></button><button class="scbtn" data-id="A4-6"><span class="sd good"></span><span class="nm">평행우주 A/B 대화 · 스트리밍</span><span class="nb">✚</span></button></div></div><div class="grp"><div class="gh">A5 · SCP 상품 데이터 <span class="gsrc">· 초안: SCP 상품 데이터 확보</span></div><div class="sclist"><button class="scbtn" data-id="A5-1"><span class="sd warn"></span><span class="nm">상품 데이터 확보 (카탈로그·재고·원가)</span><span></span></button><button class="scbtn" data-id="A5-2"><span class="sd none"></span><span class="nm">상품 단위 집계·진단 확장</span><span class="nb">✚</span></button><button class="scbtn" data-id="A5-3"><span class="sd none"></span><span class="nm">원가·마진 입력 설정 (수동 병행)</span><span class="nb">✚</span></button></div></div></div><div class="tac T-unify"><div class="tachead"><span class="tk">전술 3</span><span class="tn">대통합 — 통합 알파앱스</span><span class="tc">18 스코프</span></div><div class="grp"><div class="gh">U1 · 콘솔 셸·IA <span class="gsrc">· 초안: IA/메뉴 통폐합·신규 메뉴 페이지</span></div><div class="sclist"><button class="scbtn" data-id="U1-1"><span class="sd good"></span><span class="nm">IA/메뉴 통폐합</span><span></span></button><button class="scbtn active" data-id="U1-2"><span class="sd good"></span><span class="nm">공통 페이지·레이아웃 통합</span><span></span></button><button class="scbtn" data-id="U1-3"><span class="sd warn"></span><span class="nm">신규 메뉴 페이지 (제품 화면군)</span><span></span></button><button class="scbtn" data-id="U1-4"><span class="sd good"></span><span class="nm">디자인시스템 · UI 킷</span><span class="nb">✚</span></button><button class="scbtn" data-id="U1-5"><span class="sd good"></span><span class="nm">브랜딩 · 로그인</span><span class="nb">✚</span></button><button class="scbtn" data-id="U1-6"><span class="sd warn"></span><span class="nm">UX 폴리시 (토스트·스텝퍼·전환)</span><span class="nb">✚</span></button></div></div><div class="grp"><div class="gh">U2 · 온보딩·튜토리얼·설치 <span class="gsrc">· 초안: 멀티프로덕트 온보딩·튜토리얼·자동설치</span></div><div class="sclist"><button class="scbtn" data-id="U2-1"><span class="sd warn"></span><span class="nm">멀티 프로덕트 온보딩 플로우 설계</span><span></span></button><button class="scbtn" data-id="U2-2"><span class="sd warn"></span><span class="nm">제품별 온보딩 스텝</span><span class="nb">✚</span></button><button class="scbtn" data-id="U2-3"><span class="sd warn"></span><span class="nm">멀티 프로덕트 튜토리얼</span><span></span></button><button class="scbtn" data-id="U2-4"><span class="sd warn"></span><span class="nm">자동설치 정확도 개선</span><span></span></button><button class="scbtn" data-id="U2-5"><span class="sd none"></span><span class="nm">10분 초기 세팅 플로우</span><span class="nb">✚</span></button></div></div><div class="grp"><div class="gh">U3 · 인사이트 표면 <span class="gsrc">· 초안: 인사이트/통계 페이지</span></div><div class="sclist"><button class="scbtn" data-id="U3-1"><span class="sd warn"></span><span class="nm">인사이트/통계 페이지 (헤파카 임베드)</span><span></span></button><button class="scbtn" data-id="U3-2"><span class="sd good"></span><span class="nm">KPI 대시보드 · 전역 지표 드로어</span><span class="nb">✚</span></button><button class="scbtn" data-id="U3-3"><span class="sd warn"></span><span class="nm">고객 세그먼트 화면</span><span class="nb">✚</span></button><button class="scbtn" data-id="U3-4"><span class="sd warn"></span><span class="nm">코호트·리텐션 화면</span><span class="nb">✚</span></button><button class="scbtn" data-id="U3-5"><span class="sd warn"></span><span class="nm">고객 여정 화면</span><span class="nb">✚</span></button><button class="scbtn" data-id="U3-6"><span class="sd warn"></span><span class="nm">퍼널·유입 리포트</span><span class="nb">✚</span></button><button class="scbtn" data-id="U3-7"><span class="sd warn"></span><span class="nm">인박스 · 알림 센터</span><span class="nb">✚</span></button></div></div></div></div>
+      <div class="panel" id="panel"><div class="pbar T-unify"></div><div class="pbody" id="pbody">
+    <p class="pcrumb"><b>대통합 — 통합 알파앱스</b> · U1 · 콘솔 셸·IA</p>
+    <h2 class="ptitle">공통 페이지·레이아웃 통합</h2>
+    <div class="pmeta"><span class="chip st-good">구현</span><span class="chip mod">M7</span></div>
+    <div class="psec"><h3>목적</h3><p class="ptext">TopBar·검색·드로어 등 공통 레이아웃 프리미티브를 통합한다.</p></div>
+    <div class="psec"><h3>유저스토리</h3><p class="us">운영자로서 어느 화면이든 같은 조작 방식을 기대하고 싶다.</p></div>
+    <div class="psec ac"><h3>인수조건 (AC)</h3><ul><li><code>top-bar</code> 포털 슬롯(스크롤 영역 밖 고정)·<code>search-sheet</code> FAB(3모드)</li><li>공통 프리미티브(NavItem/Section/Badge/AddBtn)</li><li>전 페이지 일관 적용</li></ul></div>
+    <div class="psec demo"><h3>데모 시나리오</h3><ul><li>어느 페이지든 검색 FAB·TopBar 동일 동작</li></ul></div></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TACMETA={
+  '헤파카':{cls:'T-hepa',tk:'전술 1',tn:'헤파카 — 인사이트 허브'},
+  '알파카':{cls:'T-alpa',tk:'전술 2',tn:'알파카 — 에이전틱 알파카'},
+  '대통합':{cls:'T-unify',tk:'전술 3',tn:'대통합 — 통합 알파앱스'}
+};
+const D=[
+// ===== 헤파카 =====
+{id:'H1-1',t:'헤파카',g:'H1 · 데이터 수집·커넥터',gsrc:'초안: 제품DB 페더레이션·노션·채널톡',title:'카페24 원천 커넥터',st:'warn',mod:['M2 L1'],
+ purpose:'카페24 상품·주문·회원·재고 원천을 정기 동기화해 17지표 산출의 입력을 확보한다.',
+ us:'데이터 담당으로서 카페24 원천을 안정적으로 적재해 진단·BI가 항상 최신을 보게 하고 싶다.',
+ ac:['OAuth2 토큰 발급·자동 refresh·revoke 처리, 자격증명은 서버 env로만(클라이언트/로그 노출 금지)','상품·주문·회원·재고 일배치(전일 마감 후) 동기화 → <code>metrics-from-raw</code>의 atomic 9종 원천 필드로 매핑','Cafe24 Rate Limit 백오프 + 실패분 DLQ + <code>_id</code> 멱등(중복 적재 0건)','<code>kpi-source.ts</code>의 file 어댑터를 실커넥터로 교체해도 진단 파이프라인 무변경(인터페이스 동일)'],
+ demo:['연결 화면에서 카페24 인증 → 동기화 시작','동기화 로그에 적재 건수·기준 시각 표시, 17지표 산출 확인']},
+{id:'H1-2',t:'헤파카',g:'H1 · 데이터 수집·커넥터',title:'위성 제품 DB 어댑터 (리뷰·업셀·푸시)',st:'none',nb:1,mod:['신규'],
+ purpose:'리뷰·업셀·푸시 각 제품 DB를 표준 어댑터로 흡수해 제품DB 페더레이션의 소스로 연결한다.',
+ us:'데이터 담당으로서 각 위성 제품 데이터를 동일한 방식으로 흡수해 통합 분석에 쓰고 싶다.',
+ ac:['어댑터 인터페이스 통일: <code>extract()/incremental()/mapSchema()</code> — 리뷰·업셀·푸시 3종 구현','각 제품 raw → 공통 엔티티(상품·고객·행동이벤트)로 정규화, <code>shop_id</code> 파티션 필수','소스 1곳 장애 시 부분 실패 격리(타 소스 적재 지속), 실패 소스만 재시도','<code>metrics-from-raw</code> 패턴 재사용해 위성 지표도 atomic/derived 산출 가능'],
+ demo:['어댑터 설정에서 제품 선택 → 연결 테스트','샘플 레코드가 공통 스키마로 정규화되어 표시']},
+{id:'H1-3',t:'헤파카',g:'H1 · 데이터 수집·커넥터',title:'노션 PMS 커넥터 + 사용 규칙',st:'none',mod:['신규'],
+ purpose:'노션 PMS(프로젝트/이슈/문서)를 헤파카에 연결하고 어떤 속성을 어떻게 쓸지 규칙을 고정한다.',
+ us:'코어팀원으로서 노션의 작업·문서 맥락을 인사이트 허브에서 함께 보고 싶다.',
+ ac:['Notion API 연결 + DB/속성 → 내부 스키마 매핑(필수 속성·태그 컨벤션 검증)','증분 동기화(<code>last_edited_time</code> 기준), 충돌 시 최신 우선','연결 자산은 <code>asset-store</code> 경계로 저장(직접 fs 접근 금지)'],
+ demo:['노션 DB 선택 → 속성 매핑 → 동기화','PMS 항목이 헤파카에서 조회됨']},
+{id:'H1-4',t:'헤파카',g:'H1 · 데이터 수집·커넥터',title:'채널톡 데이터 커넥터 (CS 텍스트)',st:'none',mod:['M2 Topic'],
+ purpose:'채널톡 상담·문의 텍스트를 수집해 L2 Topic Dimension(감성·키워드) 분석의 원천으로 삼는다.',
+ us:'운영자로서 CS에서 반복되는 불만·키워드를 데이터로 보고 싶다.',
+ ac:['상담·문의 수집 + 개인정보 마스킹(전화·이메일·주소 정규식 치환)','<code>shop_id</code> 매핑 + 한글 전처리(정규화·불용어), <code>rag.ts</code> bigram 호환','Topic Dimension 적재 스키마(감성 점수·키워드 슬롯·원문 ID) 정의'],
+ demo:['연결 후 최근 상담 적재','키워드 상위 N개·감성 분포 미리보기']},
+{id:'H1-5',t:'헤파카',g:'H1 · 데이터 수집·커넥터',title:'수집 멱등성·shop_id 격리·DLQ',st:'none',nb:1,mod:['신규'],
+ purpose:'실데이터 파이프라인 안전장치 — 중복 적재 방지, 샵 간 격리, 실패 이벤트 분리.',
+ us:'데이터 담당으로서 재수신·장애에도 데이터가 오염되지 않게 하고 싶다.',
+ ac:['공통 필드 <code>_id·shop_id·event_type·source·event_at</code> 강제, <code>shop_id</code> 없으면 적재 거부','<code>_id</code> 기준 dedup — 동일 이벤트 재수신 시 1건만','API GW→Lambda→Firehose→OpenSearch 실패 → DLQ 분리 + 수신량 90% 미만 시 알림(SCP PRD 룰)'],
+ demo:['같은 이벤트 2회 전송 → 1건만 적재','shop_id 누락 이벤트 → 거부 로그 + DLQ']},
+
+{id:'H2-1',t:'헤파카',g:'H2 · 정제·시맨틱·쿼리',gsrc:'초안: 스키마 의미 정의·분석용 쿼리 라이브러리',title:'페더레이션 통합 스키마 · 시맨틱 레이어',st:'none',mod:['M2'],
+ purpose:'소스별 제각각 스키마를 공통 의미 단위로 매핑해 같은 지표=같은 정의를 보장한다.',
+ us:'분석가로서 어느 소스에서 왔든 동일한 의미로 지표를 질의하고 싶다.',
+ ac:['소스 스키마 → 공통 엔티티/지표 매핑 테이블(<code>metric_definitions</code> formula 참조)','지표 산출식 단일 출처(<code>metrics.yaml</code>), 소스별 중복 정의 금지','시맨틱 버전 + 변경 이력, 매핑 깨짐 시 배포 차단'],
+ demo:['시맨틱 레이어에서 "객단가(aov)" 선택 → 소스 무관 동일 정의·산출식 표시']},
+{id:'H2-2',t:'헤파카',g:'H2 · 정제·시맨틱·쿼리',title:'Fact 집계 파이프라인 (일·주·월)',st:'warn',mod:['M2'],
+ purpose:'원천을 샵×기간×지표 시계열(FactDim)로 집계해 추세·비교의 기준을 만든다.',
+ us:'분석가로서 일·주·월 추세를 일관된 집계로 보고 싶다.',
+ ac:['EventBridge→Step Functions→RDS <code>fact_dim</code>, 일 01:00 KST 전일 확정분','Long format(<code>shop_id×date×metric×value</code>), APPEND, 분모 0/신규 샵은 null 구분(0 왜곡 금지)','재집계 멱등(동일 결과), 흐름지표 합산·상태지표 평균(<code>aggregate.ts</code> 규칙과 동일)'],
+ demo:['배치 실행 → fact 테이블 일별 행 생성','MoM/WoW 변화율 조회']},
+{id:'H2-3',t:'헤파카',g:'H2 · 정제·시맨틱·쿼리',title:'분석용 쿼리 라이브러리',st:'none',mod:['신규'],
+ purpose:'자주 쓰는 분석 질의를 재사용 파라미터 쿼리 세트로 표준화한다.',
+ us:'분석가로서 매번 SQL을 새로 짜지 않고 검증된 쿼리를 재사용하고 싶다.',
+ ac:['파라미터(<code>shop_id·기간</code>) 쿼리 카탈로그 + 설명·소유자·예상 결과 메타','지표 정의와 산출식 일치 검증 통과분만 등록','BI/리포트에서 쿼리 ID로 호출'],
+ demo:['카탈로그에서 "재구매율" 쿼리 선택 → 파라미터 입력 → 결과']},
+{id:'H2-4',t:'헤파카',g:'H2 · 정제·시맨틱·쿼리',title:'지표 택소노미 정합성 검증',st:'warn',nb:1,mod:['M2','M8'],
+ purpose:'쿼리 산출식과 지표 정의(택소노미)가 어긋나지 않는지 배포 전 검증한다.',
+ us:'데이터 담당으로서 지표 불일치가 운영에 새지 않게 하고 싶다.',
+ ac:['쿼리 산출식 ↔ <code>metric_definitions</code> 자동 비교','불일치 시 배포 차단(CI 게이트, <code>npm test -- config</code> 연계)','검증 리포트 + 책임자 알림'],
+ demo:['정의와 다른 산출식 등록 시도 → 차단 + 사유 표시']},
+
+{id:'H3-1',t:'헤파카',g:'H3 · BI·리포트',gsrc:'초안: 그라파나 BI·일/주간 통계 리포트',title:'그라파나 BI 인프라 셋업',st:'none',mod:['신규'],
+ purpose:'그라파나 인스턴스와 조직·폴더·인증 기본 구조를 세운다.',
+ us:'운영자로서 BI 도구에 접속해 대시보드를 볼 환경을 갖고 싶다.',
+ ac:['그라파나 배포(docker) + SSO/접근 설정','조직·폴더·역할 권한 구조','대시보드 as-code(JSON) 버전 관리'],
+ demo:['그라파나 로그인 → 조직·폴더 구조 확인']},
+{id:'H3-2',t:'헤파카',g:'H3 · BI·리포트',title:'BI 데이터소스 연결·권한',st:'none',nb:1,mod:['신규'],
+ purpose:'헤파카 웨어하우스를 그라파나 데이터소스로 연결하고 샵/팀별 접근을 통제한다.',
+ us:'분석가로서 BI에서 헤파카 데이터를 안전하게 쿼리하고 싶다.',
+ ac:['데이터소스 연결(읽기 전용 계정) + 쿼리 권한','행 수준 보안 = <code>shop_id</code> 격리(타 샵 쿼리 차단)','쿼리 타임아웃·리소스 제한'],
+ demo:['패널에서 헤파카 쿼리 → 결과, 타 샵 데이터는 차단됨']},
+{id:'H3-3',t:'헤파카',g:'H3 · BI·리포트',title:'전사 대시보드 템플릿',st:'none',nb:1,mod:['신규'],
+ purpose:'전사 관점(전체 샵 합·등급 분포·핵심 KPI)의 표준 대시보드.',
+ us:'리더로서 전사 성과를 한 화면에서 보고 싶다.',
+ ac:['핵심 KPI(거래액·주문수·AOV·신규/재구매) 패널 세트','기간 프리셋(7/14/28일)·카테고리 필터','샵 등급 분포(growth-stage 기준 early/growth/mature)'],
+ demo:['전사 대시보드 열기 → 기간 변경 → 패널 갱신']},
+{id:'H3-4',t:'헤파카',g:'H3 · BI·리포트',title:'샵별 대시보드 템플릿',st:'none',nb:1,mod:['신규'],
+ purpose:'개별 샵 관점 표준 대시보드를 변수화해 어느 샵이든 동일 구조로 본다.',
+ us:'CSM으로서 담당 샵 상태를 같은 양식으로 빠르게 보고 싶다.',
+ ac:['<code>$shop</code> 변수 템플릿 + 샵 전환 드롭다운','17지표 차트 + severity 신호 패널','진단 카드/액션(<code>/diagnosis/cards/:id</code>) 딥링크'],
+ demo:['샵 선택 → 해당 샵 KPI·이상 신호 표시']},
+{id:'H3-5',t:'헤파카',g:'H3 · BI·리포트',title:'일간 자동 리포트',st:'warn',mod:['M7','M3'],
+ purpose:'전일 핵심 지표·이상 신호를 요약한 일간 리포트를 자동 생성한다.',
+ us:'운영자로서 매일 아침 어제 무슨 일이 있었는지 요약으로 받고 싶다.',
+ ac:['전일 마감 후 스케줄 자동 생성','핵심 KPI 6종 + <code>anomaly.ts</code> severity high/medium 신호 Top','전일 대비 change_rate 부호·색(상승 emerald/하락 red, 품절률 등은 중립) 표기'],
+ demo:['오전에 일간 리포트 자동 생성 → 요약 카드']},
+{id:'H3-6',t:'헤파카',g:'H3 · BI·리포트',title:'주간 자동 리포트',st:'warn',nb:1,mod:['신규'],
+ purpose:'주간 추세·WoW 변화·주요 인사이트를 묶은 주간 리포트.',
+ us:'리더로서 주 1회 핵심 흐름을 정리된 형태로 받고 싶다.',
+ ac:['주간 집계·WoW 비교(period-slots 2주 슬롯 활용)','이상탐지 결과 기반 인사이트 3~5개 자동 추출','지난주 대비 하이라이트'],
+ demo:['월요일 주간 리포트 생성 → 추세 그래프 + 인사이트']},
+{id:'H3-7',t:'헤파카',g:'H3 · BI·리포트',title:'리포트 구독·발송',st:'none',nb:1,mod:['신규'],
+ purpose:'생성된 리포트를 대상·채널·주기로 구독 발송한다.',
+ us:'운영자로서 원하는 리포트를 원하는 채널로 자동 수신하고 싶다.',
+ ac:['구독 설정(대상·채널 슬랙/메일·주기)','발송 성공/실패 로그 + 재시도','수신 거부/스누즈'],
+ demo:['주간 리포트를 슬랙 채널로 구독 → 정시 발송']},
+{id:'H3-8',t:'헤파카',g:'H3 · BI·리포트',title:'인사이트 알림 (이상감지 → 인박스)',st:'warn',nb:1,mod:['M3','M8'],
+ purpose:'임계를 넘는 이상 신호를 자동 감지해 인박스/알림으로 푸시한다.',
+ us:'운영자로서 중요한 변화가 생기면 찾지 않아도 알림 받고 싶다.',
+ ac:['<code>detection.yaml</code> severity 임계(low3/med7/high12) 기반 감지','알림 → 콘솔 인박스/슬랙 라우팅','동일 신호 중복 억제·스누즈'],
+ demo:['전환 관련 지표 high 발생 → 인박스 알림 카드 생성']},
+
+{id:'H4-1',t:'헤파카',g:'H4 · 운영지식·KMS',gsrc:'초안: 위성 KMS·온보딩 자료·문의 커버리지',title:'위성 제품 KMS 스키마 구축',st:'none',mod:['M8','신규'],
+ purpose:'위성 제품 지식(기능·정책·FAQ)을 담을 KMS 스키마/구조를 설계한다.',
+ us:'운영자로서 제품 지식을 일관 구조로 축적·검색하고 싶다.',
+ ac:['지식 엔티티(기능·정책·FAQ)·카테고리 스키마','버전·출처·갱신일 메타','<code>rag.ts</code> 인덱스 연동 필드(kb_id)'],
+ demo:['KMS에 기능 문서 1건 등록 → 구조화 저장']},
+{id:'H4-2',t:'헤파카',g:'H4 · 운영지식·KMS',title:'위성 제품 KMS 연결',st:'none',nb:1,mod:['신규'],
+ purpose:'각 위성 제품 지식 소스를 KMS에 연결해 자동 동기화한다.',
+ us:'운영자로서 제품 문서가 바뀌면 KMS에도 반영되길 원한다.',
+ ac:['제품별 지식 소스 연결 + 변경 동기화','중복/충돌 해소(출처 우선순위)','<code>asset-store</code> 경계 저장'],
+ demo:['제품 문서 수정 → KMS 갱신 확인']},
+{id:'H4-3',t:'헤파카',g:'H4 · 운영지식·KMS',title:'샐러드랩 온보딩 자료 → RAG 연결',st:'warn',mod:['M4'],
+ purpose:'온보딩/가이드 문서를 RAG 인덱스에 연결해 대화·진단이 인용하게 한다.',
+ us:'운영자로서 알파카가 우리 공식 가이드를 근거로 답하길 원한다.',
+ ac:['문서 청크화 → <code>rag.ts</code> 한글 bigram lexical 인덱싱(결정론)','답변에 출처 URL 포함(<code>card-chat/run-chat</code> 컨텍스트 주입)','문서 갱신 시 재인덱싱'],
+ demo:['"설정 방법" 질문 → 가이드 근거 + 링크 포함 답변']},
+{id:'H4-4',t:'헤파카',g:'H4 · 운영지식·KMS',title:'코어팀 문의 처리 CS 지식베이스',st:'none',mod:['신규'],
+ purpose:'코어팀 반복 문의를 지식베이스화해 처리 커버리지를 넓힌다.',
+ us:'코어팀원으로서 반복 문의를 매번 새로 답하지 않고 싶다.',
+ ac:['문의 유형 분류 + 표준 답변 매핑','커버리지(자동 응답률) 측정','미해결 → 신규 지식 등록 큐'],
+ demo:['문의 검색 → 표준 답변, 미해결은 등록 큐로']},
+{id:'H4-5',t:'헤파카',g:'H4 · 운영지식·KMS',title:'지식 청크 인덱싱·검색',st:'warn',nb:1,mod:['M4'],
+ purpose:'KMS/문서를 인덱스로 만들어 top-k 검색을 제공한다.',
+ us:'운영자/에이전트로서 질문에 맞는 지식 조각을 빠르게 찾고 싶다.',
+ ac:['청크화·인덱싱(결정론, <code>rag.ts</code> 패턴 재사용)','top-k 검색 API(관련도 정렬)','질의별 top-k를 대화 프롬프트에 주입'],
+ demo:['키워드 검색 → 관련 청크 top-k 반환']},
+
+{id:'H5-1',t:'헤파카',g:'H5 · 슈퍼어드민',gsrc:'초안: 슈퍼어드민 실행 레이어(API/CRUD)',title:'범용 엔티티 CRUD API',st:'warn',mod:['M8'],
+ purpose:'샵·자산·진단 등 핵심 엔티티를 안전하게 조회·수정하는 범용 관리 API.',
+ us:'코어 운영자로서 운영 데이터를 콘솔에서 직접 다루고 싶다.',
+ ac:['엔티티별 CRUD + Zod 검증(<code>repository</code> 인터페이스 경유, file/pg 동일)','권한 체크(역할 기반)','변경 이력 기록'],
+ demo:['어드민에서 자산 1건 수정 → 검증 후 저장']},
+{id:'H5-2',t:'헤파카',g:'H5 · 슈퍼어드민',title:'자산/엔티티 관리 UI (검증·핫리로드)',st:'warn',mod:['M8'],
+ purpose:'자산을 표/폼으로 편집하고 검증 통과 시 즉시 반영(핫리로드).',
+ us:'운영자로서 코드 배포 없이 자산을 고치고 바로 결과를 보고 싶다.',
+ ac:['<code>asset-specs.ts</code> 선언형 표/폼 렌더','<code>validateAssetIntegrity</code> 3단계 검증(실패 시 422, 파일 불변)','저장 = <code>asset-loader</code> 무캐싱 → 다음 요청 즉시 반영 → 재진단'],
+ demo:['액션 블록 편집 → 검증 → 저장 → 재진단에 즉시 반영']},
+{id:'H5-3',t:'헤파카',g:'H5 · 슈퍼어드민',title:'실행 액션 (재시드·재진단·배치 트리거)',st:'none',nb:1,mod:['M1','M8'],
+ purpose:'운영 작업(재시드·재진단·집계 배치)을 어드민에서 트리거한다.',
+ us:'운영자로서 필요할 때 배치/재처리를 직접 실행하고 싶다.',
+ ac:['재시드(<code>/api/admin/reseed</code>: file 재생성/pg 카드·자산 보존)·재진단·집계 트리거','진행 상태/로그 표시','권한 제한 + 확인 모달'],
+ demo:['"집계 재실행" 클릭 → 진행률 → 완료 로그']},
+{id:'H5-4',t:'헤파카',g:'H5 · 슈퍼어드민',title:'권한 · 감사 로그',st:'none',nb:1,mod:['M1'],
+ purpose:'누가 무엇을 바꿨는지 기록하고 역할별 접근을 통제한다.',
+ us:'관리자로서 운영 변경을 추적하고 권한을 나누고 싶다.',
+ ac:['역할 기반 접근(RBAC)','모든 변경 행위자·전후값 감사 로그','로그 조회/필터'],
+ demo:['자산 변경 → 감사 로그에 행위자·전후 기록']},
+
+// ===== 알파카 =====
+{id:'A1-1',t:'알파카',g:'A1 · 쇼핑몰 진단 경험',gsrc:'초안: 초기 설정 가이드·성장 진단·액션 제안',title:'초기 설정 가이드 (온보딩)',st:'warn',mod:['M4'],
+ purpose:'신규 쇼핑몰이 알파카를 쓰기 위한 최소 설정을 단계적으로 안내한다.',
+ us:'쇼핑몰 운영자로서 막막함 없이 가이드 따라 알파카를 시작하고 싶다.',
+ ac:['단계별 온보딩(연동 → 데이터 확인 → 첫 진단) 플로우, 최소 28일 KPI 누적 안내','완료율·중단 지점 추적','중단 후 복귀 지원'],
+ demo:['가입 → 연동 → 첫 진단까지 가이드 완주']},
+{id:'A1-2',t:'알파카',g:'A1 · 쇼핑몰 진단 경험',title:'쇼핑몰 분류 기준 정의',st:'warn',nb:1,mod:['M2'],
+ purpose:'카테고리·규모·성장/건강도·객단가·SKU·재구매 6축 분류 기준(cutoff)을 정의한다.',
+ us:'데이터 담당으로서 샵을 일관 기준으로 분류해 진단 맥락을 잡고 싶다.',
+ ac:['6축 cutoff를 v0 가설로 관리(확정 진리 아님), <code>growth-stage.ts</code> 단계 기준과 정합','데이터 부족 샵은 강분류 금지 → fallback 문장','베타샵 3~5개로 맞음/애매/틀림/모름 평가 후 조정'],
+ demo:['샵 데이터 입력 → 6축 분류값 산출']},
+{id:'A1-3',t:'알파카',g:'A1 · 쇼핑몰 진단 경험',title:'쇼핑몰 분류 런타임 적용',st:'warn',nb:1,mod:['M2 User'],
+ purpose:'정의된 기준을 런타임 적용해 대화·진단이 "패션몰 기준으로…"처럼 맥락화한다.',
+ us:'운영자로서 내 쇼핑몰 유형에 맞는 답을 받고 싶다.',
+ ac:['UserDim에 분류값 스냅샷(UPSERT, 1 shop=1 row)','<code>prompt-builder</code>에 분류 맥락 주입','이벤트 기반 갱신 60초 내 반영, 불확실 시 보수적 표현'],
+ demo:['진단 시 분류 맥락이 카드/답변에 반영']},
+{id:'A1-4',t:'알파카',g:'A1 · 쇼핑몰 진단 경험',title:'성장 진단 (이상탐지→트리→랭킹)',st:'good',mod:['M3'],
+ purpose:'KPI에서 이상 신호를 감지하고 Signal Tree·액션 후보 랭킹까지 결정론으로 만든다.',
+ us:'운영자로서 무엇이·왜 변했는지 근거와 함께 진단받고 싶다.',
+ ac:['<code>anomaly.ts</code>: change_rate=(cur−base)/|base|×100, flat&lt;3%, severity 임계 low3/med7/high12(<code>detection.yaml</code>), 양쪽 값 없는 지표 제외','<code>signal-tree.ts</code>: <code>metric_map</code> roots(거래액+보조6) 재귀 순회, missing_context(방문자수·전환율·장바구니이탈률) 동반','<code>action-ranking.ts</code>: Σfit(high2/med1/low0.5)+goal(med+×0.5)−caution+stage(±2), 방향성 fit 0이면 후보 제외','회귀: <code>shop_beauty_growth</code>→<code>increase_add_on_purchase</code> 1위, <code>shop_fashion_stockout</code>→<code>recover_sellable_pool</code> (e2e-scenarios 통과)'],
+ demo:['샵·기간 선택 → SSE 진행 로그 → 신호 트리 + 액션 후보']},
+{id:'A1-5',t:'알파카',g:'A1 · 쇼핑몰 진단 경험',title:'액션 제안 (LLM 진단 카드)',st:'good',mod:['M3','M4'],
+ purpose:'후보·신호·KB를 입력으로 LLM이 해석·제안 카드를 만들고 이중 방어선으로 검증한다.',
+ us:'운영자로서 다음에 뭘 할지 실행안으로 제안받고 싶다.',
+ ac:['<code>prompt-builder</code> 입력 7종(signal_tree·missing_context·해석/commerce KB·후보 상위4·feature_links·stage)','<code>output-parser</code>: 코드펜스 제거 → <code>DiagnosisDraftSchema</code>(10필드) Zod, 실패 시 <code>LLMOutputParseError</code>→502','<code>validateDraft</code>: 후보 밖 action_id·<code>available:false</code> 기능 제거(이중 방어선)','<code>normal_summary_mode</code>(medium+ 신호 0 or 후보 0)면 recommended 빈 배열'],
+ demo:['진단 → 추천 액션 카드(이유·expected_metrics·limitations) 표시']},
+{id:'A1-6',t:'알파카',g:'A1 · 쇼핑몰 진단 경험',title:'진단 카드 대화 (그로스매니저·RAG)',st:'good',nb:1,mod:['M4'],
+ purpose:'카드 전문+기간 KPI+RAG를 컨텍스트로 멀티턴 상담을 제공한다(동일 가드레일).',
+ us:'운영자로서 진단에 대해 더 묻고 구체 실행법까지 상담받고 싶다.',
+ ac:['<code>card-chat</code>: 카드 진단 전문 + 기간 일별 KPI CSV + RAG top-k, SSE 델타 스트리밍','없는 데이터 질문 시 한계 안내(missing_context 존중), 차트는 <code>```chart</code> → recharts','<code>card.chat</code>에 이력 저장 → <code>GET /api/diagnosis/cards/:id</code>로 복원'],
+ demo:['카드 하단 채팅 → "어떻게 실행?" → 근거 + 플레이북/가이드 링크']},
+{id:'A1-7',t:'알파카',g:'A1 · 쇼핑몰 진단 경험',title:'진단 트리거 (자동 리포팅·브리핑)',st:'warn',nb:1,mod:['M3'],
+ purpose:'1~2주 자동 진단·데일리 브리핑·수동 트리거의 세 경로를 제공한다.',
+ us:'운영자로서 주기적으로 알아서 진단되고, 필요하면 즉시 돌리고 싶다.',
+ ac:['스케줄 자동 진단(period-slots 2주 슬롯) + 데일리 브리핑 생성','수동 "진단하기" → <code>POST /api/diagnosis/generate/stream</code>(progress 이벤트)','결과 run/card 자동 기록'],
+ demo:['스케줄 도래 → 자동 진단 카드 생성']},
+
+{id:'A2-1',t:'알파카',g:'A2 · 자산 구축(4종)',gsrc:'초안: 지표/기능 지도·플레이북·가드레일',title:'지표 지도 완성',st:'good',mod:['M2'],
+ purpose:'지표 정의·관계(metric_map)를 완성해 Signal Tree·해석의 단일 출처로 삼는다.',
+ us:'데이터 담당으로서 지표 정의/관계를 한 곳에서 관리하고 싶다.',
+ ac:['<code>metrics.yaml</code>: metric_map(관계)+definitions(formula)+해석 KB 통합','17지표 ID 체계 정합, <code>metrics-from-raw</code> formula와 일치','<code>validateAssetIntegrity</code>로 깨진 참조 차단'],
+ demo:['지표 추가 → 트리/진단 반영, 깨진 참조는 422']},
+{id:'A2-2',t:'알파카',g:'A2 · 자산 구축(4종)',title:'기능 지도 완성',st:'good',mod:['M6'],
+ purpose:'액션 방향 ↔ 알파앱스 제품/기능 연결과 available 플래그를 완성한다.',
+ us:'운영자로서 추천 액션을 실제 기능으로 실행할 수단을 알고 싶다.',
+ ac:['<code>feature_map.yaml</code>: 액션↔기능 매핑 + feature_id','<code>installed_products</code> 부분집합 게이트(미설치 <code>available:false</code>)','<code>validateDraft</code>가 미설치 기능 제거'],
+ demo:['추천 카드에 설치 앱 기능만 연결 표시']},
+{id:'A2-3',t:'알파카',g:'A2 · 자산 구축(4종)',title:'쇼핑몰 플레이북 완성',st:'warn',mod:['M2 L5'],
+ purpose:'카테고리·규모별 전략/벤치마크를 플레이북으로 정리해 근거 있는 추천에 인용한다.',
+ us:'운영자로서 "비슷한 규모는 보통 X를 한다"는 근거를 받고 싶다.',
+ ac:['카테고리×성장단계 전략/벤치마크 KB(data/kb)','<code>rag.ts</code> 인용 연결 + 출처 표기','대화 컨텍스트(L5 Playbook)로 주입'],
+ demo:['진단 시 플레이북 근거가 추천에 인용']},
+{id:'A2-4',t:'알파카',g:'A2 · 자산 구축(4종)',title:'가드레일/승인 제약 조건 완성',st:'warn',mod:['M2 L3'],
+ purpose:'최소 마진·지출 한도·쿠폰 중복·할인 금지 등 실행 전 차단 규칙을 완성한다.',
+ us:'운영자로서 위험한 추천이 자동으로 걸러지길 원한다.',
+ ac:['<code>constraints.yaml</code>: <code>min_margin_rate</code>·지출 한도·쿠폰 중복·할인 금지 상품','액션 실행 전 차단/경고(워크플로우 액션 모듈 <code>guardrail.marginFloor</code>)','자동 한도 초과 → <code>needs_approval</code>(모바일 승인, BRD 7.2.1)'],
+ demo:['마진 하한 위반 액션 → 차단 + 사유']},
+{id:'A2-5',t:'알파카',g:'A2 · 자산 구축(4종)',title:'해석 지식 KB',st:'warn',nb:1,mod:['M2','M4'],
+ purpose:'이상 지표의 구조적/세부 해석과 한계(단정 금지)를 KB로 정리한다.',
+ us:'운영자로서 숫자 변화의 의미를 신뢰 가능한 해석으로 받고 싶다.',
+ ac:['<code>metrics.yaml</code> interpretation: observed/structural/sub_driver/limitations 구조','이상 지표만 선별 인용(<code>prompt-builder</code>)','데이터 부족 시 단정 금지 + forbidden_phrases'],
+ demo:['AOV 하락 → 구조적 해석 + 한계 문구']},
+{id:'A2-6',t:'알파카',g:'A2 · 자산 구축(4종)',title:'자산 무결성 · ID 체계 계약',st:'good',nb:1,mod:['M8'],
+ purpose:'metric/action/stage/feature/kb_id를 전 자산의 계약으로 두고 깨진 참조를 잡는다.',
+ us:'운영자로서 자산을 고쳐도 연결이 깨지지 않게 하고 싶다.',
+ ac:['<code>validateAssetIntegrity</code>: 5종 ID 참조 교차 검사','Zod 스키마 검증','깨진 참조 저장 422 + 오류 목록, 파일 불변'],
+ demo:['없는 metric_id 참조 저장 → 거부 + 오류 목록']},
+
+{id:'A3-1',t:'알파카',g:'A3 · 거버넌스(카드 관리)',gsrc:'초안: 액션 카드·시나리오 카드 관리 체계',title:'액션 카드 관리 체계',st:'good',mod:['M8'],
+ purpose:'액션 블록(추상 방향)을 등록·편집·검색하는 거버넌스 체계.',
+ us:'운영자로서 액션 어휘를 안전하게 관리·확장하고 싶다.',
+ ac:['<code>actions.yaml</code> 블록 CRUD(fit/caution/goal은 기존 metric_id만)','<code>/admin/assets</code> 3단계 검증 경로 재사용','Stage-Action Policy로 가중만 조정(stage별 복제 금지)'],
+ demo:['액션 블록 추가 → 검증 → 재진단 후보 등장']},
+{id:'A3-2',t:'알파카',g:'A3 · 거버넌스(카드 관리)',title:'시나리오 카드 스키마 정의',st:'none',nb:1,mod:['M8★'],
+ purpose:'에이전트 시나리오(우선추천 등)를 담는 시나리오 카드 구조를 새로 정의한다.',
+ us:'기획자로서 에이전트가 따를 시나리오를 표준 카드로 관리하고 싶다.',
+ ac:['시나리오 카드 필드(트리거·조건·액션 흐름·우선순위·가드레일 참조) 정의','액션 카드와 N:M 관계(시나리오가 액션 블록 조합 참조)','Zod 스키마 + 버전, asset-keys 등록'],
+ demo:['"우선추천" 시나리오 카드 1건 작성 → 구조 저장']},
+{id:'A3-3',t:'알파카',g:'A3 · 거버넌스(카드 관리)',title:'시나리오 카드 편집·검토 UI',st:'none',nb:1,mod:['M8★'],
+ purpose:'시나리오 카드를 작성·검토·승인하는 어드민 UI.',
+ us:'기획자로서 시나리오를 만들고 리뷰받아 배포하고 싶다.',
+ ac:['편집 폼 + 참조 무결성 검증(action_id/feature_id 존재 확인)','검토/승인 상태 머신(proposed→approved/rejected, proposals 패턴 재사용)','승인 시 에이전트 런타임 어휘에 반영'],
+ demo:['시나리오 작성 → 검토 → 승인 → 런타임 적용']},
+{id:'A3-4',t:'알파카',g:'A3 · 거버넌스(카드 관리)',title:'갭→역제안 루프',st:'good',nb:1,mod:['M8'],
+ purpose:'카드·실행·성과에서 갭을 감지해 LLM이 신규 블록을 역제안하고 승인 시 편입한다.',
+ us:'운영자로서 어휘의 구멍이 운영 데이터로부터 자동 보완되길 원한다.',
+ ac:['<code>gap-detector</code>: weak_coverage/not_adopted/no_effect_or_negative 3유형','<code>proposal-generator</code>: 갭+어휘+지표/기능지도+KB RAG → Zod+참조 검증 통과분만 proposed','outcome flat/worsened 시 자동 트리거(중복 갭 skip), 승인 시 <code>/admin/assets</code>로 편입'],
+ demo:['성과 worsened 입력 → 역제안 자동 등록 → 승인 → 후보 등장']},
+{id:'A3-5',t:'알파카',g:'A3 · 거버넌스(카드 관리)',title:'실행/성과/피드백 기록',st:'warn',nb:1,mod:['M8'],
+ purpose:'추천의 실행·성과·피드백을 기록해 학습/역제안 근거로 삼는다.',
+ us:'운영자로서 실행 결과를 남겨 다음 추천이 똑똑해지길 원한다.',
+ ac:['<code>repository</code>: execution/outcome/feedback CRUD(file/pg)','<code>POST /api/diagnosis/cards/:id/{execution,outcome,feedback}</code>','outcome <code>attribution_confidence</code>·trust_delta 기록(인과 단정 금지)'],
+ demo:['실행 → 성과(improved) → 피드백(trust +0.1) 입력 → 타임라인 갱신']},
+{id:'A3-6',t:'알파카',g:'A3 · 거버넌스(카드 관리)',title:'성과 측정 · 5% 대조군',st:'none',nb:1,mod:['M8'],
+ purpose:'캠페인에 5% 대조군을 격리해 순증분 성과를 귀속한다(BRD 7.2.3).',
+ us:'운영자로서 "정말 이 액션 덕분인지"를 대조군으로 증명받고 싶다.',
+ ac:['캠페인 대상의 5% 대조군 격리','순증분 = 실험군 − 대조군 산출','<code>attribution_confidence</code>로 귀속 표기(상관≠인과 명시)'],
+ demo:['캠페인 실행 → 대조군 대비 증분 성과 표시']},
+
+{id:'A4-1',t:'알파카',g:'A4 · 에이전트 런타임',gsrc:'초안: 런타임 고도화·툴 레지스트리',title:'tool use 오케스트레이션',st:'warn',mod:['M4'],
+ purpose:'에이전트가 도구(진단·워크플로우·기능)를 호출·조합하는 런타임을 고도화한다.',
+ us:'운영자로서 알파카가 말만 하지 않고 도구를 써서 일하게 하고 싶다.',
+ ac:['루프 observe(결정론) → plan(LLM) → act(callTool) → check','<code>NODE_VOCABULARY</code>/도구 목록 밖 호출 거부 → self-correct(재시도)','쓰기 도구는 가드레일·승인 게이트 경유'],
+ demo:['진단 → 워크플로우 자동 생성 도구 호출 → 결과']},
+{id:'A4-2',t:'알파카',g:'A4 · 에이전트 런타임',title:'모델 라우팅·캐싱·토큰 추적',st:'warn',nb:1,mod:['M1','M4'],
+ purpose:'작업 난이도에 따라 SLM/LLM 라우팅·캐싱·토큰 추적으로 비용을 통제한다.',
+ us:'LLMOps로서 품질을 지키며 비용을 최적화하고 싶다.',
+ ac:['난이도별 모델 라우팅(<code>prompt_versions</code> inference_models)','인플라이트 캐싱(동일 입력) + mock 폴백 유지','토큰/지연 추적(LangFuse), 카드에 latency/usage 기록'],
+ demo:['단순 질의는 저가 모델로 라우팅, 추적 대시보드 확인']},
+{id:'A4-3',t:'알파카',g:'A4 · 에이전트 런타임',title:'위성 제품 연동 툴 레지스트리',st:'warn',mod:['M6'],
+ purpose:'위성 제품 기능을 에이전트 도구로 등록·발견하는 레지스트리.',
+ us:'운영자로서 에이전트가 쓸 수 있는 기능 목록이 관리되길 원한다.',
+ ac:['도구 등록/조회 + 입출력 스키마','<code>installed_products</code> 게이트(설치 앱만 노출)','<code>feature_map</code> 연동(feature_id↔도구)'],
+ demo:['레지스트리에서 "쿠폰 발급" 도구 조회 → 호출']},
+{id:'A4-4',t:'알파카',g:'A4 · 에이전트 런타임',title:'툴 호출 컨벤션',st:'none',nb:1,mod:['M6'],
+ purpose:'외부 기능을 통일된 방식(operation/connection/schema)으로 도구화하는 컨벤션.',
+ us:'플랫폼으로서 제각각 API를 같은 방식으로 도구화하고 싶다.',
+ ac:['operation 분류(trigger/action/search), connection 분리(secret는 input 금지)','response shape 강제(trigger 배열/action 객체/search 빈배열 허용)','version pinning + breaking change 검출(Zapier/n8n식)'],
+ demo:['새 기능을 컨벤션대로 등록 → 검증 통과 시 도구화']},
+{id:'A4-5',t:'알파카',g:'A4 · 에이전트 런타임',title:'프롬프트 계약 + 출력 검증',st:'good',nb:1,mod:['M4'],
+ purpose:'생성 출력을 스키마+후처리로 검증하는 이중 방어선(결정론/생성 경계).',
+ us:'운영자로서 LLM이 계약을 벗어난 출력을 내지 않게 하고 싶다.',
+ ac:['<code>prompt-builder</code> 가드레일 명문화(계산 금지·missing 단정 금지·후보 밖 금지·인과 확정 금지)','<code>output-parser</code> Zod(<code>DiagnosisDraftSchema</code>) 실패 → 502 fallback','<code>validateDraft</code> 후처리(후보 밖/미설치 제거)'],
+ demo:['LLM 비JSON 반환 → 502, 후보 밖 action → 제거됨']},
+{id:'A4-6',t:'알파카',g:'A4 · 에이전트 런타임',title:'평행우주 A/B 대화 · 스트리밍',st:'good',nb:1,mod:['M4'],
+ purpose:'질문 1개를 기간 A/B 에이전트에 병렬 전달하고 SSE로 인터리브 스트리밍한다.',
+ us:'운영자로서 두 기간을 나란히 비교하며 상담받고 싶다.',
+ ac:['<code>run-chat</code>: 질문 → 기간 A/B 병렬, 각 에이전트는 자기 기간 결과만 컨텍스트','SSE 인터리브(<code>event:delta {side:a|b}</code>) → done <code>{turn}</code>','<code>ChatTurn{question,answer_a,answer_b}</code> 기록·복원'],
+ demo:['질문 입력 → 좌(A·남색)/우(B·호박) 답변 동시 스트리밍']},
+
+{id:'A5-1',t:'알파카',g:'A5 · SCP 상품 데이터',gsrc:'초안: SCP 상품 데이터 확보',title:'상품 데이터 확보 (카탈로그·재고·원가)',st:'warn',mod:['M2'],
+ purpose:'상품 카탈로그·재고·원가를 확보해 상품 단위 진단/프라이싱의 입력을 만든다.',
+ us:'데이터 담당으로서 상품 수준 데이터를 안정 확보하고 싶다.',
+ ac:['상품/옵션/재고 적재 + 상품 식별자 정합','원가·판매가 수집(가용분) + 수동 입력 병행','total/active/soldout_product_count 등 상태 지표 산출 연계'],
+ demo:['상품 데이터 동기화 → 상품별 지표 조회']},
+{id:'A5-2',t:'알파카',g:'A5 · SCP 상품 데이터',title:'상품 단위 집계·진단 확장',st:'none',nb:1,mod:['M2','M3'],
+ purpose:'shop 단위 집계/이상탐지를 상품 단위로 내려 프로모션 후보 탐지를 가능케 한다.',
+ us:'운영자로서 어떤 상품이 문제인지 상품 수준으로 진단받고 싶다.',
+ ac:['<code>aggregate</code>/<code>anomaly</code>를 상품×기간 단위로 확장','상품 단위 이상탐지(전환·재고·판매속도)','성능/정밀도 검증(shop 단위 대비 드리프트)'],
+ demo:['상품 단위 진단 → 검토 필요 상품 우선순위 리스트']},
+{id:'A5-3',t:'알파카',g:'A5 · SCP 상품 데이터',title:'원가·마진 입력 설정 (수동 병행)',st:'none',nb:1,mod:['M2 L3'],
+ purpose:'API로 못 받는 원가·최소 마진·할인 금지 상품을 운영자가 입력하게 한다.',
+ us:'운영자로서 마진 가드레일이 동작하도록 원가를 설정하고 싶다.',
+ ac:['원가·최소 마진율·할인 금지 상품 입력 UI(일괄)','<code>constraints.yaml</code> 연동','<code>computeMargin</code> 계산에 반영'],
+ demo:['원가 입력 → 마진 계산 → 가드레일 반영']},
+
+// ===== 대통합 =====
+{id:'U1-1',t:'대통합',g:'U1 · 콘솔 셸·IA',gsrc:'초안: IA/메뉴 통폐합·신규 메뉴 페이지',title:'IA/메뉴 통폐합',st:'good',mod:['M7'],
+ purpose:'흩어진 제품 메뉴를 하나의 정보구조(레일+2단 LNB)로 통합한다.',
+ us:'운영자로서 여러 제품을 한 콘솔에서 일관되게 탐색하고 싶다.',
+ ac:['<code>console-shell</code> 레일(1차)+2단 LNB(2차), <code>sectionOf/labelOf</code>','순환 의존 0(DSM 완전 하삼각)','패널 고정/플로팅/핀·세션 유지'],
+ demo:['레일에서 영역 선택 → 2차 메뉴 전환']},
+{id:'U1-2',t:'대통합',g:'U1 · 콘솔 셸·IA',title:'공통 페이지·레이아웃 통합',st:'good',mod:['M7'],
+ purpose:'TopBar·검색·드로어 등 공통 레이아웃 프리미티브를 통합한다.',
+ us:'운영자로서 어느 화면이든 같은 조작 방식을 기대하고 싶다.',
+ ac:['<code>top-bar</code> 포털 슬롯(스크롤 영역 밖 고정)·<code>search-sheet</code> FAB(3모드)','공통 프리미티브(NavItem/Section/Badge/AddBtn)','전 페이지 일관 적용'],
+ demo:['어느 페이지든 검색 FAB·TopBar 동일 동작']},
+{id:'U1-3',t:'대통합',g:'U1 · 콘솔 셸·IA',title:'신규 메뉴 페이지 (제품 화면군)',st:'warn',mod:['M7'],
+ purpose:'상품·리뷰·메시지·사이트 등 제품 화면군을 통합 콘솔에 구현한다.',
+ us:'운영자로서 각 제품 기능을 통합 콘솔에서 쓰고 싶다.',
+ ac:['제품별 화면군(상품·리뷰·메시지·사이트) 골격','<code>widget-card</code> 등 공용 컴포넌트 재사용','목업 → 실연동 경로(mock/실데이터 경계) 표시'],
+ demo:['상품/리뷰 메뉴 진입 → 해당 제품 화면']},
+{id:'U1-4',t:'대통합',g:'U1 · 콘솔 셸·IA',title:'디자인시스템 · UI 킷',st:'good',nb:1,mod:['M7'],
+ purpose:'토큰·공용 컴포넌트로 화면 일관성을 보장한다.',
+ us:'개발자로서 동일 컴포넌트로 빠르게 화면을 조립하고 싶다.',
+ ac:['<code>design.md</code> 토큰(인라인 hex 금지·CSS 변수)','ui 킷(Button/Card/Badge/Stat/Table/Tabs/Modal/EmptyState)','콘솔 딥네이비 레일은 별도 토큰'],
+ demo:['새 화면을 킷 컴포넌트만으로 구성']},
+{id:'U1-5',t:'대통합',g:'U1 · 콘솔 셸·IA',title:'브랜딩 · 로그인',st:'good',nb:1,mod:['M7'],
+ purpose:'로고·파비콘·OG·로그인 페이지로 정체성과 접근을 갖춘다.',
+ us:'사용자로서 신뢰감 있는 브랜드와 로그인을 경험하고 싶다.',
+ ac:['로고(alph 심볼)·favicon·OG/메타','<code>/login</code> 페이지(SITE_PASSWORD)','상대경로 리다이렉트(프록시 뒤 타서비스 누수 방지)'],
+ demo:['로그인 → 브랜딩된 콘솔 진입']},
+{id:'U1-6',t:'대통합',g:'U1 · 콘솔 셸·IA',title:'UX 폴리시 (토스트·스텝퍼·전환)',st:'warn',nb:1,mod:['M7'],
+ purpose:'토스트·스텝퍼·정렬·전환 인디케이터로 흐름·피드백을 다듬는다.',
+ us:'운영자로서 내 행동의 결과를 즉시 명확히 보고 싶다.',
+ ac:['전역 토스트(성공/실패)·파괴적 행위 확인 다이얼로그','위저드 스텝퍼·표 정렬','페이지 전환 인디케이터(<code>prefers-reduced-motion</code> 존중)'],
+ demo:['저장 → 토스트, 위저드 → 스텝 표시']},
+
+{id:'U2-1',t:'대통합',g:'U2 · 온보딩·튜토리얼·설치',gsrc:'초안: 멀티프로덕트 온보딩·튜토리얼·자동설치',title:'멀티 프로덕트 온보딩 플로우 설계',st:'warn',mod:['M7','M1'],
+ purpose:'여러 제품을 한 흐름으로 온보딩하는 전체 플로우를 설계한다.',
+ us:'신규 고객으로서 제품마다 따로 배우지 않고 한 번에 시작하고 싶다.',
+ ac:['통합 온보딩 플로우 정의(제품 선택 → 설정 분기)','완료율 추적','중단 복귀'],
+ demo:['가입 → 통합 온보딩 → 핵심 제품 활성화']},
+{id:'U2-2',t:'대통합',g:'U2 · 온보딩·튜토리얼·설치',title:'제품별 온보딩 스텝',st:'warn',nb:1,mod:['M7'],
+ purpose:'제품별 필수 설정 스텝을 모듈화해 온보딩 플로우에 끼운다.',
+ us:'운영자로서 각 제품의 필요한 설정만 단계적으로 하고 싶다.',
+ ac:['제품별 스텝 모듈(리뷰/업셀/푸시…)','건너뛰기/나중에','완료 체크'],
+ demo:['리뷰 제품 선택 → 리뷰 설정 스텝 진행']},
+{id:'U2-3',t:'대통합',g:'U2 · 온보딩·튜토리얼·설치',title:'멀티 프로덕트 튜토리얼',st:'warn',mod:['M7'],
+ purpose:'핵심 기능 사용법을 인앱 튜토리얼로 안내한다.',
+ us:'운영자로서 기능을 직접 해보며 익히고 싶다.',
+ ac:['인앱 가이드/툴팁 오버레이','진행 추적','다시 보기'],
+ demo:['첫 진입 → 핵심 동작 튜토리얼 오버레이']},
+{id:'U2-4',t:'대통합',g:'U2 · 온보딩·튜토리얼·설치',title:'자동설치 정확도 개선',st:'warn',mod:['M1','M6'],
+ purpose:'위성 제품 자동 설치/세팅 정확도를 높여 초기 실패를 줄인다.',
+ us:'운영자로서 설치가 한 번에 정확히 되길 원한다.',
+ ac:['설치 검증 + 실패 진단/재시도','자동 롤백(부분 설치 정리)','설치 상태 표시'],
+ demo:['자동 설치 실행 → 검증 통과 → 활성']},
+{id:'U2-5',t:'대통합',g:'U2 · 온보딩·튜토리얼·설치',title:'10분 초기 세팅 플로우',st:'none',nb:1,mod:['신규'],
+ purpose:'카페24 연동 후 10분 내 전 제품 기본 세팅을 완료하는 플로우(BRD 목표).',
+ us:'운영자로서 가입 후 10분 만에 기본 세팅을 끝내고 싶다.',
+ ac:['연동 → 스킨/위젯/SEO/가격구조/알림톡 템플릿 기본값 자동 적용','핵심 설정만 노출(나머지 추천 기본값)','완료까지 시간 측정(목표 10분)'],
+ demo:['연동 → 추천 기본값 → 완료까지 타이머 표시']},
+
+{id:'U3-1',t:'대통합',g:'U3 · 인사이트 표면',gsrc:'초안: 인사이트/통계 페이지',title:'인사이트/통계 페이지 (헤파카 임베드)',st:'warn',mod:['M7'],
+ purpose:'헤파카 BI/리포트를 통합 콘솔 안에 임베드해 운영자에게 노출한다.',
+ us:'운영자로서 통계를 별도 도구 없이 콘솔에서 보고 싶다.',
+ ac:['헤파카 그라파나/리포트 임베드','샵 컨텍스트 연동(현재 선택 샵)','권한 반영(행 수준 보안)'],
+ demo:['인사이트 메뉴 → 헤파카 대시보드 임베드 표시']},
+{id:'U3-2',t:'대통합',g:'U3 · 인사이트 표면',title:'KPI 대시보드 · 전역 지표 드로어',st:'good',nb:1,mod:['M7'],
+ purpose:'전 지표 차트(크로스 툴팁)와 어디서든 여는 지표 드로어를 제공한다.',
+ us:'운영자로서 어느 화면에서든 핵심 지표를 빠르게 확인하고 싶다.',
+ ac:['<code>kpi-dashboard</code>: 전 지표 차트 + <code>syncId</code> 크로스 툴팁','<code>metrics-drawer</code> 우측 드로어(전체 높이, 샵 전환)','기간 하이라이트(진단 슬롯 A/B)'],
+ demo:['지표 바로보기 → 드로어에서 전 지표 대시보드']},
+{id:'U3-3',t:'대통합',g:'U3 · 인사이트 표면',title:'고객 세그먼트 화면',st:'warn',nb:1,mod:['M7'],
+ purpose:'고객을 조건으로 세그먼트화해 조회·관리한다.',
+ us:'마케터로서 타깃 세그먼트를 만들어 캠페인에 쓰고 싶다.',
+ ac:['조건 빌더(속성·행동, RFM)','멤버 수·미리보기','저장/재사용 → 캠페인/푸시 연결'],
+ demo:['"휴면 고객" 세그먼트 생성 → 인원 확인']},
+{id:'U3-4',t:'대통합',g:'U3 · 인사이트 표면',title:'코호트·리텐션 화면',st:'warn',nb:1,mod:['M7'],
+ purpose:'가입/첫구매 코호트의 리텐션을 시각화한다.',
+ us:'마케터로서 코호트별 잔존을 보고 개선점을 찾고 싶다.',
+ ac:['코호트 정의(가입/첫구매월)','리텐션 표/히트맵','기간 비교'],
+ demo:['월별 코호트 → 리텐션 히트맵']},
+{id:'U3-5',t:'대통합',g:'U3 · 인사이트 표면',title:'고객 여정 화면',st:'warn',nb:1,mod:['M7'],
+ purpose:'고객의 행동/구매 여정을 단계로 시각화한다.',
+ us:'마케터로서 고객이 어디서 이탈하는지 보고 싶다.',
+ ac:['여정 단계 정의(행동 이벤트 기반)','단계별 전환/이탈','세그먼트 필터'],
+ demo:['여정 보기 → 단계별 전환율·이탈 지점']},
+{id:'U3-6',t:'대통합',g:'U3 · 인사이트 표면',title:'퍼널·유입 리포트',st:'warn',nb:1,mod:['M7'],
+ purpose:'유입→전환 퍼널과 채널/캠페인 성과를 리포트한다.',
+ us:'마케터로서 어느 단계·채널이 약한지 보고 싶다.',
+ ac:['퍼널 단계 전환율','채널/캠페인 분해','방문자수·전환율 부재 시 missing_context 표기(추정 금지)'],
+ demo:['퍼널 리포트 → 단계별 드롭 + 채널 기여']},
+{id:'U3-7',t:'대통합',g:'U3 · 인사이트 표면',title:'인박스 · 알림 센터',st:'warn',nb:1,mod:['M7'],
+ purpose:'진단·위험·승인·멘션을 한 인박스로 모아 처리한다.',
+ us:'운영자로서 챙길 일을 한 곳에서 보고 처리하고 싶다.',
+ ac:['통합 인박스(진단/위험/승인/멘션 필터)','승인/처리 액션(승인 대기 항목 검토)','읽음/스누즈'],
+ demo:['인박스 → 승인 대기 항목 검토/승인']}
+];
+
+const STLABEL={good:'구현',warn:'부분',none:'미착수'};
+const listEl=document.getElementById('list');
+const panel=document.getElementById('panel');
+const pbody=document.getElementById('pbody');
+const byTac={};
+D.forEach(s=>{(byTac[s.t]=byTac[s.t]||[]).push(s);});
+Object.keys(TACMETA).forEach(tac=>{
+  const m=TACMETA[tac];const items=byTac[tac]||[];
+  const tacEl=document.createElement('div');tacEl.className='tac '+m.cls;
+  let html=`<div class="tachead"><span class="tk">${m.tk}</span><span class="tn">${m.tn}</span><span class="tc">${items.length} 스코프</span></div>`;
+  const groups=[];const gmap={};
+  items.forEach(s=>{if(!gmap[s.g]){gmap[s.g]={name:s.g,src:s.gsrc,items:[]};groups.push(gmap[s.g]);}gmap[s.g].items.push(s);});
+  groups.forEach(g=>{
+    html+=`<div class="grp"><div class="gh">${g.name}${g.src?` <span class="gsrc">· ${g.src}</span>`:''}</div><div class="sclist">`;
+    g.items.forEach(s=>{html+=`<button class="scbtn" data-id="${s.id}"><span class="sd ${s.st}"></span><span class="nm">${s.title}</span>${s.nb?'<span class="nb">✚</span>':'<span></span>'}</button>`;});
+    html+='</div></div>';
+  });
+  tacEl.innerHTML=html;listEl.appendChild(tacEl);
+});
+function render(s){
+  const m=TACMETA[s.t];
+  panel.querySelector('.pbar').className='pbar '+m.cls;
+  pbody.innerHTML=`
+    <p class="pcrumb"><b>${m.tn}</b> · ${s.g}</p>
+    <h2 class="ptitle">${s.title}${s.nb?'<span class="chip nbg">✚ 보완</span>':''}</h2>
+    <div class="pmeta"><span class="chip st-${s.st}">${STLABEL[s.st]}</span>${s.mod.map(x=>`<span class="chip mod">${x}</span>`).join('')}</div>
+    <div class="psec"><h3>목적</h3><p class="ptext">${s.purpose}</p></div>
+    <div class="psec"><h3>유저스토리</h3><p class="us">${s.us}</p></div>
+    <div class="psec ac"><h3>인수조건 (AC)</h3><ul>${s.ac.map(a=>`<li>${a}</li>`).join('')}</ul></div>
+    <div class="psec demo"><h3>데모 시나리오</h3><ul>${s.demo.map(d=>`<li>${d}</li>`).join('')}</ul></div>`;
+  document.querySelectorAll('.scbtn').forEach(b=>b.classList.toggle('active',b.dataset.id===s.id));
+}
+listEl.addEventListener('click',e=>{const b=e.target.closest('.scbtn');if(!b)return;const s=D.find(x=>x.id===b.dataset.id);if(s)render(s);});
+render(D[0]);
+</script>
+
+</body></html>

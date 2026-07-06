@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!-- saved from url=(0255)https://a75bb181-9a49-4d56-afcb-c7ceb8d3528d.frame.claudeusercontent.com/_f/1782713608-e5cd/?__frame_t=FY46VJ2EDUutXOS9yqFzKV0K.5a7a4c24-3852-462f-acc7-e68f43054ae4.8b242cc7-adba-4036-a44c-c67546ca014a.1782825983&__frame_v=5c752db9772119c9909d31903fc86c45 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--<base href="/_f/1782713608-e5cd/">--><base href="."><script>(function(){"use strict";const P="modulepreload",S=function(e){return"/"+e},M={},h=function(n,r,i){let s=Promise.resolve();function a(o){const t=new Event("vite:preloadError",{cancelable:!0});if(t.payload=o,window.dispatchEvent(t),!t.defaultPrevented)throw o}return s.then(o=>{for(const t of o||[])t.status==="rejected"&&a(t.reason);return n().catch(a)})};function v(e){if(e==null||typeof e!="object")return!1;const n=e.__frame_init;return n!=null&&typeof n=="object"}function p(e){if(window===top||e.type==="auxclick"&&e.button!==1)return;const n=e.composedPath?e.composedPath():[e.target];let r=null;for(let o=0;o<n.length;o++){const t=n[o];if(t&&t.matches&&t.matches("a[href],area[href]")){r=t;break}}if(!r&&e.target&&e.target.closest&&(r=e.target.closest("a[href],area[href]")),!r)return;const i=r.getAttribute("href");if(!i)return;let s,a;try{s=new URL(i,document.baseURI),a=new URL(document.baseURI).origin}catch{return}(s.protocol==="http:"||s.protocol==="https:")&&s.origin!==a&&(e.preventDefault(),parent.postMessage({__frame_nav:!0,url:s.href},"*"))}const f={};function u(e){if(window===top)return;const n=Date.now();n-(f[e]||0)<500||(f[e]=n,parent.postMessage({__frame_engaged:!0,kind:e},"*"))}function w(){addEventListener("click",p,!0),addEventListener("auxclick",p,!0)}function _(){addEventListener("scroll",()=>u("scroll"),{capture:!0,passive:!0}),addEventListener("pointermove",()=>u("pointer"),{capture:!0,passive:!0}),addEventListener("click",()=>u("click"),{capture:!0,passive:!0})}function E(e,n){const r=new Set(e.changes??[]),i=new Map;for(const s of r){const a=n[s];a&&i.set(s,a)}return{contract:e.contract,changes:r,flags:new Set(e.flags??[]),transforms:i}}var b={};const y=1e4,L=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function k(e,n,r){try{Object.defineProperty(e,n,{value:r,writable:!1,configurable:!1,enumerable:!0})}catch{}}const d=Object.getOwnPropertyDescriptor(window,"claude");if(window!==top&&!(d&&d.configurable===!1)){w(),_(),k(window,"claude",d?.value??{});let e=null,n=null,r=null,i=0;const s=t=>{t.source!==parent||!L.includes(t.origin)||v(t.data)&&(e=t.data.__frame_init,n=t.origin,removeEventListener("message",s),clearTimeout(i),r?.())};addEventListener("message",s),parent.postMessage({__frame_connect:!0},"*");const a=new Promise(t=>{r=t,i=setTimeout(()=>{removeEventListener("message",s),t()},y)}),o=document.readyState==="loading"?new Promise(t=>document.addEventListener("DOMContentLoaded",()=>t(),{once:!0})):Promise.resolve();a.then(async()=>{if(!e||!n)return;const t=c=>h(()=>import("/_runtime/"+c),void 0),m=Object.keys(e.capabilities??{}).map(c=>b[c]).filter(c=>!!c),[l]=await Promise.allSettled([t("_transforms.DYk1Ltlh.js"),...m.map(t)]);E(e,l.status==="fulfilled"&&l.value?.TRANSFORMS||{}),await o,parent.postMessage({__frame_ready:!0},n)})}})();</script><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>코어팀 3분기 작업 마스터 — 스코프 카탈로그 (pre-PRD)</title>
+<meta name="description" content="통합 알파앱스 · 개별 스코프 인터랙티브 카탈로그 — 짭파카 코드 기반 구현 가능 수준의 인수조건">
+<style>
+  :root{
+    --paper:#F4F6F4; --surface:#FFFFFF; --surface-2:#FBFCFB;
+    --ink:#172019; --ink-2:#3D463F; --muted:#6E776F; --faint:#9AA39B;
+    --line:#E2E7E2; --line-2:#EDF0EC;
+    --accent:#155E63; --accent-2:#0E464A; --accent-bg:#E4EEEC;
+    --good:#2E7D54; --warn:#B07814; --none:#8A938B; --new:#B0392F;
+    --hepa:#1C6E8C; --alpa:#155E63; --unify:#4C7A4E;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,"JetBrains Mono",Menlo,monospace;
+    --font:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --shadow:0 1px 2px rgba(23,32,25,.05),0 1px 0 rgba(23,32,25,.02);
+  }
+  *{box-sizing:border-box} body{margin:0}
+  .wrap{font-family:var(--font);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+  .container{max-width:1200px;margin:0 auto;padding:0 22px}
+  header.top{background:linear-gradient(165deg,#0E464A,#155E63 60%,#1C6E8C);color:#EAF2F0;padding:34px 0 26px}
+  .eyebrow{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#9FC6C4;font-weight:600;margin:0 0 10px}
+  h1.title{font-size:24px;line-height:1.25;font-weight:800;margin:0;letter-spacing:-.01em}
+  .sub{margin:11px 0 0;font-size:14px;color:#BFD8D6;max-width:72ch}
+  .keys{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:11.5px;color:#A8CBC9;margin-top:12px}
+  .keys .k{display:flex;align-items:center;gap:6px}
+  .keys .d{width:9px;height:9px;border-radius:50%}
+  .kd.good{background:#7FBF9B}.kd.warn{background:#E0B870}.kd.none{background:#AEB6AE}
+  .keys .nb{font-size:9px;font-weight:800;color:#fff;background:var(--new);border-radius:3px;padding:1px 4px}
+
+  .layout{display:grid;grid-template-columns:1fr 1.15fr;gap:20px;padding:22px 0 70px;align-items:start}
+  .list{display:flex;flex-direction:column;gap:18px}
+  .tac{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+  .tachead{padding:12px 16px;color:#fff;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+  .T-hepa .tachead{background:linear-gradient(100deg,#155E69,#1C6E8C)}
+  .T-alpa .tachead{background:linear-gradient(100deg,#11484C,#155E63)}
+  .T-unify .tachead{background:linear-gradient(100deg,#3C6A45,#4C7A4E)}
+  .tachead .tk{font-family:var(--mono);font-size:11px;font-weight:700;opacity:.8}
+  .tachead .tn{font-size:15px;font-weight:800;letter-spacing:-.01em}
+  .tachead .tc{margin-left:auto;font-size:11px;opacity:.85;font-variant-numeric:tabular-nums}
+  .grp{border-top:1px solid var(--line)}
+  .gh{font-size:11.5px;font-weight:800;color:var(--ink-2);background:var(--surface-2);padding:8px 16px}
+  .gh .gsrc{font-weight:500;color:var(--faint);font-size:10.5px}
+  .sclist{display:flex;flex-direction:column}
+  .scbtn{display:grid;grid-template-columns:10px 1fr auto;gap:9px;align-items:center;text-align:left;width:100%;border:none;background:none;cursor:pointer;padding:8px 16px;border-top:1px solid var(--line-2);font-family:inherit;font-size:12.5px;color:var(--ink);line-height:1.35}
+  .scbtn:first-child{border-top:none}
+  .scbtn:hover{background:var(--surface-2)}
+  .scbtn.active{background:var(--accent-bg)}
+  .scbtn .sd{width:9px;height:9px;border-radius:50%;flex:none}
+  .sd.good{background:var(--good)} .sd.warn{background:var(--warn)} .sd.none{background:var(--none)}
+  .scbtn .nm{min-width:0}
+  .scbtn .nb{font-size:9px;font-weight:800;color:#fff;background:var(--new);border-radius:3px;padding:1px 4px;flex:none}
+  .scbtn.active .nm{font-weight:700}
+
+  .panel{position:sticky;top:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);overflow:hidden;max-height:calc(100vh - 28px);display:flex;flex-direction:column}
+  .pbar{height:5px;flex:none}
+  .pbar.T-hepa{background:var(--hepa)} .pbar.T-alpa{background:var(--alpa)} .pbar.T-unify{background:var(--unify)}
+  .pbody{padding:20px 22px 24px;overflow-y:auto}
+  .pcrumb{font-size:11.5px;color:var(--muted);margin:0 0 8px}
+  .pcrumb b{color:var(--ink-2)}
+  .ptitle{font-size:20px;font-weight:800;letter-spacing:-.01em;line-height:1.25;margin:0 0 10px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .pmeta{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+  .chip{font-size:11px;font-weight:600;border-radius:6px;padding:3px 9px;font-family:var(--mono)}
+  .chip.st-good{background:#E6F1EA;color:#1f6442} .chip.st-warn{background:#F6EDDC;color:#8a5e0f} .chip.st-none{background:#ECEFEC;color:#5f665f}
+  .chip.mod{background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+  .chip.nbg{background:#F6E2DF;color:var(--new)}
+  .psec{margin:0 0 16px}
+  .psec h3{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin:0 0 6px}
+  .psec .ptext{font-size:13.5px;color:var(--ink-2);line-height:1.6}
+  .psec .us{font-size:13.5px;color:var(--ink);line-height:1.6;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 13px}
+  .psec ul{margin:0;padding-left:6px;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .psec li{font-size:12.5px;color:var(--ink-2);line-height:1.55;padding-left:22px;position:relative}
+  .psec.ac li::before{content:"AC";position:absolute;left:0;top:1px;font-family:var(--mono);font-size:9px;font-weight:800;color:var(--accent);background:var(--accent-bg);border-radius:3px;padding:1px 3px}
+  .psec.ac code,.psec.demo code{font-family:var(--mono);font-size:11px;background:var(--line-2);padding:1px 4px;border-radius:3px;color:var(--accent-2)}
+  .psec.demo{counter-reset:d}
+  .psec.demo li{counter-increment:d;padding-left:24px}
+  .psec.demo li::before{content:counter(d);position:absolute;left:0;top:1px;width:15px;height:15px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  @media(max-width:840px){.layout{grid-template-columns:1fr}.panel{position:static;max-height:none}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="container">
+      <p class="eyebrow">코어팀 3분기 · 스코프 카탈로그</p>
+      <h1 class="title">통합 알파앱스 — 개별 스코프 · 구현 가능 수준 AC</h1>
+      <p class="sub">스코프를 클릭하면 우측에 <b style="color:#EAF2F0">목적·유저스토리·인수조건(AC)·데모</b>가 펼쳐집니다. AC는 짭파카 실제 코드(파일·임계값·API·스키마)와 알파앱스 구현 목표 기반 — 일반론이 아니라 검증 가능한 형태.</p>
+      <div class="keys">
+        <span class="k"><span class="d kd good"></span>구현</span>
+        <span class="k"><span class="d kd warn"></span>부분</span>
+        <span class="k"><span class="d kd none"></span>미착수</span>
+        <span class="k"><span class="nb">✚</span> 초안 보완</span>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="layout">
+      <div class="list" id="list"></div>
+      <div class="panel" id="panel"><div class="pbar T-unify"></div><div class="pbody" id="pbody">
+    <p class="pcrumb"><b>대통합 — 통합 알파앱스</b> · U1 · 콘솔 셸·IA</p>
+    <h2 class="ptitle">공통 페이지·레이아웃 통합</h2>
+    <div class="pmeta"><span class="chip st-good">구현</span><span class="chip mod">M7</span></div>
+    <div class="psec"><h3>목적</h3><p class="ptext">TopBar·검색·드로어 등 공통 레이아웃 프리미티브를 통합한다.</p></div>
+    <div class="psec"><h3>유저스토리</h3><p class="us">운영자로서 어느 화면이든 같은 조작 방식을 기대하고 싶다.</p></div>
+    <div class="psec ac"><h3>인수조건 (AC)</h3><ul><li><code>top-bar</code> 포털 슬롯(스크롤 영역 밖 고정)·<code>search-sheet</code> FAB(3모드)</li><li>공통 프리미티브(NavItem/Section/Badge/AddBtn)</li><li>전 페이지 일관 적용</li></ul></div>
+    <div class="psec demo"><h3>데모 시나리오</h3><ul><li>어느 페이지든 검색 FAB·TopBar 동일 동작</li></ul></div></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TACMETA={
+  '대통합':{cls:'T-unify',tk:'전술 3',tn:'대통합 — 통합 알파앱스'}
+};
+const D=[
+// ===== 대통합 =====
+{id:'U1-1',t:'대통합',g:'U1 · 콘솔 셸·IA',gsrc:'초안: IA/메뉴 통폐합·신규 메뉴 페이지',title:'IA/메뉴 통폐합',st:'good',mod:['M7'],
+ purpose:'흩어진 제품 메뉴를 하나의 정보구조(레일+2단 LNB)로 통합한다.',
+ us:'운영자로서 여러 제품을 한 콘솔에서 일관되게 탐색하고 싶다.',
+ ac:['<code>console-shell</code> 레일(1차)+2단 LNB(2차), <code>sectionOf/labelOf</code>','순환 의존 0(DSM 완전 하삼각)','패널 고정/플로팅/핀·세션 유지'],
+ demo:['레일에서 영역 선택 → 2차 메뉴 전환']},
+{id:'U1-2',t:'대통합',g:'U1 · 콘솔 셸·IA',title:'공통 페이지·레이아웃 통합',st:'good',mod:['M7'],
+ purpose:'TopBar·검색·드로어 등 공통 레이아웃 프리미티브를 통합한다.',
+ us:'운영자로서 어느 화면이든 같은 조작 방식을 기대하고 싶다.',
+ ac:['<code>top-bar</code> 포털 슬롯(스크롤 영역 밖 고정)·<code>search-sheet</code> FAB(3모드)','공통 프리미티브(NavItem/Section/Badge/AddBtn)','전 페이지 일관 적용'],
+ demo:['어느 페이지든 검색 FAB·TopBar 동일 동작']},
+{id:'U1-3',t:'대통합',g:'U1 · 콘솔 셸·IA',title:'신규 메뉴 페이지 (제품 화면군)',st:'warn',mod:['M7'],
+ purpose:'상품·리뷰·메시지·사이트 등 제품 화면군을 통합 콘솔에 구현한다.',
+ us:'운영자로서 각 제품 기능을 통합 콘솔에서 쓰고 싶다.',
+ ac:['제품별 화면군(상품·리뷰·메시지·사이트) 골격','<code>widget-card</code> 등 공용 컴포넌트 재사용','목업 → 실연동 경로(mock/실데이터 경계) 표시'],
+ demo:['상품/리뷰 메뉴 진입 → 해당 제품 화면']},
+{id:'U1-4',t:'대통합',g:'U1 · 콘솔 셸·IA',title:'디자인시스템 · UI 킷 · UX 폴리시',st:'warn',nb:1,mod:['M7'],
+ purpose:'토큰·공용 컴포넌트로 화면 일관성을 보장하고, 토스트·스텝퍼·전환 인디케이터로 흐름·피드백을 다듬는다.',
+ us:'개발자로서 동일 컴포넌트로 빠르게 화면을 조립하고, 운영자로서 내 행동의 결과를 즉시 명확히 보고 싶다.',
+ ac:['<code>design.md</code> 토큰(인라인 hex 금지·CSS 변수)','ui 킷(Button/Card/Badge/Stat/Table/Tabs/Modal/EmptyState)','콘솔 딥네이비 레일은 별도 토큰','전역 토스트(성공/실패)·파괴적 행위 확인 다이얼로그','위저드 스텝퍼·표 정렬','페이지 전환 인디케이터(<code>prefers-reduced-motion</code> 존중)'],
+ demo:['새 화면을 킷 컴포넌트만으로 구성','저장 → 토스트, 위저드 → 스텝 표시']},
+{id:'U1-5',t:'대통합',g:'U1 · 콘솔 셸·IA',title:'브랜딩 · 로그인',st:'good',nb:1,mod:['M7'],
+ purpose:'로고·파비콘·OG·로그인 페이지로 정체성과 접근을 갖춘다.',
+ us:'사용자로서 신뢰감 있는 브랜드와 로그인을 경험하고 싶다.',
+ ac:['로고(alph 심볼)·favicon·OG/메타','<code>/login</code> 페이지(SITE_PASSWORD)','상대경로 리다이렉트(프록시 뒤 타서비스 누수 방지)'],
+ demo:['로그인 → 브랜딩된 콘솔 진입']},
+
+{id:'U2-1',t:'대통합',g:'U2 · 온보딩·튜토리얼·설치',gsrc:'초안: 멀티프로덕트 온보딩·튜토리얼·자동설치',title:'멀티 프로덕트 온보딩 플로우 설계',st:'warn',mod:['M7','M1'],
+ purpose:'여러 제품을 한 흐름으로 온보딩하는 전체 플로우를 설계한다.',
+ us:'신규 고객으로서 제품마다 따로 배우지 않고 한 번에 시작하고 싶다.',
+ ac:['통합 온보딩 플로우 정의(제품 선택 → 설정 분기)','완료율 추적','중단 복귀'],
+ demo:['가입 → 통합 온보딩 → 핵심 제품 활성화']},
+{id:'U2-2',t:'대통합',g:'U2 · 온보딩·튜토리얼·설치',title:'제품별 온보딩 스텝',st:'warn',nb:1,mod:['M7'],
+ purpose:'제품별 필수 설정 스텝을 모듈화해 온보딩 플로우에 끼운다.',
+ us:'운영자로서 각 제품의 필요한 설정만 단계적으로 하고 싶다.',
+ ac:['제품별 스텝 모듈(리뷰/업셀/푸시…)','건너뛰기/나중에','완료 체크'],
+ demo:['리뷰 제품 선택 → 리뷰 설정 스텝 진행']},
+{id:'U2-3',t:'대통합',g:'U2 · 온보딩·튜토리얼·설치',title:'멀티 프로덕트 튜토리얼',st:'warn',mod:['M7'],
+ purpose:'핵심 기능 사용법을 인앱 튜토리얼로 안내한다.',
+ us:'운영자로서 기능을 직접 해보며 익히고 싶다.',
+ ac:['인앱 가이드/툴팁 오버레이','진행 추적','다시 보기'],
+ demo:['첫 진입 → 핵심 동작 튜토리얼 오버레이']},
+{id:'U2-4',t:'대통합',g:'U2 · 온보딩·튜토리얼·설치',title:'자동설치 정확도 개선',st:'warn',mod:['M1','M6'],
+ purpose:'위성 제품 자동 설치/세팅 정확도를 높여 초기 실패를 줄인다.',
+ us:'운영자로서 설치가 한 번에 정확히 되길 원한다.',
+ ac:['설치 검증 + 실패 진단/재시도','자동 롤백(부분 설치 정리)','설치 상태 표시'],
+ demo:['자동 설치 실행 → 검증 통과 → 활성']},
+{id:'U2-5',t:'대통합',g:'U2 · 온보딩·튜토리얼·설치',title:'10분 초기 세팅 플로우',st:'none',nb:1,mod:['신규'],
+ purpose:'카페24 연동 후 10분 내 전 제품 기본 세팅을 완료하는 플로우(BRD 목표).',
+ us:'운영자로서 가입 후 10분 만에 기본 세팅을 끝내고 싶다.',
+ ac:['연동 → 스킨/위젯/SEO/가격구조/알림톡 템플릿 기본값 자동 적용','핵심 설정만 노출(나머지 추천 기본값)','완료까지 시간 측정(목표 10분)'],
+ demo:['연동 → 추천 기본값 → 완료까지 타이머 표시']},
+
+{id:'U3-1',t:'대통합',g:'U3 · 인사이트 표면',gsrc:'초안: 인사이트/통계 페이지',title:'인사이트/통계 페이지 (헤파카 임베드)',st:'warn',mod:['M7'],
+ purpose:'헤파카 BI/리포트를 통합 콘솔 안에 임베드해 운영자에게 노출한다.',
+ us:'운영자로서 통계를 별도 도구 없이 콘솔에서 보고 싶다.',
+ ac:['헤파카 그라파나/리포트 임베드','샵 컨텍스트 연동(현재 선택 샵)','권한 반영(행 수준 보안)'],
+ demo:['인사이트 메뉴 → 헤파카 대시보드 임베드 표시']},
+{id:'U3-2',t:'대통합',g:'U3 · 인사이트 표면',title:'KPI 대시보드 · 전역 지표 드로어',st:'good',nb:1,mod:['M7'],
+ purpose:'전 지표 차트(크로스 툴팁)와 어디서든 여는 지표 드로어를 제공한다.',
+ us:'운영자로서 어느 화면에서든 핵심 지표를 빠르게 확인하고 싶다.',
+ ac:['<code>kpi-dashboard</code>: 전 지표 차트 + <code>syncId</code> 크로스 툴팁','<code>metrics-drawer</code> 우측 드로어(전체 높이, 샵 전환)','기간 하이라이트(진단 슬롯 A/B)'],
+ demo:['지표 바로보기 → 드로어에서 전 지표 대시보드']},
+{id:'U3-3',t:'대통합',g:'U3 · 인사이트 표면',title:'고객 세그먼트 화면',st:'warn',nb:1,mod:['M7'],
+ purpose:'고객을 조건으로 세그먼트화해 조회·관리한다.',
+ us:'마케터로서 타깃 세그먼트를 만들어 캠페인에 쓰고 싶다.',
+ ac:['조건 빌더(속성·행동, RFM)','멤버 수·미리보기','저장/재사용 → 캠페인/푸시 연결'],
+ demo:['"휴면 고객" 세그먼트 생성 → 인원 확인']},
+{id:'U3-4',t:'대통합',g:'U3 · 인사이트 표면',title:'코호트·리텐션 화면',st:'warn',nb:1,mod:['M7'],
+ purpose:'가입/첫구매 코호트의 리텐션을 시각화한다.',
+ us:'마케터로서 코호트별 잔존을 보고 개선점을 찾고 싶다.',
+ ac:['코호트 정의(가입/첫구매월)','리텐션 표/히트맵','기간 비교'],
+ demo:['월별 코호트 → 리텐션 히트맵']},
+{id:'U3-5',t:'대통합',g:'U3 · 인사이트 표면',title:'고객 여정 화면',st:'warn',nb:1,mod:['M7'],
+ purpose:'고객의 행동/구매 여정을 단계로 시각화한다.',
+ us:'마케터로서 고객이 어디서 이탈하는지 보고 싶다.',
+ ac:['여정 단계 정의(행동 이벤트 기반)','단계별 전환/이탈','세그먼트 필터'],
+ demo:['여정 보기 → 단계별 전환율·이탈 지점']},
+{id:'U3-6',t:'대통합',g:'U3 · 인사이트 표면',title:'퍼널·유입 리포트',st:'warn',nb:1,mod:['M7'],
+ purpose:'유입→전환 퍼널과 채널/캠페인 성과를 리포트한다.',
+ us:'마케터로서 어느 단계·채널이 약한지 보고 싶다.',
+ ac:['퍼널 단계 전환율','채널/캠페인 분해','방문자수·전환율 부재 시 missing_context 표기(추정 금지)'],
+ demo:['퍼널 리포트 → 단계별 드롭 + 채널 기여']},
+{id:'U3-7',t:'대통합',g:'U3 · 인사이트 표면',title:'인박스 · 알림 센터',st:'warn',nb:1,mod:['M7'],
+ purpose:'진단·위험·승인·멘션을 한 인박스로 모아 처리한다.',
+ us:'운영자로서 챙길 일을 한 곳에서 보고 처리하고 싶다.',
+ ac:['통합 인박스(진단/위험/승인/멘션 필터)','승인/처리 액션(승인 대기 항목 검토)','읽음/스누즈'],
+ demo:['인박스 → 승인 대기 항목 검토/승인']}
+];
+
+const STLABEL={good:'구현',warn:'부분',none:'미착수'};
+const listEl=document.getElementById('list');
+const panel=document.getElementById('panel');
+const pbody=document.getElementById('pbody');
+const byTac={};
+D.forEach(s=>{(byTac[s.t]=byTac[s.t]||[]).push(s);});
+Object.keys(TACMETA).forEach(tac=>{
+  const m=TACMETA[tac];const items=byTac[tac]||[];
+  const tacEl=document.createElement('div');tacEl.className='tac '+m.cls;
+  let html=`<div class="tachead"><span class="tk">${m.tk}</span><span class="tn">${m.tn}</span><span class="tc">${items.length} 스코프</span></div>`;
+  const groups=[];const gmap={};
+  items.forEach(s=>{if(!gmap[s.g]){gmap[s.g]={name:s.g,src:s.gsrc,items:[]};groups.push(gmap[s.g]);}gmap[s.g].items.push(s);});
+  groups.forEach(g=>{
+    html+=`<div class="grp"><div class="gh">${g.name}${g.src?` <span class="gsrc">· ${g.src}</span>`:''}</div><div class="sclist">`;
+    g.items.forEach(s=>{html+=`<button class="scbtn" data-id="${s.id}"><span class="sd ${s.st}"></span><span class="nm">${s.title}</span>${s.nb?'<span class="nb">✚</span>':'<span></span>'}</button>`;});
+    html+='</div></div>';
+  });
+  tacEl.innerHTML=html;listEl.appendChild(tacEl);
+});
+function render(s){
+  const m=TACMETA[s.t];
+  panel.querySelector('.pbar').className='pbar '+m.cls;
+  pbody.innerHTML=`
+    <p class="pcrumb"><b>${m.tn}</b> · ${s.g}</p>
+    <h2 class="ptitle">${s.title}${s.nb?'<span class="chip nbg">✚ 보완</span>':''}</h2>
+    <div class="pmeta"><span class="chip st-${s.st}">${STLABEL[s.st]}</span>${s.mod.map(x=>`<span class="chip mod">${x}</span>`).join('')}</div>
+    <div class="psec"><h3>목적</h3><p class="ptext">${s.purpose}</p></div>
+    <div class="psec"><h3>유저스토리</h3><p class="us">${s.us}</p></div>
+    <div class="psec ac"><h3>인수조건 (AC)</h3><ul>${s.ac.map(a=>`<li>${a}</li>`).join('')}</ul></div>
+    <div class="psec demo"><h3>데모 시나리오</h3><ul>${s.demo.map(d=>`<li>${d}</li>`).join('')}</ul></div>`;
+  document.querySelectorAll('.scbtn').forEach(b=>b.classList.toggle('active',b.dataset.id===s.id));
+}
+listEl.addEventListener('click',e=>{const b=e.target.closest('.scbtn');if(!b)return;const s=D.find(x=>x.id===b.dataset.id);if(s)render(s);});
+render(D[0]);
+</script>
+
+</body></html>
