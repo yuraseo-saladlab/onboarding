@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파리뷰 소개 — 알파앱스 온보딩</title>
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --ink: #16162A;
+      --ink-dim: #6B6B80;
+      --ink-faint: #A0A0B5;
+      --line: #E8E8F0;
+      --line-soft: #F3F3F8;
+      --accent: #6B5BFF;
+      --accent-soft: #F0EEFF;
+      --ok: #12B886;
+      --r: 14px;
+      --c: #6D58F2;
+      /* 알파리뷰 시그니처 (review) */
+      --c-soft: #F0EDFF;
+      /* v2 픽 카드 복제용 토큰 */
+      --shadow-md: 0 8px 22px rgba(30, 28, 60, .09);
+      --shadow-lg: 0 24px 60px rgba(30, 28, 60, .18);
+      --c-upsell: #E62C35;
+      --c-canvas: #00B7A8;
+      --font: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', system-ui, sans-serif;
+      --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+
+    .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
+
+    /* mini top stepper (플로우 컨텍스트) */
+    /* 상단 스텝퍼 — v1/v2와 동일 컴포넌트 */
+    .iv-steps { display: flex; gap: 12px; align-items: center; padding: 16px 24px; border-bottom: 1px solid #E3E4E7; }
+    .iv-steps.top { padding: 16px 40px; background: #fff; position: sticky; top: 0; z-index: 20; }
+    .iv-step { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+    .iv-step:last-child { flex: 0 0 auto; }
+    .iv-step .c { width: 24px; height: 24px; flex: 0 0 24px; border-radius: 32px; display: grid; place-items: center; font-size: 14px; font-weight: 500; }
+    .iv-step.todo .c { background: #E3E4E7; color: #8E929E; }
+    .iv-step.active .c { background: #307AF3; color: #fff; }
+    .iv-step.done .c { background: #D6E6FF; color: #307AF3; }
+    .iv-step .t { font-size: 14px; letter-spacing: -0.01em; color: #8E929E; white-space: nowrap; }
+    .iv-step.active .t, .iv-step.done .t { color: #2A2D38; }
+    .iv-step .tail { flex: 1; min-width: 8px; height: 1px; background: #E3E4E7; }
+    .iv-step.done .tail { background: #307AF3; }
+    .iv-step.clickable { cursor: pointer; }
+
+    /* ---------- HERO ---------- */
+    .hero { padding: 52px 0 40px; }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12.5px; font-weight: 700; color: var(--ink-dim);
+      background: var(--line-soft); border-radius: 100px; padding: 7px 14px; margin-bottom: 18px;
+    }
+    .kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+    .kicker .ok { color: var(--ok); font-weight: 800; }
+    h1.hero-t {
+      font-size: clamp(28px, 5.5vw, 40px); font-weight: 800; letter-spacing: -.03em;
+      line-height: 1.28; margin: 0; text-wrap: balance;
+    }
+    h1.hero-t b { color: var(--c); }
+    .trust { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 20px 0 0; font-size: 12.5px; font-weight: 600; color: var(--ink-dim); }
+    .trust .f { display: inline-flex; align-items: center; gap: 6px; }
+    .trust .f::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ok); }
+    .trust .note { color: var(--ink-faint); }
+
+    /* proof card — 1위 증명 */
+    .proof {
+      margin-top: 28px; border: 1px solid var(--line); border-radius: 20px;
+      padding: 26px 28px; background:
+        radial-gradient(600px 200px at 100% 0, var(--c-soft), transparent 70%), #fff;
+      display: flex; align-items: center; gap: 26px; flex-wrap: wrap;
+      box-shadow: 0 18px 44px rgba(40, 38, 70, .07);
+    }
+    .proof .rank {
+      display: inline-flex; align-items: center; gap: 8px; flex: none;
+      background: var(--c); color: #fff; border-radius: 14px; padding: 14px 18px;
+      font-weight: 800; font-size: 15px;
+    }
+    .proof .rank .n { font-size: 30px; font-family: var(--mono); line-height: 1; }
+    .proof .pmeta { flex: 1; min-width: 180px; }
+    .stars { font-size: 26px; letter-spacing: 4px; color: #E4E1F5; line-height: 1; }
+    .stars .fill { color: #FFB020; }
+    .count { font-family: var(--mono); font-size: 30px; font-weight: 800; letter-spacing: -.02em; margin-top: 10px; font-variant-numeric: tabular-nums; }
+    .count small { font-size: 13px; color: var(--ink-dim); font-weight: 700; margin-left: 7px; font-family: var(--font); }
+
+    /* ---------- NARRATIVE (dark immersive) ---------- */
+    .story {
+      margin-top: 44px;
+      background:
+        radial-gradient(900px 500px at 50% -10%, rgba(139, 107, 255, .22), transparent 60%),
+        linear-gradient(160deg, #2B2940, #15142A);
+      border-radius: 28px; overflow: hidden;
+      padding: 8px 0 12px;
+    }
+    .story-lead { text-align: center; padding: 40px 28px 8px; }
+    .story-lead .eb { font-size: 12px; font-weight: 800; letter-spacing: .14em; color: #A99CFF; text-transform: uppercase; font-family: var(--mono); }
+    .story-lead h2 { color: #fff; font-size: clamp(22px, 4vw, 30px); font-weight: 800; letter-spacing: -.02em; margin: 12px 0 0; text-wrap: balance; }
+
+    .beat { max-width: 620px; margin: 0 auto; padding: 30px 28px; }
+    .beat-cap { margin-bottom: 16px; }
+    .beat-cap .no {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 8px; background: rgba(169, 156, 255, .18);
+      color: #C9BEFF; font-family: var(--mono); font-weight: 800; font-size: 13px; margin-right: 10px;
+    }
+    .beat-cap .t { color: #fff; font-size: 20px; font-weight: 800; letter-spacing: -.02em; display: inline; }
+    .beat-cap .d { color: rgba(255, 255, 255, .62); font-size: 14px; margin: 9px 0 0; line-height: 1.55; }
+
+    /* demo browser (원본 .demo-browser 결) */
+    .browser {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 40px 90px rgba(0, 0, 0, .5); cursor: pointer; position: relative;
+      user-select: none;
+    }
+    .bbar { display: flex; align-items: center; gap: 6px; padding: 11px 14px; background: #F4F4F8; border-bottom: 1px solid #ECECF2; }
+    .bbar .bd { width: 9px; height: 9px; border-radius: 50%; background: #D6D6E0; }
+    .bbar .url { margin-left: 10px; font-size: 11.5px; color: #9A9AAE; font-family: var(--mono); }
+    .bscreen { padding: 20px; min-height: 210px; position: relative; }
+
+    .tap-hint { text-align: center; color: rgba(255, 255, 255, .5); font-size: 12.5px; margin-top: 14px; font-weight: 600; }
+    .tap-hint b { color: #C9BEFF; }
+    .metric-flag {
+      position: absolute; right: 14px; bottom: 14px;
+      background: var(--c); color: #fff; font-weight: 800; font-size: 13px;
+      padding: 8px 13px; border-radius: 10px; opacity: 0; transform: translateY(8px);
+      transition: .34s cubic-bezier(.2, 1.6, .4, 1);
+    }
+    .beat.played .metric-flag { opacity: 1; transform: none; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 15px; }
+    .chip { font-size: 11.5px; font-weight: 700; color: #C9BEFF; background: rgba(169, 156, 255, .14); border: 1px solid rgba(169, 156, 255, .2); border-radius: 8px; padding: 5px 10px; }
+
+    /* beat1: 리뷰가 쌓여 신뢰·성장 */
+    .rev { display: flex; flex-direction: column; gap: 8px; }
+    .rev .r { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 10px; opacity: 0; transform: translateX(-10px); }
+    .beat.played .rev .r { animation: slidein .4s forwards; }
+    .beat.played .rev .r:nth-child(2) { animation-delay: .12s; }
+    .beat.played .rev .r:nth-child(3) { animation-delay: .24s; }
+    @keyframes slidein { to { opacity: 1; transform: none; } }
+    .rev .r .ph { width: 34px; height: 34px; border-radius: 8px; background: var(--c-soft); display: grid; place-items: center; font-size: 16px; flex: none; }
+    .rev .r .s { font-size: 12px; color: #FFB020; letter-spacing: 1px; }
+    .rev .r .txt { font-size: 12px; color: var(--ink-dim); }
+    .grow { margin-top: 12px; display: flex; align-items: flex-end; gap: 5px; height: 46px; }
+    .grow .b { flex: 1; background: var(--c-soft); border-radius: 5px 5px 0 0; height: 20%; transition: height .5s ease; }
+    .beat.played .grow .b { height: var(--h); }
+
+    /* beat2: AI 자동 처리 */
+    .queue { display: flex; flex-direction: column; gap: 9px; }
+    .qrow { display: flex; align-items: center; gap: 10px; font-size: 12.5px; }
+    .qrow .lbl { flex: 1; color: var(--ink-dim); }
+    .qrow .stat { font-weight: 800; font-size: 11.5px; color: var(--ink-faint); }
+    .beat.played .qrow .stat { color: var(--ok); }
+    .qrow .stat.after { display: none; }
+    .beat.played .qrow .stat.before { display: none; }
+    .beat.played .qrow .stat.after { display: inline; }
+    .hand0 { text-align: center; margin-top: 14px; font-size: 12.5px; font-weight: 800; color: var(--c); opacity: 0; }
+    .beat.played .hand0 { animation: fadein .5s .4s forwards; }
+    @keyframes fadein { to { opacity: 1; } }
+
+    /* beat3: 다 있다 — 위젯 월 */
+    .wall { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+    .wall .w { aspect-ratio: 1; border-radius: 10px; background: var(--line-soft); border: 1px solid var(--line); display: grid; place-items: center; text-align: center; font-size: 10.5px; font-weight: 700; color: var(--ink-dim); padding: 4px; opacity: 0; transform: scale(.8); }
+    .beat.played .wall .w { animation: pop .34s forwards; }
+    @keyframes pop { to { opacity: 1; transform: none; } }
+    .wall .w .e { font-size: 16px; display: block; margin-bottom: 3px; }
+    .wall .w.hot { background: var(--c-soft); border-color: var(--c); color: var(--c); }
+
+    /* ---------- CTA ---------- */
+    .cta { text-align: center; padding: 48px 28px 60px; }
+    .cta h3 { font-size: 22px; font-weight: 800; letter-spacing: -.02em; margin: 0 0 8px; }
+    .cta p { color: var(--ink-dim); font-size: 14px; margin: 0 0 22px; }
+    .cta .go {
+      font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; border: none;
+      background: var(--ink); color: #fff; border-radius: 13px; padding: 15px 30px;
+      display: inline-flex; align-items: center; gap: 9px; transition: .15s;
+    }
+    .cta .go:hover { transform: translateY(-1px); background: #000; }
+    .cta .go .arr { transition: transform .2s; }
+    .cta .go:hover .arr { transform: translateX(3px); }
+    .cta .sub2 { display: block; margin-top: 14px; }
+    .cta .sub2 button { background: none; border: none; color: var(--ink-faint); font-family: inherit; font-size: 13px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+    :focus-visible { outline: 2.5px solid var(--c); outline-offset: 2px; }
+
+    @media (max-width: 560px) {
+      .wall { grid-template-columns: repeat(3, 1fr); }
+      .proof { padding: 20px; gap: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+    }
+
+    /* 하단 sticky 담은 솔루션 바 (v1·v2·v3 공통 컨셉: 전체 폭·하단 고정·z-index 최상) */
+    .cart-dock {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 100;
+      display: flex; align-items: center; gap: 16px;
+      background: rgba(22, 22, 42, .97); backdrop-filter: blur(12px); color: #fff;
+      padding: 13px 28px; border-top: 1px solid rgba(255, 255, 255, .08);
+      box-shadow: 0 -10px 40px rgba(20, 18, 45, .26);
+    }
+    .cd-label { display: flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 700; flex: none; }
+    .cd-bag { position: relative; font-size: 17px; }
+    .cd-count { position: absolute; top: -7px; right: -9px; min-width: 16px; height: 16px; border-radius: 100px; background: var(--c); font-size: 10px; font-weight: 800; display: grid; place-items: center; padding: 0 4px; }
+    .cd-chips { flex: 1; min-width: 0; display: flex; gap: 6px; overflow: hidden; }
+    .cd-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; border-radius: 100px; padding: 6px 11px; background: rgba(255, 255, 255, .1); white-space: nowrap; }
+    .cd-chip .cdot { width: 7px; height: 7px; border-radius: 50%; }
+    .cd-chip .lk { font-size: 10px; color: rgba(255, 255, 255, .45); }
+    .cd-next { margin-left: auto; border: none; border-radius: 12px; background: var(--c); color: #fff; height: 46px; padding: 0 22px; font-size: 14px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+    .cd-next:hover { filter: brightness(1.08); }
+    @media (max-width: 680px) { .cart-dock { gap: 10px; padding: 11px 16px; } .cd-chips { display: none; } }
+
+    /* ── 맞춤 솔루션 선택 — v2 픽 카드 독립 복제 ── */
+    .pick { flex: 1; padding: 44px 40px 150px; max-width: 1240px; width: 100%; margin: 0 auto; }
+    .pick-head { text-align: center; margin-bottom: 36px; }
+    .pick-head .ph-kicker { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; color: var(--accent); background: var(--accent-soft); border-radius: 100px; padding: 7px 14px; margin-bottom: 16px; }
+    .pick-head h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.35; margin: 0; }
+    .pick-head h1 b { color: var(--accent); }
+    .pick-head .ph-sub { font-size: 14.5px; color: var(--ink-dim); margin-top: 10px; }
+    .pick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .pcard { border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #fff; display: flex; flex-direction: column; transition: .25s; position: relative; }
+    .pcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--pc, var(--accent)); }
+    .pcard.added { border-color: var(--pc); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc) 18%, transparent); }
+    .pcard .added-flag { position: absolute; top: 14px; right: 14px; z-index: 3; font-size: 11.5px; font-weight: 800; color: #fff; background: var(--pc); border-radius: 100px; padding: 5px 11px; opacity: 0; transform: scale(.7); transition: .25s cubic-bezier(.2, 1.6, .4, 1); }
+    .pcard.added .added-flag { opacity: 1; transform: none; }
+    .pc-stage { height: 168px; background: color-mix(in srgb, var(--pc) 6%, #FAFAFD); border-bottom: 1px solid var(--line); position: relative; overflow: hidden; display: grid; place-items: center; }
+    .pc-body { padding: 20px 22px 18px; display: flex; flex-direction: column; flex: 1; }
+    .pc-name { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 800; color: var(--pc); margin-bottom: 10px; }
+    .pc-name::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--pc); }
+    .pc-main { font-size: 19px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.4; margin-bottom: 8px; }
+    .pc-hook { font-size: 13.5px; color: var(--ink-dim); line-height: 1.55; margin-bottom: 14px; }
+    .pc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .pc-tag { font-size: 11.5px; font-weight: 700; color: var(--ink-dim); background: var(--line-soft); border-radius: 100px; padding: 5px 10px; }
+    .pc-btns { display: flex; gap: 8px; margin-top: auto; }
+    .pc-view { flex: 1; height: 44px; border-radius: 10px; border: 1px solid var(--line); background: #fff; font-size: 13.5px; font-weight: 700; color: var(--ink); cursor: pointer; font-family: inherit; transition: .18s; }
+    .pc-view:hover { border-color: var(--pc); color: var(--pc); }
+    .pc-add { flex: 1; height: 44px; border-radius: 10px; border: none; background: var(--pc); color: #fff; font-size: 13.5px; font-weight: 800; cursor: pointer; font-family: inherit; transition: .18s; }
+    .pc-add:hover { filter: brightness(1.08); }
+    .pcard.added .pc-add { background: color-mix(in srgb, var(--pc) 12%, #fff); color: var(--pc); }
+
+    /* 마이크로 데모 — 업셀: 장바구니 +1 */
+    .md-cart { position: relative; width: 200px; }
+    .md-cartrow { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; box-shadow: var(--shadow-md); font-size: 12px; font-weight: 700; }
+    .md-cartrow .th { width: 30px; height: 30px; border-radius: 8px; background: var(--line-soft); display: grid; place-items: center; font-size: 14px; }
+    .md-cartrow .pr { margin-left: auto; color: var(--ink-dim); font-weight: 600; font-size: 11.5px; }
+    .md-cartrow.ai { border-color: var(--c-upsell); animation: aiRowLoop 3.6s ease infinite; }
+    .md-cartrow.ai .aitag { font-size: 9.5px; font-weight: 800; color: #fff; background: var(--c-upsell); padding: 2px 6px; border-radius: 100px; }
+    @keyframes aiRowLoop { 0%, 18% { opacity: 0; transform: translateY(10px) scale(.96); } 32%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-4px); } }
+    .md-plus1 { position: absolute; right: -10px; top: -12px; font-size: 13px; font-weight: 800; color: var(--c-upsell); background: #fff; border: 1px solid currentColor; padding: 3px 9px; border-radius: 100px; animation: plus1Loop 3.6s ease infinite; }
+    @keyframes plus1Loop { 0%, 30% { opacity: 0; transform: translateY(8px); } 42%, 80% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-10px); } }
+    /* 마이크로 데모 — 푸시: 알림 도착 */
+    .md-phone { width: 190px; height: 132px; border-radius: 16px 16px 0 0; background: #fff; border: 1px solid var(--line); border-bottom: none; box-shadow: var(--shadow-md); position: relative; overflow: hidden; padding-top: 26px; }
+    .md-phone::before { content: ''; position: absolute; top: 9px; left: 50%; transform: translateX(-50%); width: 54px; height: 7px; border-radius: 100px; background: var(--line-soft); }
+    .md-noti { margin: 0 10px 7px; background: #FDFDFF; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; font-size: 10.5px; font-weight: 600; color: var(--ink-dim); display: flex; gap: 7px; align-items: center; animation: notiLoop 3.8s ease infinite; }
+    .md-noti .ic { width: 22px; height: 22px; border-radius: 6px; background: #EAF2FF; display: grid; place-items: center; font-size: 11px; flex: 0 0 22px; }
+    .md-noti b { color: var(--ink); display: block; font-size: 11px; }
+    .md-noti:nth-child(3) { animation-delay: .55s; }
+    @keyframes notiLoop { 0%, 14% { opacity: 0; transform: translateY(-14px); } 26%, 86% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    /* 마이크로 데모 — 캔버스: 블록 재배치 */
+    .md-canvas { width: 190px; display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .md-blk { height: 34px; border-radius: 9px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-md); display: grid; place-items: center; font-size: 10px; font-weight: 700; color: var(--ink-faint); animation: blkLoop 4s ease infinite; }
+    .md-blk.wide { grid-column: span 2; height: 44px; background: color-mix(in srgb, var(--c-canvas) 10%, #fff); border-color: var(--c-canvas); color: var(--c-canvas); }
+    .md-blk:nth-child(2) { animation-delay: .3s; }
+    .md-blk:nth-child(3) { animation-delay: .6s; }
+    @keyframes blkLoop { 0%, 10% { transform: translateY(6px); opacity: .4; } 22%, 88% { transform: none; opacity: 1; } 100% { opacity: .4; } }
+    /* 담기 fly 애니메이션 */
+    .fly-dot { position: fixed; width: 18px; height: 18px; border-radius: 50%; z-index: 300; pointer-events: none; transition: all .62s cubic-bezier(.4, 0, .2, 1); }
+    .cd-count.bump { animation: cdBump .4s cubic-bezier(.2, 1.8, .4, 1); }
+    @keyframes cdBump { 40% { transform: scale(1.45); } }
+    @media (max-width: 900px) { .pick-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; } .pick { padding: 32px 20px 150px; } }
+
+    /* ── 자세히보기 drawer ── */
+    .dw-backdrop { position: fixed; inset: 0; background: rgba(16, 14, 30, .5); backdrop-filter: blur(3px); opacity: 0; visibility: hidden; transition: .3s; z-index: 150; }
+    .dw-backdrop.on { opacity: 1; visibility: visible; }
+    .dw { position: fixed; top: 0; right: 0; bottom: 0; width: min(760px, 95vw); background: #fff; z-index: 160; transform: translateX(100%); transition: transform .38s cubic-bezier(.3, .9, .3, 1); display: flex; flex-direction: column; box-shadow: -24px 0 70px rgba(20, 18, 45, .28); }
+    .dw.on { transform: none; }
+    .dw-head { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 15px 22px; border-bottom: 1px solid var(--line); background: #fff; }
+    .dw-name { font-size: 14px; font-weight: 800; }
+    .dw-close { border: 1px solid var(--line); background: #fff; border-radius: 100px; padding: 7px 14px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; color: var(--ink-2); }
+    .dw-close:hover { border-color: var(--ink); color: var(--ink); }
+    .dw-body { flex: 1; overflow-y: auto; padding-bottom: 40px; background: #fff; }
+    .dw-detail { padding: 26px 28px 20px; }
+    .dw-detail .dh { font-size: 22px; font-weight: 850; letter-spacing: -.02em; margin: 0 0 6px; }
+    .dw-detail .dhook { color: var(--ink-2); font-size: 14px; margin: 0 0 20px; }
+    .dw-feat { border-top: 1px solid var(--line); padding: 16px 0; display: grid; grid-template-columns: 26px 1fr; gap: 13px; }
+    .dw-feat .n { font-family: var(--mono); font-weight: 800; font-size: 12px; color: #fff; background: var(--pc); border-radius: 7px; height: 24px; display: grid; place-items: center; }
+    .dw-feat h4 { margin: 1px 0 4px; font-size: 15px; font-weight: 800; }
+    .dw-feat p { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.55; }
+    .dw-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .dw-chips span { font-size: 11px; font-weight: 700; color: var(--ink-2); background: var(--line-soft); border-radius: 100px; padding: 4px 10px; }
+  </style>
+</head>
+
+<body>
+  <div class="iv-steps top" id="stepper"></div>
+
+  <div id="phaseIntro">
+  <div id="introContent">
+
+  <div class="wrap">
+    <!-- HERO — 1위 증명 -->
+    <section class="hero">
+      <span class="kicker"><span class="dot"></span>카페24 앱스토어에서 선택한 앱 · <b>알파리뷰</b> <span class="ok">✓ 담김</span></span>
+      <h1 class="hero-t"><b>카페24 리뷰앱 1위</b> 알파앱스와 함께,<br>가장 빠르게 사랑받는 쇼핑몰로</h1>
+      <div class="trust">
+        <span class="f">유료 고객사 4,538사</span>
+        <span class="f">라이브 25,000+ 쇼핑몰</span>
+        <span class="note">2026-06 기준 · 자사 데이터</span>
+      </div>
+
+      <div class="proof">
+        <span class="rank">🏆 <span class="n">1</span>위</span>
+        <div class="pmeta">
+          <div class="stars" id="stars">★★★★★</div>
+          <div class="count"><span id="count">0</span><small>개 쇼핑몰이 이미 알파리뷰로 성장 중</small></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- NARRATIVE — 탭하며 재생 -->
+  <div class="wrap">
+    <section class="story">
+      <div class="story-lead">
+        <div class="eb">why alpha review</div>
+        <h2>리뷰가 신뢰로, 신뢰가 성장으로,<br>성장이 사랑으로.</h2>
+      </div>
+
+      <!-- beat 1 : 리뷰 그로스 -->
+      <div class="beat" data-beat>
+        <div class="beat-cap">
+          <span class="no">1</span><span class="t">리뷰를 늘리고, 모으고, 성장으로</span>
+          <p class="d">모든 곳에서 남긴 리뷰를 한곳에 모아, 신뢰와 매출로 이어지게 만들어요.</p>
+        </div>
+        <div class="browser" data-play>
+          <div class="bbar"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url">myshop.cafe24.com</span></div>
+          <div class="bscreen">
+            <div class="rev">
+              <div class="r"><span class="ph">📷</span><span><span class="s">★★★★★</span><div class="txt">포토 리뷰 · 재구매했어요!</div></span></div>
+              <div class="r"><span class="ph">🎬</span><span><span class="s">★★★★★</span><div class="txt">영상 리뷰 · 색감이 그대로예요</div></span></div>
+              <div class="r"><span class="ph">🔗</span><span><span class="s">★★★★☆</span><div class="txt">외부 채널 리뷰 자동 연동</div></span></div>
+            </div>
+            <div class="grow"><span class="b" style="--h:35%"></span><span class="b" style="--h:55%"></span><span class="b" style="--h:72%"></span><span class="b" style="--h:100%"></span></div>
+            <div class="metric-flag">구매 전환 +18%</div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">QR·빠른 리뷰</span><span class="chip">알림톡 자동 요청</span><span class="chip">외부 리뷰 연동</span></div>
+        <div class="tap-hint">화면을 <b>탭</b>하면 리뷰가 쌓여요 →</div>
+      </div>
+
+      <!-- beat 2 : AI 루틴 -->
+      <div class="beat" data-beat>
+        <div class="beat-cap">
+          <span class="no">2</span><span class="t">쌓이는 리뷰, 똑똑해지는 AI</span>
+          <p class="d">수집·답글·부정 리뷰 대응까지, 사람 손이 하던 일을 AI가 루틴으로 처리해요.</p>
+        </div>
+        <div class="browser" data-play>
+          <div class="bbar"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url">admin · 리뷰 관리</span></div>
+          <div class="bscreen">
+            <div class="queue">
+              <div class="qrow"><span>💬</span><span class="lbl">신규 리뷰 답글 달기</span><span class="stat before">대기 24건</span><span class="stat after">AI 자동 완료 ✓</span></div>
+              <div class="qrow"><span>🚩</span><span class="lbl">부정 리뷰 감지·대응</span><span class="stat before">확인 필요</span><span class="stat after">즉시 알림·대응 ✓</span></div>
+              <div class="qrow"><span>🏷️</span><span class="lbl">리뷰 분류·키워드 태깅</span><span class="stat before">수작업</span><span class="stat after">자동 태깅 ✓</span></div>
+            </div>
+            <div class="hand0">사람 손 0 — 루틴으로 돌아가요</div>
+            <div class="metric-flag">관리 시간 -90%</div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip">AI 답글</span><span class="chip">부정 리뷰 대응</span><span class="chip">자동 분류·태깅</span></div>
+        <div class="tap-hint">화면을 <b>탭</b>하면 AI가 처리해요 →</div>
+      </div>
+
+      <!-- beat 3 : 다 있다 -->
+      <div class="beat" data-beat>
+        <div class="beat-cap">
+          <span class="no">3</span><span class="t">어디서 본 그 기능, 다 있어요</span>
+          <p class="d">포토·영상·숏츠부터 20여 종 위젯과 뱃지·상단 고정까지. 필요한 건 이미 준비돼 있어요.</p>
+        </div>
+        <div class="browser" data-play>
+          <div class="bbar"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url">위젯 갤러리</span></div>
+          <div class="bscreen">
+            <div class="wall">
+              <div class="w hot"><span class="e">📷</span>포토 리뷰</div>
+              <div class="w hot"><span class="e">🎬</span>영상 리뷰</div>
+              <div class="w hot"><span class="e">⚡</span>숏츠 위젯</div>
+              <div class="w"><span class="e">⭐</span>별점 요약</div>
+              <div class="w"><span class="e">🏅</span>리뷰 뱃지</div>
+              <div class="w"><span class="e">📌</span>상단 고정</div>
+              <div class="w"><span class="e">🖼️</span>포토 모아보기</div>
+              <div class="w"><span class="e">💬</span>Q&amp;A</div>
+              <div class="w"><span class="e">🔍</span>리뷰 검색</div>
+              <div class="w"><span class="e">📊</span>만족도 그래프</div>
+              <div class="w"><span class="e">🎯</span>맞춤 노출</div>
+              <div class="w"><span class="e">＋</span>20여 종</div>
+            </div>
+            <div class="metric-flag">위젯 20+ 종</div>
+          </div>
+        </div>
+        <div class="tap-hint">화면을 <b>탭</b>하면 다 펼쳐져요 →</div>
+      </div>
+    </section>
+  </div>
+  </div><!-- /introContent -->
+
+  <!-- CTA (소개 단계) -->
+  <div class="wrap">
+    <section class="cta">
+      <h3>이제, 시작할 준비가 됐어요</h3>
+      <p>알파리뷰만 쓰기엔 아까워요. 함께 쓰면 좋은 솔루션도 골라 담아보세요.</p>
+      <button class="go" id="go">다음: 맞춤 솔루션 둘러보기 <span class="arr">→</span></button>
+      <span class="sub2"><button id="skipWidget">위젯 설정부터 할게요</button></span>
+    </section>
+  </div>
+  </div><!-- /phaseIntro -->
+
+  <!-- 맞춤 솔루션 선택 (v2 픽 페이지 독립 복제) -->
+  <div id="phaseSelect" hidden>
+    <div class="pick">
+      <div class="pick-head">
+        <span class="ph-kicker">✨ 함께 쓰면 더 커지는 성장</span>
+        <h1 id="pickTitle"></h1>
+        <p class="ph-sub">카드를 눌러 30초 만에 훑어보고, 마음에 들면 담아두세요 — 언제든 뺄 수 있어요</p>
+      </div>
+      <div class="pick-grid" id="pickGrid"></div>
+    </div>
+  </div>
+
+  <!-- 자세히보기 drawer -->
+  <div class="dw-backdrop" id="dwBackdrop"></div>
+  <aside class="dw" id="dw" aria-hidden="true">
+    <div class="dw-head">
+      <span class="dw-name" id="dwName"></span>
+      <button class="dw-close" id="dwClose" aria-label="닫기">✕ 닫기</button>
+    </div>
+    <div class="dw-body" id="dwBody"></div>
+  </aside>
+
+  <!-- 하단 sticky 담은 솔루션 바 -->
+  <div class="cart-dock" id="cartDock">
+    <span class="cd-label"><span class="cd-bag">🛒<span class="cd-count" id="cdCount">1</span></span>담은 솔루션</span>
+    <span class="cd-chips" id="cdChips"></span>
+    <button class="cd-next" id="cdNext">다음: 맞춤 솔루션 둘러보기 →</button>
+  </div>
+
+  <script>
+    // 히어로 카운트업 + 별 채우기
+    (function () {
+      var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var target = 25000, el = document.getElementById('count');
+      var stars = document.getElementById('stars');
+      function fmt(n) { return n.toLocaleString('ko-KR'); }
+      if (reduce) { el.textContent = fmt(target) + '+'; stars.innerHTML = '<span class="fill">★★★★★</span>'; }
+      else {
+        stars.innerHTML = '<span class="fill" style="transition:.1s"></span>★★★★★';
+        setTimeout(function () { stars.innerHTML = '<span class="fill">★★★★★</span>'; }, 250);
+        var t0 = null, dur = 1100;
+        function step(ts) {
+          if (!t0) t0 = ts; var p = Math.min((ts - t0) / dur, 1);
+          var e = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(Math.floor(e * target)) + (p === 1 ? '+' : '');
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+    })();
+
+    // 각 beat: 탭하면 재생 (능동적 경험)
+    document.querySelectorAll('[data-beat]').forEach(function (beat) {
+      var br = beat.querySelector('[data-play]');
+      br.addEventListener('click', function () { beat.classList.toggle('played'); });
+    });
+
+    // 스크롤 진입 시 힌트용 살짝 자동 재생 (한 번만)
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('played'); io.unobserve(e.target); } });
+      }, { threshold: .55 });
+      document.querySelectorAll('[data-beat]').forEach(function (b) { io.observe(b); });
+    }
+
+    // ══ 맞춤 솔루션 선택(카드) + 자세히보기(drawer) ══
+    function $(id) { return document.getElementById(id); }
+    var V1 = 'onboarding-single-view-v1.html';   // 기존안(v1) 통합 온보딩
+    var ENTRY = 'review';
+    // 제품 데이터 (v2에서 복제 — 카피 2026-07-03 가안)
+    var P = {
+      review: {
+        name: '알파리뷰', color: '#6D58F2',
+        main: '<b>카페24 리뷰앱 1위</b> 알파앱스와 함께,<br>가장 빠르게 사랑받는 쇼핑몰로',
+        hook: '리뷰가 신뢰로, 신뢰가 성장으로 이어져요',
+        tags: ['리뷰 그로스', 'AI 루틴', '모든 리뷰 위젯'],
+        feats: [
+          { title: '가장 빠르게, 양질의 리뷰를 모읍니다', desc: '모든 곳에서 남길 수 있고, 남긴 것을 모을 수 있어요. 그게 모여 신뢰와 성장이 됩니다.', chips: ['QR 리뷰', '알림톡 빠른 리뷰', '외부 리뷰 연동'] },
+          { title: '쌓이는 리뷰, 똑똑해지는 AI', desc: '사람의 업무가 시스템의 루틴이 됩니다 — 실행하던 일이, 감지하면 되는 일로 바뀌어요.', chips: ['AI 리뷰 분석', 'AI 자동 답글', '부정 리뷰 감지·대응'] },
+          { title: '다채로운 디자인으로, 제품의 매력을 더 효과적으로', desc: '어디서 본 그 기능, 다 있습니다. 포토·영상부터 숏츠 위젯까지.', chips: ['포토·영상 리뷰', '20여 종 위젯 + 숏츠', '리뷰 뱃지·상단 고정'] },
+        ],
+      },
+      upsell: {
+        name: '알파업셀', color: '#E62C35',
+        main: '고객의 장바구니에<br><b>제품 하나를 더</b>',
+        hook: '광고비는 그대로, 객단가는 올라갑니다 — 잘 버는 쇼핑몰은 이미 업셀 중',
+        tags: ['AI 상품 추천', '가격 최적화', '숫자로 증명'],
+        feats: [
+          { title: '뭘 담을지, AI가 먼저 찾습니다', desc: '한 번 사는 고객이 두 번 담게 — 함께 사면 좋은 상품을 구매 흐름 곳곳에서 제안해요.', chips: ['AI 추천 모델 9종', '추천 위젯 12종', '옵션세트 바로 담기'] },
+          { title: '더 담고 싶은 가격을 만듭니다', desc: '프로모션을 결합하고 가격을 실험해서, “이건 사야겠다” 싶은 순간을 만들어요.', chips: ['프로모션 다단계 결합', '가격 A/B/N 테스트 자동화', '무료배송 CTA·바로담기'] },
+          { title: '더 번 돈이 대시보드에 찍힙니다', desc: '몇 개가 더 담겼는지, 얼마를 더 벌었는지 — 그로스는 숫자여야 하니까요.', chips: ['함께구매 금액 자동 집계', '함께구매 건수 자동 집계'] },
+        ],
+      },
+      push: {
+        name: '알파푸시', color: '#307AF3',
+        main: '초기 쇼핑몰엔,<br><b>알파푸시만 있으면 됩니다</b>',
+        hook: '따로 쓰던 CRM 번들을 하나로 — 세팅 없이 오늘부터 시작',
+        tags: ['전환 액션 번들', '클릭 몇 번 캠페인', '정액 저가'],
+        feats: [
+          { title: '따로 쓰던 앱, 알파푸시 하나로', desc: '선물하기·초스피드 회원가입·첫구매 할인·탐색 유도 — 고객 여정이 한 곳에서 이어져요.', chips: ['선물하기', '초스피드 회원가입', '첫구매 할인', '탐색 유도'] },
+          { title: '클릭 몇 번으로, 오늘 바로 캠페인', desc: '미리 짜둔 레시피대로 문자·친구톡·알림톡이 자동으로 나가요. 세그먼트 관리까지.', chips: ['회원가입·첫구매·재구매 레시피', '장바구니 방치 온사이트 팝업', '세그먼트 관리'] },
+          { title: '카페24 네이티브, 월 39,000원 정액', desc: '카페24에 바로 적용되고, 발송 비용 외 추가 비용이 없어요. 무료 플랜부터 시작하세요.', chips: ['월 39,000원 정액', '무료 플랜', '발송비 외 추가 없음'] },
+        ],
+      },
+      canvas: {
+        name: '알파캔버스', color: '#00B7A8',
+        main: '디자인, 일단 고르세요<br><b>계속 고칠 수 있으니까요</b>',
+        hook: '개발자 없이, 몇 번이고 새 페이지 — 스킨 선택이 자유가 됩니다',
+        tags: ['상세페이지 위젯 편집', '기획전 갈아끼우기', '도입 혜택'],
+        feats: [
+          { title: '개발자 없이도, 계속 고칠 수 있어요', desc: '스킨에 묶여 있던 상세페이지 영역까지 위젯으로 직접 수정해요. 한 번 사고 끝이 아니에요.', chips: ['상세페이지 위젯 자유 편집', '노코드 수정'] },
+          { title: '위젯만 갈아 끼우면, 몇 번이고 새 페이지', desc: '기획전·브랜드페이지·공백페이지 — 이벤트마다 처음부터 다시 만들 필요가 없어요.', chips: ['기획전·브랜드·공백페이지 자유 레이아웃', '디자인 요소 전체 제공'] },
+          { title: '지금 시작하면, 아끼는 돈이 보여요', desc: '스킨 수정 외주비와 시간을 환산해 보세요. 초기 도입 혜택도 준비되어 있어요.', chips: ['초기 도입 혜택', '디자인 리소스 절감'] },
+        ],
+      },
+    };
+    var MICRO = {
+      upsell: '<div class="md-cart"><span class="md-plus1">+1 담김</span>' +
+        '<div class="md-cartrow"><span class="th">🪴</span>미니 화분<span class="pr">12,900원</span></div>' +
+        '<div class="md-cartrow ai"><span class="th">💡</span>무드 조명<span class="aitag">AI 추천</span><span class="pr">19,800원</span></div></div>',
+      push: '<div class="md-phone"><div class="md-noti"><span class="ic">톡</span><span><b>알파몰</b>첫 구매 10% 쿠폰 도착 🎁</span></div>' +
+        '<div class="md-noti"><span class="ic">💬</span><span><b>알파몰</b>장바구니 상품이 기다려요</span></div></div>',
+      canvas: '<div class="md-canvas"><span class="md-blk wide">여름 기획전 배너</span><span class="md-blk">상품 그리드</span><span class="md-blk">브랜드 스토리</span></div>',
+    };
+    var RECO = ['upsell', 'push', 'canvas'];
+    var KEYS = ['review', 'upsell', 'push', 'canvas'];
+    var cart = new Set(['review']);
+
+    function renderPick() {
+      var entry = P[ENTRY];
+      $('pickTitle').innerHTML = '<b style="color:' + entry.color + '">' + entry.name + '</b>와 함께 쓰면,<br>성장이 더 빨라지는 솔루션이에요';
+      var grid = $('pickGrid'); grid.innerHTML = '';
+      RECO.forEach(function (k) {
+        var d = P[k];
+        var card = document.createElement('div');
+        card.className = 'pcard' + (cart.has(k) ? ' added' : '');
+        card.style.setProperty('--pc', d.color);
+        card.dataset.key = k;
+        card.innerHTML =
+          '<span class="added-flag">🛒 담김</span><div class="pc-stage">' + (MICRO[k] || '') + '</div>' +
+          '<div class="pc-body"><span class="pc-name">' + d.name + '</span>' +
+          '<div class="pc-main">' + d.main + '</div><p class="pc-hook">' + d.hook + '</p>' +
+          '<div class="pc-tags">' + d.tags.map(function (t) { return '<span class="pc-tag">' + t + '</span>'; }).join('') + '</div>' +
+          '<div class="pc-btns"><button class="pc-view">기능 자세히 보기</button>' +
+          '<button class="pc-add">' + (cart.has(k) ? '✓ 담김 · 빼기' : '+ 담기') + '</button></div></div>';
+        card.querySelector('.pc-view').onclick = function () { openDrawer(k); };   // v3: 자세히보기 = 흰색 drawer
+        card.querySelector('.pc-add').onclick = function (e) { toggleCart(k, e.currentTarget); };
+        grid.appendChild(card);
+      });
+    }
+    function toggleCart(k, fromEl) {
+      if (k === ENTRY) return;
+      if (cart.has(k)) cart.delete(k);
+      else { cart.add(k); if (fromEl) flyToCart(fromEl, P[k].color); }
+      renderPick(); renderDock();
+    }
+    function flyToCart(fromEl, color) {
+      var a = fromEl.getBoundingClientRect(), b = $('cdCount').getBoundingClientRect();
+      var dot = document.createElement('div'); dot.className = 'fly-dot'; dot.style.background = color;
+      dot.style.left = a.left + a.width / 2 + 'px'; dot.style.top = a.top + a.height / 2 + 'px';
+      document.body.appendChild(dot);
+      requestAnimationFrame(function () { requestAnimationFrame(function () { dot.style.left = b.left + 'px'; dot.style.top = b.top + 'px'; dot.style.transform = 'scale(.4)'; dot.style.opacity = '.5'; }); });
+      setTimeout(function () { dot.remove(); var c = $('cdCount'); c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump'); }, 660);
+    }
+    function renderDock() {
+      $('cdCount').textContent = cart.size;
+      var chips = $('cdChips'); chips.innerHTML = '';
+      KEYS.filter(function (k) { return cart.has(k); }).forEach(function (k) {
+        var d = P[k];
+        var chip = document.createElement('span');
+        chip.className = 'cd-chip'; chip.style.setProperty('--cc', d.color);
+        chip.innerHTML = '<span class="cdot" style="background:' + d.color + '"></span>' + d.name +
+          (k === ENTRY ? '<span class="lk">앱스토어 선택</span>' : '<button class="rm" title="빼기">×</button>');
+        if (k !== ENTRY) chip.querySelector('.rm').onclick = function () { toggleCart(k); };
+        chips.appendChild(chip);
+      });
+      $('cdNext').textContent = $('phaseSelect').hidden ? '다음 — 함께 쓸 솔루션 보기' : (cart.size + '개 담고 설정으로 →');
+    }
+
+    function showSelect() {
+      $('phaseIntro').hidden = true;
+      $('phaseSelect').hidden = false;
+      renderPick(); renderDock();
+      window.scrollTo(0, 0);
+    }
+
+    // 자세히보기 drawer — v3 흰색 상세 (feats 기반)
+    function openDrawer(k) {
+      var d = P[k], body = $('dwBody');
+      $('dwName').innerHTML = '<span style="color:' + d.color + '">●</span> ' + d.name + ' 자세히';
+      body.innerHTML = '<div class="dw-detail" style="--pc:' + d.color + '"><h2 class="dh">' + d.main.replace(/<br>/g, ' ') + '</h2><p class="dhook">' + d.hook + '</p>' +
+        d.feats.map(function (f, i) {
+          return '<div class="dw-feat" style="--pc:' + d.color + '"><div class="n">' + (i + 1) + '</div><div><h4>' + f.title + '</h4><p>' + f.desc + '</p>' +
+            (f.chips ? '<div class="dw-chips">' + f.chips.map(function (c) { return '<span>' + c + '</span>'; }).join('') + '</div>' : '') + '</div></div>';
+        }).join('') + '</div>';
+      $('dwBackdrop').classList.add('on'); $('dw').classList.add('on'); $('dw').setAttribute('aria-hidden', 'false');
+    }
+    renderDock();   // 초기 도크(소개 단계) 반영
+    function closeDrawer() {
+      $('dwBackdrop').classList.remove('on'); $('dw').classList.remove('on'); $('dw').setAttribute('aria-hidden', 'true');
+    }
+    $('dwClose').onclick = closeDrawer;
+    $('dwBackdrop').onclick = closeDrawer;
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('dw').classList.contains('on')) closeDrawer(); });
+
+    // 다음: 소개 → 카드 선택(v3 내부). 카드 단계에서 다음은 설정(v1)으로
+    $('go').addEventListener('click', showSelect);
+    $('cdNext').addEventListener('click', function () { if ($('phaseSelect').hidden) showSelect(); else location.href = V1; });
+    $('skipWidget').addEventListener('click', function () { location.href = V1; });
+
+    // 상단 스텝퍼 (v1/v2와 동일 컴포넌트)
+    (function () {
+      var LABELS = ['담당자 정보 입력', '쇼핑몰 정보 입력', '맞춤 솔루션 선택', '위젯 설정', '카드 등록'];
+      var CHECK = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#307AF3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5 9-10"/></svg>';
+      var box = $('stepper'), cur = 3; if (!box) return;
+      LABELS.forEach(function (lbl, idx) {
+        var n = idx + 1, st = n < cur ? 'done' : (n === cur ? 'active' : 'todo');
+        var node = document.createElement('div');
+        node.className = 'iv-step ' + st + ' clickable';
+        node.innerHTML = '<span class="c">' + (st === 'done' ? CHECK : n) + '</span><span class="t">' + lbl + '</span>' + (n < 5 ? '<span class="tail"></span>' : '');
+        node.onclick = function () { if (n === 3) showSelect(); else location.href = V1; };
+        box.appendChild(node);
+      });
+    })();
+  </script>
+</body>
+
+</html>

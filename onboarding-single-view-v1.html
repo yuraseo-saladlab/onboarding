@@ -123,9 +123,11 @@
     .main {
       flex: 1;
       display: grid;
-      grid-template-columns: 440px 1fr;
-      padding: 44px 40px 28px;
+      grid-template-columns: 316px minmax(0, 1fr);
+      gap: 28px;
+      padding: 36px 40px 28px;
       width: 100%;
+      max-width: 1320px;
       margin: 0 auto;
     }
 
@@ -249,6 +251,654 @@
 
     .right {
       min-width: 0;
+    }
+
+    /* ── 스텝3 리디자인: 진입 앱(앱스토어 선택) 크게 + 우측 추천 레일 ── */
+    .stage {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 카드 '자세히 보기' 클릭 시에만 풀페이지 모달 */
+    .stage.modal {
+      position: fixed;
+      inset: 0;
+      z-index: 110;              /* .nav(100)·스텝퍼(20)보다 위 */
+      padding: 32px;
+      background: #fff;
+      overflow: auto;
+    }
+
+    .sg-close {
+      display: none;
+      margin-left: auto;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 100px;
+      padding: 8px 15px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      cursor: pointer;
+    }
+
+    .sg-close:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    .stage.modal .sg-close {
+      display: inline-flex;
+    }
+
+    .sg-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .sg-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      background: var(--line-soft);
+      border-radius: 100px;
+      padding: 7px 14px;
+    }
+
+    .sg-kicker .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .sg-kicker b {
+      color: var(--ink);
+    }
+
+    .sg-back {
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      cursor: pointer;
+      padding: 0;
+      transition: .15s;
+    }
+
+    .sg-back:hover {
+      color: var(--ink);
+    }
+
+    .sg-title {
+      font-size: 29px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.32;
+      margin-bottom: 10px;
+    }
+
+    .sg-title b {
+      color: var(--stage-accent, var(--accent));
+    }
+
+    .sg-trust {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+      margin-bottom: 18px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-dim);
+    }
+
+    .sg-trust .f {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sg-trust .f::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ok);
+    }
+
+    .sg-trust .note {
+      font-size: 11px;
+      color: var(--ink-faint);
+      font-weight: 500;
+    }
+
+    /* USP 3종 카드 */
+    .usps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .usp {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: #fff;
+      transition: .18s;
+    }
+
+    .usp:hover {
+      border-color: var(--stage-accent, var(--accent));
+      box-shadow: 0 8px 22px rgba(30, 28, 60, .08);
+      transform: translateY(-2px);
+    }
+
+    .usp .ic {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .usp .t {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 5px;
+    }
+
+    .usp .d {
+      font-size: 12px;
+      color: var(--ink-dim);
+      line-height: 1.55;
+    }
+
+    .stage .panel {
+      min-height: 420px;
+      flex: 1;
+    }
+
+    /* 우측 추천 레일 (넛지) */
+    .rail {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-self: start;
+      position: sticky;
+      top: 84px;
+    }
+
+    .rail-head {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.45;
+    }
+
+    .rail-head .sub {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-dim);
+      margin-top: 4px;
+    }
+
+    .rcard {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 15px;
+      background: #fff;
+      cursor: pointer;
+      transition: .18s;
+      position: relative;
+    }
+
+    .rcard:hover {
+      border-color: var(--rc);
+      box-shadow: 0 8px 22px rgba(30, 28, 60, .09);
+    }
+
+    .rcard.viewing {
+      border-color: var(--rc);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--rc) 14%, transparent);
+    }
+
+    .rcard .rc-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--rc);
+      margin-bottom: 7px;
+    }
+
+    .rcard .rc-name::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rc);
+    }
+
+    .rcard .rc-copy {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.45;
+      margin-bottom: 5px;
+    }
+
+    .rcard .rc-copy b {
+      color: var(--rc);
+    }
+
+    .rcard .rc-hook {
+      font-size: 11.5px;
+      color: var(--ink-dim);
+      line-height: 1.5;
+      margin-bottom: 11px;
+    }
+
+    .rcard .rc-btns {
+      display: flex;
+      gap: 7px;
+    }
+
+    .rcard .rc-view {
+      flex: 1;
+      height: 34px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .rcard .rc-view:hover {
+      border-color: var(--rc);
+      color: var(--rc);
+    }
+
+    .rcard .rc-pick {
+      flex: 1;
+      height: 34px;
+      border-radius: 9px;
+      border: none;
+      background: var(--rc);
+      color: #fff;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .rcard .rc-pick:hover {
+      filter: brightness(1.08);
+    }
+
+    .rcard.added .rc-pick {
+      background: color-mix(in srgb, var(--rc) 12%, #fff);
+      color: var(--rc);
+    }
+
+    .rcard .rc-flag {
+      position: absolute;
+      top: -8px;
+      right: 12px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--rc);
+      border-radius: 100px;
+      padding: 3px 9px;
+      opacity: 0;
+      transform: scale(.7);
+      transition: .22s cubic-bezier(.2, 1.6, .4, 1);
+    }
+
+    .rcard.added .rc-flag {
+      opacity: 1;
+      transform: none;
+    }
+
+    .rail-note {
+      font-size: 11.5px;
+      color: var(--ink-faint);
+      line-height: 1.55;
+    }
+
+    /* ── 페이지 1: 소개 — 리뷰 스테이지만, USP 세로 스택 ── */
+    .main.solo {
+      grid-template-columns: 1fr;
+      max-width: none;
+    }
+
+    .main.solo .rail {
+      display: none;
+    }
+
+    .main.solo .usps {
+      grid-template-columns: 1fr;
+    }
+
+    .main.solo .sg-title {
+      font-size: 32px;
+    }
+
+    /* 앱 소개: USP 목록(좌 사이드패널) + 데모(우) 2단 */
+    .main.solo .stage {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      gap: 18px 30px;
+      align-items: start;
+    }
+
+    .main.solo .stage .sg-top,
+    .main.solo .stage .sg-title,
+    .main.solo .stage .sg-trust {
+      grid-column: 1 / -1;
+    }
+
+    .main.solo .stage .usps {
+      grid-column: 1;
+      margin-bottom: 0;
+    }
+
+    .main.solo .stage .panel {
+      grid-column: 2;
+    }
+
+    @media (max-width: 860px) {
+      .main.solo .stage {
+        grid-template-columns: 1fr;
+      }
+
+      .main.solo .stage .usps,
+      .main.solo .stage .panel {
+        grid-column: 1;
+      }
+    }
+
+    /* ── 페이지 2: 선택 — 목록(좌 사이드패널) + 선택 앱 소개(우 풀페이지) ── */
+    .main.pick {
+      grid-template-columns: 300px minmax(0, 1fr);
+      max-width: none;
+    }
+
+    .main.pick .stage {
+      display: block;
+      min-width: 0;
+    }
+
+    .main.pick .rail {
+      order: -1;
+      position: sticky;
+      top: 84px;
+      align-self: start;
+      width: 100%;
+      max-height: calc(100vh - 104px);
+      overflow: auto;
+      animation: railIn .4s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    @keyframes railIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+    }
+
+    /* ── 자세히보기 드로어 (우측 슬라이드 패널) ── */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 110;
+      background: rgba(20, 18, 40, .42);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+
+    .drawer-backdrop.on {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 120;
+      width: min(560px, 94vw);
+      background: #fff;
+      box-shadow: -24px 0 60px rgba(30, 28, 60, .2);
+      transform: translateX(103%);
+      transition: transform .38s cubic-bezier(.2, .8, .2, 1);
+      display: flex;
+      flex-direction: column;
+      border-left: 3px solid var(--dw, var(--accent));
+    }
+
+    .drawer.on {
+      transform: none;
+    }
+
+    .dw-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      z-index: 2;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink-dim);
+      font-size: 14px;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .dw-close:hover {
+      color: var(--ink);
+      border-color: var(--ink-faint);
+    }
+
+    .dw-scroll {
+      flex: 1;
+      overflow: auto;
+      padding: 24px 26px 18px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .dw-kicker {
+      align-self: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .dw-title {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .dw-title b {
+      color: var(--dw, var(--accent));
+    }
+
+    .dw-hook {
+      font-size: 13.5px;
+      color: var(--ink-dim);
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    .drawer .sg-trust {
+      margin-bottom: 14px;
+    }
+
+    /* 드로어 안 USP — 세로 스택 */
+    .dw-usps {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 16px;
+    }
+
+    .dw-usps .usp {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+    }
+
+    .dw-usps .usp:hover {
+      border-color: var(--dw, var(--accent));
+      transform: none;
+    }
+
+    .dw-usps .usp .ic {
+      margin-bottom: 0;
+      font-size: 17px;
+    }
+
+    .dw-usps .usp .t {
+      margin-bottom: 3px;
+      font-size: 13.5px;
+    }
+
+    .dw-usps .usp .d {
+      font-size: 11.5px;
+    }
+
+    /* 드로어 데모 (클릭커블 iframe) */
+    .dw-demo {
+      flex: 1;
+      min-height: 300px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      background: #fff;
+    }
+
+    .dw-demo iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .dw-foot {
+      display: flex;
+      gap: 10px;
+      padding: 14px 26px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .dw-ghost {
+      height: 46px;
+      padding: 0 20px;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink-dim);
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .dw-ghost:hover {
+      border-color: var(--ink-faint);
+      color: var(--ink);
+    }
+
+    .dw-pick {
+      flex: 1;
+      height: 46px;
+      border-radius: 11px;
+      border: none;
+      background: var(--dw, var(--accent));
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .dw-pick:hover {
+      filter: brightness(1.08);
+    }
+
+    .dw-pick.added {
+      background: color-mix(in srgb, var(--dw, var(--accent)) 12%, #fff);
+      color: var(--dw, var(--accent));
+    }
+
+    /* 레일 상단 — 이미 담긴 진입 앱(알파리뷰) 표시 */
+    .rail-entry {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      padding: 9px 12px;
+    }
+
+    .rail-entry .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .rail-entry b {
+      color: var(--ok);
+      margin-left: auto;
+    }
+
+    @media (max-width:1100px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+
+      .usps {
+        grid-template-columns: 1fr;
+      }
+
+      .rail {
+        position: static;
+      }
     }
 
     .panel {
@@ -1799,7 +2449,7 @@
       border-radius: 0;
       background: #fff;
       overflow: hidden;
-      min-height: 340px;
+      min-height: 500px;
       position: relative;
     }
 
@@ -1813,11 +2463,24 @@
     }
 
     .nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
       border-top: 1px solid var(--line);
-      padding: 16px 40px;
+      padding: 14px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: saturate(1.4) blur(10px);
+      box-shadow: 0 -8px 30px rgba(20, 20, 26, .07);
+    }
+
+    /* 고정 하단바에 본문이 가려지지 않게 */
+    #selectView .main {
+      padding-bottom: 92px;
     }
 
     .nav .summary {
@@ -1904,21 +2567,33 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      /* 아트웍(카드 클러스터)이 중앙~하단에 있어 크롭돼도 항상 보이도록 */
+      object-position: center 62%;
       pointer-events: none;
+    }
+
+    /* 상단 텍스트 가독성 오버레이 — 어떤 크롭에서도 헤드라인이 묻히지 않게 */
+    .iv-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 2, 50, 0.88) 0%, rgba(10, 2, 50, 0.38) 32%, transparent 58%);
+      pointer-events: none;
+      z-index: 1;
     }
 
     .iv-hero-top {
       position: absolute;
-      top: 64px;
+      top: clamp(28px, 7vh, 64px);
       left: 0;
       right: 0;
-      padding: 0 32px;
+      padding: 0 clamp(20px, 3vw, 40px);
       text-align: center;
       z-index: 2;
     }
 
     .iv-headline {
-      font-size: 32px;
+      font-size: clamp(21px, 1.9vw, 32px);
       font-weight: 700;
       line-height: 1.3;
       letter-spacing: -0.02em;
@@ -1933,11 +2608,11 @@
     }
 
     .iv-card {
-      margin: 20px auto 0;
-      max-width: 520px;
+      margin: clamp(14px, 2vh, 20px) auto 0;
+      max-width: min(520px, 94%);
       border: 1px solid rgba(255, 255, 255, 0.16);
       border-radius: 20px;
-      padding: 16px 24px;
+      padding: clamp(12px, 1.4vw, 16px) clamp(16px, 2vw, 24px);
       background: linear-gradient(103deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 30%, rgba(255, 255, 255, 0) 100%);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       display: flex;
@@ -1986,7 +2661,7 @@
     }
 
     .iv-ctext {
-      font-size: 20px;
+      font-size: clamp(14.5px, 1.35vw, 20px);
       line-height: 1.3;
       color: #fff;
       font-weight: 400;
@@ -2265,9 +2940,71 @@
       visibility: hidden;
     }
 
+    /* 낮은 화면(노트북 축소창 등): 텍스트·카드 컴팩트하게 */
+    @media (max-height:720px) {
+      .iv-hero-top {
+        top: 22px;
+      }
+
+      .iv-headline {
+        font-size: 20px;
+      }
+
+      .iv-ctext {
+        font-size: 14px;
+      }
+
+      .iv-av {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+      }
+    }
+
+    /* 모바일·좁은 화면: 히어로를 숨기지 않고 상단 배너로 전환 */
     @media (max-width:900px) {
+      .infoview.on {
+        flex-direction: column;
+      }
+
       .iv-hero {
+        flex: 0 0 auto;
+        height: clamp(190px, 30vh, 270px);
+      }
+
+      /* 가로 크롭에서 아트웍 클러스터가 중앙에 오도록 */
+      .iv-bg {
+        object-position: center 42%;
+      }
+
+      .iv-hero::after {
+        background: linear-gradient(180deg, rgba(10, 2, 50, 0.72), rgba(10, 2, 50, 0.42));
+      }
+
+      .iv-hero-top {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .iv-headline {
+        font-size: clamp(17px, 4.6vw, 23px);
+      }
+
+      .iv-headline br {
         display: none;
+      }
+
+      .iv-card {
+        display: none;
+      }
+
+      .iv-pane {
+        flex: 1;
+        min-height: 0;
+      }
+
+      .iv-body {
+        padding: 24px 20px;
       }
     }
   </style>
@@ -2367,12 +3104,23 @@
 
   <div id="selectView">
     <div class="main">
-      <div class="left">
-        <h1 id="leftTitle">해결하고 싶은<br>문제를 골라보세요</h1>
-        <p class="sub">문제를 눌러 솔루션을 둘러보고, 체크박스로 선택하세요.</p>
-        <div class="chips" id="chips"></div>
-      </div>
-      <div class="right">
+      <!-- 좌측 추천 레일 — 다른 솔루션 선택지 (선택 페이즈에서만 노출) -->
+      <aside class="rail">
+        <div class="rail-head" id="railHead"></div>
+        <div class="rail-entry" id="railEntry"></div>
+        <div class="rail-cards" id="railCards" style="display:flex;flex-direction:column;gap:12px"></div>
+        <p class="rail-note">담은 솔루션은 다음 단계에서 한 번에 무료체험이 시작돼요. 언제든 뺄 수 있어요.</p>
+      </aside>
+      <!-- 스테이지 — 앱소개 페이즈: 알파리뷰 크게 / 선택 페이즈: 추천 솔루션 미리보기 -->
+      <div class="stage">
+        <div class="sg-top">
+          <span class="sg-kicker" id="sgKicker"></span>
+          <button class="sg-back" id="sgBack" style="display:none">← 돌아가기</button>
+          <button class="sg-close" id="sgClose">✕ 닫기</button>
+        </div>
+        <h1 class="sg-title" id="sgTitle"></h1>
+        <div class="sg-trust" id="sgTrust"></div>
+        <div class="usps" id="sgUsps"></div>
         <div class="panel">
           <div class="panel-body">
             <div class="anim-area"><iframe id="animFrame" title="제품 데모" loading="lazy"></iframe></div>
@@ -2385,66 +3133,28 @@
       <span class="summary"><b id="cnt">1개</b> 솔루션을 선택했어요</span>
       <div class="btns"><button class="prev">이전</button><button class="next">다음</button></div>
     </div>
-  </div>
 
-
-  <!-- 시각 시퀀스: [다음] 누르면 선택한 프로덕트별로 1장씩 깊게 -->
-  <div class="intro" id="intro">
-    <div class="intro-body">
-      <div class="intro-inner">
-        <!-- 헤더: 뒤로가기 / (제품명·라벨 한 줄) / 헤드라인 / 신뢰 -->
-        <div class="intro-head">
-          <button class="ih-back" id="introClose">← 선택으로 돌아가기</button>
-          <span class="ih-eyebrow"><span class="ih-label">선택한 솔루션 자세히 보기</span><span class="ih-count" id="icKicker">1 /
-              3</span><span class="ih-prod"><span class="ic-dot" id="icDot"></span><b id="icName">알파리뷰</b></span></span>
-          <h2 class="ic-vp" id="icVp">리뷰를 구매를 부르는 신뢰 자산으로 만들어요</h2>
-          <div class="ic-trust" id="icTrust"></div>
-        </div>
-
-        <!-- 현재 단계 캡션 (데모 위) -->
-        <div class="ic-cap" id="icCap"></div>
-
-        <!-- 큰 데모 화면 + 번호 스텝퍼 (데모 바로 아래) -->
-        <div class="intro-demo" id="introDemo">
-          <div class="demo-browser" id="icMock">
-            <div class="db-bar"><span class="db-dot"></span><span class="db-dot"></span><span
-                class="db-dot"></span><span class="db-url" id="icUrl">myshop.cafe24.com</span></div>
-            <div class="db-screen" id="icScreen">
-              <div class="db-metric" id="icMetric"></div>
-              <div class="db-row">
-                <div class="db-thumb"></div>
-                <div class="db-lines">
-                  <div class="dl"></div>
-                  <div class="dl s"></div>
-                </div>
-              </div>
-              <div class="db-row">
-                <div class="db-thumb"></div>
-                <div class="db-lines">
-                  <div class="dl"></div>
-                  <div class="dl s"></div>
-                </div>
-              </div>
-              <div class="db-row">
-                <div class="db-thumb"></div>
-                <div class="db-lines">
-                  <div class="dl"></div>
-                  <div class="dl s"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="ic-steps" id="icSteps"></div>
-          <div class="ic-hint" id="icHint">화면을 탭하면 다음 단계 →</div>
+    <!-- 자세히보기 드로어 — 추천 솔루션 상세 (우측 슬라이드) -->
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <aside class="drawer" id="drawer">
+      <button class="dw-close" id="dwClose" title="닫기">✕</button>
+      <div class="dw-scroll">
+        <span class="sg-kicker dw-kicker" id="dwKicker"></span>
+        <h2 class="dw-title" id="dwTitle"></h2>
+        <p class="dw-hook" id="dwHook"></p>
+        <div class="sg-trust" id="dwTrust"></div>
+        <div class="dw-usps" id="dwUsps"></div>
+        <div class="dw-demo">
+          <iframe id="dwFrame" title="솔루션 데모" loading="lazy"></iframe>
         </div>
       </div>
-    </div>
-
-    <div class="intro-foot">
-      <button class="intro-prev" id="introPrev">← 이전</button>
-      <button class="intro-next" id="introNext">다음 솔루션 →</button>
-    </div>
+      <div class="dw-foot">
+        <button class="dw-ghost" id="dwGhostClose" onclick="document.getElementById('dwClose').click()">닫기</button>
+        <button class="dw-pick" id="dwPick"></button>
+      </div>
+    </aside>
   </div>
+
 
   <!-- 스텝 4-A: 리뷰 위젯 미리보기 (리뷰 선택 시) -->
   <div class="step-view" id="reviewWidget">
@@ -2634,10 +3344,10 @@
         story: [['구매 흐름을 분석해', '장바구니·상세페이지에서 고객 행동을 읽어요'], ['딱 맞는 상품을 추천', 'AI가 같이 살 만한 상품을 그 자리에 띄워요'], ['장바구니가 커져요', '클릭 한 번으로 담으면서 객단가가 올라가요']]
       },
     };
-    const KEYS = ['canvas', 'insta', 'review', 'push', 'upsell'];
-    const LOCKED = { canvas: '설치됨' };  // 이미 확정 — 해제 불가
+    const KEYS = ['review', 'upsell', 'push', 'canvas', 'insta'];
+    const LOCKED = { review: '설치됨' };  // 카페24 앱스토어에서 선택하고 들어온 앱 — 해제 불가
     // 무료체험 이력이 있어 무료체험 불가(바로 결제) 제품 — 계정 데이터 연동 전 설정값. 키 추가/삭제로 제어
-    const TRIAL_USED = new Set(['review']);
+    const TRIAL_USED = new Set([]);
 
     // ── 신뢰 근거(trust) ──────────────────────────────
     // 원칙:
@@ -2682,43 +3392,195 @@
 
     // 제품별 클릭커블 애니메이션 데모 (anim-area iframe)
     const ANIM = {
-      canvas: 'canvas-onboarding.html',
-      insta: 'instafeed-onboarding.html',
-      review: 'review-onboarding.html',
-      push: 'push-onboarding.html',
-      upsell: 'upsell-onboarding.html',
+      canvas: 'demo-canvas.html',
+      insta: 'demo-instafeed.html',
+      review: 'demo-review.html',
+      push: 'demo-push.html',
+      upsell: 'demo-upsell.html',
     };
 
-    let cur = 'canvas', step = -1;
+    let cur = 'review', step = -1;
     let selected = new Set(Object.keys(LOCKED));
     const $ = id => document.getElementById(id);
     const cvar = k => getComputedStyle(document.documentElement).getPropertyValue('--c-' + k).trim();
 
     const LOCK_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
 
-    function renderChips() {
-      const wrap = $('chips'); wrap.innerHTML = '';
-      KEYS.forEach(k => {
-        const d = DATA[k]; const color = cvar(k);
-        const isL = !!LOCKED[k], isS = selected.has(k), isV = (k === cur);
-        const chip = document.createElement('div');
-        chip.className = 'chip' + (isV ? ' viewing' : '') + (isS ? ' selected' : '') + (isL ? ' locked' : '');
-        chip.style.setProperty('--chip-accent', color);
-        const check = document.createElement('div'); check.className = 'check'; check.tabIndex = isL ? -1 : 0;
-        if (isS) { check.innerHTML = isL ? LOCK_SVG : '✓'; check.style.background = isL ? '' : color; }
-        check.onclick = (e) => { e.stopPropagation(); if (!isL) toggle(k); };
-        check.onkeydown = (e) => { if ((e.key === 'Enter' || e.key === ' ') && !isL) { e.preventDefault(); toggle(k); } };
-        const meta = document.createElement('div'); meta.className = 'meta'; meta.tabIndex = 0;
-        const qq = document.createElement('div'); qq.className = 'q'; qq.textContent = d.chip;
-        const sol = document.createElement('div'); sol.className = 'sol';
-        sol.style.color = isS ? color : 'var(--ink-faint)';
-        sol.innerHTML = isS ? (isL ? `${d.name}<span class="lk"> · 앱스토어에서 선택함</span>` : (TRIAL_USED.has(k) ? `${d.name} 체험 완료 · 구독 선택` : `${d.name} 무료체험 선택`)) : d.name;
-        meta.appendChild(qq); meta.appendChild(sol);
-        meta.onclick = () => { cur = k; loadPanel(); };
-        meta.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cur = k; loadPanel(); } };
-        chip.appendChild(check); chip.appendChild(meta);
-        wrap.appendChild(chip);
+    // ── 스텝3 리디자인 ──────────────────────────────
+    // 구조: (1) 앱소개 페이즈 — 앱스토어에서 선택한 알파리뷰를 크게 소개 (레일 숨김)
+    //       (2) 선택 페이즈 — 리뷰는 그대로 크게, 우측 레일로 다른 솔루션 넛지
+    const ENTRY_K = Object.keys(LOCKED)[0] || 'review';      // 카페24 앱스토어에서 선택하고 들어온 앱
+    const RAIL = KEYS.filter(k => k !== ENTRY_K && k !== 'insta'); // 추천 카드 (인스타피드는 7/3 정리에서 제외)
+    let drawerKey = null;  // 자세히보기 드로어에 열려 있는 제품
+    let phase = 'intro';   // 페이지 1: 'intro'(리뷰 소개) → 페이지 2: 'select'(솔루션 선택) / 페이지 3: 드로어
+
+    // 2026-07-03 정리 기준 카피 — 가안, 확정 전 // TODO
+    const UI = {
+      review: {
+        hero: '<b>카페24 리뷰앱 1위</b> 알파앱스와 함께, 가장 빠르게 사랑받는 쇼핑몰로',
+        hook: '리뷰가 신뢰로, 신뢰가 성장으로',
+        usps: [
+          ['📈', '리뷰 그로스', '가장 빠르게 양질의 리뷰를 모아 신뢰와 성장을 만들어요 — QR·빠른 리뷰·외부 리뷰 연동'],
+          ['🤖', 'AI 루틴', '쌓이는 리뷰, 똑똑해지는 AI — 수집·답글·부정 리뷰 대응까지 사람 손 없이'],
+          ['🧩', '모든 리뷰 기능', '포토·영상·숏츠와 20여 종 위젯 — 어디서 본 그 기능, 다 있어요'],
+        ],
+      },
+      upsell: {
+        hero: '고객의 장바구니에 <b>제품 하나를 더</b>',
+        hook: '광고비는 그대로, 객단가는 올라가요 — 잘 버는 쇼핑몰은 이미 업셀 중',
+        usps: [
+          ['🎯', 'AI 상품 추천', '뭘 담을지 AI가 먼저 찾아요 — 추천 모델 9종 · 위젯 12종 · 옵션세트 바로담기'],
+          ['💰', '가격 추천', '더 담고 싶은 가격을 만들어요 — 프로모션 다단계 결합 · 가격 A/B/N 테스트 자동화'],
+          ['🔢', '숫자로 증명', '함께구매 금액·건수 자동 집계 — 더 번 돈이 대시보드에 그대로 보여요'],
+        ],
+      },
+      push: {
+        hero: '초기 쇼핑몰엔,<br><b>알파푸시만 있으면 됩니다</b>',
+        hook: '따로 쓰던 CRM 번들을 하나로 — 세팅 없이 오늘부터',
+        usps: [
+          ['🧰', '전환 액션 번들', '선물하기 · 초스피드 회원가입 · 첫구매 할인 — 고객 여정이 한 곳에서 이어져요'],
+          ['⚡', '클릭 몇 번 캠페인', '레시피대로 문자·친구톡·알림톡 자동 발송 — 장바구니 방치 팝업까지'],
+          ['🏷️', '카페24 네이티브 정액', '월 39,000원 정액 + 무료 플랜 — 발송비 외 추가 비용 없음'],
+        ],
+      },
+      canvas: {
+        hero: '디자인, 일단 고르세요<br><b>계속 고칠 수 있으니까요</b>',
+        hook: '개발자 없이, 몇 번이고 새 페이지',
+        usps: [
+          ['✏️', '계속 고치기', '스킨에 묶여 있던 상세페이지 영역까지, 개발자 없이 위젯으로 직접 수정'],
+          ['🔁', '갈아끼우기', '기획전·브랜드·공백페이지 — 위젯만 바꾸면 몇 번이고 새로 만들어요'],
+          ['🎁', '도입 혜택', '디자인 리소스 절감을 금액으로 — 초기 도입 쇼핑몰 혜택 진행 중'],
+        ],
+      },
+      insta: {
+        hero: '인스타 감성을 쇼핑몰 안으로 그대로',
+        hook: '노코드 피드 연동',
+        usps: [],
+      },
+    };
+
+    function renderChips() { renderStage(); renderRail(); }
+
+    function renderStage() {
+      const k = cur, d = DATA[k], u = UI[k] || {}, color = cvar(k);
+      const isEntry = (k === ENTRY_K);
+      $('selectView').style.setProperty('--stage-accent', color);
+      $('sgKicker').innerHTML = `<span class="dot" style="background:${color}"></span>${isEntry ? '카페24 앱스토어에서 선택한 앱' : '함께 쓰면 좋은 솔루션'} · <b>${d.name}</b>${isEntry ? ' <span style="color:var(--ok)">✓ 담김</span>' : ''}`;
+      $('sgBack').style.display = 'none';  // 스테이지는 항상 진입 앱 소개 — 추천은 드로어로
+      $('sgTitle').innerHTML = u.hero || d.vp;
+      // 신뢰 근거 (기존 TRUST 재사용)
+      const tr = trustOf(k); const tb = $('sgTrust'); tb.innerHTML = '';
+      if (tr) {
+        (tr.stats || []).forEach(f => { const e = document.createElement('span'); e.className = 'f'; e.textContent = f; tb.appendChild(e); });
+        (tr.chips || []).forEach(p => { const e = document.createElement('span'); e.className = 'f'; e.textContent = p[0]; e.title = p[1] || ''; tb.appendChild(e); });
+        if (tr.note) { const e = document.createElement('span'); e.className = 'note'; e.textContent = tr.note; tb.appendChild(e); }
+        tb.style.display = 'flex';
+      } else tb.style.display = 'none';
+      // USP 3종
+      const ub = $('sgUsps'); ub.innerHTML = '';
+      (u.usps || []).forEach(x => {
+        const e = document.createElement('div'); e.className = 'usp';
+        e.innerHTML = `<span class="ic">${x[0]}</span><div class="t">${x[1]}</div><div class="d">${x[2]}</div>`;
+        ub.appendChild(e);
       });
+    }
+
+    // 목록 카드/진입 앱 클릭 → 우측 본문(선택 앱 소개)을 그 앱으로 갱신
+    function selectStage(k) { cur = k; loadPanel(); window.scrollTo(0, 0); }
+
+    function renderRail() {
+      const wrap = $('railCards'); if (!wrap) return; wrap.innerHTML = '';
+      $('railHead').innerHTML = `<span style="color:${cvar(ENTRY_K)}">${DATA[ENTRY_K].name}</span>와 함께 쓰면,<br>매출이 더 커져요<span class="sub">카드를 누르면 오른쪽에서 자세히 보고, 담을 수 있어요</span>`;
+      const entry = $('railEntry');
+      entry.innerHTML = `<span class="dot" style="background:${cvar(ENTRY_K)}"></span>${DATA[ENTRY_K].name} · 앱스토어에서 선택<b>✓ 담김</b>`;
+      entry.style.cursor = 'pointer';
+      entry.classList.toggle('viewing', cur === ENTRY_K);
+      entry.onclick = () => selectStage(ENTRY_K);
+      RAIL.forEach(k => {
+        const d = DATA[k], u = UI[k] || {}, color = cvar(k);
+        const c = document.createElement('div');
+        c.className = 'rcard' + (k === cur ? ' viewing' : '') + (selected.has(k) ? ' added' : '');
+        c.style.setProperty('--rc', color);
+        c.innerHTML = `<span class="rc-flag">🛒 담김</span><span class="rc-name">${d.name}</span>
+          <div class="rc-copy">${(u.hero || d.vp).replace(/<br>/g, ' ')}</div>
+          <div class="rc-hook">${u.hook || ''}</div>
+          <div class="rc-btns"><button class="rc-view">자세히보기</button><button class="rc-pick">${selected.has(k) ? '✓ 담김 · 빼기' : '+ 담기'}</button></div>`;
+        c.querySelector('.rc-view').onclick = (e) => { e.stopPropagation(); openStageModal(k); };
+        c.querySelector('.rc-pick').onclick = (e) => { e.stopPropagation(); toggle(k); };
+        c.onclick = () => selectStage(k);
+        wrap.appendChild(c);
+      });
+    }
+
+    // ── '자세히 보기' → .stage를 풀페이지 모달로 (평소엔 일반 배치, 모달일 때만 header/nav 위 덮음) ──
+    const stageEl = document.querySelector('#selectView .stage');
+    function openStageModal(k) { selectStage(k); stageEl.classList.add('modal'); window.scrollTo(0, 0); }
+    function closeStageModal() { stageEl.classList.remove('modal'); }
+    $('sgClose').onclick = closeStageModal;
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && stageEl.classList.contains('modal')) closeStageModal(); });
+
+    // ── 자세히보기 드로어: 추천 솔루션을 우측 슬라이드 패널로 ──
+    function openDrawer(k) {
+      drawerKey = k;
+      const d = DATA[k], u = UI[k] || {}, color = cvar(k);
+      const dw = $('drawer');
+      dw.style.setProperty('--dw', color);
+      $('dwKicker').innerHTML = `<span class="dot" style="background:${color}"></span>함께 쓰면 좋은 솔루션 · <b>${d.name}</b>`;
+      $('dwTitle').innerHTML = u.hero || d.vp;
+      $('dwHook').textContent = u.hook || '';
+      // 신뢰 근거
+      const tr = trustOf(k); const tb = $('dwTrust'); tb.innerHTML = '';
+      if (tr) {
+        (tr.stats || []).forEach(f => { const e = document.createElement('span'); e.className = 'f'; e.textContent = f; tb.appendChild(e); });
+        (tr.chips || []).forEach(p => { const e = document.createElement('span'); e.className = 'f'; e.textContent = p[0]; e.title = p[1] || ''; tb.appendChild(e); });
+      }
+      // USP 3종 (세로 스택)
+      const ub = $('dwUsps'); ub.innerHTML = '';
+      (u.usps || []).forEach(x => {
+        const e = document.createElement('div'); e.className = 'usp';
+        e.innerHTML = `<span class="ic">${x[0]}</span><div class="t">${x[1]}</div><div class="d">${x[2]}</div>`;
+        ub.appendChild(e);
+      });
+      // 클릭커블 데모 (드로어 전용 iframe)
+      const f = $('dwFrame');
+      if (f.getAttribute('data-key') !== k) { f.setAttribute('data-key', k); f.src = ANIM[k]; }
+      syncDwPick();
+      $('drawerBackdrop').classList.add('on');
+      dw.classList.add('on');
+      renderRail();
+    }
+
+    function closeDrawer() {
+      drawerKey = null;
+      $('drawerBackdrop').classList.remove('on');
+      $('drawer').classList.remove('on');
+      renderRail();
+    }
+
+    function syncDwPick() {
+      if (!drawerKey) return;
+      const btn = $('dwPick');
+      const added = selected.has(drawerKey);
+      btn.classList.toggle('added', added);
+      btn.textContent = added ? '✓ 담김 · 빼기' : `🛒 ${DATA[drawerKey].name} 담기`;
+    }
+
+    $('dwPick').onclick = () => { if (drawerKey) { toggle(drawerKey); syncDwPick(); } };
+    $('dwClose').onclick = closeDrawer;
+    $('drawerBackdrop').onclick = closeDrawer;
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawerKey) closeDrawer(); });
+
+    // ── 페이지 전환: 소개(리뷰만) ↔ 선택(카드 목록만) ──
+    function setPhase(p) {
+      phase = p;
+      closeDrawer();
+      const m = document.querySelector('#selectView .main');
+      m.classList.toggle('solo', p === 'intro');
+      m.classList.toggle('pick', p === 'select');
+      const nav = document.querySelector('.nav');
+      nav.querySelector('.summary').style.visibility = (p === 'intro') ? 'hidden' : '';
+      nav.querySelector('.next').textContent = (p === 'intro') ? '다른 솔루션도 둘러보기 →' : '다음';
+      window.scrollTo(0, 0);
     }
 
     function toggle(k) {
@@ -2741,117 +3603,8 @@
     // 상단 스텝퍼 클릭 이동은 buildSteps()에서 노드별 onclick=goToStep(n)으로 처리
 
 
-    // 좌측 타이틀: 앱스토어에서 선택한(잠금) 제품 기준으로 동적 구성
-    (function setLeftTitle() {
-      const lockedKey = Object.keys(LOCKED)[0];
-      if (lockedKey) $('leftTitle').innerHTML = `<span style="color:${cvar(lockedKey)}">${DATA[lockedKey].name}</span>말고도 해결하고 싶은<br>문제가 있다면 골라보세요`;
-    })();
+    renderChips(); updateCount(); loadPanel(); setPhase('intro');
 
-    renderChips(); updateCount(); loadPanel();
-
-    // ── 시각 시퀀스: [다음] 누르면 선택한 프로덕트별로 1장씩 자세히 ──
-    const GENERIC_SCREEN = `<div class="db-metric" id="icMetric"></div>
-  <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>
-  <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>
-  <div class="db-row"><div class="db-thumb"></div><div class="db-lines"><div class="dl"></div><div class="dl s"></div></div></div>`;
-    function hasScenes(k) { return !!(DATA[k] && DATA[k].scenes); }
-    function introSteps() { const d = DATA[introList[introIdx]]; return d.story || d.usp; }
-
-    let introList = [], introIdx = 0, introStep = -1;
-    function openIntro() {
-      introList = KEYS.filter(k => selected.has(k));
-      if (introList.length === 0) { return; }
-      introIdx = 0;
-      $('selectView').style.display = 'none';
-      $('intro').classList.add('on');
-      loadIntro();
-    }
-    function closeIntro() {
-      $('intro').classList.remove('on');
-      $('selectView').style.display = '';
-    }
-    function loadIntro() {
-      const k = introList[introIdx]; const d = DATA[k];
-      $('icKicker').textContent = `${introIdx + 1} / ${introList.length}`;
-      $('icName').textContent = d.name; $('icDot').style.background = cvar(k);
-      $('icVp').textContent = d.vp;
-      $('icUrl').textContent = 'myshop.cafe24.com';
-      // 데모 화면: scenes가 있으면 단계별 실제 UI, 없으면 기존 placeholder
-      const m = $('icMock');
-      if (hasScenes(k)) {
-        m.classList.add('scened');
-      } else {
-        m.classList.remove('scened');
-        $('icScreen').innerHTML = GENERIC_SCREEN;
-        $('icMetric').textContent = d.metric;
-      }
-      // 신뢰근거
-      const tr = TRUST[k]; const tb = $('icTrust'); tb.innerHTML = '';
-      if (tr) {
-        (tr.stats || []).forEach(f => { const e = document.createElement('span'); e.className = 'f'; e.innerHTML = `<span class="c"></span>${f}`; tb.appendChild(e); });
-        (tr.chips || []).forEach(p => { const e = document.createElement('span'); e.className = 'f'; e.textContent = p[0]; tb.appendChild(e); });
-        tb.style.display = 'flex';
-      } else tb.style.display = 'none';
-      // 하단 단계 스텝퍼 (번호 노드만 — 텍스트는 캡션 한 곳에서)
-      const steps = d.story || d.usp;
-      const sb = $('icSteps'); sb.innerHTML = '';
-      steps.forEach((u, i) => {
-        const node = document.createElement('div'); node.className = 'ic-step'; node.id = 'is' + i;
-        node.innerHTML = `<span class="dot">${i + 1}</span>` + (i < steps.length - 1 ? `<span class="line"></span>` : '');
-        node.querySelector('.dot').onclick = () => introGo(i);
-        sb.appendChild(node);
-      });
-      $('introPrev').disabled = (introIdx === 0);
-      $('introNext').textContent = (introIdx === introList.length - 1) ? '다음' : '다음 솔루션 →';
-      introReset(); setTimeout(() => introGo(0), 300);
-    }
-    function introReset() {
-      introStep = -1;
-      const k = introList[introIdx];
-      if (!hasScenes(k)) $('icMock').className = 'demo-browser';
-      introSync();
-    }
-    function introGo(n) {
-      const k = introList[introIdx];
-      const steps = introSteps();
-      introStep = n;
-      if (hasScenes(k)) { introSync(); return; }
-      const m = $('icMock'); m.className = 'demo-browser';
-      if (n >= 1) m.classList.add('s1');
-      if (n >= steps.length - 1) m.classList.add('s2');
-      introSync();
-    }
-    function introSync() {
-      const k = introList[introIdx];
-      const steps = introSteps();
-      const last = steps.length - 1;
-      // 스텝 노드 상태 + 연결선 채움
-      [...$('icSteps').children].forEach((node, i) => {
-        node.classList.remove('active', 'passed');
-        if (i < introStep) node.classList.add('passed');
-        if (i === introStep) node.classList.add('active');
-        const line = node.querySelector('.line');
-        if (line) line.classList.toggle('fill', i < introStep);
-      });
-      // 현재 단계 캡션 (제목 + 한 줄 설명)
-      const ci = Math.max(0, introStep); const cs = steps[ci];
-      $('icCap').innerHTML = cs ? `<div class="t"><span class="num">${String(ci + 1).padStart(2, '0')}</span>${cs[0]}</div><div class="d">${cs[1]}</div>` : '';
-      if (hasScenes(k)) {
-        const idx = Math.max(0, introStep);
-        $('icScreen').innerHTML = DATA[k].scenes[idx] || DATA[k].scenes[0];
-      }
-      $('icHint').textContent = introStep < last ? '화면을 탭하면 다음 단계 →' : '모든 기능을 살펴봤어요 ✓';
-    }
-    $('icMock').onclick = () => { const steps = introSteps(); if (introStep < steps.length - 1) introGo(introStep + 1); };
-    $('introNext').onclick = () => {
-      if (introIdx < introList.length - 1) { introIdx++; loadIntro(); }
-      else { closeIntro(); goStep4(); }
-    };
-    $('introPrev').onclick = () => {
-      if (introIdx > 0) { introIdx--; loadIntro(); }
-      else { closeIntro(); }
-    };
-    $('introClose').onclick = () => { closeIntro(); };
 
     // ── 스텝 4·5 시퀀스: 선택에 따라 동적으로 화면 큐 구성 ──
     let flowQueue = [], flowPos = 0;
@@ -2866,7 +3619,6 @@
     function showFlow() {
       ['reviewWidget', 'snsConnect', 'cardReg'].forEach(id => $(id).classList.remove('on'));
       $('selectView').style.display = 'none';
-      $('intro').classList.remove('on');
       const cur = flowQueue[flowPos];
       $(cur.view).classList.add('on');
       setStepper(cur.step);
@@ -2876,11 +3628,13 @@
       else { finishOnboarding(); }
     }
     function flowPrev() {
+      // 스텝4 첫 화면에서 이전 → 스텝3 선택 페이지로
       if (flowPos > 0) { flowPos--; showFlow(); }
       else {
         $(flowQueue[0].view).classList.remove('on');
+        $('selectView').style.display = '';
         setStepper(3);
-        introIdx = introList.length - 1; $('selectView').style.display = 'none'; $('intro').classList.add('on'); loadIntro();
+        setPhase('select');
       }
     }
     function finishOnboarding() {
@@ -2938,21 +3692,25 @@
       });
     });
 
-    // 하단 [다음] = 시각 시퀀스 시작
-    document.querySelector('.nav .next').onclick = () => { openIntro(); };
+    // 하단 [다음]: 소개 페이지 → 선택 페이지 → 스텝4(위젯 설정)
+    document.querySelector('.nav .next').onclick = () => {
+      closeDrawer();
+      if (phase === 'intro') setPhase('select');
+      else goStep4();
+    };
 
     // ───── 스텝1·2 (담당자/쇼핑몰 정보 입력) 네비게이션 ─────
     const INFO_LABELS = ['담당자 정보 입력', '쇼핑몰 정보 입력', '맞춤 솔루션 선택', '위젯 설정', '카드 등록'];
     const CHECK_SVG = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#307AF3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5 9-10"/></svg>';
     // 공통 스텝퍼 렌더 (1·2번 페이지 우측 스텝퍼 + 상단 스텝퍼 동일 스타일)
-    // 지난/현재 단계(n<=cur)만 클릭 가능 — 미완료 미래 단계로 건너뛰기 방지
+    // 검토·비교용: 모든 단계 클릭 이동 가능 (정보 입력 단계에서도 맞춤 솔루션 선택으로 점프)
     function buildSteps(box, cur) {
       if (!box) return;
       box.innerHTML = '';
       INFO_LABELS.forEach((lbl, idx) => {
         const n = idx + 1;
         const st = n < cur ? 'done' : (n === cur ? 'active' : 'todo');
-        const can = n <= cur;
+        const can = true;
         const node = document.createElement('div');
         node.className = 'iv-step ' + st + (can ? ' clickable' : '');
         node.innerHTML = `<span class="c">${st === 'done' ? CHECK_SVG : n}</span><span class="t">${lbl}</span>` + (n < 5 ? '<span class="tail"></span>' : '');
@@ -2972,11 +3730,10 @@
 
     // 임의 단계로 이동 (스텝퍼 클릭/네비게이션 공용)
     function goToStep(n) {
-      $('intro').classList.remove('on');
       ['reviewWidget', 'snsConnect', 'cardReg', 'doneView'].forEach(id => $(id).classList.remove('on'));
       if (n <= 2) { $('selectView').style.display = 'none'; showInfo(n); setStepper(n); return; }
       hideInfo();
-      if (n === 3) { $('selectView').style.display = ''; setStepper(3); window.scrollTo(0, 0); return; }
+      if (n === 3) { $('selectView').style.display = ''; setStepper(3); setPhase('intro'); return; }
       // 4·5: 선택 기반 플로우 큐 구성 후 해당 단계로
       $('selectView').style.display = 'none';
       flowQueue = [];
@@ -2991,11 +3748,18 @@
     $('info1').querySelector('[data-next]').onclick = () => goToStep(2);
     $('info2').querySelector('[data-prev]').onclick = () => goToStep(1);
     $('info2').querySelector('[data-next]').onclick = () => goToStep(3);
-    document.querySelector('.nav .prev').onclick = () => goToStep(2);  // 솔루션 선택(스텝3)에서 이전 → 스텝2
+    // 스텝3에서 이전: 선택 페이지 → 소개 페이지 → 스텝2
+    document.querySelector('.nav .prev').onclick = () => {
+      closeDrawer();
+      if (phase === 'select') setPhase('intro');
+      else goToStep(2);
+    };
 
     renderInfoSteps();
     setStepper(3);   // 상단 스텝퍼 초기 렌더
-    showInfo(1);     // 진입 시 스텝1부터 시작
+    // 외부(앱 소개 v3 등)에서 #solutions 로 진입하면 맞춤 솔루션 선택(추천 레일)부터 노출
+    if (location.hash === '#solutions') { goToStep(3); setPhase('select'); }
+    else { $('selectView').style.display = 'none'; showInfo(1); } // 기본: 스텝1 — selectView(고정 하단바 포함) 숨김
   </script>
 </body>
 

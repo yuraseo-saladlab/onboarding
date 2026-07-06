@@ -1,0 +1,2850 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파앱스 온보딩 v2 — 솔루션 소개·추천·선택</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    /* ─────────────────────────────────────────────
+       DESIGN TOKENS
+    ───────────────────────────────────────────── */
+    :root {
+      --bg: #FFFFFF;
+      --ink: #16162A;
+      --ink-dim: #6B6B80;
+      --ink-faint: #A0A0B5;
+      --line: #E8E8F0;
+      --line-soft: #F3F3F8;
+      --accent: #6B5BFF;
+      --accent-soft: #F0EEFF;
+      --ok: #12B886;
+      --dark-a: #2B2940;
+      --dark-b: #15142A;
+      --c-review: #6D58F2;
+      --c-push: #307AF3;
+      --c-upsell: #E62C35;
+      --c-canvas: #00B7A8;
+      --r: 16px;
+      --shadow-lg: 0 24px 60px rgba(30, 28, 60, .16);
+      --shadow-md: 0 10px 30px rgba(30, 28, 60, .10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    button { font-family: inherit; cursor: pointer; }
+
+    /* ─────────────────────────────────────────────
+       TOPBAR + STEPPER
+    ───────────────────────────────────────────── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 16px 36px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .logo {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .logo i { font-style: normal; color: var(--accent); }
+
+    .steps { display: flex; align-items: center; flex: 1; min-width: 0; }
+
+    .st {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-faint);
+      white-space: nowrap;
+    }
+
+    .st .n {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 12px; font-weight: 700;
+      background: var(--line-soft);
+      color: var(--ink-faint);
+      transition: .2s;
+    }
+
+    .st.clickable { cursor: pointer; }
+    .st.done { color: #2A2D38; }
+    .st.done .n { background: #D6E6FF; color: #307AF3; }
+    .st.done:hover .n { box-shadow: 0 0 0 4px #D6E6FF; }
+    .st.active { color: #2A2D38; }
+    .st.active .n { background: #307AF3; color: #fff; }
+
+    .st-seg { flex: 1; min-width: 20px; height: 1px; background: var(--line); margin: 0 12px; }
+    .st-seg.done { background: #307AF3; }
+
+    /* ─────────────────────────────────────────────
+       VIEWS (라우팅)
+    ───────────────────────────────────────────── */
+    .view { display: none; flex: 1; min-height: 0; flex-direction: column; }
+    .view.on { display: flex; animation: viewIn .35s ease; }
+
+    @keyframes viewIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ─────────────────────────────────────────────
+       STEP 1·2 — 정보 입력
+    ───────────────────────────────────────────── */
+    .info-wrap {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(380px, 480px) 1fr;
+      min-height: 0;
+    }
+
+    .info-hero {
+      background: radial-gradient(700px 420px at 20% -10%, rgba(139, 107, 255, .35), transparent 60%), linear-gradient(160deg, var(--dark-a), var(--dark-b));
+      color: #fff;
+      padding: 56px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .info-hero h2 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.45;
+    }
+
+    .info-hero .hl { color: #A99CFF; }
+
+    .ih-social {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 14px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, .75);
+    }
+
+    .ih-social b { color: #fff; }
+
+    .ih-avs { display: flex; margin-bottom: 10px; }
+
+    .ih-av {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 11px; font-weight: 800; color: #fff;
+      border: 2px solid var(--dark-a);
+      margin-right: -8px;
+    }
+
+    .ih-av.a { background: var(--c-review); }
+    .ih-av.b { background: var(--c-push); }
+    .ih-av.c { background: var(--c-upsell); }
+    .ih-av.d { background: var(--c-canvas); }
+
+    .info-form-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .form-card { width: 100%; max-width: 420px; }
+
+    .form-card h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .form-card .fc-sub { font-size: 14px; color: var(--ink-dim); margin-bottom: 26px; }
+
+    .field { margin-bottom: 16px; }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      margin-bottom: 7px;
+    }
+
+    .field input, .field .sel {
+      width: 100%;
+      height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0 14px;
+      font-size: 14.5px;
+      font-family: inherit;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+      transition: border-color .15s;
+    }
+
+    .field input:focus { border-color: var(--accent); }
+
+    .field .sel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .field .sel svg { color: var(--ink-faint); }
+
+    .form-actions { display: flex; gap: 10px; margin-top: 28px; }
+
+    .btn {
+      height: 48px;
+      padding: 0 22px;
+      border-radius: 11px;
+      border: none;
+      font-size: 14.5px;
+      font-weight: 700;
+      transition: .18s;
+    }
+
+    .btn.primary { background: var(--ink); color: #fff; flex: 1; }
+    .btn.primary:hover { background: #000; }
+    .btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--ink-dim); }
+    .btn.ghost:hover { border-color: var(--ink-faint); color: var(--ink); }
+
+    /* ─────────────────────────────────────────────
+       STEP 3-A — 선택한 앱 소개 (히어로)
+       첫 인상 후킹: 다크 풀블리드 + 자동 네러티브
+    ───────────────────────────────────────────── */
+    .hero {
+      flex: 1;
+      background: radial-gradient(1000px 560px at 65% -15%, rgba(109, 88, 242, .34), transparent 62%), linear-gradient(160deg, var(--dark-a), var(--dark-b));
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .hero-inner {
+      flex: 1;
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 40px 120px;
+      display: grid;
+      grid-template-columns: minmax(420px, 1fr) minmax(380px, 520px);
+      gap: 56px;
+      align-items: center;
+      min-height: 0;
+    }
+
+    .hero-copy .hc-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .65);
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 100px;
+      padding: 7px 14px;
+      margin-bottom: 22px;
+    }
+
+    .hc-kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c-review); }
+
+    .hero-copy h1 {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.32;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy h1 b { color: #A99CFF; }
+
+    .hc-trust {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .6);
+      margin-bottom: 34px;
+    }
+
+    .hc-trust .td { display: inline-flex; align-items: center; gap: 6px; }
+    .hc-trust .td::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #6FE9BD; }
+    .hc-trust .note { font-size: 11.5px; color: rgba(255, 255, 255, .35); font-weight: 500; }
+
+    /* 네러티브 비트 — 자동 진행 + 클릭 점프 */
+    .beats { display: flex; flex-direction: column; gap: 8px; }
+
+    .beat {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 13px 16px;
+      border-radius: 13px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .beat .bn {
+      flex: 0 0 22px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 11px; font-weight: 800;
+      background: rgba(255, 255, 255, .1);
+      color: rgba(255, 255, 255, .5);
+      margin-top: 1px;
+      transition: .25s;
+    }
+
+    .beat .bt { font-size: 15px; font-weight: 700; color: rgba(255, 255, 255, .55); transition: .25s; }
+    .beat .bd {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .45);
+      margin-top: 3px;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: .3s;
+    }
+
+    .beat:hover .bt { color: #fff; }
+
+    .beat.on {
+      background: rgba(255, 255, 255, .07);
+      border-color: rgba(255, 255, 255, .13);
+    }
+
+    .beat.on .bn { background: #A99CFF; color: var(--dark-b); }
+    .beat.on .bt { color: #fff; }
+    .beat.on .bd { max-height: 44px; opacity: 1; }
+
+    /* 진행 게이지 (자동 넘김 시각화) */
+    .beat .prog {
+      position: absolute;
+      left: 0; bottom: 0;
+      height: 2px;
+      width: 0;
+      background: linear-gradient(90deg, #A99CFF, #6FE9BD);
+    }
+
+    .beat.on .prog { animation: beatProg var(--beat-ms, 3400ms) linear forwards; }
+    /* 멈춤 상태: 게이지 정지 */
+    .beats.paused .beat.on .prog { animation-play-state: paused; }
+
+    .hero-ctrl {
+      margin-top: 16px;
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255, 255, 255, .1); color: rgba(255, 255, 255, .82);
+      border: 1px solid rgba(255, 255, 255, .16); border-radius: 100px;
+      padding: 8px 15px; font-size: 13px; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: .15s;
+    }
+    .hero-ctrl:hover { background: rgba(255, 255, 255, .17); color: #fff; }
+
+    @keyframes beatProg { from { width: 0; } to { width: 100%; } }
+
+    .beat.done .bn { background: rgba(111, 233, 189, .25); color: #6FE9BD; }
+
+    /* 히어로 우측 — 브라우저 목업 스테이지 */
+    .hero-stage { position: relative; }
+
+    .browser {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      color: var(--ink);
+    }
+
+    .bw-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #FAFAFD;
+    }
+
+    .bw-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+    .bw-dot:nth-child(1) { background: #FF8A80; }
+    .bw-dot:nth-child(2) { background: #FFD54F; }
+    .bw-dot:nth-child(3) { background: #9CE6B8; }
+
+    .bw-url {
+      flex: 1;
+      margin-left: 8px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      font-size: 11.5px;
+      color: var(--ink-faint);
+      padding: 4px 10px;
+    }
+
+    .bw-body { min-height: 380px; position: relative; }
+
+    .hero-pane {
+      position: absolute;
+      inset: 0;
+      padding: 24px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: .4s;
+      pointer-events: none;
+    }
+
+    .hero-pane.on { opacity: 1; transform: none; pointer-events: auto; }
+
+    /* pane 공용 미니 컴포넌트 */
+    .hp-title { font-size: 12px; font-weight: 800; color: var(--ink-faint); letter-spacing: .04em; margin-bottom: 14px; }
+
+    .rank-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      margin-bottom: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-dim);
+    }
+
+    .rank-row.first {
+      border-color: var(--c-review);
+      background: linear-gradient(90deg, rgba(109, 88, 242, .07), transparent);
+      color: var(--ink);
+      box-shadow: 0 6px 18px rgba(109, 88, 242, .14);
+    }
+
+    .rank-row .rk {
+      width: 24px; height: 24px;
+      border-radius: 7px;
+      display: grid; place-items: center;
+      font-size: 12px; font-weight: 800;
+      background: var(--line-soft);
+      color: var(--ink-faint);
+    }
+
+    .rank-row.first .rk { background: var(--c-review); color: #fff; }
+
+    .rank-row .rest { flex: 1; height: 9px; border-radius: 5px; background: var(--line-soft); }
+    .rank-row .crown { font-size: 15px; }
+    .rank-row .stars-sm { font-size: 11.5px; color: #F5A623; font-weight: 700; }
+
+    .flow-chips { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+    .fchip {
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 9px 13px;
+      border-radius: 100px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      animation: fchipIn .5s ease backwards;
+    }
+
+    .fchip.g { background: #E6FBF3; color: #0CA678; }
+    .farrow { color: var(--ink-faint); font-size: 13px; }
+
+    @keyframes fchipIn { from { opacity: 0; transform: translateY(6px); } }
+
+    .grow-bars { display: flex; align-items: flex-end; gap: 12px; height: 150px; margin-top: 18px; padding: 0 6px; }
+    .grow-bars i {
+      flex: 1;
+      border-radius: 8px 8px 3px 3px;
+      background: linear-gradient(180deg, #A99CFF, #6D58F2);
+      transform-origin: bottom;
+      animation: barUp .8s cubic-bezier(.2, .8, .2, 1) backwards;
+    }
+
+    @keyframes barUp { from { transform: scaleY(0); } }
+
+    .routine-line { display: flex; flex-direction: column; gap: 10px; }
+
+    .rt-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      animation: fchipIn .5s ease backwards;
+    }
+
+    .rt-item .ic {
+      width: 30px; height: 30px;
+      border-radius: 9px;
+      display: grid; place-items: center;
+      font-size: 14px;
+      background: var(--accent-soft);
+    }
+
+    .rt-item .auto {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 800;
+      color: #0CA678;
+      background: #E6FBF3;
+      padding: 4px 9px;
+      border-radius: 100px;
+    }
+
+    .widget-wall { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+
+    .ww-tile {
+      aspect-ratio: 1.25;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      animation: fchipIn .45s ease backwards;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .ww-tile span:first-child { font-size: 17px; }
+
+    /* ─────────────────────────────────────────────
+       STEP 3-B — 추천 & 선택 (장바구니 감성)
+    ───────────────────────────────────────────── */
+    .pick {
+      flex: 1;
+      padding: 44px 40px 150px;
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .pick-head { text-align: center; margin-bottom: 36px; }
+
+    .pick-head .ph-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-radius: 100px;
+      padding: 7px 14px;
+      margin-bottom: 16px;
+    }
+
+    .pick-head h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.35; }
+    .pick-head h1 b { color: var(--accent); }
+    .pick-head .ph-sub { font-size: 14.5px; color: var(--ink-dim); margin-top: 10px; }
+
+    .pick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .pcard {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      transition: .25s;
+      position: relative;
+    }
+
+    .pcard:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--pc, var(--accent));
+    }
+
+    .pcard.added { border-color: var(--pc); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc) 18%, transparent); }
+
+    .pcard .added-flag {
+      position: absolute;
+      top: 14px; right: 14px;
+      z-index: 3;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--pc);
+      border-radius: 100px;
+      padding: 5px 11px;
+      opacity: 0;
+      transform: scale(.7);
+      transition: .25s cubic-bezier(.2, 1.6, .4, 1);
+    }
+
+    .pcard.added .added-flag { opacity: 1; transform: none; }
+
+    /* 카드 상단 — 루핑 마이크로 데모 */
+    .pc-stage {
+      height: 168px;
+      background: color-mix(in srgb, var(--pc) 6%, #FAFAFD);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    .pc-body { padding: 20px 22px 18px; display: flex; flex-direction: column; flex: 1; }
+
+    .pc-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--pc);
+      margin-bottom: 10px;
+    }
+
+    .pc-name::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--pc); }
+
+    .pc-main {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .pc-hook { font-size: 13.5px; color: var(--ink-dim); line-height: 1.55; margin-bottom: 14px; }
+
+    .pc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+
+    .pc-tag {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      background: var(--line-soft);
+      border-radius: 100px;
+      padding: 5px 10px;
+    }
+
+    .pc-btns { display: flex; gap: 8px; margin-top: auto; }
+
+    .pc-view {
+      flex: 1;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+      transition: .18s;
+    }
+
+    .pc-view:hover { border-color: var(--pc); color: var(--pc); }
+
+    .pc-add {
+      flex: 1;
+      height: 44px;
+      border-radius: 10px;
+      border: none;
+      background: var(--pc);
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 800;
+      transition: .18s;
+    }
+
+    .pc-add:hover { filter: brightness(1.08); }
+
+    .pcard.added .pc-add { background: color-mix(in srgb, var(--pc) 12%, #fff); color: var(--pc); }
+
+    /* 마이크로 데모 — 업셀: 장바구니 +1 */
+    .md-cart { position: relative; width: 200px; }
+
+    .md-cartrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      box-shadow: var(--shadow-md);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .md-cartrow .th { width: 30px; height: 30px; border-radius: 8px; background: var(--line-soft); display: grid; place-items: center; font-size: 14px; }
+    .md-cartrow .pr { margin-left: auto; color: var(--ink-dim); font-weight: 600; font-size: 11.5px; }
+
+    .md-cartrow.ai {
+      border-color: var(--c-upsell);
+      animation: aiRowLoop 3.6s ease infinite;
+    }
+
+    .md-cartrow.ai .aitag {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--c-upsell);
+      padding: 2px 6px;
+      border-radius: 100px;
+    }
+
+    @keyframes aiRowLoop {
+      0%, 18% { opacity: 0; transform: translateY(10px) scale(.96); }
+      32%, 88% { opacity: 1; transform: none; }
+      100% { opacity: 0; transform: translateY(-4px); }
+    }
+
+    .md-plus1 {
+      position: absolute;
+      right: -10px;
+      top: -12px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--c-upsell);
+      background: #fff;
+      border: 1px solid currentColor;
+      padding: 3px 9px;
+      border-radius: 100px;
+      animation: plus1Loop 3.6s ease infinite;
+    }
+
+    @keyframes plus1Loop {
+      0%, 30% { opacity: 0; transform: translateY(8px); }
+      42%, 80% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-10px); }
+    }
+
+    /* 마이크로 데모 — 푸시: 알림 도착 */
+    .md-phone {
+      width: 190px;
+      height: 132px;
+      border-radius: 16px 16px 0 0;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-bottom: none;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+      padding-top: 26px;
+    }
+
+    .md-phone::before {
+      content: '';
+      position: absolute;
+      top: 9px; left: 50%;
+      transform: translateX(-50%);
+      width: 54px; height: 7px;
+      border-radius: 100px;
+      background: var(--line-soft);
+    }
+
+    .md-noti {
+      margin: 0 10px 7px;
+      background: #FDFDFF;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--ink-dim);
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      animation: notiLoop 3.8s ease infinite;
+    }
+
+    .md-noti .ic { width: 22px; height: 22px; border-radius: 6px; background: #EAF2FF; display: grid; place-items: center; font-size: 11px; flex: 0 0 22px; }
+    .md-noti b { color: var(--ink); display: block; font-size: 11px; }
+    .md-noti:nth-child(3) { animation-delay: .55s; }
+
+    @keyframes notiLoop {
+      0%, 14% { opacity: 0; transform: translateY(-14px); }
+      26%, 86% { opacity: 1; transform: none; }
+      100% { opacity: 0; }
+    }
+
+    /* 마이크로 데모 — 캔버스: 블록 재배치 */
+    .md-canvas {
+      width: 190px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    .md-blk {
+      height: 34px;
+      border-radius: 9px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-md);
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ink-faint);
+      animation: blkLoop 4s ease infinite;
+    }
+
+    .md-blk.wide { grid-column: span 2; height: 44px; background: color-mix(in srgb, var(--c-canvas) 10%, #fff); border-color: var(--c-canvas); color: var(--c-canvas); }
+    .md-blk:nth-child(2) { animation-delay: .3s; }
+    .md-blk:nth-child(3) { animation-delay: .6s; }
+
+    @keyframes blkLoop {
+      0%, 10% { transform: translateY(6px); opacity: .4; }
+      22%, 88% { transform: none; opacity: 1; }
+      100% { opacity: .4; }
+    }
+
+    /* ─────────────────────────────────────────────
+       장바구니 도크 (하단 고정)
+    ───────────────────────────────────────────── */
+    .cart-dock {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      transform: translateY(120%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(22, 22, 42, .97);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      padding: 13px 28px;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      box-shadow: 0 -10px 40px rgba(20, 18, 45, .26);
+      transition: transform .4s cubic-bezier(.2, .9, .3, 1);
+    }
+
+    .cart-dock.show { transform: translateY(0); }
+
+    .cd-label { display: flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 700; white-space: nowrap; flex: none; }
+
+    .cd-chips { flex: 1; min-width: 0; }
+    .cd-next { margin-left: auto; }
+
+    @media (max-width: 680px) {
+      .cart-dock { gap: 10px; padding: 11px 16px; }
+      .cd-chips { display: none !important; }
+      .cd-back { display: none; }
+    }
+
+    .cd-bag { font-size: 17px; position: relative; }
+
+    .cd-count {
+      position: absolute;
+      top: -7px; right: -9px;
+      min-width: 16px; height: 16px;
+      border-radius: 100px;
+      background: var(--accent);
+      font-size: 10px;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+      padding: 0 4px;
+      transition: .2s;
+    }
+
+    .cd-count.bump { animation: bump .4s cubic-bezier(.2, 1.8, .4, 1); }
+
+    @keyframes bump { 40% { transform: scale(1.45); } }
+
+    .cd-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .cd-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 100px;
+      padding: 6px 11px;
+      background: rgba(255, 255, 255, .1);
+      white-space: nowrap;
+    }
+
+    .cd-chip .cdot { width: 7px; height: 7px; border-radius: 50%; background: var(--cc); }
+
+    .cd-chip .rm {
+      background: none; border: none;
+      color: rgba(255, 255, 255, .45);
+      font-size: 13px;
+      padding: 0 0 0 2px;
+      line-height: 1;
+    }
+
+    .cd-chip .rm:hover { color: #fff; }
+
+    .cd-chip .lk { font-size: 10px; color: rgba(255, 255, 255, .45); }
+
+    .cd-next {
+      height: 46px;
+      padding: 0 24px;
+      border: none;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+      transition: .18s;
+    }
+
+    .cd-next:hover { filter: brightness(1.1); }
+
+    .cd-back {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, .5);
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .cd-back:hover { color: #fff; }
+
+    /* 담기 플라이 애니메이션 */
+    .fly-dot {
+      position: fixed;
+      z-index: 100;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      pointer-events: none;
+      transition: all .65s cubic-bezier(.3, -0.1, .6, 1);
+    }
+
+    /* ─────────────────────────────────────────────
+       자세히 보기 오버레이 — 피처 3개 클릭 씬
+    ───────────────────────────────────────────── */
+    /* 딤 배경 — 뒤 페이지 위에 '새 창'이 떠 있는 느낌 */
+    .detail {
+      position: fixed;
+      inset: 0;
+      z-index: 120;                 /* 하단 플로팅 바(z:100)보다 위 */
+      background: rgba(12, 10, 28, .62);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 26px;
+    }
+
+    .detail.on { display: flex; animation: viewIn .3s ease; }
+
+    /* 떠 있는 창 본체 — 내부 스크롤로 잘림 없음 */
+    .dt-inner {
+      width: 100%;
+      max-width: none;
+      max-height: calc(100vh - 52px);
+      overflow-y: auto;
+      background: radial-gradient(1100px 600px at 70% -15%, color-mix(in srgb, var(--dc, #6D58F2) 30%, transparent), transparent 62%), linear-gradient(160deg, var(--dark-a), var(--dark-b));
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 22px;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, .55);
+      padding: 30px 40px 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .dt-top { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+
+    .dt-back {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, .6);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 0;
+    }
+
+    .dt-back:hover { color: #fff; }
+
+    .dt-prod {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-left: auto;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .13);
+      border-radius: 100px;
+      padding: 7px 14px;
+    }
+
+    .dt-prod .pd { width: 8px; height: 8px; border-radius: 50%; background: var(--dc); }
+
+    .dt-head { margin-bottom: 26px; }
+
+    .dt-head h2 {
+      font-size: 29px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .dt-head h2 b { color: color-mix(in srgb, var(--dc) 55%, #fff); }
+
+    .dt-trust { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .dt-trust span {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .7);
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 100px;
+      padding: 6px 12px;
+    }
+
+    .dt-grid {
+      display: grid;
+      grid-template-columns: minmax(300px, 380px) 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* 좌: 피처 내비 */
+    .feat-nav { display: flex; flex-direction: column; gap: 10px; }
+
+    .fn-item {
+      text-align: left;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .09);
+      border-radius: 15px;
+      padding: 16px 18px;
+      color: #fff;
+      transition: .22s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fn-item:hover { background: rgba(255, 255, 255, .08); }
+
+    .fn-item.on {
+      background: rgba(255, 255, 255, .09);
+      border-color: color-mix(in srgb, var(--dc) 65%, transparent);
+      box-shadow: 0 8px 26px color-mix(in srgb, var(--dc) 22%, transparent);
+    }
+
+    .fn-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      color: rgba(255, 255, 255, .5);
+      margin-bottom: 7px;
+    }
+
+    .fn-item.on .fn-kicker { color: color-mix(in srgb, var(--dc) 50%, #fff); }
+
+    .fn-kicker .no {
+      width: 18px; height: 18px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, .1);
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+    }
+
+    .fn-item.on .fn-kicker .no { background: var(--dc); color: #fff; }
+
+    .fn-title { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.4; }
+
+    .fn-desc {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .55);
+      line-height: 1.55;
+      margin-top: 6px;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: .3s;
+    }
+
+    .fn-item.on .fn-desc { max-height: 80px; opacity: 1; }
+
+    .fn-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; max-height: 0; opacity: 0; overflow: hidden; transition: .3s; }
+    .fn-item.on .fn-chips { max-height: 70px; opacity: 1; }
+
+    .fn-chips span {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, .09);
+      border-radius: 100px;
+      padding: 4px 9px;
+      color: rgba(255, 255, 255, .75);
+    }
+
+    /* 우: 인터랙티브 스테이지 */
+    .dt-stagewrap { display: flex; flex-direction: column; min-height: 0; }
+
+    .dt-stage {
+      background: #fff;
+      color: var(--ink);
+      border-radius: 18px;
+      box-shadow: var(--shadow-lg);
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dt-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .55);
+    }
+
+    .dt-hint .pulse {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #6FE9BD;
+      animation: hintPulse 1.4s ease infinite;
+    }
+
+    @keyframes hintPulse { 50% { box-shadow: 0 0 0 7px rgba(111, 233, 189, .18); } }
+
+    .dt-hint.ok { color: #6FE9BD; }
+
+    .dt-foot {
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 26px -40px 0;
+      padding: 16px 40px;
+      background: color-mix(in srgb, var(--dark-b) 92%, transparent);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255, 255, 255, .09);
+      border-radius: 0 0 22px 22px;
+    }
+
+    .dt-nav-btn {
+      height: 46px;
+      padding: 0 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      background: transparent;
+      color: rgba(255, 255, 255, .75);
+      font-size: 13.5px;
+      font-weight: 700;
+      transition: .18s;
+    }
+
+    .dt-nav-btn:hover:not(:disabled) { border-color: #fff; color: #fff; }
+    .dt-nav-btn:disabled { opacity: .3; cursor: default; }
+
+    .dt-add {
+      margin-left: auto;
+      height: 48px;
+      padding: 0 26px;
+      border: none;
+      border-radius: 12px;
+      background: var(--dc);
+      color: #fff;
+      font-size: 14.5px;
+      font-weight: 800;
+      transition: .18s;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .dt-add:hover { filter: brightness(1.12); }
+    .dt-add.added { background: rgba(255, 255, 255, .12); color: #6FE9BD; }
+
+    /* ─────────────────────────────────────────────
+       씬(Scene) 공용 — 클릭 액션 목업
+    ───────────────────────────────────────────── */
+    .sc { position: absolute; inset: 0; padding: 26px 28px; display: flex; flex-direction: column; }
+
+    .sc-eyebrow {
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      color: var(--ink-faint);
+      margin-bottom: 16px;
+    }
+
+    .sc-btn {
+      border: none;
+      border-radius: 10px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      height: 42px;
+      padding: 0 18px;
+      position: relative;
+      transition: .18s;
+      animation: scBtnPulse 1.8s ease infinite;
+    }
+
+    @keyframes scBtnPulse { 50% { box-shadow: 0 0 0 8px rgba(22, 22, 42, .09); } }
+
+    .sc.on .sc-btn { animation: none; opacity: .45; pointer-events: none; }
+
+    .sc-result {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: .5s cubic-bezier(.2, .8, .2, 1);
+      pointer-events: none;
+    }
+
+    .sc.on .sc-result { opacity: 1; transform: none; pointer-events: auto; }
+
+    /* 카카오 알림톡 버블 */
+    .kko { background: #ABC1D1; border-radius: 14px; padding: 16px; max-width: 340px; }
+
+    .kko-b { background: #fff; border-radius: 12px; padding: 14px 16px; font-size: 13px; line-height: 1.6; color: var(--ink); }
+
+    .kko-b .kh {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--ink-dim);
+      margin-bottom: 8px;
+    }
+
+    .kko-b .kh i {
+      font-style: normal;
+      background: #FEE500;
+      border-radius: 5px;
+      font-size: 9.5px;
+      padding: 2px 5px;
+      color: #3C1E1E;
+    }
+
+    .kko-b .sc-btn { width: 100%; margin-top: 10px; background: #FEE500; color: #3C1E1E; }
+
+    /* 미니 쇼핑몰 리뷰 */
+    .mini-shop { border: 1px solid var(--line); border-radius: 13px; padding: 14px 16px; margin-top: 16px; max-width: 340px; }
+
+    .mini-shop .ms-head { font-size: 12.5px; font-weight: 700; color: var(--ink-dim); margin-bottom: 10px; }
+    .mini-shop .ms-head .stars { color: #F5A623; }
+
+    .ms-review {
+      font-size: 12.5px;
+      line-height: 1.5;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: var(--line-soft);
+      color: var(--ink-dim);
+      margin-bottom: 6px;
+    }
+
+    .ms-review.new {
+      background: var(--accent-soft);
+      color: var(--ink);
+      border: 1px solid #C9C0FF;
+      position: relative;
+    }
+
+    .ms-review.new::after {
+      content: '방금 등록됨';
+      position: absolute;
+      top: -9px; right: 10px;
+      font-size: 9.5px;
+      font-weight: 800;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 100px;
+      padding: 2px 8px;
+    }
+
+    /* 리뷰 인박스 (AI 대응) */
+    .rv-inbox { display: flex; flex-direction: column; gap: 8px; max-width: 420px; }
+
+    .rvi-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 11px 13px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-dim);
+    }
+
+    .rvi-row .st5 { color: #F5A623; font-size: 11px; white-space: nowrap; }
+    .rvi-row.neg { border-color: #FFC9C9; background: #FFF5F5; color: var(--ink); }
+    .rvi-row.neg .st5 { color: #E03131; }
+
+    .rvi-row .flag {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 800;
+      color: #E03131;
+      background: #FFE3E3;
+      padding: 3px 8px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .ai-reply {
+      margin-top: 12px;
+      border: 1px solid #C9C0FF;
+      background: var(--accent-soft);
+      border-radius: 12px;
+      padding: 13px 15px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      max-width: 420px;
+    }
+
+    .ai-reply .ar-head {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 7px;
+    }
+
+    .ai-reply .ok-tag {
+      margin-left: auto;
+      color: #0CA678;
+      background: #E6FBF3;
+      padding: 3px 8px;
+      border-radius: 100px;
+      font-size: 10px;
+    }
+
+    /* 위젯 월 (다 있다) */
+    .sc .widget-wall { max-width: 460px; }
+    .sc .widget-wall .ww-tile { animation: none; opacity: 1; }
+
+    .sc-result .ww-tile { animation: fchipIn .4s ease backwards; }
+
+    /* 업셀 — 상품 + AI 추천 */
+    .up-prod {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 14px 16px;
+      max-width: 420px;
+    }
+
+    .up-prod .th { width: 52px; height: 52px; border-radius: 11px; background: var(--line-soft); display: grid; place-items: center; font-size: 22px; }
+    .up-prod .nm { font-size: 14px; font-weight: 700; }
+    .up-prod .pr { font-size: 12.5px; color: var(--ink-dim); margin-top: 2px; }
+    .up-prod .sc-btn { margin-left: auto; }
+
+    .up-reco {
+      margin-top: 14px;
+      border: 1.5px solid var(--c-upsell);
+      border-radius: 14px;
+      padding: 14px 16px;
+      max-width: 420px;
+      box-shadow: 0 10px 28px rgba(230, 44, 53, .12);
+      background: #fff;
+    }
+
+    .up-reco .ur-head {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--c-upsell);
+      margin-bottom: 10px;
+    }
+
+    .up-reco .ur-head .aitag { background: var(--c-upsell); color: #fff; font-size: 9.5px; padding: 2px 6px; border-radius: 100px; }
+
+    .ur-item { display: flex; align-items: center; gap: 11px; font-size: 13px; font-weight: 700; }
+    .ur-item .th { width: 40px; height: 40px; border-radius: 9px; background: #FFF0F0; display: grid; place-items: center; font-size: 17px; }
+    .ur-item .pr { font-size: 11.5px; color: var(--ink-dim); font-weight: 600; margin-top: 1px; }
+
+    .ur-item .mini-add {
+      margin-left: auto;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--c-upsell);
+      border: none;
+      border-radius: 100px;
+      padding: 7px 13px;
+    }
+
+    .cart-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--c-upsell);
+      background: #FFF0F0;
+      border-radius: 100px;
+      padding: 8px 14px;
+    }
+
+    /* 업셀 — 가격 */
+    .price-card { border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; max-width: 400px; }
+
+    .price-card .pc-line { display: flex; align-items: baseline; gap: 10px; font-size: 15px; font-weight: 700; }
+    .price-card .old { color: var(--ink-faint); text-decoration: line-through; font-size: 13px; font-weight: 600; }
+    .price-card .new-pr { font-size: 21px; font-weight: 800; color: var(--c-upsell); }
+    .price-card .disc { font-size: 11px; font-weight: 800; color: #fff; background: var(--c-upsell); border-radius: 100px; padding: 3px 8px; }
+
+    .ship-bar { margin-top: 14px; }
+    .ship-bar .sb-label { font-size: 11.5px; font-weight: 700; color: var(--ink-dim); margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .ship-bar .track { height: 8px; border-radius: 100px; background: var(--line-soft); overflow: hidden; }
+    .ship-bar .fill { height: 100%; width: 55%; border-radius: 100px; background: linear-gradient(90deg, #FF8A80, var(--c-upsell)); transition: width .8s cubic-bezier(.2, .8, .2, 1); }
+    .sc.on .ship-bar .fill { width: 100%; }
+    .sc.on .ship-bar .sb-label b { color: #0CA678; }
+
+    /* 대시보드 카운터 */
+    .dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 520px; }
+
+    .dash-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: left;
+    }
+
+    .dash-card .dc-label { font-size: 11.5px; font-weight: 700; color: var(--ink-faint); margin-bottom: 8px; }
+    .dash-card .dc-val { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
+    .dash-card .dc-val.pos { color: var(--dcc, var(--c-upsell)); }
+    .dash-card .dc-sub { font-size: 11px; color: var(--ink-faint); margin-top: 5px; font-weight: 600; }
+
+    /* 푸시 — 여정 */
+    .journey { display: flex; align-items: center; gap: 0; max-width: 480px; margin-top: 6px; }
+
+    .jr-node { flex: 1; text-align: center; position: relative; }
+
+    .jr-node .jn-ic {
+      width: 44px; height: 44px;
+      border-radius: 13px;
+      background: var(--line-soft);
+      display: grid; place-items: center;
+      font-size: 18px;
+      margin: 0 auto 8px;
+      transition: .35s;
+      border: 1.5px solid transparent;
+    }
+
+    .jr-node .jn-lb { font-size: 11px; font-weight: 700; color: var(--ink-dim); }
+
+    .jr-link { flex: 0 0 26px; height: 2px; background: var(--line); margin-bottom: 22px; position: relative; overflow: hidden; }
+
+    .jr-link::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--c-push);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .5s ease;
+    }
+
+    .sc.on .jr-node .jn-ic { background: #EAF2FF; border-color: var(--c-push); }
+    .sc.on .jr-link::after { transform: scaleX(1); }
+    .sc.on .jr-link:nth-of-type(4)::after { transition-delay: .18s; }
+    .sc.on .jr-link:nth-of-type(6)::after { transition-delay: .36s; }
+
+    .one-profile {
+      margin-top: 18px;
+      border: 1px solid #BDD7FF;
+      background: #F4F9FF;
+      border-radius: 13px;
+      padding: 13px 16px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink);
+      max-width: 480px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    /* 푸시 — 레시피 & 발송 */
+    .recipe-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 18px;
+      max-width: 420px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .recipe-card .rc-ic { width: 42px; height: 42px; border-radius: 12px; background: #EAF2FF; display: grid; place-items: center; font-size: 18px; }
+    .recipe-card .rc-t { font-size: 14px; font-weight: 800; }
+    .recipe-card .rc-d { font-size: 11.5px; color: var(--ink-dim); font-weight: 600; margin-top: 2px; }
+    .recipe-card .sc-btn { margin-left: auto; background: var(--c-push); }
+
+    .send-phone {
+      margin-top: 14px;
+      max-width: 420px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 13px 15px;
+      background: #FAFBFF;
+    }
+
+    .send-phone .sp-noti {
+      display: flex;
+      gap: 9px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--ink-dim);
+      box-shadow: var(--shadow-md);
+    }
+
+    .send-phone .sp-noti b { color: var(--ink); }
+    .send-phone .sp-noti .ic { flex: 0 0 26px; width: 26px; height: 26px; border-radius: 7px; background: #FEE500; display: grid; place-items: center; font-size: 12px; }
+
+    .auto-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 11px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #0CA678;
+      background: #E6FBF3;
+      border-radius: 100px;
+      padding: 6px 12px;
+    }
+
+    /* 푸시 — 가격 비교 */
+    .stack-vs { display: flex; gap: 18px; align-items: stretch; max-width: 520px; }
+
+    .stack-col { flex: 1; }
+
+    .stack-col .sk-title { font-size: 11.5px; font-weight: 800; color: var(--ink-faint); margin-bottom: 9px; }
+
+    .sk-app {
+      border: 1px dashed var(--line);
+      border-radius: 11px;
+      padding: 10px 13px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      margin-bottom: 7px;
+      display: flex;
+      justify-content: space-between;
+      transition: .4s;
+    }
+
+    .sc.on .sk-app { opacity: .32; transform: scale(.97); text-decoration: line-through; }
+
+    .push-price {
+      border: 1.5px solid var(--c-push);
+      border-radius: 14px;
+      padding: 16px;
+      background: #F4F9FF;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      transition: .4s;
+      opacity: .55;
+    }
+
+    .sc.on .push-price { opacity: 1; box-shadow: 0 12px 32px rgba(48, 122, 243, .18); transform: translateY(-2px); }
+
+    .push-price .pp-name { font-size: 12px; font-weight: 800; color: var(--c-push); }
+    .push-price .pp-val { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin: 7px 0 4px; }
+    .push-price .pp-val small { font-size: 12px; color: var(--ink-dim); font-weight: 700; }
+    .push-price .pp-free { font-size: 11px; font-weight: 700; color: #0CA678; }
+
+    /* 캔버스 — 편집 */
+    .cv-page { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; max-width: 440px; }
+
+    .cv-banner {
+      padding: 22px 20px;
+      background: linear-gradient(120deg, #E0F7F4, #F0FFFC);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      transition: .45s;
+      position: relative;
+    }
+
+    .sc.on .cv-banner {
+      background: linear-gradient(120deg, #00B7A8, #007D73);
+      color: #fff;
+      outline: 2px dashed rgba(255, 255, 255, .55);
+      outline-offset: -7px;
+    }
+
+    .cv-banner .edit-badge {
+      position: absolute;
+      top: 10px; right: 12px;
+      font-size: 9.5px;
+      font-weight: 800;
+      background: #fff;
+      color: var(--c-canvas);
+      border-radius: 100px;
+      padding: 3px 9px;
+      opacity: 0;
+      transition: .3s;
+    }
+
+    .sc.on .cv-banner .edit-badge { opacity: 1; }
+
+    .cv-rows { padding: 14px 16px; display: flex; gap: 10px; }
+    .cv-rows i { flex: 1; height: 54px; border-radius: 10px; background: var(--line-soft); }
+
+    .cv-bar { padding: 0 16px 16px; }
+    .cv-bar i { display: block; height: 12px; border-radius: 6px; background: var(--line-soft); width: 70%; }
+
+    /* 캔버스 — 테마 갈아끼우기 */
+    .theme-btns { display: flex; gap: 8px; margin-bottom: 16px; }
+
+    .theme-btns .sc-btn { background: #fff; color: var(--ink); border: 1px solid var(--line); animation: none; }
+    .theme-btns .sc-btn:first-child { animation: scBtnPulse 1.8s ease infinite; }
+    .sc.on .theme-btns .sc-btn { opacity: 1; pointer-events: auto; }
+    .sc[data-theme="a"] .theme-btns [data-act="theme-a"], .sc[data-theme="b"] .theme-btns [data-act="theme-b"] { border-color: var(--c-canvas); color: var(--c-canvas); font-weight: 800; }
+
+    .theme-page { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; max-width: 440px; transition: .4s; }
+
+    .tp-hero { height: 84px; background: var(--line-soft); display: grid; place-items: center; font-size: 15px; font-weight: 800; color: var(--ink-faint); transition: .45s; }
+    .tp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; padding: 14px; }
+    .tp-grid i { height: 46px; border-radius: 9px; background: var(--line-soft); transition: .45s; }
+
+    .sc[data-theme="a"] .tp-hero { background: linear-gradient(120deg, #FFE9C9, #FFD1A1); color: #B25E00; }
+    .sc[data-theme="a"] .tp-grid i { background: #FFF4E3; }
+    .sc[data-theme="b"] .tp-hero { background: linear-gradient(120deg, #1A1A2E, #3D2B56); color: #FFD54F; }
+    .sc[data-theme="b"] .tp-grid i { background: #ECE8F5; }
+
+    /* 캔버스 — 절감 계산 */
+    .save-note {
+      margin-top: 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0CA678;
+      background: #E6FBF3;
+      display: inline-flex;
+      border-radius: 100px;
+      padding: 7px 13px;
+    }
+
+    /* 씬 하단 실데이터 주석 */
+    .sc-foot {
+      margin-top: auto;
+      padding-top: 14px;
+      font-size: 11px;
+      color: var(--ink-faint);
+      font-weight: 600;
+    }
+
+    /* ─────────────────────────────────────────────
+       STEP 4 — 위젯 설정 / STEP 5 — 카드 등록
+    ───────────────────────────────────────────── */
+    .setup {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 44px 40px 60px;
+    }
+
+    .setup-head { text-align: center; margin-bottom: 26px; }
+    .setup-head h1 { font-size: 25px; font-weight: 800; letter-spacing: -0.025em; }
+    .setup-head h1 b { color: var(--c-review); }
+    .setup-head p { font-size: 13.5px; color: var(--ink-dim); margin-top: 8px; }
+
+    .widget-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 22px; }
+
+    .wt {
+      height: 38px;
+      padding: 0 18px;
+      border-radius: 100px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-dim);
+    }
+
+    .wt.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+    .shop-preview {
+      width: 380px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .sp-top { background: var(--ink); color: #fff; text-align: center; font-size: 11px; font-weight: 700; padding: 8px; }
+    .sp-brand { text-align: center; font-size: 16px; font-weight: 800; padding: 14px 0 10px; letter-spacing: .02em; }
+    .sp-hero { height: 110px; background: linear-gradient(120deg, #F3E8FF, #E8ECFF); }
+    .sp-name { font-size: 13.5px; font-weight: 700; padding: 12px 16px 2px; }
+    .sp-price { font-size: 13px; padding: 0 16px 12px; color: var(--ink-dim); }
+    .sp-price b { color: var(--ink); font-size: 14.5px; }
+
+    .sp-review { margin: 0 16px 16px; border: 1.5px solid var(--c-review); border-radius: 12px; padding: 12px 14px; position: relative; }
+
+    .sp-review::before {
+      content: '알파리뷰 위젯';
+      position: absolute;
+      top: -9px; left: 12px;
+      font-size: 9.5px;
+      font-weight: 800;
+      background: var(--c-review);
+      color: #fff;
+      border-radius: 100px;
+      padding: 2px 9px;
+    }
+
+    .sp-review .sr-head { font-size: 12px; font-weight: 800; margin-bottom: 9px; }
+    .sp-review .sr-row { display: flex; gap: 9px; margin-bottom: 7px; }
+    .sp-review .sr-row .th { width: 34px; height: 34px; border-radius: 8px; background: var(--line-soft); }
+    .sp-review .sr-row .ln { flex: 1; }
+    .sp-review .sr-row .ln i { display: block; height: 8px; border-radius: 4px; background: var(--line-soft); margin-bottom: 5px; }
+    .sp-review .sr-row .ln i.s { width: 62%; }
+
+    .setup-foot { display: flex; align-items: center; gap: 10px; margin-top: 28px; width: 380px; }
+    .setup-foot .skip { background: none; border: none; color: var(--ink-faint); font-size: 13px; font-weight: 600; }
+    .setup-foot .skip:hover { color: var(--ink); }
+    .setup-foot .spacer { flex: 1; }
+
+    /* 카드 등록 */
+    .card-form { width: 400px; }
+
+    .card-form h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.4; margin-bottom: 24px; text-align: center; }
+    .card-form h1 b { color: var(--accent); }
+
+    .cf-label { display: block; font-size: 13px; font-weight: 700; color: var(--ink-dim); margin: 15px 0 7px; }
+
+    .cf-seg { display: flex; gap: 8px; }
+    .cf-seg button {
+      flex: 1; height: 42px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink-dim);
+    }
+    .cf-seg button.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+    .cf-card, .cf-exp { display: flex; gap: 8px; }
+    .cf-card input, .cf-exp input {
+      flex: 1;
+      min-width: 0;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+    }
+    .cf-card input:focus, .cf-exp input:focus { border-color: var(--accent); }
+
+    .cf-agree { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--ink-dim); margin-top: 16px; }
+    .cf-note { font-size: 11.5px; color: var(--ink-faint); line-height: 1.6; margin-top: 10px; }
+
+    .cf-trust { text-align: center; font-size: 12px; color: var(--ink-faint); font-weight: 600; margin-top: 18px; }
+
+    /* ─────────────────────────────────────────────
+       완료 화면
+    ───────────────────────────────────────────── */
+    .done-wrap {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(420px, 560px) 1fr;
+      gap: 40px;
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 56px 40px;
+      align-items: center;
+    }
+
+    .done-title { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.38; margin-bottom: 28px; }
+    .done-title b { color: var(--accent); }
+
+    .done-sec { margin-bottom: 22px; }
+    .done-sec h3 { font-size: 13px; font-weight: 800; color: var(--ink-faint); margin-bottom: 10px; }
+
+    .done-sol-row { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin-bottom: 8px; }
+
+    .done-sol {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #fff;
+      border-radius: 100px;
+      padding: 6px 13px;
+    }
+
+    .done-cond { font-size: 12.5px; color: var(--ink-dim); font-weight: 600; }
+
+    .done-sec p { font-size: 13.5px; color: var(--ink); font-weight: 600; }
+    .done-note { font-size: 12px !important; color: var(--ink-dim) !important; font-weight: 500 !important; line-height: 1.65; margin-top: 7px; }
+
+    .done-cta {
+      height: 50px;
+      padding: 0 28px;
+      border: none;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+
+    .done-cta:hover { filter: brightness(1.1); }
+
+    .done-visual {
+      background: radial-gradient(500px 340px at 50% 30%, rgba(139, 107, 255, .16), transparent 65%);
+      border-radius: 24px;
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .dv-check {
+      width: 108px; height: 108px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: grid; place-items: center;
+      color: #fff;
+      box-shadow: 0 24px 60px rgba(107, 91, 255, .4);
+      animation: dvPop .6s cubic-bezier(.2, 1.6, .4, 1);
+    }
+
+    @keyframes dvPop { from { transform: scale(.4); opacity: 0; } }
+
+    .dv-orbit {
+      position: absolute;
+      font-size: 24px;
+      animation: orbitFloat 3.2s ease-in-out infinite;
+      filter: drop-shadow(0 8px 14px rgba(30, 28, 60, .18));
+    }
+
+    @keyframes orbitFloat { 50% { transform: translateY(-12px); } }
+
+    /* ─────────────────────────────────────────────
+       반응형 (프로토타입 최소 대응)
+    ───────────────────────────────────────────── */
+    @media (max-width: 1080px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; padding-bottom: 140px; }
+      .pick-grid { grid-template-columns: 1fr; }
+      .dt-grid { grid-template-columns: 1fr; }
+      .info-wrap { grid-template-columns: 1fr; }
+      .info-hero { display: none; }
+      .done-wrap { grid-template-columns: 1fr; }
+      .done-visual { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════ 상단바 + 스텝퍼 ═══════════ -->
+  <header class="topbar">
+    <div class="logo"><i>α</i> AlphaApps</div>
+    <div class="steps" id="steps"></div>
+  </header>
+
+  <!-- ═══════════ 스텝 1 — 담당자 정보 ═══════════ -->
+  <section class="view" id="viewInfo1">
+    <div class="info-wrap">
+      <aside class="info-hero">
+        <h2>클릭 몇 번으로 쇼핑몰을 성장시키는<br><span class="hl">알파앱스를 14일간 무료</span>로<br>경험해보세요</h2>
+        <div class="ih-social">
+          <div class="ih-avs"><span class="ih-av a">R</span><span class="ih-av b">P</span><span class="ih-av c">U</span><span class="ih-av d">C</span></div>
+          <b>25,000+개 라이브 쇼핑몰</b>이 알파앱스와 함께<br>리뷰·업셀·CRM·디자인을 한 번에 해결하고 있어요
+        </div>
+      </aside>
+      <div class="info-form-area">
+        <div class="form-card">
+          <h3>담당자 정보 입력</h3>
+          <p class="fc-sub">알파앱스 사용을 위해 정보를 입력해주세요</p>
+          <div class="field"><label>담당자 이름</label><input value="신알파"></div>
+          <div class="field"><label>담당자 직책</label>
+            <div class="sel"><span>대표</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+          </div>
+          <div class="field"><label>담당자 이메일</label><input value="alpha@alphamall.co.kr"></div>
+          <div class="field"><label>담당자 연락처</label><input value="010-1111-2222"></div>
+          <div class="form-actions"><button class="btn primary" data-go="info2">다음</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 스텝 2 — 쇼핑몰 정보 ═══════════ -->
+  <section class="view" id="viewInfo2">
+    <div class="info-wrap">
+      <aside class="info-hero">
+        <h2>클릭 몇 번으로 쇼핑몰을 성장시키는<br><span class="hl">알파앱스를 14일간 무료</span>로<br>경험해보세요</h2>
+        <div class="ih-social">
+          <div class="ih-avs"><span class="ih-av a">R</span><span class="ih-av b">P</span><span class="ih-av c">U</span><span class="ih-av d">C</span></div>
+          <b>25,000+개 라이브 쇼핑몰</b>이 알파앱스와 함께<br>리뷰·업셀·CRM·디자인을 한 번에 해결하고 있어요
+        </div>
+      </aside>
+      <div class="info-form-area">
+        <div class="form-card">
+          <h3>쇼핑몰 정보 입력</h3>
+          <p class="fc-sub">맞춤 서비스 제공을 위해 쇼핑몰 정보를 입력해주세요</p>
+          <div class="field"><label>쇼핑몰 이름</label><input value="알파몰"></div>
+          <div class="field"><label>쇼핑몰 카테고리</label>
+            <div class="sel"><span>데스크테리어</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+          </div>
+          <div class="field"><label>카페24 ID</label><input value="alphamall24"></div>
+          <div class="field"><label>카페24 PW</label><input type="password" value="password1234"></div>
+          <div class="form-actions">
+            <button class="btn ghost" data-go="info1">이전</button>
+            <button class="btn primary" data-go="hero">다음</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 스텝 3-A — 선택한 앱 소개 (히어로) ═══════════ -->
+  <section class="view" id="viewHero">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="hc-kicker" id="heroKicker"><span class="dot"></span>카페24 앱스토어에서 선택하신 앱 · 알파리뷰</span>
+          <h1 id="heroTitle"></h1>
+          <div class="hc-trust" id="heroTrust"></div>
+          <div class="beats" id="heroBeats"></div>
+          <button class="hero-ctrl" id="heroCtrl" type="button">⏸ 자동 넘김 멈춤</button>
+        </div>
+        <div class="hero-stage">
+          <div class="browser">
+            <div class="bw-bar"><span class="bw-dot"></span><span class="bw-dot"></span><span class="bw-dot"></span><span class="bw-url">alphamall.cafe24.com</span></div>
+            <div class="bw-body" id="heroPanes"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 스텝 3-B — 추천 & 담기 ═══════════ -->
+  <section class="view" id="viewPick">
+    <div class="pick">
+      <div class="pick-head">
+        <span class="ph-kicker">✨ 함께 쓰면 더 커지는 성장</span>
+        <h1 id="pickTitle"></h1>
+        <p class="ph-sub">카드를 눌러 30초 만에 훑어보고, 마음에 들면 담아두세요 — 언제든 뺄 수 있어요</p>
+      </div>
+      <div class="pick-grid" id="pickGrid"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 자세히 보기 오버레이 ═══════════ -->
+  <div class="detail" id="detail">
+    <div class="dt-inner">
+      <div class="dt-top">
+        <button class="dt-back" id="dtBack">← 돌아가기</button>
+        <span class="dt-prod"><span class="pd"></span><b id="dtName"></b></span>
+      </div>
+      <div class="dt-head">
+        <h2 id="dtMain"></h2>
+        <div class="dt-trust" id="dtTrust"></div>
+      </div>
+      <div class="dt-grid">
+        <div class="feat-nav" id="featNav"></div>
+        <div class="dt-stagewrap">
+          <div class="dt-stage" id="dtStage"></div>
+          <div class="dt-hint" id="dtHint"><span class="pulse"></span>화면 속 버튼을 직접 눌러보세요</div>
+        </div>
+      </div>
+      <div class="dt-foot">
+        <button class="dt-nav-btn" id="dtPrev">← 이전 기능</button>
+        <button class="dt-nav-btn" id="dtNext">다음 기능 →</button>
+        <button class="dt-add" id="dtAdd"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 스텝 4 — 위젯 설정 ═══════════ -->
+  <section class="view" id="viewWidget">
+    <div class="setup">
+      <div class="setup-head">
+        <h1><b>알파리뷰</b> 위젯, 어디에 보여줄까요?</h1>
+        <p>선택하신 위치에 리뷰 위젯이 자동으로 설치돼요 — 나중에 언제든 바꿀 수 있어요</p>
+      </div>
+      <div class="widget-tabs">
+        <button class="wt active">상세페이지</button>
+        <button class="wt">리뷰 게시판</button>
+        <button class="wt">메인 페이지</button>
+      </div>
+      <div class="shop-preview">
+        <div class="sp-top">신규 회원가입 시 5,000원 할인 쿠폰 지급!</div>
+        <div class="sp-brand">ALPHA MALL</div>
+        <div class="sp-hero"></div>
+        <div class="sp-name">알파 데스크 오거나이저 세트</div>
+        <div class="sp-price"><s>52,000원</s> <b>39,800원</b></div>
+        <div class="sp-review">
+          <div class="sr-head">⭐ 4.9 · 리뷰 1,284</div>
+          <div class="sr-row"><span class="th"></span><span class="ln"><i></i><i class="s"></i></span></div>
+          <div class="sr-row"><span class="th"></span><span class="ln"><i></i><i class="s"></i></span></div>
+        </div>
+      </div>
+      <div class="setup-foot">
+        <button class="skip" data-go="card">건너뛰기</button>
+        <span class="spacer"></span>
+        <button class="btn ghost" data-go="pick">이전</button>
+        <button class="btn primary" style="flex:0 0 auto; padding:0 34px" data-go="card">다음</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 스텝 5 — 카드 등록 ═══════════ -->
+  <section class="view" id="viewCard">
+    <div class="setup">
+      <div class="card-form">
+        <h1>카드를 등록하면<br><b>14일간 무료체험</b>이 시작돼요!</h1>
+        <label class="cf-label">카드 유형</label>
+        <div class="cf-seg"><button class="active">개인</button><button>법인</button></div>
+        <label class="cf-label">카드 번호</label>
+        <div class="cf-card"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"></div>
+        <label class="cf-label">유효 기간</label>
+        <div class="cf-exp"><input placeholder="MM" maxlength="2"><input placeholder="YYYY" maxlength="4"></div>
+        <label class="cf-agree"><input type="checkbox" checked> 카드 정보 결제 서비스 업체 제공 동의</label>
+        <p class="cf-note">자동결제는 공인된 결제 대행사에서 진행되며, 알파앱스에 저장되지 않습니다. 카드 정보는 언제든 삭제 가능합니다.</p>
+        <div class="setup-foot" style="width:100%">
+          <button class="skip" data-go="done">건너뛰기</button>
+          <span class="spacer"></span>
+          <button class="btn ghost" data-go="widget">이전</button>
+          <button class="btn primary" style="flex:0 0 auto; padding:0 34px" data-go="done">완료</button>
+        </div>
+        <p class="cf-trust">25,000+ 라이브 쇼핑몰이 선택한 솔루션</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 완료 ═══════════ -->
+  <section class="view" id="viewDone">
+    <div class="done-wrap">
+      <div>
+        <h1 class="done-title">쇼핑몰을 성장시키는<br><b>알파앱스 무료체험 신청 완료!</b></h1>
+        <div class="done-sec">
+          <h3>담은 솔루션</h3>
+          <div id="doneSols"></div>
+        </div>
+        <div class="done-sec" id="autoSec">
+          <h3>자동 설치</h3>
+          <p id="autoList"></p>
+        </div>
+        <div class="done-sec" id="manualSec">
+          <h3>수동 설치</h3>
+          <p id="manualList"></p>
+          <p class="done-note">수동 설치는 <b>설치 완료까지 영업일 기준 3~5일 소요</b>됩니다.<br>쇼핑몰에 위젯이 설치되면 카톡으로 안내해 드릴게요.</p>
+        </div>
+        <button class="done-cta" onclick="alert('대시보드로 이동합니다 🎉')">대시보드 둘러보기</button>
+      </div>
+      <div class="done-visual">
+        <div class="dv-check"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5 10-11"/></svg></div>
+        <span class="dv-orbit" style="top:14%; left:22%">⭐</span>
+        <span class="dv-orbit" style="top:24%; right:18%; animation-delay:.5s">🛒</span>
+        <span class="dv-orbit" style="bottom:20%; left:16%; animation-delay:1s">🔔</span>
+        <span class="dv-orbit" style="bottom:14%; right:24%; animation-delay:1.5s">🎨</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 장바구니 도크 ═══════════ -->
+  <div class="cart-dock" id="cartDock">
+    <button class="cd-back" id="cdBack">← 이전</button>
+    <span class="cd-label"><span class="cd-bag">🛒<span class="cd-count" id="cdCount">1</span></span>담은 솔루션</span>
+    <span class="cd-chips" id="cdChips"></span>
+    <button class="cd-next" id="cdNext">다음</button>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════════════
+       설정 — 카페24 앱스토어에서 유입된 앱 (진입 컨텍스트)
+    ═══════════════════════════════════════════════ */
+    const ENTRY = 'review';           // 앱스토어에서 선택하고 들어온 앱 (잠금·해제 불가)
+    // ⓘ 카피는 2026-07-03 정리 기준 가안 — 확정 전 // TODO
+
+    /* ═══════════════════════════════════════════════
+       제품 데이터 — 네러티브·피처·씬
+    ═══════════════════════════════════════════════ */
+    const P = {
+      review: {
+        name: '알파리뷰', color: '#6D58F2',
+        main: '<b>카페24 리뷰앱 1위</b> 알파앱스와 함께,<br>가장 빠르게 사랑받는 쇼핑몰로',
+        hook: '리뷰가 신뢰로, 신뢰가 성장으로 이어져요',
+        trust: ['유료 고객사 4,538사', '라이브 25,000+ 쇼핑몰'],
+        trustNote: '2026-06-18 기준 · 자사 데이터',
+        tags: ['리뷰 그로스', 'AI 루틴', '모든 리뷰 위젯'],
+        beats: [
+          ['카페24 리뷰앱, 우리가 1위예요', '가장 많은 쇼핑몰이 선택한 리뷰앱 — 이유가 있어요'],
+          ['리뷰가 성장을 이끌어요', '모든 곳에서 남기고, 남긴 것을 모으고 — 리뷰가 신뢰와 구매가 돼요'],
+          ['AI가 모든 과정을 루틴으로', '수집·답글·부정 리뷰 대응까지, 사람 손 없이 돌아가요'],
+          ['모든 준비가 되어 있어요', '포토·영상·숏츠·뱃지 — 어디서 본 그 기능, 다 있어요'],
+        ],
+        feats: [
+          {
+            kicker: '리뷰 그로스', title: '가장 빠르게, 양질의 리뷰를 모읍니다',
+            desc: '모든 곳에서 남길 수 있고, 남긴 것을 모을 수 있어요. 그게 모여 신뢰와 성장이 됩니다.',
+            chips: ['QR 리뷰', '알림톡 빠른 리뷰', '외부 리뷰 연동'], scene: 'rv1',
+            done: '✓ 이렇게 리뷰가 쌓여요',
+          },
+          {
+            kicker: 'AI 루틴', title: '쌓이는 리뷰, 똑똑해지는 AI',
+            desc: '사람의 업무가 시스템의 루틴이 됩니다 — 실행하던 일이, 감지하면 되는 일로 바뀌어요.',
+            chips: ['AI 리뷰 분석', 'AI 자동 답글', '부정 리뷰 감지·대응'], scene: 'rv2',
+            done: '✓ 부정 리뷰도 AI가 먼저 잡아요',
+          },
+          {
+            kicker: '모든 리뷰 기능', title: '다채로운 디자인으로, 제품의 매력을 더 효과적으로',
+            desc: '어디서 본 그 기능, 다 있습니다. 포토·영상부터 숏츠 위젯까지.',
+            chips: ['포토·영상 리뷰', '20여 종 위젯 + 숏츠', '리뷰 뱃지·상단 고정'], scene: 'rv3',
+            done: '✓ 필요한 위젯이 전부 준비돼 있어요',
+          },
+        ],
+      },
+      upsell: {
+        name: '알파업셀', color: '#E62C35',
+        main: '고객의 장바구니에<br><b>제품 하나를 더</b>',
+        hook: '광고비는 그대로, 객단가는 올라갑니다 — 잘 버는 쇼핑몰은 이미 업셀 중',
+        trust: ['AI 추천 모델 9종', '추천 위젯 12종'],
+        tags: ['AI 상품 추천', '가격 최적화', '숫자로 증명'],
+        feats: [
+          {
+            kicker: 'AI 상품 추천', title: '뭘 담을지, AI가 먼저 찾습니다',
+            desc: '한 번 사는 고객이 두 번 담게 — 함께 사면 좋은 상품을 구매 흐름 곳곳에서 제안해요.',
+            chips: ['AI 추천 모델 9종', '추천 위젯 12종', '옵션세트 바로 담기'], scene: 'up1',
+            done: '✓ 클릭 한 번에 장바구니가 커졌어요',
+          },
+          {
+            kicker: '가격 추천', title: '더 담고 싶은 가격을 만듭니다',
+            desc: '프로모션을 결합하고 가격을 실험해서, “이건 사야겠다” 싶은 순간을 만들어요.',
+            chips: ['프로모션 다단계 결합', '가격 A/B/N 테스트 자동화', '무료배송 CTA·바로담기'], scene: 'up2',
+            done: '✓ 담고 싶은 가격이 됐어요',
+          },
+          {
+            kicker: '숫자로 증명', title: '더 번 돈이 대시보드에 찍힙니다',
+            desc: '몇 개가 더 담겼는지, 얼마를 더 벌었는지 — 그로스는 숫자여야 하니까요.',
+            chips: ['함께구매 금액 자동 집계', '함께구매 건수 자동 집계'], scene: 'up3',
+            done: '✓ 성장이 숫자로 보여요',
+          },
+        ],
+      },
+      push: {
+        name: '알파푸시', color: '#307AF3',
+        main: '초기 쇼핑몰엔,<br><b>알파푸시만 있으면 됩니다</b>',
+        hook: '따로 쓰던 CRM 번들을 하나로 — 세팅 없이 오늘부터 시작',
+        trust: ['월 39,000원 정액', '무료 플랜 제공'],
+        tags: ['전환 액션 번들', '클릭 몇 번 캠페인', '정액 저가'],
+        feats: [
+          {
+            kicker: '전환 액션 번들', title: '따로 쓰던 앱, 알파푸시 하나로',
+            desc: '선물하기·초스피드 회원가입·첫구매 할인·탐색 유도 — 고객 여정이 한 곳에서 이어져요.',
+            chips: ['선물하기', '초스피드 회원가입', '첫구매 할인', '탐색 유도'], scene: 'ps1',
+            done: '✓ 고객 여정이 한 곳에 모였어요',
+          },
+          {
+            kicker: '캠페인 자동화', title: '클릭 몇 번으로, 오늘 바로 캠페인',
+            desc: '미리 짜둔 레시피대로 문자·친구톡·알림톡이 자동으로 나가요. 세그먼트 관리까지.',
+            chips: ['회원가입·첫구매·재구매 레시피', '장바구니 방치 온사이트 팝업', '세그먼트 관리'], scene: 'ps2',
+            done: '✓ 캠페인이 자동으로 돌기 시작했어요',
+          },
+          {
+            kicker: '합리적인 가격', title: '카페24 네이티브, 월 39,000원 정액',
+            desc: '카페24에 바로 적용되고, 발송 비용 외 추가 비용이 없어요. 무료 플랜부터 시작하세요.',
+            chips: ['월 39,000원 정액', '무료 플랜', '발송비 외 추가 없음'], scene: 'ps3',
+            done: '✓ 이 스테이지엔 이보다 좋은 선택이 없어요',
+          },
+        ],
+      },
+      canvas: {
+        name: '알파캔버스', color: '#00B7A8',
+        main: '디자인, 일단 고르세요<br><b>계속 고칠 수 있으니까요</b>',
+        hook: '개발자 없이, 몇 번이고 새 페이지 — 스킨 선택이 자유가 됩니다',
+        trust: ['노코드 위젯 편집', '초기 도입 혜택'],
+        tags: ['상세페이지 위젯 편집', '기획전 갈아끼우기', '도입 혜택'],
+        feats: [
+          {
+            kicker: '계속 고치기', title: '개발자 없이도, 계속 고칠 수 있어요',
+            desc: '스킨에 묶여 있던 상세페이지 영역까지 위젯으로 직접 수정해요. 한 번 사고 끝이 아니에요.',
+            chips: ['상세페이지 위젯 자유 편집', '노코드 수정'], scene: 'cv1',
+            done: '✓ 방금 직접 고치셨어요 — 이게 전부예요',
+          },
+          {
+            kicker: '갈아끼우기', title: '위젯만 갈아 끼우면, 몇 번이고 새 페이지',
+            desc: '기획전·브랜드페이지·공백페이지 — 이벤트마다 처음부터 다시 만들 필요가 없어요.',
+            chips: ['기획전·브랜드·공백페이지 자유 레이아웃', '디자인 요소 전체 제공'], scene: 'cv2',
+            done: '✓ 테마 하나 바꿨을 뿐인데, 새 페이지죠',
+          },
+          {
+            kicker: '도입 혜택', title: '지금 시작하면, 아끼는 돈이 보여요',
+            desc: '스킨 수정 외주비와 시간을 환산해 보세요. 초기 도입 혜택도 준비되어 있어요.',
+            chips: ['초기 도입 혜택', '디자인 리소스 절감'], scene: 'cv3',
+            done: '✓ 자유로움의 가치, 금액으로 확인했어요',
+          },
+        ],
+      },
+    };
+
+    const RECO_ORDER = ['upsell', 'push', 'canvas'];   // 추천 노출 순서
+    const KEYS = [ENTRY, ...RECO_ORDER];
+
+    /* ═══════════════════════════════════════════════
+       씬 HTML — 실제 기능 기반 클릭 액션 목업
+       ⓘ 수치(리뷰 1,284건·₩8,420,000 등)는 예시값 — 실데이터 확인 후 교체 // TODO
+    ═══════════════════════════════════════════════ */
+    const SCENES = {
+      rv1: `<div class="sc">
+        <div class="sc-eyebrow">배송 완료 알림톡 → 상세페이지 리뷰</div>
+        <div class="kko"><div class="kko-b">
+          <div class="kh"><i>톡</i>알파리뷰 알림톡</div>
+          주문하신 <b>알파 데스크 오거나이저</b>, 잘 받으셨나요?<br>지금 후기를 남기면 <b>적립금 1,000원</b>을 드려요 😊
+          <button class="sc-btn" data-act>⭐ 별점·사진 남기기</button>
+        </div></div>
+        <div class="sc-result">
+          <div class="mini-shop">
+            <div class="ms-head">상세페이지 리뷰 <span class="stars">★ 4.9</span> · 리뷰 <b class="cnt" data-from="1284" data-to="1285">1,284</b>건</div>
+            <div class="ms-review new">📷 “재질이 생각보다 훨씬 좋아요. 재구매 각!”</div>
+            <div class="ms-review">📷 “책상이 넓어진 기분. 배송도 빨랐어요”</div>
+          </div>
+        </div>
+        <div class="sc-foot">QR 리뷰·외부 리뷰 연동으로도 같은 방식으로 쌓여요</div>
+      </div>`,
+
+      rv2: `<div class="sc">
+        <div class="sc-eyebrow">AI 리뷰 관리 인박스</div>
+        <div class="rv-inbox">
+          <div class="rvi-row"><span class="st5">★★★★★</span>“포장 꼼꼼하고 예뻐요”<span style="margin-left:auto;font-size:10.5px;color:#0CA678;font-weight:800">답글 완료</span></div>
+          <div class="rvi-row neg"><span class="st5">★☆☆☆☆</span>“배송이 늦고 응대가 없어요”<span class="flag">⚠ 부정 감지</span></div>
+        </div>
+        <button class="sc-btn" data-act style="margin-top:14px; background:#6D58F2">🤖 AI로 대응하기</button>
+        <div class="sc-result">
+          <div class="ai-reply">
+            <div class="ar-head">✨ AI 답글 초안 <span class="ok-tag">감지 → 대응 완료</span></div>
+            “불편을 드려 죄송합니다. 주문 건을 확인해 오늘 중 개별 연락드릴게요. 같은 일이 없도록 배송 프로세스를 점검하겠습니다.”
+          </div>
+        </div>
+        <div class="sc-foot">판단 기준이 ‘실행’에서 ‘감지’로 — 부정 리뷰도 루틴으로 처리돼요</div>
+      </div>`,
+
+      rv3: `<div class="sc">
+        <div class="sc-eyebrow">리뷰 위젯 라이브러리</div>
+        <div class="widget-wall" style="max-width:460px">
+          <div class="ww-tile"><span>📷</span>포토 그리드</div>
+          <div class="ww-tile"><span>🎬</span>영상 리뷰</div>
+          <div class="ww-tile"><span>📱</span>숏츠 위젯</div>
+          <div class="ww-tile"><span>⭐</span>별점 요약</div>
+        </div>
+        <button class="sc-btn" data-act style="margin-top:14px; background:#6D58F2">위젯 20여 종 모두 펼치기</button>
+        <div class="sc-result">
+          <div class="widget-wall" style="margin-top:12px">
+            <div class="ww-tile" style="animation-delay:.02s"><span>🏅</span>리뷰 뱃지</div>
+            <div class="ww-tile" style="animation-delay:.06s"><span>📌</span>상단 고정</div>
+            <div class="ww-tile" style="animation-delay:.10s"><span>🗳️</span>설문 리뷰</div>
+            <div class="ww-tile" style="animation-delay:.14s"><span>💬</span>한 줄 리뷰</div>
+            <div class="ww-tile" style="animation-delay:.18s"><span>🖼️</span>갤러리</div>
+            <div class="ww-tile" style="animation-delay:.22s"><span>🔗</span>SNS 연동</div>
+            <div class="ww-tile" style="animation-delay:.26s"><span>📊</span>통계 위젯</div>
+            <div class="ww-tile" style="animation-delay:.30s"><span>＋</span>그 외 12종</div>
+          </div>
+        </div>
+        <div class="sc-foot">‘다 나온다’가 아니라 ‘다 있다’ — 필요한 순간 바로 켜면 돼요</div>
+      </div>`,
+
+      up1: `<div class="sc">
+        <div class="sc-eyebrow">상품 상세페이지 — 구매 흐름 속 AI 추천</div>
+        <div class="up-prod">
+          <span class="th">🪴</span>
+          <div><div class="nm">미니 데스크 화분</div><div class="pr">12,900원</div></div>
+          <button class="sc-btn" data-act style="background:#E62C35">장바구니 담기</button>
+        </div>
+        <div class="sc-result">
+          <div class="up-reco">
+            <div class="ur-head"><span class="aitag">AI</span>함께 사면 좋아요 — AI가 먼저 찾았어요</div>
+            <div class="ur-item">
+              <span class="th">💡</span>
+              <div>무드 조명 스탠드<div class="pr">19,800원 · 함께 구매 시 -10%</div></div>
+              <button class="mini-add">+ 담기</button>
+            </div>
+          </div>
+          <span class="cart-badge">🛒 장바구니 <b class="cnt" data-from="1" data-to="2">1</b>개 — 한 번의 방문, 더 큰 매출</span>
+        </div>
+        <div class="sc-foot">AI 추천 모델 9종 × 위젯 12종 — 상세·장바구니·결제 모든 퍼널에서</div>
+      </div>`,
+
+      up2: `<div class="sc">
+        <div class="sc-eyebrow">가격 최적화 — 담고 싶은 가격 만들기</div>
+        <div class="price-card">
+          <div class="pc-line"><span>데스크 세트 2개 구성</span><span class="old">64,000원</span><span class="new-pr"><b class="cnt" data-from="64000" data-to="51200" data-fmt="won">64,000원</b></span><span class="disc sc-result" style="transition-delay:.2s">-20%</span></div>
+          <div class="ship-bar">
+            <div class="sb-label"><span>무료배송까지</span><b class="sc-result" style="transition-delay:.4s">🎉 무료배송 달성!</b></div>
+            <div class="track"><div class="fill"></div></div>
+          </div>
+        </div>
+        <button class="sc-btn" data-act style="margin-top:16px; background:#E62C35">프로모션 결합 적용해보기</button>
+        <div class="sc-foot">다단계 프로모션 결합 + 가격 A/B/N 테스트 자동화 — 가장 잘 팔리는 조합을 찾아요</div>
+      </div>`,
+
+      up3: `<div class="sc">
+        <div class="sc-eyebrow">업셀 성과 대시보드</div>
+        <div class="dash-grid">
+          <div class="dash-card"><div class="dc-label">함께구매 매출</div><div class="dc-val pos">₩<b class="cnt" data-to="8420000" data-fmt="num">0</b></div><div class="dc-sub">이번 달 자동 집계</div></div>
+          <div class="dash-card"><div class="dc-label">추가로 담긴 상품</div><div class="dc-val"><b class="cnt" data-to="1294" data-fmt="num">0</b>개</div><div class="dc-sub">함께구매 건수</div></div>
+          <div class="dash-card"><div class="dc-label">객단가</div><div class="dc-val pos">+<b class="cnt" data-to="23">0</b>%</div><div class="dc-sub">도입 전 대비</div></div>
+        </div>
+        <button class="sc-btn" data-act style="margin-top:16px; background:#E62C35">이번 달 성과 집계하기</button>
+        <div class="sc-foot">그로스는 숫자여야 하니까 — 더 번 돈이 그대로 보여요 (수치는 예시)</div>
+      </div>`,
+
+      ps1: `<div class="sc">
+        <div class="sc-eyebrow">한 고객의 여정 — 흩어진 앱을 하나로</div>
+        <div class="journey">
+          <div class="jr-node"><span class="jn-ic">⚡</span><span class="jn-lb">초스피드<br>회원가입</span></div>
+          <span class="jr-link"></span>
+          <div class="jr-node"><span class="jn-ic">🎁</span><span class="jn-lb">첫구매<br>할인</span></div>
+          <span class="jr-link"></span>
+          <div class="jr-node"><span class="jn-ic">💝</span><span class="jn-lb">선물하기</span></div>
+          <span class="jr-link"></span>
+          <div class="jr-node"><span class="jn-ic">🧭</span><span class="jn-lb">탐색 유도</span></div>
+        </div>
+        <button class="sc-btn" data-act style="margin-top:18px; background:#307AF3">여정 연결하기</button>
+        <div class="sc-result">
+          <div class="one-profile">👤 김알파 님 — 가입 → 첫구매 → 선물 수신, <b>한 화면에서 이어져요</b></div>
+        </div>
+        <div class="sc-foot">따로 쓰던 앱 비용도 아끼지만, 진짜 가치는 ‘여정이 한 곳에 보인다’는 것</div>
+      </div>`,
+
+      ps2: `<div class="sc">
+        <div class="sc-eyebrow">캠페인 레시피 — 세팅 없이 바로</div>
+        <div class="recipe-card">
+          <span class="rc-ic">🧾</span>
+          <div><div class="rc-t">첫구매 유도 레시피</div><div class="rc-d">가입 후 24시간 미구매 고객 → 알림톡 자동 발송</div></div>
+          <button class="sc-btn" data-act>켜기</button>
+        </div>
+        <div class="sc-result">
+          <div class="send-phone">
+            <div class="sp-noti"><span class="ic">톡</span><span><b>알파몰</b><br>가입 축하 쿠폰이 곧 사라져요! 첫 구매 시 10% 할인 🎁</span></div>
+          </div>
+          <span class="auto-tag">● 자동 발송 ON — 문자·친구톡·알림톡이 레시피대로</span>
+        </div>
+        <div class="sc-foot">장바구니 방치 고객 온사이트 팝업, 세그먼트 관리까지 — 클릭 몇 번이면 끝</div>
+      </div>`,
+
+      ps3: `<div class="sc">
+        <div class="sc-eyebrow">따로 쓰면 vs 알파푸시 하나로</div>
+        <div class="stack-vs">
+          <div class="stack-col">
+            <div class="sk-title">따로 쓰면</div>
+            <div class="sk-app"><span>문자 발송 앱</span><span>₩50,000~</span></div>
+            <div class="sk-app"><span>CRM 솔루션</span><span>₩300,000~</span></div>
+            <div class="sk-app"><span>팝업·회원가입 앱</span><span>₩30,000~</span></div>
+          </div>
+          <div class="stack-col" style="display:flex; flex-direction:column">
+            <div class="sk-title">알파푸시 하나로</div>
+            <div class="push-price" style="flex:1">
+              <span class="pp-name">알파푸시 · 카페24 네이티브</span>
+              <span class="pp-val">₩39,000<small>/월 정액</small></span>
+              <span class="pp-free">무료 플랜으로 시작 가능 · 발송비 외 추가 없음</span>
+            </div>
+          </div>
+        </div>
+        <button class="sc-btn" data-act style="margin-top:16px; background:#307AF3">하나로 합쳐보기</button>
+        <div class="sc-foot">카페24 시작 단계라면, 이보다 알맞은 선택지가 없어요 (타사 가격은 예시)</div>
+      </div>`,
+
+      cv1: `<div class="sc">
+        <div class="sc-eyebrow">상세페이지 — 스킨에 묶여 있던 영역까지</div>
+        <div class="cv-page">
+          <div class="cv-banner">여름 신상품 출시 <span class="edit-badge">✏️ 지금 편집됨</span></div>
+          <div class="cv-rows"><i></i><i></i><i></i></div>
+          <div class="cv-bar"><i></i></div>
+        </div>
+        <button class="sc-btn" data-act style="margin-top:16px; background:#00B7A8">배너 직접 고쳐보기</button>
+        <div class="sc-foot">개발자 없이, 위젯으로 바로 — 한 번 사고 끝이 아니에요</div>
+      </div>`,
+
+      cv2: `<div class="sc">
+        <div class="sc-eyebrow">기획전 페이지 — 위젯만 갈아 끼우면</div>
+        <div class="theme-btns">
+          <button class="sc-btn" data-act="theme-a">☀️ 여름 기획전</button>
+          <button class="sc-btn" data-act="theme-b">🌙 블랙 프라이데이</button>
+        </div>
+        <div class="theme-page">
+          <div class="tp-hero">SEASON EVENT</div>
+          <div class="tp-grid"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="sc-foot">기획전·브랜드페이지·공백페이지 — 이벤트마다 처음부터 다시 만들 필요 없어요</div>
+      </div>`,
+
+      cv3: `<div class="sc">
+        <div class="sc-eyebrow">자유로움의 가치, 금액으로</div>
+        <div class="dash-grid" style="--dcc:#00B7A8">
+          <div class="dash-card"><div class="dc-label">스킨 수정 외주비 절감</div><div class="dc-val pos">연 ₩<b class="cnt" data-to="2400000" data-fmt="num">0</b></div><div class="dc-sub">건당 20만 원 × 12회 기준</div></div>
+          <div class="dash-card"><div class="dc-label">페이지 제작 시간</div><div class="dc-val pos">-<b class="cnt" data-to="70">0</b>%</div><div class="dc-sub">직접 편집 기준</div></div>
+          <div class="dash-card"><div class="dc-label">다시 만들 수 있는 횟수</div><div class="dc-val">무제한</div><div class="dc-sub">위젯 갈아끼우기</div></div>
+        </div>
+        <button class="sc-btn" data-act style="margin-top:16px; background:#00B7A8">절감액 계산해보기</button>
+        <div class="sc-result"><span class="save-note">🎁 초기 도입 쇼핑몰 혜택 진행 중 — 자세한 내용은 담은 뒤 안내드려요</span></div>
+        <div class="sc-foot">환산 수치는 예시 — 실데이터 확인 후 교체 예정</div>
+      </div>`,
+    };
+
+    /* 히어로 우측 패널 (비트별 목업) — ENTRY 제품용 */
+    const HERO_PANES = {
+      review: [
+        `<div class="hero-pane"><div class="hp-title">카페24 앱스토어 · 리뷰 부문</div>
+          <div class="rank-row first"><span class="rk">1</span>알파리뷰 <span class="stars-sm">★ 4.9</span><span class="crown" style="margin-left:auto">👑</span></div>
+          <div class="rank-row"><span class="rk">2</span><span class="rest"></span></div>
+          <div class="rank-row"><span class="rk">3</span><span class="rest"></span></div>
+          <div class="rank-row"><span class="rk">4</span><span class="rest"></span></div></div>`,
+        `<div class="hero-pane"><div class="hp-title">리뷰 → 신뢰 → 성장</div>
+          <div class="flow-chips">
+            <span class="fchip" style="animation-delay:.05s">📷 리뷰가 쌓이고</span><span class="farrow">→</span>
+            <span class="fchip" style="animation-delay:.3s">🤝 신뢰가 생기고</span><span class="farrow">→</span>
+            <span class="fchip g" style="animation-delay:.55s">📈 구매로 이어져요</span>
+          </div>
+          <div class="grow-bars">
+            <i style="height:26%; animation-delay:.1s"></i><i style="height:42%; animation-delay:.2s"></i>
+            <i style="height:55%; animation-delay:.3s"></i><i style="height:72%; animation-delay:.4s"></i>
+            <i style="height:100%; animation-delay:.5s"></i>
+          </div></div>`,
+        `<div class="hero-pane"><div class="hp-title">AI 루틴 — 사람 손 없이</div>
+          <div class="routine-line">
+            <div class="rt-item" style="animation-delay:.05s"><span class="ic">📥</span>리뷰 수집 요청<span class="auto">자동</span></div>
+            <div class="rt-item" style="animation-delay:.25s"><span class="ic">✍️</span>답글 작성<span class="auto">자동</span></div>
+            <div class="rt-item" style="animation-delay:.45s"><span class="ic">🚨</span>부정 리뷰 감지·대응<span class="auto">자동</span></div>
+          </div></div>`,
+        `<div class="hero-pane"><div class="hp-title">모든 리뷰 기능 — 다 있어요</div>
+          <div class="widget-wall">
+            <div class="ww-tile" style="animation-delay:.02s"><span>📷</span>포토</div>
+            <div class="ww-tile" style="animation-delay:.06s"><span>🎬</span>영상</div>
+            <div class="ww-tile" style="animation-delay:.10s"><span>📱</span>숏츠</div>
+            <div class="ww-tile" style="animation-delay:.14s"><span>🏅</span>뱃지</div>
+            <div class="ww-tile" style="animation-delay:.18s"><span>📌</span>상단 고정</div>
+            <div class="ww-tile" style="animation-delay:.22s"><span>🗳️</span>설문</div>
+            <div class="ww-tile" style="animation-delay:.26s"><span>⭐</span>별점 요약</div>
+            <div class="ww-tile" style="animation-delay:.30s"><span>＋</span>20여 종</div>
+          </div></div>`,
+      ],
+    };
+
+    /* 완료 화면 설치 안내 */
+    const INSTALL = {
+      review: { auto: '알파리뷰 일부 기능', manual: '알파리뷰 일부 기능' },
+      push: { auto: '알파푸시' },
+      upsell: { manual: '알파업셀' },
+      canvas: { manual: '알파캔버스' },
+    };
+
+    /* ═══════════════════════════════════════════════
+       상태 + 유틸
+    ═══════════════════════════════════════════════ */
+    const $ = id => document.getElementById(id);
+    const cart = new Set([ENTRY]);
+    let curView = 'info1';
+
+    const fmtNum = n => n.toLocaleString('ko-KR');
+
+    function runCounts(root) {
+      root.querySelectorAll('.cnt').forEach(el => {
+        if (el.dataset.ran) return;
+        el.dataset.ran = '1';
+        const from = +(el.dataset.from || 0), to = +el.dataset.to;
+        const fmt = el.dataset.fmt;
+        const t0 = performance.now(), dur = 950;
+        (function tick(t) {
+          const p = Math.min(1, (t - t0) / dur);
+          const e = 1 - Math.pow(1 - p, 3);
+          const v = Math.round(from + (to - from) * e);
+          el.textContent = fmt === 'won' ? fmtNum(v) + '원' : fmtNum(v);
+          if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+      });
+    }
+
+    /* ═══════════════════════════════════════════════
+       라우팅 + 스텝퍼
+    ═══════════════════════════════════════════════ */
+    const STEP_LABELS = ['담당자 정보 입력', '쇼핑몰 정보 입력', '맞춤 솔루션 선택', '위젯 설정', '카드 등록'];
+    const VIEW_STEP = { info1: 1, info2: 2, hero: 3, pick: 3, widget: 4, card: 5, done: 6 };
+    const VIEW_ID = { info1: 'viewInfo1', info2: 'viewInfo2', hero: 'viewHero', pick: 'viewPick', widget: 'viewWidget', card: 'viewCard', done: 'viewDone' };
+
+    function buildStepper(cur) {
+      const box = $('steps'); box.innerHTML = '';
+      STEP_LABELS.forEach((lbl, i) => {
+        const n = i + 1;
+        const st = document.createElement('div');
+        st.className = 'st clickable' + (n < cur ? ' done' : n === cur ? ' active' : '');
+        st.innerHTML = `<span class="n">${n < cur ? '✓' : n}</span>${lbl}`;
+        st.onclick = () => go(stepEntry(n));   // 검토·비교용: 모든 단계 클릭 이동
+        box.appendChild(st);
+        if (n < STEP_LABELS.length) {
+          const seg = document.createElement('span');
+          seg.className = 'st-seg' + (n < cur ? ' done' : '');
+          box.appendChild(seg);
+        }
+      });
+    }
+
+    function stepEntry(n) { return ({ 1: 'info1', 2: 'info2', 3: 'hero', 4: 'widget', 5: 'card' })[n]; }
+
+    function go(view) {
+      curView = view;
+      Object.values(VIEW_ID).forEach(id => $(id).classList.remove('on'));
+      $(VIEW_ID[view]).classList.add('on');
+      buildStepper(VIEW_STEP[view]);
+      window.scrollTo(0, 0);
+      // 장바구니 도크: 히어로·추천 화면에서만
+      const dockOn = (view === 'hero' || view === 'pick');
+      $('cartDock').classList.toggle('show', dockOn);
+      if (dockOn) renderDock();
+      if (view === 'hero') startHero(); else stopHero();
+      if (view === 'done') renderDone();
+    }
+
+    document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
+
+    /* ═══════════════════════════════════════════════
+       스텝 3-A — 히어로 (자동 네러티브)
+    ═══════════════════════════════════════════════ */
+    const BEAT_MS = 3400;
+    let heroTimer = null, heroIdx = 0;
+
+    function initHero() {
+      const d = P[ENTRY];
+      $('heroKicker').innerHTML = `<span class="dot" style="background:${d.color}"></span>카페24 앱스토어에서 선택하신 앱 · ${d.name}`;
+      $('heroTitle').innerHTML = d.main;
+      $('heroTrust').innerHTML = d.trust.map(t => `<span class="td">${t}</span>`).join('') + (d.trustNote ? `<span class="note">${d.trustNote}</span>` : '');
+      const beats = $('heroBeats'); beats.innerHTML = '';
+      d.beats.forEach((b, i) => {
+        const el = document.createElement('div');
+        el.className = 'beat';
+        el.style.setProperty('--beat-ms', BEAT_MS + 'ms');
+        el.innerHTML = `<span class="bn">${i + 1}</span><span><span class="bt">${b[0]}</span><span class="bd">${b[1]}</span></span><span class="prog"></span>`;
+        // 클릭하면 그 화면에서 멈춰서 볼 수 있게 (자동 넘김 정지)
+        el.onclick = () => { heroGo(i); pauseHero(); };
+        beats.appendChild(el);
+      });
+      $('heroPanes').innerHTML = (HERO_PANES[ENTRY] || []).join('');
+    }
+
+    function heroGo(i) {
+      heroIdx = i;
+      [...$('heroBeats').children].forEach((el, j) => {
+        el.classList.toggle('on', j === i);
+        el.classList.toggle('done', j < i);
+        if (j === i) { // 게이지 리스타트
+          const p = el.querySelector('.prog');
+          p.style.animation = 'none'; void p.offsetWidth; p.style.animation = '';
+        }
+      });
+      [...$('heroPanes').children].forEach((el, j) => el.classList.toggle('on', j === i));
+    }
+
+    let heroPaused = false;
+    function startHero() { heroPaused = false; $('heroBeats').classList.remove('paused'); syncHeroCtrl(); heroGo(0); restartHeroTimer(); }
+    function restartHeroTimer() {
+      stopHero();
+      if (heroPaused) return;
+      heroTimer = setInterval(() => heroGo((heroIdx + 1) % P[ENTRY].beats.length), BEAT_MS);
+    }
+    function stopHero() { if (heroTimer) { clearInterval(heroTimer); heroTimer = null; } }
+    function pauseHero() { heroPaused = true; stopHero(); $('heroBeats').classList.add('paused'); syncHeroCtrl(); }
+    function playHero() { heroPaused = false; $('heroBeats').classList.remove('paused'); syncHeroCtrl(); heroGo(heroIdx); restartHeroTimer(); }
+    function syncHeroCtrl() {
+      const b = $('heroCtrl'); if (!b) return;
+      b.textContent = heroPaused ? '▶ 자동 넘김 재생' : '⏸ 자동 넘김 멈춤';
+    }
+    { const c = $('heroCtrl'); if (c) c.onclick = () => (heroPaused ? playHero() : pauseHero()); }
+
+    /* ═══════════════════════════════════════════════
+       스텝 3-B — 추천 카드 + 담기
+    ═══════════════════════════════════════════════ */
+    const MICRO = {
+      upsell: `<div class="md-cart">
+          <span class="md-plus1">+1 담김</span>
+          <div class="md-cartrow"><span class="th">🪴</span>미니 화분<span class="pr">12,900원</span></div>
+          <div class="md-cartrow ai"><span class="th">💡</span>무드 조명<span class="aitag">AI 추천</span><span class="pr">19,800원</span></div>
+        </div>`,
+      push: `<div class="md-phone">
+          <div class="md-noti"><span class="ic">톡</span><span><b>알파몰</b>첫 구매 10% 쿠폰 도착 🎁</span></div>
+          <div class="md-noti"><span class="ic">💬</span><span><b>알파몰</b>장바구니 상품이 기다려요</span></div>
+        </div>`,
+      canvas: `<div class="md-canvas">
+          <span class="md-blk wide">여름 기획전 배너</span>
+          <span class="md-blk">상품 그리드</span>
+          <span class="md-blk">브랜드 스토리</span>
+        </div>`,
+    };
+
+    function renderPick() {
+      const entry = P[ENTRY];
+      $('pickTitle').innerHTML = `<b style="color:${entry.color}">${entry.name}</b>와 함께 쓰면,<br>성장이 더 빨라지는 솔루션이에요`;
+      const grid = $('pickGrid'); grid.innerHTML = '';
+      RECO_ORDER.forEach(k => {
+        const d = P[k];
+        const card = document.createElement('div');
+        card.className = 'pcard' + (cart.has(k) ? ' added' : '');
+        card.style.setProperty('--pc', d.color);
+        card.dataset.key = k;
+        card.innerHTML = `
+          <span class="added-flag">🛒 담김</span>
+          <div class="pc-stage">${MICRO[k] || ''}</div>
+          <div class="pc-body">
+            <span class="pc-name">${d.name}</span>
+            <div class="pc-main">${d.main}</div>
+            <p class="pc-hook">${d.hook}</p>
+            <div class="pc-tags">${d.tags.map(t => `<span class="pc-tag">${t}</span>`).join('')}</div>
+            <div class="pc-btns">
+              <button class="pc-view">기능 자세히 보기</button>
+              <button class="pc-add">${cart.has(k) ? '✓ 담김 · 빼기' : '+ 담기'}</button>
+            </div>
+          </div>`;
+        card.querySelector('.pc-view').onclick = () => openDetail(k);
+        card.querySelector('.pc-add').onclick = e => toggleCart(k, e.currentTarget);
+        grid.appendChild(card);
+      });
+    }
+
+    function toggleCart(k, fromEl) {
+      if (k === ENTRY) return;
+      if (cart.has(k)) cart.delete(k);
+      else { cart.add(k); if (fromEl) flyToCart(fromEl, P[k].color); }
+      renderPick(); renderDock(); syncDetailAdd();
+    }
+
+    function flyToCart(fromEl, color) {
+      const a = fromEl.getBoundingClientRect();
+      const b = $('cdCount').getBoundingClientRect();
+      const dot = document.createElement('div');
+      dot.className = 'fly-dot';
+      dot.style.background = color;
+      dot.style.left = a.left + a.width / 2 + 'px';
+      dot.style.top = a.top + a.height / 2 + 'px';
+      document.body.appendChild(dot);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        dot.style.left = b.left + 'px';
+        dot.style.top = b.top + 'px';
+        dot.style.transform = 'scale(.4)';
+        dot.style.opacity = '.5';
+      }));
+      setTimeout(() => {
+        dot.remove();
+        const c = $('cdCount');
+        c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump');
+      }, 660);
+    }
+
+    /* ═══════════════════════════════════════════════
+       장바구니 도크
+    ═══════════════════════════════════════════════ */
+    function renderDock() {
+      $('cdCount').textContent = cart.size;
+      const chips = $('cdChips'); chips.innerHTML = '';
+      KEYS.filter(k => cart.has(k)).forEach(k => {
+        const d = P[k];
+        const chip = document.createElement('span');
+        chip.className = 'cd-chip';
+        chip.style.setProperty('--cc', d.color);
+        chip.innerHTML = `<span class="cdot"></span>${d.name}` +
+          (k === ENTRY ? `<span class="lk">앱스토어 선택</span>` : `<button class="rm" title="빼기">×</button>`);
+        if (k !== ENTRY) chip.querySelector('.rm').onclick = () => toggleCart(k);
+        chips.appendChild(chip);
+      });
+      // 다음 버튼 라벨 + 뒤로가기
+      if (curView === 'hero') {
+        $('cdNext').textContent = '다음 — 함께 쓸 솔루션 보기';
+        $('cdBack').textContent = '← 이전';
+      } else {
+        $('cdNext').textContent = `${cart.size}개 담고 설정으로 →`;
+        $('cdBack').textContent = `← ${P[ENTRY].name} 소개`;
+      }
+    }
+
+    $('cdNext').onclick = () => {
+      if (curView === 'hero') go('pick');
+      else go(cart.has('review') ? 'widget' : 'card');
+    };
+    $('cdBack').onclick = () => go(curView === 'hero' ? 'info2' : 'hero');
+
+    /* ═══════════════════════════════════════════════
+       자세히 보기 오버레이 — 피처 클릭 씬
+    ═══════════════════════════════════════════════ */
+    let dtKey = null, dtIdx = 0;
+
+    function openDetail(k) {
+      dtKey = k; dtIdx = 0;
+      const d = P[k];
+      const dt = $('detail');
+      dt.style.setProperty('--dc', d.color);
+      $('dtName').textContent = d.name;
+      $('dtMain').innerHTML = d.main;
+      $('dtTrust').innerHTML = d.trust.map(t => `<span>${t}</span>`).join('');
+      const nav = $('featNav'); nav.innerHTML = '';
+      d.feats.forEach((f, i) => {
+        const b = document.createElement('button');
+        b.className = 'fn-item';
+        b.innerHTML = `<span class="fn-kicker"><span class="no">${i + 1}</span>${f.kicker}</span>
+          <div class="fn-title">${f.title}</div>
+          <p class="fn-desc">${f.desc}</p>
+          <div class="fn-chips">${f.chips.map(c => `<span>${c}</span>`).join('')}</div>`;
+        b.onclick = () => dtGo(i);
+        nav.appendChild(b);
+      });
+      syncDetailAdd();
+      dt.classList.add('on');
+      stopHero();
+      dtGo(0);
+    }
+
+    function dtGo(i) {
+      dtIdx = i;
+      const d = P[dtKey], f = d.feats[i];
+      [...$('featNav').children].forEach((el, j) => el.classList.toggle('on', j === i));
+      const stage = $('dtStage');
+      stage.innerHTML = SCENES[f.scene] || '';
+      const hint = $('dtHint');
+      hint.classList.remove('ok');
+      hint.innerHTML = '<span class="pulse"></span>화면 속 버튼을 직접 눌러보세요';
+      // 씬 클릭 액션
+      stage.querySelectorAll('[data-act]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const sc = stage.querySelector('.sc');
+          const act = btn.dataset.act;
+          if (act && act.startsWith('theme-')) sc.dataset.theme = act.split('-')[1];
+          sc.classList.add('on');
+          runCounts(stage);
+          hint.classList.add('ok');
+          hint.textContent = f.done;
+        });
+      });
+      $('dtPrev').disabled = (i === 0);
+      $('dtNext').textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
+    }
+
+    function syncDetailAdd() {
+      if (!dtKey) return;
+      const btn = $('dtAdd');
+      const added = cart.has(dtKey);
+      const isEntry = (dtKey === ENTRY);
+      btn.classList.toggle('added', added);
+      btn.innerHTML = isEntry ? '✓ 앱스토어에서 선택한 앱이에요'
+        : added ? '✓ 담겼어요 — 계속 둘러보기' : `🛒 ${P[dtKey].name} 담기`;
+      btn.onclick = () => {
+        if (isEntry) { closeDetail(); return; }
+        if (added) closeDetail();
+        else { toggleCart(dtKey, btn); syncDetailAdd(); }
+      };
+    }
+
+    function closeDetail() {
+      $('detail').classList.remove('on');
+      if (curView === 'hero') startHero();
+      renderPick(); renderDock();
+    }
+
+    $('dtBack').onclick = closeDetail;
+    // 새 창 UX: 배경(창 밖) 클릭·Esc로 닫기
+    $('detail').addEventListener('click', e => { if (e.target === $('detail')) closeDetail(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('detail').classList.contains('on')) closeDetail(); });
+    $('dtPrev').onclick = () => { if (dtIdx > 0) dtGo(dtIdx - 1); };
+    $('dtNext').onclick = () => {
+      if (dtIdx < P[dtKey].feats.length - 1) dtGo(dtIdx + 1);
+      else closeDetail();
+    };
+
+    /* 히어로에서 진입 앱 자세히 보기: 비트 클릭 시 우측 목업 유지,
+       스테이지(브라우저) 클릭 → 상세 오버레이 */
+    document.querySelector('.hero-stage').addEventListener('click', () => openDetail(ENTRY));
+    document.querySelector('.hero-stage').style.cursor = 'pointer';
+    document.querySelector('.hero-stage').title = '클릭하면 기능을 직접 체험할 수 있어요';
+
+    /* ═══════════════════════════════════════════════
+       완료 화면
+    ═══════════════════════════════════════════════ */
+    function renderDone() {
+      const picked = KEYS.filter(k => cart.has(k));
+      const box = $('doneSols'); box.innerHTML = '';
+      const row = document.createElement('div'); row.className = 'done-sol-row';
+      row.innerHTML = picked.map(k => `<span class="done-sol" style="background:${P[k].color}">${P[k].name}</span>`).join('')
+        + '<span class="done-cond">14일 무료체험</span>';
+      box.appendChild(row);
+      const auto = [], manual = [];
+      picked.forEach(k => { const i = INSTALL[k]; if (!i) return; if (i.auto) auto.push(i.auto); if (i.manual) manual.push(i.manual); });
+      $('autoSec').style.display = auto.length ? 'block' : 'none';
+      $('autoList').textContent = [...new Set(auto)].join(', ');
+      $('manualSec').style.display = manual.length ? 'block' : 'none';
+      $('manualList').textContent = [...new Set(manual)].join(', ');
+    }
+
+    /* ═══════════════════════════════════════════════
+       부팅
+    ═══════════════════════════════════════════════ */
+    initHero();
+    renderPick();
+    go('info1');
+  </script>
+</body>
+
+</html>
