@@ -25,6 +25,8 @@
       --dark-b: #15142A;
       --c-review: #6D58F2;
       --c-push: #307AF3;
+      /* 공용 애니메이션 커서 (3-A 히어로와 동일) — 모든 데모 클릭 애니메이션에 사용 */
+      --cursor-svg: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cpath%20d='M6%203.5%20L6%2024.5%20Q6%2026%207.4%2025.2%20L11.6%2020.4%20L14.7%2026.9%20Q15.2%2028%2016.4%2027.5%20L18.4%2026.6%20Q19.5%2026.1%2019%2025%20L16%2018.7%20L22.5%2018.4%20Q24%2018.3%2023%2017.2%20L8.2%203.1%20Q6.9%201.9%206%203.5%20Z'%20fill='%23ffffff'%20stroke='%23C4C9D6'%20stroke-width='1.3'%20stroke-linejoin='round'/%3E%3C/svg%3E");
       --c-upsell: #E62C35;
       --c-canvas: #00B7A8;
       --r: 16px;
@@ -558,6 +560,20 @@
       animation-play-state: paused;
     }
 
+    /* 게이지 클릭 스크럽 히트존 (얇은 게이지 대신 넉넉한 하단 영역) */
+    .beat .prog-hit {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 13px;
+      z-index: 3;
+    }
+
+    .beat.on .prog-hit {
+      cursor: ew-resize;
+    }
+
     /* 멈춤 상태: 우측 실사 플로우 애니메이션도 그 자리에서 정지 (이어보기 가능) */
     #heroPanes.paused .hero-pane,
     #heroPanes.paused .hero-pane * {
@@ -585,6 +601,19 @@
     .hero-ctrl:hover {
       background: rgba(255, 255, 255, .17);
       color: #fff;
+    }
+
+    .hero-ctrl .hc-ic {
+      width: 12px;
+      height: 12px;
+      background-color: currentColor;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M9.66699%204C10.0205%204.00013%2010.3594%204.21098%2010.6094%204.58594C10.8594%204.961%2011%205.46959%2011%206V18C11%2018.5304%2010.8594%2019.039%2010.6094%2019.4141C10.3594%2019.789%2010.0205%2019.9999%209.66699%2020H8.33301C7.9795%2019.9999%207.6406%2019.789%207.39062%2019.4141C7.1406%2019.039%207%2018.5304%207%2018V6C7%205.46959%207.1406%204.961%207.39062%204.58594C7.6406%204.21098%207.9795%204.00013%208.33301%204H9.66699Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20d%3D%22M16.667%204C17.0205%204.00013%2017.3594%204.21098%2017.6094%204.58594C17.8594%204.961%2018%205.46959%2018%206V18C18%2018.5304%2017.8594%2019.039%2017.6094%2019.4141C17.3594%2019.789%2017.0205%2019.9999%2016.667%2020H15.333C14.9795%2019.9999%2014.6406%2019.789%2014.3906%2019.4141C14.1406%2019.039%2014%2018.5304%2014%2018V6C14%205.46959%2014.1406%204.961%2014.3906%204.58594C14.6406%204.21098%2014.9795%204.00013%2015.333%204H16.667Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M9.66699%204C10.0205%204.00013%2010.3594%204.21098%2010.6094%204.58594C10.8594%204.961%2011%205.46959%2011%206V18C11%2018.5304%2010.8594%2019.039%2010.6094%2019.4141C10.3594%2019.789%2010.0205%2019.9999%209.66699%2020H8.33301C7.9795%2019.9999%207.6406%2019.789%207.39062%2019.4141C7.1406%2019.039%207%2018.5304%207%2018V6C7%205.46959%207.1406%204.961%207.39062%204.58594C7.6406%204.21098%207.9795%204.00013%208.33301%204H9.66699Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20d%3D%22M16.667%204C17.0205%204.00013%2017.3594%204.21098%2017.6094%204.58594C17.8594%204.961%2018%205.46959%2018%206V18C18%2018.5304%2017.8594%2019.039%2017.6094%2019.4141C17.3594%2019.789%2017.0205%2019.9999%2016.667%2020H15.333C14.9795%2019.9999%2014.6406%2019.789%2014.3906%2019.4141C14.1406%2019.039%2014%2018.5304%2014%2018V6C14%205.46959%2014.1406%204.961%2014.3906%204.58594C14.6406%204.21098%2014.9795%204.00013%2015.333%204H16.667Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
+    }
+
+    .hero-ctrl.paused .hc-ic {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2534_2912%29%22%3E%20%3Cpath%20d%3D%22M6.51172%203.12696C6.82797%202.95024%207.21587%202.95857%207.52441%203.14844L20.5244%2011.1484C20.82%2011.3305%2021%2011.6529%2021%2012C21%2012.3472%2020.82%2012.6695%2020.5244%2012.8516L7.52441%2020.8516C7.21587%2021.0414%206.82797%2021.0498%206.51172%2020.8731C6.19565%2020.6963%206%2020.3622%206%2020V4C6%203.63785%206.19565%203.30373%206.51172%203.12696ZM8%2018.21L18.0918%2012L8%205.78907V18.21Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2534_2912%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2534_2912%29%22%3E%20%3Cpath%20d%3D%22M6.51172%203.12696C6.82797%202.95024%207.21587%202.95857%207.52441%203.14844L20.5244%2011.1484C20.82%2011.3305%2021%2011.6529%2021%2012C21%2012.3472%2020.82%2012.6695%2020.5244%2012.8516L7.52441%2020.8516C7.21587%2021.0414%206.82797%2021.0498%206.51172%2020.8731C6.19565%2020.6963%206%2020.3622%206%2020V4C6%203.63785%206.19565%203.30373%206.51172%203.12696ZM8%2018.21L18.0918%2012L8%205.78907V18.21Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2534_2912%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
     }
 
     @keyframes beatProg {
@@ -1101,10 +1130,6 @@
       min-width: 0;
     }
 
-    .hp-live .lf-prod {
-      width: 172px;
-    }
-
     .hp-live .lp-img {
       height: 140px;
     }
@@ -1291,11 +1316,11 @@
     }
 
     .lf-prod {
-      width: 188px;
+      width: 180px;
       background: #fff;
       border: 1px solid var(--line);
       border-radius: 16px;
-      padding: 8px;
+      padding: 16px;
       box-shadow: 0 8px 22px rgba(20, 20, 43, .09);
     }
 
@@ -1470,7 +1495,6 @@
     .lf-phone {
       flex: 0 0 272px;
       background: #B2C7D9;
-      border: 1px solid var(--line);
       border-radius: 18px;
       overflow: hidden;
       display: flex;
@@ -1605,7 +1629,7 @@
       width: 30px;
       height: 30px;
       font-size: 0;
-      background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cpath%20d='M6%203.5%20L6%2024.5%20Q6%2026%207.4%2025.2%20L11.6%2020.4%20L14.7%2026.9%20Q15.2%2028%2016.4%2027.5%20L18.4%2026.6%20Q19.5%2026.1%2019%2025%20L16%2018.7%20L22.5%2018.4%20Q24%2018.3%2023%2017.2%20L8.2%203.1%20Q6.9%201.9%206%203.5%20Z'%20fill='%23ffffff'%20stroke='%23C4C9D6'%20stroke-width='1.3'%20stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+      background: var(--cursor-svg) no-repeat center / contain;
       filter: drop-shadow(0 4px 7px rgba(0, 0, 0, .28));
       opacity: 0;
       pointer-events: none;
@@ -1865,702 +1889,1216 @@
     }
 
     /* ─────────────────────────────────────────────
-       히어로 pane 2 — AI 루틴 실사 플로우
-       리뷰 쌓임 → AI 자동 처리 → 부정 감지 → 알림·대응 → 인사이트
+       히어로 pane 2 — AI 리뷰 운영 전체 파이프라인 (모든 과정을 루틴으로)
+       수집·분류 → AI 요약 → 월간 브리핑 → 개선 진단 → 브랜드 인사이트 → 매주 자동 반복
     ───────────────────────────────────────────── */
     .hp-ai {
-      padding: 18px 20px 20px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .lf-send .ai-chip {
-      font-size: 11.5px;
-      font-weight: 800;
-      color: #fff;
-      background: linear-gradient(135deg, #8B6BFF, #6D58F2);
-      border-radius: 6px;
-      padding: 3px 10px;
-    }
-
-    .ai-flow {
-      flex: 1;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) auto minmax(0, 1fr);
-      gap: 14px;
-      align-items: stretch;
-      min-height: 0;
-    }
-
-    /* 좌 — 실시간 리뷰 인박스 */
-    .ai-inbox {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: #fff;
       padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      min-width: 0;
-      box-shadow: 0 6px 18px rgba(20, 20, 43, .05);
+      justify-content: center;
     }
 
-    .aib-head {
+    .ai-pipe {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .apx-head {
       display: flex;
       align-items: center;
-      gap: 9px;
-      font-size: 16px;
-      font-weight: 800;
-      border-bottom: 1px solid var(--line-soft);
-      padding-bottom: 10px;
+      justify-content: space-between;
+      margin-bottom: 12px;
     }
 
-    .aib-head .live {
-      font-size: 11px;
+    .apx-title {
+      font-size: 15px;
       font-weight: 800;
-      color: #0CA678;
-      background: #E6FBF3;
+      color: var(--ink);
+    }
+
+    .apx-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--c-review);
+      background: color-mix(in srgb, var(--c-review) 8%, #fff);
+      border: 1px solid color-mix(in srgb, var(--c-review) 20%, #fff);
       border-radius: 100px;
-      padding: 4px 10px;
+      padding: 4px 12px;
     }
 
-    .ai-rv {
-      border: 1px solid var(--line-soft);
-      border-radius: 13px;
-      padding: 10px 13px;
-      font-size: 13px;
-      line-height: 1.55;
+    .apx-live b {
+      color: var(--c-review);
+    }
+
+    .apx-live i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--c-review);
+      animation: adPulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes adPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: .3;
+        transform: scale(1.5);
+      }
+    }
+
+    /* 파이프라인 흐름 */
+    .apx-flow {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      min-height: 0;
+    }
+
+    .stg {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 11px 11px;
+      box-shadow: 0 6px 16px rgba(20, 20, 43, .05);
       opacity: 0;
     }
 
-    .ai-rv .rv-line {
+    .stg-top {
       display: flex;
       align-items: center;
       gap: 6px;
+      margin-bottom: 9px;
+    }
+
+    .stg-no {
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8B6BFF, var(--c-review));
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .stg-lb {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -.01em;
+    }
+
+    .stg-ui {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stg-cap {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--ink-faint);
+      margin-top: 8px;
+      line-height: 1.35;
+    }
+
+    .arw {
+      flex: 0 0 22px;
+      align-self: center;
+      height: 2px;
+      background: var(--line);
+      position: relative;
+      z-index: 2;
+    }
+
+    .arw::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--c-review);
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+
+    .arw::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: -4px;
+      border-left: 7px solid var(--c-review);
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      opacity: 0;
+    }
+
+    /* S1 리뷰 행 */
+    .mrv {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--line-soft);
+      border-radius: 8px;
+      padding: 4px 6px;
+    }
+
+    .mrv img {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+
+    .mrv .st .star {
+      width: 7px;
+      height: 7px;
+    }
+
+    .mrv .tg {
+      margin-left: auto;
+      font-size: 8.5px;
+      font-weight: 800;
+      color: var(--c-review);
+      background: #fff;
+      border-radius: 5px;
+      padding: 1px 6px;
+      flex: 0 0 auto;
+    }
+
+    .mrv .tg.neg {
+      color: #E0642C;
+    }
+
+    .stg-count {
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--ink-faint);
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    /* S2 요약 */
+    .msum-h {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .msum-h b {
+      color: var(--c-review);
+    }
+
+    .msum-row {
+      font-size: 9.5px;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 6px 8px;
+      line-height: 1.35;
+    }
+
+    .msum-row.ok {
+      color: #0CA678;
+      background: #E3F7EF;
+    }
+
+    .msum-row.cau {
+      color: #E0642C;
+      background: #FDEEE4;
+    }
+
+    /* S3 차트 */
+    .mc-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 52px;
+    }
+
+    .mc-bars i {
+      flex: 1;
+      height: var(--h);
+      border-radius: 3px 3px 0 0;
+      background: linear-gradient(180deg, #CDC4FF, #9284EE);
+      transform: scaleY(0);
+      transform-origin: bottom;
+    }
+
+    .mc-stat {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      margin-top: 4px;
+    }
+
+    .mc-stat b {
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .mc-stat .dn {
+      color: #12B886;
+      font-weight: 800;
+    }
+
+    /* S4 스캐터 */
+    .mscat {
+      position: relative;
+      height: 70px;
+      border-radius: 9px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #FBE9E7 0 48%, #E7F6EE 52% 100%);
+    }
+
+    .mscat i {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #AEB2C6;
+      transform: translate(-50%, -50%);
+    }
+
+    .mscat i.bad {
+      width: 8px;
+      height: 8px;
+      background: #EF6A5E;
+      box-shadow: 0 0 0 3px rgba(239, 106, 94, .22);
+    }
+
+    .mscat-cap {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #E0642C;
+      margin-top: 5px;
+    }
+
+    /* S5 키워드 */
+    .mkw-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .mkw {
+      font-size: 10px;
+      font-weight: 800;
+      border-radius: 100px;
+      padding: 3px 9px;
+    }
+
+    .mkw.a {
+      color: #6D58F2;
+      background: #EDEAFF;
+      font-size: 12px;
+    }
+
+    .mkw.b {
+      color: #0CA678;
+      background: #E1F6EE;
+    }
+
+    .mkw.c {
+      color: #E0642C;
+      background: #FDEEE4;
+    }
+
+    .mkw.d {
+      color: #2B7FE0;
+      background: #E6F0FD;
+    }
+
+    .mkw-risk {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #E0642C;
+      margin-top: 6px;
+    }
+
+    /* 스테이지 순차 등장 (데이터가 흐르듯) */
+    .hero-pane.on .stg.s1 { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .4s both; }
+    .hero-pane.on .stg.s2 { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .8s both; }
+    .hero-pane.on .stg.s3 { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.2s both; }
+    .hero-pane.on .stg.s4 { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.6s both; }
+    .hero-pane.on .stg.s5 { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 2s both; }
+
+    .hero-pane.on .arw.a1::before { animation: arwFill .35s ease .78s both; }
+    .hero-pane.on .arw.a2::before { animation: arwFill .35s ease 1.18s both; }
+    .hero-pane.on .arw.a3::before { animation: arwFill .35s ease 1.58s both; }
+    .hero-pane.on .arw.a4::before { animation: arwFill .35s ease 1.98s both; }
+    .hero-pane.on .arw.a1::after { animation: arwTip .3s ease 1.05s both; }
+    .hero-pane.on .arw.a2::after { animation: arwTip .3s ease 1.45s both; }
+    .hero-pane.on .arw.a3::after { animation: arwTip .3s ease 1.85s both; }
+    .hero-pane.on .arw.a4::after { animation: arwTip .3s ease 2.25s both; }
+
+    @keyframes arwFill { to { transform: scaleX(1); } }
+    @keyframes arwTip { to { opacity: 1; } }
+
+    .hero-pane.on .stg.s3 .mc-bars i { animation: barGrow .5s cubic-bezier(.3, 1, .4, 1) 1.35s both; }
+    .hero-pane.on .stg.s3 .mc-bars i:nth-child(2) { animation-delay: 1.42s; }
+    .hero-pane.on .stg.s3 .mc-bars i:nth-child(3) { animation-delay: 1.49s; }
+    .hero-pane.on .stg.s3 .mc-bars i:nth-child(4) { animation-delay: 1.56s; }
+    .hero-pane.on .stg.s3 .mc-bars i:nth-child(5) { animation-delay: 1.63s; }
+    .hero-pane.on .stg.s3 .mc-bars i:nth-child(6) { animation-delay: 1.7s; }
+
+    /* 스테이지 보강 요소 */
+    .mrv-thumbs {
+      display: flex;
+      gap: 4px;
+    }
+
+    .mrv-thumbs img {
+      flex: 1;
+      min-width: 0;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 7px;
+    }
+
+    .mtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    .mtags i {
+      font-size: 8.5px;
+      font-weight: 800;
+      color: var(--ink-faint);
+      background: var(--line-soft);
+      border-radius: 5px;
+      padding: 2px 6px;
+    }
+
+    .mprod {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--line-soft);
+      border-radius: 9px;
+      padding: 5px 7px;
+    }
+
+    .mprod img {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+
+    .mprod b {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: var(--ink);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .ai-rv .st5 {
+    .mprod .pneg {
+      margin-left: auto;
       flex: 0 0 auto;
-      font-size: 12px;
+      font-size: 9px;
       font-weight: 800;
-      color: #F5A623;
-      letter-spacing: -.5px;
+      color: #E0642C;
     }
 
-    .ai-rv .st5.low {
-      color: #E03131;
-    }
-
-    .ai-rv .ph {
-      font-size: 11px;
-    }
-
-    .ai-rv.neg {
-      border-color: #FFD8D8;
-      background: #FFF7F7;
-    }
-
-    /* AI 자동 처리 스탬프 — 리뷰 아래 도장 찍히듯 */
-    .ai-act {
-      display: inline-flex;
-      align-items: center;
-      margin-top: 7px;
-      font-size: 11.5px;
-      font-weight: 800;
-      color: var(--accent);
-      background: var(--accent-soft);
-      border-radius: 100px;
-      padding: 5px 12px;
-      opacity: 0;
-    }
-
-    .ai-act.warn {
-      color: #E03131;
-      background: #FFECEC;
-    }
-
-    .hero-pane.on .ai-rv.r1 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) .6s both;
-    }
-
-    .hero-pane.on .ai-act.a1 {
-      animation: aiStamp .35s cubic-bezier(.2, 1.6, .4, 1) 1.3s both;
-    }
-
-    .hero-pane.on .ai-rv.r2 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 1.9s both;
-    }
-
-    .hero-pane.on .ai-act.a2 {
-      animation: aiStamp .35s cubic-bezier(.2, 1.6, .4, 1) 2.6s both;
-    }
-
-    .hero-pane.on .ai-rv.r3 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 3.2s both;
-    }
-
-    .hero-pane.on .ai-act.a3 {
-      animation: aiStamp .35s cubic-bezier(.2, 1.6, .4, 1) 3.8s both;
-    }
-
-    @keyframes aiStamp {
-      from {
-        opacity: 0;
-        transform: scale(1.5);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    /* 가운데 화살표 — pane1의 3.15s 딜레이 오버라이드 */
-    .hero-pane.on .ai-mid {
-      animation: lfIn .4s ease 4.1s both;
-    }
-
-    /* 우 — 알림 · AI 대응 · 인사이트 */
-    .ai-right {
+    .mratio-lb {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .ai-alert {
-      border: 1px solid var(--line);
-      border-left: 3px solid #E03131;
-      border-radius: 14px;
-      background: #fff;
-      padding: 11px 14px;
-      font-size: 12.5px;
-      line-height: 1.55;
-      color: var(--ink-dim);
-      box-shadow: 0 6px 18px rgba(20, 20, 43, .05);
-      opacity: 0;
-    }
-
-    .hero-pane.on .ai-alert {
-      animation: lfPop .5s cubic-bezier(.2, 1.4, .4, 1) 4.5s both;
-    }
-
-    .al-head {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
+      justify-content: space-between;
+      font-size: 9px;
       font-weight: 800;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .al-head .slack {
-      font-size: 10px;
-      font-weight: 800;
-      color: #fff;
-      background: #4A154B;
-      border-radius: 4px;
-      padding: 2px 6px;
-    }
-
-    .al-head .tok {
-      font-size: 10px;
-      font-weight: 800;
-      color: #3A1D1D;
-      background: #FEE500;
-      border-radius: 4px;
-      padding: 2px 6px;
-    }
-
-    .ai-reply {
-      border: 1.5px solid var(--accent);
-      border-radius: 14px;
-      background: #fff;
-      padding: 11px 14px;
-      font-size: 12.5px;
-      line-height: 1.55;
-      color: var(--ink-dim);
-      position: relative;
-      opacity: 0;
-      box-shadow: 0 6px 18px rgba(20, 20, 43, .05);
-    }
-
-    .hero-pane.on .ai-reply {
-      animation: lfPop .5s cubic-bezier(.2, 1.4, .4, 1) 5.4s both;
-    }
-
-    .ai-reply em {
-      display: block;
-      font-style: normal;
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--accent);
       margin-bottom: 3px;
     }
 
-    .ai-reply .ok {
-      position: absolute;
-      top: -10px;
-      right: 10px;
-      font-size: 10.5px;
-      font-weight: 800;
-      color: #fff;
-      background: #0CA678;
-      border-radius: 100px;
-      padding: 3px 9px;
-      opacity: 0;
+    .mratio-lb .pos {
+      color: var(--c-review);
     }
 
-    .hero-pane.on .ai-reply .ok {
-      animation: aiStamp .35s cubic-bezier(.2, 1.6, .4, 1) 6.1s both;
+    .mratio-lb .neg2 {
+      color: #E0642C;
     }
 
-    .ai-insight {
-      flex: 1;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: linear-gradient(160deg, #FBFAFF, #F4F1FF);
-      padding: 12px 14px;
-      font-size: 12px;
-      opacity: 0;
-      box-shadow: 0 6px 18px rgba(20, 20, 43, .05);
+    .mratio {
+      height: 8px;
+      border-radius: 5px;
+      background: #FADFD8;
+      overflow: hidden;
     }
 
-    .hero-pane.on .ai-insight {
-      animation: lfPop .5s cubic-bezier(.2, 1.4, .4, 1) 6.7s both;
+    .mratio i {
+      display: block;
+      height: 100%;
+      width: 92%;
+      border-radius: 5px;
+      background: linear-gradient(90deg, #8E7CFF, var(--c-review));
     }
 
-    .in-head {
-      font-size: 14px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .in-bubbles {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 9px;
-    }
-
-    .in-bubbles .bb {
-      font-size: 11.5px;
-      font-weight: 800;
-      border-radius: 100px;
-      padding: 5px 12px;
-      background: #EDE9FF;
-      color: var(--accent);
-      opacity: 0;
-    }
-
-    .in-bubbles .b2 {
-      background: #E4F6EC;
-      color: #0CA678;
-    }
-
-    .in-bubbles .b3 {
-      background: #FFF1E0;
-      color: #E8890C;
-    }
-
-    .in-bubbles .b4 {
-      background: #fff;
-      color: var(--ink-faint);
-      border: 1px dashed var(--line);
-    }
-
-    .hero-pane.on .in-bubbles .b1 {
-      animation: aiStamp .35s cubic-bezier(.2, 1.6, .4, 1) 7.2s both;
-    }
-
-    .hero-pane.on .in-bubbles .b2 {
-      animation: aiStamp .35s cubic-bezier(.2, 1.6, .4, 1) 7.45s both;
-    }
-
-    .hero-pane.on .in-bubbles .b3 {
-      animation: aiStamp .35s cubic-bezier(.2, 1.6, .4, 1) 7.7s both;
-    }
-
-    .hero-pane.on .in-bubbles .b4 {
-      animation: aiStamp .35s cubic-bezier(.2, 1.6, .4, 1) 7.95s both;
-    }
-
-    .in-sug {
-      font-size: 12px;
+    /* 루틴 반복 바 */
+    .apx-loop {
+      margin-top: 12px;
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
       font-weight: 700;
-      color: var(--ink);
-      background: #fff;
-      border: 1px solid var(--line-soft);
-      border-radius: 11px;
-      padding: 9px 12px;
-      line-height: 1.5;
+      color: var(--c-review);
+      background: color-mix(in srgb, var(--c-review) 7%, #fff);
+      border: 1px solid color-mix(in srgb, var(--c-review) 22%, #fff);
+      border-radius: 100px;
+      padding: 9px 20px;
       opacity: 0;
     }
 
-    .hero-pane.on .in-sug {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 8.4s both;
+    .apx-loop b {
+      color: var(--ink);
     }
+
+    .apx-loop .lp-ic {
+      display: inline-block;
+      animation: spin 3.5s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .hero-pane.on .apx-loop { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 2.5s both; }
 
     /* ─────────────────────────────────────────────
-       히어로 pane 3 — 위젯 갤러리 실사 플로우
-       다채로운 위젯이 채워짐 → 골라서 클릭 → 자동 설치
+       히어로 pane 3 — "모든 준비가 되어 있어요"
+       쇼핑몰에 자동 설치된 알파리뷰 위젯들이 실제 UI로 차곡차곡 채워짐
     ───────────────────────────────────────────── */
     .hp-wg {
-      padding: 18px 20px 16px;
+      padding: 16px 18px 14px;
       display: flex;
       flex-direction: column;
+      background: radial-gradient(680px 320px at 12% -12%, color-mix(in srgb, var(--c-review) 8%, transparent), transparent 62%);
     }
 
-    .wg-chip {
-      background: linear-gradient(135deg, #6D58F2, #00B7A8) !important;
+    /* 상단 좌측 — 설치 완료 헤더 (eyebrow·count·foot 통합, 크게 강조) */
+    .wg-head {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 9px;
+      margin-bottom: 11px;
+      opacity: 0;
     }
 
-    /* 3단 매소너리 — 딱딱한 격자 대신 자연스러운 벽 */
-    .wg-wall {
+    .hero-pane.on .wg-head {
+      animation: lfPop .45s cubic-bezier(.2, 1.2, .4, 1) .2s both;
+    }
+
+    .wg-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #9B8BFF, var(--c-review));
+      border-radius: 100px;
+      padding: 5px 15px;
+      box-shadow: 0 8px 20px color-mix(in srgb, var(--c-review) 34%, transparent);
+    }
+
+    .wg-title {
+      font-size: 18.5px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.34;
+      color: var(--ink);
+    }
+
+    .wg-title b {
+      color: var(--c-review);
+      font-size: 21px;
+    }
+
+    /* 위젯 벽 — 아래로 넘치게 채우고 하단은 흰색으로 은은하게 페이드 */
+    .wg-wallwrap {
+      position: relative;
       flex: 1;
-      columns: 3;
-      column-gap: 12px;
       min-height: 0;
+      overflow: hidden;
+    }
+
+    .wg-wallwrap::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 92px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 82%);
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    .wg-wall {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+    }
+
+    .wg-col {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
     }
 
     .wg {
       position: relative;
-      break-inside: avoid;
-      margin-bottom: 12px;
       background: #fff;
-      border: 1px solid #EFEFF6;
-      border-radius: 16px;
-      padding: 12px 13px;
-      box-shadow: 0 6px 16px rgba(20, 20, 43, .05);
-      font-size: 12.5px;
+      border: 1px solid color-mix(in srgb, var(--c-review) 9%, var(--line));
+      border-radius: 17px;
+      padding: 11px 12px;
+      box-shadow: 0 6px 18px color-mix(in srgb, var(--c-review) 7%, transparent);
+      font-size: 12px;
       opacity: 0;
     }
 
-    .wg-label {
+    .wg-h {
       display: flex;
       align-items: center;
       gap: 5px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
+      color: var(--ink-faint);
+      margin-bottom: 9px;
+      letter-spacing: .01em;
+    }
+
+    .wg img {
+      display: block;
+    }
+
+    /* 1) 리뷰 통계 */
+    .wg-stat .ws-score {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 9px;
+    }
+
+    .wg-stat .ws-score .star {
+      width: 18px;
+      height: 18px;
+      align-self: center;
+    }
+
+    .wg-stat .ws-score b {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .wg-stat .ws-score em {
+      font-style: normal;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-faint);
+    }
+
+    .wg-stat .ws-score em b {
+      font-size: 11px;
       color: var(--ink-dim);
-      margin-bottom: 8px;
+      letter-spacing: 0;
+    }
+
+    .wsb {
+      display: grid;
+      grid-template-columns: 52px 1fr 24px;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ink-faint);
+    }
+
+    .wsb-track {
+      height: 6px;
+      background: var(--line-soft);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .wsb-track i {
+      display: block;
+      height: 100%;
+      width: var(--w);
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--c-review) 35%, #D5CFF4);
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+
+    .wsb.top {
+      color: var(--ink-dim);
+    }
+
+    .wsb.top .wsb-track i {
+      background: linear-gradient(90deg, #8E7CFF, var(--c-review));
+    }
+
+    .wsb-p {
+      text-align: right;
+      color: var(--ink-dim);
+    }
+
+    .hero-pane.on .wg-stat .wsb-track i {
+      animation: barGrow .85s cubic-bezier(.3, 1, .4, 1) .95s both;
+    }
+
+    @keyframes barGrow {
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    /* 2) 포토 리뷰 그리드 */
+    .wg-pg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+
+    .wg-pg img {
+      width: 100%;
+      height: 54px;
+      object-fit: cover;
+      border-radius: 8px;
     }
 
     .wg-meta {
+      display: flex;
+      align-items: center;
+      gap: 4px;
       font-size: 11px;
       font-weight: 700;
       color: var(--ink-faint);
       margin-top: 8px;
     }
 
-    .wg-meta b {
-      color: var(--accent);
+    .wg-meta .star {
+      width: 12px;
+      height: 12px;
     }
 
-    .wg p {
+    .wg-meta b {
+      color: var(--ink-dim);
+    }
+
+    /* 3) 베스트 텍스트 리뷰 */
+    .wg-best .wb-badge {
+      display: inline-block;
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #8E7CFF, var(--c-review));
+      border-radius: 5px;
+      padding: 2px 7px;
+      letter-spacing: .02em;
+      margin-bottom: 7px;
+    }
+
+    .wg-best .st {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .wg-best p {
       font-size: 12px;
       font-weight: 600;
-      color: var(--ink-dim);
       line-height: 1.5;
+      color: var(--ink-dim);
     }
 
-    .wg .st {
-      font-size: 11px;
-      font-weight: 800;
-      color: #F5A623;
-      letter-spacing: -.5px;
-    }
-
-    /* 포토 그리드 */
-    .wg .pg {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4px;
-    }
-
-    .wg .pg i {
-      height: 46px;
-      border-radius: 9px;
-    }
-
-    .wg .pg .p1 {
-      background: linear-gradient(135deg, #FFD9C9, #FFAD90);
-    }
-
-    .wg .pg .p2 {
-      background: linear-gradient(135deg, #CDEEE4, #8ED9C3);
-    }
-
-    .wg .pg .p3 {
-      background: linear-gradient(135deg, #DCD4FF, #B3A2FF);
-    }
-
-    .wg .pg .p4 {
-      background: linear-gradient(135deg, #CFE5FF, #93C4FF);
-    }
-
-    /* 숏츠 — 인스타 링 */
-    .wg .rings {
+    .wg-best .wb-author {
       display: flex;
+      align-items: center;
       gap: 6px;
+      margin-top: 9px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--ink-faint);
     }
 
-    .wg .rings i {
-      width: 38px;
-      height: 38px;
+    .wb-av {
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* 4) 포토·영상 리뷰 */
+    .wg-vid .wv-img {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .wg-vid .wv-img img {
+      width: 100%;
+      height: 104px;
+      object-fit: cover;
+    }
+
+    .wg-vid .wv-play {
+      position: absolute;
+      inset: 0;
       display: grid;
       place-items: center;
-      font-size: 16px;
+    }
+
+    .wg-vid .wv-play i {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(20, 18, 40, .4);
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+      display: grid;
+      place-items: center;
       font-style: normal;
+      font-size: 12px;
+      color: #fff;
+      padding-left: 2px;
+      border: 1.5px solid rgba(255, 255, 255, .7);
+    }
+
+    .wg-vid .wv-rate {
+      position: absolute;
+      left: 7px;
+      bottom: 7px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(20, 18, 40, .5);
+      border-radius: 100px;
+      padding: 2px 8px;
+    }
+
+    .wg-vid .wv-rate .star {
+      width: 10px;
+      height: 10px;
+    }
+
+    .wg-vid .wv-prod {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .wv-prod img {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      object-fit: cover;
+    }
+
+    .wv-prod .wp-nm {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      line-height: 1.25;
+    }
+
+    .wv-prod .wp-mt {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--ink-faint);
+      margin-top: 1px;
+    }
+
+    .wv-prod .wp-mt .star {
+      width: 9px;
+      height: 9px;
+    }
+
+    /* 5) 리뷰 게시판 미니 */
+    .wg-board .wb-row {
+      display: grid;
+      grid-template-columns: 22px 1fr 34px;
+      gap: 7px;
+      align-items: center;
+      padding: 8px 0;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .wg-board .wb-row:first-of-type {
+      border-top: 0;
+      padding-top: 2px;
+    }
+
+    .wb-row .wb-ava {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .wb-row .wb-tx {
+      min-width: 0;
+    }
+
+    .wb-row .wb-tx p {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--ink-dim);
+      line-height: 1.35;
+      margin-top: 3px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .wg-board .st .star {
+      width: 9px;
+      height: 9px;
+    }
+
+    .wb-row .wb-th {
+      width: 34px;
+      height: 34px;
+      border-radius: 7px;
+      object-fit: cover;
+    }
+
+    /* 6) 생생후기 스토리 */
+    .wg-story .ws-avatars {
+      display: flex;
+      gap: 7px;
+    }
+
+    .ws-avatars .wsa img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      padding: 2px;
       border: 2px solid transparent;
       background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #F58529, #DD2A7B, #8134AF) border-box;
     }
 
-    .wg .rings .r0 {
-      background: #17181D;
-      border-color: #17181D;
-      color: #fff;
-      font-size: 17px;
-      font-weight: 800;
-    }
-
-    /* 리뷰 뱃지 — 다크 타일 */
-    .wg.dark {
-      background: #17181D;
-      border-color: #17181D;
-      color: #fff;
-      text-align: center;
-      padding: 14px 11px;
-    }
-
-    .wg.dark b {
-      display: block;
-      font-size: 28px;
-      letter-spacing: -.02em;
-    }
-
-    .wg.dark .st {
-      display: block;
-      margin: 3px 0 2px;
-    }
-
-    .wg.dark em {
-      font-style: normal;
-      font-size: 10.5px;
-      color: rgba(255, 255, 255, .55);
-    }
-
-    /* 영상 리뷰 */
-    .wg .vid {
-      height: 66px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #8B6BFF, #5FC6FF);
+    .ws-avatars .wsa-add {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       display: grid;
       place-items: center;
-      color: #fff;
-      font-size: 16px;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--c-review);
+      background: color-mix(in srgb, var(--c-review) 8%, #fff);
+      border: 1.5px dashed color-mix(in srgb, var(--c-review) 40%, #fff);
     }
 
-    /* 랭킹 포디움 */
-    .wg .podium {
-      display: flex;
-      align-items: flex-end;
+    /* 7) 상품별 리뷰목록 */
+    .wg-list .wl-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 6px;
-      height: 58px;
     }
 
-    .wg .podium i {
-      flex: 1;
-      border-radius: 6px 6px 2px 2px;
-      background: linear-gradient(180deg, #A99CFF, #6D58F2);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 800;
-      font-style: normal;
-      display: grid;
-      place-items: center;
+    .wl-card img {
+      width: 100%;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 7px;
     }
 
-    .wg .podium .s1 {
-      height: 100%;
-    }
-
-    .wg .podium .s2 {
-      height: 66%;
-      opacity: .75;
-    }
-
-    .wg .podium .s3 {
-      height: 46%;
-      opacity: .55;
-    }
-
-    /* 설문 요약 바 */
-    .wg .bars {
-      margin-top: 6px;
-    }
-
-    .wg .bars i {
-      display: block;
-      height: 7px;
-      width: var(--w);
-      border-radius: 4px;
-      background: linear-gradient(90deg, #A99CFF, #6D58F2);
-      margin-top: 4px;
-    }
-
-    /* +12종 더 */
-    .wg.more {
-      border-style: dashed;
-      box-shadow: none;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 800;
+    .wl-card .wl-nm {
+      font-size: 9.5px;
+      font-weight: 700;
       color: var(--ink-dim);
-      padding: 15px 12px;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .wg.more em {
-      display: block;
-      font-style: normal;
-      font-size: 10.5px;
-      font-weight: 600;
+    .wl-card .wl-mt {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 9px;
+      font-weight: 700;
       color: var(--ink-faint);
-      margin-top: 3px;
+    }
+
+    .wl-card .wl-mt .star {
+      width: 8px;
+      height: 8px;
+    }
+
+    .wl-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-top: 9px;
+    }
+
+    .wl-page i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+
+    .wl-page i.on {
+      width: 15px;
+      border-radius: 4px;
+      background: var(--c-review);
     }
 
     /* 위젯 순차 팝인 — 다 "있다"는 느낌으로 차곡차곡 */
     .hero-pane.on .wg.w1 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) .4s both;
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .35s both;
     }
 
     .hero-pane.on .wg.w2 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) .72s both;
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .5s both;
     }
 
     .hero-pane.on .wg.w3 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 1.04s both;
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .65s both;
     }
 
     .hero-pane.on .wg.w4 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 1.36s both, wgSel .4s ease 4.35s forwards;
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .8s both;
     }
 
     .hero-pane.on .wg.w5 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 1.68s both;
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .95s both;
     }
 
     .hero-pane.on .wg.w6 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 2s both;
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.1s both;
     }
 
     .hero-pane.on .wg.w7 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 2.32s both;
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.25s both;
     }
 
-    .hero-pane.on .wg.w8 {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 2.64s both;
-    }
-
-    /* 선택 하이라이트 링 (이미지의 민트-블루 테두리) */
-    @keyframes wgSel {
-      to {
-        opacity: 1;
-        box-shadow: 0 0 0 2.5px #00B7A8, 0 12px 26px rgba(0, 183, 168, .22);
-      }
-    }
-
-    /* 손가락 — 영상 위젯을 골라 클릭 */
-    .wg-cursor {
-      left: auto;
-      right: 14px;
-      top: 42px;
-      font-size: 30px;
-    }
-
-    .hero-pane.on .wg-cursor {
-      animation: wgCursor 1.7s ease-in-out 3.2s both;
-    }
-
-    .hero-pane.on .wg-cursor::after {
-      animation: lfRipple .5s ease 4.3s both;
-      border-color: #00B7A8;
-    }
-
-    @keyframes wgCursor {
-      0% {
-        opacity: 0;
-        transform: translate(46px, 56px) rotate(-10deg);
-      }
-
-      28% {
-        opacity: 1;
-      }
-
-      55% {
-        transform: translate(0, 0) rotate(0deg);
-      }
-
-      68% {
-        transform: translate(0, 0) scale(.8);
-      }
-
-      82% {
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 0;
-        transform: translate(3px, -7px);
-      }
-    }
-
-    /* 설치 완료 스탬프 */
+    /* 설치 완료 스탬프 — 크고 잘 보이게 (초록 성공 배지 + 글로우 펄스) */
     .wg-done {
       position: absolute;
-      top: -10px;
+      top: -11px;
       right: 8px;
-      font-size: 10.5px;
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
       font-weight: 800;
       color: #fff;
-      background: linear-gradient(135deg, #00B7A8, #0CA678);
+      background: linear-gradient(135deg, #16C79A, #0CA678);
       border-radius: 100px;
-      padding: 3px 9px;
-      box-shadow: 0 4px 10px rgba(0, 183, 168, .35);
+      padding: 4px 12px 4px 6px;
+      box-shadow: 0 6px 16px rgba(12, 166, 120, .45);
       opacity: 0;
+    }
+
+    .wg-done .wd-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #fff;
+      color: #0CA678;
+      display: grid;
+      place-items: center;
+      font-size: 9.5px;
+      font-weight: 900;
     }
 
     .hero-pane.on .wg-done {
-      animation: aiStamp .35s cubic-bezier(.2, 1.6, .4, 1) 4.7s both;
+      animation: aiStamp .4s cubic-bezier(.2, 1.6, .4, 1) 1.6s both, wgDoneGlow 2.2s ease-in-out 2.1s infinite;
     }
 
-    /* 마무리 — 전환율 UP */
-    .wg-foot {
-      align-self: center;
-      margin-top: 6px;
-      font-size: 13.5px;
+    @keyframes wgDoneGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 6px 16px rgba(12, 166, 120, .45);
+      }
+
+      50% {
+        box-shadow: 0 8px 24px rgba(12, 166, 120, .8);
+      }
+    }
+
+    /* 추가 위젯 cascade */
+    .hero-pane.on .wg.w8 {
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.4s both;
+    }
+
+    .hero-pane.on .wg.w9 {
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.55s both;
+    }
+
+    /* 세일즈 티커 */
+    .wg-sale {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: linear-gradient(120deg, #2B2340, #4A3A78);
+      border-color: transparent;
+    }
+
+    .wg-sale .wsl-fire {
+      font-size: 18px;
+    }
+
+    .wg-sale .wsl-tx {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .78);
+      line-height: 1.35;
+    }
+
+    .wg-sale .wsl-tx b {
+      color: #fff;
+      font-weight: 800;
+    }
+
+    /* 공지사항 */
+    .wg-notice .wn-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 0;
+      border-top: 1px solid var(--line-soft);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--ink-dim);
+    }
+
+    .wg-notice .wn-row:first-of-type {
+      border-top: 0;
+      padding-top: 2px;
+    }
+
+    .wn-tag {
+      flex: 0 0 auto;
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--c-review);
+      background: color-mix(in srgb, var(--c-review) 10%, #fff);
+      border-radius: 5px;
+      padding: 2px 6px;
+    }
+
+    .wn-tag.event {
+      color: #E0642C;
+      background: #FDEEE4;
+    }
+
+    .wn-row .wn-t {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .wn-row .wn-d {
+      flex: 0 0 auto;
+      font-size: 9px;
+      color: var(--ink-faint);
+      font-weight: 700;
+    }
+
+    /* 상품별 리뷰목록 */
+    .wg-list .wl-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .wl-card img {
+      width: 100%;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 7px;
+    }
+
+    .wl-card .wl-nm {
+      font-size: 9.5px;
       font-weight: 700;
       color: var(--ink-dim);
-      background: #FAFAFD;
-      border: 1px solid var(--line-soft);
-      border-radius: 100px;
-      padding: 10px 20px;
-      opacity: 0;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .wg-foot b {
-      color: var(--accent);
+    .wl-card .wl-mt {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--ink-faint);
     }
 
-    .hero-pane.on .wg-foot {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 5.5s both;
+    .wl-card .wl-mt .star {
+      width: 8px;
+      height: 8px;
+    }
+
+    .wl-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-top: 9px;
+    }
+
+    .wl-page i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+
+    .wl-page i.on {
+      width: 15px;
+      border-radius: 4px;
+      background: var(--c-review);
     }
 
     .lfs-review {
@@ -2783,27 +3321,6 @@
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc) 18%, transparent);
     }
 
-    .pcard .added-flag {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      z-index: 3;
-      font-size: 11.5px;
-      font-weight: 800;
-      color: #fff;
-      background: var(--pc);
-      border-radius: 100px;
-      padding: 5px 11px;
-      opacity: 0;
-      transform: scale(.7);
-      transition: .25s cubic-bezier(.2, 1.6, .4, 1);
-    }
-
-    .pcard.added .added-flag {
-      opacity: 1;
-      transform: none;
-    }
-
     /* 카드 상단 — 루핑 마이크로 데모 */
     .pc-stage {
       height: 168px;
@@ -2905,6 +3422,23 @@
     .pcard.added .pc-add {
       background: color-mix(in srgb, var(--pc) 12%, #fff);
       color: var(--pc);
+    }
+
+    .pc-add .pc-ck,
+    .pc-add .pc-plus {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      vertical-align: -3px;
+      margin-right: 4px;
+      background-color: currentColor;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M20.7069%206.293C20.8944%206.48053%2020.9997%206.73484%2020.9997%207C20.9997%207.26516%2020.8944%207.51947%2020.7069%207.707L10.7069%2017.707C10.5194%2017.8945%2010.2651%2017.9998%209.99992%2017.9998C9.73475%2017.9998%209.48045%2017.8945%209.29292%2017.707L4.29292%2012.707C4.11076%2012.5184%204.00997%2012.2658%204.01224%2012.0036C4.01452%2011.7414%204.11969%2011.4906%204.3051%2011.3052C4.49051%2011.1198%204.74132%2011.0146%205.00352%2011.0123C5.26571%2011.01%205.51832%2011.1108%205.70692%2011.293L9.99992%2015.586L19.2929%206.293C19.4804%206.10553%2019.7348%206.00021%2019.9999%206.00021C20.2651%206.00021%2020.5194%206.10553%2020.7069%206.293Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M20.7069%206.293C20.8944%206.48053%2020.9997%206.73484%2020.9997%207C20.9997%207.26516%2020.8944%207.51947%2020.7069%207.707L10.7069%2017.707C10.5194%2017.8945%2010.2651%2017.9998%209.99992%2017.9998C9.73475%2017.9998%209.48045%2017.8945%209.29292%2017.707L4.29292%2012.707C4.11076%2012.5184%204.00997%2012.2658%204.01224%2012.0036C4.01452%2011.7414%204.11969%2011.4906%204.3051%2011.3052C4.49051%2011.1198%204.74132%2011.0146%205.00352%2011.0123C5.26571%2011.01%205.51832%2011.1108%205.70692%2011.293L9.99992%2015.586L19.2929%206.293C19.4804%206.10553%2019.7348%206.00021%2019.9999%206.00021C20.2651%206.00021%2020.5194%206.10553%2020.7069%206.293Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
+    }
+
+    .pc-add .pc-plus {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M12%204C12.5523%204%2013%204.44772%2013%205V11H19C19.5523%2011%2020%2011.4477%2020%2012C20%2012.5523%2019.5523%2013%2019%2013H13V19C13%2019.5523%2012.5523%2020%2012%2020C11.4477%2020%2011%2019.5523%2011%2019V13H5C4.44772%2013%204%2012.5523%204%2012C4%2011.4477%204.44772%2011%205%2011H11V5C11%204.44772%2011.4477%204%2012%204Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M12%204C12.5523%204%2013%204.44772%2013%205V11H19C19.5523%2011%2020%2011.4477%2020%2012C20%2012.5523%2019.5523%2013%2019%2013H13V19C13%2019.5523%2012.5523%2020%2012%2020C11.4477%2020%2011%2019.5523%2011%2019V13H5C4.44772%2013%204%2012.5523%204%2012C4%2011.4477%204.44772%2011%205%2011H11V5C11%204.44772%2011.4477%204%2012%204Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E");
     }
 
     /* 마이크로 데모 — 업셀: 장바구니 +1 */
@@ -3428,18 +3962,16 @@
     }
 
     .cd-chip .rm {
-      display: inline-grid;
-      place-items: center;
-      width: 16px;
-      height: 16px;
+      display: inline-block;
+      width: 15px;
+      height: 15px;
       padding: 0;
-      background: none;
       border: none;
       cursor: pointer;
-      color: currentColor;
-      opacity: .7;
-      font-size: 14px;
-      line-height: 1;
+      opacity: .65;
+      background-color: currentColor;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M6.70708%205.293L12.0001%2010.585L17.2931%205.293C17.4817%205.11084%2017.7343%205.01004%2017.9965%205.01232C18.2587%205.0146%2018.5095%205.11977%2018.6949%205.30518C18.8803%205.49058%2018.9855%205.7414%2018.9878%206.00359C18.99%206.26579%2018.8892%206.51839%2018.7071%206.707L13.4151%2012L18.7071%2017.293C18.8892%2017.4816%2018.99%2017.7342%2018.9878%2017.9964C18.9855%2018.2586%2018.8803%2018.5094%2018.6949%2018.6948C18.5095%2018.8802%2018.2587%2018.9854%2017.9965%2018.9877C17.7343%2018.9899%2017.4817%2018.8892%2017.2931%2018.707L12.0001%2013.415L6.70708%2018.707C6.61483%2018.8025%206.50449%2018.8787%206.38249%2018.9311C6.26048%2018.9835%206.12926%2019.0111%205.99648%2019.0122C5.8637%2019.0134%205.73202%2018.9881%205.60913%2018.9378C5.48623%2018.8875%205.37458%2018.8133%205.28069%2018.7194C5.18679%2018.6255%205.11254%2018.5138%205.06226%2018.3909C5.01198%2018.2681%204.98668%2018.1364%204.98783%2018.0036C4.98898%2017.8708%205.01657%2017.7396%205.06898%2017.6176C5.12139%2017.4956%205.19757%2017.3852%205.29308%2017.293L10.5851%2012L5.29308%206.707C5.11092%206.51839%205.01013%206.26579%205.01241%206.00359C5.01469%205.7414%205.11985%205.49058%205.30526%205.30518C5.49067%205.11977%205.74148%205.0146%206.00368%205.01232C6.26588%205.01004%206.51848%205.11084%206.70708%205.293Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M6.70708%205.293L12.0001%2010.585L17.2931%205.293C17.4817%205.11084%2017.7343%205.01004%2017.9965%205.01232C18.2587%205.0146%2018.5095%205.11977%2018.6949%205.30518C18.8803%205.49058%2018.9855%205.7414%2018.9878%206.00359C18.99%206.26579%2018.8892%206.51839%2018.7071%206.707L13.4151%2012L18.7071%2017.293C18.8892%2017.4816%2018.99%2017.7342%2018.9878%2017.9964C18.9855%2018.2586%2018.8803%2018.5094%2018.6949%2018.6948C18.5095%2018.8802%2018.2587%2018.9854%2017.9965%2018.9877C17.7343%2018.9899%2017.4817%2018.8892%2017.2931%2018.707L12.0001%2013.415L6.70708%2018.707C6.61483%2018.8025%206.50449%2018.8787%206.38249%2018.9311C6.26048%2018.9835%206.12926%2019.0111%205.99648%2019.0122C5.8637%2019.0134%205.73202%2018.9881%205.60913%2018.9378C5.48623%2018.8875%205.37458%2018.8133%205.28069%2018.7194C5.18679%2018.6255%205.11254%2018.5138%205.06226%2018.3909C5.01198%2018.2681%204.98668%2018.1364%204.98783%2018.0036C4.98898%2017.8708%205.01657%2017.7396%205.06898%2017.6176C5.12139%2017.4956%205.19757%2017.3852%205.29308%2017.293L10.5851%2012L5.29308%206.707C5.11092%206.51839%205.01013%206.26579%205.01241%206.00359C5.01469%205.7414%205.11985%205.49058%205.30526%205.30518C5.49067%205.11977%205.74148%205.0146%206.00368%205.01232C6.26588%205.01004%206.51848%205.11084%206.70708%205.293Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
     }
 
     .cd-chip .rm:hover {
@@ -3472,13 +4004,13 @@
     }
 
     .cd-next {
-      height: 48px;
-      padding: 0 20px;
+      height: 40px;
+      padding: 0 16px;
       border: none;
       border-radius: 8px;
       background: #1A1D24;
       color: #fff;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
       white-space: nowrap;
       cursor: pointer;
@@ -3641,7 +4173,7 @@
       flex-direction: column;
       gap: 10px;
       min-height: 0;
-      overflow-y: auto;
+      overflow: visible;
     }
 
     .fn-item {
@@ -3661,7 +4193,7 @@
     }
 
     .fn-item.on {
-      background: color-mix(in srgb, var(--dc) 6%, #fff);
+      background: #fff;
       border-color: color-mix(in srgb, var(--dc) 55%, #fff);
       box-shadow: 0 8px 26px color-mix(in srgb, var(--dc) 16%, transparent);
     }
@@ -3844,7 +4376,7 @@
       padding: 0 26px;
       border: none;
       border-radius: 12px;
-      background: var(--dc);
+      background: var(--dark-a);
       color: #fff;
       font-size: 14.5px;
       font-weight: 800;
@@ -3859,8 +4391,17 @@
     }
 
     .dt-add.added {
-      background: #E6FBF3;
-      color: #0CA678;
+      background: #fff;
+      border: 1px solid var(--dc);
+      color: var(--dc);
+    }
+
+    .dt-add .dt-cart {
+      width: 18px;
+      height: 18px;
+      background-color: currentColor;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M6%202C6.55228%202%207%202.44772%207%203V4.06836L20.0713%205.00293C20.348%205.02271%2020.6041%205.15616%2020.7783%205.37207C20.9525%205.58803%2021.0295%205.86692%2020.9902%206.1416L19.9902%2013.1416C19.9198%2013.6342%2019.4976%2014%2019%2014H7V16H17C17.0349%2016%2017.0695%2016.0014%2017.1035%2016.0049C17.8615%2016.0311%2018.583%2016.3408%2019.1211%2016.8789C19.6837%2017.4415%2020%2018.2043%2020%2019C20%2019.7957%2019.6837%2020.5585%2019.1211%2021.1211C18.5585%2021.6837%2017.7957%2022%2017%2022C16.2043%2022%2015.4415%2021.6837%2014.8789%2021.1211C14.3163%2020.5585%2014%2019.7957%2014%2019C14%2018.6556%2014.0629%2018.3186%2014.1758%2018H8.82422C8.93709%2018.3186%209%2018.6556%209%2019C9%2019.7956%208.6837%2020.5585%208.12109%2021.1211C7.55849%2021.6837%206.79565%2022%206%2022C5.20435%2022%204.44152%2021.6837%203.87891%2021.1211C3.3163%2020.5585%203%2019.7956%203%2019C3%2018.2044%203.3163%2017.4415%203.87891%2016.8789C4.19804%2016.5598%204.58257%2016.3227%205%2016.1748V4H4C3.44772%204%203%203.55228%203%203C3%202.44772%203.44772%202%204%202H6ZM6%2018C5.73478%2018%205.48051%2018.1054%205.29297%2018.293C5.10543%2018.4805%205%2018.7348%205%2019C5%2019.2652%205.10543%2019.5195%205.29297%2019.707C5.48051%2019.8946%205.73478%2020%206%2020C6.26522%2020%206.51949%2019.8946%206.70703%2019.707C6.89457%2019.5195%207%2019.2652%207%2019C7%2018.7348%206.89457%2018.4805%206.70703%2018.293C6.51949%2018.1054%206.26522%2018%206%2018ZM17%2018C16.7348%2018%2016.4805%2018.1054%2016.293%2018.293C16.1054%2018.4805%2016%2018.7348%2016%2019C16%2019.2652%2016.1054%2019.5195%2016.293%2019.707C16.4805%2019.8946%2016.7348%2020%2017%2020C17.2652%2020%2017.5195%2019.8946%2017.707%2019.707C17.8946%2019.5195%2018%2019.2652%2018%2019C18%2018.7348%2017.8946%2018.4805%2017.707%2018.293C17.5195%2018.1054%2017.2652%2018%2017%2018ZM7%2012H18.1328L18.8574%206.91992L7%206.07324V12Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M6%202C6.55228%202%207%202.44772%207%203V4.06836L20.0713%205.00293C20.348%205.02271%2020.6041%205.15616%2020.7783%205.37207C20.9525%205.58803%2021.0295%205.86692%2020.9902%206.1416L19.9902%2013.1416C19.9198%2013.6342%2019.4976%2014%2019%2014H7V16H17C17.0349%2016%2017.0695%2016.0014%2017.1035%2016.0049C17.8615%2016.0311%2018.583%2016.3408%2019.1211%2016.8789C19.6837%2017.4415%2020%2018.2043%2020%2019C20%2019.7957%2019.6837%2020.5585%2019.1211%2021.1211C18.5585%2021.6837%2017.7957%2022%2017%2022C16.2043%2022%2015.4415%2021.6837%2014.8789%2021.1211C14.3163%2020.5585%2014%2019.7957%2014%2019C14%2018.6556%2014.0629%2018.3186%2014.1758%2018H8.82422C8.93709%2018.3186%209%2018.6556%209%2019C9%2019.7956%208.6837%2020.5585%208.12109%2021.1211C7.55849%2021.6837%206.79565%2022%206%2022C5.20435%2022%204.44152%2021.6837%203.87891%2021.1211C3.3163%2020.5585%203%2019.7956%203%2019C3%2018.2044%203.3163%2017.4415%203.87891%2016.8789C4.19804%2016.5598%204.58257%2016.3227%205%2016.1748V4H4C3.44772%204%203%203.55228%203%203C3%202.44772%203.44772%202%204%202H6ZM6%2018C5.73478%2018%205.48051%2018.1054%205.29297%2018.293C5.10543%2018.4805%205%2018.7348%205%2019C5%2019.2652%205.10543%2019.5195%205.29297%2019.707C5.48051%2019.8946%205.73478%2020%206%2020C6.26522%2020%206.51949%2019.8946%206.70703%2019.707C6.89457%2019.5195%207%2019.2652%207%2019C7%2018.7348%206.89457%2018.4805%206.70703%2018.293C6.51949%2018.1054%206.26522%2018%206%2018ZM17%2018C16.7348%2018%2016.4805%2018.1054%2016.293%2018.293C16.1054%2018.4805%2016%2018.7348%2016%2019C16%2019.2652%2016.1054%2019.5195%2016.293%2019.707C16.4805%2019.8946%2016.7348%2020%2017%2020C17.2652%2020%2017.5195%2019.8946%2017.707%2019.707C17.8946%2019.5195%2018%2019.2652%2018%2019C18%2018.7348%2017.8946%2018.4805%2017.707%2018.293C17.5195%2018.1054%2017.2652%2018%2017%2018ZM7%2012H18.1328L18.8574%206.91992L7%206.07324V12Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
     }
 
     /* ─────────────────────────────────────────────
@@ -4759,88 +5300,355 @@
     }
 
     /* 푸시 — 여정 */
-    .journey {
+    /* 푸시 ps1 — "이 많은 전환 장치, 알파푸시 하나로" (각 장치가 따로 작동) */
+    .sc.ps-wall {
+      padding: 20px 26px 22px;
+      justify-content: flex-start;
+    }
+
+    .pw-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pw-eyebrow {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--ink);
+    }
+
+    .pw-eyebrow b {
+      color: var(--dc);
+    }
+
+    .pw-count {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--ink-faint);
+    }
+
+    .pw-grid {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 10px;
+    }
+
+    .pwc {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 10px 11px;
+      box-shadow: 0 5px 14px rgba(20, 20, 43, .05);
+      overflow: hidden;
+      transition: border-color .3s;
+    }
+
+    .pwc-h {
       display: flex;
       align-items: center;
-      gap: 0;
-      max-width: 480px;
-      margin-top: 6px;
+      gap: 6px;
+      margin-bottom: 8px;
     }
 
-    .jr-node {
-      flex: 1;
-      text-align: center;
-      position: relative;
-    }
-
-    .jr-node .jn-ic {
-      width: 44px;
-      height: 44px;
-      border-radius: 13px;
-      background: var(--line-soft);
+    .pwc-ic {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--dc) 10%, #fff);
       display: grid;
       place-items: center;
-      font-size: 18px;
-      margin: 0 auto 8px;
-      transition: .35s;
-      border: 1.5px solid transparent;
+      font-size: 14px;
+      flex: 0 0 auto;
     }
 
-    .jr-node .jn-lb {
-      font-size: 11px;
+    .pwc-nm {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -.01em;
+    }
+
+    .pwc-ex {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .pwc-mt {
+      margin-top: 7px;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--dc);
+    }
+
+    /* 장치가 따로따로 켜지는 표시 */
+    .pwc-live {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 8px;
+      font-weight: 800;
+      color: #12B886;
+      opacity: 0;
+    }
+
+    .pwc-live i {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #12B886;
+    }
+
+    .sc.on .pwc-live {
+      opacity: 1;
+      transition: opacity .3s;
+    }
+
+    .sc.on .pwc-live i {
+      animation: adPulse 1.3s ease-in-out infinite;
+    }
+
+    /* 미니 예시 요소들 */
+    .psl-btn {
+      font-size: 10px;
+      font-weight: 800;
+      text-align: center;
+      border-radius: 8px;
+      padding: 7px;
+    }
+
+    .psl-btn.kko {
+      background: #FEE500;
+      color: #3B1E1E;
+    }
+
+    .psl-btn.nvr {
+      background: #03C75A;
+      color: #fff;
+    }
+
+    .pw-photo {
+      position: relative;
+      border-radius: 9px;
+      overflow: hidden;
+      flex: 1;
+      min-height: 54px;
+    }
+
+    .pw-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .pw-float {
+      position: absolute;
+      left: 6px;
+      bottom: 6px;
+      right: 6px;
+      font-size: 9px;
+      font-weight: 800;
+      color: #20242E;
+      background: rgba(255, 255, 255, .94);
+      border-radius: 7px;
+      padding: 4px 7px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, .16);
+      text-align: center;
+    }
+
+    .pw-float .co {
+      color: var(--dc);
+    }
+
+    .pw-coupon {
+      border: 1.5px dashed var(--dc);
+      border-radius: 10px;
+      padding: 8px;
+      text-align: center;
+      background: color-mix(in srgb, var(--dc) 5%, #fff);
+    }
+
+    .pw-coupon b {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--dc);
+    }
+
+    .pw-coupon em {
+      font-style: normal;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--ink-faint);
+    }
+
+    .pw-talk {
+      background: #A9C1D9;
+      border-radius: 10px;
+      padding: 4px;
+    }
+
+    .pw-talk .ptk {
+      background: #fff;
+      border-radius: 7px;
+      padding: 7px 8px;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      line-height: 1.4;
+    }
+
+    .pw-talk .ptk-tag {
+      display: inline-block;
+      font-size: 8px;
+      font-weight: 800;
+      color: #fff;
+      background: #F6C000;
+      border-radius: 4px 4px 0 0;
+      padding: 1px 6px;
+      margin-bottom: 3px;
+    }
+
+    .pw-seg {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pw-seg .psg {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9.5px;
       font-weight: 700;
       color: var(--ink-dim);
     }
 
-    .jr-link {
-      flex: 0 0 26px;
-      height: 2px;
-      background: var(--line);
-      margin-bottom: 22px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .jr-link::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--c-push);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .5s ease;
-    }
-
-    .sc.on .jr-node .jn-ic {
-      background: #EAF2FF;
-      border-color: var(--c-push);
-    }
-
-    .sc.on .jr-link::after {
-      transform: scaleX(1);
-    }
-
-    .sc.on .jr-link:nth-of-type(4)::after {
-      transition-delay: .18s;
-    }
-
-    .sc.on .jr-link:nth-of-type(6)::after {
-      transition-delay: .36s;
-    }
-
-    .one-profile {
-      margin-top: 18px;
-      border: 1px solid #BDD7FF;
-      background: #F4F9FF;
-      border-radius: 13px;
-      padding: 13px 16px;
-      font-size: 12.5px;
-      font-weight: 700;
+    .pw-seg .psg .pv {
+      margin-left: auto;
+      font-weight: 800;
       color: var(--ink);
-      max-width: 480px;
+    }
+
+    .pw-seg .psg .pdot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+
+    .pw-gift {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 7px;
+    }
+
+    .pw-gift img {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+
+    .pw-gift .pg-btn {
+      flex: 1;
+      font-size: 10px;
+      font-weight: 800;
+      color: #3B2A00;
+      background: #FFE24D;
+      border-radius: 8px;
+      padding: 8px 6px;
+      text-align: center;
+    }
+
+    .pw-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .pw-chips i {
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--ink-dim);
+      background: var(--line-soft);
+      border-radius: 6px;
+      padding: 3px 8px;
+    }
+
+    /* 클릭 시 각 장치가 따로따로 "작동"하며 켜짐 (독립 작동) */
+    .sc.on .pwc {
+      border-color: color-mix(in srgb, var(--dc) 40%, var(--line));
+      animation: pwPulse .65s cubic-bezier(.3, 1, .4, 1) both;
+    }
+
+    @keyframes pwPulse {
+      0% {
+        transform: none;
+        box-shadow: 0 5px 14px rgba(20, 20, 43, .05);
+      }
+
+      45% {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 26px color-mix(in srgb, var(--dc) 32%, transparent);
+      }
+
+      100% {
+        transform: none;
+        box-shadow: 0 6px 16px color-mix(in srgb, var(--dc) 12%, transparent);
+      }
+    }
+
+    .sc.on .pwc.c1 { animation-delay: .05s; }
+    .sc.on .pwc.c2 { animation-delay: .34s; }
+    .sc.on .pwc.c3 { animation-delay: .16s; }
+    .sc.on .pwc.c4 { animation-delay: .5s; }
+    .sc.on .pwc.c5 { animation-delay: .66s; }
+    .sc.on .pwc.c6 { animation-delay: .26s; }
+    .sc.on .pwc.c7 { animation-delay: .58s; }
+    .sc.on .pwc.c8 { animation-delay: .42s; }
+
+    .sc.on .pwc.c1 .pwc-live { transition-delay: .3s; }
+    .sc.on .pwc.c2 .pwc-live { transition-delay: .5s; }
+    .sc.on .pwc.c3 .pwc-live { transition-delay: .35s; }
+    .sc.on .pwc.c4 .pwc-live { transition-delay: .62s; }
+    .sc.on .pwc.c5 .pwc-live { transition-delay: .78s; }
+    .sc.on .pwc.c6 .pwc-live { transition-delay: .42s; }
+    .sc.on .pwc.c7 .pwc-live { transition-delay: .7s; }
+    .sc.on .pwc.c8 .pwc-live { transition-delay: .55s; }
+
+    /* CTA — ps2 레시피 시작 버튼과 동일 로직/스타일 */
+    .ps-cta {
+      align-self: center;
+      position: relative;
+      margin-top: 14px;
+    }
+
+    .ps-wall .cl-start {
+      margin: 0;
+    }
+
+    .ps-wall .cmp-replay {
+      left: 26px;
+      bottom: 18px;
     }
 
     /* 푸시 — 레시피 & 발송 */
@@ -4976,14 +5784,52 @@
       border-radius: 11px;
       display: grid;
       place-items: center;
-      font-size: 16px;
-      color: var(--ink-faint);
+    }
+
+    .cmp-rail .rail-ic::before {
+      content: '';
+      width: 21px;
+      height: 21px;
+      background-color: #9AA1AE;
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+    }
+
+    .cmp-rail .rail-ic.ic-chart::before {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2533_2596%29%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M20%203C20.5304%203%2021.039%203.21086%2021.4141%203.58594C21.7891%203.96101%2022%204.46957%2022%205V19C22%2019.5304%2021.7891%2020.039%2021.4141%2020.4141C21.039%2020.7891%2020.5304%2021%2020%2021H16C15.6454%2021%2015.3017%2020.904%2015%2020.7295C14.6983%2020.904%2014.3546%2021%2014%2021H10C9.64544%2021%209.30168%2020.904%209%2020.7295C8.69832%2020.904%208.35456%2021%208%2021H4C3.46957%2021%202.96101%2020.7891%202.58594%2020.4141C2.21086%2020.039%202%2019.5304%202%2019V13C2%2012.4696%202.21086%2011.961%202.58594%2011.5859C2.96101%2011.2109%203.46957%2011%204%2011H8V9C8%208.46957%208.21087%207.96101%208.58594%207.58594C8.96101%207.21087%209.46957%207%2010%207H14V5C14%204.46957%2014.2109%203.96101%2014.5859%203.58594C14.961%203.21087%2015.4696%203%2016%203H20ZM4%2019H8V13H4V19ZM10%2019H14V9H10V19ZM16%2019H20V5H16V19Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20d%3D%22M4%2020H18%22%20stroke%3D%22%235D6374%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2533_2596%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2533_2596%29%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M20%203C20.5304%203%2021.039%203.21086%2021.4141%203.58594C21.7891%203.96101%2022%204.46957%2022%205V19C22%2019.5304%2021.7891%2020.039%2021.4141%2020.4141C21.039%2020.7891%2020.5304%2021%2020%2021H16C15.6454%2021%2015.3017%2020.904%2015%2020.7295C14.6983%2020.904%2014.3546%2021%2014%2021H10C9.64544%2021%209.30168%2020.904%209%2020.7295C8.69832%2020.904%208.35456%2021%208%2021H4C3.46957%2021%202.96101%2020.7891%202.58594%2020.4141C2.21086%2020.039%202%2019.5304%202%2019V13C2%2012.4696%202.21086%2011.961%202.58594%2011.5859C2.96101%2011.2109%203.46957%2011%204%2011H8V9C8%208.46957%208.21087%207.96101%208.58594%207.58594C8.96101%207.21087%209.46957%207%2010%207H14V5C14%204.46957%2014.2109%203.96101%2014.5859%203.58594C14.961%203.21087%2015.4696%203%2016%203H20ZM4%2019H8V13H4V19ZM10%2019H14V9H10V19ZM16%2019H20V5H16V19Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20d%3D%22M4%2020H18%22%20stroke%3D%22%235D6374%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2533_2596%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
+    }
+
+    .cmp-rail .rail-ic.ic-speaker::before {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2533_2597%29%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M16.9922%203.02429C17.3061%203.00645%2017.6203%203.06704%2017.9062%203.20105C18.1922%203.33512%2018.4399%203.53821%2018.627%203.79089L18.7041%203.90222L18.7725%204.01941C18.9216%204.29597%2019%204.60614%2019%204.92175V7.12781C19.6858%207.30506%2020.3187%207.6623%2020.8281%208.17175C21.5782%208.92187%2022%209.93906%2022%2010.9999C22%2012.0607%2021.5782%2013.0779%2020.8281%2013.828C20.3187%2014.3375%2019.6858%2014.6947%2019%2014.8719V17.077C19.0002%2017.4381%2018.8977%2017.7927%2018.7041%2018.0975C18.5105%2018.4023%2018.2332%2018.6454%2017.9062%2018.7987C17.5793%2018.9519%2017.2155%2019.0089%2016.8574%2018.9628C16.4992%2018.9166%2016.1613%2018.7691%2015.8838%2018.538L11.6367%2014.9999H11V18.9999C11%2019.5303%2010.7891%2020.0389%2010.4141%2020.4139C10.039%2020.789%209.53043%2020.9999%209%2020.9999H8C7.46957%2020.9999%206.96101%2020.789%206.58594%2020.4139C6.2109%2020.0389%206%2019.5303%206%2018.9999V14.9999H4C3.46958%2014.9999%202.96101%2014.789%202.58594%2014.4139C2.21093%2014.0389%202.00001%2013.5303%202%2012.9999V8.99988C2.00004%208.46952%202.21092%207.96085%202.58594%207.58581C2.961%207.21079%203.46961%206.99988%204%206.99988H11.6367L15.8838%203.46179C16.1613%203.23068%2016.4992%203.0831%2016.8574%203.03699L16.9922%203.02429ZM8%2018.9999H9V14.9999H8V18.9999ZM12.6406%208.76843C12.4609%208.91819%2012.2339%208.99988%2012%208.99988H11V12.9999H12L12.0869%2013.0038C12.2896%2013.0215%2012.4833%2013.1002%2012.6406%2013.2313L17%2016.8641V5.13464L12.6406%208.76843ZM4%208.99988V12.9999H9V8.99988H4ZM19%2012.7294C19.1496%2012.6428%2019.2897%2012.5383%2019.4141%2012.4139C19.7891%2012.0389%2020%2011.5303%2020%2010.9999C20%2010.4695%2019.7891%209.96086%2019.4141%209.58581C19.2896%209.46135%2019.1498%209.356%2019%209.26941V12.7294Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2533_2597%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2533_2597%29%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M16.9922%203.02429C17.3061%203.00645%2017.6203%203.06704%2017.9062%203.20105C18.1922%203.33512%2018.4399%203.53821%2018.627%203.79089L18.7041%203.90222L18.7725%204.01941C18.9216%204.29597%2019%204.60614%2019%204.92175V7.12781C19.6858%207.30506%2020.3187%207.6623%2020.8281%208.17175C21.5782%208.92187%2022%209.93906%2022%2010.9999C22%2012.0607%2021.5782%2013.0779%2020.8281%2013.828C20.3187%2014.3375%2019.6858%2014.6947%2019%2014.8719V17.077C19.0002%2017.4381%2018.8977%2017.7927%2018.7041%2018.0975C18.5105%2018.4023%2018.2332%2018.6454%2017.9062%2018.7987C17.5793%2018.9519%2017.2155%2019.0089%2016.8574%2018.9628C16.4992%2018.9166%2016.1613%2018.7691%2015.8838%2018.538L11.6367%2014.9999H11V18.9999C11%2019.5303%2010.7891%2020.0389%2010.4141%2020.4139C10.039%2020.789%209.53043%2020.9999%209%2020.9999H8C7.46957%2020.9999%206.96101%2020.789%206.58594%2020.4139C6.2109%2020.0389%206%2019.5303%206%2018.9999V14.9999H4C3.46958%2014.9999%202.96101%2014.789%202.58594%2014.4139C2.21093%2014.0389%202.00001%2013.5303%202%2012.9999V8.99988C2.00004%208.46952%202.21092%207.96085%202.58594%207.58581C2.961%207.21079%203.46961%206.99988%204%206.99988H11.6367L15.8838%203.46179C16.1613%203.23068%2016.4992%203.0831%2016.8574%203.03699L16.9922%203.02429ZM8%2018.9999H9V14.9999H8V18.9999ZM12.6406%208.76843C12.4609%208.91819%2012.2339%208.99988%2012%208.99988H11V12.9999H12L12.0869%2013.0038C12.2896%2013.0215%2012.4833%2013.1002%2012.6406%2013.2313L17%2016.8641V5.13464L12.6406%208.76843ZM4%208.99988V12.9999H9V8.99988H4ZM19%2012.7294C19.1496%2012.6428%2019.2897%2012.5383%2019.4141%2012.4139C19.7891%2012.0389%2020%2011.5303%2020%2010.9999C20%2010.4695%2019.7891%209.96086%2019.4141%209.58581C19.2896%209.46135%2019.1498%209.356%2019%209.26941V12.7294Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2533_2597%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
+    }
+
+    .cmp-rail .rail-ic.ic-comment::before {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2335_661%29%22%3E%20%3Cpath%20d%3D%22M6.19138%204.66044C10.0615%202.16523%2015.3976%202.46416%2018.8935%205.4456C22.5492%208.56442%2023.0708%2013.6725%2020.0459%2017.3431C17.1382%2020.8713%2011.8727%2021.9545%207.58298%2020.0462L3.20798%2020.9778C2.85718%2021.0524%202.49287%2020.9337%202.25388%2020.6663C2.01507%2020.3989%201.93835%2020.024%202.05173%2019.6839L3.20114%2016.2317C0.903856%2012.3813%202.02488%207.6043%205.82126%204.91044L6.19138%204.66044ZM17.5957%206.96708C14.6943%204.49282%2010.1367%204.3013%206.97848%206.5413C3.86471%208.75079%203.1292%2012.5844%205.1279%2015.5403C5.30198%2015.7978%205.34727%2016.1214%205.24899%2016.4163L4.50095%2018.6575L7.49216%2018.0218L7.65622%2018.0013C7.8213%2017.994%207.98649%2018.028%208.13669%2018.1009C11.71%2019.8355%2016.1501%2018.9244%2018.5019%2016.0706C20.8089%2013.2712%2020.45%209.40221%2017.5957%206.96708Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2335_661%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2335_661%29%22%3E%20%3Cpath%20d%3D%22M6.19138%204.66044C10.0615%202.16523%2015.3976%202.46416%2018.8935%205.4456C22.5492%208.56442%2023.0708%2013.6725%2020.0459%2017.3431C17.1382%2020.8713%2011.8727%2021.9545%207.58298%2020.0462L3.20798%2020.9778C2.85718%2021.0524%202.49287%2020.9337%202.25388%2020.6663C2.01507%2020.3989%201.93835%2020.024%202.05173%2019.6839L3.20114%2016.2317C0.903856%2012.3813%202.02488%207.6043%205.82126%204.91044L6.19138%204.66044ZM17.5957%206.96708C14.6943%204.49282%2010.1367%204.3013%206.97848%206.5413C3.86471%208.75079%203.1292%2012.5844%205.1279%2015.5403C5.30198%2015.7978%205.34727%2016.1214%205.24899%2016.4163L4.50095%2018.6575L7.49216%2018.0218L7.65622%2018.0013C7.8213%2017.994%207.98649%2018.028%208.13669%2018.1009C11.71%2019.8355%2016.1501%2018.9244%2018.5019%2016.0706C20.8089%2013.2712%2020.45%209.40221%2017.5957%206.96708Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2335_661%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
+    }
+
+    .cmp-rail .rail-ic.ic-gift::before {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2533_2598%29%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M16.5%202C17.4282%202%2018.3183%202.36915%2018.9746%203.02539C19.6307%203.68164%2019.9999%204.572%2020%205.5C19.9999%206.02369%2019.8824%206.5355%2019.6621%207H20C20.5304%207%2021.039%207.21087%2021.4141%207.58594C21.7891%207.96101%2022%208.46957%2022%209V11C22%2011.5304%2021.7891%2012.039%2021.4141%2012.4141C21.039%2012.7891%2020.5304%2013%2020%2013V19C20%2019.7957%2019.6837%2020.5585%2019.1211%2021.1211C18.5585%2021.6837%2017.7957%2022%2017%2022H7C6.20435%2022%205.44152%2021.6837%204.87891%2021.1211C4.3163%2020.5585%204%2019.7956%204%2019V13C3.46957%2013%202.96101%2012.7891%202.58594%2012.4141C2.21086%2012.039%202%2011.5304%202%2011V9C2%208.46957%202.21086%207.96101%202.58594%207.58594C2.96101%207.21087%203.46957%207%204%207H4.33789C4.11759%206.5355%204.00007%206.02369%204%205.5C4.00012%204.572%204.36925%203.68164%205.02539%203.02539C5.68175%202.36915%206.57185%202%207.5%202V2.00195C8.81588%201.98485%2010.0149%202.62906%2010.9561%203.6748C11.3499%204.11247%2011.6986%204.61958%2012%205.17871C12.3014%204.61959%2012.6501%204.11247%2013.0439%203.6748C13.9851%202.62906%2015.1841%201.98485%2016.5%202.00195V2ZM6%2019C6%2019.2652%206.10543%2019.5195%206.29297%2019.707C6.48051%2019.8946%206.73478%2020%207%2020H11V13H6V19ZM13%2020H17C17.2652%2020%2017.5195%2019.8946%2017.707%2019.707C17.8946%2019.5195%2018%2019.2652%2018%2019V13H13V20ZM4%2011H11V9H4V11ZM13%2011H20V9H13V11ZM7.5%204C7.10228%204%206.72074%204.15829%206.43945%204.43945C6.15839%204.72063%206.00012%205.10244%206%205.5C6.00012%205.89767%206.15825%206.28032%206.43945%206.56152C6.72071%206.84252%207.10241%207%207.5%207H10.6387C10.322%206.18928%209.92138%205.51467%209.46973%205.0127C8.80968%204.27931%208.1242%203.98949%207.51758%204C7.51177%204.0001%207.5058%204%207.5%204ZM16.4824%204C15.8758%203.98949%2015.1903%204.27931%2014.5303%205.0127C14.0786%205.51467%2013.678%206.18928%2013.3613%207H16.5C16.8976%207%2017.2793%206.84252%2017.5605%206.56152C17.8417%206.28032%2017.9999%205.89767%2018%205.5C17.9999%205.10244%2017.8416%204.72063%2017.5605%204.43945C17.2793%204.15829%2016.8977%204%2016.5%204C16.4942%204%2016.4882%204.0001%2016.4824%204Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2533_2598%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2533_2598%29%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M16.5%202C17.4282%202%2018.3183%202.36915%2018.9746%203.02539C19.6307%203.68164%2019.9999%204.572%2020%205.5C19.9999%206.02369%2019.8824%206.5355%2019.6621%207H20C20.5304%207%2021.039%207.21087%2021.4141%207.58594C21.7891%207.96101%2022%208.46957%2022%209V11C22%2011.5304%2021.7891%2012.039%2021.4141%2012.4141C21.039%2012.7891%2020.5304%2013%2020%2013V19C20%2019.7957%2019.6837%2020.5585%2019.1211%2021.1211C18.5585%2021.6837%2017.7957%2022%2017%2022H7C6.20435%2022%205.44152%2021.6837%204.87891%2021.1211C4.3163%2020.5585%204%2019.7956%204%2019V13C3.46957%2013%202.96101%2012.7891%202.58594%2012.4141C2.21086%2012.039%202%2011.5304%202%2011V9C2%208.46957%202.21086%207.96101%202.58594%207.58594C2.96101%207.21087%203.46957%207%204%207H4.33789C4.11759%206.5355%204.00007%206.02369%204%205.5C4.00012%204.572%204.36925%203.68164%205.02539%203.02539C5.68175%202.36915%206.57185%202%207.5%202V2.00195C8.81588%201.98485%2010.0149%202.62906%2010.9561%203.6748C11.3499%204.11247%2011.6986%204.61958%2012%205.17871C12.3014%204.61959%2012.6501%204.11247%2013.0439%203.6748C13.9851%202.62906%2015.1841%201.98485%2016.5%202.00195V2ZM6%2019C6%2019.2652%206.10543%2019.5195%206.29297%2019.707C6.48051%2019.8946%206.73478%2020%207%2020H11V13H6V19ZM13%2020H17C17.2652%2020%2017.5195%2019.8946%2017.707%2019.707C17.8946%2019.5195%2018%2019.2652%2018%2019V13H13V20ZM4%2011H11V9H4V11ZM13%2011H20V9H13V11ZM7.5%204C7.10228%204%206.72074%204.15829%206.43945%204.43945C6.15839%204.72063%206.00012%205.10244%206%205.5C6.00012%205.89767%206.15825%206.28032%206.43945%206.56152C6.72071%206.84252%207.10241%207%207.5%207H10.6387C10.322%206.18928%209.92138%205.51467%209.46973%205.0127C8.80968%204.27931%208.1242%203.98949%207.51758%204C7.51177%204.0001%207.5058%204%207.5%204ZM16.4824%204C15.8758%203.98949%2015.1903%204.27931%2014.5303%205.0127C14.0786%205.51467%2013.678%206.18928%2013.3613%207H16.5C16.8976%207%2017.2793%206.84252%2017.5605%206.56152C17.8417%206.28032%2017.9999%205.89767%2018%205.5C17.9999%205.10244%2017.8416%204.72063%2017.5605%204.43945C17.2793%204.15829%2016.8977%204%2016.5%204C16.4942%204%2016.4882%204.0001%2016.4824%204Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2533_2598%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
+    }
+
+    .cmp-rail .rail-ic.ic-users::before {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2533_2599%29%22%3E%20%3Cpath%20d%3D%22M11%2014C12.3261%2014%2013.5975%2014.5272%2014.5352%2015.4648C15.4728%2016.4025%2016%2017.6739%2016%2019V21C16%2021.5523%2015.5523%2022%2015%2022C14.4477%2022%2014%2021.5523%2014%2021V19C14%2018.2044%2013.6837%2017.4415%2013.1211%2016.8789C12.5585%2016.3163%2011.7956%2016%2011%2016H7C6.20435%2016%205.44152%2016.3163%204.87891%2016.8789C4.3163%2017.4415%204%2018.2044%204%2019V21C4%2021.5523%203.55228%2022%203%2022C2.44772%2022%202%2021.5523%202%2021V19C2%2017.6739%202.52716%2016.4025%203.46484%2015.4648C4.40253%2014.5272%205.67392%2014%207%2014H11Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20d%3D%22M17.0322%2014.9004C17.1703%2014.3657%2017.7153%2014.0446%2018.25%2014.1826C19.3185%2014.4585%2020.2661%2015.0798%2020.9443%2015.9502C21.6225%2016.8206%2021.9937%2017.8917%2022%2018.9951V21C21.9998%2021.5521%2021.5522%2022%2021%2022C20.4479%2022%2020.0002%2021.5521%2020%2021V19.0059C19.9961%2018.3439%2019.773%2017.7019%2019.3662%2017.1797C18.9592%2016.6574%2018.3911%2016.2837%2017.75%2016.1182C17.2155%2015.9801%2016.8944%2015.435%2017.0322%2014.9004Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M9%202C10.3261%202%2011.5975%202.52716%2012.5352%203.46484C13.4728%204.40253%2014%205.67392%2014%207C14%208.32608%2013.4728%209.59747%2012.5352%2010.5352C11.5975%2011.4728%2010.3261%2012%209%2012C7.67392%2012%206.40253%2011.4728%205.46484%2010.5352C4.52716%209.59747%204%208.32608%204%207C4%205.67392%204.52716%204.40253%205.46484%203.46484C6.40253%202.52716%207.67392%202%209%202ZM9%204C8.20435%204%207.44152%204.3163%206.87891%204.87891C6.3163%205.44152%206%206.20435%206%207C6%207.79565%206.3163%208.55848%206.87891%209.12109C7.44152%209.6837%208.20435%2010%209%2010C9.79565%2010%2010.5585%209.6837%2011.1211%209.12109C11.6837%208.55848%2012%207.79565%2012%207C12%206.20435%2011.6837%205.44152%2011.1211%204.87891C10.5585%204.3163%209.79565%204%209%204Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20d%3D%22M15.0312%202.88184C15.1683%202.34689%2015.7131%202.02417%2016.248%202.16113C17.3235%202.4365%2018.2773%203.06248%2018.958%203.93945C19.6385%204.81635%2020.0078%205.89491%2020.0078%207.00488C20.0078%208.11486%2019.6385%209.1934%2018.958%2010.0703C18.2773%2010.9473%2017.3236%2011.5733%2016.248%2011.8486C15.713%2011.9856%2015.1682%2011.663%2015.0312%2011.1279C14.8943%2010.5929%2015.217%2010.0481%2015.752%209.91113C16.3972%209.74591%2016.9695%209.37088%2017.3779%208.84473C17.7863%208.31853%2018.0078%207.67098%2018.0078%207.00488C18.0078%206.3388%2017.7864%205.69121%2017.3779%205.16504C16.9695%204.63892%2016.3972%204.26384%2015.752%204.09863C15.2169%203.96163%2014.8943%203.41685%2015.0312%202.88184Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2533_2599%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2533_2599%29%22%3E%20%3Cpath%20d%3D%22M11%2014C12.3261%2014%2013.5975%2014.5272%2014.5352%2015.4648C15.4728%2016.4025%2016%2017.6739%2016%2019V21C16%2021.5523%2015.5523%2022%2015%2022C14.4477%2022%2014%2021.5523%2014%2021V19C14%2018.2044%2013.6837%2017.4415%2013.1211%2016.8789C12.5585%2016.3163%2011.7956%2016%2011%2016H7C6.20435%2016%205.44152%2016.3163%204.87891%2016.8789C4.3163%2017.4415%204%2018.2044%204%2019V21C4%2021.5523%203.55228%2022%203%2022C2.44772%2022%202%2021.5523%202%2021V19C2%2017.6739%202.52716%2016.4025%203.46484%2015.4648C4.40253%2014.5272%205.67392%2014%207%2014H11Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20d%3D%22M17.0322%2014.9004C17.1703%2014.3657%2017.7153%2014.0446%2018.25%2014.1826C19.3185%2014.4585%2020.2661%2015.0798%2020.9443%2015.9502C21.6225%2016.8206%2021.9937%2017.8917%2022%2018.9951V21C21.9998%2021.5521%2021.5522%2022%2021%2022C20.4479%2022%2020.0002%2021.5521%2020%2021V19.0059C19.9961%2018.3439%2019.773%2017.7019%2019.3662%2017.1797C18.9592%2016.6574%2018.3911%2016.2837%2017.75%2016.1182C17.2155%2015.9801%2016.8944%2015.435%2017.0322%2014.9004Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M9%202C10.3261%202%2011.5975%202.52716%2012.5352%203.46484C13.4728%204.40253%2014%205.67392%2014%207C14%208.32608%2013.4728%209.59747%2012.5352%2010.5352C11.5975%2011.4728%2010.3261%2012%209%2012C7.67392%2012%206.40253%2011.4728%205.46484%2010.5352C4.52716%209.59747%204%208.32608%204%207C4%205.67392%204.52716%204.40253%205.46484%203.46484C6.40253%202.52716%207.67392%202%209%202ZM9%204C8.20435%204%207.44152%204.3163%206.87891%204.87891C6.3163%205.44152%206%206.20435%206%207C6%207.79565%206.3163%208.55848%206.87891%209.12109C7.44152%209.6837%208.20435%2010%209%2010C9.79565%2010%2010.5585%209.6837%2011.1211%209.12109C11.6837%208.55848%2012%207.79565%2012%207C12%206.20435%2011.6837%205.44152%2011.1211%204.87891C10.5585%204.3163%209.79565%204%209%204Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20d%3D%22M15.0312%202.88184C15.1683%202.34689%2015.7131%202.02417%2016.248%202.16113C17.3235%202.4365%2018.2773%203.06248%2018.958%203.93945C19.6385%204.81635%2020.0078%205.89491%2020.0078%207.00488C20.0078%208.11486%2019.6385%209.1934%2018.958%2010.0703C18.2773%2010.9473%2017.3236%2011.5733%2016.248%2011.8486C15.713%2011.9856%2015.1682%2011.663%2015.0312%2011.1279C14.8943%2010.5929%2015.217%2010.0481%2015.752%209.91113C16.3972%209.74591%2016.9695%209.37088%2017.3779%208.84473C17.7863%208.31853%2018.0078%207.67098%2018.0078%207.00488C18.0078%206.3388%2017.7864%205.69121%2017.3779%205.16504C16.9695%204.63892%2016.3972%204.26384%2015.752%204.09863C15.2169%203.96163%2014.8943%203.41685%2015.0312%202.88184Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2533_2599%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
     }
 
     .cmp-rail .rail-ic.on {
       background: color-mix(in srgb, var(--c-push) 14%, #fff);
-      color: var(--c-push);
-      font-weight: 900;
+    }
+
+    .cmp-rail .rail-ic.on::before {
+      background-color: var(--c-push);
     }
 
     /* 메인 */
@@ -5051,31 +5897,56 @@
     .cl-row {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       background: #fff;
       border: 1px solid var(--line);
       border-radius: 14px;
-      padding: 11px 16px;
+      padding: 12px;
       margin-bottom: 8px;
     }
 
     .cl-row .cl-th {
-      flex: 0 0 52px;
-      width: 52px;
-      height: 52px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-size: 24px;
+      flex: 0 0 56px;
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      overflow: hidden;
     }
 
-    .cl-th.t1 { background: linear-gradient(135deg, #FFE0D6, #FFB59B); }
-    .cl-th.t2 { background: linear-gradient(135deg, #E6E0FF, #BEB0FF); }
-    .cl-th.t3 { background: linear-gradient(135deg, #FFE7CC, #FFC38A); }
-    .cl-th.t4 { background: linear-gradient(135deg, #FFD9A8, #FF9B45); }
-    .cl-th.t5 { background: linear-gradient(135deg, #DDE6FF, #AEC2FF); }
-    .cl-th.t6 { background: linear-gradient(135deg, #E4EEFF, #BBD3FF); }
-    .cl-th.t7 { background: linear-gradient(135deg, #D9F0E6, #95D9BE); }
+    .cl-row .cl-th img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cl-th.t1 {
+      background: linear-gradient(135deg, #FFE0D6, #FFB59B);
+    }
+
+    .cl-th.t2 {
+      background: linear-gradient(135deg, #E6E0FF, #BEB0FF);
+    }
+
+    .cl-th.t3 {
+      background: linear-gradient(135deg, #FFE7CC, #FFC38A);
+    }
+
+    .cl-th.t4 {
+      background: linear-gradient(135deg, #FFD9A8, #FF9B45);
+    }
+
+    .cl-th.t5 {
+      background: linear-gradient(135deg, #DDE6FF, #AEC2FF);
+    }
+
+    .cl-th.t6 {
+      background: linear-gradient(135deg, #E4EEFF, #BBD3FF);
+    }
+
+    .cl-th.t7 {
+      background: linear-gradient(135deg, #D9F0E6, #95D9BE);
+    }
 
     .cl-row .cl-tx {
       flex: 1 1 auto;
@@ -5102,44 +5973,140 @@
     }
 
     /* 추천 레시피 강조 + v4 스타일 시작 버튼 (원클릭 → 결과) */
+    /* 색은 제품별 --dc 로 통일 (푸시/업셀/캔버스/리뷰 공통 지침) */
     .cl-row.pick {
-      border-color: var(--c-push);
-      background: color-mix(in srgb, var(--c-push) 5%, #fff);
+      position: relative;
+      border-color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 5%, #fff);
     }
 
+    /* '레시피 시작' — demo-canvas .cta 스타일 + shimmer + 펄스, 컬러는 제품별 --dc */
     .cl-start {
       margin-left: auto;
       flex: 0 0 auto;
-      height: 38px;
-      padding: 0 18px;
-      border: none;
+      height: 40px;
+      padding: 0 20px;
+      margin-right: 8px;
+      border: 1px solid var(--dc);
       border-radius: 10px;
-      background: var(--ink);
+      background: linear-gradient(60.5deg, color-mix(in srgb, var(--dc) 82%, #000) 13%, var(--dc) 50%, color-mix(in srgb, var(--dc) 58%, #fff) 87%);
       color: #fff;
-      font-size: 13px;
-      font-weight: 800;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: -.01em;
       cursor: pointer;
       position: relative;
+      overflow: hidden;
       white-space: nowrap;
-      animation: startPulse 1.7s ease infinite;
-      transition: background .18s;
+      box-shadow: 0 0 8px 0 color-mix(in srgb, var(--dc) 50%, transparent);
+      transition: transform .12s ease, box-shadow .2s ease;
+      animation: ctaPulse 2.2s ease-in-out infinite;
     }
 
-    .cl-start:hover { background: #000; }
-
-    @keyframes startPulse {
-      50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--ink) 12%, transparent); }
+    .cl-start .cl-lb {
+      position: relative;
+      z-index: 1;
     }
 
+    .cl-start::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(84deg, rgba(255, 255, 255, 0) 3%, rgba(255, 255, 255, .52) 50%, rgba(255, 255, 255, 0) 97%);
+      pointer-events: none;
+      animation: shimmer 2.4s ease-in-out infinite;
+    }
+
+    @keyframes ctaPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 8px 0 color-mix(in srgb, var(--dc) 50%, transparent);
+      }
+
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 6px 18px 0 color-mix(in srgb, var(--dc) 62%, transparent);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-130%);
+      }
+
+      55%,
+      100% {
+        transform: translateX(130%);
+      }
+    }
+
+    /* 자동 시연 커서 — '레시피 시작'을 탭 (공용 커서, 씬 로드 시 재생) */
+    .cl-cursor {
+      position: absolute;
+      right: 22px;
+      bottom: 6px;
+      width: 28px;
+      height: 28px;
+      background: var(--cursor-svg) no-repeat center / contain;
+      filter: drop-shadow(0 4px 7px rgba(0, 0, 0, .28));
+      opacity: 0;
+      pointer-events: none;
+      z-index: 5;
+      animation: clTap 2.2s ease-in-out infinite;
+    }
+
+    @keyframes clTap {
+      0% {
+        opacity: 0;
+        transform: translate(18px, 22px) scale(1);
+      }
+
+      18% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+
+      40% {
+        transform: translate(0, 0) scale(.8);
+      }
+
+      55% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      80% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(18px, 22px) scale(1);
+      }
+    }
+
+    /* 자동 실행 후 — 펄스/시머/커서 정지, '시작됨' 표시 */
     .sc.on .cl-row.pick {
-      background: color-mix(in srgb, var(--c-push) 7%, #fff);
-      box-shadow: 0 0 0 2px var(--c-push);
+      background: color-mix(in srgb, var(--dc) 7%, #fff);
     }
 
     .sc.on .cl-start {
       animation: none;
-      background: #0CA678;
-      color: transparent;
+      background: color-mix(in srgb, var(--dc) 86%, #000);
+    }
+
+    .sc.on .cl-start::before {
+      display: none;
+    }
+
+    .sc.on .cl-cursor {
+      display: none;
+    }
+
+    .sc.on .cl-start .cl-lb {
+      visibility: hidden;
     }
 
     .sc.on .cl-start::after {
@@ -5149,6 +6116,7 @@
       display: grid;
       place-items: center;
       color: #fff;
+      z-index: 2;
     }
 
     .cmp-list::after {
@@ -5196,12 +6164,226 @@
     }
 
     .cd-preset {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       font-size: 12px;
-      font-weight: 800;
-      color: #3A1D1D;
-      background: #FEE500;
+      font-weight: 700;
+      color: #fff;
+      background: #1A1D24;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 13px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .cd-preset:hover {
+      background: #000;
+    }
+
+    .cmp-cardimg {
+      display: block;
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    /* 애니메이션 다시 보기 — 형식은 전 제품 공통, 컬러는 제품별 --dc */
+    .cmp-replay {
+      position: absolute;
+      left: 20px;
+      bottom: 16px;
+      z-index: 7;
+      display: none;
+      align-items: center;
+      gap: 5px;
+      height: 34px;
+      padding: 0 15px;
+      border: 1px solid color-mix(in srgb, var(--dc) 30%, #fff);
       border-radius: 100px;
-      padding: 5px 12px;
+      background: #fff;
+      color: var(--dc);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 18px color-mix(in srgb, var(--dc) 14%, transparent);
+      transition: .15s;
+    }
+
+    .cmp-replay:hover {
+      border-color: color-mix(in srgb, var(--dc) 55%, #fff);
+      background: color-mix(in srgb, var(--dc) 6%, #fff);
+    }
+
+    .sc.on .cmp-replay {
+      display: inline-flex;
+      animation: replayIn .45s cubic-bezier(.2, .7, .2, 1) 1.7s both;
+    }
+
+    @keyframes replayIn {
+      0% {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 발송 결과 피날레 (대상 고객에게 자동 발송되는 결과) */
+    .cd-result {
+      position: absolute;
+      left: 40%;
+      bottom: 200px;
+      transform: translateX(-50%) translateY(20px);
+      width: 384px;
+      max-width: calc(100% - 40px);
+      z-index: 6;
+      background: #fff;
+      border: 2px solid color-mix(in srgb, var(--dc) 55%, #fff);
+      border-radius: 12px;
+      box-shadow: 0 22px 52px color-mix(in srgb, var(--dc) 16%, transparent);
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .sc.on .cd-result {
+      animation: floatUp .55s cubic-bezier(.2, 1.5, .4, 1) 1.5s both;
+    }
+
+    @keyframes floatUp {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(24px) scale(.94);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
+    }
+
+    /* 프리셋 자동 클릭 커서 (공용 커서) */
+    .cmp-cursor {
+      position: absolute;
+      top: 30px;
+      right: 78px;
+      width: 30px;
+      height: 30px;
+      background: var(--cursor-svg) no-repeat center / contain;
+      filter: drop-shadow(0 4px 7px rgba(0, 0, 0, .28));
+      opacity: 0;
+      pointer-events: none;
+      z-index: 8;
+    }
+
+    .sc.on .cmp-cursor {
+      animation: cmpCursor 1.15s cubic-bezier(.4, .2, .3, 1) .65s both;
+    }
+
+    @keyframes cmpCursor {
+      0% {
+        opacity: 0;
+        transform: translate(34px, 46px) scale(1);
+      }
+
+      22% {
+        opacity: 1;
+      }
+
+      55% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      68% {
+        transform: translate(0, 0) scale(.78);
+      }
+
+      82% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-4px, -8px) scale(1);
+      }
+    }
+
+    /* 프리셋 버튼 눌림 */
+    .sc.on .cd-preset {
+      animation: presetPress .32s ease 1.32s both;
+    }
+
+    @keyframes presetPress {
+      0% {
+        transform: scale(1);
+        filter: brightness(1);
+      }
+
+      45% {
+        transform: scale(.92);
+        filter: brightness(1.5);
+      }
+
+      100% {
+        transform: scale(1);
+        filter: brightness(1);
+      }
+    }
+
+    .cr-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--dc);
+      margin-bottom: 12px;
+    }
+
+    .cr-live {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--dc);
+      animation: liveDot 1.4s ease infinite;
+    }
+
+    .cr-stats {
+      display: flex;
+      gap: 12px;
+    }
+
+    .cr-stat {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #E3E4E7;
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cs-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-dim);
+    }
+
+    .cs-val {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cs-val.pos {
+      color: var(--dc);
     }
 
     .cd-title {
@@ -5235,8 +6417,21 @@
 
     .cmp-phone {
       background: #DCE8F2;
-      border-radius: 14px;
-      padding: 10px;
+      border-radius: 20px 20px 14px 14px;
+      padding: 14px 14px 12px;
+    }
+
+    .cp-sender {
+      font-size: 11px;
+      color: #6E809A;
+      margin-bottom: 9px;
+    }
+
+    .cp-footer {
+      text-align: right;
+      font-size: 10px;
+      color: #93A1B4;
+      margin-top: 12px;
     }
 
     .cmp-card {
@@ -5294,16 +6489,15 @@
     }
 
     .cmp-msg {
-      font-size: 11px;
-      line-height: 1.5;
-      color: var(--ink-dim);
-      background: #fff;
-      border-radius: 10px;
-      padding: 9px 11px;
-      margin-top: 8px;
+      font-size: 11.5px;
+      line-height: 1.65;
+      color: #3C4A5C;
+      margin-top: 11px;
     }
 
-    .cmp-msg b { color: var(--ink); }
+    .cmp-msg b {
+      color: var(--ink);
+    }
 
     .cmp-btn1 {
       text-align: center;
@@ -5322,12 +6516,19 @@
       color: var(--ink-dim);
       background: #F7F8FA;
       border-radius: 11px;
-      padding: 10px 13px;
-      margin-top: 12px;
+      padding: 10px 12px;
+      margin: 12px 0px;
     }
 
-    .cd-target b { color: var(--ink); }
-    .cd-target em { font-style: normal; font-weight: 800; color: var(--c-push); }
+    .cd-target b {
+      color: var(--ink);
+    }
+
+    .cd-target em {
+      font-style: normal;
+      font-weight: 800;
+      color: var(--c-push);
+    }
 
     .cd-live {
       display: flex;
@@ -5352,12 +6553,21 @@
     }
 
     @keyframes liveDot {
-      50% { box-shadow: 0 0 0 5px rgba(12, 166, 120, .2); }
+      50% {
+        box-shadow: 0 0 0 5px rgba(12, 166, 120, .2);
+      }
     }
 
     @keyframes cmpStamp {
-      from { opacity: 0; transform: rotate(-3deg) scale(1.4); }
-      to { opacity: 1; transform: rotate(-3deg) scale(1); }
+      from {
+        opacity: 0;
+        transform: rotate(-3deg) scale(1.4);
+      }
+
+      to {
+        opacity: 1;
+        transform: rotate(-3deg) scale(1);
+      }
     }
 
     /* 푸시 — 가격 비교 */
@@ -6327,12 +7537,11 @@
           <h1 id="heroTitle"></h1>
           <div class="hc-trust" id="heroTrust"></div>
           <div class="beats" id="heroBeats"></div>
-          <button class="hero-ctrl" id="heroCtrl" type="button">⏸ 자동 넘김 멈춤</button>
+          <button class="hero-ctrl" id="heroCtrl" type="button"><i class="hc-ic"></i><span class="hc-tx">자동 넘김
+              멈춤</span></button>
         </div>
         <div class="hero-stage">
           <div class="browser">
-            <div class="bw-bar"><span class="bw-dot"></span><span class="bw-dot"></span><span
-                class="bw-dot"></span><span class="bw-url">alphamall.cafe24.com</span></div>
             <div class="bw-body" id="heroPanes"></div>
           </div>
         </div>
@@ -6370,8 +7579,6 @@
         </div>
       </div>
       <div class="dt-foot">
-        <button class="dt-nav-btn" id="dtPrev">← 이전 기능</button>
-        <button class="dt-nav-btn" id="dtNext">다음 기능 →</button>
         <button class="dt-add" id="dtAdd"></button>
       </div>
     </div>
@@ -6755,67 +7962,116 @@
         <div class="sc-foot">함께구매 금액·건수 자동 집계 — 더 번 돈이 그대로 보여요 (수치는 예시)</div>
       </div>`,
 
-      ps1: `<div class="sc">
-        <div class="sc-eyebrow">한 고객의 여정 — 흩어진 앱을 하나로</div>
-        <div class="journey">
-          <div class="jr-node"><span class="jn-ic">⚡</span><span class="jn-lb">초스피드<br>회원가입</span></div>
-          <span class="jr-link"></span>
-          <div class="jr-node"><span class="jn-ic">🎁</span><span class="jn-lb">첫구매<br>할인</span></div>
-          <span class="jr-link"></span>
-          <div class="jr-node"><span class="jn-ic">💝</span><span class="jn-lb">선물하기</span></div>
-          <span class="jr-link"></span>
-          <div class="jr-node"><span class="jn-ic">🧭</span><span class="jn-lb">탐색 유도</span></div>
+      ps1: `<div class="sc ps-wall">
+        <div class="pw-head">
+          <span class="pw-eyebrow">이 많은 전환 장치, <b>알파푸시 하나로</b> 다 써요</span>
+          <span class="pw-count">🔌 12종+ · 각 장치가 알아서 따로 작동해요</span>
         </div>
-        <button class="sc-btn" data-act style="margin-top:18px; background:#307AF3">여정 연결하기</button>
-        <div class="sc-result">
-          <div class="one-profile">👤 김알파 님 — 가입 → 첫구매 → 선물 수신, <b>한 화면에서 이어져요</b></div>
+        <div class="pw-grid">
+          <div class="pwc c1">
+            <span class="pwc-live"><i></i>작동 중</span>
+            <div class="pwc-h"><span class="pwc-ic">⚡</span><span class="pwc-nm">초스피드 회원가입</span></div>
+            <div class="pwc-ex"><span class="psl-btn kko">카카오로 1초 로그인</span><span class="psl-btn nvr">네이버로 시작</span></div>
+            <div class="pwc-mt">회원 전환 +38%</div>
+          </div>
+          <div class="pwc c2">
+            <span class="pwc-live"><i></i>작동 중</span>
+            <div class="pwc-h"><span class="pwc-ic">🧭</span><span class="pwc-nm">탐색 유도 장치</span></div>
+            <div class="pwc-ex"><div class="pw-photo"><img src="assets/insta/f5.png" alt=""><div class="pw-float">⏱ 2초 더 보면 <span class="co">100P</span> 받아요!</div></div></div>
+            <div class="pwc-mt">체류시간 +2.3배</div>
+          </div>
+          <div class="pwc c3">
+            <span class="pwc-live"><i></i>작동 중</span>
+            <div class="pwc-h"><span class="pwc-ic">🎯</span><span class="pwc-nm">온사이트 캠페인</span></div>
+            <div class="pwc-ex"><div class="pw-coupon"><span style="font-size:9px;font-weight:800;color:var(--dc)">COUPON</span><b>15% OFF</b><em>이탈 직전, 망설임 쿠폰 팝업</em></div></div>
+            <div class="pwc-mt">구매 전환 +37%</div>
+          </div>
+          <div class="pwc c4">
+            <span class="pwc-live"><i></i>작동 중</span>
+            <div class="pwc-h"><span class="pwc-ic">💝</span><span class="pwc-nm">카톡 선물하기</span></div>
+            <div class="pwc-ex"><div class="pw-gift"><img src="assets/insta/f2.png" alt=""><span class="pg-btn">🎁 선물하기</span></div><div class="pw-talk"><div class="ptk"><span class="ptk-tag">알림톡</span><br>선물이 도착했어요! 🎉</div></div></div>
+            <div class="pwc-mt">선물 주문·알림톡 자동</div>
+          </div>
+          <div class="pwc c5">
+            <span class="pwc-live"><i></i>작동 중</span>
+            <div class="pwc-h"><span class="pwc-ic">🎉</span><span class="pwc-nm">첫구매 할인</span></div>
+            <div class="pwc-ex"><div class="pw-coupon"><span style="font-size:9px;font-weight:800;color:var(--dc)">WELCOME</span><b>첫 구매 15%</b><em>가입 즉시 자동 발급</em></div></div>
+            <div class="pwc-mt">첫 구매율 +26%</div>
+          </div>
+          <div class="pwc c6">
+            <span class="pwc-live"><i></i>작동 중</span>
+            <div class="pwc-h"><span class="pwc-ic">🛒</span><span class="pwc-nm">장바구니 리마인드</span></div>
+            <div class="pwc-ex"><div class="pw-talk"><div class="ptk"><span class="ptk-tag">알림톡</span><br>장바구니에 두고 가셨어요 🛒<br>지금 구매 시 쿠폰 드려요</div></div></div>
+            <div class="pwc-mt">장바구니 회수 +29%</div>
+          </div>
+          <div class="pwc c7">
+            <span class="pwc-live"><i></i>작동 중</span>
+            <div class="pwc-h"><span class="pwc-ic">👥</span><span class="pwc-nm">고객 관리 세그먼트</span></div>
+            <div class="pwc-ex"><div class="pw-seg"><span class="psg"><span class="pdot" style="background:#F0A6A0"></span>미구매<span class="pv">198</span></span><span class="psg"><span class="pdot" style="background:#8FB4F2"></span>첫 구매<span class="pv">85</span></span><span class="psg"><span class="pdot" style="background:#9284EE"></span>재구매<span class="pv">4</span></span></div></div>
+            <div class="pwc-mt">이탈·재구매 자동 분류</div>
+          </div>
+          <div class="pwc c8">
+            <span class="pwc-live"><i></i>작동 중</span>
+            <div class="pwc-h"><span class="pwc-ic">💬</span><span class="pwc-nm">메시지 캠페인</span></div>
+            <div class="pwc-ex"><div class="pw-chips"><i>카카오 채널</i><i>문자 발신</i><i>자동화</i><i>일회성</i></div><div class="pw-talk"><div class="ptk">가입·첫구매·재구매 레시피 12종</div></div></div>
+            <div class="pwc-mt">평균 ROAS 250~600%</div>
+          </div>
         </div>
-        <div class="sc-foot">따로 쓰던 앱 비용도 아끼지만, 진짜 가치는 ‘여정이 한 곳에 보인다’는 것</div>
+        <div class="ps-cta">
+          <button class="cl-start" data-act><span class="cl-lb">전환 장치 작동 보기</span></button>
+          <span class="cl-cursor"></span>
+        </div>
+        <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
       ps2: `<div class="sc cmp-sc">
         <div class="cmp-app">
           <div class="cmp-rail">
             <span class="rail-logo">α</span>
-            <span class="rail-ic">📊</span>
-            <span class="rail-ic">💬</span>
-            <span class="rail-ic on">%</span>
-            <span class="rail-ic">🎁</span>
-            <span class="rail-ic">👥</span>
+            <span class="rail-ic ic-chart"></span>
+            <span class="rail-ic ic-speaker"></span>
+            <span class="rail-ic ic-comment on"></span>
+            <span class="rail-ic ic-gift"></span>
+            <span class="rail-ic ic-users"></span>
           </div>
           <div class="cmp-main">
             <div class="cmp-head"><span class="ch-back">←</span>자동화 캠페인 만들기</div>
             <div class="cmp-tabs"><span class="on">전체</span><span>첫 구매 유도</span><span>장바구니 구매 전환</span><span>첫 구매 후 관리</span><span>재방문·재구매</span><span>이탈·휴면</span></div>
             <div class="cmp-list">
               <div class="cl-sec">첫 구매 유도</div>
-              <div class="cl-row"><span class="cl-th t1">⏰</span><span class="cl-tx"><b>가입 후 미구매 고객에게 할인 쿠폰 제공</b><em>📈 평균 ROAS 250~600%</em></span></div>
-              <div class="cl-row"><span class="cl-th t2">🎯</span><span class="cl-tx"><b>가입 후 미구매 고객에게 최근 인기상품 추천</b><em>📈 평균 ROAS 150~400%</em></span></div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1012.png" alt=""></span><span class="cl-tx"><b>가입 후 미구매 고객에게 할인 쿠폰 제공</b><em>📈 평균 ROAS 250~600%</em></span></div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1013.png" alt=""></span><span class="cl-tx"><b>가입 후 미구매 고객에게 최근 인기상품 추천</b><em>📈 평균 ROAS 150~400%</em></span></div>
               <div class="cl-sec">장바구니 구매 전환</div>
-              <div class="cl-row"><span class="cl-th t3">🛒</span><span class="cl-tx"><b>장바구니 고객에게 담은 상품 리마인드</b><em>📈 평균 ROAS 1,200~4,000%</em></span></div>
-              <div class="cl-row pick"><span class="cl-th t4">🎟️</span><span class="cl-tx"><b>장바구니 고객에게 할인 쿠폰 제공</b><em>📈 평균 ROAS 800~2,500%</em></span><button class="cl-start" data-act>레시피 시작</button></div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1014.png" alt=""></span><span class="cl-tx"><b>장바구니 고객에게 담은 상품 리마인드</b><em>📈 평균 ROAS 1,200~4,000%</em></span></div>
+              <div class="cl-row pick"><span class="cl-th"><img src="assets/recipe/img1015.png" alt=""></span><span class="cl-tx"><b>장바구니 고객에게 할인 쿠폰 제공</b><em>📈 평균 ROAS 800~2,500%</em></span><button class="cl-start" data-act><span class="cl-lb">레시피 시작</span></button><span class="cl-cursor"></span></div>
               <div class="cl-sec">첫 구매 후 관리</div>
-              <div class="cl-row"><span class="cl-th t5">💌</span><span class="cl-tx"><b>첫 구매 7일 경과 고객에게 감사 쿠폰 발급</b><em>📈 평균 ROAS 500~1,500%</em></span></div>
-              <div class="cl-row"><span class="cl-th t6">🖼️</span><span class="cl-tx"><b>첫 구매 30일 경과 고객에게 인기상품 추천</b><em>📈 평균 ROAS 300~800%</em></span></div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1016.png" alt=""></span><span class="cl-tx"><b>첫 구매 7일 경과 고객에게 감사 쿠폰 발급</b><em>📈 평균 ROAS 500~1,500%</em></span></div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1017.png" alt=""></span><span class="cl-tx"><b>첫 구매 30일 경과 고객에게 인기상품 추천</b><em>📈 평균 ROAS 300~800%</em></span></div>
               <div class="cl-sec">재방문·재구매 유도</div>
-              <div class="cl-row"><span class="cl-th t7">🔔</span><span class="cl-tx"><b>상품 리필 시기 알림</b><em>📈 평균 ROAS 600~1,800%</em></span></div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1018.png" alt=""></span><span class="cl-tx"><b>상품 리필 시기 알림</b><em>📈 평균 ROAS 600~1,800%</em></span></div>
             </div>
           </div>
           <div class="cmp-drawer">
-            <div class="cd-top"><span class="cd-x">✕</span><span class="cd-preset">🟡 프리셋 사용하기 ▾</span></div>
+            <span class="cmp-cursor"></span>
+            <div class="cd-top"><span class="cd-x">✕</span><button class="cd-preset">프리셋 사용하기</button></div>
             <div class="cd-title">장바구니 고객에게<br>할인 쿠폰 제공</div>
-            <div class="cd-meta"><span>📈 평균 ROAS 800~2,500%</span><span>👥 예상 대상 999,999명</span></div>
-            <div class="cd-live"><span class="live-dot"></span>자동 발송 ON — 캠페인이 자동으로 돌기 시작했어요</div>
-            <div class="cd-friendtag">친구톡 이미지형</div>
+            <div class="cd-meta"><span>📈 평균 ROAS 800~2,500%</span></div>
+            <div class="cd-target"><b>발송 대상</b><br/>장바구니 담은 고객이 <em>2일</em> 미구매 시 <em>오전 11:00</em> 자동 발송</div>
             <div class="cmp-phone">
-              <div class="cmp-card">
-                <span class="cmp-cardtag">🛒 24시간 쿠폰</span>
-                <div class="cmp-cardtitle">장바구니 속 상품<br>아직 고민 중이신가요?</div>
-                <div class="cmp-coupon"><span class="cp-pct">%</span>장바구니 쿠폰</div>
-              </div>
-              <p class="cmp-msg">안녕하세요 <b>고객명</b>님!<br>담아두신 상품이 기다리고 있어요 🛒<br>지금 구매하면 특별 쿠폰을 쓸 수 있어요 😊</p>
+              <div class="cp-sender">(광고) @urbanshift</div>
+              <img class="cmp-cardimg" src="assets/recipe/img1015.png" alt="장바구니 쿠폰 친구톡">
+              <p class="cmp-msg">안녕하세요 {고객명}님<br>장바구니에 담아두신 상품들이 기다리고 있어요 🛒<br><br>지금 바로 구매하시면 사용할 수 있는 특별 쿠폰을 준비했어요 😉<br>{쇼핑몰명}에서 24시간 이내 사용할 수 있어요</p>
+              <div class="cp-footer">수신거부 | 홈 &gt; 채널차단</div>
             </div>
-            <div class="cd-target"><b>발송 대상</b><br>장바구니 담은 고객이 <em>2일</em> 동안 구매하지 않으면 <em>오전 11:00</em> 메시지 발송</div>
           </div>
+          <div class="cd-result">
+            <div class="cr-head"><span class="cr-live"></span>자동 발송 ON · 대상 고객에게 발송 완료</div>
+            <div class="cr-stats">
+              <div class="cr-stat"><span class="cs-lbl">발송</span><span class="cs-val"><b class="cnt" data-to="12847" data-fmt="num" data-delay="1650">0</b> 명</span></div>
+              <div class="cr-stat"><span class="cs-lbl">전환</span><span class="cs-val pos"><b class="cnt" data-to="486" data-fmt="num" data-delay="1950">0</b> 건</span></div>
+            </div>
+          </div>
+          <button class="cmp-replay" type="button">↻ 다시 보기</button>
         </div>
       </div>`,
 
@@ -6946,79 +8202,153 @@
           </div>
         </div>`,
         `<div class="hero-pane hp-ai">
-          <div class="lf-send"><span class="ai-chip">AI 루틴</span>사람의 업무가 시스템 과정으로<span class="sent">더 효율적으로, 더 진실되게</span></div>
-          <div class="ai-flow">
-            <div class="ai-inbox">
-              <div class="aib-head">리뷰 인박스<span class="live">● 실시간</span></div>
-              <div class="ai-rv r1">
-                <div class="rv-line"><span class="st5">★★★★★</span>“포장 꼼꼼하고 예뻐요” <span class="ph">📷</span></div>
-                <span class="ai-act a1">🤖 300P 지급 · 댓글 자동 완성 ✓</span>
+          <div class="ai-pipe">
+            <div class="apx-head">
+              <span class="apx-title">🔁 AI 리뷰 운영, 수집부터 인사이트까지 한 흐름으로</span>
+              <span class="apx-live"><i></i>리뷰 <b class="cnt" data-to="12480" data-from="0" data-delay="400">0</b>건 실시간 처리</span>
+            </div>
+            <div class="apx-flow">
+              <div class="stg s1">
+                <div class="stg-top"><span class="stg-no">1</span><span class="stg-lb">리뷰 수집·분류</span></div>
+                <div class="stg-ui">
+                  <div class="mrv"><img src="assets/insta/f1.png" alt=""><span class="st">★★★★★</span><i class="tg">핏</i></div>
+                  <div class="mrv"><img src="assets/insta/f4.png" alt=""><span class="st">★★★★☆</span><i class="tg neg">배송</i></div>
+                  <div class="mrv"><img src="assets/insta/f7.png" alt=""><span class="st">★★★★★</span><i class="tg">색감</i></div>
+                  <div class="mtags"><i>#상품특징</i><i>#배송/포장</i><i>#색감</i><i>#사이즈</i><i>#가성비</i></div>
+                  <div class="stg-count">AI가 실시간 자동 태깅 · 12,480건</div>
+                </div>
+                <div class="stg-cap">쌓이는 리뷰를 AI가 자동 수집·태깅</div>
               </div>
-              <div class="ai-rv r2">
-                <div class="rv-line"><span class="st5">★★★★★</span>“핏 예뻐요, 인생 팬츠!” <span class="ph">🎬</span></div>
-                <span class="ai-act a2">📌 베스트 리뷰 상단 고정 ✓</span>
+              <span class="arw a1"></span>
+              <div class="stg s2">
+                <div class="stg-top"><span class="stg-no">2</span><span class="stg-lb">AI 리뷰 요약</span></div>
+                <div class="stg-ui">
+                  <div class="msum-h">🤖 <b>92%</b> 만족</div>
+                  <div class="msum-row ok">👍 핏·색감·재질이 좋아요</div>
+                  <div class="msum-row cau">💬 배송이 조금 아쉬워요</div>
+                  <div class="mrv-thumbs"><img src="assets/insta/f2.png" alt=""><img src="assets/insta/f5.png" alt=""><img src="assets/insta/f1.png" alt=""></div>
+                  <div class="stg-count">3,240건 요약 반영 · 상세페이지 자동 게시</div>
+                </div>
+                <div class="stg-cap">핵심만 요약해 상세페이지에 자동 게시</div>
               </div>
-              <div class="ai-rv r3 neg">
-                <div class="rv-line"><span class="st5 low">★☆☆☆☆</span>“배송 늦고 응대가 없어요”</div>
-                <span class="ai-act a3 warn">⚠ 부정 리뷰 감지 — 실행이 아닌, 감지</span>
+              <span class="arw a2"></span>
+              <div class="stg s3">
+                <div class="stg-top"><span class="stg-no">3</span><span class="stg-lb">월간 브리핑</span></div>
+                <div class="stg-ui">
+                  <div class="mc-bars"><i style="--h:42%"></i><i style="--h:60%"></i><i style="--h:50%"></i><i style="--h:74%"></i><i style="--h:64%"></i><i style="--h:88%"></i></div>
+                  <div class="mc-stat">부정 리뷰 <b>5%</b> <span class="dn">▼ 1%p</span></div>
+                  <div class="mprod"><span style="font-size:14px">📊</span><b>분석 리뷰 12,480건</b><span class="pneg">▲ 2,458</span></div>
+                  <div class="mtags"><i>일간</i><i>주간</i><i>월간</i><i>자동 리포트</i></div>
+                </div>
+                <div class="stg-cap">지표·추세를 매달 자동 리포트</div>
+              </div>
+              <span class="arw a3"></span>
+              <div class="stg s4">
+                <div class="stg-top"><span class="stg-no">4</span><span class="stg-lb">개선 필요 상품</span></div>
+                <div class="stg-ui">
+                  <div class="mscat"><i style="left:22%;top:64%"></i><i style="left:38%;top:48%"></i><i style="left:30%;top:72%"></i><i style="left:55%;top:58%"></i><i style="left:48%;top:38%"></i><i class="bad" style="left:72%;top:26%"></i><i class="bad" style="left:82%;top:34%"></i></div>
+                  <div class="mscat-cap">🔥 개선 필요 상품 3건 감지</div>
+                  <div class="mprod"><img src="assets/insta/f4.png" alt=""><b>체크 트위드 자켓</b><span class="pneg">부정 6.5%</span></div>
+                  <div class="mprod"><img src="assets/insta/f7.png" alt=""><b>울 블렌드 코트</b><span class="pneg">부정 5.8%</span></div>
+                </div>
+                <div class="stg-cap">부정 급증 상품을 콕 집어 진단</div>
+              </div>
+              <span class="arw a4"></span>
+              <div class="stg s5">
+                <div class="stg-top"><span class="stg-no">5</span><span class="stg-lb">브랜드 인사이트</span></div>
+                <div class="stg-ui">
+                  <div class="mkw-wrap"><span class="mkw a">핏 좋아요</span><span class="mkw b">색감</span><span class="mkw c">배송</span><span class="mkw d">재질</span></div>
+                  <div class="mratio-lb"><span class="pos">긍정 92%</span><span class="neg2">부정 8%</span></div>
+                  <div class="mratio"><i></i></div>
+                  <div class="mkw-risk">⚠ 위험 태그 · 배송 지연 점검</div>
+                </div>
+                <div class="stg-cap">강점·위험 키워드를 한눈에</div>
               </div>
             </div>
-            <div class="lf-mid ai-mid"><span class="lf-zap">감지 → 즉시 대응</span><span class="lf-arrow">⟶</span></div>
-            <div class="ai-right">
-              <div class="ai-alert">
-                <div class="al-head"><span class="slack">Slack</span><span class="tok">TALK</span>AI 모니터링 알림</div>
-                강성 클레임 감지 · 주문 #4821 — 담당자에게 즉시 알림했어요
-              </div>
-              <div class="ai-reply">
-                <em>✨ AI 대응 초안</em>
-                “불편을 드려 죄송합니다. 주문 건 확인 후 오늘 중 개별 연락드릴게요.”
-                <span class="ok">감지 → 대응 완료 ✓</span>
-              </div>
-              <div class="ai-insight">
-                <div class="in-head">🧠 쌓이는 리뷰, 똑똑해지는 AI</div>
-                <div class="in-bubbles"><span class="bb b1">핏 예뻐</span><span class="bb b2">허리 길이</span><span class="bb b3">세탁</span><span class="bb b4">+ 설문 56,038</span></div>
-                <div class="in-sug">💡 AI 제안 — “허리 기장 옵션 추가” · 상품 리뉴얼에 반영하세요</div>
-              </div>
-            </div>
+                        <div class="apx-loop"><span class="lp-ic">🔄</span>수집 → 분류 → 요약 → 브리핑 → 진단 → 인사이트, <b>매주 사람 손 없이 자동 반복</b></div>
           </div>
         </div>`,
         `<div class="hero-pane hp-wg">
-          <div class="lf-send"><span class="ai-chip wg-chip">모든 리뷰 기능</span>어디서 본 그 기능, 다 있어요<span class="sent">위젯 20여 종</span></div>
-          <div class="wg-wall">
-            <div class="wg w1">
-              <div class="wg-label">📷 포토 그리드</div>
-              <div class="pg"><i class="p1"></i><i class="p2"></i><i class="p3"></i><i class="p4"></i></div>
-              <div class="wg-meta">★ 4.9 · 포토 리뷰 1,284</div>
-            </div>
-            <div class="wg w2">
-              <div class="wg-label">📱 숏츠 위젯</div>
-              <div class="rings"><i class="r0">＋</i><i>🧣</i><i>👖</i><i>🧥</i></div>
-              <div class="wg-meta">리뷰 작성 <b>+1,000P</b></div>
-            </div>
-            <div class="wg w3 dark">
-              <b>4.7</b><span class="st">★★★★★</span><em>리뷰 80개</em>
-            </div>
-            <div class="wg w4">
-              <div class="wg-label">🎬 영상 리뷰<span class="lf-cursor wg-cursor">👆</span></div>
-              <div class="vid">▶</div>
-              <span class="wg-done">✓ 설치 완료</span>
-            </div>
-            <div class="wg w5">
-              <div class="wg-label">🏆 베스트 랭킹</div>
-              <div class="podium"><i class="s2">2</i><i class="s1">1</i><i class="s3">3</i></div>
-            </div>
-            <div class="wg w6">
-              <div class="wg-label">🗳️ 설문 요약</div>
-              <p><b>682명</b>이 “믿고 살 수 있어요”</p>
-              <div class="bars"><i style="--w:82%"></i><i style="--w:46%"></i><i style="--w:28%"></i></div>
-            </div>
-            <div class="wg w7">
-              <div class="wg-label">📌 리뷰 상단 고정</div>
-              <p><span class="st">★★★★★</span> “인생 팬츠! 세 번째 구매예요”</p>
-            </div>
-            <div class="wg w8 more">＋ 12종 더<em>필요한 순간 바로 켜면 돼요</em></div>
+          <div class="wg-head">
+            <span class="wg-badge">✦ 올인원 리뷰 위젯</span>
+            <div class="wg-title">이걸 다 준다고요? 리뷰 기능 <b class="cnt" data-to="20" data-from="0" data-delay="300">0</b>여 종,<br>알파리뷰 하나에 전부 있어요</div>
           </div>
-          <div class="wg-foot">원하는 위젯 골라서 바로 설치 — <b>구매 전환율 UP! 📈</b></div>
+          <div class="wg-wallwrap">
+            <div class="wg-wall">
+              <div class="wg-col">
+                <div class="wg wg-stat w1">
+                  <div class="wg-h">📊 리뷰 통계 위젯</div>
+                  <div class="ws-score"><i class="star"></i><b>4.7</b><em><b class="cnt" data-to="682" data-from="0" data-delay="700">0</b>개 리뷰</em></div>
+                  <div class="wsb top"><span>매우 만족</span><span class="wsb-track"><i style="--w:93%"></i></span><span class="wsb-p">93%</span></div>
+                  <div class="wsb"><span>만족</span><span class="wsb-track"><i style="--w:4%"></i></span><span class="wsb-p">4%</span></div>
+                  <div class="wsb"><span>보통</span><span class="wsb-track"><i style="--w:1%"></i></span><span class="wsb-p">1%</span></div>
+                  <div class="wsb"><span>그저 그래요</span><span class="wsb-track"><i style="--w:1%"></i></span><span class="wsb-p">1%</span></div>
+                  <div class="wsb"><span>아쉬워요</span><span class="wsb-track"><i style="--w:1%"></i></span><span class="wsb-p">1%</span></div>
+                </div>
+                <div class="wg wg-board w5">
+                  <div class="wg-h">🗂️ 상품 리뷰 게시판</div>
+                  <div class="wb-row"><img class="wb-ava" src="assets/insta/f4.png" alt=""><span class="wb-tx"><span class="st">★★★★★</span><p>색감이 사진 그대로예요, 재질도 튼튼하고 정말 만족합니다 😊</p></span><img class="wb-th" src="assets/insta/f7.png" alt=""></div>
+                  <div class="wb-row"><img class="wb-ava" src="assets/insta/f1.png" alt=""><span class="wb-tx"><span class="st">★★★★★</span><p>핏이 딱 맞아요. 착용 영상 리뷰도 남겼어요!</p></span><img class="wb-th" src="assets/insta/f5.png" alt=""></div>
+                </div>
+                <div class="wg wg-sale w8">
+                  <span class="wsl-fire">🔥</span>
+                  <span class="wsl-tx">지금 <b>5,780명</b>이 이 상품을<br>보고 있어요 · 실시간 세일 중</span>
+                </div>
+              </div>
+              <div class="wg-col">
+                <div class="wg wg-photo w2">
+                  <div class="wg-h">📷 포토 리뷰 그리드</div>
+                  <div class="wg-pg">
+                    <img src="assets/insta/f1.png" alt=""><img src="assets/insta/f4.png" alt="">
+                    <img src="assets/insta/f5.png" alt=""><img src="assets/insta/f7.png" alt="">
+                  </div>
+                  <div class="wg-meta"><i class="star"></i><b>4.9</b>&nbsp;·&nbsp;포토 리뷰 <b class="cnt" data-to="1284" data-from="0" data-delay="900">0</b>개</div>
+                </div>
+                <div class="wg wg-vid w4">
+                  <div class="wg-h">🎬 포토·영상 리뷰</div>
+                  <div class="wv-img">
+                    <img src="assets/insta/f5.png" alt="">
+                    <span class="wv-play"><i>▶</i></span>
+                    <span class="wv-rate"><i class="star"></i>4.8</span>
+                  </div>
+                  <div class="wv-prod">
+                    <img src="assets/hero-product.png" alt="">
+                    <span><span class="wp-nm">여름 청순 바람막이</span><span class="wp-mt"><i class="star"></i>4.7 · 리뷰 111개</span></span>
+                  </div>
+                </div>
+              </div>
+              <div class="wg-col">
+                <div class="wg wg-best w3">
+                  <span class="wb-badge">BEST 리뷰</span>
+                  <span class="st">★★★★★</span>
+                  <p>“핏이 예뻐서 인생 아우터예요. 벌써 세 번째 구매!”</p>
+                  <div class="wb-author"><img class="wb-av" src="assets/insta/f2.png" alt="">김지**님 · 구매 인증</div>
+                </div>
+                <div class="wg wg-story w6">
+                  <div class="wg-h">⚡ 생생후기 스토리</div>
+                  <div class="ws-avatars">
+                    <span class="wsa-add">＋</span>
+                    <span class="wsa"><img src="assets/insta/f2.png" alt=""></span>
+                    <span class="wsa"><img src="assets/insta/f5.png" alt=""></span>
+                    <span class="wsa"><img src="assets/insta/f7.png" alt=""></span>
+                  </div>
+                </div>
+                <div class="wg wg-list w7">
+                  <div class="wg-h">🛍️ 상품별 리뷰 모아보기</div>
+                  <div class="wl-grid">
+                    <div class="wl-card"><img src="assets/insta/f1.png" alt=""><div class="wl-nm">카멜 벨티드 코트</div><div class="wl-mt"><i class="star"></i>4.9 · 320</div></div>
+                    <div class="wl-card"><img src="assets/insta/f4.png" alt=""><div class="wl-nm">체크 트위드 자켓</div><div class="wl-mt"><i class="star"></i>4.8 · 210</div></div>
+                  </div>
+                  <div class="wl-page"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+                </div>
+                <div class="wg wg-notice w9">
+                  <div class="wg-h">📢 공지사항</div>
+                  <div class="wn-row"><span class="wn-tag event">이벤트</span><span class="wn-t">포토리뷰 작성 시 3,000P 적립</span><span class="wn-d">D-3</span></div>
+                  <div class="wn-row"><span class="wn-tag">필독</span><span class="wn-t">여름 신상 배송 안내드립니다</span><span class="wn-d">신규</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>`,
       ],
     };
@@ -7121,10 +8451,18 @@
         const el = document.createElement('div');
         el.className = 'beat';
         el.style.setProperty('--beat-ms', beatMs(i) + 'ms');
-        el.innerHTML = `<span class="brow"><span class="bn">${i + 1}</span><span class="bt">${b[0]}</span></span><span class="bd">${b[1]}</span><span class="prog"></span>`;
-        // 클릭 = 스크럽: 누른 가로 위치(진행 게이지 기준)로 이동 후 그 지점에서 정지
-        el.onclick = (ev) => {
-          const rect = el.getBoundingClientRect();
+        el.innerHTML = `<span class="brow"><span class="bn">${i + 1}</span><span class="bt">${b[0]}</span></span><span class="bd">${b[1]}</span><span class="prog"></span><span class="prog-hit" title="게이지를 누르면 그 지점으로 이동"></span>`;
+        // beat 클릭 = 현재 비트면 재생/일시정지 토글, 다른 비트면 처음부터 시작
+        el.onclick = () => {
+          if (i === heroIdx) { heroPaused ? playHero() : pauseHero(); }
+          else scrubBeat(i, 0);
+        };
+        // 진행 게이지(prog) 클릭 = 누른 위치로 스크럽 — 현재 재생 중인 비트에서만
+        const hit = el.querySelector('.prog-hit');
+        hit.onclick = (ev) => {
+          ev.stopPropagation();
+          if (i !== heroIdx) { scrubBeat(i, 0); return; }   // 다른 비트면 처음부터
+          const rect = hit.getBoundingClientRect();
           const f = Math.max(0, Math.min(1, (ev.clientX - rect.left) / rect.width));
           scrubBeat(i, f);
         };
@@ -7242,7 +8580,8 @@
     function playHero() { resumeHero(); }
     function syncHeroCtrl() {
       const b = $('heroCtrl'); if (!b) return;
-      b.textContent = heroPaused ? '▶ 자동 넘김 재생' : '⏸ 자동 넘김 멈춤';
+      b.classList.toggle('paused', heroPaused);
+      const tx = b.querySelector('.hc-tx'); if (tx) tx.textContent = heroPaused ? '자동 넘김 재생' : '자동 넘김 멈춤';
     }
     { const c = $('heroCtrl'); if (c) c.onclick = () => (heroPaused ? playHero() : pauseHero()); }
 
@@ -7278,7 +8617,6 @@
         card.style.setProperty('--pc', d.color);
         card.dataset.key = k;
         card.innerHTML = `
-          <span class="added-flag">🛒 담김</span>
           <div class="pc-stage">${MICRO[k] || ''}</div>
           <div class="pc-body">
             <span class="pc-name">${d.name}</span>
@@ -7287,7 +8625,7 @@
             <div class="pc-tags">${d.tags.map(t => `<span class="pc-tag">${t}</span>`).join('')}</div>
             <div class="pc-btns">
               <button class="pc-view">기능 자세히 보기</button>
-              <button class="pc-add">${cart.has(k) ? '✓ 담김 · 빼기' : '+ 담기'}</button>
+              <button class="pc-add">${cart.has(k) ? '<i class="pc-ck"></i>담김 · 빼기' : '<i class="pc-plus"></i>담기'}</button>
             </div>
           </div>`;
         card.querySelector('.pc-view').onclick = () => openDetail(k);
@@ -7341,7 +8679,7 @@
         } else {
           chip.className = 'cd-chip added';
           chip.style.setProperty('--cc', d.color);
-          chip.innerHTML = `${d.name}<button class="rm" title="빼기">×</button>`;
+          chip.innerHTML = `${d.name}<button class="rm" title="빼기"></button>`;
           chip.querySelector('.rm').onclick = () => toggleCart(k);
         }
         chips.appendChild(chip);
@@ -7408,8 +8746,11 @@
           runCounts(stage);
         });
       });
-      $('dtPrev').disabled = (i === 0);
-      $('dtNext').textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
+      // '레시피 시작'은 유저가 직접 클릭 (자동 실행 없음)
+      const _rb = stage.querySelector('.cmp-replay');
+      if (_rb) _rb.onclick = () => dtGo(dtIdx);
+      const _dp = $('dtPrev'); if (_dp) _dp.disabled = (i === 0);
+      const _dn = $('dtNext'); if (_dn) _dn.textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
     }
 
     function syncDetailAdd() {
@@ -7419,7 +8760,7 @@
       const isEntry = (dtKey === ENTRY);
       btn.classList.toggle('added', added);
       btn.innerHTML = isEntry ? '✓ 앱스토어에서 선택한 앱이에요'
-        : added ? '✓ 담겼어요 — 계속 둘러보기' : `🛒 ${P[dtKey].name} 담기`;
+        : added ? '✓ 담겼어요 — 계속 둘러보기' : `<i class="dt-cart"></i>${P[dtKey].name} 담기`;
       btn.onclick = () => {
         if (isEntry) { closeDetail(); return; }
         if (added) closeDetail();
@@ -7437,11 +8778,8 @@
     // 새 창 UX: 배경(창 밖) 클릭·Esc로 닫기
     $('detail').addEventListener('click', e => { if (e.target === $('detail')) closeDetail(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('detail').classList.contains('on')) closeDetail(); });
-    $('dtPrev').onclick = () => { if (dtIdx > 0) dtGo(dtIdx - 1); };
-    $('dtNext').onclick = () => {
-      if (dtIdx < P[dtKey].feats.length - 1) dtGo(dtIdx + 1);
-      else closeDetail();
-    };
+    { const _dp = $('dtPrev'); if (_dp) _dp.onclick = () => { if (dtIdx > 0) dtGo(dtIdx - 1); }; }
+    { const _dn = $('dtNext'); if (_dn) _dn.onclick = () => { if (dtIdx < P[dtKey].feats.length - 1) dtGo(dtIdx + 1); else closeDetail(); }; }
 
     /* 히어로에서 진입 앱 자세히 보기: 비트 클릭 시 우측 목업 유지,
        스테이지(브라우저) 클릭 → 상세 오버레이 */
