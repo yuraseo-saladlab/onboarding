@@ -40,16 +40,6 @@
       padding: 0;
     }
 
-    /* 이탤릭체 사용 금지 — em·i·address 등 기본 기울임 전부 정체로 */
-    em,
-    i,
-    address,
-    cite,
-    var,
-    dfn {
-      font-style: normal;
-    }
-
     html,
     body {
       height: 100%;
@@ -914,569 +904,6 @@
       flex-direction: column;
     }
 
-    /* hp-live v2 — 모든 순간이 리뷰로, 쌓인 리뷰는 구매로
-       (빠른·외부몰·QR 3채널 → 알파리뷰 허브로 수렴 → 쇼핑몰 성장) */
-    .rvh {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      min-height: 0;
-      position: relative;
-    }
-
-    .rvh-src {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      z-index: 2;
-    }
-
-    .rvs {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      padding: 10px 12px;
-      box-shadow: 0 6px 16px rgba(20, 20, 43, .06);
-      opacity: 0;
-    }
-
-    .rvs-h {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-
-
-    .rvs-ex {
-      font-size: 10.5px;
-      font-weight: 600;
-      color: var(--ink-dim);
-      line-height: 1.5;
-      word-break: keep-all;
-    }
-
-    .rvs-ex .st {
-      white-space: nowrap;
-      display: inline-flex;
-      vertical-align: middle;
-    }
-
-    .rvs-ex .st .star {
-      width: 8px;
-      height: 8px;
-    }
-
-    .rvs-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 6px;
-    }
-
-    .rvs-tags i {
-      font-size: 8.5px;
-      font-weight: 800;
-      color: var(--ink-faint);
-      background: var(--line-soft);
-      border-radius: 5px;
-      padding: 2px 7px;
-    }
-
-    /* ── 소스 카드 안 실사 미니 UI (예시 아래 상세 표현) ── */
-    .rvx {
-      margin-top: 8px;
-    }
-
-    .rvx .st .star {
-      width: 9px;
-      height: 9px;
-    }
-
-    /* s1 — 알림톡 빠른 리뷰 (카톡 알림 카드) */
-    .rvx-talk {
-      background: #B2C7DB;
-      border-radius: 10px;
-      padding: 8px;
-    }
-
-    .rvx-noti {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 0 0 4px 0;
-      font-size: 9px;
-      font-weight: 800;
-      color: #2A3542;
-    }
-
-    .rvx-noti b {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .rvx-app {
-      width: 15px;
-      height: 15px;
-      border-radius: 5px;
-      background: linear-gradient(135deg, #8B6BFF, #6D58F2);
-      color: #fff;
-      font-size: 9px;
-      font-weight: 800;
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-    }
-
-    .rvx-tm {
-      font-size: 8px;
-      font-weight: 700;
-      color: #56616E;
-      flex: 0 0 auto;
-    }
-
-    .rvx-msg {
-      background: #fff;
-      border-radius: 8px;
-      padding: 8px;
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--ink-dim);
-      line-height: 1.5;
-    }
-
-    .rvx-msg b {
-      color: var(--ink);
-      font-weight: 800;
-    }
-
-    .rvx-btns {
-      display: flex;
-      gap: 4px;
-      margin-top: 8px;
-    }
-
-    .rvx-b {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-      white-space: nowrap;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: -.02em;
-      border-radius: 6px;
-      padding: 6px;
-      color: #56616E;
-      background: #fff;
-    }
-
-    .rvx-b.on {
-      color: #fff;
-      background: #000;
-    }
-
-    /* s2 — 외부몰 연동 (플랫폼별 수집 행) */
-    .rvx-sync {
-      display: flex;
-      flex-direction: row;
-      gap: 4px;
-      width: 100%;
-    }
-
-    .rvx-plat {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      background: var(--line-soft);
-      border-radius: 6px;
-      padding: 4px;
-      font-size: 9px;
-      font-weight: 800;
-      line-height: 1;
-      color: var(--ink);
-      white-space: nowrap;
-    }
-
-    .rvx-lg {
-      width: 14px;
-      height: 14px;
-      border-radius: 4px;
-      color: #fff;
-      font-size: 8.5px;
-      font-weight: 900;
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-    }
-
-    .rvx-lg.nv {
-      background: #03C75A;
-    }
-
-    .rvx-lg.ss {
-      background: #EC4A7F;
-    }
-
-    .rvx-lg.cp {
-      background: #E23434;
-    }
-
-    .rvx-c {
-      font-size: 8.5px;
-      font-weight: 800;
-      color: var(--ink-dim);
-    }
-
-    .rvx-pull {
-      font-size: 11px;
-      font-weight: 900;
-      color: var(--c-review);
-      flex: 0 0 auto;
-    }
-
-    /* s3 — QR 코드 리뷰: QR → 화살표 → 실제 후기 카드 */
-    .rvx-qr {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .rvx-qrbox {
-      width: 44px;
-      height: 44px;
-      flex: 0 0 auto;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      padding: 3px;
-    }
-
-    .rvx-arrow {
-      flex: 0 0 auto;
-      font-size: 13px;
-      font-weight: 900;
-      color: var(--c-review);
-    }
-
-    .rvx-rvcard {
-      flex: 1;
-      min-width: 0;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      padding: 6px 7px;
-      box-shadow: 0 3px 9px rgba(20, 20, 43, .05);
-    }
-
-    .rvx-rv-top {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-bottom: 3px;
-    }
-
-    .rvx-rv-top img {
-      width: 18px;
-      height: 18px;
-      border-radius: 5px;
-      object-fit: cover;
-      flex: 0 0 auto;
-    }
-
-    .rvx-rv-top .st .star {
-      width: 8px;
-      height: 8px;
-    }
-
-    .rvx-rv-tx {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--ink-dim);
-      line-height: 1.35;
-      word-break: keep-all;
-    }
-
-    .rvx-rv-who {
-      margin-left: auto;
-      font-size: 7.5px;
-      font-weight: 700;
-      color: var(--ink-faint);
-      white-space: nowrap;
-      flex: 0 0 auto;
-    }
-
-    /* 3채널 → 허브 수렴 라인 */
-    .rvh-lines {
-      flex: 0 0 56px;
-      align-self: stretch;
-      overflow: visible;
-    }
-
-    .rvh-lines path {
-      fill: none;
-      stroke: color-mix(in srgb, var(--c-review) 42%, #fff);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-dasharray: 5 8;
-      vector-effect: non-scaling-stroke;
-      opacity: 0;
-    }
-
-    .hero-pane.on .rvh-lines path {
-      opacity: 1;
-      animation: rvhFlow 1s linear infinite;
-      transition: opacity .4s .9s;
-    }
-
-    @keyframes rvhFlow {
-      to {
-        stroke-dashoffset: -26;
-      }
-    }
-
-    /* 중앙 허브 — 알파리뷰 */
-    .rvh-hub {
-      flex: 0 0 206px;
-      z-index: 2;
-      background: radial-gradient(120% 140% at 50% -10%, #3A3060, #1A1730);
-      border-radius: 18px;
-      padding: 15px 16px 17px;
-      color: #fff;
-      text-align: center;
-      box-shadow: 0 18px 42px rgba(30, 20, 70, .3);
-      opacity: 0;
-    }
-
-
-    .rvh-live {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 9.5px;
-      font-weight: 700;
-      color: #A99CE0;
-      margin-top: 6px;
-    }
-
-    .rvh-live .rd {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #7FE7C4;
-      animation: adPulse 1.4s ease-in-out infinite;
-    }
-
-    .rvh-num {
-      font-size: 36px;
-      font-weight: 800;
-      letter-spacing: -.02em;
-      line-height: 1;
-      color: #fff;
-    }
-
-    .rvh-num small {
-      font-size: 13px;
-      color: #A99CE0;
-      font-weight: 700;
-      margin-left: 3px;
-    }
-
-    .rvh-sub {
-      font-size: 12px;
-      color: #9C93C7;
-      margin-top: 8px;
-    }
-
-    .rvh-chips {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .rvh-chips i {
-      font-size: 8.5px;
-      font-weight: 800;
-      color: #CFC6FF;
-      background: rgba(255, 255, 255, .1);
-      border-radius: 100px;
-      padding: 3px 8px;
-    }
-
-    /* 허브 → 성장 화살표 */
-    /* .rvh-lines 와 동일한 점선·색·흐름 스타일 */
-    .rvh-arrow {
-      flex: 0 0 56px;
-      height: 26px;
-      align-self: center;
-      overflow: visible;
-      z-index: 2;
-    }
-
-    .rvh-arrow .ra-line,
-    .rvh-arrow .ra-head {
-      fill: none;
-      stroke: color-mix(in srgb, var(--c-review) 42%, #fff);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      vector-effect: non-scaling-stroke;
-      opacity: 0;
-    }
-
-    .rvh-arrow .ra-line {
-      stroke-dasharray: 5 8;
-    }
-
-    /* 우측 — 쌓인 리뷰가 성장으로 */
-    .rvh-grow {
-      flex: 1;
-      max-width: 250px;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 12px 16px;
-      box-shadow: 0 6px 18px color-mix(in srgb, var(--c-review) 9%, transparent);
-      opacity: 0;
-    }
-
-    .rvh-grow-h {
-      font-size: 12.5px;
-      font-weight: 800;
-      color: var(--ink);
-    }
-
-    .rvh-grow-sub {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--ink-faint);
-      margin: 2px 0 11px;
-    }
-
-    .rvh-chart {
-      display: flex;
-      align-items: flex-end;
-      gap: 4px;
-      height: 90px;
-      max-width: 250px;
-    }
-
-    .rvh-chart i {
-      flex: 1;
-      height: var(--h);
-      border-radius: 8px 8px 4px 4px;
-      background: linear-gradient(180deg, #B4A6FF, var(--c-review));
-      transform: scaleY(0);
-      transform-origin: bottom;
-    }
-
-    .rvh-metric {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .rvh-mt {
-      min-width: 0;
-    }
-
-    .rvh-mt .v {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--ink);
-      letter-spacing: -.02em;
-      white-space: nowrap;
-    }
-
-    .rvh-mt .l {
-      white-space: nowrap;
-    }
-
-    .rvh-mt .v b {
-      color: var(--c-review);
-    }
-
-    .rvh-mt .l {
-      font-size: 9.5px;
-      font-weight: 700;
-      color: var(--ink-faint);
-      margin-top: 1px;
-    }
-
-    /* 등장 순서 */
-    .hero-pane.on .rvs.s1 {
-      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .3s both;
-    }
-
-    .hero-pane.on .rvs.s2 {
-      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .5s both;
-    }
-
-    .hero-pane.on .rvs.s3 {
-      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .7s both;
-    }
-
-    .hero-pane.on .rvh-hub {
-      animation: lfPop .55s cubic-bezier(.2, 1.3, .4, 1) 1s both;
-    }
-
-    .hero-pane.on .rvh-arrow .ra-line {
-      opacity: 1;
-      animation: rvhFlow 1s linear infinite;
-      transition: opacity .4s 1.7s;
-    }
-
-    .hero-pane.on .rvh-arrow .ra-head {
-      opacity: 1;
-      transition: opacity .4s 1.9s;
-    }
-
-    .hero-pane.on .rvh-grow {
-      animation: lfPop .55s cubic-bezier(.2, 1.3, .4, 1) 1.9s both;
-    }
-
-    .hero-pane.on .rvh-chart i {
-      animation: barGrow .55s cubic-bezier(.3, 1, .4, 1) 2.1s both;
-    }
-
-    .hero-pane.on .rvh-chart i:nth-child(2) {
-      animation-delay: 2.2s;
-    }
-
-    .hero-pane.on .rvh-chart i:nth-child(3) {
-      animation-delay: 2.3s;
-    }
-
-    .hero-pane.on .rvh-chart i:nth-child(4) {
-      animation-delay: 2.4s;
-    }
-
-    .hero-pane.on .rvh-chart i:nth-child(5) {
-      animation-delay: 2.5s;
-    }
-
-    .hero-pane.on .rvh-chart i:nth-child(6) {
-      animation-delay: 2.6s;
-    }
-
-    .hero-pane.on .rvh-chart i:nth-child(7) {
-      animation-delay: 2.7s;
-    }
-
     /* 상단 진행 필 — 단계가 진행될수록 태그가 자라남 */
     .lf-send {
       align-self: center;
@@ -1881,7 +1308,7 @@
       100% {
         opacity: 0;
         transform: translateX(-30px);
-        ㄹ max-width: 0;
+        max-width: 0;
         margin-left: -16px;
         padding-left: 0;
         padding-right: 0;
@@ -2466,7 +1893,7 @@
        수집·분류 → AI 요약 → 월간 브리핑 → 개선 진단 → 브랜드 인사이트 → 매주 자동 반복
     ───────────────────────────────────────────── */
     .hp-ai {
-      padding: 16px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -2479,6 +1906,18 @@
       min-height: 0;
     }
 
+    .apx-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .apx-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+    }
 
     .apx-live {
       display: inline-flex;
@@ -2486,22 +1925,22 @@
       gap: 6px;
       font-size: 10.5px;
       font-weight: 700;
-      color: var(--ink-dim);
-      background: var(--line-soft);
-      border: 1px solid var(--line);
+      color: var(--c-review);
+      background: color-mix(in srgb, var(--c-review) 8%, #fff);
+      border: 1px solid color-mix(in srgb, var(--c-review) 20%, #fff);
       border-radius: 100px;
       padding: 4px 12px;
     }
 
     .apx-live b {
-      color: var(--ink);
+      color: var(--c-review);
     }
 
     .apx-live i {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #9AA0AE;
+      background: var(--c-review);
       animation: adPulse 1.4s ease-in-out infinite;
     }
 
@@ -2523,8 +1962,7 @@
     .apx-flow {
       flex: 1;
       display: flex;
-      align-items: stretch;
-      gap: 8px;
+      align-items: center;
       min-height: 0;
     }
 
@@ -2533,11 +1971,10 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      /* 헤더+콘텐츠는 상단에 묶이고, 캡션만 하단 고정(stg-cap margin-top:auto) */
       background: #fff;
       border: 1px solid var(--line);
       border-radius: 15px;
-      padding: 12px 12px;
+      padding: 11px 11px;
       box-shadow: 0 6px 16px rgba(20, 20, 43, .05);
       opacity: 0;
     }
@@ -2546,14 +1983,14 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 3px;
+      margin-bottom: 9px;
     }
 
     .stg-no {
       width: 19px;
       height: 19px;
       border-radius: 50%;
-      background: #3B4150;
+      background: linear-gradient(135deg, #8B6BFF, var(--c-review));
       color: #fff;
       font-size: 10.5px;
       font-weight: 800;
@@ -2566,38 +2003,37 @@
       font-size: 11.5px;
       font-weight: 800;
       color: var(--ink);
-      letter-spacing: -.02em;
-      white-space: nowrap;
+      letter-spacing: -.01em;
     }
 
     .stg-ui {
-      order: 2;
-      flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      /* 실제 UI 행을 위에서부터 조밀하게 채움 */
-      gap: 8px;
+      gap: 6px;
     }
 
     .stg-cap {
-      order: 1;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 600;
       color: var(--ink-faint);
-      margin: 4px 0 16px;
-      line-height: 1.5;
+      margin-top: 8px;
+      line-height: 1.35;
     }
 
     .arw {
-      display: none;
+      flex: 0 0 22px;
+      align-self: center;
+      height: 2px;
+      background: var(--line);
+      position: relative;
+      z-index: 2;
     }
 
     .arw::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: #AEB4C0;
+      background: var(--c-review);
       transform: scaleX(0);
       transform-origin: left;
     }
@@ -2607,7 +2043,7 @@
       position: absolute;
       right: -3px;
       top: -4px;
-      border-left: 7px solid #AEB4C0;
+      border-left: 7px solid var(--c-review);
       border-top: 5px solid transparent;
       border-bottom: 5px solid transparent;
       opacity: 0;
@@ -2617,17 +2053,16 @@
     .mrv {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: #FFF;
-      border-radius: 6px;
-      border: 1px solid var(--line-soft);
-      padding: 6px 8px;
+      gap: 5px;
+      background: var(--line-soft);
+      border-radius: 8px;
+      padding: 4px 6px;
     }
 
     .mrv img {
-      width: 32px;
-      height: 32px;
-      border-radius: 4px;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
       object-fit: cover;
       flex: 0 0 auto;
     }
@@ -2641,7 +2076,7 @@
       margin-left: auto;
       font-size: 8.5px;
       font-weight: 800;
-      color: var(--ink-faint);
+      color: var(--c-review);
       background: #fff;
       border-radius: 5px;
       padding: 1px 6px;
@@ -2653,19 +2088,18 @@
     }
 
     .stg-count {
-      font-size: 12px;
+      font-size: 9px;
       font-weight: 800;
       color: var(--ink-faint);
       text-align: center;
-      margin-top: 8px;
+      margin-top: 2px;
     }
 
     /* S2 요약 */
     .msum-h {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 800;
       color: var(--ink);
-      white-space: nowrap;
     }
 
     .msum-h b {
@@ -2673,21 +2107,21 @@
     }
 
     .msum-row {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 6px 8px;
       line-height: 1.35;
     }
 
     .msum-row.ok {
-      color: var(--ink-dim);
-      background: var(--line-soft);
+      color: #0CA678;
+      background: #E3F7EF;
     }
 
     .msum-row.cau {
-      color: #C2543B;
-      background: #F9EEEC;
+      color: #E0642C;
+      background: #FDEEE4;
     }
 
     /* S3 차트 */
@@ -2695,14 +2129,14 @@
       display: flex;
       align-items: flex-end;
       gap: 3px;
-      height: 44px;
+      height: 52px;
     }
 
     .mc-bars i {
       flex: 1;
       height: var(--h);
       border-radius: 3px 3px 0 0;
-      background: linear-gradient(180deg, #B4A6FF, var(--c-review));
+      background: linear-gradient(180deg, #CDC4FF, #9284EE);
       transform: scaleY(0);
       transform-origin: bottom;
     }
@@ -2711,7 +2145,7 @@
       font-size: 10px;
       font-weight: 700;
       color: var(--ink-dim);
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .mc-stat b {
@@ -2720,481 +2154,40 @@
     }
 
     .mc-stat .dn {
-      color: var(--ink-faint);
+      color: #12B886;
       font-weight: 800;
     }
 
-    /* S4 스캐터 — 4분면(주의·개선필요·관심·우수) */
+    /* S4 스캐터 */
     .mscat {
       position: relative;
-      height: 64px;
+      height: 70px;
       border-radius: 9px;
       overflow: hidden;
-      background: #F2F3F6;
-    }
-
-    .mscat::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: 62%;
-      background: linear-gradient(to right, #FBEFE8 0 38%, #FAE3E5 38% 100%);
-    }
-
-    .mscat::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 38%;
-      background: linear-gradient(to right, #EEEFF3 0 38%, #E7F3EB 38% 100%);
-    }
-
-    .mscat-vx {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 38%;
-      width: 0;
-      border-left: 1px dashed #CDD1DA;
-      z-index: 1;
-    }
-
-    .mscat-thr {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 62%;
-      height: 0;
-      border-top: 1px dashed #CDD1DA;
-      z-index: 1;
+      background: linear-gradient(135deg, #FBE9E7 0 48%, #E7F6EE 52% 100%);
     }
 
     .mscat i {
       position: absolute;
-      width: 7px;
-      height: 7px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
-      background: #fff;
-      border: 1.5px solid #A2A8BA;
+      background: #AEB2C6;
       transform: translate(-50%, -50%);
-      z-index: 2;
     }
 
     .mscat i.bad {
       width: 8px;
       height: 8px;
-      background: #fff;
-      border: 2px solid #E23B3B;
-      box-shadow: 0 0 0 3px rgba(226, 59, 59, .16);
+      background: #EF6A5E;
+      box-shadow: 0 0 0 3px rgba(239, 106, 94, .22);
     }
 
     .mscat-cap {
-      font-size: 10px;
-      font-weight: 800;
-      color: #C2543B;
-      margin-top: 8px;
-    }
-
-    /* ── 2번씬 실사 UI 보강 (Figma 리뷰 대시보드 반영) ── */
-    /* 상단 통계 스트립 */
-    .mstat {
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-      background: var(--line-soft);
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 6px 8px;
-    }
-
-    .mstat .ms-l {
-      font-size: 9px;
-      font-weight: 700;
-      color: var(--ink-faint);
-      white-space: nowrap;
-      flex: 0 0 auto;
-    }
-
-    .mstat b {
-      font-size: 13.5px;
-      font-weight: 800;
-      color: var(--ink);
-      letter-spacing: -.02em;
-      margin-left: auto;
-    }
-
-    .mstat .ms-up {
-      font-size: 8.5px;
-      font-weight: 800;
-      color: var(--ink-faint);
-      flex: 0 0 auto;
-    }
-
-    .mstat.sm {
-      padding: 4px 8px;
-    }
-
-    .mstat.sm b {
-      font-size: 12.5px;
-    }
-
-    /* S1 리뷰 행 — 별점+본문 2줄 */
-    .mrv-b {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-
-    .mrv-b em {
-      font-size: 8.5px;
-      font-style: normal;
-      font-weight: 600;
-      color: var(--ink-dim);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* S2 요약 — 섹션 라벨 */
-    .msum-t {
-      font-size: 10px;
-      font-weight: 800;
-      margin-top: 8px;
-    }
-
-    .msum-t.ok {
-      color: var(--ink-faint);
-    }
-
-    .msum-t.cau {
-      color: #C2543B;
-    }
-
-    .mbadge {
-      align-self: flex-start;
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--ink-dim);
-      background: var(--line-soft);
-      border-radius: 4px;
-      padding: 4px 8px;
-    }
-
-    /* S3 최상단 고정 (중요 기능) */
-    .stg.hot {
-      border-color: color-mix(in srgb, var(--c-review) 40%, #fff);
-      box-shadow: 0 10px 24px color-mix(in srgb, var(--c-review) 16%, transparent);
-    }
-
-    .pin-rec {
-      display: flex;
-      align-items: center;
-      font-size: 10px;
-      font-weight: 800;
-      color: var(--ink-faint);
-    }
-
-    .pin-rec span {
-      margin-left: auto;
-      font-size: 8.5px;
-      font-weight: 700;
-      color: var(--ink-faint);
-    }
-
-    .pin-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 11px;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .pin-user {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .pin-user img {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .pin-who {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
-
-    .pin-who b {
-      font-size: 10px;
-      font-weight: 800;
-      color: var(--ink);
-    }
-
-    .pin-who em {
-      font-size: 9px;
-      font-style: normal;
-      font-weight: 600;
-      color: var(--ink-faint);
-    }
-
-    .pin-thumbs {
-      display: flex;
-      gap: 4px;
-    }
-
-    .pin-thumbs img {
-      flex: 1;
-      min-width: 0;
-      height: 30px;
-      object-fit: cover;
-      border-radius: 4px;
-    }
-
-    .pin-tx {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--ink-dim);
-      line-height: 1.4;
-    }
-
-    .pin-reason {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .pin-reason i {
-      font-size: 9px;
-      font-weight: 800;
-      color: var(--ink-dim);
-      background: var(--line-soft);
-      border-radius: 4px;
-      padding: 2px 4px;
-    }
-
-    .pin-btn {
-      position: relative;
-      border: 0;
-      border-radius: 6px;
-      padding: 8px 0;
-      font-size: 11px;
-      font-weight: 800;
-      color: #fff;
-      background: linear-gradient(135deg, #8B6BFF, var(--c-review));
-      box-shadow: 0 6px 14px color-mix(in srgb, var(--c-review) 30%, transparent);
-      cursor: pointer;
-    }
-
-    .hero-pane.on .stg.hot .pin-btn {
-      animation: pinPulse 1.8s ease 2.4s infinite;
-    }
-
-    @keyframes pinPulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-        box-shadow: 0 6px 14px color-mix(in srgb, var(--c-review) 30%, transparent);
-      }
-
-      50% {
-        transform: scale(1.035);
-        box-shadow: 0 8px 20px color-mix(in srgb, var(--c-review) 46%, transparent);
-      }
-    }
-
-    .pin-btn .lf-cursor {
-      position: absolute;
-      right: 18px;
-      bottom: -6px;
-      width: 17px;
-      height: 17px;
-      background: var(--cursor-svg) center / contain no-repeat;
-      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .3));
-      opacity: 0;
-    }
-
-    .hero-pane.on .stg.hot .pin-btn .lf-cursor {
-      animation: pinTap 1.8s ease 2.4s infinite;
-    }
-
-    @keyframes pinTap {
-
-      0%,
-      100% {
-        opacity: 0;
-        transform: translate(4px, 4px);
-      }
-
-      30%,
-      70% {
-        opacity: 1;
-        transform: translate(0, 0);
-      }
-    }
-
-    .pin-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .pin-li {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--ink-dim);
-    }
-
-    .pin-li b {
-      width: 14px;
-      height: 14px;
-      border-radius: 4px;
-      background: var(--line-soft);
-      color: var(--ink-dim);
-      font-size: 8.5px;
-      font-weight: 900;
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-    }
-
-    .pin-li img {
-      width: 15px;
-      height: 15px;
-      border-radius: 4px;
-      object-fit: cover;
-      flex: 0 0 auto;
-    }
-
-    .pin-li span {
-      flex: 1;
-      min-width: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .pin-li .up {
-      color: #12B886;
-      font-style: normal;
-      font-weight: 900;
-      flex: 0 0 auto;
-    }
-
-    /* S5 인사이트 — 도넛 + 강점 버블 */
-    .ins-tag {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .ins-donut {
-      width: 56px;
-      height: 56px;
-      flex: 0 0 auto;
-      transform: rotate(-90deg);
-    }
-
-    .ins-donut circle {
-      fill: none;
-      stroke-width: 6;
-    }
-
-    .ins-donut .d-bg {
-      stroke: #E4E7EC;
-    }
-
-    .ins-donut .d-pos {
-      stroke: #307AF3;
-      stroke-linecap: butt;
-    }
-
-    .ins-donut .d-neg {
-      stroke: #E62C35;
-      stroke-linecap: butt;
-    }
-
-    .ins-t {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.25;
-      gap: 4px;
-    }
-
-    .ins-t b {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--ink);
-    }
-
-    .ins-t em {
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 700;
-      color: var(--ink-faint);
-    }
-
-    .ins-lbl {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--ink-faint);
-      margin-top: 8px;
-    }
-
-    .ins-bubbles {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .ins-bubbles .bub {
-      border-radius: 100px;
-      font-weight: 800;
-      color: #fff;
-      display: inline-flex;
-      align-items: center;
-      padding: 3px 9px;
-    }
-
-    .bub.b1 {
-      font-size: 12px;
-      background: linear-gradient(135deg, #8E7CFF, #6D58F2);
-    }
-
-    .bub.b2 {
-      font-size: 11px;
-      background: #7A8090;
-    }
-
-    .bub.b3 {
-      font-size: 10px;
-      background: #969CAA;
-    }
-
-    .bub.b4 {
       font-size: 9.5px;
-      background: #A9AEBB;
-    }
-
-    .bub.b5 {
-      font-size: 9px;
-      background: #BCC0CA;
+      font-weight: 800;
+      color: #E0642C;
+      margin-top: 5px;
     }
 
     /* S5 키워드 */
@@ -3235,226 +2228,35 @@
     .mkw-risk {
       font-size: 9.5px;
       font-weight: 800;
-      color: #E62C35;
-      margin-top: -4px;
-    }
-
-    /* ratio + 위험태그 한 세트 (도넛 바로 밑) */
-    .ins-set {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .ins-set .ins-ratio,
-    .ins-set .mkw-risk {
-      margin-top: 0;
-    }
-
-    /* 브랜드 강점 키워드 — 버블 클라우드(언급량↑ = 원 크게) */
-    .ins-cloud {
-      margin-top: 8px;
-    }
-
-    .ins-cloud .ic-hd {
-      font-size: 9px;
-      font-weight: 800;
-      color: var(--ink-faint);
-      margin-bottom: 5px;
-    }
-
-    .ins-cloud .ic-map {
-      position: relative;
-      height: 96px;
-    }
-
-    .ins-cloud .icb {
-      position: absolute;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      border-radius: 50%;
-      font-weight: 800;
-      letter-spacing: -.03em;
-      line-height: 1.02;
-      transform: translate(-50%, -50%);
-    }
-
-    .ins-cloud .icb.pu {
-      background: #EAE6FF;
-      color: #6D58F2;
-    }
-
-    .ins-cloud .icb.gr {
-      background: #E1F5E9;
-      color: #0CA678;
-    }
-
-    .ins-cloud .icb.bl {
-      background: #E6F0FD;
-      color: #2B7FE0;
-    }
-
-    .ins-cloud .icb.am {
-      background: #FBEEDD;
-      color: #C77D1A;
-    }
-
-    .ins-cloud .icb.pk {
-      background: #FBE6F0;
-      color: #C74B8E;
-    }
-
-    .ins-cloud .icb.gy {
-      background: #ECEDF1;
-      color: #7A8090;
-    }
-
-    /* 인사이트 키워드 카드 (최근/최다 비중) */
-    .ins-kw {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .ins-kw .ikw-card {
-      position: relative;
-      background: var(--line-soft);
-      border-radius: 9px;
-      padding: 7px 24px 7px 9px;
-    }
-
-    .ins-kw .ikw-l {
-      display: block;
-      font-size: 8.5px;
-      font-weight: 700;
-      color: var(--ink-faint);
-      margin-bottom: 3px;
-    }
-
-    .ins-kw .ikw-v {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--ink);
-    }
-
-    .ins-kw .ikw-ic {
-      width: 13px;
-      height: 13px;
-      flex: 0 0 auto;
-      background: #307AF3;
-      -webkit-mask: url("assets/chart-bar.svg") center / contain no-repeat;
-      mask: url("assets/chart-bar.svg") center / contain no-repeat;
-    }
-
-    .ins-kw .ikw-arw {
-      position: absolute;
-      right: 9px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 9px;
-      height: 9px;
-      background: var(--ink-faint);
-      -webkit-mask: url("assets/rightIcon.svg") center / contain no-repeat;
-      mask: url("assets/rightIcon.svg") center / contain no-repeat;
+      color: #E0642C;
+      margin-top: 6px;
     }
 
     /* 스테이지 순차 등장 (데이터가 흐르듯) */
-    .hero-pane.on .stg.s1 {
-      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .4s both;
-    }
+    .hero-pane.on .stg.s1 { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .4s both; }
+    .hero-pane.on .stg.s2 { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .8s both; }
+    .hero-pane.on .stg.s3 { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.2s both; }
+    .hero-pane.on .stg.s4 { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.6s both; }
+    .hero-pane.on .stg.s5 { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 2s both; }
 
-    .hero-pane.on .stg.s2 {
-      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .8s both;
-    }
+    .hero-pane.on .arw.a1::before { animation: arwFill .35s ease .78s both; }
+    .hero-pane.on .arw.a2::before { animation: arwFill .35s ease 1.18s both; }
+    .hero-pane.on .arw.a3::before { animation: arwFill .35s ease 1.58s both; }
+    .hero-pane.on .arw.a4::before { animation: arwFill .35s ease 1.98s both; }
+    .hero-pane.on .arw.a1::after { animation: arwTip .3s ease 1.05s both; }
+    .hero-pane.on .arw.a2::after { animation: arwTip .3s ease 1.45s both; }
+    .hero-pane.on .arw.a3::after { animation: arwTip .3s ease 1.85s both; }
+    .hero-pane.on .arw.a4::after { animation: arwTip .3s ease 2.25s both; }
 
-    .hero-pane.on .stg.s3 {
-      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.2s both;
-    }
+    @keyframes arwFill { to { transform: scaleX(1); } }
+    @keyframes arwTip { to { opacity: 1; } }
 
-    .hero-pane.on .stg.s4 {
-      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.6s both;
-    }
-
-    .hero-pane.on .stg.s5 {
-      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 2s both;
-    }
-
-    .hero-pane.on .arw.a1::before {
-      animation: arwFill .35s ease .78s both;
-    }
-
-    .hero-pane.on .arw.a2::before {
-      animation: arwFill .35s ease 1.18s both;
-    }
-
-    .hero-pane.on .arw.a3::before {
-      animation: arwFill .35s ease 1.58s both;
-    }
-
-    .hero-pane.on .arw.a4::before {
-      animation: arwFill .35s ease 1.98s both;
-    }
-
-    .hero-pane.on .arw.a1::after {
-      animation: arwTip .3s ease 1.05s both;
-    }
-
-    .hero-pane.on .arw.a2::after {
-      animation: arwTip .3s ease 1.45s both;
-    }
-
-    .hero-pane.on .arw.a3::after {
-      animation: arwTip .3s ease 1.85s both;
-    }
-
-    .hero-pane.on .arw.a4::after {
-      animation: arwTip .3s ease 2.25s both;
-    }
-
-    @keyframes arwFill {
-      to {
-        transform: scaleX(1);
-      }
-    }
-
-    @keyframes arwTip {
-      to {
-        opacity: 1;
-      }
-    }
-
-    .hero-pane.on .stg.s4 .mc-bars i {
-      animation: barGrow .5s cubic-bezier(.3, 1, .4, 1) 1.75s both;
-    }
-
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(2) {
-      animation-delay: 1.82s;
-    }
-
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(3) {
-      animation-delay: 1.89s;
-    }
-
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(4) {
-      animation-delay: 1.96s;
-    }
-
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(5) {
-      animation-delay: 2.03s;
-    }
-
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(6) {
-      animation-delay: 2.1s;
-    }
-
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(7) {
-      animation-delay: 2.17s;
-    }
+    .hero-pane.on .stg.s3 .mc-bars i { animation: barGrow .5s cubic-bezier(.3, 1, .4, 1) 1.35s both; }
+    .hero-pane.on .stg.s3 .mc-bars i:nth-child(2) { animation-delay: 1.42s; }
+    .hero-pane.on .stg.s3 .mc-bars i:nth-child(3) { animation-delay: 1.49s; }
+    .hero-pane.on .stg.s3 .mc-bars i:nth-child(4) { animation-delay: 1.56s; }
+    .hero-pane.on .stg.s3 .mc-bars i:nth-child(5) { animation-delay: 1.63s; }
+    .hero-pane.on .stg.s3 .mc-bars i:nth-child(6) { animation-delay: 1.7s; }
 
     /* 스테이지 보강 요소 */
     .mrv-thumbs {
@@ -3467,7 +2269,7 @@
       min-width: 0;
       height: 40px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 7px;
     }
 
     .mtags {
@@ -3488,17 +2290,16 @@
     .mprod {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: #FFF;
-      border-radius: 6px;
-      border: 1px solid var(--line-soft);
-      padding: 6px 8px;
+      gap: 7px;
+      background: var(--line-soft);
+      border-radius: 9px;
+      padding: 5px 7px;
     }
 
     .mprod img {
-      width: 32px;
-      height: 32px;
-      border-radius: 4px;
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
       object-fit: cover;
       flex: 0 0 auto;
     }
@@ -3507,9 +2308,9 @@
       font-size: 9.5px;
       font-weight: 800;
       color: var(--ink);
-      line-height: 1.2;
-      min-width: 0;
-      word-break: keep-all;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .mprod .pneg {
@@ -3517,36 +2318,29 @@
       flex: 0 0 auto;
       font-size: 9px;
       font-weight: 800;
-      color: #C2543B;
-    }
-
-    .ins-ratio {
-      margin-top: 8px;
-    }
-
-    .ins-ratio .mratio-lb {
-      margin-bottom: 3px;
+      color: #E0642C;
     }
 
     .mratio-lb {
       display: flex;
       justify-content: space-between;
-      font-size: 12px;
+      font-size: 9px;
       font-weight: 800;
+      margin-bottom: 3px;
     }
 
     .mratio-lb .pos {
-      color: #307AF3;
+      color: var(--c-review);
     }
 
     .mratio-lb .neg2 {
-      color: #E62C35;
+      color: #E0642C;
     }
 
     .mratio {
       height: 8px;
       border-radius: 5px;
-      background: #FFB0A8;
+      background: #FADFD8;
       overflow: hidden;
     }
 
@@ -3555,100 +2349,38 @@
       height: 100%;
       width: 92%;
       border-radius: 5px;
-      background: linear-gradient(90deg, #4E8CF4, #307AF3);
+      background: linear-gradient(90deg, #8E7CFF, var(--c-review));
     }
 
-    /* 루틴 반복 — 5번 → 1번으로 되돌아가는 순환 화살표(그림, 칩 아님) */
-    .apx-cycle {
-      position: relative;
-      flex: 0 0 auto;
-      margin-top: 14px;
-      height: 34px;
-    }
-
-    .apx-cycle .cyc-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
-
-    .apx-cycle .cyc-svg path {
-      fill: none;
-      stroke: #C4C9D3;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-dasharray: 6 7;
-      vector-effect: non-scaling-stroke;
-      opacity: 0;
-    }
-
-    .hero-pane.on .apx-cycle .cyc-svg path {
-      animation: cycShow .5s ease 2.3s both, cycFlow 1.1s linear 2.6s infinite;
-    }
-
-    @keyframes cycShow {
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes cycFlow {
-      to {
-        stroke-dashoffset: -26;
-      }
-    }
-
-    /* 왼쪽 끝(1번 아래)으로 되돌아오는 화살촉 */
-    .apx-cycle .cyc-head {
-      position: absolute;
-      left: 10px;
-      top: 0;
-      width: 0;
-      height: 0;
-      border-right: 8px solid #C4C9D3;
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
-      opacity: 0;
-    }
-
-    .hero-pane.on .apx-cycle .cyc-head {
-      animation: arwTip .3s ease 2.7s both;
-    }
-
-    .apx-cycle .cyc-tx {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 2px;
-      text-align: center;
-      white-space: nowrap;
-      font-size: 13px;
+    /* 루틴 반복 바 */
+    .apx-loop {
+      margin-top: 12px;
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
       font-weight: 700;
-      color: var(--ink-dim);
+      color: var(--c-review);
+      background: color-mix(in srgb, var(--c-review) 7%, #fff);
+      border: 1px solid color-mix(in srgb, var(--c-review) 22%, #fff);
+      border-radius: 100px;
+      padding: 9px 20px;
       opacity: 0;
     }
 
-    .apx-cycle .cyc-ic {
+    .apx-loop b {
+      color: var(--ink);
+    }
+
+    .apx-loop .lp-ic {
       display: inline-block;
-      width: 14px;
-      height: 14px;
-      vertical-align: -2px;
-      margin-right: 5px;
-      background: var(--c-review);
-      -webkit-mask: url("assets/repeat.svg") center / contain no-repeat;
-      mask: url("assets/repeat.svg") center / contain no-repeat;
+      animation: spin 3.5s linear infinite;
     }
 
-    .apx-cycle .cyc-tx b {
-      color: var(--c-review);
-      font-weight: 900;
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .hero-pane.on .apx-cycle .cyc-tx {
-      animation: cycShow .5s ease 2.4s both;
-    }
+    .hero-pane.on .apx-loop { animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 2.5s both; }
 
     /* ─────────────────────────────────────────────
        히어로 pane 3 — "모든 준비가 되어 있어요"
@@ -3715,7 +2447,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      height: 90px;
+      height: 92px;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 82%);
       pointer-events: none;
       z-index: 6;
@@ -3724,7 +2456,7 @@
     .wg-wall {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
+      gap: 11px;
     }
 
     .wg-col {
@@ -3732,15 +2464,15 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 11px;
     }
 
     .wg {
       position: relative;
       background: #fff;
       border: 1px solid color-mix(in srgb, var(--c-review) 9%, var(--line));
-      border-radius: 12px;
-      padding: 12px;
+      border-radius: 17px;
+      padding: 11px 12px;
       box-shadow: 0 6px 18px color-mix(in srgb, var(--c-review) 7%, transparent);
       font-size: 12px;
       opacity: 0;
@@ -3931,7 +2663,7 @@
 
     .wg-vid .wv-img img {
       width: 100%;
-      height: 130px;
+      height: 104px;
       object-fit: cover;
     }
 
@@ -4922,11 +3654,11 @@
       left: 50%;
       bottom: 9px;
       transform: translateX(-50%);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       color: var(--c-push, #307AF3);
       background: #EAF2FF;
-      border: 1px solid #3078F3;
+      border: 1px solid #CFE2FF;
       border-radius: 100px;
       padding: 4px 12px;
       white-space: nowrap;
@@ -5212,9 +3944,8 @@
 
     /* 앱스토어에서 선택하고 들어온 앱 — 채워진 퍼플 칩 */
     .cd-chip.entry {
-      background: #FFF;
+      background: #E4E6FF;
       color: #5B3AE0;
-      border: 1px solid #E3E4E7;
     }
 
     .cd-chip.entry .lk {
@@ -5241,11 +3972,6 @@
       background-color: currentColor;
       -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M6.70708%205.293L12.0001%2010.585L17.2931%205.293C17.4817%205.11084%2017.7343%205.01004%2017.9965%205.01232C18.2587%205.0146%2018.5095%205.11977%2018.6949%205.30518C18.8803%205.49058%2018.9855%205.7414%2018.9878%206.00359C18.99%206.26579%2018.8892%206.51839%2018.7071%206.707L13.4151%2012L18.7071%2017.293C18.8892%2017.4816%2018.99%2017.7342%2018.9878%2017.9964C18.9855%2018.2586%2018.8803%2018.5094%2018.6949%2018.6948C18.5095%2018.8802%2018.2587%2018.9854%2017.9965%2018.9877C17.7343%2018.9899%2017.4817%2018.8892%2017.2931%2018.707L12.0001%2013.415L6.70708%2018.707C6.61483%2018.8025%206.50449%2018.8787%206.38249%2018.9311C6.26048%2018.9835%206.12926%2019.0111%205.99648%2019.0122C5.8637%2019.0134%205.73202%2018.9881%205.60913%2018.9378C5.48623%2018.8875%205.37458%2018.8133%205.28069%2018.7194C5.18679%2018.6255%205.11254%2018.5138%205.06226%2018.3909C5.01198%2018.2681%204.98668%2018.1364%204.98783%2018.0036C4.98898%2017.8708%205.01657%2017.7396%205.06898%2017.6176C5.12139%2017.4956%205.19757%2017.3852%205.29308%2017.293L10.5851%2012L5.29308%206.707C5.11092%206.51839%205.01013%206.26579%205.01241%206.00359C5.01469%205.7414%205.11985%205.49058%205.30526%205.30518C5.49067%205.11977%205.74148%205.0146%206.00368%205.01232C6.26588%205.01004%206.51848%205.11084%206.70708%205.293Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
       mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M6.70708%205.293L12.0001%2010.585L17.2931%205.293C17.4817%205.11084%2017.7343%205.01004%2017.9965%205.01232C18.2587%205.0146%2018.5095%205.11977%2018.6949%205.30518C18.8803%205.49058%2018.9855%205.7414%2018.9878%206.00359C18.99%206.26579%2018.8892%206.51839%2018.7071%206.707L13.4151%2012L18.7071%2017.293C18.8892%2017.4816%2018.99%2017.7342%2018.9878%2017.9964C18.9855%2018.2586%2018.8803%2018.5094%2018.6949%2018.6948C18.5095%2018.8802%2018.2587%2018.9854%2017.9965%2018.9877C17.7343%2018.9899%2017.4817%2018.8892%2017.2931%2018.707L12.0001%2013.415L6.70708%2018.707C6.61483%2018.8025%206.50449%2018.8787%206.38249%2018.9311C6.26048%2018.9835%206.12926%2019.0111%205.99648%2019.0122C5.8637%2019.0134%205.73202%2018.9881%205.60913%2018.9378C5.48623%2018.8875%205.37458%2018.8133%205.28069%2018.7194C5.18679%2018.6255%205.11254%2018.5138%205.06226%2018.3909C5.01198%2018.2681%204.98668%2018.1364%204.98783%2018.0036C4.98898%2017.8708%205.01657%2017.7396%205.06898%2017.6176C5.12139%2017.4956%205.19757%2017.3852%205.29308%2017.293L10.5851%2012L5.29308%206.707C5.11092%206.51839%205.01013%206.26579%205.01241%206.00359C5.01469%205.7414%205.11985%205.49058%205.30526%205.30518C5.49067%205.11977%205.74148%205.0146%206.00368%205.01232C6.26588%205.01004%206.51848%205.11084%206.70708%205.293Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
-    }
-
-    .cd-chip.added .rm {
-      background-color: var(--cc, #1d5dc4);
-      opacity: .8;
     }
 
     .cd-chip .rm:hover {
@@ -6657,7 +5383,7 @@
       min-height: 0;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 5px;
     }
 
@@ -6868,202 +5594,6 @@
       padding: 3px 8px;
     }
 
-    /* ── ps1 카드 내부 실사 UI 보강 (Figma 알파푸시 반영) ── */
-    /* 쿠폰 키커 */
-    .pcp-k {
-      font-size: 9px;
-      font-weight: 800;
-      color: var(--dc);
-    }
-
-    /* 회원 비율 바 (c1) */
-    .pw-bar {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 9px;
-      font-weight: 800;
-      color: var(--ink-dim);
-      margin-top: 1px;
-    }
-
-    .pw-bar .pb-l {
-      flex: 0 0 auto;
-    }
-
-    .pw-bar .pb-tr {
-      flex: 1;
-      height: 6px;
-      border-radius: 4px;
-      background: var(--line-soft);
-      overflow: hidden;
-    }
-
-    .pw-bar .pb-tr i {
-      display: block;
-      height: 100%;
-      border-radius: 4px;
-      background: linear-gradient(90deg, color-mix(in srgb, var(--dc) 55%, #fff), var(--dc));
-    }
-
-    .pw-bar b {
-      flex: 0 0 auto;
-      color: var(--dc);
-    }
-
-    /* 상단 뜨는 float 변형 (c2) */
-    .pw-float.top {
-      top: 6px;
-      bottom: auto;
-    }
-
-    /* 미니 상품 행 (c3·c4·c6) */
-    .pw-prod {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--line-soft);
-      border-radius: 9px;
-      padding: 4px 7px;
-    }
-
-    .pw-prod img {
-      width: 26px;
-      height: 26px;
-      border-radius: 7px;
-      object-fit: cover;
-      flex: 0 0 auto;
-    }
-
-    .pw-prod .pp-nm {
-      font-size: 9.5px;
-      font-weight: 800;
-      color: var(--ink);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .pw-prod .pp-pr {
-      font-size: 9px;
-      font-weight: 800;
-      color: var(--dc);
-      flex: 0 0 auto;
-    }
-
-    /* 독립형 선물하기 버튼 (c4) */
-    .pwc-ex .pg-btn.solo {
-      font-size: 10px;
-      font-weight: 800;
-      color: #3B2A00;
-      background: #FFE24D;
-      border-radius: 8px;
-      padding: 7px 6px;
-      text-align: center;
-    }
-
-    /* 안내 노트 (c5) */
-    .pw-note {
-      font-size: 9px;
-      font-weight: 700;
-      color: var(--ink-faint);
-      text-align: center;
-      line-height: 1.35;
-    }
-
-    /* 고객 미니 행 (c7) */
-    .pw-cust {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 9px;
-      font-weight: 700;
-      color: var(--ink-dim);
-      background: var(--line-soft);
-      border-radius: 8px;
-      padding: 4px 7px;
-    }
-
-    .pw-cust .pc-av {
-      font-size: 12px;
-      flex: 0 0 auto;
-    }
-
-    .pw-cust .pc-nm {
-      flex: 1;
-      min-width: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .pw-cust .pc-tm {
-      flex: 0 0 auto;
-      font-size: 8px;
-      color: var(--ink-faint);
-    }
-
-    .pw-cust.more {
-      justify-content: center;
-      background: transparent;
-      color: var(--ink-faint);
-      font-weight: 800;
-      padding: 1px 0;
-    }
-
-    .pw-cust.more b {
-      color: var(--dc);
-      margin: 0 2px;
-    }
-
-    /* 레시피 행 (c8) */
-    .pw-recipe {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--line-soft);
-      border-radius: 8px;
-      padding: 4px 6px;
-    }
-
-    .pw-recipe img {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      object-fit: cover;
-      flex: 0 0 auto;
-    }
-
-    .pw-recipe .pr-nm {
-      flex: 1;
-      min-width: 0;
-      font-size: 9px;
-      font-weight: 800;
-      color: var(--ink);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .pw-recipe .pr-badge {
-      flex: 0 0 auto;
-      font-size: 8px;
-      font-weight: 800;
-      color: var(--dc);
-      background: color-mix(in srgb, var(--dc) 12%, #fff);
-      border-radius: 5px;
-      padding: 2px 6px;
-    }
-
-    .pw-recipe .pr-roas {
-      flex: 0 0 auto;
-      font-size: 8px;
-      font-weight: 800;
-      color: #12B886;
-    }
-
     /* 클릭 시 각 장치가 따로따로 "작동"하며 켜짐 (독립 작동) */
     .sc.on .pwc {
       border-color: color-mix(in srgb, var(--dc) 40%, var(--line));
@@ -7087,69 +5617,23 @@
       }
     }
 
-    .sc.on .pwc.c1 {
-      animation-delay: .05s;
-    }
+    .sc.on .pwc.c1 { animation-delay: .05s; }
+    .sc.on .pwc.c2 { animation-delay: .34s; }
+    .sc.on .pwc.c3 { animation-delay: .16s; }
+    .sc.on .pwc.c4 { animation-delay: .5s; }
+    .sc.on .pwc.c5 { animation-delay: .66s; }
+    .sc.on .pwc.c6 { animation-delay: .26s; }
+    .sc.on .pwc.c7 { animation-delay: .58s; }
+    .sc.on .pwc.c8 { animation-delay: .42s; }
 
-    .sc.on .pwc.c2 {
-      animation-delay: .34s;
-    }
-
-    .sc.on .pwc.c3 {
-      animation-delay: .16s;
-    }
-
-    .sc.on .pwc.c4 {
-      animation-delay: .5s;
-    }
-
-    .sc.on .pwc.c5 {
-      animation-delay: .66s;
-    }
-
-    .sc.on .pwc.c6 {
-      animation-delay: .26s;
-    }
-
-    .sc.on .pwc.c7 {
-      animation-delay: .58s;
-    }
-
-    .sc.on .pwc.c8 {
-      animation-delay: .42s;
-    }
-
-    .sc.on .pwc.c1 .pwc-live {
-      transition-delay: .3s;
-    }
-
-    .sc.on .pwc.c2 .pwc-live {
-      transition-delay: .5s;
-    }
-
-    .sc.on .pwc.c3 .pwc-live {
-      transition-delay: .35s;
-    }
-
-    .sc.on .pwc.c4 .pwc-live {
-      transition-delay: .62s;
-    }
-
-    .sc.on .pwc.c5 .pwc-live {
-      transition-delay: .78s;
-    }
-
-    .sc.on .pwc.c6 .pwc-live {
-      transition-delay: .42s;
-    }
-
-    .sc.on .pwc.c7 .pwc-live {
-      transition-delay: .7s;
-    }
-
-    .sc.on .pwc.c8 .pwc-live {
-      transition-delay: .55s;
-    }
+    .sc.on .pwc.c1 .pwc-live { transition-delay: .3s; }
+    .sc.on .pwc.c2 .pwc-live { transition-delay: .5s; }
+    .sc.on .pwc.c3 .pwc-live { transition-delay: .35s; }
+    .sc.on .pwc.c4 .pwc-live { transition-delay: .62s; }
+    .sc.on .pwc.c5 .pwc-live { transition-delay: .78s; }
+    .sc.on .pwc.c6 .pwc-live { transition-delay: .42s; }
+    .sc.on .pwc.c7 .pwc-live { transition-delay: .7s; }
+    .sc.on .pwc.c8 .pwc-live { transition-delay: .55s; }
 
     /* CTA — ps2 레시피 시작 버튼과 동일 로직/스타일 */
     .ps-cta {
@@ -9215,13 +7699,13 @@
     const P = {
       review: {
         name: '알파리뷰', color: '#6D58F2',
-        main: '<span>카페24 리뷰 솔루션 1위</span><br>알파앱스와 함께<br>가장 빠르게 성장하세요',
+        main: '<span>카페24 리뷰 솔루션 1위</span><br>알파앱스와 함께, 가장 빠르게<br>사랑받는 쇼핑몰로 성장하세요',
         hook: '리뷰가 신뢰로, 신뢰가 성장으로 이어져요',
         trust: ['유료 고객사 4,538사', '라이브 25,000+ 쇼핑몰'],
         trustNote: '',
         tags: ['리뷰 그로스', 'AI 루틴', '모든 리뷰 위젯'],
         beats: [
-          ['모든 순간이 리뷰로, 쌓인 리뷰는 구매로', '빠른 리뷰, 외부몰 리뷰, QR 코드 리뷰까지 알파리뷰 한 곳에 모여요. 쌓인 리뷰만큼 쇼핑몰은 성장해요.'],
+          ['리뷰가 성장을 이끌어요', '모든 곳에서 남기고, 남긴 것을 모으고 — 리뷰가 신뢰와 구매가 돼요'],
           ['AI가 모든 과정을 루틴으로', '수집·답글·부정 리뷰 대응까지, 사람 손 없이 돌아가요'],
           ['모든 준비가 되어 있어요', '포토·영상·숏츠·뱃지 — 어디서 본 그 기능, 다 있어요'],
         ],
@@ -9487,74 +7971,49 @@
           <div class="pwc c1">
             <span class="pwc-live"><i></i>작동 중</span>
             <div class="pwc-h"><span class="pwc-ic">⚡</span><span class="pwc-nm">초스피드 회원가입</span></div>
-            <div class="pwc-ex">
-              <span class="psl-btn kko">💬 카카오로 1초 로그인</span>
-              <span class="psl-btn nvr">Ⓝ 네이버로 시작</span>
-              <div class="pw-bar"><span class="pb-l">회원 비율</span><span class="pb-tr"><i style="width:64%"></i></span><b>64%</b></div>
-            </div>
+            <div class="pwc-ex"><span class="psl-btn kko">카카오로 1초 로그인</span><span class="psl-btn nvr">네이버로 시작</span></div>
             <div class="pwc-mt">회원 전환 +38%</div>
           </div>
           <div class="pwc c2">
             <span class="pwc-live"><i></i>작동 중</span>
             <div class="pwc-h"><span class="pwc-ic">🧭</span><span class="pwc-nm">탐색 유도 장치</span></div>
-            <div class="pwc-ex"><div class="pw-photo"><img src="assets/insta/f5.png" alt=""><div class="pw-float top">⏱ <span class="co">00:02</span> 더 보면 100P!</div><div class="pw-float">🪙 적립금 <span class="co">100원</span> 받았어요!</div></div></div>
+            <div class="pwc-ex"><div class="pw-photo"><img src="assets/insta/f5.png" alt=""><div class="pw-float">⏱ 2초 더 보면 <span class="co">100P</span> 받아요!</div></div></div>
             <div class="pwc-mt">체류시간 +2.3배</div>
           </div>
           <div class="pwc c3">
             <span class="pwc-live"><i></i>작동 중</span>
             <div class="pwc-h"><span class="pwc-ic">🎯</span><span class="pwc-nm">온사이트 캠페인</span></div>
-            <div class="pwc-ex">
-              <div class="pw-prod"><img src="assets/hero-product.png" alt=""><span class="pp-nm">고민 중인 상품</span><span class="pp-pr">이탈 직전</span></div>
-              <div class="pw-coupon"><span class="pcp-k">COUPON</span><b>15% OFF</b><em>망설임 순간, 쿠폰 팝업</em></div>
-            </div>
+            <div class="pwc-ex"><div class="pw-coupon"><span style="font-size:9px;font-weight:800;color:var(--dc)">COUPON</span><b>15% OFF</b><em>이탈 직전, 망설임 쿠폰 팝업</em></div></div>
             <div class="pwc-mt">구매 전환 +37%</div>
           </div>
           <div class="pwc c4">
             <span class="pwc-live"><i></i>작동 중</span>
             <div class="pwc-h"><span class="pwc-ic">💝</span><span class="pwc-nm">카톡 선물하기</span></div>
-            <div class="pwc-ex">
-              <div class="pw-prod"><img src="assets/insta/f2.png" alt=""><span class="pp-nm">애니멀 쿠키 7종</span><span class="pp-pr">16,900원</span></div>
-              <span class="pg-btn solo">🎁 선물하기</span>
-              <div class="pw-talk"><div class="ptk"><span class="ptk-tag">알림톡</span>선물이 도착했어요! 🎉</div></div>
-            </div>
+            <div class="pwc-ex"><div class="pw-gift"><img src="assets/insta/f2.png" alt=""><span class="pg-btn">🎁 선물하기</span></div><div class="pw-talk"><div class="ptk"><span class="ptk-tag">알림톡</span><br>선물이 도착했어요! 🎉</div></div></div>
             <div class="pwc-mt">선물 주문·알림톡 자동</div>
           </div>
           <div class="pwc c5">
             <span class="pwc-live"><i></i>작동 중</span>
             <div class="pwc-h"><span class="pwc-ic">🎉</span><span class="pwc-nm">첫구매 할인</span></div>
-            <div class="pwc-ex">
-              <div class="pw-coupon"><span class="pcp-k">WELCOME</span><b>첫 구매 15%</b><em>가입 즉시 자동 발급</em></div>
-              <div class="pw-note">가입 후 미구매 고객에게 자동 발송</div>
-            </div>
+            <div class="pwc-ex"><div class="pw-coupon"><span style="font-size:9px;font-weight:800;color:var(--dc)">WELCOME</span><b>첫 구매 15%</b><em>가입 즉시 자동 발급</em></div></div>
             <div class="pwc-mt">첫 구매율 +26%</div>
           </div>
           <div class="pwc c6">
             <span class="pwc-live"><i></i>작동 중</span>
             <div class="pwc-h"><span class="pwc-ic">🛒</span><span class="pwc-nm">장바구니 리마인드</span></div>
-            <div class="pwc-ex">
-              <div class="pw-prod"><img src="assets/insta/f7.png" alt=""><span class="pp-nm">담아둔 여름 원피스</span><span class="pp-pr">39,800원</span></div>
-              <div class="pw-talk"><div class="ptk"><span class="ptk-tag">알림톡</span>장바구니에 두고 가셨어요 🛒<br>지금 구매 시 쿠폰 드려요</div></div>
-            </div>
+            <div class="pwc-ex"><div class="pw-talk"><div class="ptk"><span class="ptk-tag">알림톡</span><br>장바구니에 두고 가셨어요 🛒<br>지금 구매 시 쿠폰 드려요</div></div></div>
             <div class="pwc-mt">장바구니 회수 +29%</div>
           </div>
           <div class="pwc c7">
             <span class="pwc-live"><i></i>작동 중</span>
             <div class="pwc-h"><span class="pwc-ic">👥</span><span class="pwc-nm">고객 관리 세그먼트</span></div>
-            <div class="pwc-ex">
-              <div class="pw-seg"><span class="psg"><span class="pdot" style="background:#F0A6A0"></span>미구매<span class="pv">198</span></span><span class="psg"><span class="pdot" style="background:#8FB4F2"></span>첫 구매<span class="pv">85</span></span><span class="psg"><span class="pdot" style="background:#9284EE"></span>재구매<span class="pv">4</span></span></div>
-              <div class="pw-cust"><span class="pc-av">🙂</span><span class="pc-nm">임*경 · 장바구니 이탈</span><span class="pc-tm">4일 전</span></div>
-              <div class="pw-cust more">장기 이탈 <b>+191명</b> 자동 분류</div>
-            </div>
+            <div class="pwc-ex"><div class="pw-seg"><span class="psg"><span class="pdot" style="background:#F0A6A0"></span>미구매<span class="pv">198</span></span><span class="psg"><span class="pdot" style="background:#8FB4F2"></span>첫 구매<span class="pv">85</span></span><span class="psg"><span class="pdot" style="background:#9284EE"></span>재구매<span class="pv">4</span></span></div></div>
             <div class="pwc-mt">이탈·재구매 자동 분류</div>
           </div>
           <div class="pwc c8">
             <span class="pwc-live"><i></i>작동 중</span>
             <div class="pwc-h"><span class="pwc-ic">💬</span><span class="pwc-nm">메시지 캠페인</span></div>
-            <div class="pwc-ex">
-              <div class="pw-chips"><i>카카오 채널</i><i>문자</i><i>자동화</i></div>
-              <div class="pw-recipe"><img src="assets/insta/f8.png" alt=""><span class="pr-nm">가입 후 미구매 쿠폰</span><span class="pr-badge">사용중</span></div>
-              <div class="pw-recipe"><img src="assets/insta/f6.png" alt=""><span class="pr-nm">인기상품 추천</span><span class="pr-roas">ROAS 400%</span></div>
-            </div>
+            <div class="pwc-ex"><div class="pw-chips"><i>카카오 채널</i><i>문자 발신</i><i>자동화</i><i>일회성</i></div><div class="pw-talk"><div class="ptk">가입·첫구매·재구매 레시피 12종</div></div></div>
             <div class="pwc-mt">평균 ROAS 250~600%</div>
           </div>
         </div>
@@ -9687,167 +8146,132 @@
     const HERO_PANES = {
       review: [
         `<div class="hero-pane hp-live">
-          <div class="rvh">
-            <div class="rvh-src">
-              <div class="rvs s1">
-                <div class="rvs-h">알림톡 빠른 리뷰</div>
-                <div class="rvs-ex">“만족해요 ❤️” 탭 한 번으로 <span class="st">★★★★★</span> 리뷰 자동 완성</div>
-                <div class="rvx rvx-talk">
-                  <div class="rvx-noti"><span class="rvx-app">α</span><b>알파리뷰 알림톡</b><span class="rvx-tm">방금</span></div>
-                  <div class="rvx-msg">구매하신 <b>여름 원피스</b>는 어떠셨나요?<br>만족하셨다면 별점을 남겨주세요 😊</div>
-                  <div class="rvx-btns"><span class="rvx-b on">만족해요 ❤️</span><span class="rvx-b">괜찮아요</span><span class="rvx-b">아쉬워요</span></div>
-                </div>
+          <div class="live-flow">
+            <div class="lf-prodwrap">
+              <div class="lf-prod">
+                <div class="lp-img"><img src="assets/hero-product.png" alt="여름 청순 바람막이"></div>
+                <div class="lp-name">여름 청순 바람막이</div>
+                <div class="lp-price"><b>48%</b> 36,000</div>
+                <span class="lp-buy">바로 구매<span class="lf-cursor c-buy"></span></span>
               </div>
-              <div class="rvs s2">
-                <div class="rvs-h">외부몰 리뷰 연동</div>
-                <div class="rvs-ex">네이버·인스타·쿠팡 리뷰까지 자동으로 긁어와 한 곳에 모아요</div>
-                <div class="rvx rvx-sync">
-                  <div class="rvx-plat"><span class="rvx-lg nv">N</span>네이버<span class="rvx-c">1,240</span></div>
-                  <div class="rvx-plat"><span class="rvx-lg ss">S</span>인스타<span class="rvx-c">2,108</span></div>
-                  <div class="rvx-plat"><span class="rvx-lg cp">C</span>쿠팡<span class="rvx-c">890</span></div>
-                </div>
-              </div>
-              <div class="rvs s3">
-                <div class="rvs-h">QR 코드 리뷰</div>
-                <div class="rvs-ex">매장·패키지의 QR을 스캔하면 오프라인 고객도 리뷰를 남겨요</div>
-                <div class="rvx rvx-qr">
-                  <svg class="rvx-qrbox" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="6" width="3" height="3" fill="#20242E"></rect><rect x="27" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="31" y="6" width="3" height="3" fill="#20242E"></rect><rect x="2" y="27" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="31" width="3" height="3" fill="#20242E"></rect><g fill="#20242E"><rect x="18" y="3" width="3" height="3"></rect><rect x="23" y="7" width="3" height="3"></rect><rect x="18" y="11" width="3" height="3"></rect><rect x="34" y="18" width="3" height="3"></rect><rect x="27" y="18" width="3" height="3"></rect><rect x="31" y="22" width="3" height="3"></rect><rect x="18" y="18" width="3" height="3"></rect><rect x="22" y="22" width="3" height="3"></rect><rect x="18" y="26" width="3" height="3"></rect><rect x="23" y="30" width="3" height="3"></rect><rect x="27" y="27" width="3" height="3"></rect><rect x="31" y="31" width="3" height="3"></rect><rect x="34" y="34" width="3" height="3"></rect><rect x="18" y="34" width="3" height="3"></rect></g></svg>
-                  <span class="rvx-arrow">→</span>
-                  <div class="rvx-rvcard">
-                    <div class="rvx-rv-top"><img src="assets/insta/f8.png" alt=""><span class="st">★★★★★</span><span class="rvx-rv-who">김민**님 · 오프라인 구매</span></div>
-                    <p class="rvx-rv-tx">매장에서 받아봤는데 실물이 더 예뻐요!</p>
+            </div>
+            <div class="lf-conn c1"><span class="conn-ar">→</span></div>
+            <div class="lf-phone">
+              <span class="kt-badge">리뷰 요청 ✓</span>
+              <div class="lfp-head"><span class="av">a</span><span><b>알파리뷰</b><em>070-2626-3737</em></span></div>
+              <div class="lfp-body">
+                <div class="ktalk">
+                  <div class="kt-tag">알림톡 도착</div>
+                  <p>안녕하세요 알파님!<br>구매하신 <b>멋쟁이 코듀로이 팬츠</b>는 어떠셨나요?<br>마음에 드셨다면 소중한 리뷰를 남겨주세요 😊</p>
+                  <div class="kt-btns">
+                    <span class="kt-btn primary">만족해요 ❤️<span class="lf-cursor"></span></span>
+                    <span class="kt-btn">괜찮아요 👌</span>
+                    <span class="kt-btn">아쉬워요 😔</span>
                   </div>
                 </div>
               </div>
             </div>
-            <svg class="rvh-lines" viewBox="0 0 76 260" preserveAspectRatio="none">
-              <path d="M2,56.6 C42,56.6 40,135.6 74,135.6"></path>
-              <path d="M2,139 C42,139 40,135.6 74,135.6"></path>
-              <path d="M2,213.8 C42,213.8 40,135.6 74,135.6"></path>
-            </svg>
-            <div class="rvh-hub">
-              <div class="rvh-num"><b class="cnt" data-to="5967" data-from="0" data-fmt="num" data-delay="1200">0</b><small>개</small></div>
-              <div class="rvh-sub">모든 채널의 리뷰 실시간 수집중</div>
-              <div class="rvh-chips"><i>빠른</i><i>외부몰</i><i>QR</i></div>
-            </div>
-            <svg class="rvh-arrow" viewBox="0 0 56 24" preserveAspectRatio="none" aria-hidden="true"><path class="ra-line" d="M2,12 L46,12"></path><path class="ra-head" d="M44,6 L52,12 L44,18"></path></svg>
-            <div class="rvh-grow">
-              <div class="rvh-grow-h">쌓인 리뷰가 곧 성장</div>
-              <div class="rvh-grow-sub">리뷰가 쌓일수록 신뢰가 쌓이고, 구매로 이어져요</div>
-              <div class="rvh-chart"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:68%"></i><i style="--h:84%"></i><i style="--h:100%"></i></div>
-              <div class="rvh-metric">
-                <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="32" data-from="0" data-delay="2400">0</b>%</div><div class="l">구매 전환율</div></div>
-                <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="27" data-from="0" data-delay="2600">0</b>%</div><div class="l">재구매율</div></div>
-                <div class="rvh-mt"><div class="v"><b>★4.9</b></div><div class="l">평균 별점</div></div>
+            <div class="lf-conn c2"><span class="conn-ar">→</span></div>
+            <div class="lf-shopwrap">
+            <div class="lf-shop">
+              <div class="lfs-head">리뷰 <b class="cnt rv-cnt" data-to="5967" data-fmt="num" data-delay="6000">0</b></div>
+              <div class="lfs-review">
+                <span class="rv-badge auto">리뷰 바로 게시 ✓</span>
+                <div class="rv-stars">★★★★★ <span class="meta">알**님 · 오늘 작성<i>구매 인증</i></span></div>
+                만족할 만큼 좋은 상품이에요😊 감사합니다.
+                <br><span class="rv-badge point">🎁 +300P 지급</span>
               </div>
+              <div class="lfs-reply">
+                <em>알파카몰 · 사장님 댓글</em>
+                소중한 후기 감사합니다, 고객님🙇 만족을 위해 최선을 다하는 알파카몰이 되겠습니다!
+                <span class="rv-badge auto2">리뷰 빠르게 증가 ✓</span>
+              </div>
+              <div class="lfs-more">
+                <div class="mini-rv"><span class="st">★★★★★</span><span class="who">배**님 · 오늘 작성</span>📷 색감이 사진 그대로예요! 만족합니다</div>
+                <div class="mini-rv"><span class="st">★★★★★</span><span class="who">김**님 · 오늘 작성</span>🎬 핏이 좋아서 영상 리뷰 남겨요</div>
+                <div class="mini-rv"><span class="st">★★★★☆</span><span class="who">이**님 · 오늘 작성</span>배송 빠르고 포장 꼼꼼했어요 👍</div>
+                <div class="mini-rv"><span class="st">★★★★★</span><span class="who">박**님 · 오늘 작성</span>📷 재질이 기대 이상이에요, 재구매 각!</div>
+                <div class="mini-rv"><span class="st">★★★★★</span><span class="who">최**님 · 오늘 작성</span>선물했는데 반응이 너무 좋았어요 🎁</div>
+                <div class="mini-rv"><span class="st">★★★★★</span><span class="who">정**님 · 오늘 작성</span>📷 사이즈 딱 맞아요. 강추합니다</div>
+                <div class="mini-rv"><span class="st">★★★★☆</span><span class="who">한**님 · 오늘 작성</span>가성비 최고, 두 개 더 주문했어요</div>
+                <div class="mini-rv"><span class="st">★★★★★</span><span class="who">윤**님 · 오늘 작성</span>🎬 착용 영상 올려요! 핏 보세요</div>
+                <div class="mini-rv"><span class="st">★★★★★</span><span class="who">장**님 · 오늘 작성</span>📷 세 번째 구매예요. 믿고 사는 곳 💜</div>
+              </div>
+            </div>
             </div>
           </div>
         </div>`,
         `<div class="hero-pane hp-ai">
           <div class="ai-pipe">
+            <div class="apx-head">
+              <span class="apx-title">🔁 AI 리뷰 운영, 수집부터 인사이트까지 한 흐름으로</span>
+              <span class="apx-live"><i></i>리뷰 <b class="cnt" data-to="12480" data-from="0" data-delay="400">0</b>건 실시간 처리</span>
+            </div>
             <div class="apx-flow">
               <div class="stg s1">
                 <div class="stg-top"><span class="stg-no">1</span><span class="stg-lb">리뷰 수집·분류</span></div>
                 <div class="stg-ui">
-                  <div class="mstat"><span class="ms-l">리뷰 수</span><b class="cnt" data-to="52400" data-from="0" data-fmt="num" data-delay="500">0</b><span class="ms-up">▲ 1,381</span></div>
-                  <div class="mrv"><img src="assets/insta/f1.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>핏이 딱 맞아요</em></span><i class="tg">핏</i></div>
-                  <div class="mrv"><img src="assets/insta/f4.png" alt=""><span class="mrv-b"><span class="st">★★★★☆</span><em>배송이 늦었어요</em></span><i class="tg neg">배송</i></div>
-                  <div class="mrv"><img src="assets/insta/f7.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>색감이 사진 그대로</em></span><i class="tg">색감</i></div>
-                  <div class="mrv"><img src="assets/insta/f2.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>재질이 튼튼해요</em></span><i class="tg">재질</i></div>
-                  <div class="mrv"><img src="assets/insta/f5.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>정사이즈예요</em></span><i class="tg">사이즈</i></div>
+                  <div class="mrv"><img src="assets/insta/f1.png" alt=""><span class="st">★★★★★</span><i class="tg">핏</i></div>
+                  <div class="mrv"><img src="assets/insta/f4.png" alt=""><span class="st">★★★★☆</span><i class="tg neg">배송</i></div>
+                  <div class="mrv"><img src="assets/insta/f7.png" alt=""><span class="st">★★★★★</span><i class="tg">색감</i></div>
+                  <div class="mtags"><i>#상품특징</i><i>#배송/포장</i><i>#색감</i><i>#사이즈</i><i>#가성비</i></div>
+                  <div class="stg-count">AI가 실시간 자동 태깅 · 12,480건</div>
                 </div>
-                <div class="stg-cap">쌓이는 리뷰를 AI가 자동 수집 · 오늘 +12,480건</div>
+                <div class="stg-cap">쌓이는 리뷰를 AI가 자동 수집·태깅</div>
               </div>
               <span class="arw a1"></span>
               <div class="stg s2">
                 <div class="stg-top"><span class="stg-no">2</span><span class="stg-lb">AI 리뷰 요약</span></div>
                 <div class="stg-ui">
-                  <div class="msum-h">🤖 <b>92%</b> 고객 만족</div>
-                  <div class="msum-t ok">👍 좋았던 점</div>
-                  <div class="msum-row ok">핏·색감·재질이 좋아요</div>
-                  <div class="msum-row ok">사이즈가 정사이즈예요</div>
-                  <div class="msum-t cau">💬 참고할 점</div>
-                  <div class="msum-row cau">배송이 조금 아쉬워요</div>
+                  <div class="msum-h">🤖 <b>92%</b> 만족</div>
+                  <div class="msum-row ok">👍 핏·색감·재질이 좋아요</div>
+                  <div class="msum-row cau">💬 배송이 조금 아쉬워요</div>
                   <div class="mrv-thumbs"><img src="assets/insta/f2.png" alt=""><img src="assets/insta/f5.png" alt=""><img src="assets/insta/f1.png" alt=""></div>
+                  <div class="stg-count">3,240건 요약 반영 · 상세페이지 자동 게시</div>
                 </div>
                 <div class="stg-cap">핵심만 요약해 상세페이지에 자동 게시</div>
               </div>
               <span class="arw a2"></span>
-              <div class="stg s3 hot">
-                <div class="stg-top"><span class="stg-no">3</span><span class="stg-lb">최상단 고정</span></div>
+              <div class="stg s3">
+                <div class="stg-top"><span class="stg-no">3</span><span class="stg-lb">월간 브리핑</span></div>
                 <div class="stg-ui">
-                  <div class="pin-rec">✦ AI 추천 리뷰<span>32개</span></div>
-                  <div class="pin-card">
-                    <div class="pin-user"><img src="assets/insta/f2.png" alt=""><span class="pin-who"><b>이지은</b><em>24.8.6 · 구매 인증</em></span></div>
-                    <div class="pin-thumbs"><img src="assets/insta/f1.png" alt=""><img src="assets/insta/f4.png" alt=""><img src="assets/insta/f5.png" alt=""></div>
-                    <p class="pin-tx">“군더더기 없이 예쁘고 몸에도 불편감이 없어서 좋았어요”</p>
-                    <div class="pin-reason"><i>실제경험5/5</i><i>긍정적5/5</i><i>구체적4/5</i></div>
-                    <button class="pin-btn">최상단 고정<span class="lf-cursor"></span></button>
-                  </div>
-                  <div class="pin-list">
-                    <div class="pin-li"><b>1</b><img src="assets/insta/f2.png" alt=""><span>이지은 · 라이프 린넨</span><i class="up">▲</i></div>
-                    <div class="pin-li"><b>2</b><img src="assets/insta/f5.png" alt=""><span>강수아 · 크롭 나시</span></div>
-                    <div class="pin-li"><b>3</b><img src="assets/insta/f7.png" alt=""><span>최시우 · UNISEX</span></div>
-                  </div>
+                  <div class="mc-bars"><i style="--h:42%"></i><i style="--h:60%"></i><i style="--h:50%"></i><i style="--h:74%"></i><i style="--h:64%"></i><i style="--h:88%"></i></div>
+                  <div class="mc-stat">부정 리뷰 <b>5%</b> <span class="dn">▼ 1%p</span></div>
+                  <div class="mprod"><span style="font-size:14px">📊</span><b>분석 리뷰 12,480건</b><span class="pneg">▲ 2,458</span></div>
+                  <div class="mtags"><i>일간</i><i>주간</i><i>월간</i><i>자동 리포트</i></div>
                 </div>
-                <div class="stg-cap">좋은 리뷰를 위젯 맨 위로 올려 · 리뷰 순서 조정 > 구매 전환율 ▲</div>
+                <div class="stg-cap">지표·추세를 매달 자동 리포트</div>
               </div>
               <span class="arw a3"></span>
               <div class="stg s4">
-                <div class="stg-top"><span class="stg-no">4</span><span class="stg-lb">월간 브리핑</span></div>
+                <div class="stg-top"><span class="stg-no">4</span><span class="stg-lb">개선 필요 상품</span></div>
                 <div class="stg-ui">
-                  <div class="mc-bars"><i style="--h:38%"></i><i style="--h:56%"></i><i style="--h:48%"></i><i style="--h:72%"></i><i style="--h:62%"></i><i style="--h:88%"></i><i style="--h:100%"></i></div>
-                  <div class="mc-stat">부정 리뷰 <b>5%</b> <span class="dn">▼ 1%p</span></div>
-                  <div class="mstat sm"><span class="ms-l">분석</span><b>12,480</b><span class="ms-up">▲ 2,458</span></div>
-                  <div class="mscat"><span class="mscat-vx"></span><span class="mscat-thr"></span><i style="left:16%;top:16%"></i><i style="left:25%;top:27%"></i><i style="left:12%;top:33%"></i><i style="left:30%;top:20%"></i><i style="left:21%;top:52%"></i><i style="left:14%;top:66%"></i><i style="left:23%;top:80%"></i><i style="left:10%;top:84%"></i><i style="left:30%;top:72%"></i><i style="left:34%;top:88%"></i><i style="left:46%;top:72%"></i><i style="left:54%;top:83%"></i><i style="left:60%;top:69%"></i><i style="left:68%;top:79%"></i><i style="left:76%;top:71%"></i><i style="left:85%;top:81%"></i><i style="left:50%;top:63%"></i><i style="left:64%;top:88%"></i><i style="left:90%;top:67%"></i><i style="left:52%;top:50%"></i><i class="bad" style="left:70%;top:26%"></i><i class="bad" style="left:80%;top:34%"></i><i class="bad" style="left:88%;top:21%"></i><i class="bad" style="left:62%;top:46%"></i></div>
-                  <div class="mscat-cap">🔥 개선 필요 상품 3건</div>
-                  <div class="mprod"><img src="assets/insta/f4.png" alt=""><b>체크 트위드</b><span class="pneg">6.5%</span></div>
-                  <div class="mprod"><img src="assets/insta/f7.png" alt=""><b>울 블렌드</b><span class="pneg">5.8%</span></div>
+                  <div class="mscat"><i style="left:22%;top:64%"></i><i style="left:38%;top:48%"></i><i style="left:30%;top:72%"></i><i style="left:55%;top:58%"></i><i style="left:48%;top:38%"></i><i class="bad" style="left:72%;top:26%"></i><i class="bad" style="left:82%;top:34%"></i></div>
+                  <div class="mscat-cap">🔥 개선 필요 상품 3건 감지</div>
+                  <div class="mprod"><img src="assets/insta/f4.png" alt=""><b>체크 트위드 자켓</b><span class="pneg">부정 6.5%</span></div>
+                  <div class="mprod"><img src="assets/insta/f7.png" alt=""><b>울 블렌드 코트</b><span class="pneg">부정 5.8%</span></div>
                 </div>
-                <div class="stg-cap">지표·추세와 개선 상품을 매달 리포트</div>
+                <div class="stg-cap">부정 급증 상품을 콕 집어 진단</div>
               </div>
               <span class="arw a4"></span>
               <div class="stg s5">
                 <div class="stg-top"><span class="stg-no">5</span><span class="stg-lb">브랜드 인사이트</span></div>
                 <div class="stg-ui">
-                  <div class="ins-tag"><svg class="ins-donut" viewBox="0 0 36 36"><circle class="d-neg" cx="18" cy="18" r="14" pathLength="100" stroke-dasharray="28 100" stroke-dashoffset="-72"></circle><circle class="d-pos" cx="18" cy="18" r="14" pathLength="100" stroke-dasharray="72 100"></circle></svg><span class="ins-t"><b>#핏 · 색감</b><em>언급량 1,573</em></span></div>
-                  <div class="ins-set">
-                    <div class="ins-ratio">
-                      <div class="mratio-lb"><span class="pos">긍정 92%</span><span class="neg2">부정 8%</span></div>
-                      <div class="mratio"><i></i></div>
-                    </div>
-                    <div class="mkw-risk">⚠ 위험 태그 · 배송 지연 점검</div>
-                  </div>
-                  <div class="ins-cloud">
-                    <div class="ic-hd">브랜드 강점 키워드 · 언급 많을수록 크게</div>
-                    <div class="ic-map">
-                      <span class="icb pu" style="left:24%;top:42%;width:50px;height:50px;font-size:9.5px">핏 좋아요</span>
-                      <span class="icb gr" style="left:59%;top:31%;width:42px;height:42px;font-size:10px">색감</span>
-                      <span class="icb bl" style="left:85%;top:45%;width:34px;height:34px;font-size:9px">재질</span>
-                      <span class="icb am" style="left:43%;top:76%;width:34px;height:34px;font-size:9px">가성비</span>
-                      <span class="icb pk" style="left:71%;top:77%;width:30px;height:30px;font-size:8.5px">사이즈</span>
-                      <span class="icb gy" style="left:13%;top:82%;width:26px;height:26px;font-size:8px">배송</span>
-                      <span class="icb pu" style="left:90%;top:79%;width:24px;height:24px;font-size:8px">포장</span>
-                    </div>
-                  </div>
-                  <div class="ins-kw">
-                    <div class="ikw-card"><span class="ikw-l">최근 많이 보이는 키워드</span><span class="ikw-v"><i class="ikw-ic"></i><b>색감</b></span><i class="ikw-arw"></i></div>
-                    <div class="ikw-card"><span class="ikw-l">가장 많은 비중을 차지하는 키워드</span><span class="ikw-v"><i class="ikw-ic"></i><b>핏 좋아요</b></span><i class="ikw-arw"></i></div>
-                  </div>
+                  <div class="mkw-wrap"><span class="mkw a">핏 좋아요</span><span class="mkw b">색감</span><span class="mkw c">배송</span><span class="mkw d">재질</span></div>
+                  <div class="mratio-lb"><span class="pos">긍정 92%</span><span class="neg2">부정 8%</span></div>
+                  <div class="mratio"><i></i></div>
+                  <div class="mkw-risk">⚠ 위험 태그 · 배송 지연 점검</div>
                 </div>
                 <div class="stg-cap">강점·위험 키워드를 한눈에</div>
               </div>
             </div>
-            <div class="apx-cycle">
-              <svg class="cyc-svg" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path d="M984,4 C1002,32 968,36 500,36 C32,36 -2,32 16,4"></path></svg>
-              <span class="cyc-head"></span>
-              <span class="cyc-tx"><i class="cyc-ic"></i>리뷰 <b class="cnt" data-to="12480" data-from="0" data-delay="2400">0</b>건 실시간 처리 · 사람 손 없이 매주 자동 반복 — 담당자 <b>3명 몫</b>·월 <b>240시간</b>을 AI가 대신</span>
-            </div>
+                        <div class="apx-loop"><span class="lp-ic">🔄</span>수집 → 분류 → 요약 → 브리핑 → 진단 → 인사이트, <b>매주 사람 손 없이 자동 반복</b></div>
           </div>
         </div>`,
         `<div class="hero-pane hp-wg">
           <div class="wg-head">
-            <div class="wg-title">리뷰 기능 <b class="cnt" data-to="20" data-from="0" data-delay="300">0</b>여 종, 알파리뷰 하나에 전부 있어요</div>
+            <span class="wg-badge">✦ 올인원 리뷰 위젯</span>
+            <div class="wg-title">이걸 다 준다고요? 리뷰 기능 <b class="cnt" data-to="20" data-from="0" data-delay="300">0</b>여 종,<br>알파리뷰 하나에 전부 있어요</div>
           </div>
           <div class="wg-wallwrap">
             <div class="wg-wall">
@@ -9883,7 +8307,7 @@
                 <div class="wg wg-vid w4">
                   <div class="wg-h">🎬 포토·영상 리뷰</div>
                   <div class="wv-img">
-                    <img src="assets/hero-product.png" alt="">
+                    <img src="assets/insta/f5.png" alt="">
                     <span class="wv-play"><i>▶</i></span>
                     <span class="wv-rate"><i class="star"></i>4.8</span>
                   </div>
@@ -10265,8 +8689,8 @@
         $('cdNext').textContent = '다음 - 함께 쓸 솔루션 보기';
         $('cdBack').textContent = '이전';
       } else {
-        $('cdNext').textContent = `다음`;
-        $('cdBack').textContent = '이전';
+        $('cdNext').textContent = `${cart.size}개 담고 설정으로 →`;
+        $('cdBack').textContent = `← ${P[ENTRY].name} 소개`;
       }
     }
 
@@ -10357,7 +8781,11 @@
     { const _dp = $('dtPrev'); if (_dp) _dp.onclick = () => { if (dtIdx > 0) dtGo(dtIdx - 1); }; }
     { const _dn = $('dtNext'); if (_dn) _dn.onclick = () => { if (dtIdx < P[dtKey].feats.length - 1) dtGo(dtIdx + 1); else closeDetail(); }; }
 
-    /* 히어로(hp-live) 스테이지 클릭 → 상세 오버레이 진입: 비활성화 (dt-inner 등장 없음) */
+    /* 히어로에서 진입 앱 자세히 보기: 비트 클릭 시 우측 목업 유지,
+       스테이지(브라우저) 클릭 → 상세 오버레이 */
+    document.querySelector('.hero-stage').addEventListener('click', () => openDetail(ENTRY));
+    document.querySelector('.hero-stage').style.cursor = 'pointer';
+    document.querySelector('.hero-stage').title = '클릭하면 기능을 직접 체험할 수 있어요';
 
     /* ═══════════════════════════════════════════════
        완료 화면
