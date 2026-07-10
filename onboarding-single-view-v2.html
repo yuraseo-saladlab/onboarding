@@ -8200,6 +8200,353 @@
       }
     }
 
+    /* ══ c6 장바구니 리마인드 — 알림톡 리마인드 → 상품 바로가기 클릭 → 주문 완료 ══ */
+    .cr {
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      border-radius: 10px;
+      background: #B2C7DB;
+      overflow: hidden;
+    }
+
+    .cr-sender {
+      flex: 0 0 auto;
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #3A4756;
+      padding: 0 2px;
+    }
+
+    .cr-card {
+      flex: 1;
+      min-height: 0;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cr-img {
+      position: relative;
+      flex: 0 0 auto;
+      height: 66px;
+      background: var(--line-soft);
+    }
+
+    .cr-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cr-cart {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      font-size: 8px;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(20, 20, 40, .5);
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
+    .cr-body {
+      flex: 0 0 auto;
+      padding: 7px 9px 8px;
+      text-align: left;
+    }
+
+    .cr-msg {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--ink-dim);
+      line-height: 1.45;
+    }
+
+    .cr-msg b {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .cr-btn {
+      position: relative;
+      margin-top: 7px;
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 7px;
+      background: #FEE500;
+      color: #3B1E1E;
+      font-size: 11px;
+      font-weight: 800;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .cr-btn .l1 {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #6FE0A8;
+      opacity: 0;
+    }
+
+    .cr-cursor {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      bottom: 22px;
+      width: 26px;
+      height: 26px;
+      background: var(--cursor-svg) center / contain no-repeat;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .3));
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* 시퀀스: 커서 탭 → 버튼 프레스 → 주문 완료 전환 */
+    .sc.on .cr-cursor {
+      animation: crCursor 1.1s ease 1.2s forwards;
+    }
+
+    .sc.on .cr-btn {
+      animation: crPress .26s ease 1.9s, crConv .4s ease 2.1s forwards;
+    }
+
+    .sc.on .cr-btn .l0 {
+      animation: ocOut .2s ease 2.1s forwards;
+    }
+
+    .sc.on .cr-btn .l1 {
+      animation: ocIn .3s ease 2.2s forwards;
+    }
+
+    @keyframes crCursor {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 14px) scale(1);
+      }
+
+      36% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+      }
+
+      58% {
+        transform: translate(-50%, 0) scale(.8);
+      }
+
+      78% {
+        transform: translate(-50%, 0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, 0) scale(1);
+      }
+    }
+
+    @keyframes crPress {
+      50% {
+        transform: scale(.96);
+      }
+    }
+
+    @keyframes crConv {
+      to {
+        background: #16162A;
+      }
+    }
+
+    /* ══ c7 고객 관리 세그먼트 — 이탈 위험 세그먼트 포커스 → 캠페인 제안 → 실행 ══ */
+    .cm {
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow: hidden;
+    }
+
+    .cm-hd {
+      flex: 0 0 auto;
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--ink-faint);
+    }
+
+    .cm-map {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 4px;
+    }
+
+    .cm-cell {
+      border-radius: 7px;
+      background: var(--line-soft);
+      display: grid;
+      place-items: center;
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--ink-faint);
+      text-align: center;
+    }
+
+    .cm-cell.good {
+      background: #E7F3EB;
+    }
+
+    .cm-cell.hot {
+      background: #FDE3E4;
+      color: #E62C35;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .cm-xlab {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      font-size: 7.5px;
+      font-weight: 700;
+      color: var(--ink-faint);
+      text-align: center;
+    }
+
+    .cm-pop {
+      flex: 0 0 auto;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      box-shadow: 0 4px 14px rgba(20, 20, 43, .07);
+      padding: 9px 10px 10px;
+      opacity: 0;
+    }
+
+    .cm-ph {
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--ink-dim);
+    }
+
+    .cm-pt {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -.02em;
+      margin: 3px 0 5px;
+    }
+
+    .cm-pd {
+      font-size: 8.5px;
+      font-weight: 600;
+      color: var(--ink-faint);
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+
+    .cm-btn {
+      position: relative;
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 7px;
+      background: #16162A;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .cm-btn .l1 {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #6FE0A8;
+      opacity: 0;
+    }
+
+    .cm-cursor {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      bottom: 16px;
+      width: 26px;
+      height: 26px;
+      background: var(--cursor-svg) center / contain no-repeat;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .3));
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* 시퀀스: 위험 셀 강조 → 캠페인 제안 슬라이드업 → 커서 탭 → 실행 */
+    .sc.on .cm-cell.hot {
+      animation: cmHot .9s ease .4s both;
+    }
+
+    .sc.on .cm-pop {
+      animation: cmPop .5s ease 1.1s both;
+    }
+
+    .sc.on .cm-cursor {
+      animation: ocCursor 1.1s ease 1.8s forwards;
+    }
+
+    .sc.on .cm-btn .l0 {
+      animation: ocOut .2s ease 2.6s forwards;
+    }
+
+    .sc.on .cm-btn .l1 {
+      animation: ocIn .3s ease 2.7s forwards;
+    }
+
+    @keyframes cmHot {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(230, 44, 53, 0);
+      }
+
+      55% {
+        transform: scale(1.07);
+        box-shadow: 0 0 0 4px rgba(230, 44, 53, .22);
+      }
+
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 2px rgba(230, 44, 53, .28);
+      }
+    }
+
+    @keyframes cmPop {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
     /* ══ c5 첫구매 할인 — 인기 상품 100원 위젯 (구매율 상승 애니메이션) ══ */
     .fp {
       flex: 1;
@@ -10658,26 +11005,26 @@
       },
       upsell: {
         name: '알파업셀', color: '#E62C35',
-        main: '고객의 장바구니에<br><b>제품 하나를 더</b>',
+        main: '좋은 상품을 더 발견하는 경험<br><b>추가 매출 만드는 알파업셀 공식</b>',
         hook: '광고비는 그대로, 객단가가 오릅니다. 잘 버는 몰은 업셀 중',
         trust: ['AI 추천 모델 9종', '추천 위젯 12종'],
         tags: ['AI 상품 추천', '가격 최적화', '숫자로 증명'],
         feats: [
           {
-            kicker: 'AI 상품 추천', title: '뭘 담을지, AI가 먼저 찾습니다',
-            desc: '한 번 사는 고객이 두 번 담게 — 함께 사면 좋은 상품을 구매 흐름 곳곳에서 제안해요.',
+            kicker: 'AI 상품 추천', title: '고객이 더 담을 상품을 발견해요',
+            desc: 'AI 추천 모델 9종이 12가지 위젯으로 고객 동선 곳곳에 어울리는 상품을 보여줘요. 마음에 드는 상품을 발견한 고객은 기분 좋게 담아요.',
             chips: ['AI 추천 모델 9종', '추천 위젯 12종', '옵션세트 바로 담기'], scene: 'up1',
             done: '✓ 클릭 한 번에 장바구니가 커졌어요',
           },
           {
             kicker: '가격 최적화', title: '잘 팔리면서, 마진도 남는 가격',
-            desc: '가격 A/B/N 테스트와 프로모션 결합으로 — 최대 이익을 만드는 적정 가격을 찾아요.',
+            desc: '하나 더 담으면 할인이 커지고 무료배송까지 얼마 안 남았다고 보여줘요. 자연스럽게 하나 더 담게, 알파업셀이 준비했어요.',
             chips: ['가격 A/B/N 테스트 자동화', '프로모션 다단계 결합', '최대 이익 가격 탐색'], scene: 'up2',
             done: '✓ 최대 이익 가격을 찾았어요',
           },
           {
-            kicker: '숫자로 증명', title: '더 번 돈이 대시보드에 찍힙니다',
-            desc: '객단가와 판매 개수가 함께 올라 총 매출이 점프 — 그로스는 숫자여야 하니까요.',
+            kicker: '숫자로 증명', title: '왜 팔리는지 알면 다음이 보여요',
+            desc: '어떤 상품이 왜 팔리는지, 알파업셀 인사이트가 한눈에 보여줘요. 다음 위젯과 프로모션은 그 답을 따라가기만 하면 성장해요.',
             chips: ['함께구매 금액 자동 집계', '함께구매 건수 자동 집계', '객단가·매출 리포트'], scene: 'up3',
             done: '✓ 성장이 숫자로 보여요',
           },
@@ -10712,26 +11059,26 @@
       },
       canvas: {
         name: '알파캔버스', color: '#00B7A8',
-        main: '디자인, 일단 고르세요<br><b>계속 고칠 수 있으니까요</b>',
+        main: '알파캔버스에서 마음껏 고치니까<br><b>스킨, 이제 가볍게 골라요</b>',
         hook: '개발자 없이 내 맘대로 수정, 스킨 선택이 자유가 됩니다',
         trust: ['노코드 위젯 편집', '초기 도입 혜택'],
         tags: ['상세페이지 위젯 편집', '기획전 갈아끼우기', '도입 혜택'],
         feats: [
           {
-            kicker: '계속 고치기', title: '개발자 없이도, 계속 고칠 수 있어요',
-            desc: '스킨에 묶여 있던 상세페이지 영역까지 위젯으로 직접 수정해요. 한 번 사고 끝이 아니에요.',
+            kicker: '계속 고치기', title: '개발자 없이도, 원하는 대로 수정해요',
+            desc: '디자인과 개발에 묶여 있던 상세페이지를 위젯으로 자유롭게 편집해요. 한 번 만들고 끝나는 게 아니라, 언제든 다시 손볼 수 있어요.',
             chips: ['상세페이지 위젯 자유 편집', '노코드 수정'], scene: 'cv1',
             done: '✓ 방금 직접 고치셨어요 — 이게 전부예요',
           },
           {
-            kicker: '갈아끼우기', title: '위젯만 갈아 끼우면, 몇 번이고 새 페이지',
-            desc: '기획전·브랜드페이지·공백페이지 — 이벤트마다 처음부터 다시 만들 필요가 없어요.',
+            kicker: '갈아끼우기', title: '디자인을 클릭과 드래그로 완성해요',
+            desc: '기획전, 브랜드 페이지 모두 자유로운 레이아웃으로 구성해요.디자인 요소를 드래그해서 원하는 페이지를 조립하듯 만들어요.',
             chips: ['기획전·브랜드·공백페이지 자유 레이아웃', '디자인 요소 전체 제공'], scene: 'cv2',
             done: '✓ 테마 하나 바꿨을 뿐인데, 새 페이지죠',
           },
           {
-            kicker: '도입 혜택', title: '지금 시작하면, 아끼는 돈이 보여요',
-            desc: '스킨 수정 외주비와 시간을 환산해 보세요. 초기 도입 혜택도 준비되어 있어요.',
+            kicker: '도입 혜택', title: '견적도, 요청도 없어요',
+            desc: '누군가에게 맡기고 기다리던 시간이 사라져요. 쇼핑몰 운영에 더 집중할 시간이에요.',
             chips: ['초기 도입 혜택', '디자인 리소스 절감'], scene: 'cv3',
             done: '✓ 자유로움의 가치, 금액으로 확인했어요',
           },
@@ -10739,7 +11086,7 @@
       },
     };
 
-    const RECO_ORDER = ['upsell', 'push', 'canvas'];   // 추천 노출 순서
+    const RECO_ORDER = ['canvas', 'push', 'upsell'];   // 추천 노출 순서
     const KEYS = [ENTRY, ...RECO_ORDER];
 
     /* ═══════════════════════════════════════════════
@@ -10892,7 +11239,6 @@
         <div class="pw-head">
           <div class="pw-headtx">
             <span class="pw-eyebrow">이 많은 전환 장치, <b>알파푸시 하나로</b> 다 써요</span>
-            <span class="pw-count">12종 이상의 각 장치가 알아서 따로 작동해요</span>
           </div>
           <div class="ps-cta">
             <button class="cl-start" data-act><span class="cl-lb">전환 장치 작동 보기</span></button>
@@ -11015,19 +11361,40 @@
           <div class="pwc c6">
             <div class="pwc-h"><span class="pwc-nm">장바구니 리마인드</span><span class="pwc-live"><i></i>작동 중</span></div>
             <div class="pwc-ex">
-              <div class="pw-prod"><img src="assets/insta/f7.png" alt=""><span class="pp-nm">담아둔 여름 원피스</span><span class="pp-pr">39,800원</span></div>
-              <div class="pw-talk"><div class="ptk"><span class="ptk-tag">알림톡</span>장바구니에 두고 가셨어요 🛒<br>지금 구매 시 쿠폰 드려요</div></div>
+              <div class="cr">
+                <div class="cr-sender">(광고) @카리스앤바니스</div>
+                <div class="cr-card">
+                  <div class="cr-img"><img src="assets/push/fashion-girl1.png" alt=""><span class="cr-cart">🛒 장바구니 보관 중</span></div>
+                  <div class="cr-body">
+                    <p class="cr-msg"><b>알파</b>님이 골라두신 <b>그레이 니트 베스트</b> 🛍<br>지금 주문하면 더 빨리 만나요! 🚚</p>
+                    <button class="cr-btn"><span class="l0">상품 바로가기</span><span class="l1">✓ 주문 완료!</span></button>
+                  </div>
+                </div>
+                <span class="cr-cursor"></span>
+              </div>
             </div>
             <div class="pwc-mt"><span class="mt-lb">장바구니 회수</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+29%</span></span></div>
           </div>
           <div class="pwc c7">
             <div class="pwc-h"><span class="pwc-nm">고객 관리 세그먼트</span><span class="pwc-live"><i></i>작동 중</span></div>
             <div class="pwc-ex">
-              <div class="pw-seg"><span class="psg"><span class="pdot" style="background:#F0A6A0"></span>미구매<span class="pv">198</span></span><span class="psg"><span class="pdot" style="background:#8FB4F2"></span>첫 구매<span class="pv">85</span></span><span class="psg"><span class="pdot" style="background:#9284EE"></span>재구매<span class="pv">4</span></span></div>
-              <div class="pw-cust"><span class="pc-av">🙂</span><span class="pc-nm">임*경 · 장바구니 이탈</span><span class="pc-tm">4일 전</span></div>
-              <div class="pw-cust more">장기 이탈 <b>+191명</b> 자동 분류</div>
+              <div class="cm">
+                <div class="cm-hd">방문 × 구매 이탈 세그먼트</div>
+                <div class="cm-map">
+                  <span class="cm-cell">0%</span><span class="cm-cell"></span><span class="cm-cell good"></span>
+                  <span class="cm-cell">12%</span><span class="cm-cell"></span><span class="cm-cell"></span>
+                  <span class="cm-cell hot">50%</span><span class="cm-cell"></span><span class="cm-cell"></span>
+                </div>
+                <div class="cm-xlab"><span>방문비활성</span><span>위험</span><span>활성</span></div>
+                <div class="cm-pop">
+                  <div class="cm-ph">🛍 캠페인 제안 · <b>미구매·방문비활성</b></div>
+                  <div class="cm-pt">방문부터 첫구매까지 유도 필요</div>
+                  <button class="cm-btn"><span class="l0">＋ 캠페인 만들기</span><span class="l1">✓ 캠페인 실행!</span></button>
+                </div>
+                <span class="cm-cursor"></span>
+              </div>
             </div>
-            <div class="pwc-mt"><span class="mt-lb">고객 분류</span><span class="mt-val"><span class="v0">대기</span><span class="v1">자동 분류</span></span></div>
+            <div class="pwc-mt"><span class="mt-lb">이탈 방어</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+34%</span></span></div>
           </div>
           <div class="pwc c8">
             <div class="pwc-h"><span class="pwc-nm">메시지 캠페인</span><span class="pwc-live"><i></i>작동 중</span></div>
