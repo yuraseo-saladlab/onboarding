@@ -5930,272 +5930,436 @@
        업셀 씬 1 — 상세페이지 실사 플로우
        담기 클릭 → AI 추천 등장 → 자동 담김 → 장바구니 1→3
     ───────────────────────────────────────────── */
-    /* 실사 디테일 — 상세페이지 브레드크럼 */
-    .up-crumb {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--ink-faint);
-      margin-bottom: 10px;
-    }
-
-    .up-crumb b {
-      color: var(--ink-dim);
-    }
-
-    .up-prod {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px 18px;
-      max-width: none;
-      background: #fff;
-      box-shadow: 0 6px 18px rgba(20, 20, 43, .05);
-    }
-
-    .up-prod .th {
-      width: 60px;
-      height: 60px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #E9F6EC, #CDEBD6);
-      display: grid;
-      place-items: center;
-      font-size: 27px;
-    }
-
-    .up-prod .nm {
-      font-size: 15.5px;
-      font-weight: 800;
-    }
-
-    .up-prod .rate {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--ink-dim);
-      margin-top: 3px;
-    }
-
-    .up-prod .rate b {
-      color: #F5A623;
-    }
-
-    .up-prod .pr {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink-dim);
-      margin-top: 3px;
-    }
-
-    .up-prod .pr .opt {
-      font-size: 12px;
-      color: var(--ink-faint);
-      margin-left: 8px;
-      padding-left: 8px;
-      border-left: 1px solid var(--line);
-    }
-
-    .up-prod>div:not(.th) {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .up-prod .sc-btn {
-      margin-left: auto;
-      flex-shrink: 0;
-    }
-
-    .up-reco {
-      margin-top: 14px;
-      border: 1.5px solid var(--c-upsell);
-      border-radius: 18px;
-      padding: 16px 18px;
-      max-width: none;
-      box-shadow: 0 14px 34px rgba(230, 44, 53, .13);
-      background: #fff;
-      opacity: 0;
-    }
-
-    .sc.on .up-reco {
-      animation: lfPop .5s cubic-bezier(.2, 1.4, .4, 1) .15s both;
-    }
-
-    .up-reco .ur-head {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13.5px;
-      font-weight: 800;
-      color: var(--c-upsell);
-      margin-bottom: 12px;
-    }
-
-    .up-reco .ur-head .ur-cnt {
-      margin-left: auto;
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--ink-faint);
-      white-space: nowrap;
-    }
-
-    .up-reco .ur-head .aitag {
-      background: linear-gradient(135deg, #FF6B61, var(--c-upsell));
-      color: #fff;
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 100px;
-    }
-
-    .ur-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      opacity: 0;
-    }
-
-    .ur-item+.ur-item {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed var(--line-soft);
-    }
-
-    .sc.on .ur-item.u1 {
-      animation: lfIn .4s ease .55s both;
-    }
-
-    .sc.on .ur-item.u2 {
-      animation: lfIn .4s ease .85s both;
-    }
-
-    /* 이름·가격 영역이 버튼에 밀려 줄바꿈되지 않게 */
-    .ur-item>div:not(.th) {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .ur-item .th {
-      flex-shrink: 0;
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      background: #FFF0EE;
-      display: grid;
-      place-items: center;
-      font-size: 20px;
-    }
-
-    /* AI 궁합 점수 배지 */
-    .ur-item .match {
-      display: inline-block;
-      font-size: 10.5px;
-      font-weight: 800;
-      color: var(--c-upsell);
-      background: #FFF0F0;
-      border: 1px solid #FFD9D6;
-      border-radius: 100px;
-      padding: 2px 8px;
-      margin-left: 6px;
-      vertical-align: 1px;
-      white-space: nowrap;
-    }
-
-    .ur-item .pr {
-      font-size: 12.5px;
-      color: var(--ink-dim);
-      font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .ur-item .pr b {
-      color: var(--c-upsell);
-    }
-
-    .ur-item .mini-add {
-      margin-left: auto;
-      flex-shrink: 0;
-      white-space: nowrap;
-      position: relative;
-      font-size: 12.5px;
-      font-weight: 800;
-      color: #fff;
-      background: var(--c-upsell);
-      border: none;
-      border-radius: 100px;
-      padding: 9px 15px;
+    /* 업셀 씬 1 — 옵션 세트 추천 위젯 (원클릭 담기 → 장바구니 성장) */
+    .sc.up1s {
+      padding: 20px 26px 22px;
+      justify-content: flex-start;
       overflow: hidden;
     }
 
-    .mini-add .t2 {
+    .up1s .cl-start { margin: 0; }
+
+    .up1s .cmp-replay {
+      left: auto;
+      right: 26px;
+      top: 20px;
+      bottom: auto;
+      margin: 0;
+      width: max-content;
+      height: 40px;
+      padding: 0 20px;
+      gap: 6px;
+      font-size: 13.5px;
+    }
+
+    .os {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      align-items: stretch;
+    }
+
+    .os-left {
+      flex: 1 1 290px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .os-right {
+      flex: 1.3 1 380px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
+    }
+
+    /* 메인 상품 */
+    .os-prod {
+      display: flex;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      padding: 14px;
+      box-shadow: 0 6px 16px rgba(20, 20, 43, .05);
+    }
+
+    .os-prod img {
+      flex: 0 0 auto;
+      width: 88px;
+      height: 88px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .os-pi {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .os-gift {
+      align-self: flex-start;
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--dc);
+      border-radius: 6px;
+      padding: 2px 8px;
+    }
+
+    .os-pnm {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .os-price {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+    }
+
+    .os-price em {
+      font-style: normal;
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--dc);
+    }
+
+    .os-price s {
+      font-size: 12px;
+      color: var(--ink-faint);
+    }
+
+    .os-price b {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -.02em;
+    }
+
+    /* 장바구니 담은 상품 리스트 */
+    .os-cbh {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink-dim);
+      margin-top: 2px;
+    }
+
+    .os-items {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .os-it {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 10px;
+      margin-bottom: 6px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .os-it:last-child {
+      margin-bottom: 0;
+    }
+
+    .os-it img {
+      flex: 0 0 auto;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .os-it .in {
+      flex: 1;
+      min-width: 0;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .os-it .ip {
+      flex: 0 0 auto;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .os-it.new {
+      border-color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 5%, #fff);
+      opacity: 0;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      border-width: 0;
+      margin-bottom: 0;
+      overflow: hidden;
+    }
+
+    .sc.on .os-it.new {
+      animation: osNew .5s cubic-bezier(.2, 1.3, .4, 1) 1.7s forwards;
+    }
+
+    @keyframes osNew {
+      0% { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; border-width: 0; margin-bottom: 0; }
+      100% { opacity: 1; max-height: 52px; padding-top: 7px; padding-bottom: 7px; border-width: 1px; margin-bottom: 6px; }
+    }
+
+    /* 장바구니 요약 */
+    .os-cart {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #FBFAFA, #fff);
+      padding: 13px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .os-crow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .os-crow .lb {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink-dim);
+    }
+
+    .os-crow .v {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .os-crow.amt .v {
+      font-size: 19px;
+      color: var(--dc);
+      letter-spacing: -.02em;
+    }
+
+    .os-cbtn {
+      margin-top: 1px;
+      width: 100%;
+      padding: 11px;
+      border: none;
+      border-radius: 11px;
+      background: var(--dc);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    /* 함께 구매하면 좋은 옵션 위젯 */
+    .os-wh {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .os-wh .n {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 10%, #fff);
+      border-radius: 100px;
+      padding: 3px 9px;
+    }
+
+    .os-set {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 11px 12px;
+      box-shadow: 0 4px 12px rgba(20, 20, 43, .04);
+    }
+
+    .os-set.best {
+      border: 1.5px solid var(--dc);
+      box-shadow: 0 8px 20px rgba(230, 44, 53, .1);
+    }
+
+    .os-best-badge {
+      position: absolute;
+      top: -10px;
+      left: 14px;
+      font-size: 10.5px;
+      font-weight: 900;
+      color: #fff;
+      background: var(--dc);
+      border-radius: 100px;
+      padding: 3px 10px;
+      box-shadow: 0 4px 10px rgba(230, 44, 53, .3);
+    }
+
+    .os-set img {
+      flex: 0 0 auto;
+      width: 54px;
+      height: 54px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .os-sc {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .os-snm {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .os-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .os-chip {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      background: var(--line-soft);
+      border-radius: 6px;
+      padding: 3px 8px;
+    }
+
+    .os-sp {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 7px;
+    }
+
+    .os-sp .p {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -.02em;
+    }
+
+    .os-add {
+      position: relative;
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: none;
+      background: var(--dc);
+      color: #fff;
+      font-size: 19px;
+      font-weight: 800;
+      overflow: hidden;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .os-add .t2 {
       position: absolute;
       inset: 0;
       display: grid;
       place-items: center;
-      background: #0CA678;
+      font-size: 16px;
+      background: #16162A;
       opacity: 0;
     }
 
-    /* AI가 자동으로 담아주는 순간 */
-    .sc.on .u1 .mini-add .t2 {
-      animation: lfIn .3s ease 1.3s both;
+    .os-cursor {
+      position: absolute;
+      z-index: 6;
+      right: 4px;
+      bottom: 2px;
+      width: 26px;
+      height: 26px;
+      background: var(--cursor-svg) center / contain no-repeat;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .3));
+      opacity: 0;
+      pointer-events: none;
     }
 
-    .sc.on .u2 .mini-add .t2 {
-      animation: lfIn .3s ease 1.75s both;
-    }
-
-    .cart-badge {
+    /* 담김 완료 토스트 */
+    .os-done {
+      align-self: center;
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      margin-top: 16px;
-      font-size: 14px;
+      gap: 8px;
+      margin-top: 2px;
+      font-size: 13.5px;
       font-weight: 800;
-      color: var(--c-upsell);
-      background: #FFF0F0;
-      border: 1px solid #FFD9D6;
+      color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 8%, #fff);
+      border: 1px solid color-mix(in srgb, var(--dc) 24%, #fff);
       border-radius: 100px;
-      padding: 11px 18px;
+      padding: 9px 16px;
       opacity: 0;
     }
 
-    .sc.on .cart-badge {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 1.1s both;
+    /* 시퀀스: 커서가 BEST + 탭 → 담김 → 장바구니 수·금액 상승 → 완료 토스트 */
+    .sc.on .os-cursor {
+      animation: osTap 1.5s ease .7s forwards;
     }
 
-    .cart-badge .cnt {
-      font-size: 16px;
+    .sc.on .os-set.best .os-add .t1 {
+      animation: ocOut .2s ease 1.3s forwards;
     }
 
-    /* 모든 퍼널에서 추천 */
-    .up-funnel {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 14px;
-      font-size: 12.5px;
-      font-weight: 800;
-      color: var(--ink-dim);
-      opacity: 0;
+    .sc.on .os-set.best .os-add .t2 {
+      animation: ocIn .3s ease 1.4s forwards;
     }
 
-    .sc.on .up-funnel {
-      animation: lfIn .45s ease 2.4s both;
+    .sc.on .os-set.best {
+      animation: osAdded .5s cubic-bezier(.2, 1.3, .4, 1) 1.4s;
     }
 
-    .up-funnel i {
-      font-style: normal;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 100px;
-      padding: 6px 13px;
+    .sc.on .os-done {
+      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 2.2s both;
     }
 
-    .up-funnel .fa {
-      color: var(--ink-faint);
-      font-weight: 700;
+    @keyframes osTap {
+      0% { opacity: 0; transform: translate(8px, 10px) scale(1); }
+      22% { opacity: 1; transform: translate(0, 0) scale(1); }
+      44% { transform: translate(0, 0) scale(.8); }
+      60% { transform: translate(0, 0) scale(1); }
+      100% { opacity: 0; transform: translate(0, -2px) scale(1); }
+    }
+
+    @keyframes osAdded {
+      50% { transform: scale(1.03); box-shadow: 0 12px 28px rgba(230, 44, 53, .22); }
     }
 
     /* ─────────────────────────────────────────────
@@ -6234,186 +6398,358 @@
       white-space: nowrap;
     }
 
-    .abn {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    /* up2 씬 — pw-head 우측상단 액티브 CTA + fill + 다시보기 (up1과 동일 패턴) */
+    .sc.up2s {
+      padding: 20px 26px 22px;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    .up2s .cl-start { margin: 0; }
+
+    .up2s .cmp-replay {
+      left: auto;
+      right: 26px;
+      top: 20px;
+      bottom: auto;
+      margin: 0;
+      width: max-content;
+      height: 40px;
+      padding: 0 20px;
+      gap: 6px;
+      font-size: 13.5px;
+    }
+
+    .up2s .bt {
+      flex: 1 1 auto;
+      min-height: 0;
+      justify-content: space-between;
+      padding: 8px 0;
+    }
+
+    /* 밴딧 테스트 — A/B/C 가격 실험 → 트래픽 자동 재분배 → 최대 이익가 */
+    .bt {
+      display: flex;
+      flex-direction: column;
       gap: 14px;
-      max-width: none;
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
     }
 
-    .abn-card {
-      position: relative;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 15px 16px;
-      background: #fff;
-      box-shadow: 0 6px 18px rgba(20, 20, 43, .05);
+    .bt-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
     }
 
-    .abn-card .tag {
-      display: inline-block;
-      font-size: 11.5px;
-      font-weight: 800;
-      color: var(--ink-dim);
-      background: var(--line-soft);
-      border-radius: 7px;
-      padding: 3px 9px;
+    .bt-prod {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex: 1 1 240px;
+      min-width: 0;
     }
 
-    .abn-card .promo {
+    .bt-prod img {
+      width: 46px;
+      height: 46px;
+      border-radius: 11px;
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+
+    .bt-pi b {
       display: block;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -.01em;
+    }
+
+    .bt-pi span {
       font-size: 12px;
       font-weight: 700;
-      color: var(--ink-dim);
-      margin-top: 9px;
-      min-height: 18px;
+      color: var(--ink-faint);
     }
 
-    .abn-card .prc {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -.02em;
-      margin-top: 4px;
+    .bt-ai {
+      flex: 1 1 300px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--dc) 6%, #fff);
+      border: 1px solid color-mix(in srgb, var(--dc) 22%, #fff);
     }
 
-    .abn-card .prc .old {
+    .bt-ai-ic {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--dc);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+    }
+
+    .bt-at {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .bt-at b {
+      display: block;
       font-size: 12.5px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .bt-at span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-faint);
+    }
+
+    .bt-toggle {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 23px;
+      border-radius: 100px;
+      background: var(--dc);
+      position: relative;
+    }
+
+    .bt-toggle::after {
+      content: '';
+      position: absolute;
+      top: 2.5px;
+      right: 2.5px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .22);
+    }
+
+    /* A/B/C 가격 그룹 */
+    .bt-groups {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .bt-g {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 13px 14px;
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(20, 20, 43, .05);
+    }
+
+    .bt-g .gh {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bt-g .gt {
+      flex: 0 0 auto;
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .bt-g.a .gt { background: #94A0B8; }
+    .bt-g.b .gt { background: var(--dc); }
+    .bt-g.c .gt { background: #6E93D6; }
+
+    .bt-g .gd {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--ink-dim);
+    }
+
+    .bt-g .gprc {
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -.02em;
+      margin: 9px 0 3px;
+    }
+
+    .bt-g .gprc s {
+      font-size: 12px;
       font-weight: 600;
       color: var(--ink-faint);
-      text-decoration: line-through;
       margin-right: 5px;
     }
 
-    .abn-card.c .prc {
-      color: var(--c-upsell);
-    }
-
-    .abn-card .vis {
-      font-size: 11px;
-      font-weight: 600;
+    .bt-g .gcv {
+      font-size: 12px;
+      font-weight: 700;
       color: var(--ink-faint);
-      margin-top: 6px;
-      opacity: 0;
     }
 
-    /* 노출·구매 수치는 전환율과 같은 타이밍에 등장 */
-    .sc.on .abn-card.a .vis {
-      animation: lfIn .3s ease 1.15s both;
+    .bt-g.b .gcv {
+      color: var(--dc);
     }
 
-    .sc.on .abn-card.b .vis {
-      animation: lfIn .3s ease 1.4s both;
-    }
-
-    .sc.on .abn-card.c .vis {
-      animation: lfIn .3s ease 1.75s both;
-    }
-
-    .ab-track {
-      height: 9px;
-      border-radius: 100px;
-      background: var(--line-soft);
-      overflow: hidden;
-      margin-top: 12px;
-    }
-
-    .ab-fill {
-      display: block;
-      height: 100%;
-      width: 0;
-      border-radius: 100px;
-      background: linear-gradient(90deg, #FFB199, #FF8A80);
-    }
-
-    .abn-card.c .ab-fill {
-      background: linear-gradient(90deg, #FF8A80, var(--c-upsell));
-    }
-
-    .sc.on .abn-card.a .ab-fill {
-      animation: abFill .9s cubic-bezier(.2, .8, .2, 1) .3s both;
-    }
-
-    .sc.on .abn-card.b .ab-fill {
-      animation: abFill .9s cubic-bezier(.2, .8, .2, 1) .55s both;
-    }
-
-    .sc.on .abn-card.c .ab-fill {
-      animation: abFill 1s cubic-bezier(.2, .8, .2, 1) .8s both;
-    }
-
-    @keyframes abFill {
-      to {
-        width: var(--w);
-      }
-    }
-
-    .abn-card .cv {
-      font-size: 12.5px;
-      font-weight: 800;
-      color: var(--ink-dim);
-      margin-top: 8px;
-      opacity: 0;
-    }
-
-    .sc.on .abn-card.a .cv {
-      animation: lfIn .3s ease 1.1s both;
-    }
-
-    .sc.on .abn-card.b .cv {
-      animation: lfIn .3s ease 1.35s both;
-    }
-
-    .sc.on .abn-card.c .cv {
-      animation: lfIn .3s ease 1.7s both;
-    }
-
-    /* 승자 카드 — 최대 이익 조합 */
-    .sc.on .abn-card.c {
-      animation: abnWin .45s ease 2s forwards;
-    }
-
-    @keyframes abnWin {
-      to {
-        border-color: var(--c-upsell);
-        box-shadow: 0 0 0 2.5px var(--c-upsell), 0 16px 34px rgba(230, 44, 53, .18);
-      }
-    }
-
-    .abn-card .win {
+    /* 승자 배지 + 카드 강조 (실행 후 등장) */
+    .bt-g .gwin {
       position: absolute;
-      top: -12px;
-      right: 10px;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%) scale(.4);
       font-size: 11px;
       font-weight: 800;
       color: #fff;
-      background: linear-gradient(135deg, #FF6B61, var(--c-upsell));
+      background: var(--dc);
       border-radius: 100px;
       padding: 4px 11px;
+      white-space: nowrap;
       box-shadow: 0 5px 14px rgba(230, 44, 53, .32);
       opacity: 0;
     }
 
-    .sc.on .abn-card .win {
-      animation: aiStamp .35s cubic-bezier(.2, 1.6, .4, 1) 2.15s both;
+    .sc.on .bt-g.b .gwin {
+      animation: btWin .4s cubic-bezier(.2, 1.6, .4, 1) 1.7s forwards;
     }
 
-    .abn-foot {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin-top: 16px;
-      font-size: 13.5px;
+    .sc.on .bt-g.b {
+      animation: btWinCard .5s ease 1.7s forwards;
+    }
+
+    @keyframes btWin {
+      to { opacity: 1; transform: translateX(-50%) scale(1); }
+    }
+
+    @keyframes btWinCard {
+      to {
+        border-color: var(--dc);
+        box-shadow: 0 0 0 2px var(--dc), 0 14px 30px rgba(230, 44, 53, .16);
+      }
+    }
+
+    /* 트래픽 자동 재분배 */
+    .bt-tf-h {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+
+    .bt-tf-h > span:first-child {
+      font-size: 12.5px;
       font-weight: 800;
-      color: var(--c-upsell);
-      background: #FFF0F0;
-      border: 1px solid #FFD9D6;
-      border-radius: 100px;
-      padding: 11px 18px;
+      color: var(--ink-dim);
+    }
+
+    .bt-tf-note {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--ink-faint);
+    }
+
+    .bt-traffic {
+      display: flex;
+      gap: 2px;
+      height: 30px;
+      border-radius: 9px;
+      overflow: hidden;
+    }
+
+    .bt-seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #fff;
+      width: 33.33%;
+    }
+
+    .bt-seg b {
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .bt-seg .pct {
+      font-size: 11px;
+      font-weight: 800;
       opacity: 0;
     }
 
-    .sc.on .abn-foot {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 2.5s both;
+    .sc.on .bt-seg .pct {
+      animation: btFade .3s ease 2.1s forwards;
+    }
+
+    @keyframes btFade {
+      to { opacity: 1; }
+    }
+
+    .bt-seg.a { background: #94A0B8; }
+    .bt-seg.b { background: var(--dc); }
+    .bt-seg.c { background: #6E93D6; }
+
+    .sc.on .bt-seg.a { animation: btSegA 1.5s cubic-bezier(.4, 0, .2, 1) .6s forwards; }
+    .sc.on .bt-seg.b { animation: btSegB 1.5s cubic-bezier(.4, 0, .2, 1) .6s forwards; }
+    .sc.on .bt-seg.c { animation: btSegC 1.5s cubic-bezier(.4, 0, .2, 1) .6s forwards; }
+
+    @keyframes btSegA { to { width: 13%; } }
+    @keyframes btSegB { to { width: 74%; } }
+    @keyframes btSegC { to { width: 13%; } }
+
+    /* 결과 KPI */
+    .bt-kpi {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .bt-k {
+      flex: 1 1 160px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px 14px;
+      background: var(--line-soft);
+    }
+
+    .bt-k span {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--ink-faint);
+      margin-bottom: 3px;
+    }
+
+    .bt-k b {
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--dc);
+      letter-spacing: -.02em;
+      opacity: 0;
+    }
+
+    .sc.on .bt-kpi .bt-k:nth-child(1) b { animation: btPop .4s cubic-bezier(.2, 1.5, .4, 1) 1.9s forwards; }
+    .sc.on .bt-kpi .bt-k:nth-child(2) b { animation: btPop .4s cubic-bezier(.2, 1.5, .4, 1) 2.1s forwards; }
+    .sc.on .bt-kpi .bt-k:nth-child(3) b { animation: btPop .4s cubic-bezier(.2, 1.5, .4, 1) 2.3s forwards; }
+
+    @keyframes btPop {
+      0% { opacity: 0; transform: translateY(6px) scale(.9); }
+      100% { opacity: 1; transform: none; }
     }
 
     /* ─────────────────────────────────────────────
@@ -10417,10 +10753,10 @@
 
     /* 시퀀스: 첫 프레임엔 기본막대(39,900)·기능·우리막대 보임 → 체크마다 타사 막대·숫자 상승 */
     .sc.on .pt-bar.o {
-      animation: barGrow 2.5s cubic-bezier(.34, 1.2, .4, 1) 1.6s forwards;
+      animation: pcBarGrow 2.5s cubic-bezier(.34, 1.2, .4, 1) 1.6s forwards;
     }
 
-    @keyframes barGrow {
+    @keyframes pcBarGrow {
       0%, 16% { height: 12%; }
       22%, 38% { height: 26%; }
       44%, 60% { height: 45%; }
@@ -11164,22 +11500,9 @@
       gap: 6px;
     }
 
-    .cvb-play {
-      border: none;
-      border-radius: 12px;
-      background: #00B7A8;
-      color: #fff;
-      font-size: 13.5px;
-      font-weight: 800;
-      height: 42px;
-      margin-bottom: 8px;
-      transition: .18s;
-      animation: scBtnPulse 1.8s ease infinite;
-    }
-
+    /* 조립 버튼 — 비주얼은 cl-start(푸시 CTA 스타일)가 담당 */
     .cvb-play:disabled {
       animation: none;
-      opacity: .8;
       pointer-events: none;
     }
 
@@ -11407,11 +11730,18 @@
       flex: 1;
       display: flex;
       flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      background: #F7F4F2;
+      transition: background .45s;
     }
 
-    /* 히어로·상품 슬롯이 남는 세로 공간을 흡수 */
-    .cvb-slot[data-s="hero"],
-    .cvb-slot[data-s="prods"] {
+    .sc[data-theme="b"] .cvb-canvas {
+      background: #0E0E16;
+    }
+
+    /* 히어로 슬롯이 남는 세로 공간을 흡수 */
+    .cvb-slot[data-s="hero"] {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -11425,15 +11755,18 @@
       justify-content: center;
     }
 
-    .cvb-slot[data-s="hero"].set .cvb-fill,
-    .cvb-slot[data-s="prods"].set .cvb-fill {
+    .cvb-slot[data-s="prods"] .cvb-empty {
+      flex: none;
+      min-height: 72px;
+    }
+
+    .cvb-slot[data-s="hero"].set .cvb-fill {
       flex: 1;
       display: flex;
       flex-direction: column;
     }
 
-    .cvb-slot[data-s="hero"].set .cvb-hero,
-    .cvb-slot[data-s="prods"].set .cvb-prods {
+    .cvb-slot[data-s="hero"].set .mz-hero {
       flex: 1;
     }
 
@@ -11452,7 +11785,7 @@
     }
 
     .cvb-empty {
-      margin: 8px 12px;
+      margin: 0;
       border: 1.5px dashed var(--line);
       border-radius: 11px;
       padding: 15px;
@@ -11467,251 +11800,607 @@
       display: none;
     }
 
-    /* 히어로 배너 — 실제 이미지 + 카피 */
-    .cvb-hero {
+    /* ══ MAISON 랜딩 (Figma 759-14638 이식) — 히어로 ══ */
+    .mz-hero {
       position: relative;
-      min-height: clamp(128px, 18vh, 220px);
-      background: linear-gradient(100deg, rgba(21, 24, 40, .56), rgba(21, 24, 40, .1) 65%), url('assets/canvas/hero.png') center/cover;
+      min-height: clamp(120px, 17vh, 200px);
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(90deg, rgba(74, 92, 52, .66), rgba(74, 92, 52, .24) 55%, rgba(74, 92, 52, .06)), url('assets/maison/maison-hero.png') center/cover;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 20px 22px;
+      padding: 18px 22px;
       color: #fff;
-      text-shadow: 0 1px 10px rgba(10, 12, 24, .4);
+      text-shadow: 0 1px 8px rgba(20, 26, 12, .3);
     }
 
-    .sc[data-theme="b"] .cvb-hero {
-      background: linear-gradient(100deg, rgba(8, 8, 16, .84), rgba(8, 8, 16, .48)), url('assets/canvas/hero.png') center/cover;
+    .sc[data-theme="b"] .mz-hero {
+      background: linear-gradient(90deg, rgba(8, 8, 16, .84), rgba(8, 8, 16, .48)), url('assets/maison/maison-hero.png') center/cover;
     }
 
-    .cvb-hero em {
+    .mz-hero em {
       font-style: normal;
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: .26em;
-      opacity: .85;
+      letter-spacing: .24em;
+      color: #BEFF74;
     }
 
-    .cvb-hero b {
+    .mz-hero b {
       display: block;
-      font-size: 19px;
-      font-weight: 900;
+      font-size: 20px;
+      font-weight: 800;
       letter-spacing: -0.02em;
-      margin-top: 5px;
+      margin-top: 6px;
     }
 
-    .cvb-hero .hcopy-b {
+    .mz-hero u {
+      display: block;
+      text-decoration: none;
+      font-size: 12px;
+      margin-top: 4px;
+      color: rgba(255, 255, 255, .85);
+    }
+
+    .mz-hero s {
+      display: inline-flex;
+      width: max-content;
+      text-decoration: none;
+      margin-top: 12px;
+      background: #fff;
+      color: #426C11;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-shadow: none;
+    }
+
+    .mz-hero .hcopy-b {
       display: none;
+    }
+
+    .mz-hero .hcopy-b em {
       color: #FFD54F;
     }
 
-    .sc[data-theme="b"] .cvb-hero .hcopy-a {
+    .mz-hero .hcopy-b s {
+      background: #FFD54F;
+      color: #17181D;
+    }
+
+    .sc[data-theme="b"] .mz-hero .hcopy-a {
       display: none;
     }
 
-    .sc[data-theme="b"] .cvb-hero .hcopy-b {
+    .sc[data-theme="b"] .mz-hero .hcopy-b {
       display: block;
       animation: cvDrop .5s cubic-bezier(.2, 1.4, .4, 1) both;
     }
 
-    /* 전환 위젯 — 쿠폰 · 타임세일 · 리뷰 스트립 */
-    .cvb-coupon {
+    /* MAISON — 쿠폰 배너 */
+    .mz-coupon {
       display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 10px 16px;
-      background: #E9FBF9;
-      color: #00695E;
-      font-size: 12px;
-      font-weight: 800;
-      transition: .45s;
-    }
-
-    .cvb-coupon u {
-      text-decoration: none;
-      margin-left: auto;
-      background: #00B7A8;
-      color: #fff;
-      border-radius: 100px;
-      padding: 4px 12px;
-      font-size: 11px;
-    }
-
-    .sc[data-theme="b"] .cvb-coupon {
-      background: #1A1A2C;
-      color: #FFD54F;
-    }
-
-    .sc[data-theme="b"] .cvb-coupon u {
-      background: #FFD54F;
-      color: #17181D;
-    }
-
-    .cvb-timer {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 9px;
-      background: #FFF6D6;
-      color: #8C6D00;
-      font-size: 12px;
-      font-weight: 800;
-      transition: .45s;
-    }
-
-    .cvb-timer b {
-      font-variant-numeric: tabular-nums;
-    }
-
-    .sc[data-theme="b"] .cvb-timer {
-      background: #17181D;
-      color: #FFD54F;
-    }
-
-    .cvb-review {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 10px 14px;
-      border: 1px solid #FFE082;
-      background: #FFFDF2;
-      border-radius: 11px;
-      padding: 9px 13px;
-      font-size: 11.5px;
-      font-weight: 800;
-      transition: .45s;
-    }
-
-    .cvb-review em {
-      font-style: normal;
-      font-weight: 600;
-      color: var(--ink-dim);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .sc[data-theme="b"] .cvb-review {
-      background: #1A1A2C;
-      border-color: #3A3A55;
-      color: #FFD54F;
-    }
-
-    .sc[data-theme="b"] .cvb-review em {
-      color: #B9B9CE;
-    }
-
-    /* 상품 컬렉션 — 실제 상품 4종 */
-    .cvb-prods {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
-      padding: 14px 16px;
-    }
-
-    .cvb-prod {
-      position: relative;
-      min-width: 0;
-      text-align: left;
-    }
-
-    .cvb-prod i {
-      display: block;
-      height: clamp(90px, 12vh, 160px);
+      padding: 10px 14px;
       border-radius: 10px;
-      background-size: cover;
-      background-position: center top;
-      margin-bottom: 7px;
-    }
-
-    .cvb-prod .off {
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      font-size: 9.5px;
-      font-weight: 900;
-      background: #E62C35;
-      color: #fff;
-      border-radius: 6px;
-      padding: 2px 6px;
+      background: #AAC493;
+      color: #354F1E;
+      font-size: 12px;
       transition: .45s;
     }
 
-    .sc[data-theme="b"] .cvb-prod .off {
+    .mz-coupon i {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: #354F1E;
+      color: #fff;
+      font-style: normal;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+      transition: .45s;
+    }
+
+    .mz-coupon b {
+      font-weight: 800;
+    }
+
+    .mz-coupon span {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 600;
+      opacity: .75;
+      white-space: nowrap;
+    }
+
+    .sc[data-theme="b"] .mz-coupon {
+      background: #1A1A2C;
+      color: #FFD54F;
+    }
+
+    .sc[data-theme="b"] .mz-coupon i {
       background: #FFD54F;
       color: #17181D;
     }
 
-    .cvb-prod b {
-      display: block;
-      font-size: 11px;
+    /* MAISON — 헤더 */
+    .mz-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #fff;
+      border-radius: 12px;
+      transition: .45s;
+    }
+
+    .mz-logo {
+      font-size: 15px;
       font-weight: 800;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      letter-spacing: .4em;
+      color: #2B2422;
       transition: color .45s;
     }
 
-    .cvb-prod em {
-      display: block;
+    .mz-nav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 12px;
+      color: #6B5F58;
+      transition: color .45s;
+    }
+
+    .mz-nav em {
       font-style: normal;
-      font-size: 11px;
-      font-weight: 800;
-      margin-top: 2px;
-      transition: color .45s;
     }
 
-    .cvb-prod em s {
-      color: var(--ink-faint);
-      font-weight: 600;
-      font-size: 10px;
-      margin-right: 3px;
+    .mz-nav i {
+      font-style: normal;
+      font-size: 14px;
     }
 
-    .sc[data-theme="b"] .cvb-prod b,
-    .sc[data-theme="b"] .cvb-prod em {
+    .sc[data-theme="b"] .mz-head {
+      background: #16161F;
+    }
+
+    .sc[data-theme="b"] .mz-logo {
       color: #EDEDF4;
     }
 
-    .sc[data-theme="b"] .cvb-prod em s {
-      color: #6E6E8A;
-    }
-
-    /* 헤더 · 푸터 다크 테마 */
-    .sc[data-theme="b"] .cvb-fill .cvp-head {
-      background: #101019;
-      border-color: #23233A;
-      color: #fff;
-    }
-
-    .sc[data-theme="b"] .cvb-fill .cvp-nav {
+    .sc[data-theme="b"] .mz-nav {
       color: #B9B9CE;
     }
 
-    .sc[data-theme="b"] .cvb-fill .cvp-nav em.on {
+    /* MAISON — 섹션 카드 공통 (베스트 셀러 · 베스트 리뷰) */
+    .mz-prods,
+    .mz-revs {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: background .45s;
+    }
+
+    .sc[data-theme="b"] .mz-prods,
+    .sc[data-theme="b"] .mz-revs {
+      background: #16161F;
+    }
+
+    .mz-ph {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .mz-ph > b {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #1E293B;
+      transition: color .45s;
+    }
+
+    .mz-ph > span {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(30, 41, 59, .5);
+      white-space: nowrap;
+    }
+
+    .mz-rcnt {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1E293B;
+      transition: color .45s;
+    }
+
+    .sc[data-theme="b"] .mz-ph > b,
+    .sc[data-theme="b"] .mz-rcnt {
+      color: #EDEDF4;
+    }
+
+    .sc[data-theme="b"] .mz-ph > span {
+      color: #B9B9CE;
+    }
+
+    /* MAISON — 베스트 셀러 */
+    .mz-pgrid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mz-prod {
+      min-width: 0;
+    }
+
+    .mz-prod i {
+      display: block;
+      height: clamp(80px, 11vh, 140px);
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center top;
+      margin-bottom: 8px;
+    }
+
+    .mz-prod b {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1E293B;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color .45s;
+    }
+
+    .mz-prod em {
+      display: flex;
+      gap: 6px;
+      font-style: normal;
+      margin-top: 4px;
+      font-size: 13px;
+      font-weight: 800;
+      color: #1E293B;
+      transition: color .45s;
+    }
+
+    .mz-prod em .pct {
+      color: #E62C35;
+      transition: color .45s;
+    }
+
+    .sc[data-theme="b"] .mz-prod b,
+    .sc[data-theme="b"] .mz-prod em {
+      color: #EDEDF4;
+    }
+
+    .sc[data-theme="b"] .mz-prod em .pct {
       color: #FFD54F;
-      border-color: #FFD54F;
     }
 
-    .sc[data-theme="b"] .cvb-fill .cvp-ic {
-      color: #B9B9CE;
+    /* MAISON — 베스트 리뷰 */
+    .mz-rgrid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
     }
 
-    .cvb-foot {
-      margin-top: auto;
-      padding: 12px 16px;
-      border-top: 1px solid var(--line-soft);
+    .mz-rev {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mz-rimg {
+      position: relative;
+      display: block;
+      aspect-ratio: 1 / 1;
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    .mz-rimg u {
+      position: absolute;
+      left: 6px;
+      bottom: 6px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(15, 15, 20, .55);
+      color: #fff;
+      font-size: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .mz-rimg em {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      font-style: normal;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, .5);
+    }
+
+    .mz-rstar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      min-height: 16px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: #F59E0B;
+    }
+
+    .mz-rstar span {
       font-size: 10px;
       font-weight: 600;
-      color: var(--ink-faint);
+      letter-spacing: 0;
+      color: rgba(30, 41, 59, .5);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sc[data-theme="b"] .mz-rstar span {
+      color: #B9B9CE;
+    }
+
+    .mz-rev p {
+      margin: 6px 0 0;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #1E293B;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 34px;
+      transition: color .45s;
+    }
+
+    .sc[data-theme="b"] .mz-rev p {
+      color: #EDEDF4;
+    }
+
+    .mz-ruser {
       display: flex;
-      gap: 12px;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 10px;
+      color: rgba(30, 41, 59, .5);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .mz-ruser b {
+      margin-left: auto;
+      font-weight: 600;
+      font-size: 10px;
+      border: 1px solid rgba(30, 41, 59, .2);
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: rgba(30, 41, 59, .6);
+      flex: none;
+    }
+
+    .sc[data-theme="b"] .mz-ruser {
+      color: #B9B9CE;
+    }
+
+    .sc[data-theme="b"] .mz-ruser b {
+      border-color: #3A3A55;
+      color: #B9B9CE;
+    }
+
+    .mz-rprod {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(30, 41, 59, .08);
+      min-width: 0;
+      transition: border-color .45s;
+    }
+
+    .sc[data-theme="b"] .mz-rprod {
+      border-color: #23233A;
+    }
+
+    .mz-rprod > i {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      flex: none;
+    }
+
+    .mz-rprod > i.t1 { background: radial-gradient(circle at 30% 30%, #B8A6F2, #6D58F2 72%); }
+    .mz-rprod > i.t2 { background: radial-gradient(circle at 30% 30%, #A6C4F2, #5871F2 72%); }
+    .mz-rprod > i.t3 { background: radial-gradient(circle at 30% 30%, #D0A6F2, #8A58F2 72%); }
+    .mz-rprod > i.t4 { background: radial-gradient(circle at 30% 30%, #A6E0F2, #588AF2 72%); }
+    .mz-rprod > i.t5 { background: radial-gradient(circle at 30% 30%, #C4A6F2, #7458F2 72%); }
+
+    .mz-rprod > span {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .mz-rprod > span b {
+      font-size: 11px;
+      font-weight: 700;
+      color: #1E293B;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color .45s;
+    }
+
+    .mz-rprod > span em {
+      font-style: normal;
+      font-size: 10px;
+      color: rgba(30, 41, 59, .5);
+    }
+
+    .mz-rprod > span u {
+      text-decoration: none;
+      font-size: 10px;
+      color: rgba(30, 41, 59, .6);
+    }
+
+    .mz-rprod > span u i {
+      font-style: normal;
+      color: #F59E0B;
+    }
+
+    .mz-rprod > span u b {
+      font-size: 10px;
+      color: #1E293B;
+    }
+
+    .sc[data-theme="b"] .mz-rprod > span b,
+    .sc[data-theme="b"] .mz-rprod > span u b {
+      color: #EDEDF4;
+    }
+
+    .sc[data-theme="b"] .mz-rprod > span em,
+    .sc[data-theme="b"] .mz-rprod > span u {
+      color: #B9B9CE;
+    }
+
+    /* MAISON — 리뷰 페이지네이션 */
+    .mz-page {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(30, 41, 59, .08);
+      font-size: 12px;
+      transition: border-color .45s;
+    }
+
+    .sc[data-theme="b"] .mz-page {
+      border-color: #23233A;
+    }
+
+    .mz-pol {
+      color: rgba(30, 41, 59, .5);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .mz-nums {
+      display: flex;
+      gap: 4px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .mz-nums i {
+      width: 24px;
+      height: 24px;
+      border: 1px solid rgba(30, 41, 59, .2);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: normal;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1E293B;
       transition: .45s;
     }
 
-    .sc[data-theme="b"] .cvb-foot {
-      border-color: #23233A;
-      color: #6E6E8A;
+    .mz-nums i.on {
+      background: #1E293B;
+      border-color: #1E293B;
+      color: #fff;
+    }
+
+    .mz-write {
+      color: #3B82F6;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .sc[data-theme="b"] .mz-pol {
+      color: #B9B9CE;
+    }
+
+    .sc[data-theme="b"] .mz-nums i {
+      border-color: #3A3A55;
+      color: #B9B9CE;
+    }
+
+    .sc[data-theme="b"] .mz-nums i.on {
+      background: #FFD54F;
+      border-color: #FFD54F;
+      color: #17181D;
+    }
+
+    /* MAISON — 푸터 */
+    .mz-foot {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: background .45s;
+    }
+
+    .mz-foot > b {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .4em;
+      text-indent: .4em;
+      color: #2B2422;
+      transition: color .45s;
+    }
+
+    .mz-foot > span {
+      display: flex;
+      gap: 14px;
+      font-size: 10px;
+      color: rgba(30, 41, 59, .5);
+    }
+
+    .mz-foot em {
+      font-style: normal;
+    }
+
+    .sc[data-theme="b"] .mz-foot {
+      background: #16161F;
+    }
+
+    .sc[data-theme="b"] .mz-foot > b {
+      color: #EDEDF4;
+    }
+
+    .sc[data-theme="b"] .mz-foot > span {
+      color: #B9B9CE;
     }
 
     /* 실시간 구매 알림 — 떠 있는 토스트 */
@@ -11736,7 +12425,7 @@
       width: 26px;
       height: 26px;
       border-radius: 7px;
-      background: url('assets/canvas/p1.png') center top/cover;
+      background: url('assets/maison/maison-prod1.png') center top/cover;
       flex: none;
     }
 
@@ -11822,7 +12511,8 @@
         grid-column: 1 / -1;
       }
 
-      .cvb-prods {
+      .mz-pgrid,
+      .mz-rgrid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
@@ -11845,10 +12535,28 @@
     }
 
     /* 시작 CTA ↔ 다시 보기 — 푸시 씬1과 동일: 같은 자리·같은 사이즈 스왑, 캔버스 컬러 */
+    /* CTA 통일 — 씬 우측 상단, 푸시 씬1의 cl-start 인터랙티브 스타일(컬러는 --dc 솔루션 컬러) */
     .cvx-cta {
-      position: relative;
+      position: absolute;
+      top: clamp(20px, 3vh, 32px);
+      right: clamp(20px, 2.4vw, 32px);
+      z-index: 9;
       display: inline-flex;
-      align-self: flex-start;
+    }
+
+    /* CTA가 콘텐츠와 겹치지 않게 — 아이브로우 행이 CTA(40px) 높이·폭만큼 확보 */
+    .cv1-sc .sc-eyebrow,
+    .cv2-sc .sc-eyebrow,
+    .cv3-sc .sc-eyebrow {
+      margin-top: 0;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      padding-right: 260px;
+    }
+
+    .cvx-cta .cl-start {
+      margin: 0;
     }
 
     .cvx-cta .cmp-replay {
@@ -11859,26 +12567,15 @@
       margin: 0;
       padding: 0 12px;
       justify-content: center;
-      border-radius: 12px;
+      border-radius: 10px;
       font-size: 13px;
       font-weight: 800;
     }
 
-    .cvb-side .cvx-cta {
-      display: flex;
-      align-self: stretch;
-      margin-bottom: 8px;
-    }
-
-    .cvb-side .cvx-cta .cvb-play {
-      flex: 1;
-      margin-bottom: 0;
-    }
-
-    /* 작동 후: 시작 버튼이 사라지고 그 자리에 '다시 보기' 등장 */
+    /* 작동 후: 시작 버튼(✓ 시작됨)이 사라지고 같은 자리·같은 사이즈로 '다시 보기' 등장 */
     .cv2-sc.on .cvb-play,
-    .cv3-sc.on .cvx-cta .sc-btn {
-      animation: ctaSwapOut .4s ease 1.2s both;
+    .cv3-sc.on .cvx-cta .cl-start {
+      animation: ctaSwapOut .4s ease 1.4s both;
       pointer-events: none;
     }
 
@@ -11887,7 +12584,7 @@
       animation: none;
     }
 
-    .cv1-sc.on.s8 .cvx-cta .sc-btn {
+    .cv1-sc.on.s8 .cvx-cta .cl-start {
       animation: ctaSwapOut .4s ease both;
       pointer-events: none;
     }
@@ -12684,6 +13381,92 @@
       color: #C9C9DC;
     }
 
+    /* 무드별 개성 — 4가지가 완전히 다른 브랜드처럼 */
+    .cv3-sc .dash-grid {
+      margin-bottom: 16px;
+    }
+
+    .mood-card.m1 {
+      background: #FBFAF6;
+      border-color: #EEE8DC;
+      border-radius: 24px;
+      box-shadow: 0 8px 20px rgba(140, 120, 90, .08);
+    }
+
+    .mood-card.m1 .mc-h {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 400;
+      letter-spacing: .24em;
+      color: #7A6A50;
+    }
+
+    .mood-card.m1 .mh {
+      border-radius: 60px 60px 14px 14px;
+    }
+
+    .mood-card.m1 .mr i {
+      border-radius: 100px;
+    }
+
+    .mood-card.m1 b {
+      color: #A08C6E;
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+
+    .mood-card.m2 {
+      border: 2px solid var(--ink);
+      border-radius: 2px;
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+
+    .mood-card.m2 .mc-h {
+      letter-spacing: .3em;
+    }
+
+    .mood-card.m2 .mh,
+    .mood-card.m2 .mr i {
+      border-radius: 0;
+    }
+
+    .mood-card.m2 b {
+      color: var(--ink);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .mood-card.m3 {
+      border: 1px solid #16162A;
+      border-top: 6px solid #16162A;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .mood-card.m3 .mc-h {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+
+    .mood-card.m3 .mh,
+    .mood-card.m3 .mr i {
+      border-radius: 0;
+    }
+
+    .mood-card.m3 b {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      color: #16162A;
+    }
+
+    .mood-card.m4 {
+      border-radius: 18px;
+      box-shadow: 0 12px 28px rgba(31, 31, 48, .35);
+    }
+
     @media (max-width: 760px) {
       .cv-moods {
         grid-template-columns: repeat(2, 1fr);
@@ -12704,14 +13487,6 @@
     }
 
     /* 씬 하단 실데이터 주석 */
-    .sc-foot {
-      margin-top: auto;
-      padding-top: 16px;
-      font-size: 12.5px;
-      color: var(--ink-faint);
-      font-weight: 600;
-    }
-
     /* ─────────────────────────────────────────────
        STEP 4 — 위젯 설정 / STEP 5 — 카드 등록
     ───────────────────────────────────────────── */
@@ -13533,7 +14308,6 @@
             <div class="ms-review">📷 “책상이 넓어진 기분. 배송도 빨랐어요”</div>
           </div>
         </div>
-        <div class="sc-foot">QR 리뷰·외부 리뷰 연동으로도 같은 방식으로 쌓여요</div>
       </div>`,
 
       rv2: `<div class="sc">
@@ -13549,7 +14323,6 @@
             “불편을 드려 죄송합니다. 주문 건을 확인해 오늘 중 개별 연락드릴게요. 같은 일이 없도록 배송 프로세스를 점검하겠습니다.”
           </div>
         </div>
-        <div class="sc-foot">판단 기준이 ‘실행’에서 ‘감지’로 — 부정 리뷰도 루틴으로 처리돼요</div>
       </div>`,
 
       rv3: `<div class="sc">
@@ -13573,72 +14346,121 @@
             <div class="ww-tile" style="animation-delay:.30s"><span>＋</span>그 외 12종</div>
           </div>
         </div>
-        <div class="sc-foot">‘다 나온다’가 아니라 ‘다 있다’ — 필요한 순간 바로 켜면 돼요</div>
       </div>`,
 
-      up1: `<div class="sc">
-        <div class="sc-eyebrow">상품 상세페이지 — 구매 흐름 속 AI 추천</div>
-        <div class="up-crumb">🏠 알파몰 › 플랜테리어 › <b>미니 데스크 화분</b></div>
-        <div class="up-prod">
-          <span class="th">🪴</span>
-          <div>
-            <div class="nm">미니 데스크 화분</div>
-            <div class="rate"><b>★ 4.9</b> 리뷰 238개 · 🚚 오늘출발</div>
-            <div class="pr">12,900원<span class="opt">옵션 · 화이트 포트 / 1개</span></div>
+      up1: `<div class="sc up1s">
+        <div class="pw-head">
+          <div class="pw-headtx">
+            <span class="pw-eyebrow">고객이 <b>더 담을 상품</b>을 발견해요</span>
+            <span class="pw-count">AI 추천 옵션 세트 — 클릭 한 번에 장바구니가 커져요</span>
           </div>
-          <button class="sc-btn" data-act style="background:#E62C35">🛒 장바구니 담기</button>
-        </div>
-        <div class="up-reco">
-          <div class="ur-head"><span class="aitag">AI</span>함께 사면 좋은 것, AI가 먼저 찾았어요<span class="ur-cnt">이 조합으로 1,024명 구매</span></div>
-          <div class="ur-item u1">
-            <span class="th">💡</span>
-            <div>무드 조명 스탠드<span class="match">궁합 96%</span><div class="pr">19,800원 · <b>함께 구매 -10%</b></div></div>
-            <button class="mini-add"><span class="t1">+ 담기</span><span class="t2">✓ 담김</span></button>
-          </div>
-          <div class="ur-item u2">
-            <span class="th">🫧</span>
-            <div>세라믹 물받침 세트<span class="match">궁합 91%</span><div class="pr">9,900원 · <b>옵션세트 바로 담기</b></div></div>
-            <button class="mini-add"><span class="t1">+ 담기</span><span class="t2">✓ 담김</span></button>
+          <div class="ps-cta">
+            <button class="cl-start" data-act><span class="cl-lb">옵션 세트 담아보기</span></button>
+            <span class="cl-cursor"></span>
           </div>
         </div>
-        <span class="cart-badge">🛒 장바구니 <b class="cnt" data-from="1" data-to="3" data-delay="1250">1</b>개 — 1개 살 거, 3개 담았어요</span>
-        <div class="up-funnel"><i>상세페이지</i><span class="fa">→</span><i>장바구니</i><span class="fa">→</span><i>주문서</i><span class="fa">→</span><i>결제 완료</i><span class="fa">·</span>모든 퍼널에서 추천</div>
-        <div class="sc-foot">AI 추천 모델 9종 × 추천 위젯 12종 — 한 번 사는 거, 두 번 구매하도록</div>
+        <div class="os">
+          <div class="os-left">
+            <div class="os-prod">
+              <img src="assets/push/cosmetics1.png" alt="">
+              <div class="os-pi">
+                <span class="os-gift">GIFT · 3만원 이상 파우치 증정</span>
+                <span class="os-pnm">글로우 립틴트 2.8ml · 5컬러</span>
+                <span class="os-price"><em>30%</em><s>24,000</s><b>16,900원</b></span>
+              </div>
+            </div>
+            <div class="os-cbh">🛒 장바구니 담은 상품</div>
+            <div class="os-items">
+              <div class="os-it new"><img src="assets/push/cosmetics2.png" alt=""><span class="in">립틴트 3종 골라담기</span><span class="ip">50,700원</span></div>
+              <div class="os-it"><img src="assets/push/cosmetics3.png" alt=""><span class="in">글로우 립틴트 03 밀크로즈</span><span class="ip">12,000원</span></div>
+              <div class="os-it"><img src="assets/push/cosmetics4.png" alt=""><span class="in">글로우 립틴트 05 체리펀치</span><span class="ip">16,900원</span></div>
+              <div class="os-it"><img src="assets/push/cosmetics5.png" alt=""><span class="in">데일리 글로우 쿠션</span><span class="ip">21,600원</span></div>
+            </div>
+            <div class="os-cart">
+              <div class="os-crow"><span class="lb">🛒 장바구니</span><span class="v"><b class="cnt" data-from="3" data-to="4" data-delay="1650">3</b>개</span></div>
+              <div class="os-crow amt"><span class="lb">결제 예상 금액</span><span class="v">₩<b class="cnt" data-from="84500" data-to="135200" data-fmt="num" data-delay="1650">84,500</b></span></div>
+              <button class="os-cbtn">바로 구매</button>
+            </div>
+          </div>
+          <div class="os-right">
+            <div class="os-wh">함께 구매하면 좋은 옵션<span class="n">AI 추천</span></div>
+            <div class="os-set best">
+              <span class="os-best-badge">BEST · 이 조합 1,024명 구매</span>
+              <img src="assets/push/cosmetics2.png" alt="">
+              <div class="os-sc">
+                <span class="os-snm">립틴트 3종 골라담기</span>
+                <div class="os-chips"><span class="os-chip">03 밀크로즈</span><span class="os-chip">05 체리펀치</span><span class="os-chip">04 베리멜로우</span></div>
+              </div>
+              <div class="os-sp"><span class="p">50,700원</span><button class="os-add"><span class="t1">+</span><span class="t2">✓</span></button></div>
+              <span class="os-cursor"></span>
+            </div>
+            <div class="os-set">
+              <img src="assets/push/cosmetics3.png" alt="">
+              <div class="os-sc">
+                <span class="os-snm">립 + 하이라이터</span>
+                <div class="os-chips"><span class="os-chip">01 코랄</span><span class="os-chip">04 베리멜로우</span></div>
+              </div>
+              <div class="os-sp"><span class="p">33,800원</span><button class="os-add"><span class="t1">+</span><span class="t2">✓</span></button></div>
+            </div>
+            <div class="os-set">
+              <img src="assets/push/cosmetics4.png" alt="">
+              <div class="os-sc">
+                <span class="os-snm">치크 + 립 세트</span>
+                <div class="os-chips"><span class="os-chip">02 발레리나</span><span class="os-chip">06 피그</span></div>
+              </div>
+              <div class="os-sp"><span class="p">33,800원</span><button class="os-add"><span class="t1">+</span><span class="t2">✓</span></button></div>
+            </div>
+            <span class="os-done">✓ 클릭 한 번에 장바구니가 커졌어요</span>
+          </div>
+        </div>
+        <div class="sc-foot">AI 추천 모델 9종 · 추천 위젯 12종 — 상세·장바구니·주문서 모든 흐름에 옵션 세트 추천</div>
+        <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
-      up2: `<div class="sc">
-        <div class="sc-eyebrow">가격 A/B/N 테스트 × 프로모션 결합</div>
-        <div class="abn-meta"><span class="live"></span>실험 7일차 — 방문자 <b>12,480명</b>에게 트래픽 자동 분배 중<span class="pill">33 : 33 : 34</span></div>
-        <div class="abn">
-          <div class="abn-card a">
-            <span class="tag">A안</span>
-            <span class="promo">프로모션 없음</span>
-            <div class="prc">64,000원</div>
-            <div class="ab-track"><i class="ab-fill" style="--w:34%"></i></div>
-            <div class="cv">전환율 2.1%</div>
-            <div class="vis">노출 4,160명 · 구매 87건</div>
+      up2: `<div class="sc up2s">
+        <div class="pw-head">
+          <div class="pw-headtx">
+            <span class="pw-eyebrow">밴딧 테스트로 — <b>매출이 나는 가격 구간</b>을 자동으로 찾아요</span>
+            <span class="pw-count">A/B/N 가격 실험 + AI 트래픽 자동 배분 — 최대 이익 가격 탐색</span>
           </div>
-          <div class="abn-card b">
-            <span class="tag">B안</span>
-            <span class="promo">무료배송</span>
-            <div class="prc">59,800원</div>
-            <div class="ab-track"><i class="ab-fill" style="--w:58%"></i></div>
-            <div class="cv">전환율 3.4%</div>
-            <div class="vis">노출 4,120명 · 구매 141건</div>
-          </div>
-          <div class="abn-card c">
-            <span class="win">🏆 최대 이익</span>
-            <span class="tag">C안</span>
-            <span class="promo">-20% + 무료배송</span>
-            <div class="prc"><span class="old">64,000</span>51,200원</div>
-            <div class="ab-track"><i class="ab-fill" style="--w:88%"></i></div>
-            <div class="cv">전환율 5.8% · 마진 유지</div>
-            <div class="vis">노출 4,200명 · 구매 243건</div>
+          <div class="ps-cta">
+            <button class="cl-start" data-act><span class="cl-lb">가격 실험 시작하기</span></button>
+            <span class="cl-cursor"></span>
           </div>
         </div>
-        <button class="sc-btn" data-act style="margin-top:16px; background:#E62C35">가격 실험 시작하기</button>
-        <div><span class="abn-foot">💰 잘 팔리면서 마진도 남는 가격 — 실험이 자동으로 찾았어요</span></div>
+        <div class="bt">
+          <div class="bt-top">
+            <div class="bt-prod">
+              <img src="assets/push/cosmetics1.png" alt="">
+              <div class="bt-pi"><b>콜라겐 리프팅 아이패치</b><span>정가 54,000원 · 3개 가격 그룹 실험 중</span></div>
+            </div>
+            <div class="bt-ai">
+              <span class="bt-ai-ic">✦</span>
+              <div class="bt-at"><b>AI 밴딧 최적화</b><span>매출 잘 나는 그룹으로 트래픽 자동 배분</span></div>
+              <span class="bt-toggle"></span>
+            </div>
+          </div>
+          <div class="bt-groups">
+            <div class="bt-g a"><div class="gh"><span class="gt">A</span><span class="gd">할인 5%</span></div><div class="gprc"><s>54,000</s>51,300원</div><div class="gcv">전환율 2.1%</div></div>
+            <div class="bt-g b"><span class="gwin">🏆 매출 가장 높음</span><div class="gh"><span class="gt">B</span><span class="gd">할인 7%</span></div><div class="gprc"><s>54,000</s>50,220원</div><div class="gcv">전환율 3.4% · 마진 유지</div></div>
+            <div class="bt-g c"><div class="gh"><span class="gt">C</span><span class="gd">할인 10%</span></div><div class="gprc"><s>54,000</s>48,600원</div><div class="gcv">전환율 2.8%</div></div>
+          </div>
+          <div class="bt-tf">
+            <div class="bt-tf-h"><span>트래픽 자동 배분</span><span class="bt-tf-note">1일차 균등 33:33:33 → 승자 그룹으로 집중</span></div>
+            <div class="bt-traffic">
+              <div class="bt-seg a"><b>A</b><span class="pct">13%</span></div>
+              <div class="bt-seg b"><b>B</b><span class="pct">74%</span></div>
+              <div class="bt-seg c"><b>C</b><span class="pct">13%</span></div>
+            </div>
+          </div>
+          <div class="bt-kpi">
+            <div class="bt-k"><span>추가 매출</span><b>+38%</b></div>
+            <div class="bt-k"><span>할인 대비 매출</span><b>5.0배 ↑</b></div>
+            <div class="bt-k"><span>최대 이익가</span><b>₩50,220</b></div>
+          </div>
+        </div>
         <div class="sc-foot">프로모션 다단계 결합 + 가격 A/B/N 테스트 자동화 — 최대 이익을 만드는 조합</div>
+        <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
       up3: `<div class="sc up3">
@@ -13657,7 +14479,6 @@
           <span class="jp">📈 총 매출 점프!</span>
         </div>
         <button class="sc-btn" data-act style="margin-top:16px; background:#E62C35">이번 달 성과 집계하기</button>
-        <div class="sc-foot">함께구매 금액·건수 자동 집계 — 더 번 돈이 그대로 보여요 (수치는 예시)</div>
       </div>`,
 
       ps1: `<div class="sc ps-wall">
@@ -13943,7 +14764,6 @@
             <div class="pc-card u"><span class="pcx">알파푸시</span><b>39,900 → 39,000원</b><em>전 기능 포함 · 상품 늘어도 그대로</em></div>
           </div>
         </div>
-        <div class="sc-foot">small·medium 브랜드에 가장 실속 있는 선택 (타사 가격은 예시)</div>
         <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
@@ -13951,7 +14771,7 @@
         <div class="sc-eyebrow">상세페이지 전체가 위젯 — 가격·혜택·상세·세트·리뷰·추천까지 전부 직접</div>
         <div class="dp-ctl">
           <span class="cvx-cta">
-            <button class="sc-btn" type="button" style="background:#00B7A8">이 페이지, 직접 고쳐보기</button>
+            <button class="cl-start" type="button"><span class="cl-lb">이 페이지, 직접 고쳐보기</span></button>
             <button class="cmp-replay" type="button">↺ 처음부터 다시 보기</button>
           </span>
           <span class="cvc old">기존 — 외주 요청 → 견적 → <b>3일 대기 · 건당 5~10만 원</b></span>
@@ -14038,7 +14858,6 @@
           </div>
           <div class="dp-foot"><span>MAISON © 2026</span><span>이용약관</span><span>개인정보처리방침</span><span>고객센터 1544-0000</span></div>
         </div>
-        <div class="sc-foot">개발자 없이, 상세페이지의 모든 블록을 — 한 번 만들고 끝이 아니에요</div>
       </div>`,
 
       cv2: `<div class="sc cv2-sc">
@@ -14046,7 +14865,7 @@
         <div class="cvb">
           <div class="cvb-side">
             <div class="cvx-cta">
-              <button class="cvb-play" type="button">▶ 원클릭으로 페이지 조립</button>
+              <button class="cl-start cvb-play" type="button"><span class="cl-lb">▶ 원클릭으로 페이지 조립</span></button>
               <button class="cmp-replay" type="button">↺ 다시 보기</button>
             </div>
             <div class="cvb-stat">
@@ -14054,51 +14873,90 @@
               <div class="cvb-conv">예상 구매 전환율<b class="cvb-convval">2.4%</b></div>
             </div>
             <div class="cvb-sec">레이아웃</div>
-            <button class="cvb-item" data-w="header" type="button"><span class="ci">🧭</span><span class="ct"><b>헤더 · 메뉴</b><em>브랜드 로고 + 카테고리 GNB</em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="hero" type="button"><span class="ci">🖼️</span><span class="ct"><b>히어로 배너</b><em>메인 카피 + 시즌 이미지</em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="prods" type="button"><span class="ci">🛍️</span><span class="ct"><b>상품 컬렉션</b><em>베스트 상품 4종 자동 배치</em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="footer" type="button"><span class="ci">📄</span><span class="ct"><b>푸터</b><em>정책 · 고객센터 안내</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="header" type="button"><span class="ci">🧭</span><span class="ct"><b>헤더 · 메뉴</b><em>MAISON 로고 + NEW·BEST·SALE</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="hero" type="button"><span class="ci">🖼️</span><span class="ct"><b>히어로 배너</b><em>스프링 컬렉션 카피 + 무드 이미지</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="prods" type="button"><span class="ci">🛍️</span><span class="ct"><b>베스트 셀러</b><em>인기 상품 4종 자동 배치</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="footer" type="button"><span class="ci">📄</span><span class="ct"><b>푸터</b><em>브랜드 · 정책 · SNS 안내</em></span><span class="ck">담기</span></button>
             <div class="cvb-sec">전환 위젯 <span>담을수록 전환율이 올라요</span></div>
-            <button class="cvb-item" data-w="coupon" data-d="2.6" type="button"><span class="ci">🎟️</span><span class="ct"><b>할인 쿠폰</b><em>전환율 <b>+2.6%p</b></em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="coupon" data-d="2.6" type="button"><span class="ci">🎟️</span><span class="ct"><b>쿠폰 배너</b><em>전환율 <b>+2.6%p</b></em></span><span class="ck">담기</span></button>
             <button class="cvb-item" data-w="noti" data-d="1.9" type="button"><span class="ci">🔔</span><span class="ct"><b>실시간 구매 알림</b><em>전환율 <b>+1.9%p</b></em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="timer" data-d="2.2" type="button"><span class="ci">⏰</span><span class="ct"><b>타임 세일</b><em>전환율 <b>+2.2%p</b></em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="review" data-d="1.6" type="button"><span class="ci">⭐</span><span class="ct"><b>리뷰 별점</b><em>전환율 <b>+1.6%p</b></em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="review" data-d="3.8" type="button"><span class="ci">⭐</span><span class="ct"><b>베스트 리뷰</b><em>전환율 <b>+3.8%p</b></em></span><span class="ck">담기</span></button>
           </div>
           <div class="cvb-shop">
-            <div class="cvb-chrome"><i></i><i></i><i></i><span>alphamall.cafe24.com/promotion/summer</span></div>
+            <div class="cvb-chrome"><i></i><i></i><i></i><span>alphamall.cafe24.com/maison/spring</span></div>
             <div class="cvb-canvas">
+              <div class="cvb-slot wg" data-s="coupon">
+                <div class="cvb-fill"><div class="mz-coupon"><i>🎟️</i><b>첫 구매 10% 할인 쿠폰! 5만원 이상 무료 배송</b><span>오늘하루 보지 않기 ✕</span></div></div>
+              </div>
               <div class="cvb-slot" data-s="header">
                 <div class="cvb-empty">🧭 헤더 · 메뉴가 들어갈 자리</div>
-                <div class="cvb-fill"><div class="cvp-head"><b class="cvp-brand">MAISON</b><span class="cvp-nav"><em class="on">BEST</em><em>OUTER</em><em>TOP</em><em>SALE</em></span><span class="cvp-ic">🔍 🛒</span></div></div>
-              </div>
-              <div class="cvb-slot wg" data-s="coupon">
-                <div class="cvb-fill"><div class="cvb-coupon">🎟️ 첫 구매 10% 할인 쿠폰<u>받기</u></div></div>
+                <div class="cvb-fill"><div class="mz-head"><b class="mz-logo">MAISON</b><span class="mz-nav"><em>NEW</em><em>BEST</em><em>SALE</em><i>🛒</i></span></div></div>
               </div>
               <div class="cvb-slot" data-s="hero">
                 <div class="cvb-empty">🖼️ 히어로 배너가 들어갈 자리</div>
-                <div class="cvb-fill"><div class="cvb-hero">
-                  <span class="hcopy-a"><em>2026 SUMMER COLLECTION</em><b>지금, 새로운 무드</b></span>
-                  <span class="hcopy-b"><em>BLACK FRIDAY</em><b>단 하루, 전 상품 -70%</b></span>
+                <div class="cvb-fill"><div class="mz-hero">
+                  <span class="hcopy-a"><em>2026 SPRING COLLECTION</em><b>지금, 새로운 무드</b><u>봄을 여는 신상 컬렉션을 만나보세요</u><s>컬렉션 보기</s></span>
+                  <span class="hcopy-b"><em>BLACK FRIDAY</em><b>단 하루, 전 상품 -70%</b><u>일 년에 단 한 번, 최대 혜택을 만나보세요</u><s>세일 보기</s></span>
                 </div></div>
               </div>
-              <div class="cvb-slot wg" data-s="timer">
-                <div class="cvb-fill"><div class="cvb-timer">⏰ 타임 특가 — 마감까지 <b>02:14:09</b></div></div>
-              </div>
               <div class="cvb-slot" data-s="prods">
-                <div class="cvb-empty">🛍️ 상품 컬렉션이 들어갈 자리</div>
-                <div class="cvb-fill"><div class="cvb-prods">
-                  <div class="cvb-prod"><span class="off">-48%</span><i style="background-image:url('assets/canvas/p1.png')"></i><b>여름 청순 바람막이</b><em><s>69,000</s>36,000원</em></div>
-                  <div class="cvb-prod"><span class="off">-50%</span><i style="background-image:url('assets/canvas/p2.png')"></i><b>린넨 카라 반팔티</b><em><s>64,000</s>32,000원</em></div>
-                  <div class="cvb-prod"><span class="off">-50%</span><i style="background-image:url('assets/canvas/p3.png')"></i><b>워싱 데님 반바지</b><em><s>59,800</s>29,900원</em></div>
-                  <div class="cvb-prod"><span class="off">-25%</span><i style="background-image:url('assets/canvas/p4.png')"></i><b>마린 카라 플레어 원피스</b><em><s>79,900</s>59,900원</em></div>
+                <div class="cvb-empty">🛍️ 베스트 셀러가 들어갈 자리</div>
+                <div class="cvb-fill"><div class="mz-prods">
+                  <div class="mz-ph"><b>베스트 셀러</b><span>전체보기</span></div>
+                  <div class="mz-pgrid">
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod1.png')"></i><b>여름 청순 바람막이</b><em><span class="pct">48%</span>36,000</em></div>
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod2.png')"></i><b>여름맞이 린넨 카라 반팔티</b><em><span class="pct">50%</span>32,000</em></div>
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod3.png')"></i><b>시원한 워싱 데님 반바지</b><em><span class="pct">50%</span>29,900</em></div>
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod4.png')"></i><b>마린 카라 민소매 플레어 원피스</b><em><span class="pct">25%</span>59,900원</em></div>
+                  </div>
                 </div></div>
               </div>
               <div class="cvb-slot wg" data-s="review">
-                <div class="cvb-fill"><div class="cvb-review">⭐ 4.9 · 리뷰 <b class="cnt" data-to="12402" data-fmt="num">0</b>개<em>“마린 원피스, 여름 인생템이에요 📷”</em></div></div>
+                <div class="cvb-fill"><div class="mz-revs">
+                  <div class="mz-ph"><b>베스트 리뷰</b><b class="mz-rcnt"><span class="cnt" data-to="5852" data-fmt="num">0</span>개</b><span>원하는 리뷰를 검색해 보세요 🔍</span></div>
+                  <div class="mz-rgrid">
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev1.png')"><u>▶</u><em>⧉</em></i>
+                      <div class="mz-rstar">★★★<span>옵션 : 네이비/M</span></div>
+                      <p>뒷모습 라인이 정말 예뻐요. 차분한 네이비라 격식 있는 자리에도 잘 어울려요.</p>
+                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
+                      <div class="mz-rprod"><i class="t1"></i><span><b>백라인 슬리브리스 플레어…</b><em>72,000원</em><u><i>★</i> <b>4.9</b> (1,702)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev2.png')"><u>▶</u><em>⧉</em></i>
+                      <div class="mz-rstar">★★★<span>옵션 : 베이지플라워/FREE</span></div>
+                      <p>은은한 플라워 패턴이라 부담스럽지 않고 분위기 있어요. 가디건이랑 잘 어울려요.</p>
+                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
+                      <div class="mz-rprod"><i class="t2"></i><span><b>무드 플라워 쉬폰 미디 원피스</b><em>64,900원</em><u><i>★</i> <b>4.8</b> (537)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev3.png')"><em>📷</em></i>
+                      <div class="mz-rstar"><span>옵션 : 크림아이보리/FREE</span></div>
+                      <p>살랑이는 스커트 핏이 너무 예뻐요. 사진보다 실물이 더 여리여리하고 고급스러워요.</p>
+                      <div class="mz-ruser"><span>📷 UserID · 1일 전</span></div>
+                      <div class="mz-rprod"><i class="t3"></i><span><b>소프트 니트 슬리브리스 롱…</b><em>69,900원</em><u><i>★</i> <b>4.8</b> (124)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev4.png')"><em>blog</em></i>
+                      <div class="mz-rstar"><span>옵션 : 스카이블루/S</span></div>
+                      <p>셔츠가 얇고 가벼워서 한여름에도 부담 없어요. 화이트 쇼츠랑 입으면 청량해요.</p>
+                      <div class="mz-ruser"><span>Ⓝ UserID · 1일 전</span></div>
+                      <div class="mz-rprod"><i class="t4"></i><span><b>스트라이프 오버핏 셔츠 쇼…</b><em>54,000원</em><u><i>★</i> <b>4.7</b> (98)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev5.png')"><u>▶</u><em>⧉</em></i>
+                      <div class="mz-rstar">★★★<span>옵션 : 핑크베이지/M</span></div>
+                      <p>컬러가 너무 사랑스럽고 팬츠 핏도 깔끔해요. 출근룩으로도 데일리로도 좋아요.</p>
+                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
+                      <div class="mz-rprod"><i class="t5"></i><span><b>소프트 가디건 와이드 팬츠…</b><em>58,000원</em><u><i>★</i> <b>4.7</b> (112)</u></span></div>
+                    </div>
+                  </div>
+                  <div class="mz-page"><span class="mz-pol">운영 정책</span><span class="mz-nums"><i>‹</i><i class="on">1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>10</i><i>›</i></span><span class="mz-write">리뷰작성</span></div>
+                </div></div>
               </div>
               <div class="cvb-slot" data-s="footer">
                 <div class="cvb-empty">📄 푸터가 들어갈 자리</div>
-                <div class="cvb-fill"><div class="cvb-foot"><span>MAISON © 2026</span><span>이용약관</span><span>개인정보처리방침</span><span>고객센터 1544-0000</span></div></div>
+                <div class="cvb-fill"><div class="mz-foot"><b>MAISON</b><span><em>이용약관</em><em>고객센터</em><em>@maison.official</em></span></div></div>
               </div>
               <div class="cvb-slot wg" data-s="noti">
                 <div class="cvb-fill"><div class="cvb-noti"><i></i>🔔 방금 <b>3명</b>이 ‘여름 청순 바람막이’를 구매했어요</div></div>
@@ -14111,28 +14969,25 @@
           <span class="save-note">🎉 페이지 완성 — 예상 전환율 2.4% → 10.7%</span>
           <button class="cvb-theme" type="button">🌙 블랙 프라이데이로 통째로 갈아끼우기</button>
         </div>
-        <div class="sc-foot">기획전·브랜드관·시즌 이벤트 — 코드 없이 위젯 조립으로, 언제든 다시 갈아끼워요</div>
       </div>`,
 
       cv3: `<div class="sc cv3-sc">
         <div class="sc-eyebrow">알파캔버스 하나면, 어떤 디자인이든 — 그리고 그 가치를 금액으로</div>
+        <div class="dash-grid" style="--dcc:#00B7A8">
+          <div class="dash-card"><div class="dc-label">스킨 수정 외주비 절감</div><div class="dc-val pos">연 ₩<b class="cnt" data-to="2400000" data-fmt="num">0</b></div><div class="dc-sub">건당 20만 원 × 12회 기준</div></div>
+          <div class="dash-card"><div class="dc-label">페이지 제작 시간</div><div class="dc-val pos">-<b class="cnt" data-to="70">0</b>%</div><div class="dc-sub">직접 편집 기준</div></div>
+          <div class="dash-card"><div class="dc-label">다시 만들 수 있는 횟수</div><div class="dc-val">무제한</div><div class="dc-sub">위젯 갈아끼우기</div></div>
+        </div>
         <div class="cv-moods">
           <div class="mood-card m1"><div class="mc-h">PURE SEOUL<span>COSMETIC</span></div><i class="mh" style="background-image:url('assets/push/cosmetics1.png')"></i><div class="mr"><i style="background-image:url('assets/push/cosmetics2.png')"></i><i style="background-image:url('assets/push/cosmetics3.png')"></i></div><b>코스메틱 · 화이트</b></div>
           <div class="mood-card m2"><div class="mc-h">MAISON<span>FASHION</span></div><i class="mh" style="background-image:url('assets/push/fashion-girl1.png')"></i><div class="mr"><i style="background-image:url('assets/canvas/p1.png')"></i><i style="background-image:url('assets/canvas/p2.png')"></i></div><b>패션 · 그리드</b></div>
           <div class="mood-card m3"><div class="mc-h">MONO.<span>EDITORIAL</span></div><i class="mh" style="background-image:url('assets/push/browse-model.png')"></i><div class="mr"><i style="background-image:url('assets/canvas/p3.png')"></i><i style="background-image:url('assets/canvas/p4.png')"></i></div><b>모노톤 · 에디토리얼</b></div>
           <div class="mood-card m4"><div class="mc-h">NOIR<span>BEAUTY</span></div><i class="mh" style="background-image:url('assets/push/cosmetics4.png')"></i><div class="mr"><i style="background-image:url('assets/push/cosmetics5.png')"></i><i style="background-image:url('assets/push/browse-model2.png')"></i></div><b>다크 · 뷰티</b></div>
         </div>
-        <div class="dash-grid" style="--dcc:#00B7A8">
-          <div class="dash-card"><div class="dc-label">스킨 수정 외주비 절감</div><div class="dc-val pos">연 ₩<b class="cnt" data-to="2400000" data-fmt="num">0</b></div><div class="dc-sub">건당 20만 원 × 12회 기준</div></div>
-          <div class="dash-card"><div class="dc-label">페이지 제작 시간</div><div class="dc-val pos">-<b class="cnt" data-to="70">0</b>%</div><div class="dc-sub">직접 편집 기준</div></div>
-          <div class="dash-card"><div class="dc-label">다시 만들 수 있는 횟수</div><div class="dc-val">무제한</div><div class="dc-sub">위젯 갈아끼우기</div></div>
-        </div>
-        <div class="cvx-cta" style="margin-top:16px">
-          <button class="sc-btn" data-act style="background:#00B7A8">절감액 계산해보기</button>
+        <div class="cvx-cta">
+          <button class="cl-start" data-act type="button"><span class="cl-lb">절감액 계산해보기</span></button>
           <button class="cmp-replay" type="button">↺ 다시 보기</button>
         </div>
-        <div class="sc-result"><span class="save-note">🎁 초기 도입 쇼핑몰 혜택 진행 중 — 자세한 내용은 담은 뒤 안내드려요</span></div>
-        <div class="sc-foot">환산 수치는 예시 — 실데이터 확인 후 교체 예정</div>
       </div>`,
     };
 
@@ -14790,7 +15645,7 @@
     function initCvDetail(stage) {
       const sc = stage.querySelector('.cv1-sc');
       if (!sc) return;
-      const btn = sc.querySelector('.sc-btn');
+      const btn = sc.querySelector('.cl-start');
       const eds = [...sc.querySelectorAll('.dp-ed')];
       let run = false;
       const go = () => {
@@ -14888,25 +15743,26 @@
         if (started) return;
         started = true;
         items.forEach(it => it.classList.remove('hint'));
-        if (playBtn) { playBtn.disabled = true; playBtn.textContent = '조립 중…'; }
+        const playLb = playBtn && playBtn.querySelector('.cl-lb');
+        if (playBtn) { playBtn.disabled = true; if (playLb) playLb.textContent = '조립 중…'; }
         items.forEach((it, idx) => {
           setTimeout(() => { it.classList.add('hint'); }, STEP * idx);
           setTimeout(() => { it.classList.remove('hint'); setItem(it); }, STEP * idx + PICK);
         });
         const doneAt = STEP * (items.length - 1) + PICK + 600;
         setTimeout(() => {
-          if (playBtn) playBtn.textContent = '🎉 페이지 완성!';
+          if (playLb) playLb.textContent = '🎉 페이지 완성!';
         }, doneAt);
         /* 전 — 블랙 프라이데이 테마로 통째로 */
         setTimeout(() => {
           sc.dataset.theme = 'b';
-          if (themeBtn) themeBtn.textContent = '☀️ 여름 무드로 되돌리기';
+          if (themeBtn) themeBtn.textContent = '🌼 스프링 무드로 되돌리기';
         }, doneAt + 1800);
         /* 결 — 다시 여름 무드로, 언제든 갈아끼울 수 있음을 보여줌 */
         setTimeout(() => {
           delete sc.dataset.theme;
           if (themeBtn) themeBtn.textContent = '🌙 블랙 프라이데이로 통째로 갈아끼우기';
-          if (playBtn) playBtn.textContent = '✓ 완성 — 테마는 아래 버튼으로 언제든';
+          if (playLb) playLb.textContent = '✓ 완성 — 테마는 아래 버튼으로 언제든';
         }, doneAt + 4400);
       };
 
@@ -14916,7 +15772,7 @@
       if (themeBtn) themeBtn.addEventListener('click', () => {
         const dark = sc.dataset.theme === 'b';
         if (dark) { delete sc.dataset.theme; themeBtn.textContent = '🌙 블랙 프라이데이로 통째로 갈아끼우기'; }
-        else { sc.dataset.theme = 'b'; themeBtn.textContent = '☀️ 여름 무드로 되돌리기'; }
+        else { sc.dataset.theme = 'b'; themeBtn.textContent = '🌼 스프링 무드로 되돌리기'; }
       });
     }
 
