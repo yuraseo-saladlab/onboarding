@@ -5339,7 +5339,8 @@
       /* 화면을 꽉 채우는 풀사이즈 창 — 내부 스크롤로 잘림 없음 */
       height: calc(100vh - 40px);
       max-height: calc(100vh - 40px);
-      overflow-y: auto;
+      /* 창 자체는 스크롤 안 함 — 헤드 고정 · 그리드만 스크롤 · dt-foot 항상 하단 고정 */
+      overflow: hidden;
       background: radial-gradient(1100px 600px at 70% -15%, color-mix(in srgb, var(--dc, #6D58F2) 9%, transparent), transparent 60%), #fff;
       color: var(--ink);
       border: 1px solid var(--line);
@@ -5432,6 +5433,8 @@
       /* 남는 세로 공간을 전부 차지 — 스테이지가 창 높이에 맞춰 늘어남 */
       flex: 1 1 auto;
       min-height: 0;
+      /* 폭이 좁아 1열로 쌓여 길어지면 그리드만 내부 스크롤 (dt-foot는 항상 하단) */
+      overflow-y: auto;
     }
 
     /* 좌: 피처 내비 */
@@ -5602,8 +5605,8 @@
     }
 
     .dt-foot {
-      position: sticky;
-      bottom: 0;
+      /* 스크롤과 무관하게 항상 창 하단 고정 (flex 마지막 아이템) */
+      flex: 0 0 auto;
       display: flex;
       align-items: center;
       gap: 12px;
