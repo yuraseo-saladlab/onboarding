@@ -6478,7 +6478,13 @@
       --u2-neutral: #C7D0E0;
       --u2-neutral-bg: #EEF1F6;
       --u2-neutral-tx: #5A6474;
+      --u2-orange: #FF922B;
+      --u2-yellow: #FCC419;
+      --u2-green: #51CF66;
     }
+
+    /* 이 씬은 빨강을 핵심 숫자 한 곳에만 → 헤드라인 강조는 뉴트럴 */
+    .up2s .pw-eyebrow b { color: var(--u2-ink); }
 
     .up2s .u2-card {
       flex: 1 1 auto;
@@ -6486,195 +6492,104 @@
       width: 100%;
       display: flex;
       flex-direction: column;
+      gap: 14px;
       background: #fff;
       border: 2px solid #EEF1F6;
       border-radius: 16px;
       box-shadow: 0 12px 32px -20px rgba(20, 30, 60, .35);
-      padding: 14px 24px;
+      padding: 16px 22px 14px;
     }
 
-    .u2-sec { padding: 12px 0; }
-    .u2-sec:first-child { padding-top: 0; }
-    .u2-sec:last-child { padding-bottom: 0; }
-    .u2-sec + .u2-sec { border-top: 2px solid var(--u2-line); }
+    /* pw-headtx 서브타이틀 */
+    .u2-sub { display: block; font-size: 12px; font-weight: 600; color: var(--u2-sub); margin-top: 4px; }
 
-    .u2-sec-head {
+    /* 상단 3지표 카드 */
+    .u2-mrow { flex: 0 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .u2-mc {
+      border: 1px solid var(--u2-line);
+      border-radius: 12px;
+      background: #FBFCFE;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .u2-mc-l { font-size: 12px; font-weight: 700; color: var(--u2-sub); }
+    .u2-mc-l em { font-style: normal; font-weight: 600; color: var(--u2-neutral-tx); }
+    .u2-mc-v { font-size: 24px; font-weight: 900; color: var(--u2-ink); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+    .u2-mc-v.pos { color: var(--dc); }
+    .u2-mc-s { font-size: 12px; font-weight: 600; color: var(--u2-neutral-tx); }
+
+    /* 하단 2차트 */
+    .u2-crow { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: minmax(0, 1fr); gap: 22px; }
+    .u2-chart { display: flex; flex-direction: column; min-height: 0; }
+    .u2-ch-h { font-size: 13px; font-weight: 800; color: var(--u2-ink); }
+    .u2-bignum {
       display: flex;
       align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .u2-sec-title { font-size: 14px; font-weight: 800; color: var(--u2-ink); }
-    .u2-sec-note { font-size: 12px; color: var(--u2-sub); }
-
-    /* 섹션1 — 할인가 3종 실험표 (트랙 없는 채움 막대) */
-    .u2-sec--exp {
-      flex: 1 1 auto;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .u2-thr, .u2-row {
-      display: grid;
-      grid-template-columns: 40px 152px 1fr 78px 62px;
-      align-items: center;
-      column-gap: 12px;
-    }
-
-    .u2-thr { padding: 0 12px 8px; }
-    .u2-thr span { font-size: 12px; font-weight: 700; color: var(--u2-sub); }
-    .u2-thr span:nth-child(4), .u2-thr span:nth-child(5) { text-align: right; }
-
-    .u2-rows {
-      flex: 1 1 auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
       gap: 6px;
-    }
-
-    .u2-row { padding: 8px 12px; border-radius: 12px; }
-    .u2-row--win { background: color-mix(in srgb, var(--dc) 7%, #fff); }
-
-    .u2-tag {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      font-size: 14px;
-      font-weight: 800;
-      background: var(--u2-neutral-bg);
-      color: var(--u2-neutral-tx);
-    }
-
-    .u2-row--win .u2-tag { background: var(--dc); color: #fff; }
-
-    .u2-pr { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .u2-disc { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--u2-sub); }
-
-    .u2-badge {
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--dc);
-      background: color-mix(in srgb, var(--dc) 12%, #fff);
-      border-radius: 100px;
-      padding: 1px 8px;
-    }
-
-    .u2-price { font-size: 15px; font-weight: 800; color: var(--u2-ink); letter-spacing: -.02em; }
-    .u2-row--win .u2-price { color: var(--dc); }
-
-    .u2-barwrap { position: relative; height: 10px; }
-
-    .u2-fill {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 10px;
-      border-radius: 8px;
-      transform: scaleX(1);
-      transform-origin: left center;
-      background: var(--u2-neutral);
-    }
-
-    .u2-row--win .u2-fill {
-      background: linear-gradient(90deg, color-mix(in srgb, var(--dc) 82%, #fff), var(--dc));
-    }
-
-    .sc.on .u2-fill { animation: u2Grow 900ms cubic-bezier(.2, .7, .2, 1) both; }
-    .sc.on .u2-rows .u2-row:nth-child(1) .u2-fill { animation-delay: 120ms; }
-    .sc.on .u2-rows .u2-row:nth-child(2) .u2-fill { animation-delay: 240ms; }
-    .sc.on .u2-rows .u2-row:nth-child(3) .u2-fill { animation-delay: 360ms; }
-
-    .u2-rev { font-size: 14px; font-weight: 700; text-align: right; color: var(--u2-ink); font-variant-numeric: tabular-nums; }
-    .u2-row--win .u2-rev { color: var(--dc); font-weight: 800; }
-    .u2-cvr { font-size: 14px; text-align: right; color: var(--u2-sub); font-variant-numeric: tabular-nums; }
-    .u2-row--win .u2-cvr { color: var(--u2-ink); font-weight: 700; }
-
-    /* 섹션2 — AI 밴딧 트래픽 자동 배분 (균등 33% → B 집중) */
-    .u2-alloc { display: flex; gap: 4px; height: 48px; }
-
-    .u2-seg {
-      flex: 0 1 auto;
-      width: 33.33%;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 2px;
-      padding: 0 12px;
-      overflow: hidden;
-      background: var(--u2-neutral-bg);
-      color: var(--u2-neutral-tx);
-    }
-
-    .u2-seg span { font-size: 12px; font-weight: 700; opacity: .9; white-space: nowrap; }
-    .u2-seg b { font-size: 18px; line-height: 20px; font-weight: 800; }
-    .u2-seg--b { background: var(--dc); color: #fff; }
-
-    /* 밴딧이 균등(33%)으로 탐색 시작 → 매출 우위 B로 트래픽 집중 */
-    .sc.on .u2-seg--a { animation: u2SegA 1000ms 1000ms cubic-bezier(.4, 0, .2, 1) forwards; }
-    .sc.on .u2-seg--b { animation: u2SegB 1000ms 1000ms cubic-bezier(.4, 0, .2, 1) forwards; }
-    .sc.on .u2-seg--c { animation: u2SegC 1000ms 1000ms cubic-bezier(.4, 0, .2, 1) forwards; }
-
-    /* 섹션3 — 결과 (액션 이후 페이오프) */
-    .u2-res { display: flex; flex-direction: column; gap: 10px; }
-
-    .u2-lead {
-      align-self: flex-start;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--dc);
-      background: color-mix(in srgb, var(--dc) 8%, #fff);
-      border-radius: 100px;
-      padding: 4px 12px;
-    }
-
-    .u2-lead b { font-weight: 800; }
-
-    .u2-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; column-gap: 24px; }
-    .u2-kpi { position: relative; }
-
-    .u2-kpi + .u2-kpi::before {
-      content: "";
-      position: absolute;
-      left: -12px;
-      top: 2px;
-      bottom: 2px;
-      width: 2px;
-      background: var(--u2-line);
-    }
-
-    .u2-kpi-lbl { font-size: 12px; color: var(--u2-sub); margin-bottom: 4px; }
-
-    .u2-kpi-val {
-      font-size: 28px;
-      line-height: 28px;
+      margin: 4px 0 8px;
+      font-size: 26px;
       font-weight: 900;
-      color: var(--dc);
+      color: var(--u2-ink);
       letter-spacing: -.02em;
+      font-variant-numeric: tabular-nums;
     }
+    .u2-bignum.key { color: var(--dc); }
+    .u2-bignum em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--u2-sub); }
 
-    .u2-kpi-val small { font-size: 16px; font-weight: 800; margin-left: 2px; }
-    .u2-kpi-up { font-size: 16px; margin-right: 2px; vertical-align: 2px; }
-    .u2-kpi--price .u2-kpi-val { color: var(--u2-ink); }
+    .u2-plot { position: relative; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+    .u2-pick {
+      position: absolute; top: 40%; left: 48%;
+      transform: translate(-50%, -50%);
+      font-size: 12px; font-weight: 800; color: #6B4A00;
+      background: var(--u2-yellow); border: 2px solid #fff;
+      border-radius: 100px; padding: 3px 12px;
+      box-shadow: 0 4px 12px rgba(20, 20, 43, .2);
+      white-space: nowrap; opacity: 0; z-index: 2;
+    }
+    .sc.on .u2-pick { animation: u2Rise .5s cubic-bezier(.2, 1.4, .4, 1) 1.5s both; }
+    .u2-svg {
+      flex: 1 1 auto;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+      clip-path: inset(0 100% 0 0);
+    }
+    .sc.on .u2-svg { animation: u2Draw 1.6s cubic-bezier(.35, 0, .2, 1) .3s forwards; }
 
-    .sc.on .u2-kpi-val { animation: u2Rise 560ms cubic-bezier(.2, .7, .2, 1) both; }
-    .sc.on .u2-kpi:nth-child(1) .u2-kpi-val { animation-delay: 1700ms; }
-    .sc.on .u2-kpi:nth-child(2) .u2-kpi-val { animation-delay: 1820ms; }
-    .sc.on .u2-kpi:nth-child(3) .u2-kpi-val { animation-delay: 1940ms; }
+    /* 트래픽 누적 면적(Fill) — 주황/노랑/초록, 추천 B(노랑)만 선명·A·C는 차분 */
+    .u2-band { stroke: #fff; stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+    .u2-band.a { fill: var(--u2-orange); opacity: .6; }
+    .u2-band.c { fill: var(--u2-green); opacity: .6; }
+    .u2-band.b { fill: var(--u2-yellow); }
+    /* 누적 매출 — 뉴트럴 (빨강은 상단 숫자 한 곳에만) */
+    .u2-ln { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+    .u2-ln.r { stroke: #3A4657; stroke-width: 3.2; }
+    .u2-area-r { fill: #E8ECF4; stroke: none; }
 
-    .u2-foot { font-size: 12px; line-height: 16px; color: var(--u2-sub); }
-    .u2-foot b { color: var(--u2-ink); font-weight: 800; }
+    .u2-xax { flex: 0 0 auto; display: flex; justify-content: space-between; margin-top: 6px; }
+    .u2-xax span { font-size: 12px; font-weight: 600; color: var(--u2-neutral-tx); font-variant-numeric: tabular-nums; }
 
-    @keyframes u2Grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-    @keyframes u2SegA { to { width: 13%; } }
-    @keyframes u2SegB { to { width: 74%; } }
-    @keyframes u2SegC { to { width: 13%; } }
+    /* 범례 */
+    .u2-legend {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-top: 12px;
+      border-top: 2px solid var(--u2-line);
+    }
+    .u2-lg { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--u2-sub); white-space: nowrap; }
+    .u2-lg i { flex: 0 0 auto; width: 10px; height: 10px; border-radius: 3px; }
+    .u2-lg i.a { background: var(--u2-orange); }
+    .u2-lg i.b { background: var(--u2-yellow); }
+    .u2-lg i.c { background: var(--u2-green); }
+    .u2-lg.rec { color: var(--u2-ink); font-weight: 800; }
+    .u2-lg.rec b { font-size: 11px; font-weight: 800; color: #6B4A00; background: var(--u2-yellow); border-radius: 100px; padding: 1px 8px; margin-left: 4px; }
+
+    @keyframes u2Draw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
     @keyframes u2Rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
     /* ─────────────────────────────────────────────
@@ -6833,6 +6748,204 @@
     .sc.on .up-jump .jp {
       animation: aiStamp .4s cubic-bezier(.2, 1.6, .4, 1) 2s both;
     }
+
+    /* ═════════════════════════════════════════════
+       업셀 씬 3 — 압박 장치(타임세일) → 매출 숫자 상승 인과
+       왼쪽 타임세일 카운트다운(원인) → 오른쪽 객단가·판매수·총매출 막대(결과)
+       up2 클린 카드 톤 · 브랜드 레드는 결과 강조에만
+    ═════════════════════════════════════════════ */
+    .sc.up3 {
+      --u3-ink: #14161C;
+      --u3-sub: #5A6474;
+      --u3-line: #E6EAF1;
+      --u3-neutral: #C7D0E0;
+      --u3-neutral-bg: #EEF1F6;
+      padding: 20px 26px 22px;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    .up3 .cl-start { margin: 0; }
+    .up3 .cmp-replay {
+      left: auto; right: 26px; top: 20px; bottom: auto;
+      margin: 0; width: max-content; height: 40px;
+      padding: 0 20px; gap: 6px; font-size: 14px;
+    }
+
+    .u3-card {
+      flex: 1 1 auto;
+      min-height: 0;
+      width: 100%;
+      display: flex;
+      gap: 24px;
+      background: #fff;
+      border: 2px solid #EEF1F6;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px -20px rgba(20, 30, 60, .35);
+      padding: 18px 24px;
+      margin-bottom: 12px;
+    }
+
+    .u3-lab {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .01em;
+      color: var(--u3-sub);
+      margin-bottom: 12px;
+    }
+    .u3-lab b { color: var(--dc); font-weight: 800; }
+
+    /* ── 왼쪽: 압박 장치 (타임세일) ── */
+    .u3-cause {
+      flex: 0 0 246px;
+      display: flex;
+      flex-direction: column;
+      border-right: 2px solid var(--u3-line);
+      padding-right: 24px;
+    }
+
+    .u3-sale {
+      border: 2px solid color-mix(in srgb, var(--dc) 30%, #fff);
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--dc) 4%, #fff);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .u3-sale-tag {
+      align-self: flex-start;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--dc);
+      border-radius: 100px;
+      padding: 4px 12px;
+    }
+    .u3-timer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--u3-sub);
+    }
+    .u3-timer b {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--dc);
+      letter-spacing: .02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .u3-td { width: 8px; height: 8px; border-radius: 50%; background: var(--dc); flex: 0 0 auto; }
+    .sc.on .u3-td { animation: u3Pulse 1s ease infinite; }
+
+    .u3-sale-prod { display: flex; gap: 10px; align-items: center; }
+    .u3-sale-prod img { flex: 0 0 auto; width: 54px; height: 54px; border-radius: 10px; object-fit: cover; background: #FBEAEF; }
+    .u3-sale-nm { display: block; font-size: 13px; font-weight: 800; color: var(--u3-ink); line-height: 1.3; }
+    .u3-sale-price { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; }
+    .u3-sale-price em { font-style: normal; font-size: 13px; font-weight: 900; color: var(--dc); }
+    .u3-sale-price s { font-size: 12px; color: #A6A6B4; }
+    .u3-sale-price b { font-size: 16px; font-weight: 900; color: var(--u3-ink); }
+    .u3-sale-cta { text-align: center; font-size: 12px; font-weight: 800; color: #fff; background: var(--dc); border-radius: 10px; padding: 9px; }
+
+    .u3-flow {
+      margin-top: auto;
+      padding-top: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--u3-sub);
+    }
+    .u3-flow b { color: var(--dc); font-size: 18px; font-weight: 900; }
+
+    /* ── 오른쪽: 결과 지표 ── */
+    .u3-metrics { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+    .u3-mgrid { flex: 1 1 auto; display: grid; grid-template-columns: 0.82fr 1fr 1fr; gap: 22px; align-items: stretch; }
+
+    .u3-m { display: flex; flex-direction: column; min-width: 0; }
+    .u3-m-t { font-size: 14px; font-weight: 800; color: var(--u3-ink); }
+    .u3-m-d { font-size: 12px; font-weight: 600; color: var(--u3-sub); line-height: 1.4; margin: 4px 0 14px; min-height: 34px; }
+    .u3-m-d b { color: var(--dc); font-weight: 800; }
+
+    /* 총매출 비중 막대 */
+    .u3-portion {
+      flex: 1 1 auto;
+      min-height: 132px;
+      width: 76px;
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 4px;
+    }
+    .u3-seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-weight: 800;
+    }
+    .u3-seg.base { flex: 1 1 auto; background: var(--u3-neutral-bg); color: var(--u3-sub); font-size: 14px; }
+    .u3-seg.up {
+      flex: 0 0 auto; height: 42px;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--dc) 82%, #fff), var(--dc));
+      color: #fff; font-size: 15px;
+      transform: scaleY(1); transform-origin: bottom;
+    }
+    .sc.on .u3-seg.up { animation: u3Grow .7s cubic-bezier(.2, .8, .2, 1) 1s both; }
+    .u3-x1 { margin-top: 8px; text-align: center; font-size: 12px; font-weight: 600; color: var(--u3-sub); }
+
+    /* 객단가 · 판매개수 비교 막대 */
+    .u3-cmp {
+      flex: 1 1 auto;
+      min-height: 150px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 18px;
+    }
+    .u3-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+    .u3-col em {
+      font-style: normal;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--u3-sub);
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+    .u3-col.win em { color: var(--dc); font-size: 13px; }
+    .u3-bar { width: 46px; border-radius: 8px 8px 0 0; transform: scaleY(1); transform-origin: bottom; }
+    .u3-bar.base { background: var(--u3-neutral-bg); }
+    .u3-bar.b47 { height: 30%; }
+    .u3-bar.b69 { height: 44%; }
+    .u3-bar.win { height: 64%; background: linear-gradient(180deg, color-mix(in srgb, var(--dc) 82%, #fff), var(--dc)); }
+    .sc.on .u3-bar { animation: u3Grow .7s cubic-bezier(.2, .8, .2, 1) both; }
+    .sc.on .u3-col.win .u3-bar { animation-delay: .3s; }
+    .sc.on .u3-col em { animation: u3Rise .5s ease .5s both; }
+
+    .u3-up {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 10%, #fff);
+      border-radius: 100px;
+      padding: 2px 10px;
+      margin-bottom: 6px;
+      opacity: 0;
+    }
+    .sc.on .u3-up { animation: u3Rise .5s cubic-bezier(.2, 1.4, .4, 1) 1.1s both; }
+
+    .u3-x { display: flex; justify-content: center; gap: 18px; margin-top: 8px; }
+    .u3-x span { width: 46px; text-align: center; font-size: 12px; font-weight: 600; color: var(--u3-sub); }
+    .u3-x span:last-child { color: var(--u3-ink); font-weight: 800; }
+
+    .u3-foot { flex: 0 0 auto; font-size: 12px; line-height: 1.5; color: var(--u3-sub); }
+    .u3-foot b { color: var(--dc); font-weight: 800; }
+
+    @keyframes u3Grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    @keyframes u3Rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes u3Pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--dc) 50%, transparent); } 60% { box-shadow: 0 0 0 7px transparent; } }
 
     /* 푸시 — 여정 */
     /* 푸시 ps1 — "이 많은 전환 장치, 알파푸시 하나로" (각 장치가 따로 작동) */
@@ -11394,6 +11507,12 @@
       }
     }
 
+    /* 액션 이후 '스탬프처럼' 등장하는 결과 요소 공통 (0원 페이오프·위젯 추가 등) */
+    @keyframes aiStamp {
+      from { opacity: 0; transform: scale(.7); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     /* 캔버스 cv2 — 위젯 갤러리 + 페이지 조립 */
     @keyframes cvDrop {
       from {
@@ -11651,7 +11770,8 @@
 
     .cvb-canvas {
       position: relative;
-      min-height: 400px;
+      min-height: 0;
+      max-height: clamp(320px, 50vh, 460px);
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -11659,15 +11779,18 @@
       padding: 10px;
       background: #F7F4F2;
       transition: background .45s;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
     .sc[data-theme="b"] .cvb-canvas {
       background: #0E0E16;
     }
 
-    /* 히어로 슬롯이 남는 세로 공간을 흡수 */
+    /* 히어로 슬롯 — 짧을 땐 남는 공간 흡수, 콘텐츠가 길면 줄지 않고 캔버스가 스크롤 */
     .cvb-slot[data-s="hero"] {
-      flex: 1;
+      flex: 1 0 auto;
       display: flex;
       flex-direction: column;
     }
@@ -11721,7 +11844,7 @@
       background: #FBFBFE;
     }
 
-    .cvb-slot.wg:not(.set) {
+    .cvb-slot.cvb-wg:not(.set) {
       display: none;
     }
 
@@ -12013,16 +12136,26 @@
     }
 
     /* MAISON — 베스트 리뷰 */
+    /* 좁은 캔버스에선 5열이 뭉개져 → 실제 몰 포토리뷰처럼 가로 스크롤 카루셀 */
     .mz-rgrid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      display: flex;
       gap: 10px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 6px;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin;
     }
 
+    .mz-rgrid::-webkit-scrollbar { height: 6px; }
+    .mz-rgrid::-webkit-scrollbar-thumb { background: rgba(30, 41, 59, .22); border-radius: 100px; }
+
     .mz-rev {
+      flex: 0 0 152px;
       min-width: 0;
       display: flex;
       flex-direction: column;
+      scroll-snap-align: start;
     }
 
     .mz-rimg {
@@ -12401,8 +12534,23 @@
       transform: none;
     }
 
-    .cvb-doneRow .save-note {
+    /* cv2 헤더 — 푸시 pw-headtx 통일 (아이브로 + 완성 시 등장하는 결과 노트) */
+    .cv2-sc .cv2-head {
+      padding-right: 260px;
+      margin-bottom: 12px;
+    }
+
+    .cv2-head .save-note {
+      align-self: flex-start;
       margin-top: 0;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .45s, transform .45s;
+    }
+
+    .cv2-sc.on .cv2-head .save-note {
+      opacity: 1;
+      transform: none;
     }
 
     .cvb-theme {
@@ -12467,6 +12615,25 @@
       right: clamp(20px, 2.4vw, 32px);
       z-index: 9;
       display: inline-flex;
+    }
+
+    /* cv1 헤더 — 푸시/업셀 pw-head 패턴 (아이브로+기존→0원 비교 좌 / CTA 우) */
+    .cv1-sc .pw-head { margin-bottom: 14px; align-items: flex-start; }
+    .cv1-sc .pw-eyebrow { line-height: 1.35; }
+    .cv1-sc .cvc-swap {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    .cv1-sc .cvc-swap .cvc { padding: 6px 12px; font-size: 12px; }
+    .cv1-sc .pw-head .cvx-cta {
+      position: relative;
+      top: auto;
+      right: auto;
+      flex: 0 0 auto;
+      align-self: center;
     }
 
     /* CTA가 콘텐츠와 겹치지 않게 — 아이브로우 행이 CTA(40px) 높이·폭만큼 확보 */
@@ -14382,86 +14549,129 @@
       up2: `<div class="sc up2s">
         <div class="pw-head">
           <div class="pw-headtx">
-            <span class="pw-eyebrow">잘 팔리면서, <b>마진도 남는 가격</b>을 자동으로 찾아요</span>
+            <span class="pw-eyebrow">AI 밴딧 최적화 — <b>시간이 지날수록</b> 최적가로 트래픽이 모이고 매출이 올라요</span>
+            <span class="u2-sub">AI가 매출이 잘 나는 가격으로 트래픽을 자동으로 몰고 있어요</span>
           </div>
           <div class="ps-cta">
-            <button class="cl-start" data-act><span class="cl-lb">가격 실험 돌려보기</span></button>
+            <button class="cl-start" data-act><span class="cl-lb">밴딧 최적화 돌려보기</span></button>
             <span class="cl-cursor"></span>
           </div>
         </div>
         <section class="u2-card">
-          <div class="u2-sec u2-sec--exp">
-            <div class="u2-sec-head">
-              <span class="u2-sec-title">할인가 3종 동시 실험 · 콜라겐 리프팅 아이패치</span>
-              <span class="u2-sec-note">정가 54,000원 · 7일 실시간 자동 최적화</span>
+          <div class="u2-mrow">
+            <div class="u2-mc">
+              <span class="u2-mc-l">밴딧 최적화 추가 매출</span>
+              <span class="u2-mc-v">+<b class="cnt" data-to="1240000" data-fmt="num" data-delay="400">0</b>원</span>
+              <span class="u2-mc-s">균등 배분 대비 12일 누적</span>
             </div>
-            <div class="u2-thr"><span>그룹</span><span>할인 · 판매가</span><span></span><span>매출</span><span>전환율</span></div>
-            <div class="u2-rows">
-              <div class="u2-row">
-                <div class="u2-tag">A</div>
-                <div class="u2-pr"><span class="u2-disc">할인 5%</span><span class="u2-price">51,300원</span></div>
-                <div class="u2-barwrap"><i class="u2-fill" style="width:76%"></i></div>
-                <div class="u2-rev">84,000원</div>
-                <div class="u2-cvr">2.1%</div>
+            <div class="u2-mc">
+              <span class="u2-mc-l">노출당 이익 개선</span>
+              <span class="u2-mc-v">+<b class="cnt" data-to="21" data-delay="500">0</b>%</span>
+              <span class="u2-mc-s">매출 · 방문세션 / 노출</span>
+            </div>
+            <div class="u2-mc">
+              <span class="u2-mc-l">절감한 낭비 <em>(regret)</em></span>
+              <span class="u2-mc-v"><b class="cnt" data-to="920000" data-fmt="num" data-delay="600">0</b>원</span>
+              <span class="u2-mc-s">버려질 뻔한 트래픽 비용</span>
+            </div>
+          </div>
+          <div class="u2-crow">
+            <div class="u2-chart">
+              <div class="u2-ch-h">트래픽 배분 변화</div>
+              <div class="u2-bignum"><b class="cnt" data-to="62" data-delay="1400">0</b>%<em>· 최적가 B(할인15%)로 집중</em></div>
+              <div class="u2-plot">
+                <svg class="u2-svg" viewBox="0 0 300 112" preserveAspectRatio="none">
+                  <polygon class="u2-band a" points="20,76.3 86,81.1 152,86.9 218,90.7 284,93.6 284,108 20,108"></polygon>
+                  <polygon class="u2-band b" points="20,44.6 86,42.7 152,38.9 218,35 284,34.1 284,93.6 218,90.7 152,86.9 86,81.1 20,76.3"></polygon>
+                  <polygon class="u2-band c" points="20,12 86,12 152,12 218,12 284,12 284,34.1 218,35 152,38.9 86,42.7 20,44.6"></polygon>
+                </svg>
+                <span class="u2-pick">✦ AI 추천 · B</span>
+                <div class="u2-xax"><span>6/2</span><span>6/5</span><span>6/8</span><span>6/11</span><span>6/14</span></div>
               </div>
-              <div class="u2-row u2-row--win">
-                <div class="u2-tag">B</div>
-                <div class="u2-pr"><span class="u2-disc">할인 7% <b class="u2-badge">매출 최고</b></span><span class="u2-price">50,220원</span></div>
-                <div class="u2-barwrap"><i class="u2-fill" style="width:100%"></i></div>
-                <div class="u2-rev">110,000원</div>
-                <div class="u2-cvr">3.4%</div>
-              </div>
-              <div class="u2-row">
-                <div class="u2-tag">C</div>
-                <div class="u2-pr"><span class="u2-disc">할인 10%</span><span class="u2-price">48,600원</span></div>
-                <div class="u2-barwrap"><i class="u2-fill" style="width:84%"></i></div>
-                <div class="u2-rev">92,000원</div>
-                <div class="u2-cvr">2.8%</div>
+            </div>
+            <div class="u2-chart">
+              <div class="u2-ch-h">누적 실험 매출</div>
+              <div class="u2-bignum key">₩<b class="cnt" data-to="3480000" data-fmt="num" data-delay="400">0</b></div>
+              <div class="u2-plot">
+                <svg class="u2-svg" viewBox="0 0 300 112" preserveAspectRatio="none">
+                  <polygon class="u2-area-r" points="20,108 86,90 152,69 218,42 284,12 284,108"></polygon>
+                  <polyline class="u2-ln r" points="20,108 86,90 152,69 218,42 284,12" vector-effect="non-scaling-stroke"></polyline>
+                </svg>
+                <div class="u2-xax"><span>6/2</span><span>6/5</span><span>6/8</span><span>6/11</span><span>6/14</span></div>
               </div>
             </div>
           </div>
-          <div class="u2-sec u2-sec--ai">
-            <div class="u2-sec-head">
-              <span class="u2-sec-title">AI 밴딧 트래픽 자동 배분</span>
-              <span class="u2-sec-note">균등 탐색 → 매출 우위 B로 집중</span>
-            </div>
-            <div class="u2-alloc">
-              <div class="u2-seg u2-seg--a"><span>A · 할인 5%</span><b>13%</b></div>
-              <div class="u2-seg u2-seg--b"><span>B · 할인 7%</span><b>74%</b></div>
-              <div class="u2-seg u2-seg--c"><span>C · 할인 10%</span><b>13%</b></div>
-            </div>
-          </div>
-          <div class="u2-sec u2-sec--res">
-            <div class="u2-res">
-              <span class="u2-lead">AI 채택 · <b>B (할인 7% · 50,220원)</b> 가격으로 트래픽 집중</span>
-              <div class="u2-kpis">
-                <div class="u2-kpi"><div class="u2-kpi-lbl">판매량</div><div class="u2-kpi-val"><span class="u2-kpi-up">▲</span>38<small>%</small></div></div>
-                <div class="u2-kpi"><div class="u2-kpi-lbl">순수익</div><div class="u2-kpi-val"><span class="u2-kpi-up">▲</span>42<small>%</small></div></div>
-                <div class="u2-kpi u2-kpi--price"><div class="u2-kpi-lbl">적용 판매가</div><div class="u2-kpi-val">50,220<small>원</small></div></div>
-              </div>
-              <div class="u2-foot">정가 54,000원의 마진을 지키는 <b>50,220원(할인 7%)</b>에 트래픽을 집중해 판매량과 순수익을 동시에 끌어올렸어요.</div>
-            </div>
+          <div class="u2-legend">
+            <span class="u2-lg"><i class="a"></i>A그룹 · 할인 0% (기준)</span>
+            <span class="u2-lg rec"><i class="b"></i>B그룹 · 할인 15%<b>AI 추천</b></span>
+            <span class="u2-lg"><i class="c"></i>C그룹 · 할인 25%</span>
           </div>
         </section>
         <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
       up3: `<div class="sc up3">
-        <div class="sc-eyebrow">업셀 성과 대시보드 — 그로스는 숫자니까</div>
-        <div class="abn-meta"><span class="live"></span>함께구매 금액·건수 자동 집계 중<span class="pill">📊 월간 리포트 자동 생성 ON</span></div>
-        <div class="dash-grid">
-          <div class="dash-card d1"><div class="dc-label">함께구매 매출</div><div class="dc-val pos">₩<b class="cnt" data-to="8420000" data-fmt="num" data-delay="200">0</b></div><div class="dc-sub">이번 달 자동 집계</div></div>
-          <div class="dash-card d2"><div class="dc-label">추가로 담긴 상품</div><div class="dc-val"><b class="cnt" data-to="1294" data-fmt="num" data-delay="400">0</b>개</div><div class="dc-sub">함께구매 건수</div></div>
-          <div class="dash-card d3"><div class="dc-label">객단가</div><div class="dc-val pos">+<b class="cnt" data-to="23" data-delay="600">0</b>%</div><div class="dc-sub">도입 전 대비</div></div>
-        </div>
-        <div class="up-jump">
-          <div class="up-chartwrap">
-            <div class="up-chart"><i style="--h:34%"></i><i style="--h:42%"></i><i style="--h:47%"></i><i style="--h:58%"></i><i style="--h:100%"></i></div>
-            <div class="up-xlab"><span>3월</span><span>4월</span><span>5월</span><span>6월</span><b>도입 후</b></div>
+        <div class="pw-head">
+          <div class="pw-headtx">
+            <span class="pw-eyebrow">왜 팔리는지 알면 <b>다음이 보여요</b></span>
           </div>
-          <span class="jp">📈 총 매출 점프!</span>
+          <div class="ps-cta">
+            <button class="cl-start" data-act><span class="cl-lb">성과 열어보기</span></button>
+            <span class="cl-cursor"></span>
+          </div>
         </div>
-        <button class="sc-btn" data-act style="margin-top:16px; background:#E62C35">이번 달 성과 집계하기</button>
+        <section class="u3-card">
+          <div class="u3-cause">
+            <span class="u3-lab">지금 <b>사게 만드는</b> 압박 장치</span>
+            <div class="u3-sale">
+              <span class="u3-sale-tag">⏰ SWEET WEEK 타임 특가</span>
+              <div class="u3-timer"><span class="u3-td"></span>마감까지 <b>02:14:09</b></div>
+              <div class="u3-sale-prod">
+                <img src="assets/beauty/cosmetic_1.png" alt="">
+                <div class="u3-sale-info">
+                  <span class="u3-sale-nm">하트 젤리 글로우 립밤 3종</span>
+                  <span class="u3-sale-price"><em>46%</em><s>24,000</s><b>12,900원</b></span>
+                </div>
+              </div>
+              <div class="u3-sale-cta">🔥 지금 구매 · 마감 임박</div>
+            </div>
+            <span class="u3-flow">지금 구매를 만들면<b> →</b></span>
+          </div>
+          <div class="u3-metrics">
+            <span class="u3-lab">객단가·판매수 ↑ <b>→ 총매출 ↑</b></span>
+            <div class="u3-mgrid">
+              <div class="u3-m">
+                <span class="u3-m-t">총 매출 상승</span>
+                <span class="u3-m-d">전체 매출의 <b>12.1%</b>가 알파업셀 구매로 발생</span>
+                <div class="u3-portion">
+                  <span class="u3-seg up">12.1%</span>
+                  <span class="u3-seg base">87.9%</span>
+                </div>
+                <span class="u3-x1">전체 매출액</span>
+              </div>
+              <div class="u3-m">
+                <span class="u3-m-t">객단가 상승</span>
+                <span class="u3-m-d">업셀 주문이 객단가 <b>2배</b></span>
+                <div class="u3-cmp">
+                  <span class="u3-col"><em>40,150원</em><span class="u3-bar base b47"></span></span>
+                  <span class="u3-col win"><span class="u3-up">▲112%</span><em>85,100원</em><span class="u3-bar win"></span></span>
+                </div>
+                <div class="u3-x"><span>일반 주문</span><span>업셀 주문</span></div>
+              </div>
+              <div class="u3-m">
+                <span class="u3-m-t">판매 개수 상승</span>
+                <span class="u3-m-d">업셀 주문이 상품 <b>2배</b></span>
+                <div class="u3-cmp">
+                  <span class="u3-col"><em>3.8개</em><span class="u3-bar base b69"></span></span>
+                  <span class="u3-col win"><span class="u3-up">▲44%</span><em>5.5개</em><span class="u3-bar win"></span></span>
+                </div>
+                <div class="u3-x"><span>일반 주문</span><span>업셀 주문</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="u3-foot">타임세일 <b>압박</b>이 '지금 구매'를 만들고 → 객단가·판매수·총매출이 함께 올라요. 다음 프로모션도 이 공식만 따라가면 성장해요.</div>
+        <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
       ps1: `<div class="sc ps-wall">
@@ -14750,14 +14960,18 @@
       </div>`,
 
       cv1: `<div class="sc cv1-sc">
-        <div class="sc-eyebrow">상세페이지 전체가 위젯 — 가격·혜택·상세·세트·리뷰·추천까지 전부 직접</div>
-        <div class="dp-ctl">
+        <div class="pw-head">
+          <div class="pw-headtx">
+            <span class="pw-eyebrow">상세페이지 전체가 <b>위젯</b> — 가격·혜택·상세·세트·리뷰·추천까지 전부 직접</span>
+            <span class="cvc-swap">
+              <span class="cvc old">기존 — 외주 요청 → 견적 → <b>3일 대기 · 건당 5~10만 원</b></span>
+              <span class="cvc new">알파캔버스 — <b>지금 바로 · 0원</b> ✓</span>
+            </span>
+          </div>
           <span class="cvx-cta">
             <button class="cl-start" type="button"><span class="cl-lb">이 페이지, 직접 고쳐보기</span></button>
             <button class="cmp-replay" type="button">↺ 처음부터 다시 보기</button>
           </span>
-          <span class="cvc old">기존 — 외주 요청 → 견적 → <b>3일 대기 · 건당 5~10만 원</b></span>
-          <span class="cvc new">알파캔버스 — <b>지금 바로 · 0원</b> ✓</span>
         </div>
         <div class="dp-page">
           <div class="dp-sale">⏰ SWEET WEEK 타임 특가 — 마감까지 <b>02:14:09</b></div>
@@ -14843,7 +15057,9 @@
       </div>`,
 
       cv2: `<div class="sc cv2-sc">
-        <div class="sc-eyebrow">빈 페이지에서 완성까지 — 클릭 한 번이면 조립부터 테마 교체까지 자동으로 흘러가요</div>
+        <div class="pw-headtx cv2-head">
+          <span class="pw-eyebrow">빈 페이지에서 완성까지 — <b>클릭 한 번</b>이면 조립부터 테마 교체까지 자동으로</span>
+        </div>
         <div class="cvb">
           <div class="cvb-side">
             <div class="cvx-cta">
@@ -14856,18 +15072,17 @@
             </div>
             <div class="cvb-sec">레이아웃</div>
             <button class="cvb-item" data-w="header" type="button"><span class="ci">🧭</span><span class="ct"><b>헤더 · 메뉴</b><em>MAISON 로고 + NEW·BEST·SALE</em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="hero" type="button"><span class="ci">🖼️</span><span class="ct"><b>히어로 배너</b><em>스프링 컬렉션 카피 + 무드 이미지</em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="prods" type="button"><span class="ci">🛍️</span><span class="ct"><b>베스트 셀러</b><em>인기 상품 4종 자동 배치</em></span><span class="ck">담기</span></button>
             <button class="cvb-item" data-w="footer" type="button"><span class="ci">📄</span><span class="ct"><b>푸터</b><em>브랜드 · 정책 · SNS 안내</em></span><span class="ck">담기</span></button>
             <div class="cvb-sec">전환 위젯 <span>담을수록 전환율이 올라요</span></div>
-            <button class="cvb-item" data-w="coupon" data-d="2.6" type="button"><span class="ci">🎟️</span><span class="ct"><b>쿠폰 배너</b><em>전환율 <b>+2.6%p</b></em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="noti" data-d="1.9" type="button"><span class="ci">🔔</span><span class="ct"><b>실시간 구매 알림</b><em>전환율 <b>+1.9%p</b></em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="review" data-d="3.8" type="button"><span class="ci">⭐</span><span class="ct"><b>베스트 리뷰</b><em>전환율 <b>+3.8%p</b></em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="hero" data-d="2.2" type="button"><span class="ci">🖼️</span><span class="ct"><b>콘텐츠 배너</b><em>전환율 <b>+2.2%p</b></em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="coupon" data-d="2.6" type="button"><span class="ci">🎟️</span><span class="ct"><b>띠배너</b><em>전환율 <b>+2.6%p</b></em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="prods" data-d="2.0" type="button"><span class="ci">🛍️</span><span class="ct"><b>상품그리드</b><em>전환율 <b>+2.0%p</b></em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="review" data-d="3.8" type="button"><span class="ci">📸</span><span class="ct"><b>포토리뷰 섹션</b><em>전환율 <b>+3.8%p</b></em></span><span class="ck">담기</span></button>
           </div>
           <div class="cvb-shop">
             <div class="cvb-chrome"><i></i><i></i><i></i><span>alphamall.cafe24.com/maison/spring</span></div>
             <div class="cvb-canvas">
-              <div class="cvb-slot wg" data-s="coupon">
+              <div class="cvb-slot cvb-wg" data-s="coupon">
                 <div class="cvb-fill"><div class="mz-coupon"><i>🎟️</i><b>첫 구매 10% 할인 쿠폰! 5만원 이상 무료 배송</b><span>오늘하루 보지 않기 ✕</span></div></div>
               </div>
               <div class="cvb-slot" data-s="header">
@@ -14875,14 +15090,14 @@
                 <div class="cvb-fill"><div class="mz-head"><b class="mz-logo">MAISON</b><span class="mz-nav"><em>NEW</em><em>BEST</em><em>SALE</em><i>🛒</i></span></div></div>
               </div>
               <div class="cvb-slot" data-s="hero">
-                <div class="cvb-empty">🖼️ 히어로 배너가 들어갈 자리</div>
+                <div class="cvb-empty">🖼️ 콘텐츠 배너가 들어갈 자리</div>
                 <div class="cvb-fill"><div class="mz-hero">
                   <span class="hcopy-a"><em>2026 SPRING COLLECTION</em><b>지금, 새로운 무드</b><u>봄을 여는 신상 컬렉션을 만나보세요</u><s>컬렉션 보기</s></span>
                   <span class="hcopy-b"><em>BLACK FRIDAY</em><b>단 하루, 전 상품 -70%</b><u>일 년에 단 한 번, 최대 혜택을 만나보세요</u><s>세일 보기</s></span>
                 </div></div>
               </div>
               <div class="cvb-slot" data-s="prods">
-                <div class="cvb-empty">🛍️ 베스트 셀러가 들어갈 자리</div>
+                <div class="cvb-empty">🛍️ 상품그리드가 들어갈 자리</div>
                 <div class="cvb-fill"><div class="mz-prods">
                   <div class="mz-ph"><b>베스트 셀러</b><span>전체보기</span></div>
                   <div class="mz-pgrid">
@@ -14893,7 +15108,7 @@
                   </div>
                 </div></div>
               </div>
-              <div class="cvb-slot wg" data-s="review">
+              <div class="cvb-slot cvb-wg" data-s="review">
                 <div class="cvb-fill"><div class="mz-revs">
                   <div class="mz-ph"><b>베스트 리뷰</b><b class="mz-rcnt"><span class="cnt" data-to="5852" data-fmt="num">0</span>개</b><span>원하는 리뷰를 검색해 보세요 🔍</span></div>
                   <div class="mz-rgrid">
@@ -14940,15 +15155,11 @@
                 <div class="cvb-empty">📄 푸터가 들어갈 자리</div>
                 <div class="cvb-fill"><div class="mz-foot"><b>MAISON</b><span><em>이용약관</em><em>고객센터</em><em>@maison.official</em></span></div></div>
               </div>
-              <div class="cvb-slot wg" data-s="noti">
-                <div class="cvb-fill"><div class="cvb-noti"><i></i>🔔 방금 <b>3명</b>이 ‘여름 청순 바람막이’를 구매했어요</div></div>
-              </div>
               <div class="cvb-confetti"></div>
             </div>
           </div>
         </div>
         <div class="cvb-doneRow">
-          <span class="save-note">🎉 페이지 완성 — 예상 전환율 2.4% → 10.7%</span>
           <button class="cvb-theme" type="button">🌙 블랙 프라이데이로 통째로 갈아끼우기</button>
         </div>
       </div>`,
@@ -15486,7 +15697,7 @@
           <div class="pc-stage">${MICRO[k] || ''}</div>
           <div class="pc-body">
             <span class="pc-name">${d.name}</span>
-            <div class="pc-main">${d.main}</div>
+            <div class="pc-main">${d.main.replace(/<\/?b>/g, '')}</div>
             <p class="pc-hook">${d.hook}</p>
             <div class="pc-tags">${d.tags.map(t => `<span class="pc-tag">${t}</span>`).join('')}</div>
             <div class="pc-btns">
