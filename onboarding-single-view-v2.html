@@ -5931,6 +5931,12 @@
        담기 클릭 → AI 추천 등장 → 자동 담김 → 장바구니 1→3
     ───────────────────────────────────────────── */
     /* 업셀 씬 1 — 옵션 세트 추천 위젯 (원클릭 담기 → 장바구니 성장) */
+    /* ═════════════════════════════════════════════
+       업셀 씬 1 — 실제 쇼핑몰 상품 상세 (phone-hero)
+       폰의 기본 스토어 UI는 전부 뉴트럴, 브랜드 레드(--dc)는
+       오직 '알파업셀 추천 위젯'에만 → 레드 영역=삽입된 위젯이 즉시 읽힘.
+       스포트라이트 + 콜아웃 + 실화면 썸네일로 '동선 곳곳' 근거. 접두사 sf-
+    ═════════════════════════════════════════════ */
     .sc.up1s {
       padding: 20px 26px 22px;
       justify-content: flex-start;
@@ -5940,462 +5946,502 @@
     .up1s .cl-start { margin: 0; }
 
     .up1s .cmp-replay {
-      left: auto;
-      right: 26px;
-      top: 20px;
-      bottom: auto;
-      margin: 0;
-      width: max-content;
-      height: 40px;
-      padding: 0 20px;
-      gap: 6px;
-      font-size: 13.5px;
+      left: auto; right: 26px; top: 20px; bottom: auto;
+      margin: 0; width: max-content; height: 40px;
+      padding: 0 20px; gap: 6px; font-size: 14px;
     }
 
-    .os {
+    /* 무대: 왼쪽 폰 히어로 + 오른쪽 근거 */
+    .sf-stage {
       flex: 1 1 auto;
       min-height: 0;
       display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
+      gap: 26px;
       width: 100%;
-      max-width: 900px;
+      max-width: 1060px;
       margin: 0 auto;
-      align-items: stretch;
-    }
-
-    .os-left {
-      flex: 1 1 290px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .os-right {
-      flex: 1.3 1 380px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-height: 0;
-    }
-
-    /* 메인 상품 */
-    .os-prod {
-      display: flex;
-      gap: 14px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fff;
-      padding: 14px;
-      box-shadow: 0 6px 16px rgba(20, 20, 43, .05);
-    }
-
-    .os-prod img {
-      flex: 0 0 auto;
-      width: 88px;
-      height: 88px;
-      border-radius: 12px;
-      object-fit: cover;
-    }
-
-    .os-pi {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      min-width: 0;
-    }
-
-    .os-gift {
-      align-self: flex-start;
-      font-size: 11px;
-      font-weight: 800;
-      color: #fff;
-      background: var(--dc);
-      border-radius: 6px;
-      padding: 2px 8px;
-    }
-
-    .os-pnm {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--ink);
-      line-height: 1.3;
-    }
-
-    .os-price {
-      display: flex;
-      align-items: baseline;
-      gap: 7px;
-    }
-
-    .os-price em {
-      font-style: normal;
-      font-size: 13px;
-      font-weight: 900;
-      color: var(--dc);
-    }
-
-    .os-price s {
-      font-size: 12px;
-      color: var(--ink-faint);
-    }
-
-    .os-price b {
-      font-size: 20px;
-      font-weight: 900;
-      color: var(--ink);
-      letter-spacing: -.02em;
-    }
-
-    /* 장바구니 담은 상품 리스트 */
-    .os-cbh {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--ink-dim);
-      margin-top: 2px;
-    }
-
-    .os-items {
-      flex: 1 1 auto;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .os-it {
-      display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 7px 10px;
-      margin-bottom: 6px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
+    }
+
+    /* ───────── 왼쪽: 실제 쇼핑몰 상품 상세 (모바일) ───────── */
+    .sf-phone {
+      flex: 0 0 328px;
+      position: relative;
+      align-self: center;
+      height: 424px;
+      border-radius: 34px;
+      background: #14141F;
+      padding: 8px;
+      box-shadow: 0 24px 54px rgba(20, 20, 43, .24), 0 2px 0 rgba(255, 255, 255, .3) inset;
+    }
+    .sf-screen {
+      position: relative;
+      height: 100%;
+      border-radius: 28px;
+      overflow: hidden;
       background: #fff;
-    }
-
-    .os-it:last-child {
-      margin-bottom: 0;
-    }
-
-    .os-it img {
-      flex: 0 0 auto;
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-
-    .os-it .in {
-      flex: 1;
-      min-width: 0;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-dim);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .os-it .ip {
-      flex: 0 0 auto;
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--ink);
-    }
-
-    .os-it.new {
-      border-color: var(--dc);
-      background: color-mix(in srgb, var(--dc) 5%, #fff);
-      opacity: 0;
-      max-height: 0;
-      padding-top: 0;
-      padding-bottom: 0;
-      border-width: 0;
-      margin-bottom: 0;
-      overflow: hidden;
-    }
-
-    .sc.on .os-it.new {
-      animation: osNew .5s cubic-bezier(.2, 1.3, .4, 1) 1.7s forwards;
-    }
-
-    @keyframes osNew {
-      0% { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; border-width: 0; margin-bottom: 0; }
-      100% { opacity: 1; max-height: 52px; padding-top: 7px; padding-bottom: 7px; border-width: 1px; margin-bottom: 6px; }
-    }
-
-    /* 장바구니 요약 */
-    .os-cart {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: linear-gradient(180deg, #FBFAFA, #fff);
-      padding: 13px 15px;
       display: flex;
       flex-direction: column;
-      gap: 9px;
+    }
+    .sf-notch {
+      position: absolute;
+      top: 6px; left: 50%;
+      transform: translateX(-50%);
+      width: 96px; height: 18px;
+      border-radius: 100px;
+      background: #14141F;
+      z-index: 10;
     }
 
-    .os-crow {
+    /* 상태바 (뉴트럴) */
+    .sf-status {
+      flex: 0 0 auto;
+      height: 30px;
+      padding: 0 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-    }
-
-    .os-crow .lb {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--ink-dim);
-    }
-
-    .os-crow .v {
-      font-size: 14px;
-      font-weight: 900;
-      color: var(--ink);
-    }
-
-    .os-crow.amt .v {
-      font-size: 19px;
-      color: var(--dc);
-      letter-spacing: -.02em;
-    }
-
-    .os-cbtn {
-      margin-top: 1px;
-      width: 100%;
-      padding: 11px;
-      border: none;
-      border-radius: 11px;
-      background: var(--dc);
-      color: #fff;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
-    }
-
-    /* 함께 구매하면 좋은 옵션 위젯 */
-    .os-wh {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--ink);
-    }
-
-    .os-wh .n {
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--dc);
-      background: color-mix(in srgb, var(--dc) 10%, #fff);
-      border-radius: 100px;
-      padding: 3px 9px;
-    }
-
-    .os-set {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
+      color: #14141F;
       background: #fff;
-      padding: 11px 12px;
-      box-shadow: 0 4px 12px rgba(20, 20, 43, .04);
+    }
+    .sf-status .sf-sig { display: inline-flex; gap: 4px; align-items: center; }
+    .sf-status .sf-sig i { width: 4px; height: 10px; border-radius: 2px; background: #14141F; display: inline-block; }
+    .sf-status .sf-sig i:nth-child(1) { height: 6px; }
+    .sf-status .sf-sig i:nth-child(2) { height: 8px; }
+    .sf-status .sf-batt { margin-left: 4px; width: 20px; height: 10px; border: 2px solid #14141F; border-radius: 3px; position: relative; display: inline-block; }
+    .sf-status .sf-batt::before { content: ''; position: absolute; inset: 2px; right: 5px; background: #14141F; border-radius: 1px; }
+    .sf-status .sf-batt::after { content: ''; position: absolute; right: -4px; top: 3px; width: 2px; height: 4px; background: #14141F; border-radius: 0 2px 2px 0; }
+
+    /* 브라우저 바 (뉴트럴) */
+    .sf-bar {
+      flex: 0 0 auto;
+      margin: 2px 10px 6px;
+      height: 30px;
+      border-radius: 16px;
+      background: #F0F0F4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #4A4A5C;
+      position: relative;
+    }
+    .sf-bar .sf-rf { position: absolute; right: 12px; font-size: 12px; color: #9A9AAC; }
+
+    /* 스크롤 뷰포트 */
+    .sf-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+      padding: 0 10px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .os-set.best {
-      border: 1.5px solid var(--dc);
-      box-shadow: 0 8px 20px rgba(230, 44, 53, .1);
+    /* 히어로 상품 이미지 */
+    .sf-heroimg {
+      position: relative;
+      z-index: 1;
+      flex: 0 0 auto;
+      height: 96px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #FBEAEF;
     }
-
-    .os-best-badge {
+    .sf-heroimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* PICK 뱃지 = 뉴트럴 검정 (브랜드 레드는 위젯 전용) */
+    .sf-pick {
       position: absolute;
-      top: -10px;
-      left: 14px;
-      font-size: 10.5px;
+      top: 8px; right: 8px;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: #14141F;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 12px rgba(20, 20, 30, .3);
+    }
+
+    /* 상품 정보 (뉴트럴, 할인율 em만 --dc 예외) */
+    .sf-pinfo { position: relative; z-index: 1; flex: 0 0 auto; padding: 0 2px; }
+    .sf-gift {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      color: #B0632B;
+      background: #FFF3E4;
+      border-radius: 6px;
+      padding: 2px 8px;
+      margin-bottom: 4px;
+    }
+    .sf-pnm { display: block; font-size: 14px; font-weight: 800; color: #14141F; letter-spacing: -.02em; line-height: 1.3; }
+    .sf-price { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; }
+    .sf-price em { font-size: 14px; font-weight: 900; color: var(--dc); }
+    .sf-price s { font-size: 12px; color: #A6A6B4; }
+    .sf-price b { font-size: 16px; font-weight: 900; color: #14141F; }
+
+    /* ★ 알파업셀 추천 위젯 (스포트라이트 대상 · 레드는 여기에만) */
+    .sf-widget {
+      position: relative;
+      z-index: 4;
+      flex: 0 0 auto;
+      margin-top: 2px;
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--dc) 5%, #fff);
+      border: 2px solid color-mix(in srgb, var(--dc) 36%, #fff);
+      padding: 10px 8px 8px;
+      box-shadow: 0 0 0 2000px rgba(18, 18, 28, 0);
+    }
+    .sf-wtitle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #14141F;
+      margin-bottom: 8px;
+    }
+    .sf-aibadge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
       font-weight: 900;
       color: #fff;
       background: var(--dc);
       border-radius: 100px;
-      padding: 3px 10px;
-      box-shadow: 0 4px 10px rgba(230, 44, 53, .3);
+      padding: 2px 8px;
+      letter-spacing: -.01em;
     }
+    .sf-aibadge::before { content: '✦'; font-size: 10px; }
 
-    .os-set img {
-      flex: 0 0 auto;
-      width: 54px;
-      height: 54px;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-
-    .os-sc {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .os-snm {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--ink);
-    }
-
-    .os-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .os-chip {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--ink-dim);
-      background: var(--line-soft);
-      border-radius: 6px;
-      padding: 3px 8px;
-    }
-
-    .os-sp {
-      flex: 0 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 7px;
-    }
-
-    .os-sp .p {
-      font-size: 15px;
-      font-weight: 900;
-      color: var(--ink);
-      letter-spacing: -.02em;
-    }
-
-    .os-add {
+    .sf-sets { display: flex; flex-direction: column; gap: 8px; }
+    .sf-set {
       position: relative;
-      flex: 0 0 auto;
-      width: 34px;
-      height: 34px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 8px;
+    }
+    .sf-set img { flex: 0 0 auto; width: 42px; height: 42px; border-radius: 8px; object-fit: cover; background: #FBEAEF; }
+    .sf-sc { flex: 1 1 auto; min-width: 0; }
+    .sf-snm { display: block; font-size: 12px; font-weight: 800; color: #14141F; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sf-chips { display: flex; gap: 4px; margin-top: 4px; }
+    .sf-chip {
+      font-size: 12px;
+      font-weight: 700;
+      color: #6B6B80;
+      background: #F3F3F8;
+      border-radius: 6px;
+      padding: 1px 6px;
+      white-space: nowrap;
+    }
+    .sf-sp { flex: 0 0 auto; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+    .sf-setprice { font-size: 12px; font-weight: 900; color: #14141F; white-space: nowrap; }
+    .sf-add {
+      position: relative;
       border: none;
+      border-radius: 8px;
       background: var(--dc);
       color: #fff;
-      font-size: 19px;
+      font-size: 12px;
       font-weight: 800;
+      height: 26px;
+      min-width: 52px;
+      padding: 0 10px;
       overflow: hidden;
-      cursor: pointer;
-      line-height: 1;
+      white-space: nowrap;
     }
-
-    .os-add .t2 {
+    .sf-set--ghost .sf-add { background: #fff; color: var(--dc); border: 1px solid color-mix(in srgb, var(--dc) 40%, #fff); }
+    .sf-add .t2 {
       position: absolute;
       inset: 0;
       display: grid;
       place-items: center;
-      font-size: 16px;
-      background: #16162A;
+      background: #14141F;
       opacity: 0;
     }
-
-    .os-cursor {
+    .sf-best-tag {
       position: absolute;
+      top: -8px; left: 8px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #fff;
+      background: #14141F;
+      border-radius: 6px;
+      padding: 1px 8px;
+      letter-spacing: -.01em;
+    }
+
+    /* 플로팅 장바구니 pill (뉴트럴 검정, 금액만 레드 계열 강조) */
+    .sf-pill {
+      position: absolute;
+      left: 50%; bottom: 14px;
+      transform: translateX(-50%);
       z-index: 6;
-      right: 4px;
-      bottom: 2px;
-      width: 26px;
-      height: 26px;
+      height: 40px;
+      width: max-content;
+      max-width: calc(100% - 24px);
+      padding: 0 18px;
+      border-radius: 100px;
+      background: #14141F;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+      box-shadow: 0 8px 20px rgba(20, 20, 30, .32);
+    }
+    .sf-pill .sf-amt { color: #FFD2D6; }
+    .sf-pill .sf-arw { margin-left: 2px; opacity: .7; }
+
+    /* 데모 워터마크 — 히어로 이미지 우하단 (알파업셀 브랜딩) */
+    .sf-wm {
+      position: absolute;
+      right: 8px; bottom: 8px;
+      z-index: 3;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .02em;
+      color: var(--dc);
+      background: rgba(255, 255, 255, .88);
+      border-radius: 100px;
+      padding: 3px 10px;
+      box-shadow: 0 2px 6px rgba(20, 20, 43, .12);
+    }
+    .sf-wm::before { content: '✦ '; }
+
+    /* 씬 내 커서 */
+    .sf-cursor {
+      position: absolute;
+      z-index: 8;
+      width: 28px; height: 28px;
+      left: 186px; top: 286px;
       background: var(--cursor-svg) center / contain no-repeat;
       filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .3));
       opacity: 0;
       pointer-events: none;
     }
 
-    /* 담김 완료 토스트 */
-    .os-done {
+    /* ───────── 오른쪽: 위젯 인지 콜아웃 + 동선 근거 ───────── */
+    .sf-side {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
       align-self: center;
+    }
+
+    /* 위젯 → 콜아웃 주석 (마칭앤츠 커넥터) */
+    .sf-callout {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sf-cline {
+      flex: 0 0 auto;
+      width: 44px;
+      height: 4px;
+      position: relative;
+      background-image: linear-gradient(90deg, var(--dc) 60%, transparent 0);
+      background-size: 12px 2px;
+      background-repeat: repeat-x;
+      background-position: 0 50%;
+    }
+    .sc.on .sf-cline { animation: sfAnts 800ms linear infinite; }
+    @keyframes sfAnts { to { background-position: 24px 50%; } }
+    .sf-cline::before {
+      content: '';
+      position: absolute;
+      left: -6px; top: 50%;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--dc);
+      transform: translateY(-50%);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--dc) 22%, transparent);
+    }
+    .sf-cbox {
+      flex: 1 1 auto;
+      border-radius: 14px;
+      border: 2px solid color-mix(in srgb, var(--dc) 28%, #fff);
+      background: color-mix(in srgb, var(--dc) 5%, #fff);
+      padding: 12px 16px;
+    }
+    .sf-cbox .l1 { display: block; font-size: 15px; font-weight: 800; color: #14141F; letter-spacing: -.02em; line-height: 1.4; }
+    .sf-cbox .l1 b { color: var(--dc); }
+    .sf-cbox .l2 { display: block; font-size: 12px; font-weight: 700; color: #6B6B80; margin-top: 4px; line-height: 1.4; }
+
+    /* 동선 근거 */
+    .sf-ev { display: flex; flex-direction: column; gap: 10px; }
+    .sf-evhd {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      color: #14141F;
+      line-height: 1.4;
+    }
+    .sf-evhd b { color: var(--dc); }
+    .sf-evhd span { font-size: 12px; font-weight: 700; color: #A0A0B5; margin-left: 4px; }
+    .sf-thumbs { display: flex; gap: 14px; }
+    .sf-thumb {
+      flex: 1 1 0;
+      min-width: 0;
+      position: relative;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(20, 20, 43, .06);
+    }
+    .sf-tbar {
+      height: 24px;
+      background: #F0F0F4;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #8A8A9A;
+      gap: 6px;
+    }
+    .sf-tbody { padding: 10px; display: flex; flex-direction: column; gap: 8px; height: 214px; }
+    .sf-tcap {
+      margin-top: auto;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--dc);
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 2px;
-      font-size: 13.5px;
+      gap: 4px;
+    }
+    .sf-tcap::before { content: '✦'; font-size: 10px; }
+
+    /* 썸네일 A: 장바구니 drawer (다시보기 위젯은 원본대로 파란 강조) */
+    .sf-th-title { font-size: 12px; font-weight: 800; color: #14141F; display: flex; align-items: center; gap: 6px; }
+    .sf-th-title .n { background: #14141F; color: #fff; border-radius: 100px; font-size: 12px; padding: 0 8px; font-weight: 900; }
+    .sf-wgrow {
+      position: relative;
+      border-radius: 10px;
+      border: 2px solid #307AF3;
+      background: #EEF4FE;
+      padding: 8px;
+    }
+    .sf-wgrow .wt { display: block; font-size: 12px; font-weight: 800; color: #307AF3; }
+    .sf-wgrow .wi { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+    .sf-wgrow .wi img { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; background: #FBEAEF; }
+    .sf-wgrow .wi .wnm { flex: 1 1 auto; font-size: 12px; font-weight: 700; color: #43434F; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sf-wgrow .wi .wb { flex: 0 0 auto; font-size: 12px; font-weight: 800; color: #fff; background: #307AF3; border-radius: 6px; padding: 4px 10px; }
+    .sf-crow { display: flex; align-items: center; gap: 8px; opacity: .9; }
+    .sf-crow img { width: 24px; height: 24px; border-radius: 6px; object-fit: cover; background: #FBEAEF; }
+    .sf-crow .cnm { flex: 1 1 auto; font-size: 12px; font-weight: 700; color: #6B6B80; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sf-crow .cpr { font-size: 12px; font-weight: 800; color: #14141F; white-space: nowrap; }
+
+    /* 썸네일 B: 결제 이탈 팝업 (알파업셀 위젯 → 레드 강조) */
+    .sf-pop-hd { font-size: 12px; font-weight: 900; color: #14141F; }
+    .sf-pop-sub {
+      font-size: 12px;
       font-weight: 800;
       color: var(--dc);
       background: color-mix(in srgb, var(--dc) 8%, #fff);
-      border: 1px solid color-mix(in srgb, var(--dc) 24%, #fff);
-      border-radius: 100px;
-      padding: 9px 16px;
-      opacity: 0;
+      border-radius: 6px;
+      padding: 4px 8px;
+      line-height: 1.3;
     }
+    .sf-pop-sub b { color: var(--dc); }
+    .sf-pop-cards { display: flex; gap: 8px; }
+    .sf-pc { flex: 1 1 0; min-width: 0; border-radius: 8px; border: 1px solid var(--line); overflow: hidden; background: #fff; }
+    .sf-pc img { width: 100%; height: 48px; object-fit: cover; display: block; background: #FBEAEF; }
+    .sf-pc .pcb { padding: 4px 6px; }
+    .sf-pc .pcd { display: block; font-size: 12px; font-weight: 900; color: var(--dc); white-space: nowrap; }
+    .sf-pc .pca { display: block; font-size: 12px; font-weight: 800; color: #14141F; border: 1px solid color-mix(in srgb, var(--dc) 30%, #fff); border-radius: 6px; text-align: center; padding: 3px 0; margin-top: 4px; white-space: nowrap; }
+    .sf-pop-cta { height: 26px; border-radius: 8px; background: #14141F; color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; }
 
-    /* 시퀀스: 커서가 BEST + 탭 → 담김 → 장바구니 수·금액 상승 → 완료 토스트 */
-    .sc.on .os-cursor {
-      animation: osTap 1.5s ease .7s forwards;
-    }
-
-    .sc.on .os-set.best .os-add .t1 {
-      animation: ocOut .2s ease 1.3s forwards;
-    }
-
-    .sc.on .os-set.best .os-add .t2 {
-      animation: ocIn .3s ease 1.4s forwards;
-    }
-
-    .sc.on .os-set.best {
-      animation: osAdded .5s cubic-bezier(.2, 1.3, .4, 1) 1.4s;
-    }
-
-    .sc.on .os-done {
-      animation: lfPop .45s cubic-bezier(.2, 1.4, .4, 1) 2.2s both;
-    }
-
-    @keyframes osTap {
-      0% { opacity: 0; transform: translate(8px, 10px) scale(1); }
-      22% { opacity: 1; transform: translate(0, 0) scale(1); }
-      44% { transform: translate(0, 0) scale(.8); }
-      60% { transform: translate(0, 0) scale(1); }
-      100% { opacity: 0; transform: translate(0, -2px) scale(1); }
-    }
-
-    @keyframes osAdded {
-      50% { transform: scale(1.03); box-shadow: 0 12px 28px rgba(230, 44, 53, .22); }
-    }
-
-    /* ─────────────────────────────────────────────
-       업셀 씬 2 — 가격 A/B/N 테스트 × 프로모션 결합
-       실험 시작 → 전환율 막대 상승 → 최대 이익 조합 당첨
-    ───────────────────────────────────────────── */
-    /* 실험 현황 라이브 메타 (up2 · up3 공용 스타일) */
-    .abn-meta {
-      display: flex;
+    /* 나머지 N곳 */
+    .sf-more {
+      align-self: flex-start;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--ink-dim);
-      margin-bottom: 14px;
-    }
-
-    .abn-meta .live {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #2BB673;
-      animation: hintPulse 1.4s ease infinite;
-      flex-shrink: 0;
-    }
-
-    .abn-meta .pill {
-      margin-left: auto;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 800;
-      color: var(--ink-dim);
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 100px;
-      padding: 4px 11px;
-      white-space: nowrap;
+      color: #6B6B80;
+    }
+    .sf-more .dots { display: inline-flex; gap: 4px; }
+    .sf-more .dots i { width: 6px; height: 6px; border-radius: 50%; background: color-mix(in srgb, var(--dc) 40%, #fff); display: inline-block; }
+    .sf-more b { color: var(--dc); }
+
+    /* ════════════ 애니메이션 (.sc.on 게이팅) ════════════ */
+
+    /* 승: 위젯 스포트라이트 (주변 딤 in→hold→out) */
+    .sc.on .sf-widget { animation: sfSpot 2000ms ease 120ms forwards; }
+    @keyframes sfSpot {
+      0% { box-shadow: 0 0 0 2000px rgba(18, 18, 28, 0); border-color: color-mix(in srgb, var(--dc) 36%, #fff); }
+      18% { box-shadow: 0 0 0 2000px rgba(18, 18, 28, .5); border-color: var(--dc); }
+      74% { box-shadow: 0 0 0 2000px rgba(18, 18, 28, .5); border-color: var(--dc); }
+      100% { box-shadow: 0 0 0 2000px rgba(18, 18, 28, 0); border-color: color-mix(in srgb, var(--dc) 36%, #fff); }
+    }
+    .sc.on .sf-aibadge { animation: sfBadge 900ms ease 280ms 2; }
+    @keyframes sfBadge {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.14); }
+    }
+
+    /* 콜아웃 강조 (처음부터 보이고 .on 때 시선 유도) */
+    .sc.on .sf-cbox { animation: sfCall 900ms ease 300ms 2; }
+    @keyframes sfCall {
+      0%, 100% { border-color: color-mix(in srgb, var(--dc) 28%, #fff); }
+      50% { border-color: var(--dc); background: color-mix(in srgb, var(--dc) 11%, #fff); }
+    }
+
+    /* 전: 커서가 담기 버튼으로 이동 → 탭 */
+    .sc.on .sf-cursor { animation: sfCursor 1200ms cubic-bezier(.3, .1, .3, 1) 760ms forwards; }
+    @keyframes sfCursor {
+      0% { opacity: 0; left: 186px; top: 286px; transform: scale(1); }
+      22% { opacity: 1; left: 186px; top: 286px; transform: scale(1); }
+      58% { opacity: 1; left: 250px; top: 248px; transform: scale(1); }
+      70% { left: 250px; top: 248px; transform: scale(.82); }
+      82% { left: 250px; top: 248px; transform: scale(1); }
+      100% { opacity: 0; left: 250px; top: 248px; transform: scale(1); }
+    }
+    /* 담김 스왑 */
+    .sc.on .sf-set--best .sf-add .t1 { animation: sfFade 200ms ease 1320ms forwards; }
+    .sc.on .sf-set--best .sf-add .t2 { animation: sfShow 260ms ease 1380ms forwards; }
+    @keyframes sfFade { to { opacity: 0; } }
+    @keyframes sfShow { to { opacity: 1; } }
+    .sc.on .sf-set--best { animation: sfAdded 520ms cubic-bezier(.2, 1.3, .4, 1) 1380ms; }
+    @keyframes sfAdded {
+      40% { transform: scale(1.03); box-shadow: 0 8px 18px rgba(230, 44, 53, .26); border-color: var(--dc); }
+    }
+
+    /* 결: 장바구니 pill 팝 + 카운트업(runCounts) */
+    .sc.on .sf-pill { animation: sfPop 520ms cubic-bezier(.2, 1.4, .4, 1) 1580ms; }
+    @keyframes sfPop {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      40% { transform: translateX(-50%) scale(1.06); box-shadow: 0 12px 26px rgba(20, 20, 30, .4); }
+    }
+
+    /* 결: 동선 근거 하이라이트 (위치 이동 없이 그림자·테두리 펄스) */
+    .sc.on .sf-thumb { animation: sfEv 720ms cubic-bezier(.2, .8, .2, 1); }
+    .sc.on .sf-thumb:nth-child(1) { animation-delay: 1720ms; }
+    .sc.on .sf-thumb:nth-child(2) { animation-delay: 1860ms; }
+    @keyframes sfEv {
+      0%, 100% { box-shadow: 0 6px 16px rgba(20, 20, 43, .06); border-color: var(--line); }
+      45% { box-shadow: 0 10px 26px rgba(230, 44, 53, .24); border-color: var(--dc); }
     }
 
     /* up2 씬 — pw-head 우측상단 액티브 CTA + fill + 다시보기 (up1과 동일 패턴) */
@@ -6420,337 +6466,216 @@
       font-size: 13.5px;
     }
 
-    .up2s .bt {
+    /* ─────────────────────────────────────────────
+       업셀 씬 2 — AI 밴딧 가격 실험 (클린 대시보드)
+       단일 흰 카드 + 2px 헤어라인 3분할: 실험표 → 트래픽 배분 → 결과 KPI
+       승자·결과에만 브랜드 --dc, 비승자는 뉴트럴 슬레이트 (레드 최소화)
+    ───────────────────────────────────────────── */
+    .up2s {
+      --u2-ink: #14161C;
+      --u2-sub: #5A6474;
+      --u2-line: #E6EAF1;
+      --u2-neutral: #C7D0E0;
+      --u2-neutral-bg: #EEF1F6;
+      --u2-neutral-tx: #5A6474;
+    }
+
+    .up2s .u2-card {
       flex: 1 1 auto;
       min-height: 0;
-      justify-content: space-between;
-      padding: 8px 0;
-    }
-
-    /* 밴딧 테스트 — A/B/C 가격 실험 → 트래픽 자동 재분배 → 최대 이익가 */
-    .bt {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      width: 100%;
-      max-width: 760px;
-      margin: 0 auto;
-    }
-
-    .bt-top {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .bt-prod {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      flex: 1 1 240px;
-      min-width: 0;
-    }
-
-    .bt-prod img {
-      width: 46px;
-      height: 46px;
-      border-radius: 11px;
-      object-fit: cover;
-      flex: 0 0 auto;
-    }
-
-    .bt-pi b {
-      display: block;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--ink);
-      letter-spacing: -.01em;
-    }
-
-    .bt-pi span {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-faint);
-    }
-
-    .bt-ai {
-      flex: 1 1 300px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 12px;
-      border-radius: 12px;
-      background: color-mix(in srgb, var(--dc) 6%, #fff);
-      border: 1px solid color-mix(in srgb, var(--dc) 22%, #fff);
-    }
-
-    .bt-ai-ic {
-      flex: 0 0 auto;
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: var(--dc);
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-size: 14px;
-    }
-
-    .bt-at {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .bt-at b {
-      display: block;
-      font-size: 12.5px;
-      font-weight: 800;
-      color: var(--ink);
-    }
-
-    .bt-at span {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--ink-faint);
-    }
-
-    .bt-toggle {
-      flex: 0 0 auto;
-      width: 40px;
-      height: 23px;
-      border-radius: 100px;
-      background: var(--dc);
-      position: relative;
-    }
-
-    .bt-toggle::after {
-      content: '';
-      position: absolute;
-      top: 2.5px;
-      right: 2.5px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
       background: #fff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .22);
+      border: 2px solid #EEF1F6;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px -20px rgba(20, 30, 60, .35);
+      padding: 14px 24px;
     }
 
-    /* A/B/C 가격 그룹 */
-    .bt-groups {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
+    .u2-sec { padding: 12px 0; }
+    .u2-sec:first-child { padding-top: 0; }
+    .u2-sec:last-child { padding-bottom: 0; }
+    .u2-sec + .u2-sec { border-top: 2px solid var(--u2-line); }
 
-    .bt-g {
-      position: relative;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 13px 14px;
-      background: #fff;
-      box-shadow: 0 6px 16px rgba(20, 20, 43, .05);
-    }
-
-    .bt-g .gh {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .bt-g .gt {
-      flex: 0 0 auto;
-      width: 24px;
-      height: 24px;
-      border-radius: 7px;
-      display: grid;
-      place-items: center;
-      font-size: 13px;
-      font-weight: 900;
-      color: #fff;
-    }
-
-    .bt-g.a .gt { background: #94A0B8; }
-    .bt-g.b .gt { background: var(--dc); }
-    .bt-g.c .gt { background: #6E93D6; }
-
-    .bt-g .gd {
-      font-size: 12.5px;
-      font-weight: 800;
-      color: var(--ink-dim);
-    }
-
-    .bt-g .gprc {
-      font-size: 19px;
-      font-weight: 900;
-      color: var(--ink);
-      letter-spacing: -.02em;
-      margin: 9px 0 3px;
-    }
-
-    .bt-g .gprc s {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--ink-faint);
-      margin-right: 5px;
-    }
-
-    .bt-g .gcv {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-faint);
-    }
-
-    .bt-g.b .gcv {
-      color: var(--dc);
-    }
-
-    /* 승자 배지 + 카드 강조 (실행 후 등장) */
-    .bt-g .gwin {
-      position: absolute;
-      top: -11px;
-      left: 50%;
-      transform: translateX(-50%) scale(.4);
-      font-size: 11px;
-      font-weight: 800;
-      color: #fff;
-      background: var(--dc);
-      border-radius: 100px;
-      padding: 4px 11px;
-      white-space: nowrap;
-      box-shadow: 0 5px 14px rgba(230, 44, 53, .32);
-      opacity: 0;
-    }
-
-    .sc.on .bt-g.b .gwin {
-      animation: btWin .4s cubic-bezier(.2, 1.6, .4, 1) 1.7s forwards;
-    }
-
-    .sc.on .bt-g.b {
-      animation: btWinCard .5s ease 1.7s forwards;
-    }
-
-    @keyframes btWin {
-      to { opacity: 1; transform: translateX(-50%) scale(1); }
-    }
-
-    @keyframes btWinCard {
-      to {
-        border-color: var(--dc);
-        box-shadow: 0 0 0 2px var(--dc), 0 14px 30px rgba(230, 44, 53, .16);
-      }
-    }
-
-    /* 트래픽 자동 재분배 */
-    .bt-tf-h {
+    .u2-sec-head {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 7px;
+      gap: 12px;
+      margin-bottom: 10px;
     }
 
-    .bt-tf-h > span:first-child {
-      font-size: 12.5px;
-      font-weight: 800;
-      color: var(--ink-dim);
-    }
+    .u2-sec-title { font-size: 14px; font-weight: 800; color: var(--u2-ink); }
+    .u2-sec-note { font-size: 12px; color: var(--u2-sub); }
 
-    .bt-tf-note {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--ink-faint);
-    }
-
-    .bt-traffic {
+    /* 섹션1 — 할인가 3종 실험표 (트랙 없는 채움 막대) */
+    .u2-sec--exp {
+      flex: 1 1 auto;
+      min-height: 0;
       display: flex;
-      gap: 2px;
-      height: 30px;
-      border-radius: 9px;
-      overflow: hidden;
+      flex-direction: column;
     }
 
-    .bt-seg {
-      display: flex;
+    .u2-thr, .u2-row {
+      display: grid;
+      grid-template-columns: 40px 152px 1fr 78px 62px;
       align-items: center;
-      justify-content: center;
-      gap: 5px;
-      font-size: 12px;
-      font-weight: 900;
-      color: #fff;
-      width: 33.33%;
+      column-gap: 12px;
     }
 
-    .bt-seg b {
-      font-size: 12px;
-      font-weight: 900;
+    .u2-thr { padding: 0 12px 8px; }
+    .u2-thr span { font-size: 12px; font-weight: 700; color: var(--u2-sub); }
+    .u2-thr span:nth-child(4), .u2-thr span:nth-child(5) { text-align: right; }
+
+    .u2-rows {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
     }
 
-    .bt-seg .pct {
+    .u2-row { padding: 8px 12px; border-radius: 12px; }
+    .u2-row--win { background: color-mix(in srgb, var(--dc) 7%, #fff); }
+
+    .u2-tag {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 800;
+      background: var(--u2-neutral-bg);
+      color: var(--u2-neutral-tx);
+    }
+
+    .u2-row--win .u2-tag { background: var(--dc); color: #fff; }
+
+    .u2-pr { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .u2-disc { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--u2-sub); }
+
+    .u2-badge {
       font-size: 11px;
       font-weight: 800;
-      opacity: 0;
+      color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 12%, #fff);
+      border-radius: 100px;
+      padding: 1px 8px;
     }
 
-    .sc.on .bt-seg .pct {
-      animation: btFade .3s ease 2.1s forwards;
+    .u2-price { font-size: 15px; font-weight: 800; color: var(--u2-ink); letter-spacing: -.02em; }
+    .u2-row--win .u2-price { color: var(--dc); }
+
+    .u2-barwrap { position: relative; height: 10px; }
+
+    .u2-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 10px;
+      border-radius: 8px;
+      transform: scaleX(1);
+      transform-origin: left center;
+      background: var(--u2-neutral);
     }
 
-    @keyframes btFade {
-      to { opacity: 1; }
+    .u2-row--win .u2-fill {
+      background: linear-gradient(90deg, color-mix(in srgb, var(--dc) 82%, #fff), var(--dc));
     }
 
-    .bt-seg.a { background: #94A0B8; }
-    .bt-seg.b { background: var(--dc); }
-    .bt-seg.c { background: #6E93D6; }
+    .sc.on .u2-fill { animation: u2Grow 900ms cubic-bezier(.2, .7, .2, 1) both; }
+    .sc.on .u2-rows .u2-row:nth-child(1) .u2-fill { animation-delay: 120ms; }
+    .sc.on .u2-rows .u2-row:nth-child(2) .u2-fill { animation-delay: 240ms; }
+    .sc.on .u2-rows .u2-row:nth-child(3) .u2-fill { animation-delay: 360ms; }
 
-    .sc.on .bt-seg.a { animation: btSegA 1.5s cubic-bezier(.4, 0, .2, 1) .6s forwards; }
-    .sc.on .bt-seg.b { animation: btSegB 1.5s cubic-bezier(.4, 0, .2, 1) .6s forwards; }
-    .sc.on .bt-seg.c { animation: btSegC 1.5s cubic-bezier(.4, 0, .2, 1) .6s forwards; }
+    .u2-rev { font-size: 14px; font-weight: 700; text-align: right; color: var(--u2-ink); font-variant-numeric: tabular-nums; }
+    .u2-row--win .u2-rev { color: var(--dc); font-weight: 800; }
+    .u2-cvr { font-size: 14px; text-align: right; color: var(--u2-sub); font-variant-numeric: tabular-nums; }
+    .u2-row--win .u2-cvr { color: var(--u2-ink); font-weight: 700; }
 
-    @keyframes btSegA { to { width: 13%; } }
-    @keyframes btSegB { to { width: 74%; } }
-    @keyframes btSegC { to { width: 13%; } }
+    /* 섹션2 — AI 밴딧 트래픽 자동 배분 (균등 33% → B 집중) */
+    .u2-alloc { display: flex; gap: 4px; height: 48px; }
 
-    /* 결과 KPI */
-    .bt-kpi {
+    .u2-seg {
+      flex: 0 1 auto;
+      width: 33.33%;
+      border-radius: 8px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      padding: 0 12px;
+      overflow: hidden;
+      background: var(--u2-neutral-bg);
+      color: var(--u2-neutral-tx);
     }
 
-    .bt-k {
-      flex: 1 1 160px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 11px 14px;
-      background: var(--line-soft);
+    .u2-seg span { font-size: 12px; font-weight: 700; opacity: .9; white-space: nowrap; }
+    .u2-seg b { font-size: 18px; line-height: 20px; font-weight: 800; }
+    .u2-seg--b { background: var(--dc); color: #fff; }
+
+    /* 밴딧이 균등(33%)으로 탐색 시작 → 매출 우위 B로 트래픽 집중 */
+    .sc.on .u2-seg--a { animation: u2SegA 1000ms 1000ms cubic-bezier(.4, 0, .2, 1) forwards; }
+    .sc.on .u2-seg--b { animation: u2SegB 1000ms 1000ms cubic-bezier(.4, 0, .2, 1) forwards; }
+    .sc.on .u2-seg--c { animation: u2SegC 1000ms 1000ms cubic-bezier(.4, 0, .2, 1) forwards; }
+
+    /* 섹션3 — 결과 (액션 이후 페이오프) */
+    .u2-res { display: flex; flex-direction: column; gap: 10px; }
+
+    .u2-lead {
+      align-self: flex-start;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 8%, #fff);
+      border-radius: 100px;
+      padding: 4px 12px;
     }
 
-    .bt-k span {
-      display: block;
-      font-size: 11.5px;
-      font-weight: 800;
-      color: var(--ink-faint);
-      margin-bottom: 3px;
+    .u2-lead b { font-weight: 800; }
+
+    .u2-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; column-gap: 24px; }
+    .u2-kpi { position: relative; }
+
+    .u2-kpi + .u2-kpi::before {
+      content: "";
+      position: absolute;
+      left: -12px;
+      top: 2px;
+      bottom: 2px;
+      width: 2px;
+      background: var(--u2-line);
     }
 
-    .bt-k b {
-      font-size: 19px;
+    .u2-kpi-lbl { font-size: 12px; color: var(--u2-sub); margin-bottom: 4px; }
+
+    .u2-kpi-val {
+      font-size: 28px;
+      line-height: 28px;
       font-weight: 900;
       color: var(--dc);
       letter-spacing: -.02em;
-      opacity: 0;
     }
 
-    .sc.on .bt-kpi .bt-k:nth-child(1) b { animation: btPop .4s cubic-bezier(.2, 1.5, .4, 1) 1.9s forwards; }
-    .sc.on .bt-kpi .bt-k:nth-child(2) b { animation: btPop .4s cubic-bezier(.2, 1.5, .4, 1) 2.1s forwards; }
-    .sc.on .bt-kpi .bt-k:nth-child(3) b { animation: btPop .4s cubic-bezier(.2, 1.5, .4, 1) 2.3s forwards; }
+    .u2-kpi-val small { font-size: 16px; font-weight: 800; margin-left: 2px; }
+    .u2-kpi-up { font-size: 16px; margin-right: 2px; vertical-align: 2px; }
+    .u2-kpi--price .u2-kpi-val { color: var(--u2-ink); }
 
-    @keyframes btPop {
-      0% { opacity: 0; transform: translateY(6px) scale(.9); }
-      100% { opacity: 1; transform: none; }
-    }
+    .sc.on .u2-kpi-val { animation: u2Rise 560ms cubic-bezier(.2, .7, .2, 1) both; }
+    .sc.on .u2-kpi:nth-child(1) .u2-kpi-val { animation-delay: 1700ms; }
+    .sc.on .u2-kpi:nth-child(2) .u2-kpi-val { animation-delay: 1820ms; }
+    .sc.on .u2-kpi:nth-child(3) .u2-kpi-val { animation-delay: 1940ms; }
+
+    .u2-foot { font-size: 12px; line-height: 16px; color: var(--u2-sub); }
+    .u2-foot b { color: var(--u2-ink); font-weight: 800; }
+
+    @keyframes u2Grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @keyframes u2SegA { to { width: 13%; } }
+    @keyframes u2SegB { to { width: 74%; } }
+    @keyframes u2SegC { to { width: 13%; } }
+    @keyframes u2Rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
     /* ─────────────────────────────────────────────
        업셀 씬 3 + 공용 — 성과 대시보드 (숫자로 증명)
@@ -14352,114 +14277,172 @@
         <div class="pw-head">
           <div class="pw-headtx">
             <span class="pw-eyebrow">고객이 <b>더 담을 상품</b>을 발견해요</span>
-            <span class="pw-count">AI 추천 옵션 세트 — 클릭 한 번에 장바구니가 커져요</span>
           </div>
           <div class="ps-cta">
-            <button class="cl-start" data-act><span class="cl-lb">옵션 세트 담아보기</span></button>
+            <button class="cl-start" data-act><span class="cl-lb">추천 세트 담아보기</span></button>
             <span class="cl-cursor"></span>
           </div>
         </div>
-        <div class="os">
-          <div class="os-left">
-            <div class="os-prod">
-              <img src="assets/push/cosmetics1.png" alt="">
-              <div class="os-pi">
-                <span class="os-gift">GIFT · 3만원 이상 파우치 증정</span>
-                <span class="os-pnm">글로우 립틴트 2.8ml · 5컬러</span>
-                <span class="os-price"><em>30%</em><s>24,000</s><b>16,900원</b></span>
+        <div class="sf-stage">
+          <div class="sf-phone">
+            <span class="sf-notch"></span>
+            <div class="sf-screen">
+              <div class="sf-status">
+                <span>9:41</span>
+                <span class="sf-sig"><i></i><i></i><i></i><span class="sf-batt"></span></span>
               </div>
+              <div class="sf-bar">🔒 heartglow.shop<span class="sf-rf">↻</span></div>
+              <div class="sf-body">
+                <div class="sf-heroimg">
+                  <img src="assets/beauty/cosmetic_1.png" alt="">
+                  <span class="sf-pick">PICK</span>
+                  <span class="sf-wm">ALPHA UPSELL</span>
+                </div>
+                <div class="sf-pinfo">
+                  <span class="sf-gift">GIFT · 3만원 이상 하트 파우치 증정</span>
+                  <span class="sf-pnm">하트 젤리 글로우 립밤 3.2g · 5컬러</span>
+                  <span class="sf-price"><em>30%</em><s>24,000</s><b>16,900원</b></span>
+                </div>
+                <div class="sf-widget">
+                  <div class="sf-wtitle">함께 구매하면 좋은 옵션<span class="sf-aibadge">AI 추천</span></div>
+                  <div class="sf-sets">
+                    <div class="sf-set sf-set--best">
+                      <span class="sf-best-tag">BEST · 1,024명 구매</span>
+                      <img src="assets/beauty/cosmetic_1.png" alt="">
+                      <div class="sf-sc">
+                        <span class="sf-snm">인기 컬러 3종 골라담기</span>
+                        <div class="sf-chips"><span class="sf-chip">01 코랄피치</span><span class="sf-chip">03 체리레드</span><span class="sf-chip">04 베리퍼플</span></div>
+                      </div>
+                      <div class="sf-sp">
+                        <span class="sf-setprice">50,700원</span>
+                        <button class="sf-add"><span class="t1">담기</span><span class="t2">✓ 담김</span></button>
+                      </div>
+                    </div>
+                    <div class="sf-set sf-set--ghost">
+                      <img src="assets/beauty/cosmetic_2.png" alt="">
+                      <div class="sf-sc">
+                        <span class="sf-snm">쿨톤 립밤 듀오</span>
+                        <div class="sf-chips"><span class="sf-chip">02 로즈핑크</span><span class="sf-chip">04 베리퍼플</span></div>
+                      </div>
+                      <div class="sf-sp">
+                        <span class="sf-setprice">33,800원</span>
+                        <button class="sf-add"><span class="t1">담기</span><span class="t2">✓ 담김</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sf-pill">🛒 장바구니 <b class="cnt" data-from="2" data-to="5" data-fmt="num" data-delay="1600">2</b>개 · <span class="sf-amt">₩<b class="cnt" data-from="33800" data-to="84500" data-fmt="num" data-delay="1600">33,800</b></span><span class="sf-arw">›</span></div>
             </div>
-            <div class="os-cbh">🛒 장바구니 담은 상품</div>
-            <div class="os-items">
-              <div class="os-it new"><img src="assets/push/cosmetics2.png" alt=""><span class="in">립틴트 3종 골라담기</span><span class="ip">50,700원</span></div>
-              <div class="os-it"><img src="assets/push/cosmetics3.png" alt=""><span class="in">글로우 립틴트 03 밀크로즈</span><span class="ip">12,000원</span></div>
-              <div class="os-it"><img src="assets/push/cosmetics4.png" alt=""><span class="in">글로우 립틴트 05 체리펀치</span><span class="ip">16,900원</span></div>
-              <div class="os-it"><img src="assets/push/cosmetics5.png" alt=""><span class="in">데일리 글로우 쿠션</span><span class="ip">21,600원</span></div>
-            </div>
-            <div class="os-cart">
-              <div class="os-crow"><span class="lb">🛒 장바구니</span><span class="v"><b class="cnt" data-from="3" data-to="4" data-delay="1650">3</b>개</span></div>
-              <div class="os-crow amt"><span class="lb">결제 예상 금액</span><span class="v">₩<b class="cnt" data-from="84500" data-to="135200" data-fmt="num" data-delay="1650">84,500</b></span></div>
-              <button class="os-cbtn">바로 구매</button>
-            </div>
+            <span class="sf-cursor"></span>
           </div>
-          <div class="os-right">
-            <div class="os-wh">함께 구매하면 좋은 옵션<span class="n">AI 추천</span></div>
-            <div class="os-set best">
-              <span class="os-best-badge">BEST · 이 조합 1,024명 구매</span>
-              <img src="assets/push/cosmetics2.png" alt="">
-              <div class="os-sc">
-                <span class="os-snm">립틴트 3종 골라담기</span>
-                <div class="os-chips"><span class="os-chip">03 밀크로즈</span><span class="os-chip">05 체리펀치</span><span class="os-chip">04 베리멜로우</span></div>
+          <div class="sf-side">
+            <div class="sf-callout">
+              <span class="sf-cline"></span>
+              <div class="sf-cbox">
+                <span class="l1">알파업셀이 <b>바로 이 자리</b>에 추천 위젯을 자동으로 넣었어요</span>
+                <span class="l2">AI 추천 모델 9종이 이 상품에 가장 잘 팔리는 조합을 계산해 노출</span>
               </div>
-              <div class="os-sp"><span class="p">50,700원</span><button class="os-add"><span class="t1">+</span><span class="t2">✓</span></button></div>
-              <span class="os-cursor"></span>
             </div>
-            <div class="os-set">
-              <img src="assets/push/cosmetics3.png" alt="">
-              <div class="os-sc">
-                <span class="os-snm">립 + 하이라이터</span>
-                <div class="os-chips"><span class="os-chip">01 코랄</span><span class="os-chip">04 베리멜로우</span></div>
+            <div class="sf-ev">
+              <div class="sf-evhd">같은 위젯이 <b>고객 동선 12곳</b>에서 작동해요<span>· 실제 노출 화면</span></div>
+              <div class="sf-thumbs">
+                <div class="sf-thumb">
+                  <div class="sf-tbar">🔒 heartglow.shop</div>
+                  <div class="sf-tbody">
+                    <span class="sf-th-title">장바구니에 담긴 상품 <span class="n">4</span></span>
+                    <div class="sf-wgrow">
+                      <span class="wt">전에 본 상품 다시보기</span>
+                      <div class="wi"><img src="assets/beauty/cosmetic_7.png" alt=""><span class="wnm">05 밀크로즈 · 놓친 상품</span><span class="wb">담기</span></div>
+                    </div>
+                    <div class="sf-crow"><img src="assets/beauty/cosmetic_2.png" alt=""><span class="cnm">01 코랄피치 립밤</span><span class="cpr">16,900원</span></div>
+                    <span class="sf-tcap">위젯 · 장바구니 다시보기</span>
+                  </div>
+                </div>
+                <div class="sf-thumb">
+                  <div class="sf-tbar">🔒 heartglow.shop</div>
+                  <div class="sf-tbody">
+                    <span class="sf-pop-hd">잠깐, 지금만 받는 할인!</span>
+                    <span class="sf-pop-sub">🚀 지금 담으면 <b>15% 추가 할인</b></span>
+                    <div class="sf-pop-cards">
+                      <div class="sf-pc"><img src="assets/beauty/cosmetic_3.png" alt=""><div class="pcb"><span class="pcd">19,000원</span><span class="pca">+ 담기</span></div></div>
+                      <div class="sf-pc"><img src="assets/beauty/cosmetic_5.png" alt=""><div class="pcb"><span class="pcd">19,000원</span><span class="pca">+ 담기</span></div></div>
+                    </div>
+                    <span class="sf-tcap">위젯 · 결제 이탈 팝업</span>
+                  </div>
+                </div>
               </div>
-              <div class="os-sp"><span class="p">33,800원</span><button class="os-add"><span class="t1">+</span><span class="t2">✓</span></button></div>
+              <span class="sf-more"><span class="dots"><i></i><i></i><i></i></span>검색·홈·상세·결제 등 <b>나머지 10곳</b>에서도 동일하게 작동</span>
             </div>
-            <div class="os-set">
-              <img src="assets/push/cosmetics4.png" alt="">
-              <div class="os-sc">
-                <span class="os-snm">치크 + 립 세트</span>
-                <div class="os-chips"><span class="os-chip">02 발레리나</span><span class="os-chip">06 피그</span></div>
-              </div>
-              <div class="os-sp"><span class="p">33,800원</span><button class="os-add"><span class="t1">+</span><span class="t2">✓</span></button></div>
-            </div>
-            <span class="os-done">✓ 클릭 한 번에 장바구니가 커졌어요</span>
           </div>
         </div>
-        <div class="sc-foot">AI 추천 모델 9종 · 추천 위젯 12종 — 상세·장바구니·주문서 모든 흐름에 옵션 세트 추천</div>
         <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
       up2: `<div class="sc up2s">
         <div class="pw-head">
           <div class="pw-headtx">
-            <span class="pw-eyebrow">밴딧 테스트로 — <b>매출이 나는 가격 구간</b>을 자동으로 찾아요</span>
-            <span class="pw-count">A/B/N 가격 실험 + AI 트래픽 자동 배분 — 최대 이익 가격 탐색</span>
+            <span class="pw-eyebrow">잘 팔리면서, <b>마진도 남는 가격</b>을 자동으로 찾아요</span>
           </div>
           <div class="ps-cta">
-            <button class="cl-start" data-act><span class="cl-lb">가격 실험 시작하기</span></button>
+            <button class="cl-start" data-act><span class="cl-lb">가격 실험 돌려보기</span></button>
             <span class="cl-cursor"></span>
           </div>
         </div>
-        <div class="bt">
-          <div class="bt-top">
-            <div class="bt-prod">
-              <img src="assets/push/cosmetics1.png" alt="">
-              <div class="bt-pi"><b>콜라겐 리프팅 아이패치</b><span>정가 54,000원 · 3개 가격 그룹 실험 중</span></div>
+        <section class="u2-card">
+          <div class="u2-sec u2-sec--exp">
+            <div class="u2-sec-head">
+              <span class="u2-sec-title">할인가 3종 동시 실험 · 콜라겐 리프팅 아이패치</span>
+              <span class="u2-sec-note">정가 54,000원 · 7일 실시간 자동 최적화</span>
             </div>
-            <div class="bt-ai">
-              <span class="bt-ai-ic">✦</span>
-              <div class="bt-at"><b>AI 밴딧 최적화</b><span>매출 잘 나는 그룹으로 트래픽 자동 배분</span></div>
-              <span class="bt-toggle"></span>
+            <div class="u2-thr"><span>그룹</span><span>할인 · 판매가</span><span></span><span>매출</span><span>전환율</span></div>
+            <div class="u2-rows">
+              <div class="u2-row">
+                <div class="u2-tag">A</div>
+                <div class="u2-pr"><span class="u2-disc">할인 5%</span><span class="u2-price">51,300원</span></div>
+                <div class="u2-barwrap"><i class="u2-fill" style="width:76%"></i></div>
+                <div class="u2-rev">84,000원</div>
+                <div class="u2-cvr">2.1%</div>
+              </div>
+              <div class="u2-row u2-row--win">
+                <div class="u2-tag">B</div>
+                <div class="u2-pr"><span class="u2-disc">할인 7% <b class="u2-badge">매출 최고</b></span><span class="u2-price">50,220원</span></div>
+                <div class="u2-barwrap"><i class="u2-fill" style="width:100%"></i></div>
+                <div class="u2-rev">110,000원</div>
+                <div class="u2-cvr">3.4%</div>
+              </div>
+              <div class="u2-row">
+                <div class="u2-tag">C</div>
+                <div class="u2-pr"><span class="u2-disc">할인 10%</span><span class="u2-price">48,600원</span></div>
+                <div class="u2-barwrap"><i class="u2-fill" style="width:84%"></i></div>
+                <div class="u2-rev">92,000원</div>
+                <div class="u2-cvr">2.8%</div>
+              </div>
             </div>
           </div>
-          <div class="bt-groups">
-            <div class="bt-g a"><div class="gh"><span class="gt">A</span><span class="gd">할인 5%</span></div><div class="gprc"><s>54,000</s>51,300원</div><div class="gcv">전환율 2.1%</div></div>
-            <div class="bt-g b"><span class="gwin">🏆 매출 가장 높음</span><div class="gh"><span class="gt">B</span><span class="gd">할인 7%</span></div><div class="gprc"><s>54,000</s>50,220원</div><div class="gcv">전환율 3.4% · 마진 유지</div></div>
-            <div class="bt-g c"><div class="gh"><span class="gt">C</span><span class="gd">할인 10%</span></div><div class="gprc"><s>54,000</s>48,600원</div><div class="gcv">전환율 2.8%</div></div>
-          </div>
-          <div class="bt-tf">
-            <div class="bt-tf-h"><span>트래픽 자동 배분</span><span class="bt-tf-note">1일차 균등 33:33:33 → 승자 그룹으로 집중</span></div>
-            <div class="bt-traffic">
-              <div class="bt-seg a"><b>A</b><span class="pct">13%</span></div>
-              <div class="bt-seg b"><b>B</b><span class="pct">74%</span></div>
-              <div class="bt-seg c"><b>C</b><span class="pct">13%</span></div>
+          <div class="u2-sec u2-sec--ai">
+            <div class="u2-sec-head">
+              <span class="u2-sec-title">AI 밴딧 트래픽 자동 배분</span>
+              <span class="u2-sec-note">균등 탐색 → 매출 우위 B로 집중</span>
+            </div>
+            <div class="u2-alloc">
+              <div class="u2-seg u2-seg--a"><span>A · 할인 5%</span><b>13%</b></div>
+              <div class="u2-seg u2-seg--b"><span>B · 할인 7%</span><b>74%</b></div>
+              <div class="u2-seg u2-seg--c"><span>C · 할인 10%</span><b>13%</b></div>
             </div>
           </div>
-          <div class="bt-kpi">
-            <div class="bt-k"><span>추가 매출</span><b>+38%</b></div>
-            <div class="bt-k"><span>할인 대비 매출</span><b>5.0배 ↑</b></div>
-            <div class="bt-k"><span>최대 이익가</span><b>₩50,220</b></div>
+          <div class="u2-sec u2-sec--res">
+            <div class="u2-res">
+              <span class="u2-lead">AI 채택 · <b>B (할인 7% · 50,220원)</b> 가격으로 트래픽 집중</span>
+              <div class="u2-kpis">
+                <div class="u2-kpi"><div class="u2-kpi-lbl">판매량</div><div class="u2-kpi-val"><span class="u2-kpi-up">▲</span>38<small>%</small></div></div>
+                <div class="u2-kpi"><div class="u2-kpi-lbl">순수익</div><div class="u2-kpi-val"><span class="u2-kpi-up">▲</span>42<small>%</small></div></div>
+                <div class="u2-kpi u2-kpi--price"><div class="u2-kpi-lbl">적용 판매가</div><div class="u2-kpi-val">50,220<small>원</small></div></div>
+              </div>
+              <div class="u2-foot">정가 54,000원의 마진을 지키는 <b>50,220원(할인 7%)</b>에 트래픽을 집중해 판매량과 순수익을 동시에 끌어올렸어요.</div>
+            </div>
           </div>
-        </div>
-        <div class="sc-foot">프로모션 다단계 결합 + 가격 A/B/N 테스트 자동화 — 최대 이익을 만드는 조합</div>
+        </section>
         <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
@@ -14730,7 +14713,6 @@
         <div class="pw-head">
           <div class="pw-headtx">
             <span class="pw-eyebrow">기능을 켤 때마다 <b>타사는 오르고, 알파푸시는 그대로</b></span>
-            <span class="pw-count">같은 39,900원에서 시작해도 — 요금은 완전히 달라져요</span>
           </div>
           <div class="ps-cta">
             <button class="cl-start" data-act><span class="cl-lb">가격 비교하기</span></button>
