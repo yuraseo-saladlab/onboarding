@@ -592,6 +592,44 @@
       animation-play-state: paused !important;
     }
 
+    /* === 히어로 3씬 클릭-재생 CTA (우측상단 통일, 3-B 감각) === */
+    .hero-cta {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      --dc: var(--c-review);
+    }
+    .hero-cta .cl-start { margin: 0; }
+    .hero-cta .cmp-replay {
+      position: static;
+      left: auto;
+      bottom: auto;
+      margin: 0;
+      display: none;
+      height: 40px;
+      padding: 0 18px;
+      font-size: 13px;
+    }
+    .hero-pane.played .hero-cta .cl-start { display: none; }
+    .hero-pane.played .hero-cta .cmp-replay { display: inline-flex; }
+    /* 클릭 전: 셋업(입력)만 완성 상태로 정지 노출. 페이오프(결과)는 .played 전까지 숨김 → 클릭 시 등장(전≠후) */
+    .hero-pane.poster .rvh-src, .hero-pane.poster .rvh-src *,
+    .hero-pane.poster .stg.s1, .hero-pane.poster .stg.s1 *,
+    .hero-pane.poster .wg-head, .hero-pane.poster .wg-head *,
+    .hero-pane.poster .wg-wall .wg-col:first-child,
+    .hero-pane.poster .wg-wall .wg-col:first-child * {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    /* 자동재생 폐지 → 하단 자동넘김 컨트롤 + 진행 게이지 숨김 */
+    #heroCtrl { display: none !important; }
+    #heroBeats .prog,
+    #heroBeats .prog-hit { display: none !important; }
+
     .hero-ctrl {
       margin-top: 16px;
       display: inline-flex;
@@ -1236,7 +1274,7 @@
       opacity: 0;
     }
 
-    .hero-pane.on .rvh-lines path {
+    .hero-pane.played .rvh-lines path {
       opacity: 1;
       animation: rvhFlow 1s linear infinite;
       transition: opacity .4s .9s;
@@ -1426,35 +1464,35 @@
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .7s both;
     }
 
-    .hero-pane.on .rvh-panel {
+    .hero-pane.played .rvh-panel {
       animation: lfPop .55s cubic-bezier(.2, 1.3, .4, 1) 1s both;
     }
 
-    .hero-pane.on .rvh-chart i {
+    .hero-pane.played .rvh-chart i {
       animation: barGrow .55s cubic-bezier(.3, 1, .4, 1) 2.1s both;
     }
 
-    .hero-pane.on .rvh-chart i:nth-child(2) {
+    .hero-pane.played .rvh-chart i:nth-child(2) {
       animation-delay: 2.2s;
     }
 
-    .hero-pane.on .rvh-chart i:nth-child(3) {
+    .hero-pane.played .rvh-chart i:nth-child(3) {
       animation-delay: 2.3s;
     }
 
-    .hero-pane.on .rvh-chart i:nth-child(4) {
+    .hero-pane.played .rvh-chart i:nth-child(4) {
       animation-delay: 2.4s;
     }
 
-    .hero-pane.on .rvh-chart i:nth-child(5) {
+    .hero-pane.played .rvh-chart i:nth-child(5) {
       animation-delay: 2.5s;
     }
 
-    .hero-pane.on .rvh-chart i:nth-child(6) {
+    .hero-pane.played .rvh-chart i:nth-child(6) {
       animation-delay: 2.6s;
     }
 
-    .hero-pane.on .rvh-chart i:nth-child(7) {
+    .hero-pane.played .rvh-chart i:nth-child(7) {
       animation-delay: 2.7s;
     }
 
@@ -2460,6 +2498,9 @@
       min-height: 0;
     }
 
+    /* 우측상단 재생 버튼(.hero-cta)과 겹치지 않게 카드 행을 아래로 — 상단은 CTA 전용 여백 */
+    .hp-ai .apx-flow { margin-top: 42px; }
+
 
     .apx-live {
       display: inline-flex;
@@ -2980,7 +3021,7 @@
       cursor: pointer;
     }
 
-    .hero-pane.on .stg.hot .pin-btn {
+    .hero-pane.played .stg.hot .pin-btn {
       animation: pinPulse 1.8s ease 2.4s infinite;
     }
 
@@ -3009,7 +3050,7 @@
       opacity: 0;
     }
 
-    .hero-pane.on .stg.hot .pin-btn .lf-cursor {
+    .hero-pane.played .stg.hot .pin-btn .lf-cursor {
       animation: pinTap 1.8s ease 2.4s infinite;
     }
 
@@ -3340,51 +3381,51 @@
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .4s both;
     }
 
-    .hero-pane.on .stg.s2 {
+    .hero-pane.played .stg.s2 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .8s both;
     }
 
-    .hero-pane.on .stg.s3 {
+    .hero-pane.played .stg.s3 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.2s both;
     }
 
-    .hero-pane.on .stg.s4 {
+    .hero-pane.played .stg.s4 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.6s both;
     }
 
-    .hero-pane.on .stg.s5 {
+    .hero-pane.played .stg.s5 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 2s both;
     }
 
-    .hero-pane.on .arw.a1::before {
+    .hero-pane.played .arw.a1::before {
       animation: arwFill .35s ease .78s both;
     }
 
-    .hero-pane.on .arw.a2::before {
+    .hero-pane.played .arw.a2::before {
       animation: arwFill .35s ease 1.18s both;
     }
 
-    .hero-pane.on .arw.a3::before {
+    .hero-pane.played .arw.a3::before {
       animation: arwFill .35s ease 1.58s both;
     }
 
-    .hero-pane.on .arw.a4::before {
+    .hero-pane.played .arw.a4::before {
       animation: arwFill .35s ease 1.98s both;
     }
 
-    .hero-pane.on .arw.a1::after {
+    .hero-pane.played .arw.a1::after {
       animation: arwTip .3s ease 1.05s both;
     }
 
-    .hero-pane.on .arw.a2::after {
+    .hero-pane.played .arw.a2::after {
       animation: arwTip .3s ease 1.45s both;
     }
 
-    .hero-pane.on .arw.a3::after {
+    .hero-pane.played .arw.a3::after {
       animation: arwTip .3s ease 1.85s both;
     }
 
-    .hero-pane.on .arw.a4::after {
+    .hero-pane.played .arw.a4::after {
       animation: arwTip .3s ease 2.25s both;
     }
 
@@ -3400,31 +3441,31 @@
       }
     }
 
-    .hero-pane.on .stg.s4 .mc-bars i {
+    .hero-pane.played .stg.s4 .mc-bars i {
       animation: barGrow .5s cubic-bezier(.3, 1, .4, 1) 1.75s both;
     }
 
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(2) {
+    .hero-pane.played .stg.s4 .mc-bars i:nth-child(2) {
       animation-delay: 1.82s;
     }
 
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(3) {
+    .hero-pane.played .stg.s4 .mc-bars i:nth-child(3) {
       animation-delay: 1.89s;
     }
 
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(4) {
+    .hero-pane.played .stg.s4 .mc-bars i:nth-child(4) {
       animation-delay: 1.96s;
     }
 
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(5) {
+    .hero-pane.played .stg.s4 .mc-bars i:nth-child(5) {
       animation-delay: 2.03s;
     }
 
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(6) {
+    .hero-pane.played .stg.s4 .mc-bars i:nth-child(6) {
       animation-delay: 2.1s;
     }
 
-    .hero-pane.on .stg.s4 .mc-bars i:nth-child(7) {
+    .hero-pane.played .stg.s4 .mc-bars i:nth-child(7) {
       animation-delay: 2.17s;
     }
 
@@ -3534,7 +3575,7 @@
     .apx-cycle {
       position: relative;
       flex: 0 0 auto;
-      margin-top: 14px;
+      margin-top: 6px;
       height: 34px;
     }
 
@@ -3556,7 +3597,7 @@
       opacity: 0;
     }
 
-    .hero-pane.on .apx-cycle .cyc-svg path {
+    .hero-pane.played .apx-cycle .cyc-svg path {
       animation: cycShow .5s ease 2.3s both, cycFlow 1.1s linear 2.6s infinite;
     }
 
@@ -3585,7 +3626,7 @@
       opacity: 0;
     }
 
-    .hero-pane.on .apx-cycle .cyc-head {
+    .hero-pane.played .apx-cycle .cyc-head {
       animation: arwTip .3s ease 2.7s both;
     }
 
@@ -3618,7 +3659,7 @@
       font-weight: 900;
     }
 
-    .hero-pane.on .apx-cycle .cyc-tx {
+    .hero-pane.played .apx-cycle .cyc-tx {
       animation: cycShow .5s ease 2.4s both;
     }
 
@@ -3809,7 +3850,7 @@
       color: var(--ink-dim);
     }
 
-    .hero-pane.on .wg-stat .wsb-track i {
+    .hero-pane.played .wg-stat .wsb-track i {
       animation: barGrow .85s cubic-bezier(.3, 1, .4, 1) .95s both;
     }
 
@@ -4126,31 +4167,31 @@
     }
 
     /* 위젯 순차 팝인 — 다 "있다"는 느낌으로 차곡차곡 */
-    .hero-pane.on .wg.w1 {
+    .hero-pane.played .wg.w1 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .35s both;
     }
 
-    .hero-pane.on .wg.w2 {
+    .hero-pane.played .wg.w2 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .5s both;
     }
 
-    .hero-pane.on .wg.w3 {
+    .hero-pane.played .wg.w3 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .65s both;
     }
 
-    .hero-pane.on .wg.w4 {
+    .hero-pane.played .wg.w4 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .8s both;
     }
 
-    .hero-pane.on .wg.w5 {
+    .hero-pane.played .wg.w5 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) .95s both;
     }
 
-    .hero-pane.on .wg.w6 {
+    .hero-pane.played .wg.w6 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.1s both;
     }
 
-    .hero-pane.on .wg.w7 {
+    .hero-pane.played .wg.w7 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.25s both;
     }
 
@@ -4185,7 +4226,7 @@
       font-weight: 900;
     }
 
-    .hero-pane.on .wg-done {
+    .hero-pane.played .wg-done {
       animation: aiStamp .4s cubic-bezier(.2, 1.6, .4, 1) 1.6s both, wgDoneGlow 2.2s ease-in-out 2.1s infinite;
     }
 
@@ -4202,11 +4243,11 @@
     }
 
     /* 추가 위젯 cascade */
-    .hero-pane.on .wg.w8 {
+    .hero-pane.played .wg.w8 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.4s both;
     }
 
-    .hero-pane.on .wg.w9 {
+    .hero-pane.played .wg.w9 {
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.55s both;
     }
 
@@ -16249,11 +16290,11 @@
     const HERO_PANES = {
       review: [
         `<div class="hero-pane hp-live">
+          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">▶ 리뷰 모두 수집하기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
           <div class="rvh">
             <div class="rvh-src">
               <div class="rvs s1">
                 <div class="rvs-h">빠른 리뷰</div>
-                <div class="rvs-ex">“만족해요 ❤️” 탭 한 번으로 <span class="st">★★★★★</span> 리뷰 자동 완성</div>
                 <div class="rvx rvx-talk">
                   <div class="rvx-noti"><span class="rvx-app">α</span><b>알파리뷰 알림톡</b><span class="rvx-tm">방금</span></div>
                   <div class="rvx-msg">구매하신 <b>여름 원피스</b>는 어떠셨나요?<br>만족하셨다면 별점을 남겨주세요 😊</div>
@@ -16262,7 +16303,6 @@
               </div>
               <div class="rvs s2">
                 <div class="rvs-h">외부몰 리뷰 연동</div>
-                <div class="rvs-ex">네이버·인스타·쿠팡 리뷰까지 자동으로 긁어와 한 곳에 모아요</div>
                 <div class="rvx rvx-sync">
                   <div class="rvx-plat"><span class="rvx-lg nv">N</span>네이버<span class="rvx-c">1,240</span></div>
                   <div class="rvx-plat"><span class="rvx-lg ss">S</span>인스타<span class="rvx-c">2,108</span></div>
@@ -16271,7 +16311,6 @@
               </div>
               <div class="rvs s3">
                 <div class="rvs-h">QR 코드 리뷰</div>
-                <div class="rvs-ex">매장·패키지의 QR을 스캔하면 오프라인 고객도 리뷰를 남겨요</div>
                 <div class="rvx rvx-qr">
                   <svg class="rvx-qrbox" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="6" width="3" height="3" fill="#20242E"></rect><rect x="27" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="31" y="6" width="3" height="3" fill="#20242E"></rect><rect x="2" y="27" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="31" width="3" height="3" fill="#20242E"></rect><g fill="#20242E"><rect x="18" y="3" width="3" height="3"></rect><rect x="23" y="7" width="3" height="3"></rect><rect x="18" y="11" width="3" height="3"></rect><rect x="34" y="18" width="3" height="3"></rect><rect x="27" y="18" width="3" height="3"></rect><rect x="31" y="22" width="3" height="3"></rect><rect x="18" y="18" width="3" height="3"></rect><rect x="22" y="22" width="3" height="3"></rect><rect x="18" y="26" width="3" height="3"></rect><rect x="23" y="30" width="3" height="3"></rect><rect x="27" y="27" width="3" height="3"></rect><rect x="31" y="31" width="3" height="3"></rect><rect x="34" y="34" width="3" height="3"></rect><rect x="18" y="34" width="3" height="3"></rect></g></svg>
                   <span class="rvx-arrow">→</span>
@@ -16287,11 +16326,10 @@
               <path d="M2,139 C42,139 40,135.6 74,135.6"></path>
               <path d="M2,213.8 C42,213.8 40,135.6 74,135.6"></path>
             </svg>
-            <div class="rvh-panel">
+            <div class="rvh-panel hero-payoff">
               <div class="rvh-top">
                 <div class="rvh-topL">
                   <div class="rvh-title">모든 채널의 리뷰<br><b>실시간 수집중</b></div>
-                  <div class="rvh-chips"><i>빠른리뷰</i><i>외부몰 연동</i><i>QR</i></div>
                 </div>
                 <div class="rvh-count">
                   <span class="rvh-live"><i class="rd"></i>LIVE</span>
@@ -16300,16 +16338,17 @@
               </div>
               <div class="rvh-div"></div>
               <div class="rvh-grow-h">쌓인 리뷰가 곧 성장<em>신뢰가 쌓여 구매로 이어져요</em></div>
-              <div class="rvh-chart"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:68%"></i><i style="--h:84%"></i><i style="--h:100%"></i></div>
               <div class="rvh-metric">
                 <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="32" data-from="0" data-delay="2400">0</b>%</div><div class="l">구매 전환율</div></div>
                 <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="27" data-from="0" data-delay="2600">0</b>%</div><div class="l">재구매율</div></div>
                 <div class="rvh-mt"><div class="v"><b>★4.9</b></div><div class="l">평균 별점</div></div>
               </div>
+              <div class="rvh-chart"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:68%"></i><i style="--h:84%"></i><i style="--h:100%"></i></div>
             </div>
           </div>
         </div>`,
         `<div class="hero-pane hp-ai">
+          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">▶ 리뷰 인사이트 보기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
           <div class="ai-pipe">
             <div class="apx-flow">
               <div class="stg s1">
@@ -16325,7 +16364,7 @@
                 <div class="stg-cap">쌓이는 리뷰를 AI가 자동 수집 · 오늘 +12,480건</div>
               </div>
               <span class="arw a1"></span>
-              <div class="stg s2">
+              <div class="stg s2 hero-payoff">
                 <div class="stg-top"><span class="stg-no">2</span><span class="stg-lb">AI 리뷰 요약</span></div>
                 <div class="stg-ui">
                   <div class="msum-h">🤖 <b>92%</b> 고객 만족</div>
@@ -16339,7 +16378,7 @@
                 <div class="stg-cap">핵심만 요약해 상세페이지에 자동 게시</div>
               </div>
               <span class="arw a2"></span>
-              <div class="stg s3 hot">
+              <div class="stg s3 hot hero-payoff">
                 <div class="stg-top"><span class="stg-no">3</span><span class="stg-lb">최상단 고정</span></div>
                 <div class="stg-ui">
                   <div class="pin-rec">✦ AI 추천 리뷰<span>32개</span></div>
@@ -16359,7 +16398,7 @@
                 <div class="stg-cap">좋은 리뷰를 위젯 맨 위로 올려 · 리뷰 순서 조정 > 구매 전환율 ▲</div>
               </div>
               <span class="arw a3"></span>
-              <div class="stg s4">
+              <div class="stg s4 hero-payoff">
                 <div class="stg-top"><span class="stg-no">4</span><span class="stg-lb">월간 브리핑</span></div>
                 <div class="stg-ui">
                   <div class="mc-bars"><i style="--h:38%"></i><i style="--h:56%"></i><i style="--h:48%"></i><i style="--h:72%"></i><i style="--h:62%"></i><i style="--h:88%"></i><i style="--h:100%"></i></div>
@@ -16373,7 +16412,7 @@
                 <div class="stg-cap">지표·추세와 개선 상품을 매달 리포트</div>
               </div>
               <span class="arw a4"></span>
-              <div class="stg s5">
+              <div class="stg s5 hero-payoff">
                 <div class="stg-top"><span class="stg-no">5</span><span class="stg-lb">브랜드 인사이트</span></div>
                 <div class="stg-ui">
                   <div class="ins-tag"><svg class="ins-donut" viewBox="0 0 36 36"><circle class="d-neg" cx="18" cy="18" r="14" pathLength="100" stroke-dasharray="28 100" stroke-dashoffset="-72"></circle><circle class="d-pos" cx="18" cy="18" r="14" pathLength="100" stroke-dasharray="72 100"></circle></svg><span class="ins-t"><b>#핏 · 색감</b><em>언급량 1,573</em></span></div>
@@ -16404,7 +16443,7 @@
                 <div class="stg-cap">강점·위험 키워드를 한눈에</div>
               </div>
             </div>
-            <div class="apx-cycle">
+            <div class="apx-cycle hero-payoff">
               <svg class="cyc-svg" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path d="M984,4 C1002,32 968,36 500,36 C32,36 -2,32 16,4"></path></svg>
               <span class="cyc-head"></span>
               <span class="cyc-tx"><i class="cyc-ic"></i>리뷰 <b class="cnt" data-to="12480" data-from="0" data-delay="2400">0</b>건 실시간 처리 · 사람 손 없이 매주 자동 반복 — 담당자 <b>3명 몫</b> · 월 <b>240시간</b>을 AI가 대신</span>
@@ -16412,6 +16451,7 @@
           </div>
         </div>`,
         `<div class="hero-pane hp-wg">
+          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">▶ 20+여종 리뷰위젯 보기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
           <div class="wg-head">
             <div class="wg-title">리뷰 기능 <b class="cnt" data-to="20" data-from="0" data-delay="300">0</b>여 종, 알파리뷰 하나에 전부 있어요</div>
           </div>
@@ -16437,7 +16477,7 @@
                   <span class="wsl-tx">지금 <b>5,780명</b>이 이 상품을<br>보고 있어요 · 실시간 세일 중</span>
                 </div>
               </div>
-              <div class="wg-col">
+              <div class="wg-col hero-payoff">
                 <div class="wg wg-photo w2">
                   <div class="wg-h">📷 포토 리뷰 그리드</div>
                   <div class="wg-pg">
@@ -16459,7 +16499,7 @@
                   </div>
                 </div>
               </div>
-              <div class="wg-col">
+              <div class="wg-col hero-payoff">
                 <div class="wg wg-best w3">
                   <span class="wb-badge">BEST 리뷰</span>
                   <span class="st">★★★★★</span>
@@ -16594,24 +16634,17 @@
         el.className = 'beat';
         el.style.setProperty('--beat-ms', beatMs(i) + 'ms');
         el.innerHTML = `<span class="brow"><span class="bn">${i + 1}</span><span class="bt">${b[0]}</span></span><span class="bd">${b[1]}</span><span class="prog"></span><span class="prog-hit" title="게이지를 누르면 그 지점으로 이동"></span>`;
-        // beat 클릭 = 현재 비트면 재생/일시정지 토글, 다른 비트면 처음부터 시작
-        el.onclick = () => {
-          if (i === heroIdx) { heroPaused ? playHero() : pauseHero(); }
-          else scrubBeat(i, 0);
-        };
-        // 진행 게이지(prog) 클릭 = 누른 위치로 스크럽 — 현재 재생 중인 비트에서만
-        const hit = el.querySelector('.prog-hit');
-        hit.onclick = (ev) => {
-          ev.stopPropagation();
-          if (i !== heroIdx) { scrubBeat(i, 0); return; }   // 다른 비트면 처음부터
-          const rect = hit.getBoundingClientRect();
-          const f = Math.max(0, Math.min(1, (ev.clientX - rect.left) / rect.width));
-          scrubBeat(i, f);
-        };
+        // beat 클릭 = 해당 씬으로 전환(클릭 전 대기 상태, 우측상단 버튼으로 재생)
+        el.onclick = () => heroGo(i);
         beats.appendChild(el);
       });
       $('heroPanes').innerHTML = (HERO_PANES[ENTRY] || []).join('');
       renderStars($('heroPanes'));
+      // 우측상단 재생/다시보기 버튼 (씬마다) — 위임
+      $('heroPanes').addEventListener('click', (e) => {
+        if (e.target.closest('[data-heroplay]')) heroPlay();
+        else if (e.target.closest('[data-heroreplay]')) heroReplay();
+      });
     }
 
     /* 텍스트 별점(★/☆)을 Figma 별 아이콘으로 치환 */
@@ -16627,25 +16660,48 @@
       [...$('heroBeats').children].forEach((el, j) => {
         el.classList.toggle('on', j === i);
         el.classList.toggle('done', j < i);
-        if (j === i) { // 게이지 리스타트
-          const p = el.querySelector('.prog');
-          p.style.animation = 'none'; void p.offsetWidth; p.style.animation = '';
-        }
       });
+      // 클릭 전: 활성 씬을 '포스터'(완성 프레임 고정)로 노출 — 빈 화면 대신 꽉 찬 미리보기, 버튼 눌러야 애니 재생
       [...$('heroPanes').children].forEach((el, j) => {
         const on = j === i;
         el.classList.toggle('on', on);
-        if (on) {
-          // 비트가 켜질 때마다 카운트업 리셋 후 재실행 — 매 사이클 촤라락
-          el.querySelectorAll('.cnt').forEach(c => { delete c.dataset.ran; c.textContent = c.dataset.from || '0'; });
-          runCounts(el);
-        }
+        el.classList.remove('played');
+        el.classList.toggle('poster', on);   // 셋업만 정지 노출, 페이오프는 .played 전까지 숨김
+        if (on) heroPrimeCounts(el);
       });
+    }
+
+    // 셋업 카운트는 최종값으로 고정(ran 처리 → runCounts에서 스킵), 페이오프 카운트는 0으로(클릭 시 카운트업)
+    function heroPrimeCounts(pane) {
+      pane.querySelectorAll('.cnt').forEach(c => {
+        if (c.closest('.hero-payoff')) { delete c.dataset.ran; c.textContent = c.dataset.from || '0'; }
+        else { const to = +c.dataset.to || 0; c.textContent = c.dataset.fmt === 'won' ? fmtNum(to) + '원' : fmtNum(to); c.dataset.ran = '1'; }
+      });
+    }
+    function heroResetPayoffCounts(pane) {
+      pane.querySelectorAll('.hero-payoff .cnt').forEach(c => { delete c.dataset.ran; c.textContent = c.dataset.from || '0'; });
+    }
+
+    // 우측상단 버튼 → 페이오프(결과) 등장. 셋업(poster)은 그대로 유지 → 전(입력)과 후(결과)가 확실히 달라짐
+    function heroPlay() {
+      const pane = $('heroPanes').children[heroIdx];
+      if (!pane) return;
+      pane.classList.add('played');
+      runCounts(pane);   // 셋업은 ran 처리되어 스킵, 페이오프만 카운트업
+    }
+
+    // 다시 보기 → 페이오프만 처음부터 다시 재생
+    function heroReplay() {
+      const pane = $('heroPanes').children[heroIdx];
+      if (!pane) return;
+      heroResetPayoffCounts(pane);
+      pane.classList.remove('played'); void pane.offsetWidth; pane.classList.add('played');
+      runCounts(pane);
     }
 
     let heroPaused = false;
     let heroBeatStart = 0, heroRemain = 0; // 이어보기용: 현재 비트의 남은 시간 기억
-    function startHero() { heroPaused = false; $('heroBeats').classList.remove('paused'); $('heroPanes').classList.remove('paused'); syncHeroCtrl(); heroGo(0); restartHeroTimer(); }
+    function startHero() { heroGo(0); }   // 자동재생 폐지 — 우측상단 버튼 클릭으로 재생
     function restartHeroTimer(ms) {
       stopHero();
       if (heroPaused) return;
