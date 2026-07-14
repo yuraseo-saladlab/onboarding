@@ -136,6 +136,55 @@
   .card.v2:hover .open { background: #307AF3; }
   .card.v3:hover .open { background: #00B7A8; }
   .card.v4:hover .open { background: #8A8698; }
+  .card.v5 .ver { background: #6D58F2; }
+  .card.v5 .diff b { color: #6D58F2; }
+  .card.v5:hover .open { background: #6D58F2; }
+
+  /* 레거시(이전) 시안 — 눈에 덜 띄게 분류 */
+  .legacy { margin-top: 52px; }
+  .legacy-h {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    color: var(--ink-dim);
+    margin-bottom: 16px;
+  }
+  .legacy-h::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .legacy-list { display: flex; flex-direction: column; gap: 8px; }
+  .leg-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--ink-dim);
+    opacity: .68;
+    transition: opacity .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .leg-item:hover { opacity: 1; background: var(--card); border-color: #D6D0EA; }
+  .leg-ver {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+    background: #A9A4B8;
+  }
+  .leg-tx { flex: 1; min-width: 0; }
+  .leg-tx b { display: block; font-size: 13.5px; font-weight: 700; color: var(--ink); }
+  .leg-tx span { font-size: 12px; color: var(--ink-dim); }
+  .leg-go { flex: 0 0 auto; font-size: 12.5px; font-weight: 700; color: var(--ink-dim); }
   .foot {
     margin-top: 40px;
     font-size: 12.5px;
@@ -152,40 +201,45 @@
   <div class="wrap">
     <span class="eyebrow">✨ ONBOARDING · 맞춤 솔루션 선택</span>
     <h1>온보딩 시안 바로가기</h1>
-    <p class="lead">맞춤 솔루션 선택 플로우의 세 가지 시안입니다. 각 카드를 눌러 새 탭에서 확인하고 나란히 비교해 보세요.</p>
+    <p class="lead">현재 메인 시안입니다. 카드를 눌러 새 탭에서 확인하세요. 이전 시안은 아래 <b style="color:var(--ink)">레거시</b>에서 볼 수 있어요.</p>
 
     <div class="grid">
-      <a class="card v1" href="onboarding-single-view-v1.html" target="_blank" rel="noopener">
-        <span class="ver">v1</span>
-        <h2>온보딩 5단계 플로우</h2>
-        <p class="desc">담당자 정보 → 쇼핑몰 정보 → 맞춤 솔루션 선택 → 위젯 설정 → 카드 등록. 좌측 추천 카드(rail) + 우측 앱 소개(stage) 마스터-디테일 구성.</p>
-        <div class="diff">자세히 보기 → <b>풀페이지 모달</b>로 상세 표시</div>
-        <span class="open">시안 열기 →</span>
-      </a>
-
       <a class="card v2" href="onboarding-single-view-v2.html" target="_blank" rel="noopener">
         <span class="ver">v2</span>
-        <h2>솔루션 소개·추천·선택</h2>
-        <p class="desc">카드 그리드 형태로 솔루션을 한눈에 탐색. 자동 재생 미리보기(beats)와 담은 솔루션 하단 바를 갖춘 구성.</p>
+        <h2>솔루션 소개·추천·선택 <small style="color:#307AF3;font-size:12px;">MAIN</small></h2>
+        <p class="desc">카드 그리드로 솔루션을 한눈에 탐색. 자동 재생 미리보기(beats)와 담은 솔루션 하단 바 구성. 현재 작업 중인 메인 시안입니다.</p>
         <div class="diff">자세히 보기 → <b>플로팅 오버레이</b> 모달</div>
         <span class="open">시안 열기 →</span>
       </a>
 
-      <a class="card v3" href="onboarding-single-view-v3.html" target="_blank" rel="noopener">
-        <span class="ver">v3</span>
-        <h2>카드 그리드 + 드로어</h2>
-        <p class="desc">v2와 동일한 카드 그리드 선택 화면. 상세 표시 방식만 달라진 비교용 시안.</p>
-        <div class="diff">자세히 보기 → <b>화이트 드로어</b>(우측 패널)</div>
+      <a class="card v5" href="onboarding-single-view-v5.html" target="_blank" rel="noopener">
+        <span class="ver">v5</span>
+        <h2>새 버전 <small style="color:#6D58F2;font-size:12px;">작업 중</small></h2>
+        <p class="desc">v2를 복제한 새 시안. 다른 방향의 버전을 실험하기 위한 작업본입니다.</p>
+        <div class="diff"><b>v2 복제본</b> · 새 버전 실험용</div>
         <span class="open">시안 열기 →</span>
       </a>
+    </div>
 
-      <a class="card v4" href="onboarding-single-view-v4.html" target="_blank" rel="noopener">
-        <span class="ver">v4</span>
-        <h2>작업 전 원본 (6/29)</h2>
-        <p class="desc">오늘 작업 전, 마지막으로 커밋됐던 어제 시점의 온보딩 화면. v1~v3 개편 이전 원본으로 비교·참고용입니다.</p>
-        <div class="diff"><b>이전 버전</b> · 기존 레이아웃 그대로 보존</div>
-        <span class="open">시안 열기 →</span>
-      </a>
+    <div class="legacy">
+      <div class="legacy-h">이전 시안 · 레거시</div>
+      <div class="legacy-list">
+        <a class="leg-item" href="onboarding-single-view-v1.html" target="_blank" rel="noopener">
+          <span class="leg-ver">v1</span>
+          <span class="leg-tx"><b>온보딩 5단계 플로우</b><span>좌측 추천 rail + 우측 앱 소개 · 자세히 보기는 풀페이지 모달</span></span>
+          <span class="leg-go">열기 →</span>
+        </a>
+        <a class="leg-item" href="onboarding-single-view-v3.html" target="_blank" rel="noopener">
+          <span class="leg-ver">v3</span>
+          <span class="leg-tx"><b>카드 그리드 + 드로어</b><span>v2와 동일 선택 화면 · 자세히 보기는 화이트 드로어</span></span>
+          <span class="leg-go">열기 →</span>
+        </a>
+        <a class="leg-item" href="onboarding-single-view-v4.html" target="_blank" rel="noopener">
+          <span class="leg-ver">v4</span>
+          <span class="leg-tx"><b>작업 전 원본 (6/29)</b><span>개편 이전 원본 · 비교·참고용</span></span>
+          <span class="leg-go">열기 →</span>
+        </a>
+      </div>
     </div>
 
     <div class="foot">
