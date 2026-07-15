@@ -540,20 +540,6 @@
     }
 
     /* 진행 게이지 (자동 넘김 시각화 + 클릭 스크럽) */
-    .beat.on::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 3px;
-      width: 100%;
-      background: rgba(255, 255, 255, .14);
-    }
-
-    .beat.on:hover::before {
-      background: rgba(255, 255, 255, .22);
-    }
-
     .beat .prog {
       position: absolute;
       left: 0;
@@ -602,7 +588,11 @@
       align-items: center;
       --dc: var(--c-review);
     }
-    .hero-cta .cl-start { margin: 0; }
+
+    .hero-cta .cl-start {
+      margin: 0;
+    }
+
     .hero-cta .cmp-replay {
       position: static;
       left: auto;
@@ -613,22 +603,38 @@
       padding: 0 18px;
       font-size: 13px;
     }
-    .hero-pane.played .hero-cta .cl-start { display: none; }
-    .hero-pane.played .hero-cta .cmp-replay { display: inline-flex; }
+
+    .hero-pane.played .hero-cta .cl-start {
+      display: none;
+    }
+
+    .hero-pane.played .hero-cta .cmp-replay {
+      display: inline-flex;
+    }
+
     /* 클릭 전: 셋업(입력)만 완성 상태로 정지 노출. 페이오프(결과)는 .played 전까지 숨김 → 클릭 시 등장(전≠후) */
-    .hero-pane.poster .rvh-src, .hero-pane.poster .rvh-src *,
-    .hero-pane.poster .stg.s1, .hero-pane.poster .stg.s1 *,
-    .hero-pane.poster .wg-head, .hero-pane.poster .wg-head *,
+    .hero-pane.poster .rvh-src,
+    .hero-pane.poster .rvh-src *,
+    .hero-pane.poster .stg.s1,
+    .hero-pane.poster .stg.s1 *,
+    .hero-pane.poster .wg-head,
+    .hero-pane.poster .wg-head *,
     .hero-pane.poster .wg-wall .wg-col:first-child,
     .hero-pane.poster .wg-wall .wg-col:first-child * {
       animation: none !important;
       opacity: 1 !important;
       transform: none !important;
     }
+
     /* 자동재생 폐지 → 하단 자동넘김 컨트롤 + 진행 게이지 숨김 */
-    #heroCtrl { display: none !important; }
+    #heroCtrl {
+      display: none !important;
+    }
+
     #heroBeats .prog,
-    #heroBeats .prog-hit { display: none !important; }
+    #heroBeats .prog-hit {
+      display: none !important;
+    }
 
     .hero-ctrl {
       margin-top: 16px;
@@ -1126,9 +1132,61 @@
     /* s2 — 외부몰 연동 (플랫폼별 수집 행) */
     .rvx-sync {
       display: flex;
-      flex-direction: row;
-      gap: 4px;
+      flex-direction: column;
+      gap: 6px;
       width: 100%;
+    }
+
+    .rvx-mcloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .rvx-mall {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 5px 9px 5px 6px;
+      white-space: nowrap;
+    }
+
+    .rvx-mlg {
+      flex: 0 0 auto;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 2px;
+      border-radius: 5px;
+      background: var(--lg, #888);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 800;
+      font-style: normal;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rvx-mall.rvx-more {
+      font-size: 12.5px;
+      color: var(--c-review);
+      font-weight: 800;
+      padding: 5px 11px;
+      background: color-mix(in srgb, var(--c-review) 10%, #fff);
+      border-color: color-mix(in srgb, var(--c-review) 30%, #fff);
+    }
+
+
+    .rvx-mtot b {
+      color: var(--c-review);
+      font-weight: 800;
     }
 
     .rvx-plat {
@@ -1286,6 +1344,79 @@
       }
     }
 
+    /* 우측: 자사몰 영역 (클릭 전=리뷰 0 빈 상태 → 클릭 후=수집패널) */
+    .rvh-right {
+      flex: 1;
+      max-width: 480px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+    }
+
+    .rvh-empty {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background: #fff;
+      border: 1px dashed color-mix(in srgb, var(--c-review) 32%, var(--line));
+      border-radius: 18px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 14px 34px color-mix(in srgb, var(--c-review) 8%, transparent);
+    }
+
+    .rve-head {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .rve-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+    }
+
+    .rve-ic {
+      font-size: 32px;
+      opacity: .5;
+    }
+
+    .rve-t {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink-dim);
+    }
+
+    .rve-t b {
+      color: var(--c-review);
+      font-weight: 800;
+    }
+
+    .rve-s {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-faint);
+    }
+
+    /* 클릭 → 수집 완료: 빈 상태가 사라지며 수집패널이 채워짐 */
+    .hero-pane.played .rvh-empty {
+      animation: rveHide .5s ease .8s both;
+      pointer-events: none;
+    }
+
+    @keyframes rveHide {
+      to {
+        opacity: 0;
+        transform: scale(.97);
+      }
+    }
+
     /* 수집 허브 + 성장 — 하나의 패널 */
     .rvh-panel {
       flex: 1;
@@ -1298,8 +1429,18 @@
       box-shadow: 0 14px 34px color-mix(in srgb, var(--c-review) 12%, transparent);
       opacity: 0;
     }
-    .rvh-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-    .rvh-topL { min-width: 0; }
+
+    .rvh-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .rvh-topL {
+      min-width: 0;
+    }
+
     .rvh-title {
       font-size: 22px;
       font-weight: 800;
@@ -1307,11 +1448,40 @@
       letter-spacing: -.02em;
       color: var(--ink);
     }
-    .rvh-title b { color: var(--c-review); }
-    .rvh-count { flex: 0 0 auto; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
-    .rvh-cnum { font-size: 20px; font-weight: 800; color: var(--c-review); letter-spacing: -.02em; line-height: 1; white-space: nowrap; }
-    .rvh-cnum small { font-size: 12px; color: var(--ink-faint); font-weight: 700; margin-left: 3px; }
-    .rvh-div { height: 1px; background: var(--line); margin: 12px 0; }
+
+    .rvh-title b {
+      color: var(--c-review);
+    }
+
+    .rvh-count {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .rvh-cnum {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--c-review);
+      letter-spacing: -.02em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .rvh-cnum small {
+      font-size: 12px;
+      color: var(--ink-faint);
+      font-weight: 700;
+      margin-left: 3px;
+    }
+
+    .rvh-div {
+      height: 1px;
+      background: var(--line);
+      margin: 12px 0;
+    }
 
 
     .rvh-live {
@@ -1384,21 +1554,6 @@
       opacity: 0;
     }
 
-    .rvh-grow-h {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--ink);
-      margin-bottom: 10px;
-    }
-
-    .rvh-grow-h em {
-      font-style: normal;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--ink-faint);
-      margin-left: 6px;
-    }
-
     .rvh-chart {
       display: flex;
       align-items: flex-end;
@@ -1418,10 +1573,10 @@
 
     .rvh-metric {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       width: 100%;
-      gap: 12px;
-      margin-top: 12px;
+      gap: 22px;
+      margin-top: 14px;
     }
 
     .rvh-mt {
@@ -1429,7 +1584,7 @@
     }
 
     .rvh-mt .v {
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--ink);
       letter-spacing: -.02em;
@@ -1441,14 +1596,14 @@
     }
 
     .rvh-mt .v b {
-      color: var(--c-review);
+      color: var(--ink);
     }
 
     .rvh-mt .l {
-      font-size: 9.5px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--ink-faint);
-      margin-top: 1px;
+      margin-top: 2px;
     }
 
     /* 등장 순서 */
@@ -2499,7 +2654,9 @@
     }
 
     /* 우측상단 재생 버튼(.hero-cta)과 겹치지 않게 카드 행을 아래로 — 상단은 CTA 전용 여백 */
-    .hp-ai .apx-flow { margin-top: 42px; }
+    .hp-ai .apx-flow {
+      margin-top: 42px;
+    }
 
 
     .apx-live {
@@ -16290,7 +16447,7 @@
     const HERO_PANES = {
       review: [
         `<div class="hero-pane hp-live">
-          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">▶ 리뷰 모두 수집하기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
+          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">리뷰 모두 수집하기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
           <div class="rvh">
             <div class="rvh-src">
               <div class="rvs s1">
@@ -16302,15 +16459,15 @@
                 </div>
               </div>
               <div class="rvs s2">
-                <div class="rvs-h">외부몰 리뷰 연동</div>
+                <div class="rvs-h">외부몰 연동</div>
                 <div class="rvx rvx-sync">
-                  <div class="rvx-plat"><span class="rvx-lg nv">N</span>네이버<span class="rvx-c">1,240</span></div>
-                  <div class="rvx-plat"><span class="rvx-lg ss">S</span>인스타<span class="rvx-c">2,108</span></div>
-                  <div class="rvx-plat"><span class="rvx-lg cp">C</span>쿠팡<span class="rvx-c">890</span></div>
+                  <div class="rvx-mcloud">
+                    <span class="rvx-mall"><i class="rvx-mlg" style="--lg:#F94C4C">쿠</i>쿠팡</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#1A1A1A">무</i>무신사</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#1A1A1A">29</i>29cm</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#03C75A">N</i>네이버</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E23838">S</i>SSG</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#DA291C">롯</i>롯데온</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#8DB825">올</i>올리브영</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF0038">11</i>11번가</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#23305C">L</i>LF몰</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5007D">C</i>CJ온스타일</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#0A8B3F">G</i>GS SHOP</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF4E7E">브</i>브랜디</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#22BFB8">오</i>오늘의집</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5344A">위</i>위메프</span><span class="rvx-mall rvx-more">+80</span>
+                  </div>
                 </div>
               </div>
               <div class="rvs s3">
-                <div class="rvs-h">QR 코드 리뷰</div>
+                <div class="rvs-h">QR 코드</div>
                 <div class="rvx rvx-qr">
                   <svg class="rvx-qrbox" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="6" width="3" height="3" fill="#20242E"></rect><rect x="27" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="31" y="6" width="3" height="3" fill="#20242E"></rect><rect x="2" y="27" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="31" width="3" height="3" fill="#20242E"></rect><g fill="#20242E"><rect x="18" y="3" width="3" height="3"></rect><rect x="23" y="7" width="3" height="3"></rect><rect x="18" y="11" width="3" height="3"></rect><rect x="34" y="18" width="3" height="3"></rect><rect x="27" y="18" width="3" height="3"></rect><rect x="31" y="22" width="3" height="3"></rect><rect x="18" y="18" width="3" height="3"></rect><rect x="22" y="22" width="3" height="3"></rect><rect x="18" y="26" width="3" height="3"></rect><rect x="23" y="30" width="3" height="3"></rect><rect x="27" y="27" width="3" height="3"></rect><rect x="31" y="31" width="3" height="3"></rect><rect x="34" y="34" width="3" height="3"></rect><rect x="18" y="34" width="3" height="3"></rect></g></svg>
                   <span class="rvx-arrow">→</span>
@@ -16326,29 +16483,37 @@
               <path d="M2,139 C42,139 40,135.6 74,135.6"></path>
               <path d="M2,213.8 C42,213.8 40,135.6 74,135.6"></path>
             </svg>
-            <div class="rvh-panel hero-payoff">
+            <div class="rvh-right">
+              <div class="rvh-empty">
+                <div class="rve-head">🛍️ 우리 쇼핑몰 · 상품 리뷰</div>
+                <div class="rve-body">
+                  <div class="rve-ic">💬</div>
+                  <div class="rve-t">아직 등록된 리뷰가 <b>0개</b></div>
+                  <div class="rve-s">리뷰가 채널마다 흩어져 있어요</div>
+                </div>
+              </div>
+              <div class="rvh-panel hero-payoff">
               <div class="rvh-top">
                 <div class="rvh-topL">
                   <div class="rvh-title">모든 채널의 리뷰<br><b>실시간 수집중</b></div>
                 </div>
                 <div class="rvh-count">
                   <span class="rvh-live"><i class="rd"></i>LIVE</span>
-                  <span class="rvh-cnum"><b class="cnt" data-to="5967" data-from="0" data-fmt="num" data-delay="1200">0</b><small>개 누적</small></span>
                 </div>
               </div>
-              <div class="rvh-div"></div>
-              <div class="rvh-grow-h">쌓인 리뷰가 곧 성장<em>신뢰가 쌓여 구매로 이어져요</em></div>
               <div class="rvh-metric">
-                <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="32" data-from="0" data-delay="2400">0</b>%</div><div class="l">구매 전환율</div></div>
-                <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="27" data-from="0" data-delay="2600">0</b>%</div><div class="l">재구매율</div></div>
-                <div class="rvh-mt"><div class="v"><b>★4.9</b></div><div class="l">평균 별점</div></div>
+                <div class="rvh-mt"><div class="v"><b class="cnt" data-to="5967" data-from="0" data-fmt="num" data-delay="1200">0</b></div><div class="l">누적 리뷰</div></div>
+                <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="32" data-from="0" data-delay="1200">0</b>%</div><div class="l">구매 전환율</div></div>
+                <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="27" data-from="0" data-delay="1200">0</b>%</div><div class="l">재구매율</div></div>
+                <div class="rvh-mt"><div class="v"><b class="cnt" data-to="49" data-from="40" data-fmt="star" data-delay="1200">★4.0</b></div><div class="l">평균 별점</div></div>
               </div>
               <div class="rvh-chart"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:68%"></i><i style="--h:84%"></i><i style="--h:100%"></i></div>
+            </div>
             </div>
           </div>
         </div>`,
         `<div class="hero-pane hp-ai">
-          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">▶ 리뷰 인사이트 보기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
+          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">리뷰 인사이트 보기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
           <div class="ai-pipe">
             <div class="apx-flow">
               <div class="stg s1">
@@ -16451,7 +16616,7 @@
           </div>
         </div>`,
         `<div class="hero-pane hp-wg">
-          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">▶ 20+여종 리뷰위젯 보기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
+          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">20+여종 리뷰위젯 보기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
           <div class="wg-head">
             <div class="wg-title">리뷰 기능 <b class="cnt" data-to="20" data-from="0" data-delay="300">0</b>여 종, 알파리뷰 하나에 전부 있어요</div>
           </div>
@@ -16565,7 +16730,7 @@
             const p = Math.max(0, Math.min(1, (t - t0) / dur));
             const e = 1 - Math.pow(1 - p, 3);
             const v = Math.round(from + (to - from) * e);
-            el.textContent = fmt === 'won' ? fmtNum(v) + '원' : fmtNum(v);
+            el.textContent = fmt === 'won' ? fmtNum(v) + '원' : fmt === 'star' ? '★' + (v / 10).toFixed(1) : fmtNum(v);
             if (p < 1) el._cr = requestAnimationFrame(tick);
           })(t0);
         }, delay);
@@ -16674,12 +16839,12 @@
     // 셋업 카운트는 최종값으로 고정(ran 처리 → runCounts에서 스킵), 페이오프 카운트는 0으로(클릭 시 카운트업)
     function heroPrimeCounts(pane) {
       pane.querySelectorAll('.cnt').forEach(c => {
-        if (c.closest('.hero-payoff')) { delete c.dataset.ran; c.textContent = c.dataset.from || '0'; }
+        if (c.closest('.hero-payoff')) { delete c.dataset.ran; c.textContent = c.dataset.fmt === 'star' ? '★' + ((+c.dataset.from || 0) / 10).toFixed(1) : (c.dataset.from || '0'); }
         else { const to = +c.dataset.to || 0; c.textContent = c.dataset.fmt === 'won' ? fmtNum(to) + '원' : fmtNum(to); c.dataset.ran = '1'; }
       });
     }
     function heroResetPayoffCounts(pane) {
-      pane.querySelectorAll('.hero-payoff .cnt').forEach(c => { delete c.dataset.ran; c.textContent = c.dataset.from || '0'; });
+      pane.querySelectorAll('.hero-payoff .cnt').forEach(c => { delete c.dataset.ran; c.textContent = c.dataset.fmt === 'star' ? '★' + ((+c.dataset.from || 0) / 10).toFixed(1) : (c.dataset.from || '0'); });
     }
 
     // 우측상단 버튼 → 페이오프(결과) 등장. 셋업(poster)은 그대로 유지 → 전(입력)과 후(결과)가 확실히 달라짐
