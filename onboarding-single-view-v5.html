@@ -1574,12 +1574,10 @@
     /* hp-wg: 리뷰 텍스트 별(★) 노랑 통일 */
     .hp-wg .st { color: #FFC400; }
 
-    /* hp-wg: 플레이 버튼은 벤더 카드 아래 중앙, 다시보기는 우상단 */
-    .hp-wg .hero-cta { inset: 0; top: 0; right: 0; left: 0; bottom: 0; pointer-events: none; }
-    /* 중앙 정렬은 transform 대신 auto-margin으로 (ctaPulse transform 충돌 방지) */
-    .hp-wg .hero-cta .hero-start { position: absolute; left: 0; right: 0; top: 76%; margin: 0 auto; width: max-content; pointer-events: auto; }
-    .hp-wg .hero-cta .hero-replay { position: absolute; top: 16px; right: 16px; pointer-events: auto; }
-    .hp-wg .hero-cta .hero-cursor { left: 58%; top: 80%; }
+    /* hp-wg: 다시보기는 우상단(기본 hero-cta), 플레이 버튼은 벤더 아래 24px 중앙(흐름 배치) */
+    .hp-wg .wgb-group { --dc: var(--c-review); display: flex; flex-direction: column; align-items: center; gap: 24px; position: relative; }
+    .hp-wg .wgb-group .hero-start { margin: 0; }
+    .hp-wg .wgb-group .hero-cursor { position: absolute; left: calc(50% + 100px); bottom: -4px; }
 
     .wg-before {
       position: absolute;
@@ -1589,7 +1587,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 22px;
+      gap: 56px;
     }
 
     .wgb-note {
@@ -1606,7 +1604,7 @@
 
     .wgb-vendors {
       display: flex;
-      gap: 16px;
+      gap: 32px;
     }
 
     .wgb-v {
@@ -1689,7 +1687,7 @@
     }
 
     /* 벤더 카드 — 회사마다 흩어진 느낌 (기울임 + 상하 오프셋 + 겹침) */
-    .wgb-vendors { gap: 4px; }
+    .wgb-vendors { gap: 32px; }
     .wgb-v:nth-child(1) { transform: rotate(-9deg) translateY(-20px); z-index: 2; }
     .wgb-v:nth-child(2) { transform: rotate(6deg) translateY(20px); z-index: 3; }
     .wgb-v:nth-child(3) { transform: rotate(-4deg) translateY(-10px); z-index: 1; }
@@ -1794,9 +1792,9 @@
     }
 
     .aib-cursor {
-      left: 53%;
+      left: 56%;
       right: auto;
-      top: 62%;
+      top: 68%;
       bottom: auto;
     }
 
@@ -1883,14 +1881,16 @@
 
     .apx-live {
       display: inline-block;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #E5344A;
+      width: 15px;
+      height: 15px;
       margin-right: 7px;
-      vertical-align: 1px;
-      animation: adPulse 1.4s ease-in-out infinite;
+      vertical-align: -3px;
+      background: var(--c-review);
+      -webkit-mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M20%2011.0001C20.5523%2011.0001%2021%2011.4478%2021%2012.0001V15.0001C21%2016.0609%2020.5783%2017.0781%2019.8281%2017.8282C19.078%2018.5783%2018.0608%2019.0001%2017%2019.0001H6.41406L7.70703%2020.293C8.09754%2020.6836%208.09755%2021.3166%207.70703%2021.7071C7.31651%2022.0976%206.68347%2022.0976%206.29297%2021.7071L3.29297%2018.7071C2.90246%2018.3166%202.90251%2017.6836%203.29297%2017.293L6.29297%2014.293C6.68349%2013.9025%207.31651%2013.9025%207.70703%2014.293C8.09754%2014.6836%208.09755%2015.3166%207.70703%2015.7071L6.41406%2017.0001H17C17.5304%2017.0001%2018.039%2016.7892%2018.4141%2016.4141C18.7891%2016.0391%2019%2015.5305%2019%2015.0001V12.0001C19%2011.4478%2019.4477%2011.0001%2020%2011.0001Z%22%20fill%3D%22%23000%22%2F%3E%3Cpath%20d%3D%22M16.293%202.29305C16.6835%201.90252%2017.3165%201.90252%2017.707%202.29305L20.707%205.29305C21.0975%205.68357%2021.0975%206.3166%2020.707%206.70711L17.707%209.70711C17.3165%2010.0976%2016.6835%2010.0976%2016.293%209.70711C15.9025%209.3166%2015.9025%208.68357%2016.293%208.29305L17.5859%207.00008H7C6.46957%207.00008%205.96101%207.21094%205.58594%207.58601C5.21089%207.96108%205%208.46966%205%209.00008V12.0001C4.99996%2012.5523%204.55226%2013.0001%204%2013.0001C3.44774%2013.0001%203.00004%2012.5523%203%2012.0001V9.00008C3%207.93923%203.42175%206.92209%204.17188%206.17195C4.92202%205.42181%205.93913%205.00008%207%205.00008H17.5859L16.293%203.70711C15.9025%203.3166%2015.9025%202.68357%2016.293%202.29305Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M20%2011.0001C20.5523%2011.0001%2021%2011.4478%2021%2012.0001V15.0001C21%2016.0609%2020.5783%2017.0781%2019.8281%2017.8282C19.078%2018.5783%2018.0608%2019.0001%2017%2019.0001H6.41406L7.70703%2020.293C8.09754%2020.6836%208.09755%2021.3166%207.70703%2021.7071C7.31651%2022.0976%206.68347%2022.0976%206.29297%2021.7071L3.29297%2018.7071C2.90246%2018.3166%202.90251%2017.6836%203.29297%2017.293L6.29297%2014.293C6.68349%2013.9025%207.31651%2013.9025%207.70703%2014.293C8.09754%2014.6836%208.09755%2015.3166%207.70703%2015.7071L6.41406%2017.0001H17C17.5304%2017.0001%2018.039%2016.7892%2018.4141%2016.4141C18.7891%2016.0391%2019%2015.5305%2019%2015.0001V12.0001C19%2011.4478%2019.4477%2011.0001%2020%2011.0001Z%22%20fill%3D%22%23000%22%2F%3E%3Cpath%20d%3D%22M16.293%202.29305C16.6835%201.90252%2017.3165%201.90252%2017.707%202.29305L20.707%205.29305C21.0975%205.68357%2021.0975%206.3166%2020.707%206.70711L17.707%209.70711C17.3165%2010.0976%2016.6835%2010.0976%2016.293%209.70711C15.9025%209.3166%2015.9025%208.68357%2016.293%208.29305L17.5859%207.00008H7C6.46957%207.00008%205.96101%207.21094%205.58594%207.58601C5.21089%207.96108%205%208.46966%205%209.00008V12.0001C4.99996%2012.5523%204.55226%2013.0001%204%2013.0001C3.44774%2013.0001%203.00004%2012.5523%203%2012.0001V9.00008C3%207.93923%203.42175%206.92209%204.17188%206.17195C4.92202%205.42181%205.93913%205.00008%207%205.00008H17.5859L16.293%203.70711C15.9025%203.3166%2015.9025%202.68357%2016.293%202.29305Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat;
+      animation: apxRepeat 3.2s ease-in-out infinite;
     }
+    @keyframes apxRepeat { 0%, 70% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
 
     .apx-tx::after {
       content: '';
@@ -4881,10 +4881,11 @@
     }
 
     .wb-row .wb-ava {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
       object-fit: cover;
+      flex: none;
     }
 
     .wb-row .wb-tx {
@@ -5170,7 +5171,8 @@
 
     .wl-card img {
       width: 100%;
-      height: 52px;
+      aspect-ratio: 16 / 9;
+      height: auto;
       object-fit: cover;
       border-radius: 7px;
     }
@@ -6074,11 +6076,11 @@
       color: #424756;
     }
 
-    /* 담은 추가 앱 — 컬러 아웃라인 칩 */
+    /* 담은 추가 앱 — 채워진 컬러 칩 (배경=컬러, 테두리 없음, 흰 글씨) */
     .cd-chip.added {
-      background: #fff;
-      border: 1px solid var(--cc, #a7c9ff);
-      color: var(--cc, #1d5dc4);
+      background: var(--cc, #1d5dc4);
+      border: none;
+      color: #FFF;
     }
 
     .cd-chip .rm {
@@ -6095,8 +6097,8 @@
     }
 
     .cd-chip.added .rm {
-      background-color: var(--cc, #1d5dc4);
-      opacity: .8;
+      background-color: #FFF;
+      opacity: .85;
     }
 
     .cd-chip .rm:hover {
@@ -12652,6 +12654,41 @@
       position: relative;
     }
 
+    /* ═══ 캔버스 2번씬: 업데이트 로드맵 (시작 전 main → 시작 후 1~5 순차 딜) ═══ */
+    .ccu { flex: 1 1 auto; position: relative; width: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .ccu-main { position: absolute; width: min(680px, 60%); max-height: 92%; border-radius: 14px; overflow: hidden; box-shadow: 0 22px 54px rgba(20, 20, 43, .2); border: 1px solid var(--line); }
+    .ccu-main img { width: 100%; display: block; }
+    .cv-update.on .ccu-main { animation: ccuMainOut .55s cubic-bezier(.4, 0, .3, 1) .05s both; }
+    @keyframes ccuMainOut { to { opacity: 0; transform: scale(.8) translateY(-14px); } }
+    .ccu-deck { position: absolute; inset: 0; pointer-events: none; }
+    .ccu-card { position: absolute; left: 50%; top: 50%; width: 246px; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 16px 38px rgba(20, 20, 43, .18); overflow: hidden; opacity: 0; transform: translate(-50%, -50%) scale(.85); }
+    .ccu-img { height: 124px; overflow: hidden; background: #EEF0F5; }
+    .ccu-img img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .ccu-lb { display: flex; align-items: center; gap: 8px; padding: 9px 12px; font-size: 12.5px; font-weight: 800; color: var(--ink); }
+    .ccu-n { width: 20px; height: 20px; border-radius: 50%; background: var(--dc); color: #fff; display: grid; place-items: center; font-size: 11px; font-weight: 800; flex: none; }
+    .ccu-card.c1 { --tx: -250px; --ty: 20px; --rot: -12deg; z-index: 1; }
+    .ccu-card.c2 { --tx: -126px; --ty: 4px; --rot: -6deg; z-index: 2; }
+    .ccu-card.c3 { --tx: 0px; --ty: -6px; --rot: 0deg; z-index: 5; }
+    .ccu-card.c4 { --tx: 126px; --ty: 4px; --rot: 6deg; z-index: 3; }
+    .ccu-card.c5 { --tx: 250px; --ty: 20px; --rot: 12deg; z-index: 2; }
+    .cv-update.on .ccu-card { animation: ccuDeal .5s cubic-bezier(.3, 1.3, .5, 1) both; }
+    .cv-update.on .ccu-card.c1 { animation-delay: .5s; }
+    .cv-update.on .ccu-card.c2 { animation-delay: .78s; }
+    .cv-update.on .ccu-card.c3 { animation-delay: 1.06s; }
+    .cv-update.on .ccu-card.c4 { animation-delay: 1.34s; }
+    .cv-update.on .ccu-card.c5 { animation-delay: 1.62s; }
+    @keyframes ccuDeal {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(.8); }
+      to { opacity: 1; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--rot)) scale(1); }
+    }
+    .ccu-foot { font-size: 14px; font-weight: 700; color: var(--ink-dim); opacity: 0; }
+    .ccu-foot b { color: var(--dc); }
+    .cv-update.on .ccu-foot { animation: crmIn .5s ease 2s both; }
+    /* 다시보기: 시작 버튼 자리에 그대로 교체 */
+    .ccu-cta { position: relative; }
+    .cv-update.on .ccu-cta .cl-start { opacity: 0; pointer-events: none; }
+    .ccu-cta .cmp-replay { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; height: 40px; padding: 0 20px; border-radius: 10px; font-size: 13.5px; width: max-content; }
+
     /* ═══════════ 캔버스 2번씬: 로드맵을 실제 UI 미니 목업으로 시각화 ═══════════ */
     .cv-roadmap .sc-eyebrow { margin-top: 0; margin-bottom: 6px; }
     .crv { flex: 1 1 auto; width: 100%; min-height: 0; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
@@ -16546,10 +16583,12 @@
       justify-content: center;
     }
     .cv2-sc .cvb-stat .cvx-cta .cvb-cursor { position: absolute; }
+    /* 재생 완료 → 시작 버튼 자리에 '다시 보기'가 그대로 교체 등장 (아래 X) */
+    .cv2-sc.on .cvb-stat .cvx-cta .cl-start { display: none; }
+    .cv2-sc.on .cvb-stat .cvx-cta .cmp-replay { animation: replayIn .4s cubic-bezier(.2, .7, .2, 1) .2s both; }
 
-    /* cv2: 스크롤 시 하단 콘텐츠까지 보이도록 여백 32px */
+    /* cv2: 스크롤 영역(.sc.cv2-sc) 하단 여백 32px — 위 여백과 대칭 */
     .sc.cv2-sc { padding-bottom: 32px; }
-    .cv2-sc .cvb-side { padding-bottom: 32px; }
 
     /* cv1 헤더 — 푸시/업셀 pw-head 패턴 (아이브로+기존→0원 비교 좌 / CTA 우) */
     .cv1-sc .pw-head {
@@ -18873,89 +18912,20 @@
         <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
-      cv1: `<div class="sc cv-roadmap">
+      cv1: `<div class="sc cv-roadmap cv-update">
         <div class="sc-eyebrow">한 번 사고 마는 스킨은 그만 — 알파캔버스는 <b>계속 발전</b>해요</div>
-        <div class="crv">
-          <div class="crv-phase p1">
-            <div class="crv-side"><span class="crv-badge">1차</span><span class="crv-when">업데이트</span></div>
-            <div class="crv-feats">
-              <div class="crv-m">
-                <div class="crv-mh">🎬 쇼츠 위젯</div>
-                <div class="crv-mb crv-shorts">
-                  <span class="crv-st">Youtube Shorts</span>
-                  <div class="crv-srow">
-                    <span class="crv-sc"><img src="assets/beauty/cosmetic_3.png" alt=""><em>15% 19,000</em></span>
-                    <span class="crv-sc"><img src="assets/beauty/cosmetic_5.png" alt=""><em>15% 19,000</em></span>
-                    <span class="crv-sc big"><img src="assets/beauty/cosmetic_1.png" alt=""><em>38,000원</em></span>
-                    <span class="crv-sc"><img src="assets/beauty/cosmetic_6.png" alt=""><em>15% 19,000</em></span>
-                    <span class="crv-sc"><img src="assets/beauty/cosmetic_8.png" alt=""><em>22,000원</em></span>
-                  </div>
-                </div>
-              </div>
-              <div class="crv-m">
-                <div class="crv-mh">🛍️ 메인 상품 info 위젯</div>
-                <div class="crv-mb crv-mall">
-                  <div class="crv-topbar"><b>PURE BLANC</b><span class="crv-nav">원피스 · 상의 · 세일</span><span class="crv-ico">🔍 🛒</span></div>
-                  <div class="crv-banner">여름을 위한 뷰티 세트<em>자세히 보기</em></div>
-                  <div class="crv-md"><span class="crv-mdt">MD CHOICE</span><div class="crv-mdrow"><img src="assets/beauty/cosmetic_2.png" alt=""><div class="crv-mdinfo"><b>데스크테리어 상품 세트</b><span><s>50,000</s> <em>40%</em> 30,000원</span><span class="crv-opt"><i></i><i></i><i></i></span></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="crv-phase p2">
-            <div class="crv-side"><span class="crv-badge">2차</span><span class="crv-when">업데이트</span></div>
-            <div class="crv-feats">
-              <div class="crv-m">
-                <div class="crv-mh">🧭 헤더 관리 · 메뉴 편집</div>
-                <div class="crv-mb crv-menu">
-                  <div class="crv-mrow"><span class="crv-drag">⋮⋮</span>메인화면<span class="crv-arrs">↑ ↓ ✕</span></div>
-                  <div class="crv-mrow"><span class="crv-drag">⋮⋮</span>전체상품<span class="crv-arrs">↑ ↓ ✕</span></div>
-                  <div class="crv-mrow lift"><span class="crv-drag">⋮⋮</span>컨디션<span class="crv-arrs">↑ ↓ ✕</span></div>
-                  <div class="crv-mrow"><span class="crv-drag">⋮⋮</span>스킨<span class="crv-arrs">↑ ↓ ✕</span></div>
-                  <div class="crv-mrow"><span class="crv-drag">⋮⋮</span>타임세일<span class="crv-arrs">↑ ↓ ✕</span></div>
-                </div>
-              </div>
-              <div class="crv-m">
-                <div class="crv-mh">📰 매거진 위젯 · 게시판</div>
-                <div class="crv-mb crv-mag">
-                  <span class="crv-magt">알파캔버스 소식 모음</span>
-                  <div class="crv-magrow">
-                    <span class="crv-mag-c"><img src="assets/beauty/cosmetic_4.png" alt=""><em>브랜드 소식 1<i>More view</i></em></span>
-                    <span class="crv-mag-c"><img src="assets/beauty/cosmetic_7.png" alt=""><em>브랜드 소식 2<i>More view</i></em></span>
-                    <span class="crv-mag-c"><img src="assets/beauty/cosmetic_6.png" alt=""><em>브랜드 소식 3<i>More view</i></em></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="crv-phase p3">
-            <div class="crv-side"><span class="crv-badge">3차</span><span class="crv-when">업데이트</span></div>
-            <div class="crv-feats">
-              <div class="crv-m">
-                <div class="crv-mh">🔲 다양한 상품 그리드 · 스와이프·무한로딩</div>
-                <div class="crv-mb crv-grid">
-                  <div class="crv-gtabs"><span class="on">스와이프형</span><span>무한로딩형</span><span>매거진형</span></div>
-                  <div class="crv-grow">
-                    <span class="crv-gc"><img src="assets/beauty/cosmetic_1.png" alt=""><em>20% 39,200</em></span>
-                    <span class="crv-gc"><img src="assets/beauty/cosmetic_3.png" alt=""><em>30% 31,500</em></span>
-                    <span class="crv-gc"><img src="assets/beauty/cosmetic_5.png" alt=""><em>40% 22,800</em></span>
-                    <span class="crv-gc half"><img src="assets/beauty/cosmetic_8.png" alt=""><em>25% 18,000</em></span>
-                  </div>
-                </div>
-              </div>
-              <div class="crv-m">
-                <div class="crv-mh">🔍 검색 기능 고도화</div>
-                <div class="crv-mb crv-search">
-                  <div class="crv-sbar">🔍 <b>4위</b> 와이드 슬랙스<span class="crv-x">✕</span></div>
-                  <div class="crv-skw"><span class="crv-skh">인기 검색어</span><span><b>1</b> 린넨 원피스</span><span><b>2</b> 여름 샌들</span><span><b>3</b> 크롭 가디건</span><span><b>4</b> 와이드 슬랙스</span></div>
-                  <div class="crv-srec"><span class="crv-skh">추천 상품</span><div class="crv-srecrow"><img src="assets/beauty/cosmetic_2.png" alt=""><img src="assets/beauty/cosmetic_4.png" alt=""><img src="assets/beauty/cosmetic_6.png" alt=""></div></div>
-                </div>
-              </div>
-            </div>
+        <div class="ccu">
+          <div class="ccu-main"><img src="assets/canvas/canvas_update_main.png" alt="지금의 알파캔버스"></div>
+          <div class="ccu-deck">
+            <div class="ccu-card c1"><div class="ccu-img"><img src="assets/canvas/canvas_update_1.png" alt=""></div><div class="ccu-lb"><span class="ccu-n">1</span>숏츠 위젯</div></div>
+            <div class="ccu-card c2"><div class="ccu-img"><img src="assets/canvas/canvas_update_2.png" alt=""></div><div class="ccu-lb"><span class="ccu-n">2</span>메인 상품 info 위젯</div></div>
+            <div class="ccu-card c3"><div class="ccu-img"><img src="assets/canvas/canvas_update_3.png" alt=""></div><div class="ccu-lb"><span class="ccu-n">3</span>매거진 위젯</div></div>
+            <div class="ccu-card c4"><div class="ccu-img"><img src="assets/canvas/canvas_update_4.png" alt=""></div><div class="ccu-lb"><span class="ccu-n">4</span>메뉴 관리</div></div>
+            <div class="ccu-card c5"><div class="ccu-img"><img src="assets/canvas/canvas_update_5.png" alt=""></div><div class="ccu-lb"><span class="ccu-n">5</span>검색 기능 고도화</div></div>
           </div>
         </div>
-        <div class="crm-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">업데이트 로드맵 재생</span></button><span class="cl-cursor"></span></div>
-        <button class="cmp-replay" type="button">↺ 다시 보기</button>
+        <div class="ccu-foot">✦ 앞으로 이런 기능들이 <b>차례로 업데이트</b>돼요</div>
+        <div class="crm-cta ccu-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">업데이트 로드맵 재생</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
       </div>`,
 
       cv2: `<div class="sc cv2-sc">
@@ -19273,17 +19243,21 @@
           </div>
         </div>`,
         `<div class="hero-pane hp-wg">
-          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">알파리뷰 한 곳에서 모든 위젯 사용하기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button><span class="cl-cursor hero-cursor"></span></div>
+          <div class="hero-cta"><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
           <div class="wg-head">
             <div class="wg-title">리뷰 기능 <b class="cnt" data-to="20" data-from="0" data-delay="300">0</b>여 종, 알파리뷰 하나에 전부 있어요</div>
           </div>
           <div class="wg-wallwrap">
             <div class="wg-before">
               <div class="wgb-note">지금은 리뷰 기능을 <b>회사마다 하나씩</b> 흩어져 쓰고 있어요</div>
-              <div class="wgb-vendors">
-                <div class="wgb-v"><span class="wgb-tag">A사</span><div class="wgb-feat"><span class="wgb-ic">📷</span>포토 리뷰</div></div>
-                <div class="wgb-v"><span class="wgb-tag">B사</span><div class="wgb-feat"><span class="wgb-ic">📊</span>별점 통계</div></div>
-                <div class="wgb-v"><span class="wgb-tag">C사</span><div class="wgb-feat"><span class="wgb-ic">💬</span>리뷰 게시판</div></div>
+              <div class="wgb-group">
+                <div class="wgb-vendors">
+                  <div class="wgb-v"><span class="wgb-tag">A사</span><div class="wgb-feat"><span class="wgb-ic">📷</span>포토 리뷰</div></div>
+                  <div class="wgb-v"><span class="wgb-tag">B사</span><div class="wgb-feat"><span class="wgb-ic">📊</span>별점 통계</div></div>
+                  <div class="wgb-v"><span class="wgb-tag">C사</span><div class="wgb-feat"><span class="wgb-ic">💬</span>리뷰 게시판</div></div>
+                </div>
+                <button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">알파리뷰 한 곳에서 모든 위젯 사용하기</span></button>
+                <span class="cl-cursor hero-cursor"></span>
               </div>
             </div>
             <div class="wg-wall">
@@ -19299,8 +19273,8 @@
                 </div>
                 <div class="wg wg-board w5">
                   <div class="wg-h">🗂️ 상품 리뷰 게시판</div>
-                  <div class="wb-row"><img class="wb-ava" src="assets/insta/f4.png" alt=""><span class="wb-tx"><span class="st">★★★★★</span><p>색감이 사진 그대로예요, 재질도 튼튼하고 정말 만족합니다 😊</p></span><img class="wb-th" src="assets/insta/f7.png" alt=""></div>
-                  <div class="wb-row"><img class="wb-ava" src="assets/insta/f1.png" alt=""><span class="wb-tx"><span class="st">★★★★★</span><p>핏이 딱 맞아요. 착용 영상 리뷰도 남겼어요!</p></span><img class="wb-th" src="assets/insta/f5.png" alt=""></div>
+                  <div class="wb-row"><img class="wb-ava" src="assets/insta/f4.png" alt=""><span class="wb-tx"><span class="st">★★★★★</span><p>색감이 사진 그대로예요, 재질도 튼튼하고 정말 만족합니다 😊</p></span></div>
+                  <div class="wb-row"><img class="wb-ava" src="assets/insta/f1.png" alt=""><span class="wb-tx"><span class="st">★★★★★</span><p>핏이 딱 맞아요. 착용 영상 리뷰도 남겼어요!</p></span></div>
                 </div>
                 <div class="wg wg-sale w8">
                   <span class="wsl-fire">🔥</span>
