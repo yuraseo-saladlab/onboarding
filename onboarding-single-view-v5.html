@@ -614,9 +614,7 @@
 
     /* 클릭 전: 셋업(입력)만 완성 상태로 정지 노출. 페이오프(결과)는 .played 전까지 숨김 → 클릭 시 등장(전≠후) */
     .hero-pane.poster .rvh-src,
-    .hero-pane.poster .rvh-src *,
-    .hero-pane.poster .wg-head,
-    .hero-pane.poster .wg-head * {
+    .hero-pane.poster .rvh-src * {
       animation: none !important;
       opacity: 1 !important;
       transform: none !important;
@@ -1595,9 +1593,10 @@
     }
 
     .wgb-note {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--ink-dim);
+      font-size: 18.5px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--ink);
     }
 
     .wgb-note b {
@@ -1663,7 +1662,7 @@
     }
 
     .hero-pane.played .wgb-note {
-      animation: rveHide .4s ease 0s both;
+      animation: wgbNoteUp .55s cubic-bezier(.4, 0, .3, 1) both;
     }
 
     .hero-pane.played .wgb-v {
@@ -1687,6 +1686,25 @@
         transform: translate(-40%, -46%) scale(.34);
         opacity: 0;
       }
+    }
+
+    /* 벤더 카드 — 회사마다 흩어진 느낌 (기울임 + 상하 오프셋 + 겹침) */
+    .wgb-vendors { gap: 4px; }
+    .wgb-v:nth-child(1) { transform: rotate(-9deg) translateY(-20px); z-index: 2; }
+    .wgb-v:nth-child(2) { transform: rotate(6deg) translateY(20px); z-index: 3; }
+    .wgb-v:nth-child(3) { transform: rotate(-4deg) translateY(-10px); z-index: 1; }
+
+    /* 재생 시 wgb-note가 상단 제목(wg-title) 자리로 이동하며 사라짐 */
+    @keyframes wgbNoteUp {
+      to { opacity: 0; transform: translate(-6%, -190px) scale(.78); }
+    }
+
+    /* wg-title은 결과(재생 후)에만 등장 — wgb-note와 교체 */
+    .hp-wg .wg-title { opacity: 0; }
+    .hp-wg.played .wg-title { animation: wgTitleIn .5s ease .5s both; }
+    @keyframes wgTitleIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: none; }
     }
 
     /* 2번씬 클릭 전: 리뷰 + "어떻게 활용?" + 요약 버튼 (클릭 시 5단계 인사이트로 교체) */
@@ -16521,9 +16539,17 @@
       position: static;
       margin: 0;
       width: 100%;
+      height: 40px;
+      flex: none;
+      display: flex;
+      align-items: center;
       justify-content: center;
     }
     .cv2-sc .cvb-stat .cvx-cta .cvb-cursor { position: absolute; }
+
+    /* cv2: 스크롤 시 하단 콘텐츠까지 보이도록 여백 32px */
+    .sc.cv2-sc { padding-bottom: 32px; }
+    .cv2-sc .cvb-side { padding-bottom: 32px; }
 
     /* cv1 헤더 — 푸시/업셀 pw-head 패턴 (아이브로+기존→0원 비교 좌 / CTA 우) */
     .cv1-sc .pw-head {
