@@ -1578,9 +1578,10 @@
 
     /* hp-wg: 플레이 버튼은 벤더 카드 아래 중앙, 다시보기는 우상단 */
     .hp-wg .hero-cta { inset: 0; top: 0; right: 0; left: 0; bottom: 0; pointer-events: none; }
-    .hp-wg .hero-cta .hero-start { position: absolute; left: 50%; top: 76%; transform: translateX(-50%); pointer-events: auto; }
+    /* 중앙 정렬은 transform 대신 auto-margin으로 (ctaPulse transform 충돌 방지) */
+    .hp-wg .hero-cta .hero-start { position: absolute; left: 0; right: 0; top: 76%; margin: 0 auto; width: max-content; pointer-events: auto; }
     .hp-wg .hero-cta .hero-replay { position: absolute; top: 16px; right: 16px; pointer-events: auto; }
-    .hp-wg .hero-cta .hero-cursor { left: calc(50% + 118px); top: 76%; }
+    .hp-wg .hero-cta .hero-cursor { left: 58%; top: 80%; }
 
     .wg-before {
       position: absolute;
