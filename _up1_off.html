@@ -1,0 +1,583 @@
+<!doctype html><html><head><meta charset='utf-8'><style>
+:root{
+ --bg:#fff;--ink:#16162A;--ink-dim:#6B6B80;--ink-faint:#A0A0B5;
+ --line:#E8E8F0;--line-soft:#F3F3F8;--dc:#E62C35;
+ --cursor-svg:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cpath%20d='M6%203.5%20L6%2024.5%20Q6%2026%207.4%2025.2%20L11.6%2020.4%20L14.7%2026.9%20Q15.2%2028%2016.4%2027.5%20L18.4%2026.6%20Q19.5%2026.1%2019%2025%20L16%2018.7%20L22.5%2018.4%20Q24%2018.3%2023%2017.2%20L8.2%203.1%20Q6.9%201.9%206%203.5%20Z'%20fill='%23ffffff'%20stroke='%23C4C9D6'%20stroke-width='1.3'%20stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;margin:0;padding:0}
+em,i,s{font-style:normal}
+body{font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo',system-ui,sans-serif;background:#EEF0F4;color:var(--ink);-webkit-font-smoothing:antialiased}
+/* stage frame mimicking dtStage: ~1096 x 500 */
+.frame{width:1096px;height:500px;margin:24px auto;background:#fff;border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,.12);position:relative;overflow:hidden}
+.sc{position:absolute;inset:0;display:flex;flex-direction:column}
+/* shell classes */
+.pw-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px;flex:0 0 auto}
+.pw-headtx{display:flex;flex-direction:column;gap:4px;min-width:0}
+.pw-eyebrow{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.pw-eyebrow b{color:var(--dc)}
+.ps-cta{flex:0 0 auto;position:relative}
+.cl-start{height:40px;padding:0 20px;border:1px solid var(--dc);border-radius:10px;background:var(--dc);color:#fff;font-size:13.5px;font-weight:700;position:relative;overflow:hidden;white-space:nowrap}
+.cl-cursor{position:absolute;right:22px;bottom:6px;width:28px;height:28px;background:var(--cursor-svg) center/contain no-repeat;opacity:0}
+.sc.on .cl-start{background:#B31F27}
+.cmp-replay{position:absolute;left:auto;right:26px;top:20px;height:40px;padding:0 20px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:13.5px;font-weight:700;color:var(--ink-dim);z-index:20}
+
+    /* ═══════════════════════════════════════════════
+       업셀 씬 1 — 실제 스토어 상품 상세 + 알파업셀 AI 위젯 (phone-annotation)
+       왼쪽: 진짜 모바일 상세페이지, 오른쪽: 이 위젯을 왜/무엇을 추천했는지 주석
+    ═══════════════════════════════════════════════ */
+    .sc.up1s {
+      padding: 20px 28px 22px;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+    .up1s .cl-start { margin: 0; }
+    .up1s .cmp-replay {
+      left: auto; right: 28px; top: 20px; bottom: auto;
+      margin: 0; width: max-content; height: 38px;
+      padding: 0 18px; gap: 6px; font-size: 13px;
+    }
+
+    .sf-os {
+      position: relative;
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      gap: 34px;
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+      align-items: stretch;
+    }
+
+    /* ── 왼쪽: 실제 모바일 상품 상세 ─────────────── */
+    .sf-phone {
+      position: relative;
+      flex: 0 0 274px;
+      height: 100%;
+      max-height: 448px;
+      align-self: center;
+      border-radius: 40px;
+      background: #14141F;
+      padding: 10px;
+      box-shadow: 0 24px 50px rgba(20,20,43,.28), 0 4px 0 rgba(255,255,255,.06) inset;
+    }
+    .sf-notch {
+      position: absolute;
+      top: 12px; left: 50%;
+      transform: translateX(-50%);
+      width: 96px; height: 22px;
+      background: #14141F;
+      border-radius: 0 0 14px 14px;
+      z-index: 9;
+    }
+    .sf-screen {
+      position: relative;
+      height: 100%;
+      border-radius: 32px;
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .sf-status {
+      flex: 0 0 auto;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .sf-status .sf-sig {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .sf-status .sf-sig i {
+      display: inline-block;
+      width: 16px; height: 10px;
+      border-radius: 2px;
+      background: var(--ink);
+    }
+    .sf-status .sf-sig i:nth-child(1) { width: 15px; -webkit-mask: radial-gradient(circle at 2px 9px, #000 68%, transparent 70%); }
+    .sf-status .sf-sig i:nth-child(2) { width: 14px; border-radius: 3px; }
+    .sf-status .sf-sig i:nth-child(3) { width: 22px; border-radius: 3px; position: relative; }
+
+    .sf-url {
+      flex: 0 0 auto;
+      margin: 2px 12px 8px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      border-radius: 100px;
+      background: var(--line-soft);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink-dim);
+    }
+    .sf-url .sf-dom { flex: 1; color: var(--ink); font-weight: 700; }
+    .sf-url .sf-re { color: var(--ink-faint); font-size: 14px; }
+
+    .sf-scroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sf-hero {
+      position: relative;
+      flex: 0 0 auto;
+      height: 118px;
+      margin: 0 12px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #FDE7EC, #F7D9E4);
+    }
+    .sf-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .sf-pick {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 40px; height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--dc);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .02em;
+      box-shadow: 0 6px 16px rgba(230,44,53,.4);
+    }
+
+    .sf-prod {
+      flex: 0 0 auto;
+      padding: 10px 14px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sf-pnm {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .sf-price { display: flex; align-items: baseline; gap: 6px; }
+    .sf-price em { font-style: normal; font-size: 12px; font-weight: 900; color: var(--dc); }
+    .sf-price s { font-size: 11px; color: var(--ink-faint); }
+    .sf-price b { font-size: 17px; font-weight: 900; color: var(--ink); letter-spacing: -.02em; }
+
+    /* ── 핵심: 알파업셀 AI 위젯 (한눈에 '추가된 위젯') ── */
+    .sf-widget {
+      position: relative;
+      flex: 1 1 auto;
+      min-height: 0;
+      margin: 4px 10px 10px;
+      padding: 8px 10px 10px;
+      border: 2px solid var(--dc);
+      border-radius: 14px;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--dc) 6%, #fff), #fff);
+      box-shadow: 0 8px 22px rgba(230,44,53,.14);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow: hidden;
+    }
+    .sf-wlabel {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      font-weight: 900;
+      letter-spacing: .03em;
+      color: #fff;
+      background: var(--dc);
+      border-radius: 100px;
+      padding: 3px 9px 3px 4px;
+    }
+    .sf-wlogo {
+      width: 15px; height: 15px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--dc);
+      font-size: 10px;
+      font-weight: 900;
+    }
+    .sf-wtitle {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .sf-sets {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sf-set {
+      position: relative;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 8px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+    .sf-set.best {
+      border: 1.5px solid var(--dc);
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(230,44,53,.12);
+    }
+    .sf-set img { flex: 0 0 auto; width: 42px; height: 42px; border-radius: 8px; object-fit: cover; }
+    .sf-si { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+    .sf-sbest {
+      align-self: flex-start;
+      font-size: 9px;
+      font-weight: 900;
+      color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 12%, #fff);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+    .sf-snm { font-size: 11.5px; font-weight: 800; color: var(--ink); }
+    .sf-chips { display: flex; flex-wrap: wrap; gap: 3px; }
+    .sf-chips span {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      background: var(--line-soft);
+      border-radius: 4px;
+      padding: 1px 5px;
+    }
+    .sf-sprice { font-size: 12px; font-weight: 900; color: var(--ink); letter-spacing: -.02em; }
+    .sf-add {
+      position: relative;
+      flex: 0 0 auto;
+      align-self: stretch;
+      min-width: 46px;
+      border: none;
+      border-radius: 8px;
+      background: var(--dc);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .sf-add .t2 {
+      position: absolute; inset: 0;
+      display: grid; place-items: center;
+      font-size: 15px;
+      background: var(--ink);
+      opacity: 0;
+    }
+    .sf-cursor {
+      position: absolute;
+      z-index: 8;
+      right: 6px; bottom: 4px;
+      width: 26px; height: 26px;
+      background: var(--cursor-svg) center / contain no-repeat;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.3));
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* 하단 플로팅 장바구니 pill */
+    .sf-pill {
+      position: absolute;
+      left: 12px; right: 12px; bottom: 12px;
+      z-index: 7;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border-radius: 100px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(20,20,43,.3);
+    }
+    .sf-pill b { color: #fff; font-size: 13.5px; margin: 0 1px; }
+    .sf-pill .sf-pill-ar { margin-left: 4px; opacity: .7; }
+
+    /* ── 연결선 (위젯 → 주석) ─────────────────── */
+    .sf-link {
+      position: absolute;
+      z-index: 4;
+      left: 246px; top: 92px;
+      width: 92px; height: 220px;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .sf-link .base { fill: none; stroke: color-mix(in srgb, var(--dc) 26%, #fff); stroke-width: 2; }
+    .sf-link .flow { fill: none; stroke: var(--dc); stroke-width: 2; stroke-dasharray: 6 8; stroke-linecap: round; }
+    .sf-link .dot { fill: var(--dc); }
+    .sc.on .sf-link .flow { animation: sfFlow 1s linear infinite; }
+    @keyframes sfFlow { to { stroke-dashoffset: -28; } }
+
+    /* ── 오른쪽: 주석 패널 ────────────────────── */
+    .sf-panel {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sf-ptitle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -.01em;
+    }
+    .sf-ptitle b { color: var(--dc); }
+    .sf-plogo {
+      width: 22px; height: 22px;
+      display: grid; place-items: center;
+      border-radius: 7px;
+      background: var(--dc);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .sf-note {
+      position: relative;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--dc);
+      border-radius: 12px;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--dc) 4%, #fff), #fff);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sf-nrow { display: flex; align-items: center; gap: 8px; }
+    .sf-ntag {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 10%, #fff);
+      border-radius: 100px;
+      padding: 3px 10px;
+      flex: 0 0 auto;
+    }
+    .sf-nmodel { font-size: 14px; font-weight: 900; color: var(--ink); letter-spacing: -.01em; }
+    .sf-nmodel b { color: var(--dc); }
+    .sf-ndesc { font-size: 12.5px; font-weight: 600; color: var(--ink-dim); line-height: 1.5; }
+    .sf-ndesc b { color: var(--ink); font-weight: 800; }
+
+    /* 노출 동선 · 위젯 12종 배지 */
+    .sf-routes {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .sf-rlb {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .sf-rlb b { color: var(--dc); }
+    .sf-rbadges { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sf-rb {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--ink-dim);
+      background: var(--line-soft);
+      border: 1px solid transparent;
+      border-radius: 100px;
+      padding: 5px 11px;
+    }
+    .sf-rb.on {
+      color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 9%, #fff);
+      border-color: color-mix(in srgb, var(--dc) 40%, #fff);
+      font-weight: 800;
+    }
+    .sf-rb.more { color: var(--ink-faint); font-weight: 800; }
+    .sc.on .sf-rb:nth-child(2) { animation: sfLit .5s ease 1.9s both; }
+    .sc.on .sf-rb:nth-child(3) { animation: sfLit .5s ease 2.05s both; }
+    .sc.on .sf-rb:nth-child(4) { animation: sfLit .5s ease 2.2s both; }
+    .sc.on .sf-rb:nth-child(5) { animation: sfLit .5s ease 2.35s both; }
+    @keyframes sfLit {
+      0% { color: var(--ink-dim); background: var(--line-soft); border-color: transparent; }
+      40% { color: var(--dc); background: color-mix(in srgb, var(--dc) 14%, #fff); border-color: var(--dc); transform: translateY(-2px); }
+      100% { color: var(--dc); background: color-mix(in srgb, var(--dc) 7%, #fff); border-color: color-mix(in srgb, var(--dc) 30%, #fff); }
+    }
+
+    /* 담김 결과 */
+    .sf-result {
+      margin-top: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #FBFAFA, #fff);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .sf-rrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .sf-rrow .lb { font-size: 12.5px; font-weight: 700; color: var(--ink-dim); }
+    .sf-rrow .v { font-size: 14px; font-weight: 900; color: var(--ink); }
+    .sf-rrow.amt .v { font-size: 20px; color: var(--dc); letter-spacing: -.02em; }
+    .sf-gain {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      opacity: 0;
+    }
+    .sf-gain .lb { font-size: 12px; font-weight: 700; color: var(--ink-dim); }
+    .sf-gain .v { font-size: 18px; font-weight: 900; color: var(--dc); letter-spacing: -.02em; }
+    .sc.on .sf-gain { animation: lfPop .5s cubic-bezier(.2,1.4,.4,1) 2s both; }
+
+    /* ── 시퀀스 애니메이션 ───────────────────── */
+    /* 승: 위젯 스포트라이트 */
+    .sc.on .sf-widget { animation: sfGlow 1.4s ease .3s; }
+    @keyframes sfGlow {
+      0%, 100% { box-shadow: 0 8px 22px rgba(230,44,53,.14); }
+      45% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--dc) 22%, transparent), 0 10px 28px rgba(230,44,53,.32); }
+    }
+    .sc.on .sf-wlabel { animation: sfBadge 1.4s ease .3s; }
+    @keyframes sfBadge { 45% { transform: scale(1.08); } }
+
+    /* 전: 커서 탭 */
+    .sc.on .sf-cursor { animation: sfTap 1.6s ease .6s forwards; }
+    @keyframes sfTap {
+      0% { opacity: 0; transform: translate(10px, 16px) scale(1); }
+      20% { opacity: 1; transform: translate(0,0) scale(1); }
+      46% { transform: translate(-2px,-2px) scale(.8); }
+      60% { transform: translate(0,0) scale(1); }
+      100% { opacity: 0; transform: translate(2px,-4px) scale(1); }
+    }
+    .sc.on .sf-add .t1 { animation: sfHide .2s ease 1.34s forwards; }
+    .sc.on .sf-add .t2 { animation: sfShow .3s ease 1.42s forwards; }
+    @keyframes sfHide { to { opacity: 0; } }
+    @keyframes sfShow { from { opacity: 0; } to { opacity: 1; } }
+    .sc.on .sf-set.best { animation: sfAdded .5s cubic-bezier(.2,1.3,.4,1) 1.4s; }
+    @keyframes sfAdded { 50% { transform: scale(1.03); box-shadow: 0 12px 26px rgba(230,44,53,.24); } }
+
+    /* 결: 담김 pill 강조 */
+    .sc.on .sf-pill { animation: sfPill .6s cubic-bezier(.2,1.3,.4,1) 1.7s; }
+    @keyframes sfPill {
+      40% { transform: translateY(-3px) scale(1.03); box-shadow: 0 14px 30px rgba(20,20,43,.4); }
+    }
+</style></head><body>
+<div class='frame'>      <div class="sc up1s">
+        <div class="pw-head">
+          <div class="pw-headtx">
+            <span class="pw-eyebrow">고객이 <b>더 담을 상품</b>을 발견해요</span>
+          </div>
+          <div class="ps-cta">
+            <button class="cl-start" data-act><span class="cl-lb">옵션 세트 담아보기</span></button>
+            <span class="cl-cursor"></span>
+          </div>
+        </div>
+        <div class="sf-os">
+          <div class="sf-phone">
+            <span class="sf-notch"></span>
+            <div class="sf-screen">
+              <div class="sf-status"><span>9:41</span><span class="sf-sig"><i></i><i></i><i></i></span></div>
+              <div class="sf-url"><span>🔒</span><span class="sf-dom">hearty-glow.shop</span><span class="sf-re">↻</span></div>
+              <div class="sf-scroll">
+                <div class="sf-hero">
+                  <img src="assets/beauty/cosmetic_6.png" alt="">
+                  <span class="sf-pick">PICK</span>
+                </div>
+                <div class="sf-prod">
+                  <span class="sf-pnm">화제의 하트 젤리 글로우 립밤 골라담기</span>
+                  <span class="sf-price"><em>30%</em><s>24,000</s><b>16,900원</b></span>
+                </div>
+                <div class="sf-widget">
+                  <span class="sf-wlabel"><span class="sf-wlogo">A</span>ALPHA UPSELL · AI 추천 위젯</span>
+                  <span class="sf-wtitle">함께 구매하면 좋은 옵션</span>
+                  <div class="sf-sets">
+                    <div class="sf-set best">
+                      <img src="assets/beauty/cosmetic_1.png" alt="">
+                      <div class="sf-si">
+                        <span class="sf-sbest">BEST · 1,024명 선택</span>
+                        <span class="sf-snm">인기 컬러 3종 골라담기</span>
+                        <div class="sf-chips"><span>01 코랄피치</span><span>03 체리레드</span><span>04 베리퍼플</span></div>
+                        <span class="sf-sprice">50,700원</span>
+                      </div>
+                      <button class="sf-add"><span class="t1">담기</span><span class="t2">✓</span></button>
+                      <span class="sf-cursor"></span>
+                    </div>
+                    <div class="sf-set">
+                      <img src="assets/beauty/cosmetic_2.png" alt="">
+                      <div class="sf-si">
+                        <span class="sf-snm">촉촉 데일리 립 듀오</span>
+                        <div class="sf-chips"><span>02 로즈핑크</span><span>05 밀크로즈</span></div>
+                        <span class="sf-sprice">33,800원</span>
+                      </div>
+                      <button class="sf-add"><span class="t1">담기</span><span class="t2">✓</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sf-pill">🛒 장바구니에 담은 상품 <b class="cnt" data-from="1" data-to="4" data-delay="1700">1</b>개 <span class="sf-pill-ar">›</span></div>
+            </div>
+          </div>
+
+          <svg class="sf-link" viewBox="0 0 92 220" preserveAspectRatio="none">
+            <path class="base" d="M84 20 C 52 52, 54 150, 10 186" />
+            <path class="flow" d="M84 20 C 52 52, 54 150, 10 186" />
+            <circle class="dot" cx="10" cy="186" r="4" />
+            <circle class="dot" cx="84" cy="20" r="3" />
+          </svg>
+
+          <div class="sf-panel">
+            <div class="sf-ptitle"><span class="sf-plogo">A</span>알파업셀 AI가 <b>이 위젯을 넣었어요</b></div>
+            <div class="sf-note">
+              <div class="sf-nrow"><span class="sf-ntag">발화 추천 모델</span><span class="sf-nmodel">함께구매 크로스셀 <b>v3</b></span></div>
+              <span class="sf-ndesc">구매 데이터로 학습한 <b>AI 추천 모델 9종</b> 중 이 모델이, 이 상품과 가장 잘 팔리는 조합을 골라 상세페이지에 <b>옵션세트 골라담기 위젯</b>으로 노출했어요.</span>
+            </div>
+            <div class="sf-routes">
+              <span class="sf-rlb">같은 방식으로 <b>고객 동선 곳곳 · 위젯 12종</b>에 노출돼요</span>
+              <div class="sf-rbadges">
+                <span class="sf-rb on">상품 상세</span>
+                <span class="sf-rb">장바구니</span>
+                <span class="sf-rb">검색·카테고리</span>
+                <span class="sf-rb">결제 팝업</span>
+                <span class="sf-rb more">+8 위젯</span>
+              </div>
+            </div>
+            <div class="sf-result">
+              <div class="sf-rrow"><span class="lb">🛒 장바구니 상품</span><span class="v"><b class="cnt" data-from="1" data-to="4" data-delay="1700">1</b>개</span></div>
+              <div class="sf-rrow amt"><span class="lb">예상 결제 금액</span><span class="v">₩<b class="cnt" data-from="16900" data-to="67600" data-fmt="num" data-delay="1700">16,900</b></span></div>
+              <div class="sf-gain"><span class="lb">추천 위젯으로 더 담김</span><span class="v">+50,700원</span></div>
+            </div>
+          </div>
+        </div>
+        <button class="cmp-replay" type="button">↻ 다시 보기</button>
+      </div>
+</div>
+<script>
+function fmtNum(n){return n.toLocaleString('en-US')}
+function runCounts(root){root.querySelectorAll('.cnt').forEach(el=>{if(el.dataset.ran)return;el.dataset.ran='1';const from=+(el.dataset.from||0),to=+el.dataset.to,fmt=el.dataset.fmt,delay=+(el.dataset.delay||0);setTimeout(()=>{const t0=performance.now(),dur=950;(function tick(t){const p=Math.max(0,Math.min(1,(t-t0)/dur));const e=1-Math.pow(1-p,3);const v=Math.round(from+(to-from)*e);el.textContent=fmtNum(v);if(p<1)requestAnimationFrame(tick)})(t0)},delay)})}
+
+const sc=document.querySelector('.sc');
+
+</script></body></html>
