@@ -13436,7 +13436,6 @@
       justify-content: flex-start;
       gap: 14px;
       min-height: 360px;
-      position: relative;
     }
 
     /* ═══ 캔버스 2번씬: 업데이트 로드맵 (시작 전 main → 시작 후 1~5 순차 딜) ═══ */
@@ -13453,8 +13452,8 @@
 
     .ccu-main {
       position: absolute;
-      width: min(680px, 60%);
-      max-height: 92%;
+      width: min(880px, 84%);
+      max-height: 96%;
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 22px 54px rgba(20, 20, 43, .2);
@@ -13487,7 +13486,7 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 246px;
+      width: 272px;
       background: #fff;
       border: 1px solid var(--line);
       border-radius: 14px;
@@ -13498,7 +13497,7 @@
     }
 
     .ccu-img {
-      height: 124px;
+      height: 184px;
       overflow: hidden;
       background: #EEF0F5;
     }
@@ -13534,36 +13533,36 @@
     }
 
     .ccu-card.c1 {
-      --tx: -250px;
-      --ty: 20px;
+      --tx: -256px;
+      --ty: 64px;
       --rot: -12deg;
       z-index: 1;
     }
 
     .ccu-card.c2 {
-      --tx: -126px;
-      --ty: 4px;
+      --tx: -128px;
+      --ty: 18px;
       --rot: -6deg;
       z-index: 2;
     }
 
     .ccu-card.c3 {
       --tx: 0px;
-      --ty: -6px;
+      --ty: -22px;
       --rot: 0deg;
       z-index: 5;
     }
 
     .ccu-card.c4 {
-      --tx: 126px;
-      --ty: 4px;
+      --tx: 128px;
+      --ty: 18px;
       --rot: 6deg;
       z-index: 3;
     }
 
     .ccu-card.c5 {
-      --tx: 250px;
-      --ty: 20px;
+      --tx: 256px;
+      --ty: 64px;
       --rot: 12deg;
       z-index: 2;
     }
@@ -14345,9 +14344,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 22px;
+      gap: 32px;
       min-height: 360px;
-      position: relative;
     }
 
     /* cv3: 콘텐츠 세로 중앙 정렬 (auto-margin으로 확실히) */
@@ -14421,7 +14419,7 @@
     }
 
     .cvb-head {
-      font-size: 16px;
+      font-size: 19px;
       font-weight: 800;
       color: var(--ink);
       text-align: center;
@@ -14434,19 +14432,20 @@
     .cvb-list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 20px;
       width: 100%;
-      max-width: 960px;
+      max-width: 1040px;
     }
 
     .cvb-card {
       background: #fff;
       border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 18px 20px 20px;
+      border-radius: 18px;
+      padding: 26px 26px 28px;
+      min-height: 226px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 10px;
       box-shadow: 0 8px 20px rgba(20, 20, 43, .06);
       position: relative;
     }
@@ -14462,7 +14461,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 17px;
+      font-size: 18.5px;
       font-weight: 400;
       color: var(--ink);
     }
@@ -14502,12 +14501,12 @@
     }
 
     .cvb-logo {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 900;
       color: #fff;
       flex: none;
@@ -14546,16 +14545,16 @@
     }
 
     .cvb-t {
-      font-size: 15px;
+      font-size: 17.5px;
       font-weight: 800;
       color: var(--ink);
     }
 
     .cvb-d {
-      font-size: 12.5px;
+      font-size: 14px;
       font-weight: 500;
       color: var(--ink-dim);
-      line-height: 1.55;
+      line-height: 1.62;
     }
 
     .cvb-d b {
@@ -18057,12 +18056,18 @@
       position: absolute;
     }
 
+    /* 다시 보기: 재생 완료(.on) 전까지 숨김 — 처음부터 나오면 안 됨 */
+    .cv2-sc .cvb-stat .cvx-cta .cmp-replay {
+      display: none;
+    }
+
     /* 재생 완료 → 시작 버튼 자리에 '다시 보기'가 그대로 교체 등장 (아래 X) */
     .cv2-sc.on .cvb-stat .cvx-cta .cl-start {
       display: none;
     }
 
     .cv2-sc.on .cvb-stat .cvx-cta .cmp-replay {
+      display: flex;
       animation: replayIn .4s cubic-bezier(.2, .7, .2, 1) .2s both;
     }
 
@@ -20530,7 +20535,6 @@
             <div class="cvb-d">사업자 등록 전이라도, 주소지로 쓸 수 있는 <b>비상주사무실</b>을 <b>최대 30% 할인</b>가로 이용해요.</div>
           </div>
         </div>
-        <div class="cvb-foot"><span class="cvb-fbig">시작에 필요한 <b>수십만 원 상당의 혜택</b>, 스킨 하나 구매로 한 번에</span><div class="cvb-frow"><span class="cvb-fchip">✓ 필수 앱 2개월 무료</span><span class="cvb-fchip">✓ 결제 수수료 절감</span><span class="cvb-fchip">✓ 사무 공간까지 지원</span></div></div>
         <div class="crm-cta cvb-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">도입 혜택 받기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
       </div>`,
     };
