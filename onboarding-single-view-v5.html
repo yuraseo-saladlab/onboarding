@@ -15192,60 +15192,36 @@
       background: var(--dc);
     }
 
-    .pc-scene.on .pcx-f:nth-child(2) {
-      animation: pcxFeat .34s ease .5s both;
+    /* seqPcx(JS)가 기능을 하나씩 .ckd 처리 — 칼각 팝 체크 + 한 칸씩 또렷하게 */
+    .pcx-f {
+      transition: opacity .28s ease;
     }
 
-    .pc-scene.on .pcx-f:nth-child(3) {
-      animation: pcxFeat .34s ease .7s both;
+    .pcx-f.ckd {
+      opacity: 1;
     }
 
-    .pc-scene.on .pcx-f:nth-child(4) {
-      animation: pcxFeat .34s ease .9s both;
+    .pcx-ck {
+      transition: border-color .18s ease, background .18s ease;
     }
 
-    .pc-scene.on .pcx-f:nth-child(5) {
-      animation: pcxFeat .34s ease 1.1s both;
+    .pcx-f.ckd .pcx-ck {
+      border-color: var(--dc);
+      background: var(--dc);
+      animation: pcxCkPop .34s cubic-bezier(.3, 1.8, .4, 1);
     }
 
-    .pc-scene.on .pcx-f:nth-child(6) {
-      animation: pcxFeat .34s ease 1.3s both;
-    }
-
-    .pc-scene.on .pcx-f:nth-child(2) .pcx-ck {
-      animation: pcxCk .34s ease .5s both;
-    }
-
-    .pc-scene.on .pcx-f:nth-child(3) .pcx-ck {
-      animation: pcxCk .34s ease .7s both;
-    }
-
-    .pc-scene.on .pcx-f:nth-child(4) .pcx-ck {
-      animation: pcxCk .34s ease .9s both;
-    }
-
-    .pc-scene.on .pcx-f:nth-child(5) .pcx-ck {
-      animation: pcxCk .34s ease 1.1s both;
-    }
-
-    .pc-scene.on .pcx-f:nth-child(6) .pcx-ck {
-      animation: pcxCk .34s ease 1.3s both;
-    }
-
-    @keyframes pcxFeat {
-      from {
-        opacity: .45;
+    @keyframes pcxCkPop {
+      0% {
+        transform: scale(1);
       }
 
-      to {
-        opacity: 1;
+      45% {
+        transform: scale(1.3);
       }
-    }
 
-    @keyframes pcxCk {
-      to {
-        border-color: var(--dc);
-        background: var(--dc);
+      100% {
+        transform: scale(1);
       }
     }
 
@@ -15324,42 +15300,67 @@
     .pcx-bar.o {
       height: 22%;
       background: linear-gradient(180deg, #FB8C9A, #E5344A);
+      /* seqPcx가 height를 한 칸씩 올림 — 칼각하게 훅 오르는 트랜지션 */
+      transition: height .34s cubic-bezier(.2, .9, .3, 1);
     }
 
-    .pc-scene.on .pcx-bar.o {
-      animation: pcxBarO 1.1s cubic-bezier(.4, 0, .3, 1) .3s forwards;
+    /* 체크할 때마다 경쟁 요금 숫자가 튀어오름 — 상승이 눈에 확 들어오게 */
+    .pcx-bar.o.bump .pcx-bval {
+      animation: pcxBump .42s cubic-bezier(.3, 1.6, .4, 1);
     }
 
-    @keyframes pcxBarO {
-
-      0%,
-      12% {
-        height: 22%;
+    @keyframes pcxBump {
+      0% {
+        transform: translateX(-50%) scale(1);
       }
 
-      18%,
-      28% {
-        height: 36%;
+      40% {
+        transform: translateX(-50%) scale(1.22);
       }
 
-      34%,
-      44% {
-        height: 52%;
-      }
-
-      50%,
-      60% {
-        height: 68%;
-      }
-
-      66%,
-      76% {
-        height: 84%;
-      }
-
-      82%,
       100% {
-        height: 100%;
+        transform: translateX(-50%) scale(1);
+      }
+    }
+
+    /* 완료 → 알파푸시 39,000 그대로 강조 (바 반짝 + 숫자 팝) */
+    .pc-scene.pcx-done .pcx-bar.u {
+      animation: pcxUEmph 1s cubic-bezier(.3, 1.2, .4, 1);
+    }
+
+    @keyframes pcxUEmph {
+      0% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--dc) 45%, transparent);
+      }
+
+      40% {
+        box-shadow: 0 0 0 12px color-mix(in srgb, var(--dc) 0%, transparent);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 transparent;
+      }
+    }
+
+    .pc-scene.pcx-done .pcx-bar.u .pcx-bval {
+      animation: pcxBump .5s cubic-bezier(.3, 1.6, .4, 1);
+    }
+
+    .pc-scene.pcx-done .pcx-bar.u .pcx-bval em {
+      animation: pcxTagPop .5s cubic-bezier(.3, 1.7, .4, 1) .1s both;
+    }
+
+    @keyframes pcxTagPop {
+      0% {
+        transform: scale(1);
+      }
+
+      45% {
+        transform: scale(1.32);
+      }
+
+      100% {
+        transform: scale(1);
       }
     }
 
@@ -20689,7 +20690,7 @@
           <div class="pcx-chart">
             <div class="pcx-plot">
               <div class="pcx-col">
-                <div class="pcx-btrack"><div class="pcx-bar o"><span class="pcx-bval">월 <b class="cnt" data-from="90000" data-to="1000000" data-fmt="num" data-delay="300">90,000</b>원<em class="up">↑</em></span></div></div>
+                <div class="pcx-btrack"><div class="pcx-bar o"><span class="pcx-bval">월 <b class="pcx-oval">90,000</b>원<em class="up">↑</em></span></div></div>
                 <div class="pcx-name o"><b>경쟁 CRM</b><span>시작가 90,000 → MAU 400,000 → 100만+</span></div>
               </div>
               <div class="pcx-col">
@@ -21583,6 +21584,7 @@
           sc.classList.add('on');
           runCounts(stage);
           if (sc.classList.contains('ps-wall')) seqWall(sc);
+          if (sc.classList.contains('pc-scene')) seqPcx(sc);
         });
       });
       // '레시피 시작'은 유저가 직접 클릭 (자동 실행 없음)
@@ -21594,6 +21596,46 @@
       if (stage.querySelector('.cv1-sc')) initCvDetail(stage);
       const _dp = $('dtPrev'); if (_dp) _dp.disabled = (i === 0);
       const _dn = $('dtNext'); if (_dn) _dn.textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
+    }
+
+    /* ps3(요금 비교) — 기능을 한 칸씩 또렷하게 켜고, 켤 때마다 경쟁 CRM 요금이 계단식으로 훅 상승 · 알파푸시는 39,000 그대로 */
+    function seqPcx(sc) {
+      const feats = [...sc.querySelectorAll('.pcx-f')];
+      const oBar = sc.querySelector('.pcx-bar.o');
+      const oVal = sc.querySelector('.pcx-oval');
+      if (!feats.length || !oBar) return;
+      // 시작가 90,000(기능 1개) → 기능 켤 때마다 계단식 상승 → 전 기능 100만+
+      const steps = [
+        { h: 22, v: 90000 },
+        { h: 37, v: 150000 },
+        { h: 53, v: 260000 },
+        { h: 69, v: 430000 },
+        { h: 85, v: 680000 },
+        { h: 100, v: 1000000 },
+      ];
+      const fmt = n => n.toLocaleString('en-US');
+      feats[0].classList.add('ckd');
+      oBar.style.height = steps[0].h + '%';
+      if (oVal) oVal.textContent = fmt(steps[0].v);
+      let i = 1;
+      const GAP = 640; // 느리고 딱딱 끊기는 스텝
+      function step() {
+        if (!sc.isConnected) return;
+        if (i >= feats.length) {
+          sc.classList.add('pcx-done'); // 알파푸시 39,000 그대로 강조
+          return;
+        }
+        feats[i].classList.add('ckd');
+        const s = steps[i];
+        oBar.style.height = s.h + '%';
+        if (oVal) oVal.textContent = fmt(s.v);
+        oBar.classList.remove('bump');
+        void oBar.offsetWidth;
+        oBar.classList.add('bump');
+        i++;
+        setTimeout(step, GAP);
+      }
+      setTimeout(step, 560);
     }
 
     /* ps1(전환 장치 벽) — 카드를 하나씩 순차 재생: 한 카드의 애니메이션이 끝나야 다음 카드 시작 */
