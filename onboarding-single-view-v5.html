@@ -581,7 +581,7 @@
     /* === 히어로 3씬 클릭-재생 CTA (우측상단 통일, 3-B 감각) === */
     .hero-cta {
       position: absolute;
-      top: 16px;
+      top: 12px;
       right: 16px;
       z-index: 30;
       display: flex;
@@ -3412,31 +3412,6 @@
     }
 
 
-    .apx-live {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--ink-dim);
-      background: var(--line-soft);
-      border: 1px solid var(--line);
-      border-radius: 100px;
-      padding: 4px 12px;
-    }
-
-    .apx-live b {
-      color: var(--ink);
-    }
-
-    .apx-live i {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #9AA0AE;
-      animation: adPulse 1.4s ease-in-out infinite;
-    }
-
     @keyframes adPulse {
 
       0%,
@@ -3496,7 +3471,7 @@
     }
 
     .stg-lb {
-      font-size: 11.5px;
+      font-size: 16px;
       font-weight: 800;
       color: var(--ink);
       letter-spacing: -.02em;
@@ -3932,21 +3907,28 @@
       cursor: pointer;
     }
 
+    /* 커서가 한 번 탭 → 버튼 눌림 → 이지은 리뷰가 #1로 꽂힘 */
     .hero-pane.played .stg.hot .pin-btn {
-      animation: pinPulse 1.8s ease 2.4s infinite;
+      animation: pinPress .5s cubic-bezier(.3, 1.4, .5, 1) 2.2s both;
     }
 
-    @keyframes pinPulse {
-
-      0%,
-      100% {
+    @keyframes pinPress {
+      0% {
         transform: scale(1);
-        box-shadow: 0 6px 14px color-mix(in srgb, var(--c-review) 30%, transparent);
       }
 
-      50% {
-        transform: scale(1.035);
-        box-shadow: 0 8px 20px color-mix(in srgb, var(--c-review) 46%, transparent);
+      40% {
+        transform: scale(.94);
+        box-shadow: 0 3px 9px color-mix(in srgb, var(--c-review) 34%, transparent);
+      }
+
+      70% {
+        transform: scale(1.03);
+      }
+
+      100% {
+        transform: scale(1);
+        box-shadow: 0 6px 16px color-mix(in srgb, var(--c-review) 42%, transparent);
       }
     }
 
@@ -3962,21 +3944,104 @@
     }
 
     .hero-pane.played .stg.hot .pin-btn .lf-cursor {
-      animation: pinTap 1.8s ease 2.4s infinite;
+      animation: pinTap .9s ease 2s both;
     }
 
     @keyframes pinTap {
-
-      0%,
-      100% {
+      0% {
         opacity: 0;
-        transform: translate(4px, 4px);
+        transform: translate(6px, 6px);
       }
 
-      30%,
-      70% {
+      35%,
+      65% {
         opacity: 1;
         transform: translate(0, 0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(0, 0);
+      }
+    }
+
+    /* 최상단 고정 실행 → 리스트 1위(이지은)가 위에서 꽂히며 강조 */
+    .pin-li:first-child {
+      position: relative;
+    }
+
+    .pin-li:first-child::before {
+      content: '';
+      position: absolute;
+      inset: -3px -6px;
+      border-radius: 6px;
+      background: color-mix(in srgb, var(--c-review) 15%, transparent);
+      opacity: 0;
+      z-index: -1;
+    }
+
+    .hero-pane.played .stg.hot .pin-li:first-child {
+      animation: pinToTop .6s cubic-bezier(.3, 1.3, .4, 1) 2.6s both;
+    }
+
+    @keyframes pinToTop {
+      0% {
+        opacity: .25;
+        transform: translateY(-14px) scale(.96);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .hero-pane.played .stg.hot .pin-li:first-child::before {
+      animation: pinFlash 1.1s ease 2.6s both;
+    }
+
+    @keyframes pinFlash {
+      0% {
+        opacity: 0;
+      }
+
+      28% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-pane.played .stg.hot .pin-li:first-child b {
+      animation: pinNo .5s ease 2.74s both;
+    }
+
+    @keyframes pinNo {
+      to {
+        background: var(--c-review);
+        color: #fff;
+      }
+    }
+
+    .pin-li:first-child .up {
+      opacity: 0;
+    }
+
+    .hero-pane.played .stg.hot .pin-li:first-child .up {
+      animation: pinUp .5s cubic-bezier(.3, 1.5, .4, 1) 2.92s both;
+    }
+
+    @keyframes pinUp {
+      from {
+        opacity: 0;
+        transform: translateY(5px) scale(.5);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
     }
 
