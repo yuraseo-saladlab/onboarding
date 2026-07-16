@@ -14651,16 +14651,34 @@
       top: 14px;
       right: 14px;
       z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 800;
       letter-spacing: -.2px;
       color: #fff;
-      background: var(--dc);
-      border-radius: 8px;
-      padding: 4px 10px;
-      box-shadow: 0 8px 18px color-mix(in srgb, var(--dc) 32%, transparent);
       opacity: 0;
-      transform: rotate(-8deg) scale(1.8);
+      transform: scale(1.6);
+    }
+
+    .cvb-stamp-ck {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      background: var(--dc);
+      box-shadow: 0 4px 10px color-mix(in srgb, var(--dc) 40%, transparent);
+      flex: none;
+      position: relative;
+    }
+
+    .cvb-stamp-ck::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M20.7069%206.293C20.8944%206.48053%2020.9997%206.73484%2020.9997%207C20.9997%207.26516%2020.8944%207.51947%2020.7069%207.707L10.7069%2017.707C10.5194%2017.8945%2010.2651%2017.9998%209.99992%2017.9998C9.73475%2017.9998%209.48045%2017.8945%209.29292%2017.707L4.29292%2012.707C4.11076%2012.5184%204.00997%2012.2658%204.01224%2012.0036C4.01452%2011.7414%204.11969%2011.4906%204.3051%2011.3052C4.49051%2011.1198%204.74132%2011.0146%205.00352%2011.0123C5.26571%2011.01%205.51832%2011.1108%205.70692%2011.293L9.99992%2015.586L19.2929%206.293C19.4804%206.10553%2019.7348%206.00021%2019.9999%206.00021C20.2651%206.00021%2020.5194%206.10553%2020.7069%206.293Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") center / 13px no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M20.7069%206.293C20.8944%206.48053%2020.9997%206.73484%2020.9997%207C20.9997%207.26516%2020.8944%207.51947%2020.7069%207.707L10.7069%2017.707C10.5194%2017.8945%2010.2651%2017.9998%209.99992%2017.9998C9.73475%2017.9998%209.48045%2017.8945%209.29292%2017.707L4.29292%2012.707C4.11076%2012.5184%204.00997%2012.2658%204.01224%2012.0036C4.01452%2011.7414%204.11969%2011.4906%204.3051%2011.3052C4.49051%2011.1198%204.74132%2011.0146%205.00352%2011.0123C5.26571%2011.01%205.51832%2011.1108%205.70692%2011.293L9.99992%2015.586L19.2929%206.293C19.4804%206.10553%2019.7348%206.00021%2019.9999%206.00021C20.2651%206.00021%2020.5194%206.10553%2020.7069%206.293Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") center / 13px no-repeat;
     }
 
 
@@ -14879,17 +14897,17 @@
     @keyframes cvbStamp {
       0% {
         opacity: 0;
-        transform: rotate(-8deg) scale(1.8);
+        transform: scale(1.6);
       }
 
       55% {
         opacity: 1;
-        transform: rotate(-8deg) scale(.9);
+        transform: scale(.92);
       }
 
       100% {
         opacity: 1;
-        transform: rotate(-8deg) scale(1);
+        transform: scale(1);
       }
     }
 
@@ -20837,21 +20855,21 @@
         <div class="cvb-list">
           <div class="cvb-card b1">
             <div class="cvb-cover"><img class="cc-ic" src="assets/gift1.png" alt=""><span class="cc-n">혜택 1</span></div>
-            <span class="cvb-stamp">✓ 발급 완료</span>
+            <span class="cvb-stamp"><i class="cvb-stamp-ck"></i>발급 완료</span>
             <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-alphaapps.png" alt="AlphaApps"></div>
             <div class="cvb-t">알파앱스 2개월 무료</div>
             <div class="cvb-d">알파캔버스 스킨 구매 시 쇼핑몰 필수 앱 <b>리뷰·업셀·푸시</b> 3개 제품 <b>2개월 무료 쿠폰</b>을 제공해요.</div>
           </div>
           <div class="cvb-card b2">
             <div class="cvb-cover"><img class="cc-ic" src="assets/gift2.png" alt=""><span class="cc-n">혜택 2</span></div>
-            <span class="cvb-stamp">✓ 발급 완료</span>
+            <span class="cvb-stamp"><i class="cvb-stamp-ck"></i>발급 완료</span>
             <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-tosspay.png" alt="tosspay"></div>
             <div class="cvb-t">토스페이 도입 혜택</div>
             <div class="cvb-d">토스페이 <b>도입 비용 0원</b>, 결제 <b>수수료 인하</b> 혜택까지 함께 제공해요.</div>
           </div>
           <div class="cvb-card b3">
             <div class="cvb-cover"><img class="cc-ic" src="assets/gift3.png" alt=""><span class="cc-n">혜택 3</span></div>
-            <span class="cvb-stamp">✓ 발급 완료</span>
+            <span class="cvb-stamp"><i class="cvb-stamp-ck"></i>발급 완료</span>
             <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-saveoffice.png" alt="saveoffice"></div>
             <div class="cvb-t">비상주사무실 최대 30% 할인</div>
             <div class="cvb-d">사업자 등록 전이라도, 주소지로 쓸 수 있는 <b>비상주사무실</b>을 <b>최대 30% 할인</b>가로 이용해요.</div>
