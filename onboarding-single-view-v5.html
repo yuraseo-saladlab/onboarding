@@ -13682,36 +13682,47 @@
     }
 
     /* 다시보기: 시작 버튼 자리에 그대로 교체 */
+    /* 다시 보기: 좌상단(헤딩 아래), 재생 완료 후에만 등장 */
     .cv-roadmap .ccu-cta {
       position: absolute;
       left: 2.3%;
       top: 10%;
       z-index: 12;
-      display: grid;
-      justify-items: start;
     }
 
-    .cv-roadmap .ccu-cta>.cl-start,
     .cv-roadmap .ccu-cta>.cmp-replay {
-      grid-area: 1 / 1;
       position: static;
       margin: 0;
-      transform: none;
-      left: auto;
-      top: auto;
-    }
-
-    .cv-update.on .ccu-cta .cl-start {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .cv-roadmap .ccu-cta>.cmp-replay {
       height: 40px;
       padding: 0 20px;
       border-radius: 10px;
       font-size: 14px;
       width: max-content;
+      display: none;
+    }
+
+    .cv-update.on .ccu-cta>.cmp-replay {
+      display: inline-flex;
+      animation: replayIn .45s cubic-bezier(.2, .7, .2, 1) both;
+    }
+
+    /* 비공개 프레임 하단 재생 CTA — 프레임과 한 덩어리로 묶음 */
+    .ccl-cta {
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .ccl-cta .cl-start {
+      margin: 0;
+      width: 100%;
+      height: 46px;
+      font-size: 15px;
+    }
+
+    .ccl-cta .cl-cursor {
+      position: absolute;
+      left: 62%;
+      bottom: -8px;
     }
 
 
@@ -14566,6 +14577,15 @@
       align-items: center;
       justify-content: flex-start;
       margin-bottom: 16px;
+    }
+
+    .cvb-blogo {
+      max-height: 24px;
+      max-width: calc(100% - 100px);
+      width: auto;
+      height: auto;
+      display: block;
+      object-fit: contain;
     }
 
     .cvb-brand {
@@ -20593,7 +20613,7 @@
         <div class="ccu">
           <div class="ccu-stage">
           <div class="ccu-headtx">✦ 앞으로 이런 기능들이 <b>차례로 업데이트</b> 돼요</div>
-          <div class="crm-cta ccu-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">업데이트 로드맵 재생</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
+          <div class="crm-cta ccu-cta"><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
           <div class="ccu-locked">
             <div class="ccl-chrome"><i></i><i></i><i></i><span class="ccl-url">alphacanvas.app · 업데이트 로드맵</span><span class="ccl-priv">🔒 비공개</span></div>
             <div class="ccl-body">
@@ -20605,6 +20625,7 @@
                 <span class="ccl-row"><i>4</i>매거진 위젯</span>
                 <span class="ccl-row"><i>5</i>검색 기능 고도화</span>
               </div>
+              <div class="ccl-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">▶ 업데이트 로드맵 재생</span></button><span class="cl-cursor"></span></div>
             </div>
           </div>
           <div class="ccu-card c1"><div class="ccu-lb"><span class="ccu-n">1</span>숏츠 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_1.png" alt=""></div></div>
@@ -20724,21 +20745,21 @@
           <div class="cvb-card b1">
             <div class="cvb-cover"><span class="cc-ic">🎁</span><span class="cc-n">혜택 1</span></div>
             <span class="cvb-stamp">✓ 발급 완료</span>
-            <div class="cvb-top"><span class="cvb-brand alpha"><i class="cvb-logo a">α</i>Alpha<b>Apps</b></span></div>
+            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-alphaapps.png" alt="AlphaApps"></div>
             <div class="cvb-t">알파앱스 2개월 무료</div>
             <div class="cvb-d">알파캔버스 스킨 구매 시 쇼핑몰 필수 앱 <b>리뷰·업셀·푸시</b> 3개 제품 <b>2개월 무료 쿠폰</b>을 제공해요.</div>
           </div>
           <div class="cvb-card b2">
             <div class="cvb-cover"><span class="cc-ic">🎁</span><span class="cc-n">혜택 2</span></div>
             <span class="cvb-stamp">✓ 발급 완료</span>
-            <div class="cvb-top"><span class="cvb-brand toss"><i class="cvb-logo t"></i>toss<b>pay</b></span></div>
+            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-tosspay.png" alt="tosspay"></div>
             <div class="cvb-t">토스페이 도입 혜택</div>
             <div class="cvb-d">토스페이 <b>도입 비용 0원</b>, 결제 <b>수수료 인하</b> 혜택까지 함께 제공해요.</div>
           </div>
           <div class="cvb-card b3">
             <div class="cvb-cover"><span class="cc-ic">🎁</span><span class="cc-n">혜택 3</span></div>
             <span class="cvb-stamp">✓ 발급 완료</span>
-            <div class="cvb-top"><span class="cvb-brand save">save<b>office</b></span></div>
+            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-saveoffice.png" alt="saveoffice"></div>
             <div class="cvb-t">비상주사무실 최대 30% 할인</div>
             <div class="cvb-d">사업자 등록 전이라도, 주소지로 쓸 수 있는 <b>비상주사무실</b>을 <b>최대 30% 할인</b>가로 이용해요.</div>
 
