@@ -6150,15 +6150,15 @@
 
     .cd-count {
       position: absolute;
-      top: -7px;
-      right: -9px;
-      min-width: 16px;
-      height: 16px;
+      top: -8px;
+      right: -12px;
+      min-width: 20px;
+      height: 20px;
       border-radius: 100px;
       background: #6B5BFF;
       color: #fff;
-      font-size: 10px;
-      font-weight: 800;
+      font-size: 12px;
+      font-weight: 600;
       display: grid;
       place-items: center;
       padding: 0 4px;
@@ -6187,11 +6187,11 @@
     .cd-chip {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      height: 30px;
-      padding: 0 12px;
-      font-size: 14px;
-      font-weight: 500;
+      gap: 6px;
+      height: 36px;
+      padding: 0 16px;
+      font-size: 16px;
+      font-weight: 600;
       border-radius: 9999px;
       letter-spacing: -.14px;
       white-space: nowrap;
@@ -6219,8 +6219,8 @@
 
     .cd-chip .rm {
       display: inline-block;
-      width: 15px;
-      height: 15px;
+      width: 18px;
+      height: 18px;
       padding: 0;
       border: none;
       cursor: pointer;
@@ -13078,35 +13078,35 @@
 
     /* 카드별 등장 타이밍 — .pwc-live(작동중) 뒤에 결과값이 채워지도록 */
     .sc.on .pwc.c1 .pwc-mt {
-      --d: .75s;
+      --d: 0.5s;
     }
 
     .sc.on .pwc.c2 .pwc-mt {
-      --d: .95s;
+      --d: 0.633s;
     }
 
     .sc.on .pwc.c3 .pwc-mt {
-      --d: 2.4s;
+      --d: 1.6s;
     }
 
     .sc.on .pwc.c4 .pwc-mt {
-      --d: 3.2s;
+      --d: 2.133s;
     }
 
     .sc.on .pwc.c5 .pwc-mt {
-      --d: 1.9s;
+      --d: 1.267s;
     }
 
     .sc.on .pwc.c6 .pwc-mt {
-      --d: 2.75s;
+      --d: 1.833s;
     }
 
     .sc.on .pwc.c7 .pwc-mt {
-      --d: 3.35s;
+      --d: 2.233s;
     }
 
     .sc.on .pwc.c8 .pwc-mt {
-      --d: 2.7s;
+      --d: 1.8s;
     }
 
     /* CTA — pw-head 우측, 수직 중앙 */
@@ -21714,17 +21714,19 @@
         if (!card.isConnected) return;   // 리플레이로 씬이 새로 그려지면 중단
         card.classList.add('go');
         await new Promise(r => setTimeout(r, 60));   // 애니메이션 재개(등록) 대기
-        let finites = [];
+        // 다음 카드는 이 카드의 지표 바(pwc-mt)가 파란색으로 전환 완료되는 순간 시작 — 시선 흐름이 자연스럽게
+        let mtDone = [];
         try {
-          finites = card.getAnimations({ subtree: true })
+          const src = card.querySelector('.pwc-mt') || card;
+          mtDone = src.getAnimations({ subtree: true })
             .filter(a => { try { return a.effect.getTiming().iterations !== Infinity; } catch (e) { return false; } })
             .map(a => a.finished.catch(() => { }));
         } catch (e) { }
         await Promise.all([
-          new Promise(r => setTimeout(r, 433)),                                                    // 카드 최소 노출 (1.5배 빠르게)
-          Promise.race([Promise.all(finites), new Promise(r => setTimeout(r, 933))]),              // 실제 완료 or 상한 (1.5배 빠르게)
+          new Promise(r => setTimeout(r, 320)),                                                    // 카드 최소 노출
+          Promise.race([Promise.all(mtDone), new Promise(r => setTimeout(r, 1900))]),              // pwc-mt 파랑 전환 완료 or 상한
         ]);
-        await new Promise(r => setTimeout(r, 66));                                                 // 카드 간 간격 (1.5배 빠르게)
+        await new Promise(r => setTimeout(r, 40));                                                 // 살짝 더 빠른 짧은 간격
       }
     }
 
