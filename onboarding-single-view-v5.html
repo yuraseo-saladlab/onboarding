@@ -13502,8 +13502,18 @@
     }
 
     .ccl-ic {
-      font-size: 30px;
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
       flex: none;
+    }
+
+    .ccl-lockmini {
+      width: 12px;
+      height: 12px;
+      object-fit: contain;
+      vertical-align: -2px;
+      margin-right: 4px;
     }
 
     .ccl-t {
@@ -13555,11 +13565,12 @@
       flex: none;
     }
 
-    .ccl-row::after {
-      content: '🔒';
+    .ccl-rlock {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
       margin-left: auto;
-      font-size: 11px;
-      opacity: .45;
+      opacity: .5;
     }
 
     .cv-update.on .ccu-locked {
@@ -13666,11 +13677,11 @@
     }
 
     /* 다시보기: 시작 버튼 자리에 그대로 교체 */
-    /* 다시 보기: 우상단, 재생 완료 후에만 등장 */
+    /* 다시 보기: 좌상단, 재생 완료 후에만 등장 */
     .cv-roadmap .ccu-cta {
       position: absolute;
-      right: 2.3%;
-      top: 3%;
+      left: 2.3%;
+      top: 4%;
       z-index: 12;
     }
 
@@ -14499,14 +14510,14 @@
     }
 
     .cvb-card {
-      background: #fff;
-      border: 2px dashed #a2d9d5;
-      border-radius: 16px;
+      background: linear-gradient(158deg, #272935 0%, #141520 100%);
+      border: 1.5px solid rgba(255, 255, 255, .14);
+      border-radius: 18px;
       padding: 24px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      box-shadow: 0 8px 20px rgba(20, 20, 43, .06);
+      box-shadow: 0 18px 42px rgba(8, 8, 18, .36);
       position: relative;
     }
 
@@ -14516,7 +14527,9 @@
       inset: 0;
       z-index: 3;
       border-radius: 16px;
-      background: linear-gradient(160deg, color-mix(in srgb, var(--dc) 14%, #fff), #fff);
+      background:
+        radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--dc) 20%, transparent), transparent 60%),
+        linear-gradient(160deg, #2C2E3A 0%, #16171F 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -14567,7 +14580,7 @@
 
     .cvb-blogo {
       max-height: 24px;
-      max-width: calc(100% - 100px);
+      max-width: calc(100% - 96px);
       width: auto;
       height: auto;
       display: block;
@@ -14664,18 +14677,18 @@
     .cvb-t {
       font-size: 20px;
       font-weight: 800;
-      color: var(--ink);
+      color: #fff;
     }
 
     .cvb-d {
       font-size: 14px;
       font-weight: 500;
-      color: var(--ink-dim);
+      color: #A9ADBA;
       line-height: 1.62;
     }
 
     .cvb-d b {
-      color: var(--ink);
+      color: #fff;
       font-weight: 700;
     }
 
@@ -14753,9 +14766,9 @@
     @keyframes cvbIssue {
       0% {
         transform: translateY(0);
-        border-color: color-mix(in srgb, var(--ink) 16%, #fff);
-        border-style: dashed;
-        box-shadow: 0 8px 20px rgba(20, 20, 43, .06);
+        border-color: rgba(255, 255, 255, .14);
+        border-style: solid;
+        box-shadow: 0 18px 42px rgba(8, 8, 18, .36);
       }
 
       45% {
@@ -14764,9 +14777,9 @@
 
       100% {
         transform: translateY(0);
-        border-color: color-mix(in srgb, var(--dc) 52%, #fff);
+        border-color: color-mix(in srgb, var(--dc) 78%, #fff);
         border-style: solid;
-        box-shadow: 0 16px 34px color-mix(in srgb, var(--dc) 18%, transparent);
+        box-shadow: 0 22px 46px rgba(0, 183, 168, .24), 0 0 0 1px color-mix(in srgb, var(--dc) 45%, transparent);
       }
     }
 
@@ -20600,15 +20613,15 @@
           <div class="ccu-stage">
           <div class="crm-cta ccu-cta"><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
           <div class="ccu-locked">
-            <div class="ccl-chrome"><i></i><i></i><i></i><span class="ccl-url">alphacanvas.app · 업데이트 로드맵</span><span class="ccl-priv">🔒 비공개</span></div>
+            <div class="ccl-chrome"><i></i><i></i><i></i><span class="ccl-url">alphacanvas.app · 업데이트 로드맵</span><span class="ccl-priv"><img class="ccl-lockmini" src="assets/lock.svg" alt="">비공개</span></div>
             <div class="ccl-body">
-              <div class="ccl-lead"><span class="ccl-ic">🔒</span><div><div class="ccl-t">곧 공개될 업데이트 <b>5가지</b></div><div class="ccl-s">지금은 비공개 상태예요 — 재생하면 로드맵이 순서대로 공개돼요</div></div></div>
+              <div class="ccl-lead"><img class="ccl-ic" src="assets/lock.svg" alt=""><div><div class="ccl-t">곧 공개될 업데이트 <b>5가지</b></div><div class="ccl-s">지금은 비공개 상태예요 — 재생하면 로드맵이 순서대로 공개돼요</div></div></div>
               <div class="ccl-rows">
-                <span class="ccl-row"><i>1</i>숏츠 위젯</span>
-                <span class="ccl-row"><i>2</i>메인 상품 info 위젯</span>
-                <span class="ccl-row"><i>3</i>메뉴 관리</span>
-                <span class="ccl-row"><i>4</i>매거진 위젯</span>
-                <span class="ccl-row"><i>5</i>검색 기능 고도화</span>
+                <span class="ccl-row"><i>1</i>숏츠 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>2</i>메인 상품 info 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>3</i>메뉴 관리<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>4</i>매거진 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>5</i>검색 기능 고도화<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
               </div>
               <div class="ccl-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">▶ 업데이트 로드맵 재생</span></button><span class="cl-cursor"></span></div>
             </div>
