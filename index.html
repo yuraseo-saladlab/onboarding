@@ -181,6 +181,9 @@
     color: #fff;
     background: #A9A4B8;
   }
+  /* v2 — 레거시지만 이전 메인이므로 컬러 유지 + 흐리게 처리 안 함 */
+  .leg-item.v2 { opacity: 1; }
+  .leg-item.v2 .leg-ver { background: #307AF3; }
   .leg-tx { flex: 1; min-width: 0; }
   .leg-tx b { display: block; font-size: 13.5px; font-weight: 700; color: var(--ink); }
   .leg-tx span { font-size: 12px; color: var(--ink-dim); }
@@ -204,19 +207,11 @@
     <p class="lead">현재 메인 시안입니다. 카드를 눌러 새 탭에서 확인하세요. 이전 시안은 아래 <b style="color:var(--ink)">레거시</b>에서 볼 수 있어요.</p>
 
     <div class="grid">
-      <a class="card v2" href="onboarding-single-view-v2.html" target="_blank" rel="noopener">
-        <span class="ver">v2</span>
-        <h2>솔루션 소개·추천·선택 <small style="color:#307AF3;font-size:12px;">MAIN</small></h2>
-        <p class="desc">카드 그리드로 솔루션을 한눈에 탐색. 자동 재생 미리보기(beats)와 담은 솔루션 하단 바 구성. 현재 작업 중인 메인 시안입니다.</p>
-        <div class="diff">자세히 보기 → <b>플로팅 오버레이</b> 모달</div>
-        <span class="open">시안 열기 →</span>
-      </a>
-
       <a class="card v5" href="onboarding-single-view-v5.html" target="_blank" rel="noopener">
         <span class="ver">v5</span>
-        <h2>새 버전 <small style="color:#6D58F2;font-size:12px;">작업 중</small></h2>
-        <p class="desc">v2를 복제한 새 시안. 다른 방향의 버전을 실험하기 위한 작업본입니다.</p>
-        <div class="diff"><b>v2 복제본</b> · 새 버전 실험용</div>
+        <h2>솔루션 소개·추천·선택 <small style="color:#6D58F2;font-size:12px;">MAIN</small></h2>
+        <p class="desc">카드 그리드로 솔루션을 한눈에 탐색. 자동 재생 미리보기(beats)와 담은 솔루션 하단 바 구성. 현재 작업 중인 메인 시안입니다.</p>
+        <div class="diff">자세히 보기 → <b>플로팅 오버레이</b> 모달</div>
         <span class="open">시안 열기 →</span>
       </a>
     </div>
@@ -227,6 +222,11 @@
         <a class="leg-item" href="onboarding-single-view-v1.html" target="_blank" rel="noopener">
           <span class="leg-ver">v1</span>
           <span class="leg-tx"><b>온보딩 5단계 플로우</b><span>좌측 추천 rail + 우측 앱 소개 · 자세히 보기는 풀페이지 모달</span></span>
+          <span class="leg-go">열기 →</span>
+        </a>
+        <a class="leg-item v2" href="onboarding-single-view-v2.html" target="_blank" rel="noopener">
+          <span class="leg-ver">v2</span>
+          <span class="leg-tx"><b>솔루션 소개·추천·선택</b><span>카드 그리드 탐색 · 자세히 보기는 플로팅 오버레이 모달 (이전 메인)</span></span>
           <span class="leg-go">열기 →</span>
         </a>
         <a class="leg-item" href="onboarding-single-view-v3.html" target="_blank" rel="noopener">
