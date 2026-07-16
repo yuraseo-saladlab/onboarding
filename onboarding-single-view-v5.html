@@ -21770,7 +21770,15 @@
         const ck = it.querySelector('.ck');
         if (ck) ck.textContent = '✓ 적용';
         const slot = sc.querySelector('.cvb-slot[data-s="' + it.dataset.w + '"]');
-        if (slot) slot.classList.add('set');
+        const canvas = sc.querySelector('.cvb-canvas');
+        if (slot) {
+          slot.classList.add('set');
+          // 방금 배치된 위젯이 화면에 보이도록 캔버스를 부드럽게 스크롤(뒤쪽 위젯이 스크롤에 가려지지 않게)
+          if (canvas) setTimeout(() => {
+            const target = slot.offsetTop + slot.offsetHeight - canvas.clientHeight + 14;
+            canvas.scrollTop = Math.max(0, target);
+          }, 70);
+        }
         if (it.dataset.w === 'review') runCounts(stage);
         placed++;
         const d = parseFloat(it.dataset.d || 0);
@@ -21789,6 +21797,8 @@
           sc.classList.add('on');
           runCounts(stage);
           confetti();
+          // 조립 완료 → 완성된 페이지를 위에서부터 보여주도록 맨 위로 스크롤
+          if (canvas) setTimeout(() => { canvas.scrollTop = 0; }, 700);
         }
       };
 
