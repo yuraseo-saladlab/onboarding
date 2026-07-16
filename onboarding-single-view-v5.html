@@ -9749,6 +9749,114 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
+      position: relative;
+    }
+
+    /* 시작 전 — '수많은 조합을 자동 A/B 실험했다'는 추상화. 버튼 누르면 사라지며 결과(숫자)가 등장 */
+    .u3x-before {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(158deg, #FFF4F5 0%, #FFE7EA 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .u3xb-field {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 8px;
+      padding: 18px;
+      opacity: .55;
+    }
+
+    .u3xb-field i {
+      border-radius: 5px;
+      background: color-mix(in srgb, var(--dc, #E62C35) 20%, #fff);
+      animation: u3xbFlick 2.6s ease-in-out infinite;
+      animation-delay: calc(var(--i, 0) * 60ms);
+    }
+
+    .u3xb-field i.win {
+      background: var(--dc, #E62C35);
+    }
+
+    @keyframes u3xbFlick {
+      0%, 100% { opacity: .3; transform: scale(.88); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .u3xb-core {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 620px;
+      margin: 0 24px;
+      padding: 34px 36px;
+      background: color-mix(in srgb, #fff 80%, transparent);
+      border-radius: 22px;
+      box-shadow: 0 20px 50px rgba(230, 44, 53, .14);
+      backdrop-filter: blur(3px);
+    }
+
+    .u3xb-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--dc, #E62C35);
+      background: color-mix(in srgb, var(--dc, #E62C35) 12%, #fff);
+      border-radius: 100px;
+      padding: 6px 14px;
+      margin-bottom: 16px;
+    }
+
+    .u3xb-h {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.34;
+      color: var(--ink);
+    }
+
+    .u3xb-h b {
+      color: var(--dc, #E62C35);
+    }
+
+    .u3xb-s {
+      margin-top: 14px;
+      font-size: 14.5px;
+      font-weight: 600;
+      line-height: 1.6;
+      color: var(--ink-dim);
+    }
+
+    .u3xb-s b {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .u3xb-hint {
+      margin-top: 18px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dc, #E62C35);
+    }
+
+    .up3.on .u3x-before {
+      animation: u3xbOut .5s cubic-bezier(.4, 0, .3, 1) both;
+      pointer-events: none;
+    }
+
+    @keyframes u3xbOut {
+      to { opacity: 0; transform: scale(1.05); }
     }
 
     .u3x-insights {
@@ -20130,8 +20238,8 @@
             done: '✓ 클릭 한 번에 장바구니가 커졌어요',
           },
           {
-            kicker: '가격 최적화', title: '잘 팔리면서, 마진도 남는 가격',
-            desc: '하나 더 담으면 할인이 커지고 무료배송까지 얼마 안 남았다고 보여줘요. 자연스럽게 하나 더 담게, 알파업셀이 준비했어요.',
+            kicker: '가격 최적화', title: '담기만 하고 안 사는 고객에게만 할인해요',
+            desc: '장바구니에서 떠나는 고객이 구매 버튼 누르는 프로모션, 돈 버는 진짜 할인 전략, 모두 알파업셀에 있어요',
             chips: ['가격 A/B/N 테스트 자동화', '프로모션 다단계 결합', '최대 이익 가격 탐색'], scene: 'up2',
             done: '✓ 최대 이익 가격을 찾았어요',
           },
@@ -20145,7 +20253,7 @@
       },
       push: {
         name: '알파푸시', color: '#307AF3',
-        main: '고객을 움직이는 일<br><b>알파푸시로 쉽게 시작해요</b>',
+        main: '간편가입부터 메시지 발송까지<br><b>알파푸시로 쉽게 시작해요</b>',
         hook: '따로 쓰던 CRM 번들을 하나로, 세팅 한번에 자동화까지',
         trust: ['월 39,000원 정액', '무료 플랜 제공'],
         tags: ['전환 액션 번들', '클릭 몇 번 캠페인', '정액 저가'],
@@ -20398,6 +20506,15 @@
           </div>
         </div>
         <div class="u3x">
+          <div class="u3x-before">
+            <div class="u3xb-field"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2" class="win"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6" class="win"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13" class="win"></i><i style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19" class="win"></i><i style="--i:20"></i><i style="--i:21"></i><i style="--i:22"></i><i style="--i:23"></i><i style="--i:24" class="win"></i><i style="--i:25"></i><i style="--i:26"></i><i style="--i:27"></i><i style="--i:28"></i><i style="--i:29"></i><i style="--i:30" class="win"></i><i style="--i:31"></i><i style="--i:32"></i><i style="--i:33"></i><i style="--i:34"></i><i style="--i:35" class="win"></i><i style="--i:36"></i><i style="--i:37"></i><i style="--i:38"></i><i style="--i:39"></i><i style="--i:40"></i><i style="--i:41" class="win"></i><i style="--i:42"></i><i style="--i:43"></i><i style="--i:44"></i><i style="--i:45"></i><i style="--i:46" class="win"></i><i style="--i:47"></i></div>
+            <div class="u3xb-core">
+              <span class="u3xb-eyebrow">🧪 자동 A/B 실험</span>
+              <div class="u3xb-h">추천 상품·위젯 자리·가격·문구<br><b>수많은 조합</b>을 자동으로 실험했어요</div>
+              <div class="u3xb-s">어떤 조합이 <b>가장 잘 팔리는지</b> 알파업셀이 쉬지 않고 테스트했어요.</div>
+              <div class="u3xb-hint">버튼을 누르면 그 결과를 숫자로 보여드릴게요 →</div>
+            </div>
+          </div>
           <div class="u3x-insights">
             <div class="u3x-grid">
               <div class="u3x-m">
