@@ -11326,12 +11326,12 @@
 
     /* 작동 시퀀스: 스크롤 감지 → 타이머 채움 → (완료) → 적립 등장 */
     .sc.on .bw-scroll {
-      animation: bwFade 0.2s ease 0.267s both, bwBob 0.667s ease-in-out 0.467s 2;
+      animation: bwFade 0.1s ease 0.134s both, bwBob 0.334s ease-in-out 0.234s 2;
     }
 
     /* 실제 스크롤 — 모델1 → 모델2 로 화면이 내려감 */
     .sc.on .bw-strip {
-      animation: bwScroll 1.333s cubic-bezier(.4, 0, .2, 1) 0.333s forwards;
+      animation: bwScroll 0.667s cubic-bezier(.4, 0, .2, 1) 0.167s forwards;
     }
 
     @keyframes bwScroll {
@@ -11347,15 +11347,15 @@
     }
 
     .sc.on .bw-timer {
-      animation: bwFade 0.267s ease 0.267s both, bwTimerOut 0.267s ease 1.467s forwards;
+      animation: bwFade 0.134s ease 0.134s both, bwTimerOut 0.134s ease 0.734s forwards;
     }
 
     .sc.on .bw-timer .bar i {
-      animation: bwFill 1.067s cubic-bezier(.4, 0, .2, 1) 0.4s forwards;
+      animation: bwFill 0.534s cubic-bezier(.4, 0, .2, 1) 0.2s forwards;
     }
 
     .sc.on .bw-reward {
-      animation: bwReward 0.4s cubic-bezier(.2, 1.5, .4, 1) 1.6s both;
+      animation: bwReward 0.2s cubic-bezier(.2, 1.5, .4, 1) 0.8s both;
     }
 
     @keyframes bwFade {
@@ -11579,23 +11579,23 @@
 
     /* 시퀀스: 시트 상승 → 커서 탭 → 버튼 프레스 → 구매 완료 전환 */
     .sc.on .oc-modal {
-      animation: ocSheet 0.333s cubic-bezier(.2, .9, .2, 1) 0.267s both;
+      animation: ocSheet 0.167s cubic-bezier(.2, .9, .2, 1) 0.134s both;
     }
 
     .sc.on .oc-cursor {
-      animation: ocCursor 0.733s ease 0.8s forwards;
+      animation: ocCursor 0.367s ease 0.4s forwards;
     }
 
     .sc.on .oc-btn {
-      animation: ocPress 0.173s ease 1.267s, ocConv 0.267s ease 1.4s forwards;
+      animation: ocPress 0.087s ease 0.634s, ocConv 0.134s ease 0.7s forwards;
     }
 
     .sc.on .oc-btn .l0 {
-      animation: ocOut 0.133s ease 1.4s forwards;
+      animation: ocOut 0.067s ease 0.7s forwards;
     }
 
     .sc.on .oc-btn .l1 {
-      animation: ocIn 0.2s ease 1.467s forwards;
+      animation: ocIn 0.1s ease 0.734s forwards;
     }
 
     @keyframes ocSheet {
@@ -11971,76 +11971,76 @@
 
     /* 시퀀스: 선물하기 탭 → 선물 폭주(많이 선물) → 구매 전환 상승 */
     .sc.on .gf-cursor {
-      animation: gfCursor 0.8s ease 0.667s forwards;
+      animation: gfCursor 0.4s ease 0.334s forwards;
     }
 
     .sc.on .gf-gift {
-      animation: gfPress 0.173s ease 1.133s;
+      animation: gfPress 0.087s ease 0.567s;
     }
 
     .sc.on .gf-gift .l1 {
-      animation: gfIn 0.2s ease 1.233s forwards;
+      animation: gfIn 0.1s ease 0.617s forwards;
     }
 
     /* 선물이 다발로 떠오름 = 많이들 선물함 */
     .sc.on .gf-burst span {
-      animation: giftFly 0.667s ease-out both;
+      animation: giftFly 0.334s ease-out both;
     }
 
     .sc.on .gf-burst span:nth-child(1) {
-      animation-delay: 1.2s;
+      animation-delay: 0.6s;
     }
 
     .sc.on .gf-burst span:nth-child(2) {
-      animation-delay: 1.3s;
+      animation-delay: 0.65s;
     }
 
     .sc.on .gf-burst span:nth-child(3) {
-      animation-delay: 1.267s;
+      animation-delay: 0.634s;
     }
 
     .sc.on .gf-burst span:nth-child(4) {
-      animation-delay: 1.367s;
+      animation-delay: 0.684s;
     }
 
     .sc.on .gf-burst span:nth-child(5) {
-      animation-delay: 1.333s;
+      animation-delay: 0.667s;
     }
 
     .sc.on .gf-burst span:nth-child(6) {
-      animation-delay: 1.433s;
+      animation-delay: 0.717s;
     }
 
     .sc.on .gf-burst span:nth-child(7) {
-      animation-delay: 1.4s;
+      animation-delay: 0.7s;
     }
 
     .sc.on .gf-burst span:nth-child(8) {
-      animation-delay: 1.5s;
+      animation-delay: 0.75s;
     }
 
     .sc.on .gf-burst span:nth-child(9) {
-      animation-delay: 1.467s;
+      animation-delay: 0.734s;
     }
 
     .sc.on .gf-burst span:nth-child(10) {
-      animation-delay: 1.567s;
+      animation-delay: 0.784s;
     }
 
     .sc.on .gf-burst span:nth-child(11) {
-      animation-delay: 1.533s;
+      animation-delay: 0.767s;
     }
 
     .sc.on .gf-burst span:nth-child(12) {
-      animation-delay: 1.633s;
+      animation-delay: 0.817s;
     }
 
     .sc.on .gf-burst span:nth-child(13) {
-      animation-delay: 1.6s;
+      animation-delay: 0.8s;
     }
 
     .sc.on .gf-burst span:nth-child(14) {
-      animation-delay: 1.667s;
+      animation-delay: 0.834s;
     }
 
     @keyframes giftFly {
@@ -12273,23 +12273,23 @@
 
     /* 시퀀스: 커서 탭 → 버튼 프레스 → 결제 완료 → 구매 전환 스탬프 */
     .sc.on .cr-cursor {
-      animation: crCursor 0.733s ease 0.867s forwards;
+      animation: crCursor 0.367s ease 0.434s forwards;
     }
 
     .sc.on .cr-btn {
-      animation: crPress 0.173s ease 1.333s;
+      animation: crPress 0.087s ease 0.667s;
     }
 
     .sc.on .cr-btn .l0 {
-      animation: ocOut 0.133s ease 1.433s forwards;
+      animation: ocOut 0.067s ease 0.717s forwards;
     }
 
     .sc.on .cr-btn .l1 {
-      animation: ocIn 0.2s ease 1.5s forwards;
+      animation: ocIn 0.1s ease 0.75s forwards;
     }
 
     .sc.on .cr-stamp {
-      animation: crStamp 0.367s cubic-bezier(.2, 1.5, .4, 1) 1.667s forwards;
+      animation: crStamp 0.184s cubic-bezier(.2, 1.5, .4, 1) 0.834s forwards;
     }
 
     @keyframes crCursor {
@@ -12535,32 +12535,32 @@
 
     /* 시퀀스: 셀 순차 등장 → 재구매 포커스 링 → 액션 시트 → 커서 탭 → 단골 전환 실행 → 고반복 +2 */
     .sc.on .cm-c {
-      animation: cmRise 0.3s cubic-bezier(.2, .7, .2, 1) both;
-      animation-delay: calc(0.133s + var(--i, 0) * 0.027s);
+      animation: cmRise 0.15s cubic-bezier(.2, .7, .2, 1) both;
+      animation-delay: calc(0.067s + var(--i, 0) * 0.014s);
     }
 
     .sc.on .cm-c.hd.f::after {
-      animation: cmFocus 0.867s ease 0.733s forwards;
+      animation: cmFocus 0.434s ease 0.367s forwards;
     }
 
     .sc.on .cm-act {
-      animation: cmPop 0.333s cubic-bezier(.2, .8, .2, 1) 1.133s both;
+      animation: cmPop 0.167s cubic-bezier(.2, .8, .2, 1) 0.567s both;
     }
 
     .sc.on .cm-cursor {
-      animation: cmTap 1s ease 1.533s forwards;
+      animation: cmTap 0.5s ease 0.767s forwards;
     }
 
     .sc.on .cm-btn .l0 {
-      animation: ocOut 0.133s ease 2s forwards;
+      animation: ocOut 0.067s ease 1s forwards;
     }
 
     .sc.on .cm-btn .l1 {
-      animation: ocIn 0.2s ease 2.067s forwards;
+      animation: ocIn 0.1s ease 1.034s forwards;
     }
 
     .sc.on .cs-gain {
-      animation: cmGain 0.333s cubic-bezier(.2, 1.5, .4, 1) 2.167s forwards;
+      animation: cmGain 0.167s cubic-bezier(.2, 1.5, .4, 1) 1.084s forwards;
     }
 
     /* 첫 프레임 안 비움: opacity 숨기지 않고 위치만 살짝 이동 */
@@ -12735,19 +12735,19 @@
     }
 
     .sc.on .mc-msg {
-      animation: cmRise 0.333s cubic-bezier(.2, .7, .2, 1) 0.233s both;
+      animation: cmRise 0.167s cubic-bezier(.2, .7, .2, 1) 0.117s both;
     }
 
     .sc.on .mc-cursor {
-      animation: cmTap 0.933s ease 0.867s forwards;
+      animation: cmTap 0.467s ease 0.434s forwards;
     }
 
     .sc.on .mc-btn .l0 {
-      animation: ocOut 0.133s ease 1.3s forwards;
+      animation: ocOut 0.067s ease 0.65s forwards;
     }
 
     .sc.on .mc-btn .l1 {
-      animation: ocIn 0.2s ease 1.367s forwards;
+      animation: ocIn 0.1s ease 0.684s forwards;
     }
 
     /* ══ c5 첫구매 할인 — 인기 상품 100원 위젯 (구매율 상승 애니메이션) ══ */
@@ -12901,27 +12901,27 @@
 
     /* 작동: 100원 상품마다 구매 발생 → 구매율 상승 (스탬프 순차 팝) */
     .sc.on .fp-buy {
-      animation: fpBuy 0.333s cubic-bezier(.2, 1.6, .4, 1) both;
+      animation: fpBuy 0.167s cubic-bezier(.2, 1.6, .4, 1) both;
     }
 
     .sc.on .fp-card:nth-child(1) .fp-buy {
-      animation-delay: 0.333s;
+      animation-delay: 0.167s;
     }
 
     .sc.on .fp-card:nth-child(2) .fp-buy {
-      animation-delay: 0.467s;
+      animation-delay: 0.234s;
     }
 
     .sc.on .fp-card:nth-child(3) .fp-buy {
-      animation-delay: 0.6s;
+      animation-delay: 0.3s;
     }
 
     .sc.on .fp-card:nth-child(4) .fp-buy {
-      animation-delay: 0.733s;
+      animation-delay: 0.367s;
     }
 
     .sc.on .fp-card:nth-child(5) .fp-buy {
-      animation-delay: 0.867s;
+      animation-delay: 0.434s;
     }
 
     @keyframes fpBuy {
@@ -12943,7 +12943,7 @@
     /* 클릭 시 각 장치가 따로따로 "작동"하며 켜짐 (독립 작동) */
     .pwc.go {
       border-color: color-mix(in srgb, var(--dc) 40%, var(--line));
-      animation: pwPulse 0.433s cubic-bezier(.3, 1, .4, 1) both;
+      animation: pwPulse 0.217s cubic-bezier(.3, 1, .4, 1) both;
     }
 
     /* ps1: 카드 순차 재생 — .go 붙기 전까지 내부 데모 애니메이션 정지 (JS가 c1→c8 순서대로 .go 부여) */
@@ -13078,35 +13078,35 @@
 
     /* 카드별 등장 타이밍 — .pwc-live(작동중) 뒤에 결과값이 채워지도록 */
     .sc.on .pwc.c1 .pwc-mt {
-      --d: 0.5s;
+      --d: 0.25s;
     }
 
     .sc.on .pwc.c2 .pwc-mt {
-      --d: 0.633s;
+      --d: 0.317s;
     }
 
     .sc.on .pwc.c3 .pwc-mt {
-      --d: 1.6s;
+      --d: 0.8s;
     }
 
     .sc.on .pwc.c4 .pwc-mt {
-      --d: 2.133s;
+      --d: 1.067s;
     }
 
     .sc.on .pwc.c5 .pwc-mt {
-      --d: 1.267s;
+      --d: 0.634s;
     }
 
     .sc.on .pwc.c6 .pwc-mt {
-      --d: 1.833s;
+      --d: 0.917s;
     }
 
     .sc.on .pwc.c7 .pwc-mt {
-      --d: 2.233s;
+      --d: 1.117s;
     }
 
     .sc.on .pwc.c8 .pwc-mt {
-      --d: 1.8s;
+      --d: 0.9s;
     }
 
     /* CTA — pw-head 우측, 수직 중앙 */
@@ -14627,7 +14627,7 @@
     }
 
     .cvb-head {
-      font-size: 19px;
+      font-size: 24px;
       font-weight: 800;
       color: var(--ink);
       text-align: center;
@@ -14648,8 +14648,8 @@
     .cvb-card {
       background: linear-gradient(158deg, #272935 0%, #141520 100%);
       border: none;
-      border-radius: 18px;
-      padding: 24px;
+      border-radius: 16px;
+      padding: 32px 24px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -14699,9 +14699,9 @@
     }
 
     .cvb-stamp-ck {
-      width: 18px;
-      height: 18px;
-      border-radius: 5px;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
       background: var(--dc);
       box-shadow: 0 4px 10px color-mix(in srgb, var(--dc) 40%, transparent);
       flex: none;
@@ -14713,8 +14713,8 @@
       position: absolute;
       inset: 0;
       background: #fff;
-      -webkit-mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M20.7069%206.293C20.8944%206.48053%2020.9997%206.73484%2020.9997%207C20.9997%207.26516%2020.8944%207.51947%2020.7069%207.707L10.7069%2017.707C10.5194%2017.8945%2010.2651%2017.9998%209.99992%2017.9998C9.73475%2017.9998%209.48045%2017.8945%209.29292%2017.707L4.29292%2012.707C4.11076%2012.5184%204.00997%2012.2658%204.01224%2012.0036C4.01452%2011.7414%204.11969%2011.4906%204.3051%2011.3052C4.49051%2011.1198%204.74132%2011.0146%205.00352%2011.0123C5.26571%2011.01%205.51832%2011.1108%205.70692%2011.293L9.99992%2015.586L19.2929%206.293C19.4804%206.10553%2019.7348%206.00021%2019.9999%206.00021C20.2651%206.00021%2020.5194%206.10553%2020.7069%206.293Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") center / 13px no-repeat;
-      mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M20.7069%206.293C20.8944%206.48053%2020.9997%206.73484%2020.9997%207C20.9997%207.26516%2020.8944%207.51947%2020.7069%207.707L10.7069%2017.707C10.5194%2017.8945%2010.2651%2017.9998%209.99992%2017.9998C9.73475%2017.9998%209.48045%2017.8945%209.29292%2017.707L4.29292%2012.707C4.11076%2012.5184%204.00997%2012.2658%204.01224%2012.0036C4.01452%2011.7414%204.11969%2011.4906%204.3051%2011.3052C4.49051%2011.1198%204.74132%2011.0146%205.00352%2011.0123C5.26571%2011.01%205.51832%2011.1108%205.70692%2011.293L9.99992%2015.586L19.2929%206.293C19.4804%206.10553%2019.7348%206.00021%2019.9999%206.00021C20.2651%206.00021%2020.5194%206.10553%2020.7069%206.293Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") center / 13px no-repeat;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M20.7069%206.293C20.8944%206.48053%2020.9997%206.73484%2020.9997%207C20.9997%207.26516%2020.8944%207.51947%2020.7069%207.707L10.7069%2017.707C10.5194%2017.8945%2010.2651%2017.9998%209.99992%2017.9998C9.73475%2017.9998%209.48045%2017.8945%209.29292%2017.707L4.29292%2012.707C4.11076%2012.5184%204.00997%2012.2658%204.01224%2012.0036C4.01452%2011.7414%204.11969%2011.4906%204.3051%2011.3052C4.49051%2011.1198%204.74132%2011.0146%205.00352%2011.0123C5.26571%2011.01%205.51832%2011.1108%205.70692%2011.293L9.99992%2015.586L19.2929%206.293C19.4804%206.10553%2019.7348%206.00021%2019.9999%206.00021C20.2651%206.00021%2020.5194%206.10553%2020.7069%206.293Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") center / 16px no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M20.7069%206.293C20.8944%206.48053%2020.9997%206.73484%2020.9997%207C20.9997%207.26516%2020.8944%207.51947%2020.7069%207.707L10.7069%2017.707C10.5194%2017.8945%2010.2651%2017.9998%209.99992%2017.9998C9.73475%2017.9998%209.48045%2017.8945%209.29292%2017.707L4.29292%2012.707C4.11076%2012.5184%204.00997%2012.2658%204.01224%2012.0036C4.01452%2011.7414%204.11969%2011.4906%204.3051%2011.3052C4.49051%2011.1198%204.74132%2011.0146%205.00352%2011.0123C5.26571%2011.01%205.51832%2011.1108%205.70692%2011.293L9.99992%2015.586L19.2929%206.293C19.4804%206.10553%2019.7348%206.00021%2019.9999%206.00021C20.2651%206.00021%2020.5194%206.10553%2020.7069%206.293Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") center / 16px no-repeat;
     }
 
 
@@ -20929,7 +20929,7 @@
       </div>`,
 
       cv3: `<div class="sc cv-benefit">
-        <div class="cvb-head">스킨 하나 구매하면 받을 수 있는 <b>3가지 혜택</b>!</div>
+        <div class="cvb-head">스킨 하나 구매하면 받을 수 있는 <b>3가지 혜택!</b></div>
         <div class="cvb-list">
           <div class="cvb-card b1">
             <div class="cvb-cover"><img class="cc-ic" src="assets/gift1.png" alt=""><span class="cc-n">혜택 1</span></div>
