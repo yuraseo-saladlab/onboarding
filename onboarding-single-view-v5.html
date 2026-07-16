@@ -10541,13 +10541,15 @@
     .pw-grid {
       flex: 1;
       min-height: 0;
+      position: relative;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       /* 모든 카드 동일 높이로 채움(fill) — 가장 큰 카드 기준 */
       grid-auto-rows: minmax(300px, 1fr);
       gap: 8px;
-      /* 창이 낮아지면 그리드 내부 스크롤 */
+      /* 창이 낮아지면 그리드 내부 스크롤 — 재생 중 아랫줄 카드로 자동 스크롤 */
       overflow-y: auto;
+      scroll-behavior: smooth;
       align-content: start;
       /* 카드 그림자가 스크롤 클립에 잘리지 않도록 padding+음수 margin(레이아웃은 그대로) */
       padding: 16px;
@@ -21738,6 +21740,12 @@
       for (const card of cards) {
         if (!card.isConnected) return;   // 리플레이로 씬이 새로 그려지면 중단
         card.classList.add('go');
+        // 재생 중인 카드가 스크롤에 가려지지 않도록 그리드를 해당 카드로 스크롤(아랫줄 c5~c8도 보이게)
+        const grid = sc.querySelector('.pw-grid');
+        if (grid) {
+          const target = card.offsetTop + card.offsetHeight - grid.clientHeight + 16;
+          grid.scrollTop = Math.max(0, target);
+        }
         await new Promise(r => setTimeout(r, 60));   // 애니메이션 재개(등록) 대기
         // 다음 카드는 이 카드의 지표 바(pwc-mt)가 파란색으로 전환 완료되는 순간 시작 — 시선 흐름이 자연스럽게
         let mtDone = [];
@@ -21753,6 +21761,9 @@
         ]);
         await new Promise(r => setTimeout(r, 40));                                                 // 살짝 더 빠른 짧은 간격
       }
+      // 전체 재생 완료 → 그리드를 맨 위로 되돌려 전체 카드 벽을 보여줌
+      const grid = sc.querySelector('.pw-grid');
+      if (grid && sc.isConnected) setTimeout(() => { grid.scrollTop = 0; }, 500);
     }
 
     /* 캔버스 씬 1 — 상세페이지 원클릭 편집 투어 (기승전결) */
