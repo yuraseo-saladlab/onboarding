@@ -5596,12 +5596,19 @@
 
     .pc-name {
       display: inline-flex;
-      align-items: center;
-      gap: 7px;
+      align-items: baseline;
+      gap: 6px;
       font-size: 14px;
       font-weight: 800;
       color: var(--pc);
       margin-bottom: 10px;
+    }
+
+    .pc-name .pc-free {
+      font-style: normal;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink-faint);
     }
 
     .pc-main {
@@ -20324,7 +20331,7 @@
         ],
       },
       upsell: {
-        name: '알파업셀', color: '#E62C35',
+        name: '알파업셀', color: '#E62C35', free: '· 처음 쓰면 무료체험 14일',
         main: '더 담고 싶은 쇼핑 경험<br><b>추가 매출 만드는 알파업셀 공식</b>',
         hook: '광고비는 그대로, 객단가가 오릅니다. 잘 버는 몰은 업셀 중',
         trust: ['AI 추천 모델 9종', '추천 위젯 12종'],
@@ -20351,7 +20358,7 @@
         ],
       },
       push: {
-        name: '알파푸시', color: '#307AF3',
+        name: '알파푸시', color: '#307AF3', free: '· 처음 쓰면 무료체험 14일',
         main: '간편가입부터 메시지 발송까지<br><b>알파푸시로 쉽게 시작해요</b>',
         hook: '따로 쓰던 CRM 번들을 하나로, 세팅 한번에 자동화까지',
         trust: ['월 39,000원 정액', '무료 플랜 제공'],
@@ -20378,7 +20385,7 @@
         ],
       },
       canvas: {
-        name: '알파캔버스', color: '#00B7A8',
+        name: '알파캔버스', color: '#00B7A8', free: '· 스킨 사면 알파앱스 무료 2개월',
         main: '알파캔버스에서 마음껏 고치니까<br><b>스킨, 이제 가볍게 골라요</b>',
         hook: '개발자 없이 내 맘대로 수정, 스킨 선택이 자유가 됩니다',
         trust: ['노코드 위젯 편집', '초기 도입 혜택'],
@@ -21745,7 +21752,7 @@
         card.innerHTML = `
           <div class="pc-stage">${MICRO[k] || ''}</div>
           <div class="pc-body">
-            <span class="pc-name">${d.name}</span>
+            <span class="pc-name">${d.name}${d.free ? `<em class="pc-free">${d.free}</em>` : ''}</span>
             <div class="pc-main">${d.main.replace(/<\/?b>/g, '')}</div>
             <p class="pc-hook">${d.hook}</p>
             <div class="pc-tags">${d.tags.map(t => `<span class="pc-tag">${t}</span>`).join('')}</div>
