@@ -21802,7 +21802,11 @@
         items.forEach(it => it.classList.remove('hint'));
         const playLb = playBtn && playBtn.querySelector('.cl-lb');
         if (playBtn) { playBtn.disabled = true; if (playLb) playLb.textContent = '조립 중…'; }
-        items.forEach((it, idx) => {
+        // 조립 순서 = 우측 cvb-canvas 배치 순서(위→아래): 띠배너 → 헤더 → 콘텐츠배너 → 상품그리드 → 포토리뷰 → 푸터
+        const CANVAS_ORDER = ['coupon', 'header', 'hero', 'prods', 'review', 'footer'];
+        const ordered = CANVAS_ORDER.map(w => items.find(it => it.dataset.w === w)).filter(Boolean);
+        const seq = ordered.length === items.length ? ordered : items;
+        seq.forEach((it, idx) => {
           setTimeout(() => { it.classList.add('hint'); }, STEP * idx);
           setTimeout(() => { it.classList.remove('hint'); setItem(it); }, STEP * idx + PICK);
         });
