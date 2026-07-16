@@ -21706,10 +21706,10 @@
             .map(a => a.finished.catch(() => { }));
         } catch (e) { }
         await Promise.all([
-          new Promise(r => setTimeout(r, 650)),                                                    // 카드 최소 노출
-          Promise.race([Promise.all(finites), new Promise(r => setTimeout(r, 1400))]),             // 실제 완료 or 상한
+          new Promise(r => setTimeout(r, 433)),                                                    // 카드 최소 노출 (1.5배 빠르게)
+          Promise.race([Promise.all(finites), new Promise(r => setTimeout(r, 933))]),              // 실제 완료 or 상한 (1.5배 빠르게)
         ]);
-        await new Promise(r => setTimeout(r, 100));                                                // 카드 간 간격
+        await new Promise(r => setTimeout(r, 66));                                                 // 카드 간 간격 (1.5배 빠르게)
       }
     }
 
