@@ -10534,7 +10534,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin: 0 12px 12px 12px
+      margin: 0 12px 4px 12px
     }
 
 
@@ -11022,7 +11022,7 @@
       font-weight: 800;
       color: var(--ink);
       letter-spacing: -.02em;
-      margin-bottom: 4px;
+      margin: 4px;
     }
 
 
@@ -12619,13 +12619,6 @@
       padding: 10px;
     }
 
-    .mc-sender {
-      flex: 0 0 auto;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-faint);
-    }
-
     .mc-card {
       flex: 1 1 auto;
       min-height: 0;
@@ -12637,7 +12630,7 @@
 
     .mc-card img {
       width: 100%;
-      height: 100%;
+      height: auto;
       object-fit: cover;
       display: block;
     }
@@ -14975,13 +14968,13 @@
       align-items: center;
       gap: 10px;
       width: 100%;
-      font-size: 12.5px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--ink);
       background: #fff;
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 9px 12px;
+      border-radius: 8px;
+      padding: 12px;
     }
 
     .pcx-f.only {
@@ -15006,17 +14999,6 @@
       border-color: #F3B4BA;
       color: #E5344A;
       background: color-mix(in srgb, #E5344A 6%, #fff);
-    }
-
-    .pcx-f.mau em {
-      font-size: 10px;
-      font-weight: 800;
-      color: #fff;
-      background: #E5344A;
-      border-radius: 5px;
-      padding: 2px 6px;
-      font-style: normal;
-      margin-left: auto;
     }
 
     .pcx-f.mau.ckd .pcx-ck {
@@ -15303,13 +15285,13 @@
       display: flex;
       align-items: stretch;
       justify-content: center;
-      gap: 90px;
-      padding: 36px 30px 0;
+      gap: 16px;
+      padding: 24px;
       min-height: 0;
     }
 
     .pcx-col {
-      width: 150px;
+      width: 200px;
       display: flex;
       flex-direction: column;
     }
@@ -15323,8 +15305,8 @@
     }
 
     .pcx-bar {
-      width: 116px;
-      border-radius: 14px 14px 0 0;
+      width: 160px;
+      border-radius: 12px 12px 0 0;
       position: relative;
     }
 
@@ -15429,9 +15411,9 @@
 
     .pcx-bval em {
       font-style: normal;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 800;
-      padding: 2px 7px;
+      padding: 2px 6px;
       border-radius: 100px;
       margin-left: 2px;
     }
@@ -15439,13 +15421,6 @@
     .pcx-bar.u .pcx-bval em {
       color: var(--dc);
       background: color-mix(in srgb, var(--dc) 12%, #fff);
-    }
-
-    .pcx-bval em.up {
-      color: #E5344A;
-      background: none;
-      font-size: 18px;
-      padding: 0;
     }
 
     .pcx-name {
@@ -20653,7 +20628,6 @@
             <div class="pwc-ex">
               <div class="mc">
                 <div class="mc-msg">
-                  <div class="mc-sender">(광고) @알파몰</div>
                   <div class="mc-card"><img src="assets/push/Img_cart.png" alt=""></div>
                   <div class="mc-body"><b>{고객명}</b>님, 지금 구매 시 특별 쿠폰을 드려요 😉</div>
                   <button class="mc-btn"><span class="l0">1,000원 쿠폰 받기</span><span class="l1">✓ 자동 발송 완료</span></button>
@@ -20724,7 +20698,7 @@
       ps3: `<div class="sc pc-scene">
         <div class="pw-head">
           <div class="pw-headtx">
-            <span class="pw-eyebrow">기능을 하나씩 켤수록 <b>경쟁 CRM은 요금이 뛰고, 알파푸시는 그대로</b></span>
+            <span class="pw-eyebrow">기능을 하나씩 켤수록 <b style="color:#E5344A">경쟁 CRM은 요금이 뛰고,</b> <b style="color:#307AF3">알파푸시는 그대로</b></span>
           </div>
           <div class="ps-cta">
             <button class="cl-start" data-act><span class="cl-lb">기능 하나씩 켜보기</span></button>
@@ -20733,7 +20707,7 @@
         </div>
         <div class="pcx">
           <div class="pcx-feats">
-            <div class="pcx-fh">기능 켜기 — 켤 때마다 요금이 어떻게 달라질까요?</div>
+            <div class="pcx-fh">기능 리스트</div>
             <div class="pcx-fg">
               <span class="pcx-f"><i class="pcx-ck"></i>🎯 온사이트 세그먼트</span>
               <span class="pcx-f"><i class="pcx-ck"></i>💬 메시지 캠페인 세그먼트</span>
@@ -20741,17 +20715,17 @@
               <span class="pcx-f"><i class="pcx-ck"></i>🎁 카톡 선물</span>
               <span class="pcx-f"><i class="pcx-ck"></i>🖼 배너 관리</span>
               <span class="pcx-f only"><i class="pcx-ck"></i>🛒 구매 유도 장치<em>타사 미제공</em></span>
-              <span class="pcx-f mau"><i class="pcx-ck"></i>📈 월 방문 고객 급증<em>100만↑</em></span>
+              <span class="pcx-f mau"><i class="pcx-ck"></i>📈 월 방문 고객 급증</span>
             </div>
           </div>
           <div class="pcx-chart">
             <div class="pcx-plot">
               <div class="pcx-col">
-                <div class="pcx-btrack"><div class="pcx-bar o"><span class="pcx-bval">월 <b class="pcx-oval">90,000</b>원<em class="up">↑</em></span></div></div>
+                <div class="pcx-btrack"><div class="pcx-bar o"><span class="pcx-bval"><b class="pcx-oval">90,000원 ↑</b></span></div></div>
                 <div class="pcx-name o"><b>경쟁 CRM</b><span>시작가 90,000 → 방문 고객 늘수록 → 100만+</span></div>
               </div>
               <div class="pcx-col">
-                <div class="pcx-btrack"><div class="pcx-bar u"><span class="pcx-bval">월 <b>39,000</b>원<em>그대로</em></span></div></div>
+                <div class="pcx-btrack"><div class="pcx-bar u"><span class="pcx-bval"><b>39,000원</b><em>그대로</em></span></div></div>
                 <div class="pcx-name u"><b>알파푸시</b><span>정액 · 전 기능 포함 · 상품·회원 늘어도 동일</span></div>
               </div>
             </div>
