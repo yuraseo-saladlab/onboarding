@@ -13726,21 +13726,64 @@
     }
 
     /* Figma 좌표 → 스테이지 기준 % (left/width=폭 기준, top=높이 기준; 스테이지가 Figma 비율이라 왜곡 없음) */
-    .ccu-card.c1 { left: 2.3%;  top: 18.6%; width: 36.2%; z-index: 1; }
-    .ccu-card.c2 { left: 40%;   top: 10%;   width: 36.2%; z-index: 3; }
-    .ccu-card.c3 { left: 77.7%; top: 12.9%; width: 19%;   z-index: 2; }
-    .ccu-card.c4 { left: 3.8%;  top: 57.7%; width: 47.6%; z-index: 1; }
-    .ccu-card.c5 { left: 54.5%; top: 54.3%; width: 34.3%; z-index: 4; }
+    .ccu-card.c1 {
+      left: 2.3%;
+      top: 18.6%;
+      width: 36.2%;
+      z-index: 1;
+    }
+
+    .ccu-card.c2 {
+      left: 40%;
+      top: 10%;
+      width: 36.2%;
+      z-index: 3;
+    }
+
+    .ccu-card.c3 {
+      left: 77.7%;
+      top: 12.9%;
+      width: 19%;
+      z-index: 2;
+    }
+
+    .ccu-card.c4 {
+      left: 3.8%;
+      top: 57.7%;
+      width: 47.6%;
+      z-index: 1;
+    }
+
+    .ccu-card.c5 {
+      left: 54.5%;
+      top: 54.3%;
+      width: 34.3%;
+      z-index: 4;
+    }
 
     .cv-update.on .ccu-card {
       animation: ccuDeal .5s cubic-bezier(.3, 1.3, .5, 1) both;
     }
 
-    .cv-update.on .ccu-card.c1 { animation-delay: .5s; }
-    .cv-update.on .ccu-card.c2 { animation-delay: .74s; }
-    .cv-update.on .ccu-card.c3 { animation-delay: .98s; }
-    .cv-update.on .ccu-card.c4 { animation-delay: 1.22s; }
-    .cv-update.on .ccu-card.c5 { animation-delay: 1.46s; }
+    .cv-update.on .ccu-card.c1 {
+      animation-delay: .5s;
+    }
+
+    .cv-update.on .ccu-card.c2 {
+      animation-delay: .74s;
+    }
+
+    .cv-update.on .ccu-card.c3 {
+      animation-delay: .98s;
+    }
+
+    .cv-update.on .ccu-card.c4 {
+      animation-delay: 1.22s;
+    }
+
+    .cv-update.on .ccu-card.c5 {
+      animation-delay: 1.46s;
+    }
 
     @keyframes ccuDeal {
       from {
@@ -14641,23 +14684,16 @@
 
     .cc-n {
       font-size: 16px;
-      font-weight: 800;
-      color: var(--dc);
+      font-weight: 600;
+      color: #FFF;
     }
 
     /* '발급 완료' 도장 — 클릭 후 카드별로 쾅 찍힘 */
     .cvb-stamp {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      z-index: 4;
+      margin-left: auto;
+      flex: none;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: -.2px;
-      color: #fff;
       opacity: 0;
       transform: scale(1.6);
     }
@@ -14691,7 +14727,7 @@
 
     .cvb-blogo {
       max-height: 24px;
-      max-width: calc(100% - 96px);
+      max-width: calc(100% - 40px);
       width: auto;
       height: auto;
       display: block;
@@ -15641,13 +15677,13 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       color: #fff;
       background: #1A1D24;
       border: none;
       border-radius: 8px;
-      padding: 8px 13px;
+      padding: 8px 12px;
       cursor: pointer;
       font-family: inherit;
     }
@@ -15710,16 +15746,16 @@
     .cd-result {
       position: absolute;
       left: 40%;
-      bottom: 116px;
+      bottom: 20%;
       transform: translateX(-50%) translateY(20px);
-      width: 448px;
+      width: 450px;
       max-width: calc(100% - 40px);
       z-index: 6;
       background: #fff;
       border: 2px solid color-mix(in srgb, var(--dc) 60%, #fff);
       border-radius: 16px;
       box-shadow: 0 26px 60px color-mix(in srgb, var(--dc) 22%, transparent);
-      padding: 18px 20px 16px;
+      padding: 16px;
       opacity: 0;
       pointer-events: none;
     }
@@ -15820,17 +15856,9 @@
       margin-bottom: 12px;
     }
 
-    .cr-live {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--dc);
-      animation: liveDot 1.4s ease infinite;
-    }
-
     .cr-stats {
       display: flex;
-      gap: 12px;
+      gap: 4px;
     }
 
     .cr-stat {
@@ -15845,7 +15873,7 @@
     }
 
     .cs-lbl {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--ink-dim);
     }
@@ -15882,7 +15910,7 @@
 
     .cr-stat.key .cs-val {
       color: #fff;
-      font-size: 22px;
+      font-size: 20px;
     }
 
     /* ROAS 하이라이트 줄 */
@@ -15904,7 +15932,7 @@
     }
 
     .cr-roasd {
-      font-size: 11.5px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--ink-dim);
     }
@@ -20667,7 +20695,7 @@
             </div>
           </div>
           <div class="cd-result">
-            <div class="cr-head"><span class="cr-live"></span>자동 발송 완료 — 성과가 실시간으로 쌓여요</div>
+            <div class="cr-head">자동 발송 완료! 성과가 실시간으로 쌓여요</div>
             <div class="cr-stats">
               <div class="cr-stat"><span class="cs-lbl">발송</span><span class="cs-val"><b class="cnt" data-to="12847" data-fmt="num" data-delay="1650">0</b><i>명</i></span></div>
               <div class="cr-stat pos"><span class="cs-lbl">구매 전환</span><span class="cs-val"><b class="cnt" data-to="486" data-fmt="num" data-delay="1950">0</b><i>건</i></span></div>
@@ -20682,7 +20710,7 @@
       ps3: `<div class="sc pc-scene">
         <div class="pw-head">
           <div class="pw-headtx">
-            <span class="pw-eyebrow">기능을 하나씩 켤수록 — <b>경쟁 CRM은 요금이 뛰고, 알파푸시는 그대로</b></span>
+            <span class="pw-eyebrow">기능을 하나씩 켤수록 <b>경쟁 CRM은 요금이 뛰고, 알파푸시는 그대로</b></span>
           </div>
           <div class="ps-cta">
             <button class="cl-start" data-act><span class="cl-lb">기능 하나씩 켜보기</span></button>
@@ -20732,7 +20760,7 @@
                 <span class="ccl-row"><i>4</i>매거진 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
                 <span class="ccl-row"><i>5</i>검색 기능 고도화<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
               </div>
-              <div class="ccl-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">▶ 업데이트 로드맵 재생</span></button><span class="cl-cursor"></span></div>
+              <div class="ccl-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">업데이트 로드맵 재생</span></button><span class="cl-cursor"></span></div>
             </div>
           </div>
           <div class="ccu-card c1"><div class="ccu-lb"><span class="ccu-n">1</span>숏츠 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_1.png" alt=""></div></div>
@@ -20851,22 +20879,19 @@
         <div class="cvb-list">
           <div class="cvb-card b1">
             <div class="cvb-cover"><img class="cc-ic" src="assets/gift1.png" alt=""><span class="cc-n">혜택 1</span></div>
-            <span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span>
-            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-alphaapps.png" alt="AlphaApps"></div>
+            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-alphaapps.png" alt="AlphaApps"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
             <div class="cvb-t">알파앱스 2개월 무료</div>
             <div class="cvb-d">알파캔버스 스킨 구매 시 쇼핑몰 필수 앱 <b>리뷰·업셀·푸시</b> 3개 제품 <b>2개월 무료 쿠폰</b>을 제공해요.</div>
           </div>
           <div class="cvb-card b2">
             <div class="cvb-cover"><img class="cc-ic" src="assets/gift2.png" alt=""><span class="cc-n">혜택 2</span></div>
-            <span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span>
-            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-tosspay.png" alt="tosspay"></div>
+            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-tosspay.png" alt="tosspay"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
             <div class="cvb-t">토스페이 도입 혜택</div>
             <div class="cvb-d">토스페이 <b>도입 비용 0원</b>, 결제 <b>수수료 인하</b> 혜택까지 함께 제공해요.</div>
           </div>
           <div class="cvb-card b3">
             <div class="cvb-cover"><img class="cc-ic" src="assets/gift3.png" alt=""><span class="cc-n">혜택 3</span></div>
-            <span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span>
-            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-saveoffice.png" alt="saveoffice"></div>
+            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-saveoffice.png" alt="saveoffice"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
             <div class="cvb-t">비상주사무실 최대 30% 할인</div>
             <div class="cvb-d">사업자 등록 전이라도, 주소지로 쓸 수 있는 <b>비상주사무실</b>을 <b>최대 30% 할인</b>가로 이용해요.</div>
 
@@ -20968,7 +20993,7 @@
               <div class="aib-q">이 리뷰들, <b>어떻게 활용해야 하지?</b> 🤔</div>
               <button class="cl-start aib-btn" type="button" data-heroplay><span class="cl-lb">리뷰 인사이트 요약하기</span></button><span class="cl-cursor aib-cursor"></span>
             </div>
-            <div class="apx-topbar hero-payoff"><span class="apx-tx"><i class="apx-live"></i>리뷰 <b class="cnt" data-to="12480" data-from="0" data-delay="1900">0</b>건 <b>실시간</b> 처리 · 매주 자동 반복 — 담당자 <b>3명 몫</b>을 AI가 대신</span></div>
+            <div class="apx-topbar hero-payoff"><span class="apx-tx"><i class="apx-live"></i>리뷰 <b class="cnt" data-to="12480" data-from="0" data-delay="1900">0</b>건 <b>실시간</b> 처리 · 매주 자동 반복! 담당자 <b>3명 몫</b>을 AI가 대신</span></div>
             <div class="apx-flow">
               <div class="stg s1 hero-payoff">
                 <div class="stg-top"><span class="stg-no">1</span><span class="stg-lb">리뷰 수집·분류</span></div>
