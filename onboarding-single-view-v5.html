@@ -15038,6 +15038,29 @@
       margin-left: 3px;
     }
 
+    /* 월 방문 고객(MAU) 급증 — 경쟁사 요금을 100만으로 치솟게 하는 요인(빨강 강조) */
+    .pcx-f.mau {
+      border-color: #F3B4BA;
+      color: #E5344A;
+      background: color-mix(in srgb, #E5344A 6%, #fff);
+    }
+
+    .pcx-f.mau em {
+      font-size: 10px;
+      font-weight: 800;
+      color: #fff;
+      background: #E5344A;
+      border-radius: 5px;
+      padding: 2px 6px;
+      font-style: normal;
+      margin-left: auto;
+    }
+
+    .pcx-f.mau.ckd .pcx-ck {
+      border-color: #E5344A;
+      background: #E5344A;
+    }
+
     .pcx-cmp {
       flex: 1;
       display: grid;
@@ -20757,13 +20780,14 @@
               <span class="pcx-f"><i class="pcx-ck"></i>🎁 카톡 선물</span>
               <span class="pcx-f"><i class="pcx-ck"></i>🖼 배너 관리</span>
               <span class="pcx-f only"><i class="pcx-ck"></i>🛒 구매 유도 장치<em>타사 미제공</em></span>
+              <span class="pcx-f mau"><i class="pcx-ck"></i>📈 월 방문 고객 급증<em>100만↑</em></span>
             </div>
           </div>
           <div class="pcx-chart">
             <div class="pcx-plot">
               <div class="pcx-col">
                 <div class="pcx-btrack"><div class="pcx-bar o"><span class="pcx-bval">월 <b class="pcx-oval">90,000</b>원<em class="up">↑</em></span></div></div>
-                <div class="pcx-name o"><b>경쟁 CRM</b><span>시작가 90,000 → MAU 400,000 → 100만+</span></div>
+                <div class="pcx-name o"><b>경쟁 CRM</b><span>시작가 90,000 → 방문 고객 늘수록 → 100만+</span></div>
               </div>
               <div class="pcx-col">
                 <div class="pcx-btrack"><div class="pcx-bar u"><span class="pcx-bval">월 <b>39,000</b>원<em>그대로</em></span></div></div>
@@ -21673,13 +21697,14 @@
       const oBar = sc.querySelector('.pcx-bar.o');
       const oVal = sc.querySelector('.pcx-oval');
       if (!feats.length || !oBar) return;
-      // 시작가 90,000(기능 1개) → 기능 켤 때마다 계단식 상승 → 전 기능 100만+
+      // 시작가 90,000(기능 1개) → 기능 켤 때마다 계단식 상승 → 마지막 '월 방문 고객 급증'에서 100만+로 폭등
       const steps = [
-        { h: 22, v: 90000 },
-        { h: 37, v: 150000 },
-        { h: 53, v: 260000 },
-        { h: 69, v: 430000 },
-        { h: 85, v: 680000 },
+        { h: 20, v: 90000 },
+        { h: 32, v: 150000 },
+        { h: 44, v: 240000 },
+        { h: 56, v: 360000 },
+        { h: 66, v: 490000 },
+        { h: 76, v: 620000 },
         { h: 100, v: 1000000 },
       ];
       const fmt = n => n.toLocaleString('en-US');
