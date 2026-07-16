@@ -6338,9 +6338,9 @@
       background: radial-gradient(1100px 600px at 70% -15%, color-mix(in srgb, var(--dc, #6D58F2) 9%, transparent), transparent 60%), #fff;
       color: var(--ink);
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 20px;
       box-shadow: 0 40px 120px rgba(20, 18, 45, .28);
-      padding: 30px 40px 0;
+      padding: 32px 40px 0;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -6416,7 +6416,7 @@
     }
 
     .dt-head {
-      margin-bottom: 26px;
+      margin-bottom: 32px;
     }
 
     .dt-head h2 {
@@ -6424,7 +6424,6 @@
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1.35;
-      margin-bottom: 12px;
     }
 
     .dt-head h2 b {
@@ -7119,14 +7118,8 @@
       padding: 10px 2px 6px;
     }
 
-    .upx-gift {
-      font-size: 10.5px;
-      font-weight: 800;
-      color: var(--dc);
-    }
-
     .upx-pnm {
-      font-size: 13.5px;
+      font-size: 16px;
       font-weight: 800;
       color: var(--ink);
     }
@@ -19830,6 +19823,11 @@
         grid-template-columns: 1fr;
       }
 
+      /* 좁은 폭에서는 좌측 스텝 네비를 숨기고 스테이지(데모)가 전체를 채우게 — 씬이 잘리지 않음 (이동은 하단 이전/다음 버튼) */
+      .feat-nav {
+        display: none;
+      }
+
       .iapx-livenfo-wrap {
         grid-template-columns: 1fr;
       }
@@ -20281,9 +20279,8 @@
                 <div class="upx-scroll">
                   <div class="upx-hero"><img src="assets/beauty/cosmetic_13.png" alt=""><span class="upx-pick">PICK</span></div>
                   <div class="upx-pinfo">
-                    <span class="upx-gift">GIFT · 3만원 이상 하트 파우치 증정</span>
-                    <span class="upx-pnm">하트 젤리 글로우 립밤 3.2g · 5컬러</span>
-                    <span class="upx-price"><em>30%</em><s>24,000</s><b>16,900원</b></span>
+                    <span class="upx-pnm">비타 글로우 앰플 · 50ml</span>
+                    <span class="upx-price"><b>22,900원</b><em>28%</em><s>32,000</s></span>
                   </div>
                   <div class="upx-wg wg1">
                     <div class="upx-wtag">🛒 구매 버튼 상단 위젯 · 옵션 세트 추천</div>
