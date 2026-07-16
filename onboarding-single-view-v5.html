@@ -6346,6 +6346,34 @@
       position: relative;
     }
 
+    .dt-close {
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      z-index: 40;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(20, 18, 45, .08);
+      transition: background .15s ease, transform .15s ease;
+    }
+
+    .dt-close:hover {
+      background: var(--line-soft);
+      transform: scale(1.06);
+    }
+
+    .dt-close img {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
     .dt-top {
       display: flex;
       align-items: center;
@@ -19894,6 +19922,7 @@
   <!-- ═══════════ 자세히 보기 오버레이 ═══════════ -->
   <div class="detail" id="detail">
     <div class="dt-inner">
+      <button class="dt-close" id="dtClose" type="button" aria-label="닫기"><img src="assets/close-x.svg" alt=""></button>
       <div class="dt-head">
         <h2 id="dtMain"></h2>
       </div>
@@ -21738,6 +21767,7 @@
     }
 
     { const _b = $('dtBack'); if (_b) _b.onclick = closeDetail; }
+    { const _c = $('dtClose'); if (_c) _c.onclick = closeDetail; }
     // 새 창 UX: 배경(창 밖) 클릭·Esc로 닫기
     $('detail').addEventListener('click', e => { if (e.target === $('detail')) closeDetail(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('detail').classList.contains('on')) closeDetail(); });
