@@ -972,28 +972,334 @@
     .widget-wall {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 9px;
+      gap: 8px;
     }
 
     .ww-tile {
-      aspect-ratio: 1.25;
-      border-radius: 11px;
+      min-height: 96px;
+      border-radius: 12px;
       border: 1px solid var(--sds-border-default);
+      background: var(--sds-bg-primary);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      font-size: 10.5px;
+      gap: 8px;
+      font-size: 12px;
       font-weight: 700;
-      color: var(--sds-text-tertiary);
+      color: var(--sds-text-secondary);
       animation: fchipIn .45s ease backwards;
       text-align: center;
-      padding: 4px;
+      padding: 10px 8px;
     }
 
-    .ww-tile span:first-child {
-      font-size: 17px;
+    /* 리뷰 위젯 미니 프리뷰 — 이모지 대신 실제 위젯 축소 UI */
+    .wwm {
+      width: 100%;
+      height: 44px;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      display: block;
+      flex: none;
+      background: var(--sds-bg-tertiary);
+    }
+
+    /* 포토 그리드 — 3×3 썸네일 */
+    .wwm-photo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 2px;
+      padding: 2px;
+      background: var(--sds-border-default);
+    }
+    .wwm-photo i {
+      background-size: cover;
+      background-position: center;
+      border-radius: 2px;
+    }
+
+    /* 영상 리뷰 — 썸네일 + 재생 삼각형 */
+    .wwm-video {
+      background-size: cover;
+      background-position: center;
+    }
+    .wwm-video::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(16, 16, 32, .22);
+    }
+    .wwm-play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, .94);
+      z-index: 2;
+      box-shadow: 0 2px 6px rgba(16, 16, 32, .3);
+    }
+    .wwm-play::after {
+      content: '';
+      position: absolute;
+      left: 54%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-left: 7px solid #16162A;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+    }
+    .wwm-play.sm { width: 16px; height: 16px; }
+    .wwm-play.sm::after {
+      border-left-width: 6px;
+      border-top-width: 4px;
+      border-bottom-width: 4px;
+    }
+
+    /* 숏츠 위젯 — 세로 카드 캐러셀 */
+    .wwm-shorts {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .wwm-shorts .sh {
+      width: 22px;
+      height: 38px;
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .wwm-shorts .sh.sd {
+      width: 14px;
+      height: 30px;
+      background: var(--sds-border-default);
+      opacity: .7;
+    }
+
+    /* 별점 요약 — 숫자 + 별 + 게이지 */
+    .wwm-stars {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+    .wwm-num {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+      line-height: 1;
+    }
+    .wwm-str {
+      color: #F5A623;
+      font-size: 10px;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .wwm-str.sm { font-size: 9px; }
+    .wwm-line {
+      display: block;
+      width: 66%;
+      height: 6px;
+      border-radius: 100px;
+      background: var(--sds-border-default);
+      overflow: hidden;
+      position: relative;
+    }
+    .wwm-line em {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: var(--w);
+      background: var(--sds-bg-brand);
+      border-radius: 100px;
+    }
+
+    /* 리뷰 뱃지 — 메달 */
+    .wwm-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--sds-bg-brand-subtle);
+    }
+    .wwm-rosette {
+      width: 26px;
+      height: 26px;
+      border-radius: 100px;
+      background: var(--sds-bg-brand);
+      color: #fff;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(109, 88, 242, .4);
+    }
+
+    /* 상단 고정 — 리스트 + 고정 행 */
+    .wwm-pin {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      padding: 6px 8px;
+    }
+    .wwm-pin i {
+      height: 8px;
+      border-radius: 3px;
+      background: var(--sds-border-default);
+      position: relative;
+    }
+    .wwm-pin i.top {
+      background: var(--sds-bg-brand-subtle);
+      border: 1px solid var(--sds-bg-brand);
+    }
+    .wwm-pin i.top::after {
+      content: '';
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 100px;
+      background: var(--sds-bg-brand);
+    }
+
+    /* 설문 리뷰 — 선택지 + 막대 */
+    .wwm-survey {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      padding: 6px 8px;
+    }
+    .wwm-survey i {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .wwm-survey i::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 100px;
+      border: 2px solid var(--sds-bg-brand);
+      flex: none;
+    }
+    .wwm-survey i:first-child::before {
+      background: var(--sds-bg-brand);
+    }
+    .wwm-survey s {
+      display: block;
+      height: 6px;
+      border-radius: 100px;
+      width: var(--w);
+      background: var(--sds-border-default);
+    }
+
+    /* 한 줄 리뷰 — 별 + 텍스트 라인 */
+    .wwm-oneline {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 8px;
+    }
+    .wwm-txline {
+      display: block;
+      height: 6px;
+      border-radius: 100px;
+      background: var(--sds-border-default);
+      position: relative;
+    }
+    .wwm-txline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 62%;
+      height: 6px;
+      border-radius: 100px;
+      background: var(--sds-border-default);
+    }
+
+    /* 갤러리 — 이미지 필름스트립 */
+    .wwm-gallery {
+      display: flex;
+      gap: 2px;
+      padding: 2px;
+      background: var(--sds-border-default);
+    }
+    .wwm-gallery i {
+      flex: 1;
+      background-size: cover;
+      background-position: center;
+      border-radius: 2px;
+    }
+
+    /* SNS 연동 — 소셜 칩 */
+    .wwm-sns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .wwm-sns i {
+      width: 20px;
+      height: 20px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      font-style: normal;
+      color: #fff;
+    }
+    .wwm-sns .ig { background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF); }
+    .wwm-sns .nv { background: #03C75A; }
+    .wwm-sns .kk { background: #FEE500; }
+    .wwm-sns .kk::after {
+      content: '';
+      width: 9px;
+      height: 8px;
+      border-radius: 50% 50% 50% 20%;
+      background: #3C1E1E;
+    }
+
+    /* 통계 위젯 — 미니 바차트 */
+    .wwm-stats {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 4px;
+      padding: 6px 8px;
+    }
+    .wwm-stats i {
+      width: 8px;
+      height: var(--h);
+      border-radius: 3px 3px 0 0;
+      background: var(--sds-bg-brand);
+    }
+
+    /* 그 외 12종 — +12 */
+    .wwm-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--sds-bg-brand-subtle);
+    }
+    .wwm-more b {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--sds-bg-brand);
     }
 
     /* ─────────────────────────────────────────────
@@ -5803,12 +6109,20 @@
     @keyframes aiRowLoop {
 
       0%,
-      100% {
-        box-shadow: var(--shadow-md);
+      18% {
+        opacity: 0;
+        transform: translateY(10px) scale(.96);
       }
 
-      50% {
-        box-shadow: 0 0 0 2px color-mix(in srgb, var(--sds-bg-danger) 28%, transparent), var(--shadow-md);
+      32%,
+      88% {
+        opacity: 1;
+        transform: none;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-4px);
       }
     }
 
@@ -5829,12 +6143,20 @@
     @keyframes plus1Loop {
 
       0%,
-      100% {
+      30% {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      42%,
+      80% {
+        opacity: 1;
         transform: translateY(0);
       }
 
-      50% {
-        transform: translateY(-4px);
+      100% {
+        opacity: 0;
+        transform: translateY(-10px);
       }
     }
 
@@ -5962,12 +6284,19 @@
     @keyframes notiLoop {
 
       0%,
-      100% {
-        transform: translateY(0);
+      14% {
+        opacity: 0;
+        transform: translateY(-14px);
       }
 
-      50% {
-        transform: translateY(-2px);
+      26%,
+      86% {
+        opacity: 1;
+        transform: none;
+      }
+
+      100% {
+        opacity: 0;
       }
     }
 
@@ -6693,8 +7022,12 @@
       letter-spacing: .05em;
       color: var(--sds-text-placeholder);
       margin-bottom: 18px;
-      /* 위 여백 자동 배분 — 콘텐츠가 짧으면 세로 균형, 길면 0으로 붕괴 */
-      margin-top: auto;
+      margin-top: 0;
+    }
+
+    /* 리뷰 씬 — 콘텐츠를 스테이지 세로 중앙에 배치(상단 데드스페이스 제거) */
+    .sc-rv {
+      justify-content: center;
     }
 
     /* DS: Neutral Solid · md */
@@ -6754,8 +7087,8 @@
     .kko-b .kh {
       display: flex;
       align-items: center;
-      gap: 7px;
-      font-size: 11.5px;
+      gap: 8px;
+      font-size: 12px;
       font-weight: 800;
       color: var(--sds-text-tertiary);
       margin-bottom: 8px;
@@ -6764,9 +7097,9 @@
     .kko-b .kh i {
       font-style: normal;
       background: #FEE500;
-      border-radius: 5px;
-      font-size: 9.5px;
-      padding: 2px 5px;
+      border-radius: 6px;
+      font-size: 12px;
+      padding: 2px 6px;
       color: #3C1E1E;
     }
 
@@ -6817,9 +7150,9 @@
     .ms-review.new::after {
       content: '방금 등록됨';
       position: absolute;
-      top: -9px;
+      top: -10px;
       right: 10px;
-      font-size: 9.5px;
+      font-size: 12px;
       font-weight: 800;
       background: var(--sds-bg-brand);
       color: #fff;
@@ -6840,17 +7173,43 @@
       align-items: center;
       gap: 10px;
       border: 1px solid var(--sds-border-default);
-      border-radius: 11px;
-      padding: 11px 13px;
+      border-radius: 12px;
+      padding: 12px 14px;
       font-size: 12.5px;
       font-weight: 600;
       color: var(--sds-text-tertiary);
+      transition: border-color .4s ease, background .4s ease;
     }
 
     .rvi-row .st5 {
       color: #F5A623;
-      font-size: 11px;
+      font-size: 12px;
       white-space: nowrap;
+    }
+
+    /* 긍정 리뷰 — 답글 완료 태그(중립 톤) */
+    .rvi-row .done-tag {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--sds-text-secondary);
+      white-space: nowrap;
+    }
+
+    /* 부정 리뷰 — AI 대응 완료로 전환 */
+    .rvi-row.neg.resolved {
+      border-color: #C9C0FF;
+      background: var(--sds-bg-brand-subtle);
+      color: var(--sds-text-primary);
+    }
+
+    .rvi-row.neg.resolved .st5 {
+      color: #F5A623;
+    }
+
+    .rvi-row .flag.done {
+      color: #fff;
+      background: var(--sds-bg-brand);
     }
 
     .rvi-row.neg {
@@ -6865,13 +7224,14 @@
 
     .rvi-row .flag {
       margin-left: auto;
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 800;
       color: #E03131;
       background: #FFE3E3;
-      padding: 3px 8px;
+      padding: 4px 8px;
       border-radius: 100px;
       white-space: nowrap;
+      transition: background .3s ease, color .3s ease;
     }
 
     .ai-reply {
@@ -6879,7 +7239,7 @@
       border: 1px solid #C9C0FF;
       background: var(--sds-bg-brand-subtle);
       border-radius: 12px;
-      padding: 13px 15px;
+      padding: 14px 16px;
       font-size: 12.5px;
       line-height: 1.6;
       max-width: 420px;
@@ -6888,20 +7248,52 @@
     .ai-reply .ar-head {
       display: flex;
       align-items: center;
-      gap: 7px;
-      font-size: 11px;
+      gap: 8px;
+      font-size: 12px;
       font-weight: 800;
       color: var(--sds-bg-brand);
-      margin-bottom: 7px;
+      margin-bottom: 8px;
+    }
+
+    /* AI 답글 타이핑 스트리밍 */
+    .ai-reply .ar-tx {
+      display: block;
+    }
+
+    .ai-reply .ar-caret {
+      display: inline-block;
+      width: 2px;
+      height: 14px;
+      margin-left: 1px;
+      vertical-align: -2px;
+      background: var(--sds-bg-brand);
+      animation: arCaret .8s steps(1) infinite;
+    }
+
+    .ai-reply.typed .ar-caret {
+      display: none;
+    }
+
+    @keyframes arCaret {
+      50% { opacity: 0; }
     }
 
     .ai-reply .ok-tag {
       margin-left: auto;
-      color: #0CA678;
-      background: #E6FBF3;
-      padding: 3px 8px;
+      color: var(--sds-bg-brand);
+      background: #EDE9FF;
+      padding: 4px 8px;
       border-radius: 100px;
-      font-size: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      opacity: 0;
+      transform: translateY(-2px);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+
+    .ai-reply.typed .ok-tag {
+      opacity: 1;
+      transform: none;
     }
 
     /* 위젯 월 (다 있다) */
@@ -6939,17 +7331,58 @@
       margin: 0;
     }
 
-    .up1s .cmp-replay {
-      left: auto;
-      right: 26px;
-      top: 20px;
-      bottom: auto;
-      margin: 0;
+    /* 서브타이틀 없이 CTA만 우상단 — '다시 보기'와 같은 자리 스왑 */
+    /* 상세페이지 둘러보기 / 다시보기 — 폰 안쪽 하단 플로팅 (같은 자리 스왑) */
+    .up1-cta {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      z-index: 9;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       width: max-content;
-      height: 40px;
-      padding: 0 20px;
-      gap: 6px;
-      font-size: 14px;
+    }
+
+    .up1-cta .cl-start {
+      margin: 0;
+      box-shadow: 0 10px 28px rgba(20, 20, 43, .3);
+    }
+
+    .up1s.on .up1-cta .cl-start {
+      animation: ctaSwapOut .4s ease both;
+      pointer-events: none;
+    }
+
+    .up1s.on .up1-cta .cl-cursor {
+      opacity: 0;
+    }
+
+    /* 다시 보기 — 씬 하단 좌측 빈 띠(폰 왼쪽 ~60px)는 텍스트 필이 안 들어가므로
+       콤팩트 원형 ↻ 버튼으로. 시트·CTA·폰 콘텐츠 어디에도 겹치지 않는 유일한 여백.
+       (base .cmp-replay: position:absolute·display:none·빨강 테두리 상속, 위치·형태만 재정의) */
+    .sc.up1s .cmp-replay {
+      left: 6px;
+      bottom: 20px;
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      gap: 0;
+      justify-content: center;
+      border-radius: 100px;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    /* 재생 중에는 숨김 — 제네릭 .sc.on .cmp-replay(1.7s 등장)보다 특이도 높게 */
+    .sc.up1s.on .cmp-replay {
+      display: none;
+    }
+
+    .sc.up1s.u-done .cmp-replay {
+      display: inline-flex;
+      animation: replayIn .45s cubic-bezier(.2, .7, .2, 1) both;
     }
 
     /* ═══════════ up1 v2: 상세페이지 위젯 담기 + 객단가 상승 ═══════════ */
@@ -7295,6 +7728,139 @@
       flex: none;
     }
 
+    /* 위젯 3종 추천 상품 스트립 — 네이티브 커머스 리스트 룩 */
+    .upx-plist {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .upx-pl {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--sds-border-default);
+      border-radius: 10px;
+      padding: 6px 10px 6px 6px;
+    }
+
+    .upx-pl img {
+      width: 46px;
+      height: 46px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex: none;
+      background: #F5EEF0;
+    }
+
+    .upx-plc {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .upx-plnm {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+      line-height: 1.3;
+    }
+
+    .upx-plsub {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--sds-text-tertiary);
+      line-height: 1.4;
+    }
+
+    .upx-plsub em {
+      font-style: normal;
+      font-weight: 800;
+      color: var(--dc);
+      margin-right: 6px;
+    }
+
+    /* 루틴 흐름 라인 (wg1) */
+    .upx-route {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2px 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--sds-text-tertiary);
+      background: color-mix(in srgb, var(--dc) 5%, #fff);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+
+    .upx-route i {
+      font-style: normal;
+      font-weight: 900;
+      color: color-mix(in srgb, var(--dc) 55%, #fff);
+    }
+
+    .upx-route b {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 900;
+      color: var(--dc);
+    }
+
+    .upx-route em {
+      font-style: normal;
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      color: #fff;
+      background: var(--dc);
+      border-radius: 100px;
+      padding: 2px 6px;
+    }
+
+    /* 세트 담기 요약 바 (wg1·wg2) */
+    .upx-setbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 2px 0;
+    }
+
+    .upx-setlb {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+    }
+
+    /* 시트 놓친 상품 담기 줄 */
+    .upx-shadd {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 2px 2px 0;
+    }
+
+    .upx-shadd .upx-setlb {
+      font-size: 11px;
+    }
+
+    .upx-shadd .upx-setlb s {
+      color: #C2C5CE;
+      font-weight: 700;
+    }
+
+    .upx-shadd .upx-setlb em {
+      font-style: normal;
+      font-weight: 900;
+      color: var(--dc);
+      margin: 0 2px;
+    }
+
     .upx-addbtn {
       position: relative;
       height: 38px;
@@ -7389,10 +7955,11 @@
       padding: 6px 9px;
     }
 
-    .upx-set.miss .upx-addbtn {
-      height: 30px;
-      width: 46px;
+    .upx-shadd .upx-addbtn {
+      height: 32px;
+      width: auto;
       flex: none;
+      padding: 0 14px;
       font-size: 12px;
       border-radius: 8px;
     }
@@ -7425,33 +7992,199 @@
       padding: 8px 14px;
     }
 
-    /* 커서 */
-    .upx-cursor {
-      position: absolute;
-      left: 50%;
-      top: 62%;
-      width: 26px;
-      height: 26px;
-      z-index: 8;
-      background: var(--cursor-svg) center / contain no-repeat;
-      pointer-events: none;
-      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, .3));
-      animation: upxTap 1.3s ease-in-out infinite;
+    .upx-buy.press {
+      animation: upxBtnPop .4s cubic-bezier(.2, 1.4, .4, 1);
     }
 
-    @keyframes upxTap {
+    /* 주문 완료 오버레이 — 구매 탭 후 폰 화면을 덮으며 등장 (액션 이후 스토리 요소) */
+    .upx-done {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 24px;
+      background: linear-gradient(158deg, #14141F, #232A3E);
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.04);
+      transition: opacity .5s ease, transform .5s cubic-bezier(.2, .9, .3, 1), visibility .5s;
+    }
+
+    .up1s.u-buy .upx-done {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    .upx-done-in {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .upx-done-ic {
+      width: 64px;
+      height: 64px;
+      border-radius: 100px;
+      background: var(--dc);
+      color: #fff;
+      font-size: 32px;
+      font-weight: 900;
+      display: grid;
+      place-items: center;
+    }
+
+    .up1s.u-buy .upx-done-ic {
+      animation: upxDonePop .5s cubic-bezier(.2, 1.4, .4, 1) .16s both, upxDoneRing 1.8s ease .6s infinite;
+    }
+
+    @keyframes upxDonePop {
+      0% { transform: scale(.4); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes upxDoneRing {
+      0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--dc) 44%, transparent); }
+      70% { box-shadow: 0 0 0 18px transparent; }
+      100% { box-shadow: 0 0 0 0 transparent; }
+    }
+
+    .upx-done-t {
+      margin-top: 16px;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -.02em;
+      color: #fff;
+    }
+
+    .upx-done-s {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .64);
+    }
+
+    .upx-done-amt {
+      margin-top: 22px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .14);
+    }
+
+    .upx-done-amt span {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .7);
+    }
+
+    .upx-done-amt b {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -.02em;
+      color: #fff;
+    }
+
+    .upx-done-items {
+      margin-top: 10px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .upx-done-items span {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .56);
+    }
+
+    .upx-done-th {
+      margin: 22px 0 0;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, .82);
+    }
+
+    /* 시연 커서(업셀 공용) — CTA에서 출발해 목표 지점을 순서대로 탭 (좌표는 JS가 구동) */
+    .upx-go {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      z-index: 30;
+      background: var(--cursor-svg) center / contain no-repeat;
+      pointer-events: none;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .3));
+      opacity: 0;
+    }
+
+    .sc.on .upx-go {
+      opacity: 1;
+    }
+
+    .upx-go.bye {
+      animation: upxGoBye .4s ease both;
+    }
+
+    @keyframes upxGoBye {
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* 탭 — 커서 눌림 + 클릭 지점 링 파동 */
+    .upx-go::after {
+      content: '';
+      position: absolute;
+      left: -16px;
+      top: -18px;
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--dc);
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    .upx-go.tap {
+      animation: upxGoTap .4s ease;
+    }
+
+    .upx-go.tap::after {
+      animation: upxGoRing .5s ease .06s;
+    }
+
+    @keyframes upxGoTap {
 
       0%,
       100% {
-        transform: translate(0, 0) scale(1);
+        transform: scale(1);
       }
 
-      45% {
-        transform: translate(-2px, -3px) scale(.82);
+      40% {
+        transform: scale(.8);
+      }
+    }
+
+    @keyframes upxGoRing {
+      0% {
+        opacity: .8;
+        transform: scale(.4);
       }
 
-      60% {
-        transform: translate(-2px, -3px) scale(.82);
+      100% {
+        opacity: 0;
+        transform: scale(1.1);
       }
     }
 
@@ -7488,6 +8221,7 @@
     }
 
     .upx-aovnum {
+      position: relative;
       display: flex;
       align-items: baseline;
       gap: 6px;
@@ -7512,8 +8246,71 @@
       opacity: 0;
     }
 
-    .up1s.on .upx-aovup {
-      animation: pcxArrow .6s ease .7s both;
+    .up1s.u-hit1 .upx-aovup {
+      animation: pcxArrow .6s ease both;
+    }
+
+    /* 탭 순간 — 객단가 숫자 펌프 + '+₩' 델타 플래시 (JS가 pop/pump 클래스 재점화) */
+    .upx-aovnum.pump b {
+      animation: upxPump .5s cubic-bezier(.2, 1.4, .4, 1);
+    }
+
+    @keyframes upxPump {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      40% {
+        transform: scale(1.14);
+      }
+    }
+
+    .upx-delta {
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-style: normal;
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 8%, #fff);
+      border-radius: 100px;
+      padding: 2px 10px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .upx-delta.pop {
+      animation: upxDelta 1.1s ease both;
+    }
+
+    @keyframes upxDelta {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      18% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      70% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+    }
+
+    /* 갱신된 수치 팝(시트 합계·담긴 개수 등) */
+    .upx-pop {
+      display: inline-block;
+      animation: upxPump .5s cubic-bezier(.2, 1.4, .4, 1);
     }
 
     .upx-aovbar {
@@ -7538,20 +8335,21 @@
       background: var(--dc);
     }
 
-    .up1s.on .upx-aovbar i:nth-child(1) {
-      animation: upxBar .5s cubic-bezier(.3, 1.3, .5, 1) .5s both;
+    /* 1번 막대(현재 객단가)는 첫 프레임부터, 2·3·4번은 탭마다 하나씩 상승 */
+    .upx-aovbar i:nth-child(1) {
+      transform: scaleY(1);
     }
 
-    .up1s.on .upx-aovbar i:nth-child(2) {
-      animation: upxBar .5s cubic-bezier(.3, 1.3, .5, 1) 1.1s both;
+    .up1s.u-hit1 .upx-aovbar i:nth-child(2) {
+      animation: upxBar .5s cubic-bezier(.3, 1.3, .5, 1) both;
     }
 
-    .up1s.on .upx-aovbar i:nth-child(3) {
-      animation: upxBar .5s cubic-bezier(.3, 1.3, .5, 1) 1.9s both;
+    .up1s.u-hit2 .upx-aovbar i:nth-child(3) {
+      animation: upxBar .5s cubic-bezier(.3, 1.3, .5, 1) both;
     }
 
-    .up1s.on .upx-aovbar i:nth-child(4) {
-      animation: upxBar .5s cubic-bezier(.3, 1.3, .5, 1) 2.5s both;
+    .up1s.u-hit3 .upx-aovbar i:nth-child(4) {
+      animation: upxBar .5s cubic-bezier(.3, 1.3, .5, 1) both;
     }
 
     @keyframes upxBar {
@@ -7588,8 +8386,8 @@
       color: var(--sds-text-primary);
       background: color-mix(in srgb, var(--dc) 4%, #fff);
       border: 1px solid color-mix(in srgb, var(--dc) 12%, #fff);
-      opacity: 0;
-      transform: translateX(14px);
+      opacity: .4;
+      transform: none;
     }
 
     .upx-ci.c1 b,
@@ -7598,16 +8396,16 @@
       color: var(--dc);
     }
 
-    .up1s.on .upx-ci.c1 {
-      animation: upxCi .4s ease .55s both;
+    .up1s.u-hit1 .upx-ci.c1 {
+      animation: upxCi .4s ease both, upxCiHl 1s ease .1s;
     }
 
-    .up1s.on .upx-ci.c2 {
-      animation: upxCi .4s ease 1.55s both;
+    .up1s.u-hit2 .upx-ci.c2 {
+      animation: upxCi .4s ease both, upxCiHl 1s ease .1s;
     }
 
-    .up1s.on .upx-ci.c3 {
-      animation: upxCi .4s ease 2.55s both;
+    .up1s.u-hit3 .upx-ci.c3 {
+      animation: upxCi .4s ease both, upxCiHl 1s ease .1s;
     }
 
     @keyframes upxCi {
@@ -7617,16 +8415,46 @@
       }
     }
 
+    /* 방금 담긴 행 하이라이트 펄스 — 탭→추가가 한눈에 읽히게 */
+    @keyframes upxCiHl {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 transparent;
+      }
+
+      30% {
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--dc) 18%, transparent);
+        background: color-mix(in srgb, var(--dc) 10%, #fff);
+      }
+    }
+
     /* 12종 팬 */
     .upx-fan {
+      position: relative;
       flex: 1;
       min-height: 0;
+      overflow: hidden;
       background: linear-gradient(180deg, color-mix(in srgb, var(--dc) 6%, #fff), #fff);
       border: 1px solid color-mix(in srgb, var(--dc) 18%, #fff);
       border-radius: 18px;
       padding: 16px 18px;
       display: flex;
       flex-direction: column;
+    }
+
+    /* 하단 흰색 페이드 — "밑에 더 있다"를 시각적으로 (pill 경계 밖 넘침 방지 겸용) */
+    .upx-fan::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 40px;
+      background: linear-gradient(180deg, transparent, #fff);
+      border-radius: 0 0 18px 18px;
+      pointer-events: none;
+      z-index: 1;
     }
 
     .upx-fanh {
@@ -7642,40 +8470,40 @@
 
     .upx-fancards {
       flex: 1;
+      min-height: 0;
       display: flex;
       flex-wrap: wrap;
       align-content: flex-start;
-      gap: 8px;
+      gap: 6px;
     }
 
     .upx-fancards .fc {
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 800;
       color: var(--sds-text-primary);
       background: #fff;
       border: 1px solid var(--sds-border-default);
       border-radius: 100px;
-      padding: 7px 13px;
+      padding: 6px 12px;
       box-shadow: 0 3px 8px rgba(20, 20, 43, .06);
-      opacity: 0;
-      transform: translateY(16px) scale(.9);
+      opacity: .4;
+      transform: none;
     }
 
-    .up1s.on .upx-fancards .fc {
+    .up1s.u-done .upx-fancards .fc {
       animation: upxFc .42s cubic-bezier(.3, 1.4, .5, 1) both;
-      animation-delay: calc(2.7s + var(--i) * .09s);
+      animation-delay: calc(var(--i) * .05s);
     }
 
     @keyframes upxFc {
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      0% { transform: scale(.9); }
+      60% { transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
-    /* ── 시퀀스 (클릭 후) — 스크롤은 native + JS(scrollUpx)로 구동 ── */
-    .up1s.on .upx-sheet {
-      animation: upxSheet .6s cubic-bezier(.3, 1.1, .4, 1) 1.9s both;
+    /* ── 시퀀스 (클릭 후) — 스크롤·커서·탭 타이밍은 JS(scrollUpx)가 u-hit1~3·u-sheet·u-done 클래스로 구동 ── */
+    .up1s.u-sheet .upx-sheet {
+      animation: upxSheet .6s cubic-bezier(.3, 1.1, .4, 1) both;
     }
 
     @keyframes upxSheet {
@@ -7684,43 +8512,38 @@
       }
     }
 
-    .up1s.on .upx-addbtn.a1 .t2 {
-      animation: upxAdd 0s .55s forwards;
+    .up1s.u-hit1 .upx-addbtn.a1 .t2,
+    .up1s.u-hit2 .upx-addbtn.a2 .t2,
+    .up1s.u-hit3 .upx-addbtn.a3 .t2 {
+      opacity: 1;
     }
 
-    .up1s.on .upx-addbtn.a2 .t2 {
-      animation: upxAdd 0s 1.55s forwards;
+    /* 탭된 버튼 팝 — '✓ 담겼어요' 상태 전환을 또렷하게 */
+    .up1s.u-hit1 .upx-addbtn.a1,
+    .up1s.u-hit2 .upx-addbtn.a2,
+    .up1s.u-hit3 .upx-addbtn.a3 {
+      animation: upxBtnPop .4s cubic-bezier(.2, 1.4, .4, 1);
     }
 
-    .up1s.on .upx-addbtn.a3 .t2 {
-      animation: upxAdd 0s 2.55s forwards;
-    }
+    @keyframes upxBtnPop {
 
-    @keyframes upxAdd {
-      to {
-        opacity: 1;
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      40% {
+        transform: scale(1.04);
       }
     }
 
-    .up1s.on .upx-cart .cn b:nth-child(2) {
-      animation: upxAdd 0s .55s forwards;
-    }
-
-    .up1s.on .upx-cart .cn b:nth-child(3) {
-      animation: upxAdd 0s 1.55s forwards;
-    }
-
-    .up1s.on .upx-cart .cn b:nth-child(4) {
-      animation: upxAdd 0s 2.55s forwards;
-    }
-
     /* 담김 시 위젯 테두리 강조 펄스 */
-    .up1s.on .upx-wg.wg1 {
-      animation: upxWgPulse .6s ease .5s both;
+    .up1s.u-hit1 .upx-wg.wg1 {
+      animation: upxWgPulse .6s ease both;
     }
 
-    .up1s.on .upx-wg.wg2 {
-      animation: upxWgPulse .6s ease 1.5s both;
+    .up1s.u-hit2 .upx-wg.wg2 {
+      animation: upxWgPulse .6s ease both;
     }
 
     @keyframes upxWgPulse {
@@ -7734,6 +8557,88 @@
 
       100% {
         box-shadow: 0 6px 16px color-mix(in srgb, var(--dc) 12%, transparent);
+      }
+    }
+
+    /* 담긴 상품 수 — 장바구니 목록 헤더로, 탭마다 1→4로 또렷하게 증가 */
+    .upx-cnttag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+    }
+
+    .upx-cnttag b {
+      min-width: 14px;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 900;
+      color: var(--dc);
+    }
+
+    .upx-cnttag .upx-cntx {
+      margin-left: auto;
+      font-style: normal;
+      font-size: 12px;
+      font-weight: 900;
+      color: #fff;
+      background: var(--dc);
+      border-radius: 100px;
+      padding: 2px 10px;
+      opacity: 0;
+      transform: scale(.8);
+    }
+
+    .up1s.u-done .upx-cnttag .upx-cntx {
+      animation: upxCntX .5s cubic-bezier(.2, 1.4, .4, 1) both;
+    }
+
+    @keyframes upxCntX {
+      0% {
+        opacity: 0;
+        transform: scale(.8);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* 플라이 칩 — 탭한 버튼에서 오른쪽 장바구니 행으로 날아가 '담김'을 연결 (JS가 좌표·궤적 구동) */
+    .upx-fly {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 40;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--dc);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+      box-shadow: 0 8px 20px color-mix(in srgb, var(--dc) 34%, transparent);
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    /* 착지 — 칩이 도착한 행에 짧은 링 파동 */
+    .upx-ci.land {
+      animation: upxLand .6s ease;
+    }
+
+    @keyframes upxLand {
+      0% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--dc) 32%, transparent);
+      }
+
+      100% {
+        box-shadow: 0 0 0 12px transparent;
       }
     }
 
@@ -8778,15 +9683,15 @@
 
     .up2s .cmp-replay {
       left: auto;
-      right: 26px;
-      top: 20px;
-      bottom: auto;
+      right: 24px;
+      top: auto;
+      bottom: 16px;
       margin: 0;
       width: max-content;
       height: 40px;
       padding: 0 20px;
       gap: 6px;
-      font-size: 13.5px;
+      font-size: 14px;
     }
 
     /* ─────────────────────────────────────────────
@@ -8804,11 +9709,6 @@
       --u2-orange: #FF922B;
       --u2-yellow: #FCC419;
       --u2-green: #51CF66;
-    }
-
-    /* 이 씬은 빨강을 핵심 숫자 한 곳에만 → 헤드라인 강조는 뉴트럴 */
-    .up2s .pw-eyebrow b {
-      color: var(--u2-ink);
     }
 
     .up2s .u2-card {
@@ -9099,18 +9999,27 @@
       }
     }
 
-    /* ═══════════ up2 v2: 가격 A/B/C 테스트 최적화 3단계 플로우 ═══════════ */
+    /* ═══════════ up2 v2: A/B/N 가격 테스트 최적화 플로우 ═══════════ */
     .uax {
       flex: 1 1 auto;
       min-height: 0;
       width: 100%;
       display: flex;
-      align-items: stretch;
+      flex-direction: column;
       gap: 12px;
       position: relative;
     }
 
-    /* 시작 전: 프로모션 방식 선택 화면(이미지) 가운데 + 아래 가운데 버튼 → 클릭 시 페이드아웃 */
+    /* 결과: 2스텝 가로 플로우(테스트 → 결과) 한 줄 */
+    .uax-flow {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    /* 시작 전: [방식선택 + 대상·계단형 셋업] 화면을 통째로 보여주고 → 클릭 시 페이드아웃 */
     .uax-intro {
       position: absolute;
       inset: 0;
@@ -9119,16 +10028,208 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 22px;
+      gap: 18px;
     }
 
-    .uax-intro img {
-      max-width: 84%;
-      max-height: 78%;
-      border-radius: 16px;
-      box-shadow: 0 20px 50px rgba(20, 20, 43, .18);
+    /* 재생 전 셋업 전체 묶음: 방식선택(위) + 대상·계단형(아래) */
+    .uax-setup {
+      width: min(94%, 940px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* 대상 오디언스 + 계단형 구조를 한 줄로 — 재생 전에 미리 확정된 셋업 */
+    .uax-plan {
+      display: flex;
+      align-items: stretch;
+      gap: 14px;
+    }
+
+    /* 실제 방식선택 프레임 (재생 전) */
+    .uax-method {
+      width: 100%;
+      background: #fff;
       border: 1px solid var(--sds-border-default);
-      object-fit: contain;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(20, 20, 43, .18);
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .uax-mhead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .uax-mtitle {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+    }
+
+    .uax-mtoggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--sds-text-tertiary);
+    }
+
+    .uax-mtoggle i {
+      width: 32px;
+      height: 18px;
+      border-radius: 100px;
+      background: var(--dc);
+      position: relative;
+    }
+
+    .uax-mtoggle i::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .uax-mgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .uax-mcard {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid var(--sds-border-default);
+      border-radius: 12px;
+      background: var(--sds-bg-secondary);
+      transition: border-color .3s ease, background .3s ease, box-shadow .3s ease;
+    }
+
+    .uax-mic {
+      font-size: 18px;
+      line-height: 1.2;
+      flex: none;
+    }
+
+    .uax-mtx {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .uax-mtx b {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+    }
+
+    .uax-mtx em {
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      color: var(--sds-text-tertiary);
+      line-height: 1.4;
+    }
+
+    .uax-mck {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--dc);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transform: scale(.4);
+      transition: opacity .3s ease, transform .3s cubic-bezier(.34, 1.5, .5, 1);
+    }
+
+    /* 재생 전 — 곧 선택될 카드에 은은한 '예정' 링 힌트 */
+    .uax-mcard.pick:not(.is-picked) {
+      border-color: color-mix(in srgb, var(--dc) 42%, #fff);
+      animation: uaxPickHint 2.2s ease-in-out infinite;
+    }
+
+    .uax-mcard.pick:not(.is-picked)::after {
+      content: '예정';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 10%, #fff);
+      border: 1px solid color-mix(in srgb, var(--dc) 28%, #fff);
+      border-radius: 100px;
+      padding: 2px 8px;
+    }
+
+    @keyframes uaxPickHint {
+      0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--dc) 16%, transparent); }
+      50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--dc) 6%, transparent); }
+    }
+
+    /* 클릭 후 다다익선 선택됨 */
+    .uax-mcard.is-picked {
+      border-color: var(--dc);
+      background: color-mix(in srgb, var(--dc) 6%, #fff);
+      box-shadow: 0 8px 20px color-mix(in srgb, var(--dc) 16%, transparent);
+    }
+
+    .uax-mcard.is-picked .uax-mck {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* 단일 이동 커서 (CTA → 다다익선 카드) */
+    .uax-go {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 26px;
+      height: 26px;
+      z-index: 10;
+      background: var(--cursor-svg) center / contain no-repeat;
+      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, .3));
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .up2s.on .uax-go {
+      opacity: 1;
+    }
+
+    .uax-go.tap {
+      animation: uaxGoTap .4s ease;
+    }
+
+    @keyframes uaxGoTap {
+      40% {
+        transform: scale(.8);
+      }
+    }
+
+    .up2s.on .uax-introcta .cl-cursor {
+      opacity: 0;
     }
 
     .uax-introcta {
@@ -9147,7 +10248,7 @@
     }
 
     .up2s.on .uax-intro {
-      animation: uaxIntroOut .5s ease .05s both;
+      animation: uaxIntroOut .5s ease 1.05s both;
       pointer-events: none;
     }
 
@@ -9158,35 +10259,36 @@
       }
     }
 
-    /* 변형 위젯 이미지 프리뷰 */
-    .uax-vprev {
-      height: 52px;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #F4F5F8;
-      border: 1px solid var(--sds-border-default);
-    }
-
-    .uax-vprev img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-    }
-
     .uax-v.win {
       border-color: var(--dc);
       box-shadow: 0 8px 20px color-mix(in srgb, var(--dc) 18%, transparent);
     }
 
-    .uax-vwin {
+    .uax-vcv {
       margin-left: auto;
-      font-size: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--sds-text-tertiary);
+      white-space: nowrap;
+    }
+
+    .uax-v.vb .uax-vcv {
+      color: var(--sds-text-primary);
+    }
+
+    /* 승자 태그 — 카드 우상단 모서리에 얹힘 */
+    .uax-vwin {
+      position: absolute;
+      top: -10px;
+      right: 12px;
+      font-size: 12px;
       font-weight: 800;
       color: #fff;
       background: var(--dc);
       border-radius: 100px;
-      padding: 2px 8px;
+      padding: 2px 10px;
+      white-space: nowrap;
+      box-shadow: 0 4px 10px color-mix(in srgb, var(--dc) 30%, transparent);
     }
 
     .uax-vtr b {
@@ -9199,25 +10301,22 @@
       background: #fff;
       border: 1px solid var(--sds-border-default);
       border-radius: 16px;
-      padding: 15px 15px;
+      padding: 16px 16px;
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 12px;
       box-shadow: 0 6px 16px rgba(20, 20, 43, .05);
       opacity: 0;
       transform: translateY(14px);
     }
 
-    .up2s.on .uax-step.s1 {
-      animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) .2s both;
-    }
-
+    /* 결과 1: A/B/N 테스트 카드 등장 → 결과 2: 최적 구간 등장 */
     .up2s.on .uax-step.s2 {
       animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) 1.2s both;
     }
 
     .up2s.on .uax-step.s3 {
-      animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) 2.7s both;
+      animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) 2.5s both;
     }
 
     @keyframes uaxStep {
@@ -9231,7 +10330,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 800;
       color: var(--sds-text-primary);
     }
@@ -9266,99 +10365,147 @@
       margin: 0 auto;
     }
 
-    .up2s.on .uax-arrow.a1 {
-      animation: uaxStep .4s ease 1s both;
-    }
-
     .up2s.on .uax-arrow.a2 {
-      animation: uaxStep .4s ease 2.5s both;
+      animation: uaxStep .4s ease 2.3s both;
     }
 
-    /* STEP 1 */
+    /* 재생 전 셋업 — 대상 오디언스 카드 (계단형과 한 줄) */
     .uax-aud {
+      flex: 0 0 34%;
       background: color-mix(in srgb, var(--dc) 6%, #fff);
-      border-radius: 10px;
-      padding: 9px 12px;
+      border: 1px solid color-mix(in srgb, var(--dc) 20%, #fff);
+      border-radius: 12px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 6px;
     }
 
     .uax-audh {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--sds-text-tertiary);
     }
 
     .uax-audv {
-      font-size: 12.5px;
+      font-size: 16px;
       font-weight: 800;
       color: var(--sds-text-primary);
+      line-height: 1.35;
     }
 
-    .uax-methlist {
+    .uax-audmeta {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 10px;
+    }
+
+    .uax-audchip {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--dc);
+      background: #fff;
+      border: 1px solid color-mix(in srgb, var(--dc) 24%, #fff);
+      border-radius: 100px;
+      padding: 4px 10px;
+    }
+
+    /* 계단형 미니 차트 — 개수가 늘수록 할인 폭이 커지는 구조를 그대로 보여줌 */
+    .uax-stair {
+      flex: 1 1 auto;
+      min-height: 0;
       display: flex;
       flex-direction: column;
-      gap: 7px;
-    }
-
-    .uax-meth {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--sds-text-tertiary);
+      gap: 10px;
       background: #F6F7FA;
       border: 1px solid var(--sds-border-default);
-      border-radius: 9px;
-      padding: 9px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      border-radius: 12px;
+      padding: 12px 16px;
     }
 
-    .uax-mck {
-      color: var(--dc);
-      font-weight: 900;
-      opacity: 0;
-    }
-
-    .up2s.on .uax-meth.m-sel {
-      animation: uaxSel .5s ease .8s both;
-    }
-
-    .up2s.on .uax-meth.m-sel .uax-mck {
-      animation: uaxStep .4s cubic-bezier(.3, 1.6, .4, 1) 1s both;
-    }
-
-    @keyframes uaxSel {
-      to {
-        color: var(--dc);
-        background: color-mix(in srgb, var(--dc) 8%, #fff);
-        border-color: var(--dc);
-        font-weight: 800;
-      }
-    }
-
-    .uax-methcap {
-      font-size: 11px;
+    .uax-stairh {
+      font-size: 12px;
+      font-weight: 700;
       color: var(--sds-text-tertiary);
-      margin-top: auto;
-      line-height: 1.5;
     }
 
-    /* STEP 2 */
-    .uax-vars {
+    .uax-stairviz {
+      flex: 1;
+      min-height: 88px;
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .uax-stz {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .uax-stz b {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--sds-text-secondary);
+      flex: none;
+    }
+
+    .uax-stz i {
+      width: 100%;
+      height: var(--sh, 40%);
+      border-radius: 6px 6px 0 0;
+      background: #CBD5E1;
+    }
+
+    .uax-stz span {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--sds-text-tertiary);
+      flex: none;
+    }
+
+    /* 계단이 오를수록 레드가 짙어짐 — 구조를 색으로도 표현 */
+    .uax-stz:nth-child(1) i {
+      background: color-mix(in srgb, var(--dc) 24%, #fff);
+    }
+
+    .uax-stz:nth-child(2) i {
+      background: color-mix(in srgb, var(--dc) 52%, #fff);
+    }
+
+    .uax-stz:nth-child(3) i {
+      background: linear-gradient(180deg, color-mix(in srgb, var(--dc) 70%, #fff), var(--dc));
+    }
+
+    .uax-stz:nth-child(3) b {
+      color: var(--dc);
+    }
+
+    /* STEP: A/B/N 테스트 — 변형 카드는 이미지 없이 [변형·할인액 / 트래픽 바+%] 2줄 */
+    .uax-vars {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
+      gap: 12px;
     }
 
     .uax-v {
+      position: relative;
+      flex: 1 1 0;
       border: 1px solid var(--sds-border-default);
-      border-radius: 11px;
-      padding: 9px 11px;
+      border-radius: 12px;
+      padding: 12px 16px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      justify-content: center;
+      gap: 10px;
     }
 
     .uax-vtop {
@@ -9368,12 +10515,12 @@
     }
 
     .uax-vt {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       border-radius: 6px;
       display: grid;
       place-items: center;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 800;
       color: #fff;
       background: #94A3B8;
@@ -9385,15 +10532,24 @@
     }
 
     .uax-vtop b {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 800;
       color: var(--sds-text-primary);
+      white-space: nowrap;
+    }
+
+    .uax-vrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .uax-vbar {
-      height: 7px;
-      background: #EDEEF2;
-      border-radius: 4px;
+      flex: 1 1 auto;
+      min-width: 0;
+      height: 10px;
+      background: #E4E7EE;
+      border-radius: 6px;
       overflow: hidden;
     }
 
@@ -9401,8 +10557,8 @@
       display: block;
       height: 100%;
       width: 0;
-      background: #B7C0CE;
-      border-radius: 4px;
+      background: #8A94A8;
+      border-radius: 6px;
     }
 
     .uax-v.vb .uax-vbar i {
@@ -9410,7 +10566,7 @@
     }
 
     .up2s.on .uax-v .uax-vbar i {
-      animation: uaxTraf .6s cubic-bezier(.3, 1.1, .5, 1) 1.6s both;
+      animation: uaxTraf .6s cubic-bezier(.3, 1.1, .5, 1) 1.8s both;
     }
 
     @keyframes uaxTraf {
@@ -9420,24 +10576,25 @@
     }
 
     .uax-vtr {
-      font-size: 11px;
+      flex: none;
+      font-size: 12px;
       font-weight: 700;
       color: var(--sds-text-tertiary);
     }
 
     .uax-testing {
       margin-top: auto;
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 800;
       color: var(--dc);
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
     }
 
     .uax-spin {
-      width: 13px;
-      height: 13px;
+      width: 14px;
+      height: 14px;
       border: 2px solid color-mix(in srgb, var(--dc) 28%, #fff);
       border-top-color: var(--dc);
       border-radius: 50%;
@@ -9450,7 +10607,7 @@
       }
     }
 
-    /* STEP 3 */
+    /* STEP: 최적 구간 결과 */
     .uax-plot {
       flex: 1;
       display: flex;
@@ -9468,7 +10625,7 @@
       flex-direction: column;
       justify-content: flex-end;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       position: relative;
     }
 
@@ -9495,7 +10652,7 @@
     .uax-bfill {
       width: 100%;
       height: 0;
-      border-radius: 9px 9px 0 0;
+      border-radius: 8px 8px 0 0;
       background: #CBD5E1;
     }
 
@@ -9504,7 +10661,7 @@
     }
 
     .uax-bl {
-      font-size: 10.5px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--sds-text-tertiary);
       flex: none;
@@ -9516,7 +10673,7 @@
     }
 
     .uax-bwin {
-      font-size: 9.5px;
+      font-size: 12px;
       font-weight: 800;
       color: #fff;
       background: var(--dc);
@@ -9527,15 +10684,15 @@
     }
 
     .up2s.on .uax-b .uax-bfill {
-      animation: uaxBar .7s cubic-bezier(.3, 1.2, .5, 1) 3s both;
+      animation: uaxBar .7s cubic-bezier(.3, 1.2, .5, 1) 2.9s both;
     }
 
     .up2s.on .uax-b .uax-bv {
-      animation: uaxStep .4s ease 3.5s both;
+      animation: uaxStep .4s ease 3.4s both;
     }
 
     .up2s.on .uax-b.win .uax-bwin {
-      animation: uaxStep .4s cubic-bezier(.3, 1.6, .4, 1) 3.7s both;
+      animation: uaxStep .4s cubic-bezier(.3, 1.6, .4, 1) 3.6s both;
     }
 
     @keyframes uaxBar {
@@ -9545,7 +10702,7 @@
     }
 
     .uax-plotcap {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--sds-text-tertiary);
       text-align: center;
       line-height: 1.5;
@@ -9559,10 +10716,10 @@
     .uax-apply {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
       background: color-mix(in srgb, var(--dc) 8%, #fff);
       border: 1px solid color-mix(in srgb, var(--dc) 22%, #fff);
-      border-radius: 11px;
+      border-radius: 12px;
       padding: 10px 12px;
       opacity: 0;
     }
@@ -9572,19 +10729,93 @@
     }
 
     .uax-win {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 800;
       color: var(--dc);
     }
 
     .uax-traf {
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--sds-text-primary);
     }
 
     .uax-traf b {
       color: var(--dc);
+    }
+
+    /* ── 결과 하단: 실제 적용되는 할인 팝업 미리보기 (최종 비트) ── */
+    /* B안 할인 팝업 미리보기 — A/B/N 테스트(1번 스텝) 하단에 붙음 */
+    .uax-preview {
+      flex: 0 0 auto;
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: color-mix(in srgb, var(--dc) 5%, #fff);
+      border: 1px solid color-mix(in srgb, var(--dc) 20%, #fff);
+      border-radius: 12px;
+      padding: 10px 12px;
+      opacity: 0;
+    }
+
+    .up2s.on .uax-preview {
+      animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) 2.1s both;
+    }
+
+    .uax-pvframe {
+      flex: none;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+      border: 2px solid #fff;
+      box-shadow: 0 12px 28px rgba(20, 20, 43, .22);
+      line-height: 0;
+    }
+
+    .uax-pvimg {
+      display: block;
+      height: 96px;
+      width: auto;
+    }
+
+    .uax-pvtx {
+      flex: 0 1 auto;
+      min-width: 0;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .uax-pvtag {
+      align-self: flex-start;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--dc);
+      border-radius: 100px;
+      padding: 4px 12px;
+      white-space: nowrap;
+    }
+
+    .uax-pvh {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+      letter-spacing: -.01em;
+    }
+
+    .uax-pvd {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--sds-text-tertiary);
+      line-height: 1.4;
+    }
+
+    .uax-pvd b {
+      color: var(--dc);
+      font-weight: 800;
     }
 
     /* ─────────────────────────────────────────────
@@ -9764,11 +10995,17 @@
       margin: 0;
     }
 
+    /* CTA — before 카드(u3xb-core) 안, 힌트 바로 아래 */
+    .up3 .ps-cta {
+      display: inline-flex;
+      margin-top: 20px;
+    }
+
     .up3 .cmp-replay {
       left: auto;
-      right: 26px;
-      top: 20px;
-      bottom: auto;
+      right: 24px;
+      top: auto;
+      bottom: 16px;
       margin: 0;
       width: max-content;
       height: 40px;
@@ -11238,6 +12475,7 @@
       font-size: 10px;
       font-weight: 600;
       color: rgba(255, 255, 255, .68);
+      word-break: keep-all;
     }
 
     .su-coupon::before,
@@ -12475,23 +13713,26 @@
     .cm-grid {
       flex: 1 1 auto;
       min-height: 0;
+      width: 100%;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       grid-template-rows: auto 1fr 1fr 1fr;
-      gap: 5px;
+      gap: 4px;
     }
 
     .cm-c {
       position: relative;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1px;
-      padding: 5px 3px;
-      border-radius: 9px;
+      gap: 2px;
+      padding: 4px 2px;
+      border-radius: 8px;
       background: var(--sds-bg-tertiary);
       text-align: center;
+      overflow: hidden;
     }
 
     .cm-c .n {
@@ -12508,6 +13749,8 @@
       color: var(--sds-text-placeholder);
       line-height: 1.15;
       word-break: keep-all;
+      overflow-wrap: anywhere;
+      max-width: 100%;
     }
 
     .cm-c.hd {
@@ -13623,19 +14866,14 @@
       flex: 1 1 auto;
       position: relative;
       width: 100%;
-      min-height: 360px;
+      min-height: 420px;
     }
 
-    /* Figma 1050×560 프레임 = 폭 꽉 채우고 세로 중앙; 카드는 이 스테이지 기준 %라 창 크기와 무관하게 Figma 그대로 */
+    /* Figma 1050×560 프레임 = 폭 꽉 채우고 세로 중앙 — 카드는 이 스테이지 기준 %라 창 크기와 무관하게 Figma 좌표 그대로 */
     .ccu-stage {
       position: absolute;
-      left: 0;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
+      inset: 0;
       width: 100%;
-      aspect-ratio: 1050 / 560;
-      max-height: 100%;
     }
 
     /* BEFORE: 비공개 미리보기 프레임 — 예정된 업데이트가 아직 비공개 상태 */
@@ -13783,16 +15021,18 @@
       }
     }
 
-    /* AFTER: 업데이트 카드 — 상단 라벨 헤더 + 이미지, Figma 콜라주 좌표 */
+    /* ═══ AFTER: 업데이트 콜라주 (Figma 자유배치 — 재생 후 카드가 순서대로 딜인) ═══ */
     .ccu-card {
       position: absolute;
       background: #fff;
+      border: 1px solid var(--sds-border-default);
       border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, .2);
+      box-shadow: 0 12px 32px rgba(20, 20, 43, .14);
       overflow: hidden;
       display: flex;
       flex-direction: column;
       opacity: 0;
+      pointer-events: none;
     }
 
     .ccu-lb {
@@ -13801,17 +15041,16 @@
       gap: 8px;
       padding: 12px 16px;
       font-size: 16px;
-      font-weight: 600;
-      color: #000;
-      border-bottom: 1px solid var(--sds-border-default);
+      font-weight: 700;
+      color: var(--sds-text-primary);
     }
 
     .ccu-n {
       width: 24px;
       height: 24px;
-      border-radius: 32px;
-      background: #C4F7F0;
-      color: #00B7A8;
+      border-radius: 100px;
+      background: color-mix(in srgb, var(--dc) 16%, #fff);
+      color: var(--dc);
       display: grid;
       place-items: center;
       font-size: 14px;
@@ -13830,99 +15069,83 @@
       height: auto;
     }
 
-    /* Figma 좌표 → 스테이지 기준 % (left/width=폭 기준, top=높이 기준; 스테이지가 Figma 비율이라 왜곡 없음) */
-    .ccu-card.c1 {
-      left: 2.3%;
-      top: 18.6%;
-      width: 36.2%;
-      z-index: 1;
-    }
+    /* Figma 좌표 → 스테이지(1050×560) 기준 % */
+    .ccu-card.c1 { left: 2.3%; top: 8%; width: 36.2%; z-index: 1; }
+    .ccu-card.c2 { left: 40%; top: 0%; width: 36.2%; z-index: 3; }
+    .ccu-card.c3 { left: 77.7%; top: 8%; width: 22%; z-index: 2; }
+    .ccu-card.c4 { left: 3.8%; top: 58%; width: 50%; z-index: 1; }
+    .ccu-card.c5 { left: 54.5%; top: 55%; width: 38%; z-index: 4; }
 
-    .ccu-card.c2 {
-      left: 40%;
-      top: 10%;
-      width: 36.2%;
-      z-index: 3;
-    }
-
-    .ccu-card.c3 {
-      left: 77.7%;
-      top: 12.9%;
-      width: 19%;
-      z-index: 2;
-    }
-
-    .ccu-card.c4 {
-      left: 3.8%;
-      top: 57.7%;
-      width: 47.6%;
-      z-index: 1;
-    }
-
-    .ccu-card.c5 {
-      left: 54.5%;
-      top: 54.3%;
-      width: 34.3%;
-      z-index: 4;
-    }
-
+    /* 기승전결: 재생하면 카드가 1→5 순서대로 딜인 */
     .cv-update.on .ccu-card {
       animation: ccuDeal .5s cubic-bezier(.3, 1.3, .5, 1) both;
     }
 
-    .cv-update.on .ccu-card.c1 {
-      animation-delay: .5s;
-    }
-
-    .cv-update.on .ccu-card.c2 {
-      animation-delay: .74s;
-    }
-
-    .cv-update.on .ccu-card.c3 {
-      animation-delay: .98s;
-    }
-
-    .cv-update.on .ccu-card.c4 {
-      animation-delay: 1.22s;
-    }
-
-    .cv-update.on .ccu-card.c5 {
-      animation-delay: 1.46s;
-    }
+    .cv-update.on .ccu-card.c1 { animation-delay: .5s; }
+    .cv-update.on .ccu-card.c2 { animation-delay: .74s; }
+    .cv-update.on .ccu-card.c3 { animation-delay: .98s; }
+    .cv-update.on .ccu-card.c4 { animation-delay: 1.22s; }
+    .cv-update.on .ccu-card.c5 { animation-delay: 1.46s; }
 
     @keyframes ccuDeal {
-      from {
-        opacity: 0;
-        transform: translateY(16px) scale(.9);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      from { opacity: 0; transform: translateY(16px) scale(.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+    /* 결(結): 카드가 다 뜬 뒤 결론 배너 등장 — 5가지 공개 완료 + 로드맵은 계속 */
     .ccu-foot {
+      position: absolute;
+      left: 50%;
+      bottom: 13%;
+      transform: translateX(-50%) translateY(12px);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 100px;
+      background: var(--sds-bg-inverse-primary);
+      color: #fff;
       font-size: 14px;
       font-weight: 700;
-      color: var(--sds-text-tertiary);
+      white-space: nowrap;
+      box-shadow: 0 14px 34px rgba(20, 20, 43, .26);
       opacity: 0;
+      z-index: 11;
+      pointer-events: none;
     }
 
     .ccu-foot b {
       color: var(--dc);
     }
 
+    .ccu-foot-ck {
+      display: grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--dc);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
     .cv-update.on .ccu-foot {
-      animation: crmIn .5s ease 2s both;
+      animation: ccuFootIn .6s cubic-bezier(.3, 1.3, .5, 1) 2.1s both;
+    }
+
+    @keyframes ccuFootIn {
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 
     /* 다시보기: 시작 버튼 자리에 그대로 교체 */
     /* 다시 보기: 좌상단, 재생 완료 후에만 등장 */
     .cv-roadmap .ccu-cta {
       position: absolute;
-      left: 2.3%;
-      top: 4%;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 2%;
+      top: auto;
       z-index: 12;
     }
 
@@ -13939,7 +15162,7 @@
 
     .cv-update.on .ccu-cta>.cmp-replay {
       display: inline-flex;
-      animation: replayIn .45s cubic-bezier(.2, .7, .2, 1) both;
+      animation: replayIn .45s cubic-bezier(.2, .7, .2, 1) 2.4s both;
     }
 
     /* 비공개 프레임 하단 재생 CTA — 프레임과 한 덩어리로 묶음 */
@@ -14738,8 +15961,82 @@
       text-align: center;
     }
 
+    /* 헤드 바로 밑 서브라인 — 총 혜택 가치 */
+    .cvb-head2 {
+      margin-top: -12px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--sds-text-tertiary);
+      text-align: center;
+    }
+
+    .cvb-head2 b {
+      color: var(--dc);
+      font-weight: 800;
+    }
+
     .cvb-head b {
       color: var(--dc);
+    }
+
+    /* cv3 하단 요약 값 바 — 재생 후 등장하는 climax */
+    .cvb-sum {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      opacity: 0;
+    }
+
+    .cv-benefit.on .cvb-sum {
+      animation: cvbSumIn .6s cubic-bezier(.3, 1.2, .4, 1) 2.7s both;
+    }
+
+    .cvb-sum-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cvb-sum-row em {
+      color: var(--sds-text-tertiary);
+      font-size: 18px;
+      font-weight: 800;
+      font-style: normal;
+    }
+
+    .cvb-sum-tag {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(158deg, #272935 0%, #141520 100%);
+      border: 1px solid color-mix(in srgb, var(--dc) 40%, #2C2E3A);
+      border-radius: 100px;
+      padding: 10px 18px;
+    }
+
+    .cvb-sum-tag b {
+      color: var(--dc);
+      font-weight: 800;
+    }
+
+    .cvb-sum-total {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+    }
+
+    .cvb-sum-total b {
+      color: var(--dc);
+    }
+
+    @keyframes cvbSumIn {
+      0% { opacity: 0; transform: translateY(14px) scale(.96); }
+      60% { transform: translateY(0) scale(1.03); }
+      100% { opacity: 1; transform: none; }
     }
 
     .cvb-list {
@@ -15106,6 +16403,25 @@
       color: var(--sds-text-primary);
     }
 
+    /* CTA를 기능 리스트 헤더 바로 밑에 배치 */
+    /* CTA/다시보기 같은 자리 스왑 슬롯 (기능 리스트 헤더 밑) */
+    .pcx-ctaslot {
+      position: relative;
+      min-height: 44px;
+    }
+
+    .pcx-feats .ps-cta {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+    }
+
+    .pcx-feats .ps-cta .cl-start {
+      width: 100%;
+      height: 44px;
+      margin: 0;
+    }
+
     .pcx-fg {
       display: flex;
       flex-direction: column;
@@ -15435,7 +16751,7 @@
       align-items: stretch;
       justify-content: center;
       gap: 16px;
-      padding: 24px;
+      padding: 52px 24px 24px;
       min-height: 0;
     }
 
@@ -15443,6 +16759,52 @@
       width: 200px;
       display: flex;
       flex-direction: column;
+      position: relative;
+    }
+
+    /* 재생 결과: 알파푸시 쪽 판정 콜아웃 (경쟁이 폭등해도 그대로 — 상단 여백을 결로 채움) */
+    .pcx-verdict {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px) scale(.94);
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--dc) 8%, #fff);
+      border: 1px solid color-mix(in srgb, var(--dc) 28%, #fff);
+      box-shadow: 0 8px 20px color-mix(in srgb, var(--dc) 16%, transparent);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .pc-scene.pcx-done .pcx-verdict {
+      animation: pcxVerdict .6s cubic-bezier(.3, 1.35, .5, 1) .15s both;
+    }
+
+    @keyframes pcxVerdict {
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
+    }
+
+    .pcx-vk {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--sds-text-tertiary);
+    }
+
+    .pcx-vv {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--dc);
     }
 
     .pcx-btrack {
@@ -15944,38 +17306,38 @@
       }
     }
 
-    /* 발송 결과 피날레 (대상 고객에게 자동 발송되는 결과) */
+    /* 발송 결과 피날레 — 레시피/드로어를 가리지 않는 별도 패널.
+       좌측 레일(56px)과 우측 드로어(380px) 사이 메인 영역 하단에 도킹 */
     .cd-result {
       position: absolute;
-      left: 40%;
-      bottom: 20%;
-      transform: translateX(-50%) translateY(20px);
-      width: 450px;
-      max-width: calc(100% - 40px);
+      left: 72px;
+      right: 396px;
+      bottom: 20px;
       z-index: 6;
       background: #fff;
       border: 2px solid color-mix(in srgb, var(--dc) 60%, #fff);
       border-radius: 16px;
       box-shadow: 0 26px 60px color-mix(in srgb, var(--dc) 22%, transparent);
-      padding: 16px;
+      padding: 18px;
       opacity: 0;
+      transform: translateY(20px);
       pointer-events: none;
     }
 
     .sc.on .cd-result {
-      animation: floatUp .55s cubic-bezier(.2, 1.5, .4, 1) 1.5s both;
+      animation: resultUp .55s cubic-bezier(.2, 1.5, .4, 1) 1.4s both;
       pointer-events: auto;
     }
 
-    @keyframes floatUp {
+    @keyframes resultUp {
       from {
         opacity: 0;
-        transform: translateX(-50%) translateY(24px) scale(.94);
+        transform: translateY(24px) scale(.96);
       }
 
       to {
         opacity: 1;
-        transform: translateX(-50%) translateY(0) scale(1);
+        transform: translateY(0) scale(1);
       }
     }
 
@@ -16360,16 +17722,19 @@
 
     /* 다시 보기 — 시작 버튼과 같은 자리(우측상단)에서 스왑 */
     .pc-scene .cmp-replay {
-      left: auto;
-      right: 26px;
-      top: 20px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
       bottom: auto;
       margin: 0;
-      width: max-content;
-      height: 40px;
-      padding: 0 20px;
+      width: 100%;
+      height: 44px;
+      padding: 0;
       gap: 6px;
-      font-size: 13.5px;
+      font-size: 14px;
+      align-items: center;
+      justify-content: center;
     }
 
     .pc {
@@ -20472,7 +21837,7 @@
             kicker: '노코드 편집', title: '쇼핑몰 디자인, 클릭과 드래그로 완성해요',
             desc: '끌어다 놓기만 하면 상상하던 페이지가 원하는 대로 조립돼요. 디자이너나 개발자 찾느라 뛰어다니지 않아도 돼요.',
             chips: ['기획전·브랜드·공백페이지 자유 레이아웃', '디자인 요소 전체 제공'], scene: 'cv2',
-            done: '✓ 위젯 8개 조립 — 전환율 2.4% → 10.7%, 테마도 통째로',
+            done: '✓ 위젯 6개 조립 — 전환율 2.4% → 13.0%',
           },
           {
             kicker: '계속 업그레이드', title: '스킨 구매 후에도 계속 기능이 업그레이드 돼요',
@@ -20482,7 +21847,7 @@
           },
           {
             kicker: '시작 혜택', title: '이제 시작하는 사장님을 위한 혜택 3가지',
-            desc: '알파앱스 2개월 무료, 토스페이 수수료 할인, 세이브오피스 최대 30% 할인까지 — 시작할 때 필요한 혜택, 알파캔버스가 먼저 챙겼어요. (*처음 사용하는 고객사만 해당)',
+            desc: '당장 필요한 도입 혜택을 알파캔버스가 먼저 챙겼어요. 어떤 혜택이 열리는지 지금 확인해 보세요.',
             chips: ['처음 사용하는 고객사만 해당'], scene: 'cv3',
             done: '',
           },
@@ -20498,7 +21863,7 @@
        ⓘ 수치(리뷰 1,284건·₩8,420,000 등)는 예시값 — 실데이터 확인 후 교체 // TODO
     ═══════════════════════════════════════════════ */
     const SCENES = {
-      rv1: `<div class="sc">
+      rv1: `<div class="sc sc-rv rv1s">
         <div class="sc-eyebrow">배송 완료 알림톡 → 상세페이지 리뷰</div>
         <div class="kko"><div class="kko-b">
           <div class="kh"><i>톡</i>알파리뷰 알림톡</div>
@@ -20507,61 +21872,52 @@
         </div></div>
         <div class="sc-result">
           <div class="mini-shop">
-            <div class="ms-head">상세페이지 리뷰 <span class="stars">★ 4.9</span> · 리뷰 <b class="cnt" data-from="1284" data-to="1285">1,284</b>건</div>
+            <div class="ms-head">상세페이지 리뷰 <span class="stars">★ 4.9</span> · 리뷰 <b class="cnt" data-from="1240" data-to="1285" data-delay="260">1,240</b>건</div>
             <div class="ms-review new">📷 “재질이 생각보다 훨씬 좋아요. 재구매 각!”</div>
             <div class="ms-review">📷 “책상이 넓어진 기분. 배송도 빨랐어요”</div>
           </div>
         </div>
       </div>`,
 
-      rv2: `<div class="sc">
+      rv2: `<div class="sc sc-rv rv2s">
         <div class="sc-eyebrow">AI 리뷰 관리 인박스</div>
         <div class="rv-inbox">
-          <div class="rvi-row"><span class="st5">★★★★★</span>“포장 꼼꼼하고 예뻐요”<span style="margin-left:auto;font-size:10.5px;color:#0CA678;font-weight:800">답글 완료</span></div>
+          <div class="rvi-row"><span class="st5">★★★★★</span>“포장 꼼꼼하고 예뻐요”<span class="done-tag">답글 완료</span></div>
           <div class="rvi-row neg"><span class="st5">★☆☆☆☆</span>“배송이 늦고 응대가 없어요”<span class="flag">⚠ 부정 감지</span></div>
         </div>
-        <button class="sds-btn sds-btn--md sds-btn--brand-solid sc-btn" data-act style="margin-top:14px">🤖 AI로 대응하기</button>
+        <button class="sds-btn sds-btn--md sds-btn--brand-solid sc-btn" data-act style="margin-top:16px">🤖 AI로 대응하기</button>
         <div class="sc-result">
           <div class="ai-reply">
             <div class="ar-head">✨ AI 답글 초안 <span class="ok-tag">감지 → 대응 완료</span></div>
-            “불편을 드려 죄송합니다. 주문 건을 확인해 오늘 중 개별 연락드릴게요. 같은 일이 없도록 배송 프로세스를 점검하겠습니다.”
+            <span class="ar-tx" data-full="“불편을 드려 죄송합니다. 주문 건을 확인해 오늘 중 개별 연락드릴게요. 같은 일이 없도록 배송 프로세스를 점검하겠습니다.”"><span class="ar-caret"></span></span>
           </div>
         </div>
       </div>`,
 
-      rv3: `<div class="sc">
+      rv3: `<div class="sc sc-rv rv3s">
         <div class="sc-eyebrow">리뷰 위젯 라이브러리</div>
         <div class="widget-wall" style="max-width:460px">
-          <div class="ww-tile"><span>📷</span>포토 그리드</div>
-          <div class="ww-tile"><span>🎬</span>영상 리뷰</div>
-          <div class="ww-tile"><span>📱</span>숏츠 위젯</div>
-          <div class="ww-tile"><span>⭐</span>별점 요약</div>
+          <div class="ww-tile"><span class="wwm wwm-photo"><i style="background-image:url('assets/insta/f1.png')"></i><i style="background-image:url('assets/insta/f2.png')"></i><i style="background-image:url('assets/insta/f3.png')"></i><i style="background-image:url('assets/insta/f4.png')"></i><i style="background-image:url('assets/insta/f5.png')"></i><i style="background-image:url('assets/insta/f6.png')"></i><i style="background-image:url('assets/insta/f7.png')"></i><i style="background-image:url('assets/insta/f8.png')"></i><i style="background-image:url('assets/insta/f1.png')"></i></span>포토 그리드</div>
+          <div class="ww-tile"><span class="wwm wwm-video" style="background-image:url('assets/maison/maison-rev1.png')"><b class="wwm-play"></b></span>영상 리뷰</div>
+          <div class="ww-tile"><span class="wwm wwm-shorts"><i class="sh sd"></i><i class="sh" style="background-image:url('assets/maison/maison-rev2.png')"><b class="wwm-play sm"></b></i><i class="sh sd"></i></span>숏츠 위젯</div>
+          <div class="ww-tile"><span class="wwm wwm-stars"><b class="wwm-num">4.9</b><u class="wwm-str">★★★★★</u><s class="wwm-line"><em style="--w:96%"></em></s></span>별점 요약</div>
         </div>
-        <button class="sds-btn sds-btn--md sds-btn--brand-solid sc-btn" data-act style="margin-top:14px">위젯 20여 종 모두 펼치기</button>
+        <button class="sds-btn sds-btn--md sds-btn--brand-solid sc-btn" data-act style="margin-top:16px">위젯 20여 종 모두 펼치기</button>
         <div class="sc-result">
           <div class="widget-wall" style="margin-top:12px">
-            <div class="ww-tile" style="animation-delay:.02s"><span>🏅</span>리뷰 뱃지</div>
-            <div class="ww-tile" style="animation-delay:.06s"><span>📌</span>상단 고정</div>
-            <div class="ww-tile" style="animation-delay:.10s"><span>🗳️</span>설문 리뷰</div>
-            <div class="ww-tile" style="animation-delay:.14s"><span>💬</span>한 줄 리뷰</div>
-            <div class="ww-tile" style="animation-delay:.18s"><span>🖼️</span>갤러리</div>
-            <div class="ww-tile" style="animation-delay:.22s"><span>🔗</span>SNS 연동</div>
-            <div class="ww-tile" style="animation-delay:.26s"><span>📊</span>통계 위젯</div>
-            <div class="ww-tile" style="animation-delay:.30s"><span>＋</span>그 외 12종</div>
+            <div class="ww-tile" style="animation-delay:.02s"><span class="wwm wwm-badge"><b class="wwm-rosette">★</b></span>리뷰 뱃지</div>
+            <div class="ww-tile" style="animation-delay:.06s"><span class="wwm wwm-pin"><i class="top"></i><i></i><i></i></span>상단 고정</div>
+            <div class="ww-tile" style="animation-delay:.10s"><span class="wwm wwm-survey"><i><s style="--w:80%"></s></i><i><s style="--w:54%"></s></i><i><s style="--w:32%"></s></i></span>설문 리뷰</div>
+            <div class="ww-tile" style="animation-delay:.14s"><span class="wwm wwm-oneline"><u class="wwm-str sm">★★★★★</u><i class="wwm-txline"></i></span>한 줄 리뷰</div>
+            <div class="ww-tile" style="animation-delay:.18s"><span class="wwm wwm-gallery"><i style="background-image:url('assets/insta/f4.png')"></i><i style="background-image:url('assets/insta/f7.png')"></i><i style="background-image:url('assets/insta/f2.png')"></i></span>갤러리</div>
+            <div class="ww-tile" style="animation-delay:.22s"><span class="wwm wwm-sns"><i class="ig"></i><i class="nv">N</i><i class="kk"></i></span>SNS 연동</div>
+            <div class="ww-tile" style="animation-delay:.26s"><span class="wwm wwm-stats"><i style="--h:42%"></i><i style="--h:64%"></i><i style="--h:52%"></i><i style="--h:82%"></i><i style="--h:100%"></i></span>통계 위젯</div>
+            <div class="ww-tile" style="animation-delay:.30s"><span class="wwm wwm-more"><b>+12</b></span>그 외 12종</div>
           </div>
         </div>
       </div>`,
 
       up1: `<div class="sc up1s">
-        <div class="pw-head">
-          <div class="pw-headtx">
-            <span class="pw-eyebrow">상세페이지를 둘러보는 동안 — <b>위젯마다 담고, 객단가가 오릅니다</b></span>
-          </div>
-          <div class="ps-cta">
-            <button class="cl-start" data-act><span class="cl-lb">상세페이지 둘러보기</span></button>
-            <span class="cl-cursor"></span>
-          </div>
-        </div>
         <div class="upx">
           <div class="upx-phone">
             <div class="upx-screen">
@@ -20581,9 +21937,15 @@
                   </div>
                   <div class="upx-wg wg1">
                     <div class="upx-wtag">🛒 구매 버튼 상단 위젯 · 옵션 세트 추천</div>
-                    <span class="upx-wq">함께 사면 더 좋은 <b>글로우 세트 3종</b></span>
-                    <div class="upx-set"><img src="assets/beauty/cosmetic_2.png" alt=""><div class="upx-sc"><span class="upx-snm">글로우 케어 3종 골라담기</span><span class="upx-schip">토너 · 크림 · 선크림 세트</span></div><span class="upx-spr">+33,800</span></div>
-                    <button class="upx-addbtn a1"><span class="t1">＋ 장바구니 담기</span><span class="t2">✓ 담겼어요</span></button>
+                    <span class="upx-wq">함께 사면 더 좋은 <b>추천 상품</b></span>
+                    <div class="upx-plist">
+                      <div class="upx-pl"><img src="assets/beauty/17_1_CICA CALM TONER PAD.png" alt=""><div class="upx-plc"><span class="upx-plnm">시카 카밍 토너 패드</span><span class="upx-plsub"><em>토너패드</em>앰플 전 피부 결 정돈·수분 진정</span></div></div>
+                      <div class="upx-pl"><img src="assets/beauty/17_2_VITA CAPSULE GLOW CREAM.png" alt=""><div class="upx-plc"><span class="upx-plnm">비타 캡슐 글로우 크림</span><span class="upx-plsub"><em>캡슐 크림</em>앰플의 수분·광채를 크림으로 마무리</span></div></div>
+                      <div class="upx-pl"><img src="assets/beauty/17_3_VITA SHIELD SUNSCREEN.png" alt=""><div class="upx-plc"><span class="upx-plnm">비타 쉴드 톤업 선크림 SPF50+</span><span class="upx-plsub"><em>선케어</em>브라이트닝 루틴 후 자외선 차단</span></div></div>
+                    </div>
+                    <div class="upx-route"><span>토너 패드</span><i>→</i><b>비타 글로우 앰플<em>NOW</em></b><i>→</i><span>캡슐 크림</span><i>→</i><span>선크림</span></div>
+                    <div class="upx-setbar"><span class="upx-setlb">추천 루틴 3종 함께</span><span class="upx-spr">+37,800</span></div>
+                    <button class="upx-addbtn a1"><span class="t1">＋ 3종 함께 담기</span><span class="t2">✓ 담겼어요</span></button>
                   </div>
                   <div class="vg-sec">
                     <span class="vg-eyebrow">GLOW ROUTINE</span>
@@ -20613,9 +21975,14 @@
                   </div>
                   <div class="upx-wg wg2">
                     <div class="upx-wtag">📄 상품 설명 본문 하단 위젯</div>
-                    <span class="upx-wq">이 상품과 <b>자주 함께 산 상품</b></span>
-                    <div class="upx-set"><img src="assets/beauty/cosmetic_5.png" alt=""><div class="upx-sc"><span class="upx-snm">데일리 립 세럼 듀오</span><span class="upx-schip">함께 구매 1,024회 · 무료배송까지 3,100원</span></div><span class="upx-spr">+33,800</span></div>
-                    <button class="upx-addbtn a2"><span class="t1">＋ 장바구니 담기</span><span class="t2">✓ 담겼어요</span></button>
+                    <span class="upx-wq">이 상품과 <b>함께 자주 산 상품</b></span>
+                    <div class="upx-plist">
+                      <div class="upx-pl"><img src="assets/beauty/17_4_PURE BALANCING CLEANSING OIL.png" alt=""><div class="upx-plc"><span class="upx-plnm">퓨어 밸런싱 클렌징 오일</span><span class="upx-plsub"><em>클렌징 오일</em>저녁 스킨케어 전 메이크업 세정</span></div></div>
+                      <div class="upx-pl"><img src="assets/beauty/17_5_PDRN RECOVERY MASK.png" alt=""><div class="upx-plc"><span class="upx-plnm">PDRN 리커버리 마스크</span><span class="upx-plsub"><em>마스크팩</em>집중 수분·탄력 관리 조합</span></div></div>
+                      <div class="upx-pl"><img src="assets/beauty/17_6_CERAMIDE BARRIER LOTION.png" alt=""><div class="upx-plc"><span class="upx-plnm">세라마이드 베리어 로션</span><span class="upx-plsub"><em>보습 로션</em>건조·민감 피부 보습 보완</span></div></div>
+                    </div>
+                    <div class="upx-setbar"><span class="upx-setlb">함께 산 3종 함께</span><span class="upx-spr">+32,000</span></div>
+                    <button class="upx-addbtn a2"><span class="t1">＋ 3종 함께 담기</span><span class="t2">✓ 담겼어요</span></button>
                   </div>
                   <div class="vg-sec">
                     <span class="vg-eyebrow">HOW TO USE</span>
@@ -20635,23 +22002,45 @@
                 <div class="upx-sheet wg3">
                   <div class="upx-sheeth">장바구니에 담긴 상품 <span class="n">3</span><i class="x">✕</i></div>
                   <div class="upx-shrec">💡 전에 보고 놓쳤던 상품, 지금 담으면 할인</div>
-                  <div class="upx-set miss"><img src="assets/beauty/cosmetic_7.png" alt=""><div class="upx-sc"><span class="upx-snm">05 밀크로즈 글로우 립밤</span><span class="upx-schip"><s>32,000</s> <em>10%</em> 28,800원</span></div><button class="upx-addbtn a3"><span class="t1">담기</span><span class="t2">✓</span></button></div>
-                  <div class="upx-shfoot"><span class="upx-shtot">결제 예정 <b>185,500원</b></span><span class="upx-buy">바로 구매하기</span></div>
+                  <div class="upx-plist miss">
+                    <div class="upx-pl"><img src="assets/beauty/17_7_GLOW FIT CUSHION.png" alt=""><div class="upx-plc"><span class="upx-plnm">글로우 핏 쿠션 SPF40</span><span class="upx-plsub"><em>메이크업 쿠션</em>앰플과 연결되는 촉촉 광채 메이크업</span></div></div>
+                    <div class="upx-pl"><img src="assets/beauty/17_8_AQUA HYALURON MIST.png" alt=""><div class="upx-plc"><span class="upx-plnm">아쿠아 히알루론 미스트</span><span class="upx-plsub"><em>페이스 미스트</em>휴대 수분 보충 가벼운 상품</span></div></div>
+                    <div class="upx-pl"><img src="assets/beauty/17_9_PEPTIDE LIFTING EYE CREAM.png" alt=""><div class="upx-plc"><span class="upx-plnm">펩타이드 리프팅 아이크림</span><span class="upx-plsub"><em>아이케어</em>탄력·주름까지 확장 기능성</span></div></div>
+                  </div>
+                  <div class="upx-shadd"><span class="upx-setlb">놓친 상품 3종 <s>29,600</s> <em>10%↓</em> 26,600원</span><button class="upx-addbtn a3"><span class="t1">＋ 3종 담기</span><span class="t2">✓</span></button></div>
+                  <div class="upx-shfoot"><span class="upx-shtot">결제 예정 <b>92,700원</b></span><span class="upx-buy">바로 구매하기</span></div>
                 </div>
               </div>
-              <span class="upx-cursor"></span>
+              <div class="up1-cta">
+                <button class="cl-start" data-act><span class="cl-lb">상세페이지 둘러보기</span></button>
+                <span class="cl-cursor"></span>
+              </div>
+              <div class="upx-done">
+                <div class="upx-done-in">
+                  <div class="upx-done-ic">✓</div>
+                  <span class="upx-done-t">주문 완료</span>
+                  <span class="upx-done-s">상품 4개가 정상적으로 결제되었어요</span>
+                  <div class="upx-done-amt"><span>결제 금액</span><b>119,300원</b></div>
+                  <div class="upx-done-items">
+                    <span>비타 글로우 앰플 · 추천 루틴 3종</span>
+                    <span>함께 산 3종 · 놓친 상품 3종</span>
+                  </div>
+                  <p class="upx-done-th">클릭 한 번에 장바구니가 4배 커졌어요.<br>알파업셀과 함께한 첫 업셀, 감사합니다 🙌</p>
+                </div>
+              </div>
             </div>
           </div>
           <div class="upx-side">
             <div class="upx-aov">
               <div class="upx-aovh">객단가 <span>담을 때마다 실시간으로</span></div>
-              <div class="upx-aovnum">₩<b class="cnt" data-from="16900" data-to="185500" data-fmt="num" data-delay="600">16,900</b><i class="upx-aovup">▲</i></div>
-              <div class="upx-aovbar"><i style="--h:16%"></i><i style="--h:46%"></i><i style="--h:74%"></i><i style="--h:100%"></i></div>
+              <div class="upx-aovnum">₩<b class="upx-aovval">22,900</b><i class="upx-aovup">▲</i><i class="upx-delta"></i></div>
+              <div class="upx-aovbar"><i style="--h:20%"></i><i style="--h:48%"></i><i style="--h:76%"></i><i style="--h:100%"></i></div>
+              <div class="upx-cnttag">담긴 상품 <b class="upx-cnt">1</b>개<i class="upx-cntx">×4</i></div>
               <div class="upx-cartlist">
-                <div class="upx-ci c0"><span>하트 젤리 글로우 립밤</span><b>16,900</b></div>
-                <div class="upx-ci c1"><span>＋ 인기 컬러 3종 세트</span><b>+33,800</b></div>
-                <div class="upx-ci c2"><span>＋ 쿨톤 립밤 듀오</span><b>+33,800</b></div>
-                <div class="upx-ci c3"><span>＋ 놓친 상품 다시 담기</span><b>+28,800</b></div>
+                <div class="upx-ci c0"><span>비타 글로우 앰플</span><b>22,900</b></div>
+                <div class="upx-ci c1"><span>＋ 추천 루틴 3종</span><b>+37,800</b></div>
+                <div class="upx-ci c2"><span>＋ 함께 산 3종</span><b>+32,000</b></div>
+                <div class="upx-ci c3"><span>＋ 놓친 상품 3종</span><b>+26,600</b></div>
               </div>
             </div>
             <div class="upx-fan">
@@ -20673,66 +22062,81 @@
             </div>
           </div>
         </div>
-        <button class="cmp-replay" type="button">↻ 다시 보기</button>
+        <span class="upx-go"></span>
+        <button class="cmp-replay" type="button" title="다시 보기" aria-label="다시 보기">↻</button>
       </div>`,
 
       up2: `<div class="sc up2s">
-        <div class="pw-head">
-          <div class="pw-headtx">
-            <span class="pw-eyebrow">가격은 감이 아니라 <b>테스트로</b> — 매출이 오르는 최적가를 AI가 찾아 적용해요</span>
-          </div>
-        </div>
         <div class="uax">
           <div class="uax-intro">
-            <img src="assets/upsell/promo_method.png" alt="누구에게 어떤 방식으로 프로모션할까요?">
-            <div class="uax-introcta"><button class="cl-start" data-act><span class="cl-lb">다다익선 할인 테스트 돌려보기</span></button><span class="cl-cursor"></span></div>
-          </div>
-          <div class="uax-step s1">
-            <div class="uax-sh"><span class="uax-n">1</span>프로모션 대상·방식 선택</div>
-            <div class="uax-aud"><span class="uax-audh">👥 대상 오디언스</span><span class="uax-audv">재방문 · 장바구니 보유 고객</span></div>
-            <div class="uax-methlist">
-              <div class="uax-meth">🏷 단순 할인</div>
-              <div class="uax-meth m-sel">📈 다다익선 할인<i class="uax-mck">✓</i></div>
-              <div class="uax-meth">🎁 사은품 증정</div>
-              <div class="uax-meth">⏰ FOMO 할인</div>
+            <div class="uax-setup">
+              <div class="uax-method">
+                <div class="uax-mhead">
+                  <span class="uax-mtitle">누구에게 프로모션을 적용할까요?</span>
+                  <span class="uax-mtoggle">고급 오디언스 설정<i></i></span>
+                </div>
+                <div class="uax-mgrid">
+                  <div class="uax-mcard"><span class="uax-mic">🏷</span><div class="uax-mtx"><b>단순 할인</b><em>특정·전체 상품에 즉시 할인</em></div></div>
+                  <div class="uax-mcard pick"><span class="uax-mck">✓</span><span class="uax-mic">📈</span><div class="uax-mtx"><b>다다익선 할인</b><em>개수·금액이 늘수록 할인 폭이 커지는 계단형</em></div></div>
+                  <div class="uax-mcard"><span class="uax-mic">🎁</span><div class="uax-mtx"><b>사은품 증정</b><em>구매 조건 충족 시 사은품 지급</em></div></div>
+                  <div class="uax-mcard"><span class="uax-mic">⏰</span><div class="uax-mtx"><b>FOMO 할인</b><em>방문 횟수 기준 단계별 할인</em></div></div>
+                  <div class="uax-mcard"><span class="uax-mic">🔒</span><div class="uax-mtx"><b>시크릿 할인</b><em>특정 시간 즉시 할인</em></div></div>
+                  <div class="uax-mcard"><span class="uax-mic">🛒</span><div class="uax-mtx"><b>장바구니 페이지 할인</b><em>장바구니 이탈 시 할인 노출</em></div></div>
+                </div>
+              </div>
+              <div class="uax-plan">
+                <div class="uax-aud">
+                  <span class="uax-audh">👥 대상 오디언스</span>
+                  <span class="uax-audv">재방문 · 장바구니 보유 고객</span>
+                  <div class="uax-audmeta"><span class="uax-audchip">예상 도달 3,240명</span><span class="uax-audchip">장바구니 보유 68%</span></div>
+                </div>
+                <div class="uax-stair">
+                  <span class="uax-stairh">📈 계단형 할인 구조</span>
+                  <div class="uax-stairviz">
+                    <div class="uax-stz" style="--sh:40%"><b>5%</b><i></i><span>1개</span></div>
+                    <div class="uax-stz" style="--sh:68%"><b>10%</b><i></i><span>2개</span></div>
+                    <div class="uax-stz" style="--sh:100%"><b>15%</b><i></i><span>3개+</span></div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="uax-methcap">개수·금액이 늘수록 할인 폭이 커지는 계단형 방식</div>
+            <div class="uax-introcta"><button class="cl-start" data-act><span class="cl-lb">이 설정으로 A/B/N 테스트 돌려보기</span></button><span class="cl-cursor"></span></div>
+            <span class="uax-go"></span>
           </div>
-          <div class="uax-arrow a1"><i></i></div>
-          <div class="uax-step s2">
-            <div class="uax-sh"><span class="uax-n">2</span>A/B/C 가격 테스트</div>
-            <div class="uax-vars">
-              <div class="uax-v va" style="--tw:13%"><div class="uax-vprev"><img src="assets/upsell/promo_a.png" alt=""></div><div class="uax-vtop"><span class="uax-vt">A</span><b>+5,000원 할인</b></div><div class="uax-vbar"><i></i></div><span class="uax-vtr">트래픽 13%</span></div>
-              <div class="uax-v vb win" style="--tw:74%"><div class="uax-vprev"><img src="assets/upsell/promo_b.png" alt=""></div><div class="uax-vtop"><span class="uax-vt">B</span><b>+10,000원 할인</b><span class="uax-vwin">최적</span></div><div class="uax-vbar"><i></i></div><span class="uax-vtr">트래픽 <b>74%</b></span></div>
-              <div class="uax-v vc" style="--tw:13%"><div class="uax-vprev"><img src="assets/upsell/promo_c.png" alt=""></div><div class="uax-vtop"><span class="uax-vt">C</span><b>+15,000원 할인</b></div><div class="uax-vbar"><i></i></div><span class="uax-vtr">트래픽 13%</span></div>
+          <div class="uax-flow">
+            <div class="uax-step s2">
+              <div class="uax-sh"><span class="uax-n">1</span>다다익선 프로모션 A/B/N 테스트</div>
+              <div class="uax-vars">
+                <div class="uax-v va" style="--tw:13%"><div class="uax-vtop"><span class="uax-vt">A</span><b>+5,000원 할인</b><span class="uax-vcv">전환 2.1%</span></div><div class="uax-vrow"><div class="uax-vbar"><i></i></div><span class="uax-vtr">트래픽 13%</span></div></div>
+                <div class="uax-v vb win" style="--tw:74%"><div class="uax-vtop"><span class="uax-vt">B</span><b>+10,000원 할인</b><span class="uax-vcv">전환 4.6%</span><span class="uax-vwin">최적</span></div><div class="uax-vrow"><div class="uax-vbar"><i></i></div><span class="uax-vtr">트래픽 <b>74%</b></span></div></div>
+                <div class="uax-v vc" style="--tw:13%"><div class="uax-vtop"><span class="uax-vt">C</span><b>+15,000원 할인</b><span class="uax-vcv">전환 2.4%</span></div><div class="uax-vrow"><div class="uax-vbar"><i></i></div><span class="uax-vtr">트래픽 13%</span></div></div>
+              </div>
+              <div class="uax-testing"><i class="uax-spin"></i>B 구간 전환·매출 최고 — 트래픽 집중</div>
+              <div class="uax-preview">
+                <div class="uax-pvframe"><img class="uax-pvimg" src="assets/upsell/promo_b.png" alt="B안 할인 팝업 미리보기"></div>
+                <div class="uax-pvtx">
+                  <span class="uax-pvtag">🎯 B안 최적가</span>
+                  <span class="uax-pvd">구매 직전 고객에게 이렇게 노출돼요</span>
+                </div>
+              </div>
             </div>
-            <div class="uax-testing"><i class="uax-spin"></i>B 구간 전환·매출 최고 — 트래픽 집중</div>
-          </div>
-          <div class="uax-arrow a2"><i></i></div>
-          <div class="uax-step s3">
-            <div class="uax-sh"><span class="uax-n">3</span>최적 구간 확인 후 적용</div>
-            <div class="uax-plot">
-              <div class="uax-b va"><span class="uax-bv">88만</span><div class="uax-bfill"></div><span class="uax-bl">A · 5천</span></div>
-              <div class="uax-b vb win"><span class="uax-bwin">최고</span><span class="uax-bv">132만</span><div class="uax-bfill"></div><span class="uax-bl">B · 1만</span></div>
-              <div class="uax-b vc"><span class="uax-bv">104만</span><div class="uax-bfill"></div><span class="uax-bl">C · 1.5만</span></div>
+            <div class="uax-arrow a2"><i></i></div>
+            <div class="uax-step s3">
+              <div class="uax-sh"><span class="uax-n">2</span>최적 구간 확인 후 적용</div>
+              <div class="uax-plot">
+                <div class="uax-b va"><span class="uax-bv">88만</span><div class="uax-bfill"></div><span class="uax-bl">A · 5천</span></div>
+                <div class="uax-b vb win"><span class="uax-bwin">최고</span><span class="uax-bv">132만</span><div class="uax-bfill"></div><span class="uax-bl">B · 1만</span></div>
+                <div class="uax-b vc"><span class="uax-bv">104만</span><div class="uax-bfill"></div><span class="uax-bl">C · 1.5만</span></div>
+              </div>
+              <div class="uax-plotcap">많이 깎는다고 매출이 크지 않아요 — <b>최적가는 B</b></div>
+              <div class="uax-apply"><span class="uax-win">✦ B(+10,000원) 최적가</span><span class="uax-traf">트래픽 <b>74%</b> 자동 집중 ✓</span></div>
             </div>
-            <div class="uax-plotcap">많이 깎는다고 매출이 크지 않아요 — <b>최적가는 B</b></div>
-            <div class="uax-apply"><span class="uax-win">✦ B(+10,000원) 최적가</span><span class="uax-traf">트래픽 <b>74%</b> 자동 집중 ✓</span></div>
           </div>
         </div>
         <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
       up3: `<div class="sc up3">
-        <div class="pw-head">
-          <div class="pw-headtx">
-            <span class="pw-eyebrow">객단가·판매 개수가 오르니 <b>총매출이 올라요</b> — 다음 성장은 숫자가 알려줘요</span>
-          </div>
-          <div class="ps-cta">
-            <button class="cl-start" data-act><span class="cl-lb">성과·다음 액션 보기</span></button>
-            <span class="cl-cursor"></span>
-          </div>
-        </div>
         <div class="u3x">
           <div class="u3x-before">
             <div class="u3xb-field"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2" class="win"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6" class="win"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13" class="win"></i><i style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19" class="win"></i><i style="--i:20"></i><i style="--i:21"></i><i style="--i:22"></i><i style="--i:23"></i><i style="--i:24" class="win"></i><i style="--i:25"></i><i style="--i:26"></i><i style="--i:27"></i><i style="--i:28"></i><i style="--i:29"></i><i style="--i:30" class="win"></i><i style="--i:31"></i><i style="--i:32"></i><i style="--i:33"></i><i style="--i:34"></i><i style="--i:35" class="win"></i><i style="--i:36"></i><i style="--i:37"></i><i style="--i:38"></i><i style="--i:39"></i><i style="--i:40"></i><i style="--i:41" class="win"></i><i style="--i:42"></i><i style="--i:43"></i><i style="--i:44"></i><i style="--i:45"></i><i style="--i:46" class="win"></i><i style="--i:47"></i></div>
@@ -20740,7 +22144,11 @@
               <span class="u3xb-eyebrow">🧪 자동 A/B 실험</span>
               <div class="u3xb-h">추천 상품·위젯 자리·가격·문구<br><b>수많은 조합</b>을 자동으로 실험했어요</div>
               <div class="u3xb-s">어떤 조합이 <b>가장 잘 팔리는지</b> 알파업셀이 쉬지 않고 테스트했어요.</div>
-              <div class="u3xb-hint">버튼을 누르면 그 결과를 숫자로 보여드릴게요 →</div>
+              <div class="u3xb-hint">그 결과를 숫자로 보여드릴게요 ↓</div>
+              <div class="ps-cta">
+                <button class="cl-start" data-act><span class="cl-lb">성과·다음 액션 보기</span></button>
+                <span class="cl-cursor"></span>
+              </div>
             </div>
           </div>
           <div class="u3x-insights">
@@ -20762,7 +22170,7 @@
               </div>
               <div class="u3x-m">
                 <div class="u3x-mt">3. 판매 개수 상승</div>
-                <div class="u3x-md">업셀 프로모션으로 추가 주문된 경우 상품 개수가 <b>2배!</b></div>
+                <div class="u3x-md">업셀 프로모션으로 추가 주문된 경우 상품 개수가 <b>약 1.4배!</b></div>
                 <div class="u3x-bars">
                   <div class="u3x-col" style="--h:55%"><b class="u3x-bv">3.8개</b><div class="u3x-bar base"></div></div>
                   <div class="u3x-col win" style="--h:80%"><span class="u3x-up">+44%</span><b class="u3x-bv">5.5개</b><div class="u3x-bar win"></div></div>
@@ -21038,18 +22446,16 @@
       </div>`,
 
       ps3: `<div class="sc pc-scene">
-        <div class="pw-head">
-          <div class="pw-headtx">
-            <span class="pw-eyebrow">기능을 하나씩 켤수록 <b style="color:#E5344A">경쟁 CRM은 요금이 뛰고,</b> <b style="color:#307AF3">알파푸시는 그대로</b></span>
-          </div>
-          <div class="ps-cta">
-            <button class="cl-start" data-act><span class="cl-lb">기능 하나씩 켜보기</span></button>
-            <span class="cl-cursor"></span>
-          </div>
-        </div>
         <div class="pcx">
           <div class="pcx-feats">
             <div class="pcx-fh">기능 리스트</div>
+            <div class="pcx-ctaslot">
+              <div class="ps-cta">
+                <button class="cl-start" data-act><span class="cl-lb">기능 하나씩 켜보기</span></button>
+                <span class="cl-cursor"></span>
+              </div>
+              <button class="cmp-replay" type="button">↻ 다시 보기</button>
+            </div>
             <div class="pcx-fg">
               <span class="pcx-f"><i class="pcx-ck"></i>🎯 온사이트 세그먼트</span>
               <span class="pcx-f"><i class="pcx-ck"></i>💬 메시지 캠페인 세그먼트</span>
@@ -21067,13 +22473,13 @@
                 <div class="pcx-name o"><b>경쟁 CRM</b><span>시작가 90,000 → 방문 고객 늘수록 → 100만+</span></div>
               </div>
               <div class="pcx-col">
+                <div class="pcx-verdict"><span class="pcx-vk">기능 다 켜도</span><b class="pcx-vv">알파푸시는 그대로</b></div>
                 <div class="pcx-btrack"><div class="pcx-bar u"><span class="pcx-bval"><b>39,000원</b><em>그대로</em></span></div></div>
                 <div class="pcx-name u"><b>알파푸시</b><span>정액 · 전 기능 포함 · 상품·회원 늘어도 동일</span></div>
               </div>
             </div>
           </div>
         </div>
-        <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
       cv1: `<div class="sc cv-roadmap cv-update">
@@ -21099,6 +22505,7 @@
           <div class="ccu-card c3"><div class="ccu-lb"><span class="ccu-n">3</span>메뉴 관리</div><div class="ccu-img"><img src="assets/canvas/canvas_update_3.png" alt=""></div></div>
           <div class="ccu-card c4"><div class="ccu-lb"><span class="ccu-n">4</span>매거진 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_4.png" alt=""></div></div>
           <div class="ccu-card c5"><div class="ccu-lb"><span class="ccu-n">5</span>검색 기능 고도화</div><div class="ccu-img"><img src="assets/canvas/canvas_update_5.png" alt=""></div></div>
+          <div class="ccu-foot"><span class="ccu-foot-ck">✓</span>업데이트 <b>5가지</b> 공개 — 로드맵은 여기서 끝이 아니라 <b>계속</b> 채워져요</div>
           </div>
         </div>
       </div>`,
@@ -21206,26 +22613,26 @@
       </div>`,
 
       cv3: `<div class="sc cv-benefit">
-        <div class="cvb-head">스킨 하나 구매하면 받을 수 있는 <b>3가지 혜택!</b></div>
+        <div class="cvb-head">스킨 하나 구매하면, 시작에 필요한 <b>3가지까지 함께</b></div>
+        <div class="cvb-head2"><b>30만원 상당</b>의 혜택을 바로 받아요</div>
         <div class="cvb-list">
           <div class="cvb-card b1">
             <div class="cvb-cover"><img class="cc-ic" src="assets/gift1.png" alt=""><span class="cc-n">혜택 1</span></div>
             <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-alphaapps.png" alt="AlphaApps"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
             <div class="cvb-t">알파앱스 2개월 무료</div>
-            <div class="cvb-d">알파캔버스 스킨 구매 시 쇼핑몰 필수 앱 <b>리뷰·업셀·푸시</b> 3개 제품 <b>2개월 무료 쿠폰</b>을 제공해요.</div>
+            <div class="cvb-d">필수 앱 <b>리뷰·업셀·푸시</b>를 <b>2개월 무료</b>로 써보세요.</div>
           </div>
           <div class="cvb-card b2">
             <div class="cvb-cover"><img class="cc-ic" src="assets/gift2.png" alt=""><span class="cc-n">혜택 2</span></div>
             <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-tosspay.png" alt="tosspay"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
             <div class="cvb-t">토스페이 도입 혜택</div>
-            <div class="cvb-d">토스페이 <b>도입 비용 0원</b>, 결제 <b>수수료 인하</b> 혜택까지 함께 제공해요.</div>
+            <div class="cvb-d"><b>도입 비용 0원</b>, 결제 <b>수수료까지 인하</b>해 드려요.</div>
           </div>
           <div class="cvb-card b3">
             <div class="cvb-cover"><img class="cc-ic" src="assets/gift3.png" alt=""><span class="cc-n">혜택 3</span></div>
             <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-saveoffice.png" alt="saveoffice"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
             <div class="cvb-t">비상주사무실 최대 30% 할인</div>
-            <div class="cvb-d">사업자 등록 전이라도, 주소지로 쓸 수 있는 <b>비상주사무실</b>을 <b>최대 30% 할인</b>가로 이용해요.</div>
-
+            <div class="cvb-d">사업자 등록 전에도 쓰는 사업장 주소, <b>최대 30% 할인</b>.</div>
           </div>
         </div>
         <div class="crm-cta cvb-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">도입 혜택 받기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
@@ -21956,6 +23363,8 @@
           if (sc.classList.contains('ps-wall')) seqWall(sc);
           if (sc.classList.contains('pc-scene')) seqPcx(sc);
           if (sc.classList.contains('up1s')) scrollUpx(sc);
+          if (sc.classList.contains('up2s')) seqUp2(sc);
+          if (sc.classList.contains('rv2s')) seqRv2(sc);
         });
       });
       // '레시피 시작'은 유저가 직접 클릭 (자동 실행 없음)
@@ -21969,20 +23378,217 @@
       const _dn = $('dtNext'); if (_dn) _dn.textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
     }
 
-    /* up1(상세페이지 위젯) — 클릭 후 폰 페이지를 위젯마다 멈추며 native 스크롤(수동 스크롤도 가능) */
+    /* rv2(AI 리뷰 대응) — AI 답글을 한 글자씩 스트리밍한 뒤, 부정 리뷰 행을 '대응 완료'로 전환 */
+    function seqRv2(sc) {
+      const reply = sc.querySelector('.ai-reply');
+      const tx = sc.querySelector('.ar-tx');
+      const caret = tx && tx.querySelector('.ar-caret');
+      const neg = sc.querySelector('.rvi-row.neg');
+      const flag = neg && neg.querySelector('.flag');
+      if (!tx || !reply || !caret) return;
+      const full = tx.dataset.full || '';
+      // 초기화(리플레이 대비)
+      clearTimeout(sc._rvT);
+      reply.classList.remove('typed');
+      if (neg) neg.classList.remove('resolved');
+      if (flag) { flag.classList.remove('done'); flag.textContent = '⚠ 부정 감지'; }
+      const tn = document.createTextNode('');
+      tx.insertBefore(tn, caret);
+      let i = 0;
+      const alive = () => sc.isConnected && sc.classList.contains('on');
+      const type = () => {
+        if (!alive()) return;
+        if (i <= full.length) {
+          tn.data = full.slice(0, i);
+          i++;
+          sc._rvT = setTimeout(type, 26);
+        } else {
+          reply.classList.add('typed');   // 캐럿 숨김 + 완료 태그 등장
+          sc._rvT = setTimeout(() => {
+            if (!alive()) return;
+            if (flag) { flag.textContent = '✓ 대응 완료'; flag.classList.add('done'); }
+            if (neg) neg.classList.add('resolved');
+          }, 300);
+        }
+      };
+      sc._rvT = setTimeout(type, 360);   // sc-result 페이드 이후 시작
+    }
+
+    /* up2(가격 테스트) — 단일 커서가 CTA에서 '다다익선 할인' 카드로 이동·탭 → 카드 선택(is-picked).
+       그 뒤 CSS(uax-intro 페이드 1.05s / step 1.2s~)가 이어받아 3-스텝 플로우 재생 */
+    function seqUp2(sc) {
+      const go = sc.querySelector('.uax-go');
+      const card = sc.querySelector('.uax-mcard.pick');
+      const cta = sc.querySelector('.uax-introcta .cl-start');
+      if (!go || !card) return;
+      const scale = () => (sc.getBoundingClientRect().width / sc.offsetWidth) || 1;
+      const placeAt = (t, dur) => {
+        if (!t) return;
+        const b = sc.getBoundingClientRect(), r = t.getBoundingClientRect(), k = scale();
+        const x = (r.left + r.width / 2 - b.left) / k - 8;
+        const y = (r.top + r.height / 2 - b.top) / k - 6;
+        go.style.transition = dur ? `left ${dur}ms cubic-bezier(.4,0,.2,1), top ${dur}ms cubic-bezier(.4,0,.2,1)` : 'none';
+        go.style.left = Math.round(x) + 'px';
+        go.style.top = Math.round(y) + 'px';
+      };
+      const alive = () => sc.isConnected && sc.classList.contains('on');
+      placeAt(cta || card, 0);           // 커서 시작 위치 = CTA
+      requestAnimationFrame(() => {
+        setTimeout(() => { if (alive()) placeAt(card, 520); }, 140);   // 카드로 활강
+        setTimeout(() => { if (alive()) { go.classList.add('tap'); card.classList.add('is-picked'); } }, 720); // 도착·탭·선택
+      });
+    }
+
+    /* up1(상세페이지 위젯) — 단일 커서가 CTA에서 폰으로 이동, 위젯마다 스크롤을 멈추고 탭.
+       탭 순간 u-hit1~3 클래스로 [담김 버튼 팝 + 객단가 행·막대 + 델타 플래시]가 한 박자에 터지게 구동 */
     function scrollUpx(sc) {
       const el = sc.querySelector('.upx-scroll');
+      const go = sc.querySelector('.upx-go');
       if (!el) return;
-      const off = t => (t ? Math.max(0, t.offsetTop - 44) : null);
-      const stops = [off(sc.querySelector('.wg1')), off(sc.querySelector('.vg-sec')), off(sc.querySelector('.wg2')), el.scrollHeight].filter(v => v !== null);
-      let i = 0;
-      const step = () => {
-        if (!sc.isConnected || !sc.classList.contains('on') || i >= stops.length) return;
-        el.scrollTo({ top: stops[i], behavior: 'smooth' });
-        i++;
-        setTimeout(step, 1500);
+      sc.querySelectorAll('.upx-fly').forEach(n => n.remove());   // 재생 대비 잔여 칩 정리
+      const alive = () => sc.isConnected && sc.classList.contains('on');
+      const at = (ms, fn) => setTimeout(() => { if (alive()) fn(); }, ms);
+      const scale = () => (sc.getBoundingClientRect().width / sc.offsetWidth) || 1;
+      // 이동도 rAF로 — 이전 위치→새 위치 easeInOut 활강 (glide·카운트와 같은 시간축)
+      const move = (x, y, dur) => {
+        if (!go) return;
+        const x1 = parseFloat(go.style.left) || 0, y1 = parseFloat(go.style.top) || 0;
+        const x2 = Math.round(x), y2 = Math.round(y);
+        if (go._mv) cancelAnimationFrame(go._mv);
+        if (!dur) { go.style.left = x2 + 'px'; go.style.top = y2 + 'px'; return; }
+        const t0 = performance.now();
+        (function tick(t) {
+          if (!sc.isConnected) return;
+          const p = Math.max(0, Math.min(1, (t - t0) / dur));
+          const e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+          go.style.left = (x1 + (x2 - x1) * e) + 'px';
+          go.style.top = (y1 + (y2 - y1) * e) + 'px';
+          if (p < 1) go._mv = requestAnimationFrame(tick);
+        })(t0);
       };
-      setTimeout(step, 900);
+      // 커서 팁을 target 중심으로 — 씬 좌표계 기준(스테이지 스케일 보정)
+      const moveTo = (sel, dur, dx = 0, dy = 0) => {
+        const t = sc.querySelector(sel);
+        if (!t || !go) return;
+        const b = sc.getBoundingClientRect(), r = t.getBoundingClientRect(), k = scale();
+        move((r.left + r.width / 2 - b.left) / k - 8 + dx, (r.top + r.height / 2 - b.top) / k - 6 + dy, dur);
+      };
+      // 스크롤 대상 버튼은 도착 시점 좌표를 해석적으로 계산 — 스크롤 진행 상태와 무관하게 정확
+      const view = sc.querySelector('.upx-view');
+      const moveToBtn = (sel, scrollY, dur) => {
+        const t = sc.querySelector(sel);
+        if (!t || !go || !view) return;
+        const b = sc.getBoundingClientRect(), vr = view.getBoundingClientRect(), k = scale();
+        move(
+          (vr.left - b.left) / k + t.offsetLeft + t.offsetWidth / 2 - 8,
+          (vr.top - b.top) / k + t.offsetTop - scrollY + t.offsetHeight / 2 - 6,
+          dur
+        );
+      };
+      const tap = () => {
+        if (!go) return;
+        go.classList.remove('tap');
+        void go.offsetWidth;
+        go.classList.add('tap');
+      };
+      // 객단가 — 탭마다 구간 카운트업 + 숫자 펌프 + '+₩' 델타
+      const num = sc.querySelector('.upx-aovval'), numWrap = sc.querySelector('.upx-aovnum'), delta = sc.querySelector('.upx-delta');
+      const bump = (from, to) => {
+        if (delta) { delta.textContent = '+' + (to - from).toLocaleString('ko-KR'); delta.classList.remove('pop'); void delta.offsetWidth; delta.classList.add('pop'); }
+        if (numWrap) { numWrap.classList.remove('pump'); void numWrap.offsetWidth; numWrap.classList.add('pump'); }
+        if (!num) return;
+        const t0 = performance.now(), dur = 560;
+        (function tick(t) {
+          if (!sc.isConnected) return;
+          const p = Math.max(0, Math.min(1, (t - t0) / dur)), e = 1 - Math.pow(1 - p, 3);
+          num.textContent = Math.round(from + (to - from) * e).toLocaleString('ko-KR');
+          if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+      };
+      const pop = t => { if (!t) return; t.classList.remove('upx-pop'); void t.offsetWidth; t.classList.add('upx-pop'); };
+      const off = t => (t ? Math.max(0, t.offsetTop - 44) : 0);
+      // 담긴 상품 수 — 탭마다 1→4로 증가 + 팝
+      const cnt = sc.querySelector('.upx-cnt');
+      const setCnt = n => { if (cnt) { cnt.textContent = n; pop(cnt); } };
+      // 플라이 — 탭한 버튼 중심에서 오른쪽 장바구니 행으로 가격 칩이 살짝 아치를 그리며 날아간다.
+      // 좌표는 커서(moveTo)와 동일하게 씬 rect·스케일 보정. 도착 시 행에 착지 파동, 노드 제거.
+      const fly = (fromSel, toSel, label) => {
+        const from = sc.querySelector(fromSel), to = sc.querySelector(toSel);
+        if (!from || !to || !sc.isConnected) return;
+        const b = sc.getBoundingClientRect(), k = scale();
+        const fr = from.getBoundingClientRect(), tr = to.getBoundingClientRect();
+        const x1 = (fr.left + fr.width / 2 - b.left) / k, y1 = (fr.top + fr.height / 2 - b.top) / k;
+        const x2 = (tr.left + tr.width / 2 - b.left) / k, y2 = (tr.top + tr.height / 2 - b.top) / k;
+        const chip = document.createElement('div');
+        chip.className = 'upx-fly';
+        chip.textContent = label;
+        chip.style.transform = 'translate(' + x1 + 'px, ' + y1 + 'px) translate(-50%, -50%) scale(1)';
+        chip.style.opacity = '0';
+        sc.appendChild(chip);
+        const dur = 620, arc = 60, t0 = performance.now();
+        (function tick(t) {
+          if (!sc.isConnected) { chip.remove(); return; }
+          const p = Math.max(0, Math.min(1, (t - t0) / dur));
+          const e = 1 - Math.pow(1 - p, 3);
+          const cx = x1 + (x2 - x1) * e;
+          const cy = y1 + (y2 - y1) * e - Math.sin(p * Math.PI) * arc;   // 완만한 아치
+          const s = 1 - .28 * e;
+          chip.style.transform = 'translate(' + cx + 'px, ' + cy + 'px) translate(-50%, -50%) scale(' + s + ')';
+          chip.style.opacity = p < .12 ? (p / .12) : (p > .84 ? Math.max(0, 1 - (p - .84) / .16) : 1);
+          if (p < 1) requestAnimationFrame(tick);
+          else { chip.remove(); to.classList.remove('land'); void to.offsetWidth; to.classList.add('land'); }
+        })(t0);
+      };
+      // 스크롤도 rAF로 구동 — 정확한 시점에 끝나 커서 좌표 측정과 어긋나지 않게 (easeInOut, 실제 브라우징 느낌)
+      el.style.scrollBehavior = 'auto';
+      const glide = (toY, dur) => {
+        const from = el.scrollTop, d = Math.min(toY, el.scrollHeight - el.clientHeight) - from, t0 = performance.now();
+        (function tick(t) {
+          if (!sc.isConnected) return;
+          const p = Math.max(0, Math.min(1, (t - t0) / dur));
+          const e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+          el.scrollTop = from + d * e;
+          if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+      };
+      // 출발 — 폰 하단 '상세페이지 둘러보기' 버튼 자리에서 그대로 이어받아 출발 (커서는 하나 · 점프 없음)
+      if (go) {
+        const btn = sc.querySelector('.up1-cta .cl-start');
+        if (btn) {
+          const b = sc.getBoundingClientRect(), r = btn.getBoundingClientRect(), k = scale();
+          move((r.left + r.width / 2 - b.left) / k - 8, (r.top + r.height / 2 - b.top) / k - 6, 0);
+        }
+      }
+      /* 1탭 — 구매버튼 상단 위젯(wg1) 담기 */
+      at(200, () => { glide(off(sc.querySelector('.wg1')), 640); moveTo('.upx-screen', 700, 0, -60); });
+      at(900, () => moveTo('.upx-addbtn.a1', 460));
+      at(1440, () => { tap(); fly('.upx-addbtn.a1', '.upx-ci.c1', '+37,800'); });
+      at(1560, () => { sc.classList.add('u-hit1'); bump(22900, 60700); setCnt(2); });
+      /* 본문 훑기 — 탭 없는 브라우징 비트 */
+      at(2500, () => { glide(off(sc.querySelector('.vg-sec')), 800); moveTo('.upx-screen', 900, 100, 40); });
+      /* 2탭 — 본문 하단 위젯(wg2) 담기 */
+      at(3900, () => glide(off(sc.querySelector('.wg2')), 700));
+      at(4700, () => moveTo('.upx-addbtn.a2', 460));
+      at(5240, () => { tap(); fly('.upx-addbtn.a2', '.upx-ci.c2', '+32,000'); });
+      at(5360, () => { sc.classList.add('u-hit2'); bump(60700, 92700); setCnt(3); });
+      /* 3탭 — 장바구니 시트의 놓친 상품 담기 */
+      at(6300, () => { glide(el.scrollHeight, 700); sc.classList.add('u-sheet'); });
+      at(7100, () => moveTo('.upx-addbtn.a3', 460));
+      at(7640, () => { tap(); fly('.upx-addbtn.a3', '.upx-ci.c3', '+26,600'); });
+      at(7760, () => {
+        sc.classList.add('u-hit3');
+        bump(92700, 119300);
+        setCnt(4);
+        const n = sc.querySelector('.upx-sheeth .n'), tot = sc.querySelector('.upx-shtot b');
+        if (n) { n.textContent = '4'; pop(n); }
+        if (tot) { tot.textContent = '119,300원'; pop(tot); }
+      });
+      /* 결 — 12종 팬 펼침 (커서는 유지 · 구매 탭까지 이어감) */
+      at(8600, () => { sc.classList.add('u-done'); });
+      /* 구매 — 커서가 '바로 구매하기'로 활강 후 탭 → 주문 완료 화면 등장 */
+      at(8900, () => moveTo('.upx-buy', 520));
+      at(9400, () => { tap(); const bb = sc.querySelector('.upx-buy'); if (bb) { bb.classList.remove('press'); void bb.offsetWidth; bb.classList.add('press'); } });
+      at(9700, () => { sc.classList.add('u-buy'); if (go) go.classList.add('bye'); });
     }
 
     /* ps3(요금 비교) — 기능을 한 칸씩 또렷하게 켜고, 켤 때마다 경쟁 CRM 요금이 계단식으로 훅 상승 · 알파푸시는 39,000 그대로 */
@@ -22004,7 +23610,7 @@
       const fmt = n => n.toLocaleString('en-US');
       feats[0].classList.add('ckd');
       oBar.style.height = steps[0].h + '%';
-      if (oVal) oVal.textContent = fmt(steps[0].v);
+      if (oVal) oVal.textContent = fmt(steps[0].v) + '원 ↑';
       let i = 1;
       const GAP = 640; // 느리고 딱딱 끊기는 스텝
       function step() {
@@ -22016,7 +23622,7 @@
         feats[i].classList.add('ckd');
         const s = steps[i];
         oBar.style.height = s.h + '%';
-        if (oVal) oVal.textContent = fmt(s.v);
+        if (oVal) oVal.textContent = fmt(s.v) + '원 ↑';
         oBar.classList.remove('bump');
         void oBar.offsetWidth;
         oBar.classList.add('bump');
@@ -22026,36 +23632,41 @@
       setTimeout(step, 560);
     }
 
-    /* ps1(전환 장치 벽) — 카드를 하나씩 순차 재생: 한 카드의 애니메이션이 끝나야 다음 카드 시작 */
+    /* ps1(전환 장치 벽) — 한 줄(2칸)씩 동시에 켜서 ~8초 안에 8개 장치가 모두 작동 */
     async function seqWall(sc) {
       const cards = [...sc.querySelectorAll('.pwc')];
-      for (const card of cards) {
-        if (!card.isConnected) return;   // 리플레이로 씬이 새로 그려지면 중단
-        card.classList.add('go');
-        // 재생 중인 카드가 스크롤에 가려지지 않도록 그리드를 해당 카드로 스크롤(아랫줄 c5~c8도 보이게)
-        const grid = sc.querySelector('.pw-grid');
+      const grid = sc.querySelector('.pw-grid');
+      const mtFinished = card => {
+        try {
+          const src = card.querySelector('.pwc-mt') || card;
+          return src.getAnimations({ subtree: true })
+            .filter(a => { try { return a.effect.getTiming().iterations !== Infinity; } catch (e) { return false; } })
+            .map(a => a.finished.catch(() => { }));
+        } catch (e) { return []; }
+      };
+      for (let i = 0; i < cards.length; i += 2) {
+        const batch = cards.slice(i, i + 2);
+        if (batch.some(c => !c.isConnected)) return;   // 리플레이로 씬이 새로 그려지면 중단
+        batch.forEach(c => c.classList.add('go'));
+        // 같은 행 2칸을 동시에 켜므로, 스크롤은 배치 마지막 카드 기준(아랫줄도 함께 보이게)
         if (grid) {
+          const card = batch[batch.length - 1];
           const target = card.offsetTop + card.offsetHeight - grid.clientHeight + 16;
           grid.scrollTop = Math.max(0, target);
         }
         await new Promise(r => setTimeout(r, 60));   // 애니메이션 재개(등록) 대기
-        // 다음 카드는 이 카드의 지표 바(pwc-mt)가 파란색으로 전환 완료되는 순간 시작 — 시선 흐름이 자연스럽게
-        let mtDone = [];
-        try {
-          const src = card.querySelector('.pwc-mt') || card;
-          mtDone = src.getAnimations({ subtree: true })
-            .filter(a => { try { return a.effect.getTiming().iterations !== Infinity; } catch (e) { return false; } })
-            .map(a => a.finished.catch(() => { }));
-        } catch (e) { }
+        // 두 카드의 지표 바(pwc-mt)가 파랑으로 전환 완료되면 다음 행으로
+        const done = batch.flatMap(mtFinished);
         await Promise.all([
-          new Promise(r => setTimeout(r, 320)),                                                    // 카드 최소 노출
-          Promise.race([Promise.all(mtDone), new Promise(r => setTimeout(r, 1900))]),              // pwc-mt 파랑 전환 완료 or 상한
+          new Promise(r => setTimeout(r, 360)),                                       // 최소 노출
+          Promise.race([Promise.all(done), new Promise(r => setTimeout(r, 1500))]),   // pwc-mt 완료 or 상한
         ]);
-        await new Promise(r => setTimeout(r, 40));                                                 // 살짝 더 빠른 짧은 간격
+        await new Promise(r => setTimeout(r, 40));
       }
-      // 전체 재생 완료 → 그리드를 맨 위로 되돌려 전체 카드 벽을 보여줌
-      const grid = sc.querySelector('.pw-grid');
-      if (grid && sc.isConnected) setTimeout(() => { grid.scrollTop = 0; }, 500);
+      // 전체 재생 완료 → 그리드를 맨 위로 되돌리고 완료 요약 노출
+      if (grid && sc.isConnected) setTimeout(() => { grid.scrollTop = 0; }, 400);
+      const lb = sc.querySelector('.pw-head .cl-lb');
+      if (lb && sc.isConnected) lb.textContent = '✓ 8개 전환 장치 모두 작동 중';
     }
 
     /* 캔버스 씬 1 — 상세페이지 원클릭 편집 투어 (기승전결) */
