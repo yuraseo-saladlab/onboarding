@@ -7093,13 +7093,13 @@
 
     .upx-scroll {
       position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
+      inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
       display: flex;
       flex-direction: column;
       padding: 0 12px 12px;
-      will-change: transform;
     }
 
     .upx-hero {
@@ -7493,8 +7493,7 @@
 
     /* --- 오른쪽: 객단가 상승 + 12종 팬 (보조 역할 — 콤팩트하게) --- */
     .upx-side {
-      flex: none;
-      width: 350px;
+      flex: 0 1 350px;
       min-width: 0;
       display: flex;
       flex-direction: column;
@@ -7710,28 +7709,7 @@
       }
     }
 
-    /* ── 시퀀스 (클릭 후) ── */
-    .up1s.on .upx-scroll {
-      animation: upxScroll 4s cubic-bezier(.6, 0, .2, 1) 0s both;
-    }
-
-    @keyframes upxScroll {
-
-      0%,
-      18% {
-        transform: translateY(0);
-      }
-
-      30%,
-      52% {
-        transform: translateY(-232px);
-      }
-
-      100% {
-        transform: translateY(-232px);
-      }
-    }
-
+    /* ── 시퀀스 (클릭 후) — 스크롤은 native + JS(scrollUpx)로 구동 ── */
     .up1s.on .upx-sheet {
       animation: upxSheet .6s cubic-bezier(.3, 1.1, .4, 1) 1.9s both;
     }
@@ -21878,6 +21856,7 @@
           runCounts(stage);
           if (sc.classList.contains('ps-wall')) seqWall(sc);
           if (sc.classList.contains('pc-scene')) seqPcx(sc);
+          if (sc.classList.contains('up1s')) scrollUpx(sc);
         });
       });
       // '레시피 시작'은 유저가 직접 클릭 (자동 실행 없음)
@@ -21889,6 +21868,22 @@
       if (stage.querySelector('.cv1-sc')) initCvDetail(stage);
       const _dp = $('dtPrev'); if (_dp) _dp.disabled = (i === 0);
       const _dn = $('dtNext'); if (_dn) _dn.textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
+    }
+
+    /* up1(상세페이지 위젯) — 클릭 후 폰 페이지를 위젯마다 멈추며 native 스크롤(수동 스크롤도 가능) */
+    function scrollUpx(sc) {
+      const el = sc.querySelector('.upx-scroll');
+      if (!el) return;
+      const off = t => (t ? Math.max(0, t.offsetTop - 44) : null);
+      const stops = [off(sc.querySelector('.wg1')), off(sc.querySelector('.vg-sec')), off(sc.querySelector('.wg2')), el.scrollHeight].filter(v => v !== null);
+      let i = 0;
+      const step = () => {
+        if (!sc.isConnected || !sc.classList.contains('on') || i >= stops.length) return;
+        el.scrollTo({ top: stops[i], behavior: 'smooth' });
+        i++;
+        setTimeout(step, 1500);
+      };
+      setTimeout(step, 900);
     }
 
     /* ps3(요금 비교) — 기능을 한 칸씩 또렷하게 켜고, 켤 때마다 경쟁 CRM 요금이 계단식으로 훅 상승 · 알파푸시는 39,000 그대로 */
