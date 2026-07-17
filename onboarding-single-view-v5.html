@@ -20011,12 +20011,39 @@
         grid-template-columns: 1fr;
       }
 
+      /* 좁은 폭: 좌측 스텝 네비를 상단 가로 탭으로 유지(숨기지 않음) + 스테이지가 나머지 높이 채움 */
       .dt-grid {
         grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
       }
 
-      /* 좁은 폭에서는 좌측 스텝 네비를 숨기고 스테이지(데모)가 전체를 채우게 — 씬이 잘리지 않음 (이동은 하단 이전/다음 버튼) */
       .feat-nav {
+        flex-direction: row;
+        gap: 8px;
+        overflow-x: auto;
+      }
+
+      .feat-nav .fn-item {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 11px 14px;
+      }
+
+      .feat-nav .fn-kicker {
+        margin-bottom: 4px;
+      }
+
+      .feat-nav .fn-title {
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .feat-nav .fn-desc,
+      .feat-nav .fn-chips,
+      .feat-nav .fn-item.on .fn-desc,
+      .feat-nav .fn-item.on .fn-chips {
         display: none;
       }
 
