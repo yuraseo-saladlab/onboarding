@@ -20,6 +20,10 @@
       /* SDS 미대응 — teal 고유 브랜드색 유지 */
       --c-insta: #EC4A7F;
       /* 인스타피드 브랜드색 (핑크) */
+      --scene-frame-max-height: 600px;
+      /* 리뷰·업셀·푸시·캔버스·인스타피드 공통 씬 프레임 높이 상한 */
+      --detail-shell-max-height: 780px;
+      /* 씬 600px + 상단 여백·하단 액션 영역을 포함한 오버레이 높이 상한 */
       --r: 16px;
       --shadow-lg: 0 24px 60px rgba(30, 28, 60, .16);
       --shadow-md: 0 10px 30px rgba(30, 28, 60, .10);
@@ -136,6 +140,7 @@
     ───────────────────────────────────────────── */
     .topbar {
       display: flex;
+      flex: 0 0 auto;
       align-items: center;
       gap: 28px;
       padding: 16px 36px;
@@ -259,72 +264,242 @@
     .info-wrap {
       flex: 1;
       display: grid;
-      grid-template-columns: minmax(380px, 480px) 1fr;
+      /* 히어로 패널이 화면 절반 차지 (반응형 50/50) */
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
       min-height: 0;
+      overflow: hidden;
     }
 
     .info-hero {
-      background: radial-gradient(700px 420px at 20% -10%, rgba(139, 107, 255, .35), transparent 60%), linear-gradient(160deg, var(--sds-bg-inverse-secondary), var(--sds-bg-inverse-primary));
+      /* Figma 334-4278 — 중앙 광원이 퍼지는 짙은 남보라 히어로 */
+      position: relative;
+      isolation: isolate;
+      background:
+        radial-gradient(ellipse 88% 46% at 50% 40%, rgba(76, 32, 186, .24), transparent 64%),
+        radial-gradient(ellipse 62% 28% at 50% 0%, rgba(88, 46, 206, .18), transparent 68%),
+        linear-gradient(180deg, #160544 0%, #080020 100%);
       color: #fff;
-      padding: 56px 44px;
+      padding: clamp(32px, 4vh, 56px) clamp(32px, 4vw, 44px);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 16px;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .info-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: repeating-linear-gradient(124deg, rgba(255, 255, 255, .018) 0, rgba(255, 255, 255, .018) 2px, transparent 2px, transparent 8px);
+      opacity: .24;
+      pointer-events: none;
+    }
+
+    .info-hero>* {
+      position: relative;
+      z-index: 2;
+    }
+
+    .info-hero>h2,
+    .info-hero>.ih-social {
+      width: min(100%, 680px);
+      align-self: center;
     }
 
     .info-hero h2 {
-      font-size: 26px;
+      order: 1;
+      margin: 0;
+      font-size: clamp(24px, 2vw, 30px);
       font-weight: 800;
       letter-spacing: -0.03em;
-      line-height: 1.45;
+      line-height: 1.44;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .ih-title-compact,
+    .ih-br-compact,
+    .ih-social-compact {
+      display: none;
     }
 
     .info-hero .hl {
-      color: #A99CFF;
+      color: #C47CFF;
+      background: linear-gradient(90deg, #D486FF, #A86CFF);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ── 히어로 비주얼 — 3D 카드 콜라주(onboarding-hero 레퍼런스 배치) ──
+       패널 폭이 아니라 화면 높이에 맞춰 스케일하고, 큰 화면에서도 600px을 넘지 않음 */
+    .ih-visual {
+      order: 3;
+      position: relative;
+      flex: 0 2 auto;
+      width: min(100%, 620px, 50dvh);
+      aspect-ratio: 20 / 24;
+      align-self: center;
+      min-height: 0;
+      margin: clamp(8px, 2vh, 24px) 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .ih-visual::before {
+      display: none;
+    }
+
+    .ihv-el {
+      position: absolute;
+      z-index: 2;
+      display: block;
+      filter: drop-shadow(0 18px 30px rgba(0, 0, 0, .38));
+      animation: ihvFloat 5.6s ease-in-out infinite;
+    }
+
+    .ihv-el.e1 {
+      left: 8%;
+      top: 4%;
+      width: 42%;
+      animation-delay: .2s;
+    }
+
+    .ihv-el.e2 {
+      left: 54%;
+      top: 2%;
+      width: 42%;
+      animation-delay: 1.4s;
+    }
+
+    .ihv-el.e3 {
+      left: 34%;
+      top: 30%;
+      z-index: 3;
+      width: 34%;
+      animation-delay: 0s;
+      animation-duration: 6.4s;
+    }
+
+    .ihv-el.e4 {
+      left: 4%;
+      top: 62%;
+      width: 44%;
+      animation-delay: 2.2s;
+    }
+
+    .ihv-el.e5 {
+      left: 54%;
+      top: 60%;
+      width: 42%;
+      animation-delay: 3s;
+    }
+
+    @keyframes ihvFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* ── 부유 구슬(orb) 컴포넌트 — 컬러·사이즈만 바꿔 재사용 ──
+       사용: <span class="orb" style="--oc:#6D58F2; --os:14px; left:…; top:…"></span>
+       입체감: 좌상단 하이라이트 + 자체 컬러 글로우 */
+    .orb {
+      position: absolute;
+      z-index: 4;
+      width: var(--os, 12px);
+      height: var(--os, 12px);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0) 42%),
+        radial-gradient(circle at 68% 76%, color-mix(in srgb, var(--oc, #6D58F2) 55%, #000) 0%, var(--oc, #6D58F2) 60%);
+      box-shadow:
+        0 0 calc(var(--os, 12px) * 2) color-mix(in srgb, var(--oc, #6D58F2) 68%, transparent),
+        inset 0 -2px 4px rgba(0, 0, 0, .3);
+      filter: saturate(1.24) brightness(1.12);
+      animation: ihvFloat 4.8s ease-in-out infinite;
+      animation-delay: var(--od, 0s);
     }
 
     .ih-social {
-      background: rgba(255, 255, 255, .07);
-      border: 1px solid rgba(255, 255, 255, .12);
-      border-radius: 14px;
-      padding: 18px 20px;
-      font-size: 13.5px;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, .75);
+      order: 2;
+      background: rgba(34, 18, 86, .62);
+      border: 2px solid rgba(190, 168, 255, .18);
+      border-radius: 24px;
+      padding: 18px 24px;
+      font-size: 16px;
+      color: rgba(255, 255, 255, .88);
+      text-align: center;
+      box-shadow: inset 0 0 24px rgba(110, 72, 242, .08), 0 16px 32px rgba(2, 0, 18, .16);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .ih-social b {
       color: #fff;
+      font-weight: 800;
+    }
+
+    .ih-social strong {
+      color: #4C9CFF;
+      font-weight: 800;
+    }
+
+    .ih-social-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .ih-social p {
+      margin: 0;
     }
 
     .ih-avs {
       display: flex;
-      margin-bottom: 10px;
+      flex: 0 0 auto;
+      margin: 0;
     }
 
     .ih-av {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      font-size: 11px;
+      font-size: 14px;
       font-weight: 800;
       color: #fff;
-      border: 2px solid var(--sds-bg-inverse-secondary);
-      margin-right: -8px;
+      border: 2px solid rgba(14, 4, 48, .72);
+      margin-right: -10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .24);
     }
 
     .ih-av.a {
-      background: var(--sds-bg-brand);
+      background: linear-gradient(135deg, #B4A8FF, #7564DC);
     }
 
     .ih-av.b {
-      background: var(--sds-bg-info);
+      background: linear-gradient(135deg, #FF6666, #CA2E3E);
     }
 
     .ih-av.c {
-      background: var(--sds-bg-danger);
+      background: linear-gradient(135deg, #58D58A, #148A58);
     }
 
     .ih-av.d {
@@ -335,7 +510,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px;
+      min-width: 0;
+      min-height: 0;
+      padding: clamp(24px, 4vw, 40px);
+      overflow-y: auto;
     }
 
     .form-card {
@@ -753,6 +931,7 @@
       align-self: stretch;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       min-height: 0;
     }
 
@@ -764,8 +943,9 @@
       color: var(--sds-text-primary);
       width: 100%;
       max-width: 1000px;
+      max-height: var(--scene-frame-max-height);
       margin: 0 auto;
-      flex: 1;
+      flex: 0 2 var(--scene-frame-max-height);
       min-height: 0;
       display: flex;
       flex-direction: column;
@@ -1785,7 +1965,7 @@
       transform: translate(-50%, -50%) translateX(152px);
     }
 
-    /* 클릭 후 등장: 좌측 소스 채널 카드 + 연결선 */
+    /* 클릭 후 등장: 흩어진 리뷰보다 먼저 자리를 잡아 흡수 종착점으로 보이게 함 */
     .rvh-sources {
       position: absolute;
       left: 6px;
@@ -1802,7 +1982,7 @@
     }
 
     .hero-pane.played .rvh-sources {
-      animation: srcIn .5s ease .9s both;
+      animation: srcIn .56s ease .18s both;
     }
 
     @keyframes srcIn {
@@ -1821,6 +2001,56 @@
       opacity: 1;
       margin: 0;
       padding: 8px 10px;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+
+    /* 공용 rvs 팝인 대신 컨테이너가 한 번에 등장 — 종착점 좌표가 재생 전부터 고정됨 */
+    .hero-pane.on .rvh-gather .rvh-sources .rvs {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    /* 3개 목적지 그룹만 부드럽게 이어서 한 번씩 강조하고 s3에서 종료 */
+    .hero-pane.played .rvh-gather .rvh-sources .rvs.s1 {
+      animation: rvhGroupReceive .72s ease-in-out 1.00s both;
+    }
+
+    .hero-pane.played .rvh-gather .rvh-sources .rvs.s2 {
+      animation: rvhGroupReceive .72s ease-in-out 1.48s both;
+    }
+
+    .hero-pane.played .rvh-gather .rvh-sources .rvs.s3 {
+      animation: rvhGroupReceive .72s ease-in-out 1.96s both;
+    }
+
+    @keyframes rvhGroupReceive {
+
+      0%,
+      100% {
+        outline-color: transparent;
+        outline-offset: 2px;
+        filter: brightness(100%);
+      }
+
+      26% {
+        outline-color: color-mix(in srgb, var(--sds-bg-brand) 24%, transparent);
+        outline-offset: 2px;
+        filter: brightness(102%);
+      }
+
+      54% {
+        outline-color: color-mix(in srgb, var(--sds-bg-brand) 58%, transparent);
+        outline-offset: 4px;
+        filter: brightness(104%);
+      }
+
+      82% {
+        outline-color: color-mix(in srgb, var(--sds-bg-brand) 20%, transparent);
+        outline-offset: 2px;
+        filter: brightness(102%);
+      }
     }
 
     .rvh-sources .rvx-mcloud {
@@ -1938,19 +2168,33 @@
       object-fit: cover;
     }
 
-    /* 클릭 → 좌측 소스 채널(.rvh-sources)로 이동하며 흡수 */
+    /* 클릭 → 각 리뷰와 대응되는 소스 UI의 실측 위치로 이동하며 흡수 */
     .hero-pane.played .rvh-rc {
-      animation: rcConverge .58s cubic-bezier(.5, .1, .35, 1) var(--d, 0s) both;
+      animation: rcConverge 1.04s cubic-bezier(.42, .12, .22, 1) var(--d, 0s) both;
     }
 
     @keyframes rcConverge {
-      70% {
+      0% {
+        transform: translate(-50%, -50%) translate(var(--x), var(--y)) rotate(var(--r)) scale(1);
+        opacity: 1;
+        filter: blur(0);
+      }
+
+      62% {
+        transform: translate(-50%, -50%) translate(var(--rc-mid-x, -152px), var(--rc-mid-y, 0px)) rotate(0deg) scale(.68);
         opacity: 1;
       }
 
+      82% {
+        transform: translate(-50%, -50%) translate(var(--rc-target-x, -152px), var(--rc-target-y, 0px)) rotate(0deg) scale(.24);
+        opacity: 1;
+        filter: blur(0);
+      }
+
       to {
-        transform: translate(-50%, -50%) translate(-152px, 0px) rotate(0deg) scale(.42);
+        transform: translate(-50%, -50%) translate(var(--rc-target-x, -152px), var(--rc-target-y, 0px)) rotate(0deg) scale(.08);
         opacity: 0;
+        filter: blur(4px);
       }
     }
 
@@ -1997,6 +2241,25 @@
     /* 3번씬 클릭 전: A·B·C사에 흩어진 리뷰 기능 (클릭 시 알파리뷰 전부로 교체) */
     .hp-wg .wg-wallwrap {
       position: relative;
+    }
+
+    /* 하단 페이드 — wallwrap(padding 안쪽) 대신 pane 전체 폭(width 100%)으로:
+       wallwrap 기준이면 pane padding 자리에 페이드가 안 덮여 경계선이 생김 */
+    .hp-wg .wg-wallwrap::after {
+      display: none;
+    }
+
+    .hp-wg::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 90px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 82%);
+      pointer-events: none;
+      z-index: 6;
     }
 
     /* hp-wg: 리뷰 텍스트 별(★) 노랑 통일 */
@@ -2779,36 +3042,36 @@
     }
 
     .hero-pane.played .rvh-panel {
-      animation: lfPop .5s cubic-bezier(.2, 1.3, .4, 1) .48s both;
+      animation: lfPop .48s cubic-bezier(.2, 1.3, .4, 1) 1.20s both;
     }
 
-    /* 수치(누적 리뷰·구매 전환율 등)와 바 차트가 '함께' 시작 — 타이틀은 패널과 별개로 먼저 등장 */
+    /* 리뷰가 소스에 흡수된 뒤 수치와 차트가 함께 시작 */
     .hero-pane.played .rvh-chart i {
-      animation: barGrow .55s cubic-bezier(.3, 1, .4, 1) .72s both;
+      animation: barGrow .56s cubic-bezier(.3, 1, .4, 1) 1.44s both;
     }
 
     .hero-pane.played .rvh-chart i:nth-child(2) {
-      animation-delay: .76s;
+      animation-delay: 1.48s;
     }
 
     .hero-pane.played .rvh-chart i:nth-child(3) {
-      animation-delay: .8s;
+      animation-delay: 1.52s;
     }
 
     .hero-pane.played .rvh-chart i:nth-child(4) {
-      animation-delay: .84s;
+      animation-delay: 1.56s;
     }
 
     .hero-pane.played .rvh-chart i:nth-child(5) {
-      animation-delay: .88s;
+      animation-delay: 1.60s;
     }
 
     .hero-pane.played .rvh-chart i:nth-child(6) {
-      animation-delay: .92s;
+      animation-delay: 1.64s;
     }
 
     .hero-pane.played .rvh-chart i:nth-child(7) {
-      animation-delay: .96s;
+      animation-delay: 1.68s;
     }
 
     /* 상단 진행 필 — 단계가 진행될수록 태그가 자라남 */
@@ -5648,6 +5911,90 @@
       animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.55s both;
     }
 
+    .hero-pane.played .wg.w10 {
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.7s both;
+    }
+
+    .hero-pane.played .wg.w11 {
+      animation: lfPop .5s cubic-bezier(.2, 1.2, .4, 1) 1.85s both;
+    }
+
+    /* AI 자동 답글 — 리뷰 한 줄 + AI 답글 말풍선 */
+    .wg-airep .wa-q {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 8px 10px;
+      border: 1px solid var(--sds-border-default);
+      border-radius: 10px;
+    }
+
+    .wg-airep .wa-q p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--sds-text-secondary);
+    }
+
+    .wg-airep .wa-re {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 6px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--sds-bg-brand) 7%, #fff);
+    }
+
+    .wg-airep .wa-re i {
+      flex: none;
+      font-style: normal;
+      font-size: 10px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--sds-bg-brand);
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
+    .wg-airep .wa-re p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--sds-text-primary);
+    }
+
+    /* 리뷰 필터링 — 조건 칩 + 결과 카운트 */
+    .wg-filter .wf-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .wg-filter .wf-chips span {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--sds-text-secondary);
+      border: 1px solid var(--sds-border-default);
+      border-radius: 100px;
+      padding: 4px 10px;
+    }
+
+    .wg-filter .wf-chips span.on {
+      color: #fff;
+      background: var(--sds-bg-brand);
+      border-color: var(--sds-bg-brand);
+    }
+
+    .wg-filter .wf-note {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--sds-text-tertiary);
+    }
+
+    .wg-filter .wf-note b {
+      color: var(--sds-bg-brand);
+    }
+
     /* 세일즈 티커 */
     .wg-sale {
       display: flex;
@@ -5978,6 +6325,26 @@
       gap: 20px;
     }
 
+    /* 인스타피드 3-B — 추천 앱 4개를 넓은 화면에서 한 줄로 모두 노출 */
+    .pick.is-insta-entry {
+      max-width: 1440px;
+      padding: 32px 40px 136px;
+    }
+
+    .pick.is-insta-entry .pick-head {
+      margin-bottom: 24px;
+    }
+
+    .pick-grid.is-insta-entry {
+      grid-template-columns: repeat(4, minmax(0, 2fr));
+      grid-auto-rows: 2fr;
+      gap: 16px;
+    }
+
+    .pick-grid.is-insta-entry .pc-stage {
+      height: 168px;
+    }
+
     /* DS: Media Card 계열 (데모 이미지 상단 + 본문 + 액션 버튼) */
     .pcard {
       border: 1px solid var(--sds-border-default);
@@ -6037,7 +6404,7 @@
     }
 
     .pc-main {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 800;
       letter-spacing: -0.025em;
       line-height: 1.4;
@@ -6089,10 +6456,6 @@
     /* sds-btn--lg--add (담기 버튼 공용 컴포넌트 사용) */
     .pc-add {
       flex: 1;
-    }
-
-    .pc-add:hover {
-      filter: brightness(1.04);
     }
 
     .pc-add .pc-ck,
@@ -6726,9 +7089,9 @@
     .dt-inner {
       width: 100%;
       max-width: 1560px;
-      /* 화면을 꽉 채우는 풀사이즈 창 — 내부 스크롤로 잘림 없음 */
-      height: calc(100vh - 40px);
-      max-height: calc(100vh - 40px);
+      /* 작은 화면은 뷰포트에 맞추고, 큰 화면은 콘텐츠 높이에서 멈춰 빈 공간 방지 */
+      height: min(calc(100dvh - 40px), var(--detail-shell-max-height));
+      max-height: calc(100dvh - 40px);
       /* 창 자체는 스크롤 안 함 — 헤드 고정 · 그리드만 스크롤 · dt-foot 항상 하단 고정 */
       overflow: hidden;
       background: radial-gradient(1100px 600px at 70% -15%, color-mix(in srgb, var(--dc, #6D58F2) 9%, transparent), transparent 60%), #fff;
@@ -6804,13 +7167,16 @@
 
     .dt-side h2 {
       flex: none;
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 800;
       letter-spacing: -0.02em;
       line-height: 1.32;
     }
 
-    .dt-side h2 b {
+    .dt-side h2 b,
+    .dt-side h2 span {
+      font-size: 28px;
+      font-weight: 800;
       color: var(--dc);
     }
 
@@ -6968,6 +7334,7 @@
       border-radius: 20px;
       box-shadow: 0 16px 40px rgba(30, 28, 60, .16);
       min-height: 440px;
+      max-height: var(--scene-frame-max-height);
       /* 창 높이에 맞춰 스테이지가 늘어남 — 씬이 잘리지 않음 */
       flex: 1 1 auto;
       position: relative;
@@ -7047,12 +7414,6 @@
     .dt-nav-btn:disabled {
       opacity: .3;
       cursor: default;
-    }
-
-    /* sds-btn--lg--neutral-solid (added 상태만 아래 오버라이드) */
-
-    .dt-add:hover {
-      filter: brightness(1.12);
     }
 
     /* 담김 상태는 .sds-btn--add.is-added 공용 컴포넌트가 처리 */
@@ -18349,6 +18710,11 @@
       color: var(--sds-text-inverse-primary);
     }
 
+    .sds-btn--add:not(.is-added):hover {
+      background: var(--add-hover, var(--dc, var(--pc)));
+      filter: none;
+    }
+
     .sds-btn--add.is-added {
       background: #fff;
       border-color: var(--dc, var(--pc));
@@ -22330,7 +22696,7 @@
 
     /* 씬 하단 실데이터 주석 */
     /* ─────────────────────────────────────────────
-       STEP 4 — 위젯 설정 / STEP 5 — 카드 등록
+       STEP 3-C — 리뷰 위젯 설정 / STEP 4 — 카드 등록
     ───────────────────────────────────────────── */
     .setup {
       flex: 1;
@@ -22359,6 +22725,20 @@
       font-size: 13.5px;
       color: var(--sds-text-tertiary);
       margin-top: 8px;
+    }
+
+    .setup-kicker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 4px 12px;
+      margin-bottom: 10px;
+      border-radius: 100px;
+      background: var(--sds-bg-brand-subtle);
+      color: var(--sds-bg-brand);
+      font-size: 12px;
+      font-weight: 800;
     }
 
     .widget-tabs {
@@ -22742,7 +23122,108 @@
     /* ─────────────────────────────────────────────
        반응형 (프로토타입 최소 대응)
     ───────────────────────────────────────────── */
+    @media (max-width: 1280px) {
+      .pick.is-insta-entry {
+        padding: 20px 32px 104px;
+      }
+
+      .pick.is-insta-entry .pick-head {
+        margin-bottom: 16px;
+      }
+
+      .pick-grid.is-insta-entry {
+        grid-template-columns: repeat(2, minmax(0, 2fr));
+      }
+
+      .pick-grid.is-insta-entry .pc-stage {
+        height: 168px;
+      }
+    }
+
+    @media (max-height: 900px) {
+      .pick.is-insta-entry {
+        padding: 16px 32px 104px;
+      }
+
+      .pick.is-insta-entry .pick-head {
+        margin-bottom: 16px;
+      }
+
+      .pick.is-insta-entry .pick-head .ph-sub {
+        display: none;
+      }
+
+      .pick-grid.is-insta-entry .pc-stage {
+        height: 168px;
+      }
+    }
+
+    @media (max-height: 900px) and (min-width: 1082px) {
+      .info-hero {
+        padding: 24px 32px;
+      }
+
+      .info-hero h2 {
+        font-size: 22px;
+      }
+
+      .ih-visual {
+        width: min(100%, 480px, 40dvh);
+        margin: 8px 0;
+      }
+
+      .ih-social {
+        padding: 12px 16px;
+        font-size: 12px;
+      }
+
+      .ih-avs {
+        margin: 0;
+      }
+    }
+
     @media (max-width: 1080px) {
+      .info-wrap {
+        grid-template-columns: minmax(320px, 42%) minmax(0, 58%);
+      }
+
+      .info-form-area {
+        padding: 32px 24px;
+      }
+
+      .info-hero {
+        display: flex;
+        padding: 24px 20px;
+      }
+
+      .info-hero h2 {
+        font-size: 20px;
+        line-height: 1.4;
+      }
+
+      .ih-visual {
+        width: min(100%, 360px, 38dvh);
+        margin: 8px 0;
+      }
+
+      .ih-social {
+        padding: 12px 14px;
+        border-radius: 16px;
+        font-size: 12px;
+      }
+
+      .ih-social-row {
+        gap: 16px;
+        margin-bottom: 4px;
+      }
+
+      .ih-av {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+        margin-right: -8px;
+      }
+
       .hero-inner {
         grid-template-columns: 1fr;
         gap: 32px;
@@ -22791,10 +23272,6 @@
 
       .iapx-livenfo-wrap {
         grid-template-columns: 1fr;
-      }
-
-      .info-hero {
-        display: none;
       }
 
       .done-wrap {
@@ -22852,7 +23329,118 @@
       }
     }
 
+    @media (max-width: 960px) {
+      .info-hero .orb {
+        scale: 72%;
+      }
+
+      .info-wrap {
+        grid-template-columns: 1fr;
+        grid-template-rows: clamp(288px, 32dvh, 320px) minmax(0, 1fr);
+      }
+
+      .info-hero h2 .ih-title-wide {
+        display: none;
+      }
+
+      .info-hero h2 .ih-title-compact {
+        display: inline;
+      }
+
+      .info-hero h2 .ih-br-compact {
+        display: block;
+      }
+
+      .info-hero .ih-social-wide {
+        display: none;
+      }
+
+      .info-hero .ih-social-compact {
+        display: block;
+        white-space: nowrap;
+      }
+
+      .info-hero {
+        display: grid;
+        grid-template-columns: minmax(280px, 4fr) minmax(300px, 6fr);
+        grid-template-rows: auto auto;
+        align-content: center;
+        justify-content: stretch;
+        gap: 16px 32px;
+        padding: 16px 24px;
+      }
+
+      .info-hero h2 {
+        grid-column: 1;
+        grid-row: 1;
+        width: 100%;
+        align-self: end;
+        text-align: left;
+      }
+
+      .info-hero .ih-social {
+        grid-column: 1;
+        grid-row: 2;
+        display: inline-flex;
+        flex-direction: column;
+        gap: 4px;
+        width: fit-content;
+        max-width: 100%;
+        align-self: start;
+        justify-self: start;
+        padding: 12px 16px;
+        text-align: left;
+      }
+
+      .info-hero .ih-social-row {
+        justify-content: flex-start;
+        margin-bottom: 0;
+      }
+
+      .info-hero .ih-visual {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        width: min(100%, 450px);
+        aspect-ratio: 20 / 10;
+        align-self: center;
+        justify-self: center;
+        margin: 0;
+      }
+
+      .info-hero .ihv-el.e1 {
+        left: 0;
+        top: 0;
+      }
+
+      .info-hero .ihv-el.e2,
+      .info-hero .ihv-el.e5 {
+        left: 60%;
+      }
+
+      .info-hero .ihv-el.e2 {
+        top: 0;
+      }
+
+      .info-hero .ihv-el.e3 {
+        left: 34%;
+        top: 30%;
+      }
+
+      .info-hero .ihv-el.e4 {
+        left: -2%;
+        top: 58%;
+      }
+
+      .info-hero .ihv-el.e5 {
+        top: 58%;
+      }
+    }
+
     @media (max-width: 760px) {
+
+      .info-hero {
+        grid-template-columns: minmax(278px, 2fr) minmax(278px, 2fr);
+      }
 
       /* 더 좁아지면 기능 리스트를 최소폭으로 — 비교 플롯에 우선 공간 배분 */
       .pcx-feats {
@@ -22862,6 +23450,17 @@
 
       .pcx-plot {
         padding: 40px 8px 16px;
+      }
+    }
+
+    @media (max-width: 638px) {
+      .info-wrap {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(0, 1fr);
+      }
+
+      .info-hero {
+        display: none;
       }
     }
 
@@ -22875,53 +23474,14 @@
     }
 
     /* ── if1 rebuild: 태그 게시글 수집 → 쇼핑몰 홈 게시 (demo-instafeed) ── */
-    .if1-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex: 0 0 auto;
-      margin-bottom: 12px;
-    }
-
-    .if1-head .if-eyebrow {
-      margin-bottom: 0;
-    }
-
-    .if1-counter {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 6px 12px;
-      border-radius: 100px;
-      background: #F2F2F6;
-      color: var(--sds-text-tertiary);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: -.01em;
-      white-space: nowrap;
-      transition: background .3s ease, color .3s ease;
-    }
-
-    .if1-counter .if1-cnum {
-      font-variant-numeric: tabular-nums;
-      font-weight: 800;
-    }
-
-    .if1s.finish .if1-counter {
-      background: color-mix(in srgb, var(--c-insta) 8%, #fff);
-      color: var(--c-insta);
-      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-insta) 34%, #fff);
-    }
-
-    /* instagram 글리프 (그라디언트 사각 + 흰 링) */
+    /* Instagram 공식 로고 에셋 */
     .if1-ig {
       width: 24px;
       height: 24px;
       flex: 0 0 auto;
       border-radius: 8px;
       position: relative;
-      background: linear-gradient(135deg, #FFC700, #FF6FB0 52%, #D300C5);
+      background: url('assets/logo_Instagram.svg') center / contain no-repeat;
     }
 
     .if1-ig::before {
@@ -22971,6 +23531,11 @@
       height: 6px;
     }
 
+    .if1-ig::before,
+    .if1-ig::after {
+      content: none;
+    }
+
     /* 진행 스테이지 (사이드바 + 폰) */
     .if1-stage {
       flex: 1 1 auto;
@@ -22993,6 +23558,8 @@
 
     /* 사이드바 */
     .if1-side {
+      position: relative;
+      /* play·busy 오버레이 기준 — empty 프레임 영역 센터 */
       flex: 1 1 0;
       min-width: 0;
       display: flex;
@@ -23129,7 +23696,7 @@
     /* 폰 (인스타 소스) */
     .if1-phone {
       flex: 0 0 auto;
-      width: 208px;
+      width: 250px;
       background: #1C1C22;
       border-radius: 26px;
       padding: 8px;
@@ -23272,7 +23839,7 @@
     }
 
     .if1-play .if1-ig {
-      background: rgba(255, 255, 255, .28);
+      background: url('assets/logo_Instagram.svg') center / contain no-repeat;
     }
 
     .if1-play .if1-ig::before {
@@ -23508,16 +24075,20 @@
       z-index: 5;
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
+      gap: 4px;
+      padding: 12px 16px;
       border-radius: 100px;
       background: rgba(26, 26, 30, .88);
       color: #fff;
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 20px;
+      font-weight: 600;
       letter-spacing: -.01em;
       white-space: nowrap;
       opacity: 0;
+    }
+
+    .if1-toast .if1-cnum {
+      font-variant-numeric: tabular-nums;
     }
 
     .if1s.finish .if1-toast {
@@ -23535,6 +24106,7 @@
       font-weight: 800;
       display: grid;
       place-items: center;
+      margin-right: 4px;
     }
 
     /* 컨페티 */
@@ -23859,7 +24431,7 @@
       height: 26px;
       border-radius: 8px;
       flex: 0 0 auto;
-      background: linear-gradient(135deg, #FF9EC2, var(--c-insta) 55%, #B03A82);
+      background: url('assets/logo_Instagram.svg') center / contain no-repeat;
       position: relative;
     }
 
@@ -23898,6 +24470,11 @@
       right: 4px;
       width: 2px;
       height: 2px;
+    }
+
+    .if-ig::before,
+    .if-ig::after {
+      content: none;
     }
 
     .if-grid {
@@ -23973,7 +24550,6 @@
       align-items: center;
       justify-content: flex-end;
       gap: 8px;
-      margin-top: 16px;
       position: relative;
     }
 
@@ -23988,16 +24564,42 @@
       margin-right: 0;
     }
 
+    /* 다시 보기 — start 버튼과 동일 크기(md) */
+    .if-sc .cmp-replay {
+      height: var(--sds-button-height-md);
+      padding: 0 var(--sds-button-padding-x-md);
+      font-size: var(--sds-font-size-md);
+    }
+
+    /* if2·if3 — 재생 후 start 자리에 다시 보기가 그대로 나타남 (.if-cta 안 static 배치) */
+    .if2s .cmp-replay,
+    .if3s .cmp-replay {
+      position: static;
+      left: auto;
+      bottom: auto;
+      margin: 0;
+    }
+
+    .if2s.on .cl-start,
+    .if3s.on .cl-start {
+      display: none;
+    }
+
     /* if2 — 쇼핑몰 위젯 자동 노출 */
     .if-shop {
       width: 100%;
+      height: auto;
       max-width: 640px;
+      min-height: 0;
+      flex: 2 2 0;
       background: #fff;
       border: 1px solid var(--sds-border-default);
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 16px 40px rgba(236, 74, 127, .10);
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     .if-chrome {
@@ -24036,6 +24638,10 @@
 
     .if-shopbody {
       padding: 16px 18px 18px;
+      min-height: 0;
+      flex: 2 2 auto;
+      display: grid;
+      grid-template-rows: auto auto minmax(80px, 2fr) minmax(112px, 2fr);
     }
 
     .if-shophero {
@@ -24101,13 +24707,17 @@
     .if-wgfeed {
       display: flex;
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+      height: auto;
+      min-height: 80px;
+      overflow: hidden;
     }
 
     .if-wgfeed>i {
       flex: 1 1 0;
-      height: 92px;
-      border-radius: 10px;
+      min-width: 0;
+      height: 100%;
+      border-radius: 8px;
       overflow: hidden;
       background: #EDE9F2;
     }
@@ -24135,6 +24745,11 @@
       margin-right: 0;
     }
 
+    /* 기본 게시물 3개 + 새 게시물 2개 — 최종 5개 */
+    .if2s.on .if-new.n2 {
+      transition-delay: .4s;
+    }
+
     .if-newtag {
       position: absolute;
       top: 6px;
@@ -24151,18 +24766,27 @@
     .if-prods {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      grid-auto-rows: minmax(0, 2fr);
+      gap: 8px;
+      min-height: 0;
+      overflow: hidden;
     }
 
     .if-prod {
       border: 1px solid var(--sds-border-default);
       border-radius: 10px;
       overflow: hidden;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .if-prod>i {
       display: block;
-      height: 64px;
+      height: auto;
+      min-height: 56px;
+      flex: 2 2 auto;
       background-size: cover;
       background-position: center;
       background-color: #EDE9F2;
@@ -24186,16 +24810,15 @@
     }
 
     .if-toast {
-      position: absolute;
-      left: 50%;
-      bottom: 16px;
-      transform: translate(-50%, 16px);
+      position: static;
+      margin-right: auto;
+      transform: translateY(16px);
       display: inline-flex;
       align-items: center;
       gap: 8px;
       background: #1A1D24;
       color: #fff;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       padding: 10px 16px;
       border-radius: 100px;
@@ -24211,13 +24834,14 @@
 
     .if2s.on .if-toast {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translateY(0);
     }
 
     /* if3 — 감성 피드 체류 */
     .if-dwell {
       width: 100%;
       max-width: 640px;
+      height: 400px;
       display: grid;
       grid-template-columns: 240px 1fr;
       gap: 20px;
@@ -24228,7 +24852,7 @@
       background: #fff;
       border: 1px solid var(--sds-border-default);
       border-radius: 20px;
-      padding: 14px;
+      padding: 12px;
       box-shadow: 0 16px 40px rgba(236, 74, 127, .10);
       display: flex;
       flex-direction: column;
@@ -24249,9 +24873,26 @@
     }
 
     .if-scrollwrap {
-      height: 220px;
+      position: relative;
+      height: auto;
+      max-height: none;
+      min-height: 0;
+      flex: 2 2 0;
       overflow: hidden;
       border-radius: 12px;
+    }
+
+    .if-scrollwrap::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 90px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 82%);
+      pointer-events: none;
+      z-index: 6;
     }
 
     .if-scroller {
@@ -24261,7 +24902,7 @@
     }
 
     .if3s.on .if-scroller {
-      animation: ifScroll 4s cubic-bezier(.4, 0, .2, 1) .3s forwards;
+      animation: ifScroll 6s cubic-bezier(.4, 0, .2, 1) .3s forwards;
     }
 
     @keyframes ifScroll {
@@ -24270,12 +24911,12 @@
       }
 
       100% {
-        transform: translateY(-160px);
+        transform: translateY(-560px);
       }
     }
 
     .if-scroller>i {
-      aspect-ratio: 1;
+      aspect-ratio: 3 / 4;
       border-radius: 10px;
       overflow: hidden;
       background: #EDE9F2;
@@ -24293,7 +24934,8 @@
       font-size: 12px;
       font-weight: 700;
       color: var(--c-insta);
-      margin-top: 10px;
+      margin-top: 0;
+      flex: 0 0 auto;
     }
 
     .if-metrics {
@@ -24309,6 +24951,9 @@
       padding: 18px;
       box-shadow: var(--shadow-md);
       flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
 
     .if-mlb {
@@ -24349,7 +24994,9 @@
       display: flex;
       align-items: flex-end;
       gap: 8px;
-      height: 80px;
+      height: auto;
+      min-height: 80px;
+      flex: 2 2 auto;
     }
 
     .if-mbars i {
@@ -24392,18 +25039,34 @@
       margin-top: 6px;
     }
 
+    /* 재생 전에도 노출 — 물음표 상태로 채워두고, 재생 후 결과로 스왑 */
     .if-verdict {
       background: #1A1D24;
       border-radius: 14px;
       padding: 14px 16px;
-      opacity: 0;
-      transform: translateY(8px);
+    }
+
+    .if-vv .if-vq,
+    .if-vv .if-va {
+      display: block;
       transition: .45s ease 1s;
     }
 
-    .if3s.on .if-verdict {
-      opacity: 1;
-      transform: none;
+    .if-vv .if-vq {
+      color: rgba(255, 255, 255, .55);
+    }
+
+    .if-vv .if-va {
+      display: none;
+    }
+
+    .if3s.on .if-vv .if-vq {
+      display: none;
+    }
+
+    .if3s.on .if-vv .if-va {
+      display: block;
+      animation: uaxStep .45s ease 1s both;
     }
 
     .if-vk {
@@ -24489,62 +25152,193 @@
 
     /* 3-B 추천 카드 micro-viz — 알파리뷰 (진입 앱이 아닐 때 추천 카드로 노출) */
     .md-review {
-      width: 248px;
+      width: min(248px, calc(100% - 24px));
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow:
+        0 0 0 2px color-mix(in srgb, var(--sds-bg-brand) 8%, transparent),
+        0 8px 20px rgba(24, 20, 48, .08);
     }
 
     .md-rv-top {
+      position: relative;
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #fff;
-      border: 1px solid var(--sds-border-default);
-      border-radius: 12px;
-      box-shadow: var(--shadow-md);
-      padding: 12px 14px;
+      min-height: 44px;
+      padding: 8px 12px 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
     }
 
-    .md-rv-stars {
-      color: #FFB020;
-      font-size: 14px;
-      letter-spacing: 1px;
+    .md-rv-channels {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding-right: 0;
+      border-right: 0;
     }
 
-    .md-rv-top b {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--sds-text-primary);
-    }
-
-    .md-rv-top em {
-      font-style: normal;
+    .md-rv-channels span {
+      width: 26px;
+      height: 26px;
+      border-radius: 100px;
+      display: grid;
+      place-items: center;
       font-size: 12px;
-      color: var(--sds-text-placeholder);
+      font-weight: 800;
+      color: var(--sds-bg-brand);
+      background: var(--sds-bg-brand-subtle);
+      border: 0;
+      box-shadow: 0 0 0 2px #fff;
+      animation: mdRvSource 4s ease-in-out var(--d, 0s) infinite;
+    }
+
+    .md-rv-channels span+span {
+      margin-left: -6px;
+    }
+
+    @keyframes mdRvSource {
+
+      0%,
+      40%,
+      100% {
+        opacity: .82;
+        transform: none;
+        box-shadow: 0 0 0 2px #fff;
+      }
+
+      16%,
+      28% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.04);
+        box-shadow:
+          0 0 0 2px #fff,
+          0 4px 12px color-mix(in srgb, var(--sds-bg-brand) 20%, transparent);
+      }
+    }
+
+    .md-rv-summary {
       margin-left: auto;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: var(--sds-bg-brand);
+      white-space: nowrap;
+      text-align: right;
     }
 
     .md-rv-quote {
+      position: relative;
+      height: 64px;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    .md-rv-item {
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #fff;
-      border: 1px solid var(--sds-border-default);
-      border-radius: 12px;
-      box-shadow: var(--shadow-md);
-      padding: 10px 14px;
+      padding: 6px 8px;
       font-size: 12px;
       font-weight: 600;
       color: var(--sds-text-secondary);
+      border: 1px solid var(--sds-border-default);
+      border-radius: 8px;
+      margin: 8px;
     }
 
-    .md-rv-quote .th {
+    .md-rv-item.one {
+      animation: mdRvQuoteOne 4s ease-in-out infinite;
+    }
+
+    .md-rv-item.two {
+      opacity: 0;
+      animation: mdRvQuoteTwo 4s ease-in-out infinite;
+    }
+
+    @keyframes mdRvQuoteOne {
+
+      0%,
+      42% {
+        opacity: 1;
+        transform: none;
+      }
+
+      52%,
+      92% {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes mdRvQuoteTwo {
+
+      0%,
+      42% {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      52%,
+      92% {
+        opacity: 1;
+        transform: none;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+    }
+
+    .md-rv-item .th {
+      flex: 0 0 auto;
       font-size: 14px;
+    }
+
+    .md-rv-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .md-rv-copy b {
+      color: #FFB020;
+      font-size: 12px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .md-rv-copy i {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-style: normal;
+      font-size: 12px;
     }
 
     .md-rv-ai {
       margin-left: auto;
+      flex: 0 0 auto;
       font-size: 12px;
       font-weight: 800;
       color: var(--sds-bg-brand);
@@ -24751,15 +25545,37 @@
     </div>
   </section>
 
-  <!-- ═══════════ 스텝 1 — 담당자 정보 ═══════════ -->
+  <!-- ═══════════ 스텝 1 — 담당자 정보, 부유하는 애니메이션 위치 조정 ═══════════ -->
   <section class="view" id="viewInfo1">
     <div class="info-wrap">
       <aside class="info-hero">
-        <h2>클릭 몇 번으로 쇼핑몰을 성장시키는<br><span class="hl">알파앱스를 14일간 무료</span>로<br>경험해보세요</h2>
+        <h2>클릭 몇 번으로 자사몰을<span class="ih-title-wide"> 성장시키는 솔루션</span><br><span class="ih-title-compact">성장시키는 솔루션 </span>알파앱스를 <br class="ih-br-compact"><span class="hl">14일간 무료</span>로 경험해보세요</h2>
+        <div class="ih-visual" aria-hidden="true">
+          <span class="orb" style="--oc:#6D58F2; --os:12px; left:2%; top:34%; --od:.4s"></span>
+          <span class="orb" style="--oc:#5B45E0; --os:18px; left:16%; top:48%; --od:1.2s"></span>
+          <span class="orb" style="--oc:#7A66FF; --os:10px; left:50%; top:27%; --od:2s"></span>
+          <span class="orb" style="--oc:#8B76FF; --os:16px; left:88%; top:34%; --od:.8s"></span>
+          <span class="orb" style="--oc:#6D58F2; --os:12px; left:74%; top:44%; --od:2.8s"></span>
+          <span class="orb" style="--oc:#22C4A6; --os:10px; left:76%; top:54%; --od:1.6s"></span>
+          <span class="orb" style="--oc:#FFB020; --os:14px; left:94%; top:54%; --od:3.2s"></span>
+          <span class="orb" style="--oc:#6D58F2; --os:14px; left:2%; top:90%; --od:.2s"></span>
+          <span class="orb" style="--oc:#FFB020; --os:10px; left:28%; top:94%; --od:2.4s"></span>
+          <span class="orb" style="--oc:#5B45E0; --os:12px; left:50%; top:92%; --od:1s"></span>
+          <img class="ihv-el e1" src="assets/hero/01-review-card.png" alt="">
+          <img class="ihv-el e2" src="assets/hero/02-sales-card.png" alt="">
+          <img class="ihv-el e4" src="assets/hero/04-push-card.png" alt="">
+          <img class="ihv-el e5" src="assets/hero/05-canvas-card.png" alt="">
+          <img class="ihv-el e3" src="assets/hero/03-center-logo.png" alt="">
+        </div>
         <div class="ih-social">
-          <div class="ih-avs"><span class="ih-av a">R</span><span class="ih-av b">P</span><span
-              class="ih-av c">U</span><span class="ih-av d">C</span></div>
-          <b>25,000+개 라이브 쇼핑몰</b>이 알파앱스와 함께<br>리뷰·업셀·CRM·디자인을 한 번에 해결하고 있어요
+          <div class="ih-social-row">
+            <div class="ih-avs"><span class="ih-av a">A</span><span class="ih-av b">B</span><span
+                class="ih-av c">C</span></div>
+            <p class="ih-social-wide"><b>2,800+개</b> 쇼핑몰이 설치한 서비스 말고도</p>
+            <p class="ih-social-compact"><b>2,800+개</b> 쇼핑몰 사용 중</p>
+          </div>
+          <p class="ih-social-wide"><strong>다른 서비스를 함께 사용하여 더 큰 매출을</strong> 올리고 있어요</p>
+          <p class="ih-social-compact">다른 서비스도 함께 사용해<br><strong>더 큰 매출을 만들고 있어요</strong></p>
         </div>
       </aside>
       <div class="info-form-area">
@@ -24785,11 +25601,33 @@
   <section class="view" id="viewInfo2">
     <div class="info-wrap">
       <aside class="info-hero">
-        <h2>클릭 몇 번으로 쇼핑몰을 성장시키는<br><span class="hl">알파앱스를 14일간 무료</span>로<br>경험해보세요</h2>
+        <h2>클릭 몇 번으로 자사몰을<span class="ih-title-wide"> 성장시키는 솔루션</span><br><span class="ih-title-compact">성장시키는 솔루션 </span>알파앱스를 <br class="ih-br-compact"><span class="hl">14일간 무료</span>로 경험해보세요</h2>
+        <div class="ih-visual" aria-hidden="true">
+          <span class="orb" style="--oc:#6D58F2; --os:12px; left:2%; top:34%; --od:.4s"></span>
+          <span class="orb" style="--oc:#5B45E0; --os:18px; left:16%; top:48%; --od:1.2s"></span>
+          <span class="orb" style="--oc:#7A66FF; --os:10px; left:50%; top:30%; --od:2s"></span>
+          <span class="orb" style="--oc:#8B76FF; --os:16px; left:88%; top:34%; --od:.8s"></span>
+          <span class="orb" style="--oc:#6D58F2; --os:12px; left:74%; top:44%; --od:2.8s"></span>
+          <span class="orb" style="--oc:#22C4A6; --os:10px; left:76%; top:54%; --od:1.6s"></span>
+          <span class="orb" style="--oc:#FFB020; --os:14px; left:94%; top:54%; --od:3.2s"></span>
+          <span class="orb" style="--oc:#6D58F2; --os:14px; left:2%; top:90%; --od:.2s"></span>
+          <span class="orb" style="--oc:#FFB020; --os:10px; left:28%; top:94%; --od:2.4s"></span>
+          <span class="orb" style="--oc:#5B45E0; --os:12px; left:50%; top:92%; --od:1s"></span>
+          <img class="ihv-el e1" src="assets/hero/01-review-card.png" alt="">
+          <img class="ihv-el e2" src="assets/hero/02-sales-card.png" alt="">
+          <img class="ihv-el e4" src="assets/hero/04-push-card.png" alt="">
+          <img class="ihv-el e5" src="assets/hero/05-canvas-card.png" alt="">
+          <img class="ihv-el e3" src="assets/hero/03-center-logo.png" alt="">
+        </div>
         <div class="ih-social">
-          <div class="ih-avs"><span class="ih-av a">R</span><span class="ih-av b">P</span><span
-              class="ih-av c">U</span><span class="ih-av d">C</span></div>
-          <b>25,000+개 라이브 쇼핑몰</b>이 알파앱스와 함께<br>리뷰·업셀·CRM·디자인을 한 번에 해결하고 있어요
+          <div class="ih-social-row">
+            <div class="ih-avs"><span class="ih-av a">A</span><span class="ih-av b">B</span><span
+                class="ih-av c">C</span></div>
+            <p class="ih-social-wide"><b>2,800+개</b> 쇼핑몰이 설치한 서비스 말고도</p>
+            <p class="ih-social-compact"><b>2,800+개</b> 쇼핑몰 사용 중</p>
+          </div>
+          <p class="ih-social-wide"><strong>다른 서비스를 함께 사용하여 더 큰 매출을</strong> 올리고 있어요</p>
+          <p class="ih-social-compact">다른 서비스도 함께 사용해<br><strong>더 큰 매출을 만들고 있어요</strong></p>
         </div>
       </aside>
       <div class="info-form-area">
@@ -24866,10 +25704,11 @@
     </div>
   </div>
 
-  <!-- ═══════════ 스텝 4 — 위젯 설정 ═══════════ -->
+  <!-- ═══════════ 스텝 3-C — 리뷰 위젯 설정 ═══════════ -->
   <section class="view" id="viewWidget">
     <div class="setup">
       <div class="setup-head">
+        <span class="setup-kicker">3-C · 리뷰 위젯 설정</span>
         <h1><b>알파리뷰</b> 위젯, 어디에 보여줄까요?</h1>
         <p>선택하신 위치에 리뷰 위젯이 자동으로 설치돼요 — 나중에 언제든 바꿀 수 있어요</p>
       </div>
@@ -24899,7 +25738,7 @@
     </div>
   </section>
 
-  <!-- ═══════════ 스텝 5 — 카드 등록 ═══════════ -->
+  <!-- ═══════════ 스텝 4 — 카드 등록 ═══════════ -->
   <section class="view" id="viewCard">
     <div class="setup">
       <div class="card-form">
@@ -24916,7 +25755,7 @@
         <div class="setup-foot" style="width:100%">
           <button class="skip" data-go="done">건너뛰기</button>
           <span class="spacer"></span>
-          <button class="btn ghost" data-go="widget">이전</button>
+          <button class="btn ghost" id="cardBack">이전</button>
           <button class="btn primary" style="flex:0 0 auto; padding:0 34px" data-go="done">완료</button>
         </div>
         <p class="cf-trust">25,000+ 라이브 쇼핑몰이 선택한 솔루션</p>
@@ -24964,7 +25803,7 @@
     <span class="cd-chips" id="cdChips"></span>
     <div class="cd-btns">
       <button class="sds-btn sds-btn--md sds-btn--neutral-outline cd-back" id="cdBack">이전</button>
-      <button class="sds-btn sds-btn--md sds-btn--neutral-solid cd-next" id="cdNext">다음 - 함께 쓸 솔루션 보기</button>
+      <button class="sds-btn sds-btn--md sds-btn--neutral-solid cd-next" id="cdNext">다음</button>
     </div>
   </div>
 
@@ -24980,7 +25819,7 @@
     ═══════════════════════════════════════════════ */
     const P = {
       review: {
-        name: '알파리뷰', color: 'var(--sds-bg-brand)',
+        name: '알파리뷰', color: 'var(--sds-bg-brand)', addHover: 'var(--color-purple-600, #5B3AE0)',
         main: '<span>카페24 리뷰 솔루션 1위</span><br>알파리뷰와 빠르게 성장해요',
         hook: '리뷰가 신뢰로, 신뢰가 성장으로 이어져요',
         trust: ['유료 고객사 5,000+', '라이브 쇼핑몰 25,000+'],
@@ -25013,10 +25852,10 @@
         ],
       },
       upsell: {
-        name: '알파업셀', color: 'var(--sds-bg-danger)', free: '· 처음 쓰면 무료체험 14일',
+        name: '알파업셀', color: 'var(--sds-bg-danger)', addHover: 'var(--color-red-600, #B42027)', free: '· 처음 쓰면 무료체험 14일',
         main: '<b>더 담고 싶은 쇼핑 경험</b><br>추가 매출 만드는 알파업셀 공식',
         hook: '광고비는 그대로, 객단가가 오릅니다. 잘 버는 몰은 업셀 중',
-        trust: ['AI 추천 모델 9종', '추천 위젯 12종'],
+        trust: ['가격 최적화', '추천 위젯 12종'],
         tags: ['AI 상품 추천', '가격 최적화', '숫자로 증명'],
         beats: [
           ['고객이 더 담고 싶은 상품을 발견해요', 'AI 추천 위젯 12종이 동선 곳곳에서 어울리는 상품을 제안해요.'],
@@ -25045,7 +25884,7 @@
         ],
       },
       push: {
-        name: '알파푸시', color: 'var(--sds-bg-info)', free: '· 처음 쓰면 무료체험 14일',
+        name: '알파푸시', color: 'var(--sds-bg-info)', addHover: 'var(--color-blue-600, #1D5DC4)', free: '· 처음 쓰면 무료체험 14일',
         main: '<b>간편가입부터 메시지 발송까지</b><br>알파푸시로 쉽게 시작해요',
         hook: '따로 쓰던 CRM 번들을 하나로, 세팅 한번에 자동화까지',
         trust: ['월 39,000원 정액', '무료 플랜 제공'],
@@ -25077,8 +25916,8 @@
         ],
       },
       canvas: {
-        name: '알파캔버스', color: 'var(--c-canvas)', free: '· 스킨 사면 알파앱스 무료 2개월',
-        main: '알파캔버스에서 마음껏 고치니까<br><b>스킨, 이제 가볍게 골라요</b>',
+        name: '알파캔버스', color: 'var(--c-canvas)', addHover: 'var(--color-teal-600, #0D9488)', free: '· 스킨 사면 알파앱스 무료 2개월',
+        main: '<b>스킨, 이제 가볍게 골라요</b><br>알파캔버스에서 마음껏 고치니까',
         hook: '개발자 없이 내 맘대로 수정, 스킨 선택이 자유가 됩니다',
         trust: ['노코드 위젯 편집', '초기 도입 혜택'],
         tags: ['상세페이지 위젯 편집', '기획전 갈아끼우기', '도입 혜택'],
@@ -25109,13 +25948,13 @@
         ],
       },
       instafeed: {
-        name: '인스타피드', color: 'var(--c-insta)', free: '· 최초 30건 무료, 이후 매월 5건 무료',
-        main: '<b>인스타 피드 감성을 쇼핑몰 안에</b><br>그대로 가져와요',
+        name: '인스타피드', color: 'var(--c-insta)', addHover: 'var(--color-pink-600, #D73D71)', free: '· 최초 30건 무료, 이후 매월 5건 무료',
+        main: '<b>인스타피드를 쇼핑몰 안에</b><br>그대로 가져와요',
         hook: '감성 콘텐츠로 머무는 시간이 늘어요 · 체류 +25%',
         trust: ['노코드 피드 연동', '인스타 게시물 자동 노출'],
         tags: ['피드 자동 연동', '상품과 자연 연결', '콘텐츠 체류'],
         beats: [
-          ['계정을 연결하면', '인스타그램 계정을 한 번만 연결하면 돼요. 코드도, 디자이너도 필요 없어요.'],
+          ['계정을 한번만 연결하면 돼요', '인스타그램 계정을 한 번만 연결하면 돼요. 코드도, 디자이너도 필요 없어요.'],
           ['게시물이 자동으로 들어와요', '새 게시글을 올릴 때마다 쇼핑몰 위젯에 바로 업데이트돼요.'],
           ['고객이 더 머물러요', '감성 콘텐츠를 보며 자연스럽게 체류시간이 늘어나요 · 체류 +25%'],
         ],
@@ -25928,18 +26767,15 @@
 
       /* 인스타피드 — 태그된 게시글을 쇼핑몰 홈으로 (demo-instafeed 이식) */
       if1: `<div class="sc if-sc if1s">
-        <div class="if1-head">
-          <span class="if-eyebrow"><span class="if-dot"></span>인스타피드 · 태그 수집</span>
-          <span class="if1-counter"><span class="if1-clabel">태그된 게시글 </span><b class="if1-cnum">0</b>개</span>
-        </div>
         <div class="if1-stage">
           <div class="if1-screen">
             <div class="if1-side">
               <div class="if1-sbhead"><span class="if1-ig sm"></span># 내가 태그된 게시글</div>
-              <div class="if1-empty">
-                <span class="if1-ig lg"></span>
-                <span class="if1-etx">인스타에서 내 브랜드가<br>태그된 게시글을 찾아와요</span>
-              </div>
+              <div class="if1-empty"></div>
+              <button class="if1-play" data-act type="button"><span class="if1-ig sm"></span>내 태그된 게시글 가져오기</button>
+              <span class="if1-ring"></span>
+              <span class="if1-cursor"></span>
+              <div class="if1-busy"><span class="if1-spin"></span>태그된 게시글 찾는 중…</div>
               <div class="if1-posts">
                 <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f1.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 데일리 코디 추천 🤍</span><span class="if1-pmeta"><span>♥ 5.3천</span><span>💬 125</span></span></div><span class="if1-ptag">태그됨</span></div>
                 <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f2.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 린넨 셋업 후기</span><span class="if1-pmeta"><span>♥ 3.2천</span><span>💬 88</span></span></div><span class="if1-ptag">태그됨</span></div>
@@ -25967,10 +26803,6 @@
               </div>
             </div>
           </div>
-          <button class="if1-play" data-act type="button"><span class="if1-ig sm"></span>내 태그된 게시글 가져오기</button>
-          <span class="if1-ring"></span>
-          <span class="if1-cursor"></span>
-          <div class="if1-busy"><span class="if1-spin"></span>태그된 게시글 찾는 중…</div>
           <div class="if1-bz">
             <div class="if1-bzchrome"><i></i><i></i><i></i><span class="if1-bzurl">🔒 ourira.co.kr</span></div>
             <div class="if1-bznav"><span class="if1-bzlogo">ourira</span><span class="if1-nl">Shop</span><span class="if1-nl">Content</span><span class="if1-nl">Community</span><span class="if1-nr"><span class="if1-nl">My page</span><span class="if1-nl">Cart</span></span></div>
@@ -25985,7 +26817,7 @@
                 <i class="if1-cell" style="--n:6"><img src="assets/insta/f4.png" alt=""></i>
                 <i class="if1-cell" style="--n:7"><img src="assets/insta/f3.png" alt=""></i>
               </div>
-              <div class="if1-toast"><span class="if1-tk">✓</span>태그된 게시글을 쇼핑몰 홈에 올렸어요</div>
+              <div class="if1-toast"><span class="if1-tk">✓</span>태그된 게시글 <b class="if1-cnum">0</b>개를 쇼핑몰 홈에 올렸어요</div>
             </div>
           </div>
           <div class="if1-conf"></div>
@@ -26000,11 +26832,11 @@
             <div class="if-shophero"><span class="if-shoplogo">ALPHA MALL</span><span class="if-shopnav"><em>NEW</em><em>BEST</em><em>SALE</em></span></div>
             <div class="if-wgtitle"><span class="if-ig sm"></span>우리 쇼핑몰 인스타 피드<span class="if-live"><i></i>실시간 연동</span></div>
             <div class="if-wgfeed">
-              <i class="if-new"><img src="assets/insta/f6.png" alt=""><span class="if-newtag">NEW</span></i>
+              <i class="if-new n2"><img src="assets/insta/f3.png" alt=""><span class="if-newtag">NEW</span></i>
+              <i class="if-new"><img src="assets/insta/f4.png" alt=""><span class="if-newtag">NEW</span></i>
               <i><img src="assets/insta/f1.png" alt=""></i>
               <i><img src="assets/insta/f2.png" alt=""></i>
               <i><img src="assets/insta/f5.png" alt=""></i>
-              <i><img src="assets/insta/f7.png" alt=""></i>
             </div>
             <div class="if-prods">
               <div class="if-prod"><i style="background-image:url('assets/insta/f3.png')"></i><b>린넨 원피스</b><em>42,000원</em></div>
@@ -26012,10 +26844,8 @@
               <div class="if-prod"><i style="background-image:url('assets/insta/f8.png')"></i><b>플리츠 스커트</b><em>38,000원</em></div>
             </div>
           </div>
-          <div class="if-toast"><span class="if-ig sm"></span>새 게시물 업로드 → <b>피드 위젯 자동 반영</b></div>
         </div>
-        <div class="if-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">새 게시물 올려보기</span></button><span class="cl-cursor"></span></div>
-        <button class="cmp-replay" type="button">↺ 다시 보기</button>
+        <div class="if-cta"><div class="if-toast"><span class="if-ig sm"></span>새 게시물 업로드 → <b>피드 위젯 자동 반영</b></div><button class="cl-start" data-act type="button"><span class="cl-lb">새 게시물 올려보기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
       </div>`,
 
       if3: `<div class="sc if-sc if3s">
@@ -26023,12 +26853,18 @@
           <div class="if-phone">
             <div class="if-phead"><span class="if-avatar sm"></span><b>@alphamall_official</b><span class="if-ig sm"></span></div>
             <div class="if-scrollwrap"><div class="if-scroller">
-              <i><img src="assets/insta/f1.png" alt=""></i>
-              <i><img src="assets/insta/f5.png" alt=""></i>
-              <i><img src="assets/insta/f2.png" alt=""></i>
-              <i><img src="assets/insta/f7.png" alt=""></i>
-              <i><img src="assets/insta/f4.png" alt=""></i>
-              <i><img src="assets/insta/f8.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta1.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta2.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta3.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta4.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta5.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta6.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta7.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta8.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta9.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta10.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta11.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta12.png" alt=""></i>
             </div></div>
             <div class="if-scrollhint">↕ 감성 피드를 둘러보는 중</div>
           </div>
@@ -26039,11 +26875,10 @@
               <div class="if-mbars"><i style="--h:52%"></i><i style="--h:60%"></i><i style="--h:70%"></i><i style="--h:82%"></i><i style="--h:100%"></i></div>
               <div class="if-mx"><span>연동 전</span><span>연동 후</span></div>
             </div>
-            <div class="if-verdict"><span class="if-vk">감성 콘텐츠 효과</span><b class="if-vv">머무는 시간 +25% ↑</b></div>
+            <div class="if-verdict"><span class="if-vk">감성 콘텐츠 효과</span><b class="if-vv"><span class="if-vq">? 얼마나 더 머물게 될까요</span><span class="if-va">머무는 시간 +25% ↑</span></b></div>
           </div>
         </div>
-        <div class="if-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">체류 효과 보기</span></button><span class="cl-cursor"></span></div>
-        <button class="cmp-replay" type="button">↺ 다시 보기</button>
+        <div class="if-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">체류 효과 보기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
       </div>`,
     };
 
@@ -26053,18 +26888,18 @@
         `<div class="hero-pane hp-live">
           <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">리뷰 모두 수집하기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
           <div class="rvh rvh-gather">
-            <div class="rvh-rc" style="--x:-300px;--y:-150px;--r:-8deg;--d:0s"><div class="rc-top"><span class="rc-src" style="--sc:#03C75A">네이버</span><span class="st">★★★★★</span></div><div class="rc-tx">핏이 딱 맞아요, 또 살래요</div></div>
-            <div class="rvh-rc" style="--x:-322px;--y:26px;--r:6deg;--d:.05s"><div class="rc-top"><span class="rc-src" style="--sc:#E1306C">인스타</span><span class="st">★★★★★</span></div><img class="rc-photo" src="assets/insta/f1.png" alt=""></div>
-            <div class="rvh-rc" style="--x:-250px;--y:170px;--r:-5deg;--d:.1s"><div class="rc-top"><span class="rc-src" style="--sc:#F94C4C">쿠팡</span><span class="st">★★★★★</span></div><div class="rc-tx">배송 빨라요 만족!</div></div>
-            <div class="rvh-rc" style="--x:-24px;--y:-180px;--r:4deg;--d:.03s"><div class="rc-top"><span class="rc-src" style="--sc:#6D58F2">알림톡</span><span class="st">★★★★★</span></div><div class="rc-tx">만족해요 ❤️</div></div>
-            <div class="rvh-rc" style="--x:290px;--y:-138px;--r:8deg;--d:.07s"><div class="rc-top"><span class="rc-src" style="--sc:#1A1A1A">무신사</span><span class="st">★★★★☆</span></div><div class="rc-tx">재질이 튼튼해요</div></div>
-            <div class="rvh-rc" style="--x:320px;--y:0px;--r:-6deg;--d:.12s"><div class="rc-top"><span class="rc-src" style="--sc:#8DB825">올리브영</span><span class="st">★★★★★</span></div><div class="rc-tx">색감 사진 그대로</div></div>
-            <div class="rvh-rc" style="--x:258px;--y:150px;--r:5deg;--d:.09s"><div class="rc-top"><span class="rc-src" style="--sc:#20242E">QR·매장</span><span class="st">★★★★★</span></div><div class="rc-tx">실물이 더 예뻐요</div></div>
-            <div class="rvh-rc" style="--x:40px;--y:190px;--r:-4deg;--d:.14s"><div class="rc-top"><span class="rc-src" style="--sc:#DA291C">롯데온</span><span class="st">★★★★★</span></div><div class="rc-tx">가격 대비 최고예요</div></div>
+            <div class="rvh-rc" data-rvh-target="naver" style="--x:-300px;--y:-150px;--r:-8deg;--d:0s"><div class="rc-top"><span class="rc-src" style="--sc:#03C75A">네이버</span><span class="st">★★★★★</span></div><div class="rc-tx">핏이 딱 맞아요, 또 살래요</div></div>
+            <div class="rvh-rc" data-rvh-target="social" style="--x:-322px;--y:26px;--r:6deg;--d:.04s"><div class="rc-top"><span class="rc-src" style="--sc:#E1306C">인스타</span><span class="st">★★★★★</span></div><img class="rc-photo" src="assets/insta/f1.png" alt=""></div>
+            <div class="rvh-rc" data-rvh-target="coupang" style="--x:-250px;--y:170px;--r:-5deg;--d:.08s"><div class="rc-top"><span class="rc-src" style="--sc:#F94C4C">쿠팡</span><span class="st">★★★★★</span></div><div class="rc-tx">배송 빨라요 만족!</div></div>
+            <div class="rvh-rc" data-rvh-target="quick" style="--x:-24px;--y:-180px;--r:4deg;--d:.02s"><div class="rc-top"><span class="rc-src" style="--sc:#6D58F2">알림톡</span><span class="st">★★★★★</span></div><div class="rc-tx">만족해요 ❤️</div></div>
+            <div class="rvh-rc" data-rvh-target="musinsa" style="--x:290px;--y:-138px;--r:8deg;--d:.06s"><div class="rc-top"><span class="rc-src" style="--sc:#1A1A1A">무신사</span><span class="st">★★★★☆</span></div><div class="rc-tx">재질이 튼튼해요</div></div>
+            <div class="rvh-rc" data-rvh-target="olive" style="--x:320px;--y:0px;--r:-6deg;--d:.12s"><div class="rc-top"><span class="rc-src" style="--sc:#8DB825">올리브영</span><span class="st">★★★★★</span></div><div class="rc-tx">색감 사진 그대로</div></div>
+            <div class="rvh-rc" data-rvh-target="qr" style="--x:258px;--y:150px;--r:5deg;--d:.10s"><div class="rc-top"><span class="rc-src" style="--sc:#20242E">QR·매장</span><span class="st">★★★★★</span></div><div class="rc-tx">실물이 더 예뻐요</div></div>
+            <div class="rvh-rc" data-rvh-target="lotte" style="--x:40px;--y:190px;--r:-4deg;--d:.14s"><div class="rc-top"><span class="rc-src" style="--sc:#DA291C">롯데온</span><span class="st">★★★★★</span></div><div class="rc-tx">가격 대비 최고예요</div></div>
             <div class="rvh-sources">
               <div class="rvs s1">
                 <div class="rvs-h">빠른 리뷰</div>
-                <div class="rvx rvx-talk">
+                <div class="rvx rvx-talk" data-rvh-source="quick" style="--rvh-hit-delay:.86s">
                   <div class="rvx-noti"><span class="rvx-app">α</span><b>알파리뷰 알림톡</b><span class="rvx-tm">방금</span></div>
                   <div class="rvx-msg">구매하신 <b>여름 원피스</b>는 어떠셨나요?<br>만족하셨다면 별점을 남겨주세요 😊</div>
                   <div class="rvx-btns"><span class="rvx-b on">만족해요 ❤️</span><span class="rvx-b">괜찮아요</span><span class="rvx-b">아쉬워요</span></div>
@@ -26072,15 +26907,15 @@
               </div>
               <div class="rvs s2">
                 <div class="rvs-h">외부몰 연동</div>
-                <div class="rvx rvx-sync">
+                <div class="rvx rvx-sync" data-rvh-source="social" style="--rvh-hit-delay:.88s">
                   <div class="rvx-mcloud">
-                    <span class="rvx-mall"><i class="rvx-mlg" style="--lg:#F94C4C">쿠</i>쿠팡</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#1A1A1A">무</i>무신사</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#1A1A1A">29</i>29cm</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#03C75A">N</i>네이버</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E23838">S</i>SSG</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#DA291C">롯</i>롯데온</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#8DB825">올</i>올리브영</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF0038">11</i>11번가</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#23305C">L</i>LF몰</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5007D">C</i>CJ온스타일</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#0A8B3F">G</i>GS SHOP</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF4E7E">브</i>브랜디</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#22BFB8">오</i>오늘의집</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5344A">위</i>위메프</span><span class="rvx-mall rvx-more">+80</span>
+                    <span class="rvx-mall" data-rvh-source="coupang" style="--rvh-hit-delay:.92s"><i class="rvx-mlg" style="--lg:#F94C4C">쿠</i>쿠팡</span><span class="rvx-mall" data-rvh-source="musinsa" style="--rvh-hit-delay:.90s"><i class="rvx-mlg" style="--lg:#1A1A1A">무</i>무신사</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#1A1A1A">29</i>29cm</span><span class="rvx-mall" data-rvh-source="naver" style="--rvh-hit-delay:.84s"><i class="rvx-mlg" style="--lg:#03C75A">N</i>네이버</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E23838">S</i>SSG</span><span class="rvx-mall" data-rvh-source="lotte" style="--rvh-hit-delay:.98s"><i class="rvx-mlg" style="--lg:#DA291C">롯</i>롯데온</span><span class="rvx-mall" data-rvh-source="olive" style="--rvh-hit-delay:.96s"><i class="rvx-mlg" style="--lg:#8DB825">올</i>올리브영</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF0038">11</i>11번가</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#23305C">L</i>LF몰</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5007D">C</i>CJ온스타일</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#0A8B3F">G</i>GS SHOP</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF4E7E">브</i>브랜디</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#22BFB8">오</i>오늘의집</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5344A">위</i>위메프</span><span class="rvx-mall rvx-more">+80</span>
                   </div>
                 </div>
               </div>
               <div class="rvs s3">
                 <div class="rvs-h">QR 코드</div>
-                <div class="rvx rvx-qr">
+                <div class="rvx rvx-qr" data-rvh-source="qr" style="--rvh-hit-delay:.94s">
                   <svg class="rvx-qrbox" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="6" width="3" height="3" fill="#20242E"></rect><rect x="27" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="31" y="6" width="3" height="3" fill="#20242E"></rect><rect x="2" y="27" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="31" width="3" height="3" fill="#20242E"></rect><g fill="#20242E"><rect x="18" y="3" width="3" height="3"></rect><rect x="23" y="7" width="3" height="3"></rect><rect x="18" y="11" width="3" height="3"></rect><rect x="34" y="18" width="3" height="3"></rect><rect x="27" y="18" width="3" height="3"></rect><rect x="31" y="22" width="3" height="3"></rect><rect x="18" y="18" width="3" height="3"></rect><rect x="22" y="22" width="3" height="3"></rect><rect x="18" y="26" width="3" height="3"></rect><rect x="23" y="30" width="3" height="3"></rect><rect x="27" y="27" width="3" height="3"></rect><rect x="31" y="31" width="3" height="3"></rect><rect x="34" y="34" width="3" height="3"></rect><rect x="18" y="34" width="3" height="3"></rect></g></svg>
                   <span class="rvx-arrow">→</span>
                   <div class="rvx-rvcard">
@@ -26115,10 +26950,10 @@
                   </div>
                 </div>
                 <div class="rvh-metric">
-                  <div class="rvh-mt"><div class="v"><b class="cnt" data-to="5967" data-from="0" data-fmt="num" data-delay="720">0</b></div><div class="l">누적 리뷰</div></div>
-                  <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="32" data-from="0" data-delay="720">0</b>%</div><div class="l">구매 전환율</div></div>
-                  <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="27" data-from="0" data-delay="720">0</b>%</div><div class="l">재구매율</div></div>
-                  <div class="rvh-mt"><div class="v"><b class="cnt" data-to="49" data-from="40" data-fmt="star" data-delay="720">4.0</b></div><div class="l">평균 별점</div></div>
+                  <div class="rvh-mt"><div class="v"><b class="cnt" data-to="5967" data-from="0" data-fmt="num" data-delay="1440">0</b></div><div class="l">누적 리뷰</div></div>
+                  <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="32" data-from="0" data-delay="1440">0</b>%</div><div class="l">구매 전환율</div></div>
+                  <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="27" data-from="0" data-delay="1440">0</b>%</div><div class="l">재구매율</div></div>
+                  <div class="rvh-mt"><div class="v"><b class="cnt" data-to="49" data-from="40" data-fmt="star" data-delay="1440">4.0</b></div><div class="l">평균 별점</div></div>
                 </div>
                 <div class="rvh-chart"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:68%"></i><i style="--h:84%"></i><i style="--h:100%"></i></div>
               </div>
@@ -26273,6 +27108,11 @@
                   <span class="wsl-fire">🔥</span>
                   <span class="wsl-tx">지금 <b>5,780명</b>이 이 상품을<br>보고 있어요 · 실시간 세일 중</span>
                 </div>
+                <div class="wg wg-airep w10">
+                  <div class="wg-h">🤖 AI 자동 답글</div>
+                  <div class="wa-q"><span class="st">★★★★★</span><p>배송 빠르고 화면 그대로예요!</p></div>
+                  <div class="wa-re"><i>AI</i><p>소중한 리뷰 감사해요 😊 다음 구매에 쓰실 적립금 1,000P를 드렸어요.</p></div>
+                </div>
               </div>
               <div class="wg-col hero-payoff">
                 <div class="wg wg-photo w2">
@@ -26294,6 +27134,11 @@
                     <img src="assets/hero-product.png" alt="">
                     <span><span class="wp-nm">여름 청순 바람막이</span><span class="wp-mt"><i class="star"></i>4.7 · 리뷰 111개</span></span>
                   </div>
+                </div>
+                <div class="wg wg-filter w11">
+                  <div class="wg-h">🔍 리뷰 필터링</div>
+                  <div class="wf-chips"><span class="on">포토 리뷰만</span><span>사이즈</span><span>배송</span><span>재질</span></div>
+                  <div class="wf-note">조건에 맞는 리뷰 <b>328</b>개</div>
                 </div>
               </div>
               <div class="wg-col hero-payoff">
@@ -26373,8 +27218,8 @@
     /* ═══════════════════════════════════════════════
        라우팅 + 스텝퍼
     ═══════════════════════════════════════════════ */
-    const STEP_LABELS = ['담당자 정보 입력', '쇼핑몰 정보 입력', '맞춤 솔루션 선택', '위젯 설정', '카드 등록'];
-    const VIEW_STEP = { entry: 0, info1: 1, info2: 2, hero: 3, pick: 3, widget: 4, card: 5, done: 6 };
+    const STEP_LABELS = ['담당자 정보 입력', '쇼핑몰 정보 입력', '맞춤 솔루션 선택', '카드 등록'];
+    const VIEW_STEP = { entry: 0, info1: 1, info2: 2, hero: 3, pick: 3, widget: 3, card: 4, done: 5 };
     const VIEW_ID = { entry: 'viewEntry', info1: 'viewInfo1', info2: 'viewInfo2', hero: 'viewHero', pick: 'viewPick', widget: 'viewWidget', card: 'viewCard', done: 'viewDone' };
 
     function buildStepper(cur) {
@@ -26394,7 +27239,7 @@
       });
     }
 
-    function stepEntry(n) { return ({ 1: 'info1', 2: 'info2', 3: 'hero', 4: 'widget', 5: 'card' })[n]; }
+    function stepEntry(n) { return ({ 1: 'info1', 2: 'info2', 3: 'hero', 4: 'card' })[n]; }
 
     function go(view) {
       curView = view;
@@ -26414,6 +27259,7 @@
     }
 
     document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
+    { const _cb = $('cardBack'); if (_cb) _cb.onclick = () => go(cart.has('review') ? 'widget' : 'pick'); }
 
     // 로고 클릭 → 첫 화면(진입 앱 선택)으로 복귀
     { const _lg = document.querySelector('.topbar .logo'); if (_lg) { _lg.style.cursor = 'pointer'; _lg.title = '처음으로 (앱 다시 선택)'; _lg.onclick = () => go('entry'); } }
@@ -26547,13 +27393,45 @@
       });
     }
     function heroResetPayoffCounts(pane) {
-      pane.querySelectorAll('.hero-payoff .cnt').forEach(c => { delete c.dataset.ran; c.textContent = c.dataset.fmt === 'star' ? ((+c.dataset.from || 0) / 10).toFixed(1) : (c.dataset.from || '0'); });
+      pane.querySelectorAll('.hero-payoff .cnt').forEach(c => {
+        clearTimeout(c._ct);
+        cancelAnimationFrame(c._cr);
+        delete c.dataset.ran;
+        c.textContent = c.dataset.fmt === 'star' ? ((+c.dataset.from || 0) / 10).toFixed(1) : (c.dataset.from || '0');
+      });
+    }
+
+    // 각 방사형 리뷰 카드를 대응되는 rvh-sources 내부 UI의 실측 위치에 연결한다.
+    function syncRvhCardTargets(pane) {
+      const rvh = pane.querySelector('.rvh-gather');
+      if (!rvh) return;
+      const R = rvh.getBoundingClientRect();
+      if (!R.width || !R.height) return;
+      const even = value => Math.round(value / 2) * 2;
+      rvh.querySelectorAll('.rvh-rc').forEach((card, index) => {
+        const key = card.dataset.rvhTarget;
+        const target = rvh.querySelector(`[data-rvh-source="${key}"]`) || rvh.querySelector('.rvh-sources .rvs.s2');
+        if (!target) return;
+        const T = target.getBoundingClientRect();
+        if (!T.width || !T.height) return;
+        const tx = even(T.left + T.width / 2 - (R.left + R.width / 2));
+        const ty = even(T.top + T.height / 2 - (R.top + R.height / 2));
+        const sx = Number.parseFloat(card.style.getPropertyValue('--x')) || 0;
+        const sy = Number.parseFloat(card.style.getPropertyValue('--y')) || 0;
+        const mx = even(sx + (tx - sx) * .72);
+        const my = even(sy + (ty - sy) * .72 + (index % 2 ? 8 : -8));
+        card.style.setProperty('--rc-target-x', `${tx}px`);
+        card.style.setProperty('--rc-target-y', `${ty}px`);
+        card.style.setProperty('--rc-mid-x', `${mx}px`);
+        card.style.setProperty('--rc-mid-y', `${my}px`);
+      });
     }
 
     // 우측상단 버튼 → 페이오프(결과) 등장. 셋업(poster)은 그대로 유지 → 전(입력)과 후(결과)가 확실히 달라짐
     function heroPlay() {
       const pane = $('heroPanes').children[heroIdx];
       if (!pane) return;
+      syncRvhCardTargets(pane);
       pane.classList.add('played');
       runCounts(pane);   // 셋업은 ran 처리되어 스킵, 페이오프만 카운트업
       // 방사형 1번씬: 소스카드→몰 연결선을 실측해 그림 (몰 이동·소스 등장 애니 후)
@@ -26586,7 +27464,12 @@
     window.addEventListener('resize', () => {
       const hp = $('heroPanes'); if (!hp) return;
       const pane = hp.children[heroIdx];
-      if (pane && pane.classList.contains('played') && pane.querySelector('.rvh-gather')) drawRvhLines(pane);
+      if (pane?.querySelector('.rvh-gather')) {
+        syncRvhCardTargets(pane);
+        if (pane.classList.contains('played')) drawRvhLines(pane);
+      }
+      const detailPane = $('dtStage')?.querySelector('.hero-pane');
+      if (detailPane?.querySelector('.rvh-gather')) syncRvhCardTargets(detailPane);
     });
 
     // 다시 보기 → 재생 전(첫 버튼) 상태로 복귀. 다시 "재생" 버튼을 눌러야 애니가 돈다
@@ -26687,8 +27570,14 @@
     ═══════════════════════════════════════════════ */
     const MICRO = {
       review: `<div class="md-review">
-          <div class="md-rv-top"><span class="md-rv-stars">★★★★★</span><b>4.9</b><em>리뷰 1,284</em></div>
-          <div class="md-rv-quote"><span class="th">📷</span>“재질이 좋고 재구매 각!”<span class="md-rv-ai">AI 요약</span></div>
+          <div class="md-rv-top">
+            <div class="md-rv-channels"><span style="--d:0s">톡</span><span style="--d:.4s">몰</span><span style="--d:.8s">QR</span></div>
+            <span class="md-rv-summary">빠른 수집 5000+건</span>
+          </div>
+          <div class="md-rv-quote">
+            <div class="md-rv-item one"><span class="th">📷</span><span class="md-rv-copy"><b>★★★★★</b><i>핏이 딱 맞고 사진 그대로예요</i></span><span class="md-rv-ai">포토</span></div>
+            <div class="md-rv-item two"><span class="th">✓</span><span class="md-rv-copy"><b>★★★★★</b><i>배송도 빠르고 재구매할래요</i></span><span class="md-rv-ai">검증</span></div>
+          </div>
         </div>`,
       upsell: `<div class="md-cart">
           <span class="md-plus1">+1 담김</span>
@@ -26715,11 +27604,15 @@
       const entry = P[ENTRY];
       $('pickTitle').innerHTML = `<b style="color:${entry.color}">${entry.name}</b>와 함께 쓰면,<br>성장이 더 빨라지는 솔루션이에요`;
       const grid = $('pickGrid'); grid.innerHTML = '';
+      const isInstaEntry = ENTRY === 'instafeed';
+      grid.classList.toggle('is-insta-entry', isInstaEntry);
+      grid.closest('.pick')?.classList.toggle('is-insta-entry', isInstaEntry);
       RECO_ORDER.forEach(k => {
         const d = P[k];
         const card = document.createElement('div');
         card.className = 'pcard' + (cart.has(k) ? ' added' : '');
         card.style.setProperty('--pc', d.color);
+        card.style.setProperty('--add-hover', d.addHover);
         card.dataset.key = k;
         card.innerHTML = `
           <div class="pc-stage">${MICRO[k] || ''}</div>
@@ -26789,14 +27682,8 @@
         }
         chips.appendChild(chip);
       });
-      // 다음 버튼 라벨 + 이전
-      if (curView === 'hero') {
-        $('cdNext').textContent = '다음 - 함께 쓸 솔루션 보기';
-        $('cdBack').textContent = '이전';
-      } else {
-        $('cdNext').textContent = `다음`;
-        $('cdBack').textContent = '이전';
-      }
+      $('cdNext').textContent = '다음';
+      $('cdBack').textContent = '이전';
     }
 
     $('cdNext').onclick = () => {
@@ -26815,6 +27702,7 @@
       const d = P[k];
       const dt = $('detail');
       dt.style.setProperty('--dc', d.color);
+      dt.style.setProperty('--add-hover', d.addHover);
       { const _n = $('dtName'); if (_n) _n.textContent = d.name; }
       $('dtMain').innerHTML = d.main;
       const nav = $('featNav'); nav.innerHTML = '';
@@ -26849,6 +27737,7 @@
           heroPrimeCounts(pane);
           renderStars(stage);
           stage.querySelectorAll('[data-heroplay]').forEach(b => b.onclick = () => {
+            syncRvhCardTargets(pane);
             pane.classList.add('played');
             runCounts(pane);
             if (pane.querySelector('.rvh-gather')) setTimeout(() => drawRvhLines(pane), 1000);
@@ -27123,7 +28012,6 @@
       const cells = [...sc.querySelectorAll('.if1-rcell')];
       const wrap = sc.querySelector('.if1-posts');
       const num = sc.querySelector('.if1-cnum');
-      const clabel = sc.querySelector('.if1-clabel');
       const total = posts.length || 8;
       const STEP = 280;
       const alive = () => sc.isConnected && sc.classList.contains('on');
@@ -27145,7 +28033,6 @@
       at(STEP * total + 750, () => {
         sc.classList.remove('finding');
         sc.classList.add('finish');
-        if (clabel) clabel.textContent = '✓ 쇼핑몰 홈 게시 ';
         if (num) num.textContent = total;
         if1Confetti(sc);
       });
