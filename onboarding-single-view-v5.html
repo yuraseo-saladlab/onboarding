@@ -16,7 +16,8 @@
       /* 색상 usage는 전부 --sds-* 직접 참조 (하단 SDS 블록). 프로토 별칭 제거됨. */
       /* 공용 애니메이션 커서 (3-A 히어로와 동일) — 모든 데모 클릭 애니메이션에 사용 */
       --cursor-svg: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cpath%20d='M6%203.5%20L6%2024.5%20Q6%2026%207.4%2025.2%20L11.6%2020.4%20L14.7%2026.9%20Q15.2%2028%2016.4%2027.5%20L18.4%2026.6%20Q19.5%2026.1%2019%2025%20L16%2018.7%20L22.5%2018.4%20Q24%2018.3%2023%2017.2%20L8.2%203.1%20Q6.9%201.9%206%203.5%20Z'%20fill='%23ffffff'%20stroke='%23C4C9D6'%20stroke-width='1.3'%20stroke-linejoin='round'/%3E%3C/svg%3E");
-      --c-canvas: #00B7A8; /* SDS 미대응 — teal 고유 브랜드색 유지 */
+      --c-canvas: #00B7A8;
+      /* SDS 미대응 — teal 고유 브랜드색 유지 */
       --r: 16px;
       --shadow-lg: 0 24px 60px rgba(30, 28, 60, .16);
       --shadow-md: 0 10px 30px rgba(30, 28, 60, .10);
@@ -30,9 +31,12 @@
       --sds-radius-md: 6px;
       --sds-radius-lg: 8px;
       --sds-radius-full: 9999px;
-      --sds-font-size-xs: 12px;   /* button sm */
-      --sds-font-size-md: 14px;   /* button md */
-      --sds-font-size-lg: 16px;   /* button lg */
+      --sds-font-size-xs: 12px;
+      /* button sm */
+      --sds-font-size-md: 14px;
+      /* button md */
+      --sds-font-size-lg: 16px;
+      /* button lg */
       --sds-font-weight-semibold: 600;
       --sds-button-height-sm: 32px;
       --sds-button-height-md: 40px;
@@ -40,8 +44,10 @@
       --sds-button-padding-x-sm: 12px;
       --sds-button-padding-x-md: 16px;
       --sds-button-padding-x-lg: 20px;
-      --sds-bg-brand: #6D58F2;          /* = --c-review (제품 리뷰 = DS brand) */
-      --sds-bg-inverse-primary: #1A1D24;/* neutral solid 버튼 배경 */
+      --sds-bg-brand: #6D58F2;
+      /* = --c-review (제품 리뷰 = DS brand) */
+      --sds-bg-inverse-primary: #1A1D24;
+      /* neutral solid 버튼 배경 */
       --sds-text-inverse-primary: #fff;
       /* Display Chip (DS component) */
       --sds-chip-height: 36px;
@@ -58,6 +64,7 @@
       --sds-text-tertiary: #5D6374;
       --sds-text-placeholder: #8E929E;
       --sds-text-brand: #5B3AE0;
+      --sds-text-danger: #E62C35;
       --sds-border-default: #E3E4E7;
       --sds-border-strong: #D6D7DB;
       --sds-bg-secondary: #FAFAFA;
@@ -1014,6 +1021,7 @@
       padding: 2px;
       background: var(--sds-border-default);
     }
+
     .wwm-photo i {
       background-size: cover;
       background-position: center;
@@ -1025,12 +1033,14 @@
       background-size: cover;
       background-position: center;
     }
+
     .wwm-video::after {
       content: '';
       position: absolute;
       inset: 0;
       background: rgba(16, 16, 32, .22);
     }
+
     .wwm-play {
       position: absolute;
       left: 50%;
@@ -1043,6 +1053,7 @@
       z-index: 2;
       box-shadow: 0 2px 6px rgba(16, 16, 32, .3);
     }
+
     .wwm-play::after {
       content: '';
       position: absolute;
@@ -1053,7 +1064,12 @@
       border-top: 5px solid transparent;
       border-bottom: 5px solid transparent;
     }
-    .wwm-play.sm { width: 16px; height: 16px; }
+
+    .wwm-play.sm {
+      width: 16px;
+      height: 16px;
+    }
+
     .wwm-play.sm::after {
       border-left-width: 6px;
       border-top-width: 4px;
@@ -1067,6 +1083,7 @@
       justify-content: center;
       gap: 4px;
     }
+
     .wwm-shorts .sh {
       width: 22px;
       height: 38px;
@@ -1075,6 +1092,7 @@
       background-position: center;
       position: relative;
     }
+
     .wwm-shorts .sh.sd {
       width: 14px;
       height: 30px;
@@ -1090,19 +1108,25 @@
       justify-content: center;
       gap: 3px;
     }
+
     .wwm-num {
       font-size: 14px;
       font-weight: 800;
       color: var(--sds-text-primary);
       line-height: 1;
     }
+
     .wwm-str {
       color: #F5A623;
       font-size: 10px;
       letter-spacing: 1px;
       line-height: 1;
     }
-    .wwm-str.sm { font-size: 9px; }
+
+    .wwm-str.sm {
+      font-size: 9px;
+    }
+
     .wwm-line {
       display: block;
       width: 66%;
@@ -1112,6 +1136,7 @@
       overflow: hidden;
       position: relative;
     }
+
     .wwm-line em {
       position: absolute;
       left: 0;
@@ -1129,6 +1154,7 @@
       justify-content: center;
       background: var(--sds-bg-brand-subtle);
     }
+
     .wwm-rosette {
       width: 26px;
       height: 26px;
@@ -1150,16 +1176,19 @@
       gap: 4px;
       padding: 6px 8px;
     }
+
     .wwm-pin i {
       height: 8px;
       border-radius: 3px;
       background: var(--sds-border-default);
       position: relative;
     }
+
     .wwm-pin i.top {
       background: var(--sds-bg-brand-subtle);
       border: 1px solid var(--sds-bg-brand);
     }
+
     .wwm-pin i.top::after {
       content: '';
       position: absolute;
@@ -1180,11 +1209,13 @@
       gap: 5px;
       padding: 6px 8px;
     }
+
     .wwm-survey i {
       display: flex;
       align-items: center;
       gap: 4px;
     }
+
     .wwm-survey i::before {
       content: '';
       width: 6px;
@@ -1193,9 +1224,11 @@
       border: 2px solid var(--sds-bg-brand);
       flex: none;
     }
+
     .wwm-survey i:first-child::before {
       background: var(--sds-bg-brand);
     }
+
     .wwm-survey s {
       display: block;
       height: 6px;
@@ -1212,6 +1245,7 @@
       gap: 6px;
       padding: 8px 8px;
     }
+
     .wwm-txline {
       display: block;
       height: 6px;
@@ -1219,6 +1253,7 @@
       background: var(--sds-border-default);
       position: relative;
     }
+
     .wwm-txline::after {
       content: '';
       position: absolute;
@@ -1237,6 +1272,7 @@
       padding: 2px;
       background: var(--sds-border-default);
     }
+
     .wwm-gallery i {
       flex: 1;
       background-size: cover;
@@ -1251,6 +1287,7 @@
       justify-content: center;
       gap: 6px;
     }
+
     .wwm-sns i {
       width: 20px;
       height: 20px;
@@ -1263,9 +1300,19 @@
       font-style: normal;
       color: #fff;
     }
-    .wwm-sns .ig { background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF); }
-    .wwm-sns .nv { background: #03C75A; }
-    .wwm-sns .kk { background: #FEE500; }
+
+    .wwm-sns .ig {
+      background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF);
+    }
+
+    .wwm-sns .nv {
+      background: #03C75A;
+    }
+
+    .wwm-sns .kk {
+      background: #FEE500;
+    }
+
     .wwm-sns .kk::after {
       content: '';
       width: 9px;
@@ -1282,6 +1329,7 @@
       gap: 4px;
       padding: 6px 8px;
     }
+
     .wwm-stats i {
       width: 8px;
       height: var(--h);
@@ -1296,6 +1344,7 @@
       justify-content: center;
       background: var(--sds-bg-brand-subtle);
     }
+
     .wwm-more b {
       font-size: 15px;
       font-weight: 800;
@@ -7275,7 +7324,9 @@
     }
 
     @keyframes arCaret {
-      50% { opacity: 0; }
+      50% {
+        opacity: 0;
+      }
     }
 
     .ai-reply .ok-tag {
@@ -7336,7 +7387,7 @@
     .up1-cta {
       position: absolute;
       left: 50%;
-      bottom: 16px;
+      bottom: 74px;
       transform: translateX(-50%);
       z-index: 9;
       display: inline-flex;
@@ -7363,16 +7414,16 @@
        콤팩트 원형 ↻ 버튼으로. 시트·CTA·폰 콘텐츠 어디에도 겹치지 않는 유일한 여백.
        (base .cmp-replay: position:absolute·display:none·빨강 테두리 상속, 위치·형태만 재정의) */
     .sc.up1s .cmp-replay {
-      left: 6px;
-      bottom: 20px;
-      width: 48px;
-      height: 48px;
-      padding: 0;
-      gap: 0;
-      justify-content: center;
-      border-radius: 100px;
-      font-size: 20px;
-      line-height: 1;
+      left: auto;
+      right: 24px;
+      top: auto;
+      bottom: 16px;
+      margin: 0;
+      width: max-content;
+      height: 40px;
+      padding: 0 20px;
+      gap: 6px;
+      font-size: 14px;
     }
 
     /* 재생 중에는 숨김 — 제네릭 .sc.on .cmp-replay(1.7s 등장)보다 특이도 높게 */
@@ -7392,16 +7443,16 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      gap: 26px;
+      gap: 16px;
     }
 
     /* --- 폰 (콘텐츠·액션을 크게 보여주는 주인공) --- */
     .upx-phone {
       flex: none;
-      width: 384px;
+      width: 320px;
       align-self: stretch;
       background: #0e1220;
-      border-radius: 30px;
+      border-radius: 24px;
       padding: 3px;
       box-shadow: 0 18px 44px rgba(20, 20, 43, .22);
       position: relative;
@@ -7411,7 +7462,7 @@
       position: relative;
       height: 100%;
       background: #fff;
-      border-radius: 28px;
+      border-radius: 21px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -7449,36 +7500,57 @@
       margin-left: 2px;
     }
 
+    /* 폰 헤더 우측 그룹 — 신호/배터리 + 장바구니 아이콘·배지 */
+    .upx-statr {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .upx-cart {
-      position: absolute;
-      right: 12px;
-      font-size: 13px;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      color: var(--sds-text-primary);
     }
 
-    .upx-cart .cn {
-      position: absolute;
-      top: -6px;
-      right: -9px;
-      width: 16px;
-      height: 16px;
+    .upx-cart svg {
+      width: 20px;
+      height: 20px;
     }
 
-    .upx-cart .cn b {
+    /* 담긴 수 배지 — 탭마다 +1 (setCnt 팝) · 플라이 칩 착지 파동 */
+    .upx-cbadge {
       position: absolute;
-      inset: 0;
+      top: -8px;
+      right: -10px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
       display: grid;
       place-items: center;
       background: var(--dc);
       color: #fff;
       border-radius: 100px;
-      font-size: 10px;
-      font-weight: 800;
+      font-size: 12px;
+      font-weight: 900;
       font-style: normal;
-      opacity: 0;
+      line-height: 1;
+      box-shadow: 0 2px 6px color-mix(in srgb, var(--dc) 40%, transparent);
     }
 
-    .upx-cart .cn b:first-child {
-      opacity: 1;
+    .upx-cart.land .upx-cbadge {
+      animation: upxCartLand .6s ease;
+    }
+
+    @keyframes upxCartLand {
+      0% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--dc) 42%, transparent);
+      }
+
+      100% {
+        box-shadow: 0 2px 6px color-mix(in srgb, var(--dc) 40%, transparent), 0 0 0 10px transparent;
+      }
     }
 
     .upx-view {
@@ -7496,7 +7568,7 @@
       scroll-behavior: smooth;
       display: flex;
       flex-direction: column;
-      padding: 0 12px 12px;
+      padding: 0 12px 72px;
     }
 
     .upx-hero {
@@ -7562,7 +7634,12 @@
       background: #F5EEF0;
     }
 
-    .vg-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .vg-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     .vg-hlogo {
       position: absolute;
@@ -7575,69 +7652,371 @@
       text-shadow: 0 1px 6px rgba(0, 0, 0, .3);
     }
 
-    .vg-pinfo { display: flex; flex-direction: column; padding: 14px 2px 6px; }
-    .vg-tag { font-size: 10px; font-weight: 800; letter-spacing: .06em; color: #C98A3C; margin-bottom: 8px; }
-    .vg-knm { font-size: 20px; font-weight: 800; color: #2A2622; letter-spacing: -.02em; }
-    .vg-enm { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: #BBAD93; margin-top: 3px; }
-    .vg-tagline { font-size: 12.5px; font-weight: 600; color: #7A7266; margin: 9px 0 0; line-height: 1.5; }
-    .vg-priceline { display: flex; align-items: baseline; gap: 7px; margin-top: 12px; }
-    .vg-priceline em { font-size: 16px; font-weight: 900; color: #E8912E; font-style: normal; }
-    .vg-priceline b { font-size: 19px; font-weight: 900; color: #2A2622; }
-    .vg-priceline s { font-size: 12px; color: #C2BBAF; }
-    .vg-ship { font-size: 11px; font-weight: 600; color: #8A8272; margin-top: 9px; }
-    .vg-ship b { color: #E8912E; font-weight: 800; }
+    .vg-pinfo {
+      display: flex;
+      flex-direction: column;
+      padding: 14px 2px 6px;
+    }
+
+    .vg-knm {
+      font-size: 20px;
+      font-weight: 800;
+      color: #2A2622;
+      letter-spacing: -.02em;
+    }
+
+    .vg-tagline {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #7A7266;
+      margin: 9px 0 0;
+      line-height: 1.5;
+    }
+
+    .vg-priceline {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .vg-priceline em {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--sds-text-danger);
+      font-style: normal;
+    }
+
+    .vg-priceline b {
+      font-size: 19px;
+      font-weight: 900;
+      color: #2A2622;
+    }
+
+    .vg-priceline s {
+      font-size: 12px;
+      color: #C2BBAF;
+    }
+
+    .vg-ship {
+      font-size: 11px;
+      font-weight: 600;
+      color: #8A8272;
+      margin-top: 9px;
+    }
+
+    .vg-ship b {
+      color: #E8912E;
+      font-weight: 800;
+    }
 
     .vg-qty {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-top: 12px; padding: 10px 0;
-      border-top: 1px solid #EFEAE0; border-bottom: 1px solid #EFEAE0;
-      font-size: 12px; font-weight: 700; color: #4A443B;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding: 10px 0;
+      border-top: 1px solid #EFEAE0;
+      border-bottom: 1px solid #EFEAE0;
+      font-size: 12px;
+      font-weight: 700;
+      color: #4A443B;
     }
-    .vg-stepper { display: inline-flex; align-items: center; border: 1px solid #E3DCCF; border-radius: 8px; overflow: hidden; }
-    .vg-stepper i { width: 30px; height: 28px; display: grid; place-items: center; font-style: normal; color: #8A8272; font-weight: 700; }
-    .vg-stepper b { width: 34px; text-align: center; font-weight: 800; color: #2A2622; }
 
-    .vg-btns { display: flex; gap: 8px; margin-top: 12px; }
-    .vg-btns button { flex: 1; height: 44px; border-radius: 10px; font-size: 13px; font-weight: 800; border: none; cursor: pointer; }
-    .vg-cart { background: #fff; border: 1.5px solid #E3DCCF; color: #4A443B; }
-    .vg-buy { background: linear-gradient(135deg, #F0A03A, #E8801E); color: #fff; }
+    .vg-stepper {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #E3DCCF;
+      border-radius: 8px;
+      overflow: hidden;
+    }
 
-    .vg-sec { margin-top: 22px; padding: 20px 16px; border-radius: 16px; background: #FBF7EF; flex: none; }
-    .vg-eyebrow { display: block; font-size: 10.5px; font-weight: 800; letter-spacing: .12em; color: #E8912E; margin-bottom: 8px; }
-    .vg-h { font-size: 19px; font-weight: 800; letter-spacing: -.02em; line-height: 1.34; color: #2A2622; margin: 0; }
-    .vg-eyebrow.lt { color: rgba(255, 255, 255, .88); }
-    .vg-h.lt { color: #fff; }
+    .vg-stepper i {
+      width: 30px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      font-style: normal;
+      color: #8A8272;
+      font-weight: 700;
+    }
 
-    .vg-steps { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
-    .vg-step { display: flex; align-items: center; gap: 10px; padding: 13px 14px; border-radius: 12px; background: #fff; }
-    .vg-step b { font-size: 13px; font-weight: 900; color: #E8912E; flex: none; }
-    .vg-stt { font-size: 13px; font-weight: 800; color: #2A2622; flex: none; }
-    .vg-std { font-size: 11px; font-weight: 600; color: #9A9080; margin-left: auto; text-align: right; }
+    .vg-stepper b {
+      width: 34px;
+      text-align: center;
+      font-weight: 800;
+      color: #2A2622;
+    }
 
-    .vg-ings { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-    .vg-ing { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 14px; }
-    .vg-ing.c1 { background: #FBF0CE; }
-    .vg-ing.c2 { background: #FBE2D2; }
-    .vg-ing.c3 { background: #EFEBE6; }
-    .vg-inum { width: 46px; height: 46px; border-radius: 50%; background: rgba(255, 255, 255, .72); display: grid; place-items: center; font-size: 13px; font-weight: 900; color: #2A2622; flex: none; }
-    .vg-itx { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-    .vg-itx b { font-size: 15px; font-weight: 800; color: #2A2622; }
-    .vg-itx em { font-size: 11.5px; font-weight: 600; font-style: normal; color: #6E6658; line-height: 1.46; }
+    /* 실제 모바일 커머스처럼 폰 하단에 고정되는 플로팅 구매 바 (.upx-screen 안, 둥근 폰에 클립) */
+    .vg-btns {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 3;
+      display: flex;
+      gap: 8px;
+      padding: 10px 12px 12px;
+      background: rgba(255, 255, 255, .94);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid #EFEAE0;
+      box-shadow: 0 -6px 18px rgba(20, 20, 43, .1);
+    }
 
-    .vg-tex { position: relative; border-radius: 16px; overflow: hidden; margin-top: 22px; aspect-ratio: 3 / 4; flex: none; background: #EADFD6; }
-    .vg-tex img { width: 100%; height: 100%; object-fit: cover; }
-    .vg-tex-ov { position: absolute; inset: 0; padding: 22px 18px; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(0deg, rgba(110, 55, 18, .6), transparent 58%); }
-    .vg-tex-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-    .vg-tex-tags span { font-size: 10.5px; font-weight: 700; color: #fff; background: rgba(255, 255, 255, .2); border: 1px solid rgba(255, 255, 255, .38); border-radius: 100px; padding: 4px 11px; }
+    .vg-btns button {
+      flex: 1;
+      height: 40px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+    }
 
-    .vg-hsteps { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-    .vg-hstep { display: flex; flex-direction: column; gap: 4px; padding: 13px 14px; border-radius: 12px; background: #fff; }
-    .vg-hstep b { font-size: 10.5px; font-weight: 900; letter-spacing: .06em; color: #E8912E; }
-    .vg-hstep span { font-size: 12px; font-weight: 600; color: #5A5346; line-height: 1.5; }
+    .vg-cart {
+      background: #fff;
+      border: 1.5px solid #E3DCCF;
+      color: #4A443B;
+    }
 
-    .vg-cta { margin-top: 22px; padding: 30px 20px 26px; border-radius: 16px; text-align: center; background: linear-gradient(150deg, #F0A03A, #E8801E); flex: none; }
-    .vg-cta .vg-h { margin-top: 6px; }
-    .vg-ctabtn { margin-top: 18px; width: 100%; height: 46px; border-radius: 100px; border: none; background: #fff; color: #E8801E; font-size: 14px; font-weight: 800; cursor: pointer; }
+    .vg-buy {
+      background: linear-gradient(135deg, #F0A03A, #E8801E);
+      color: #fff;
+    }
+
+    .vg-sec {
+      margin-top: 22px;
+      padding: 20px 16px;
+      border-radius: 16px;
+      background: #FBF7EF;
+      flex: none;
+    }
+
+    .vg-eyebrow {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      color: #E8912E;
+      margin-bottom: 8px;
+    }
+
+    .vg-h {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.34;
+      color: #2A2622;
+      margin: 0;
+    }
+
+    .vg-eyebrow.lt {
+      color: rgba(255, 255, 255, .88);
+    }
+
+    .vg-h.lt {
+      color: #fff;
+    }
+
+    .vg-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .vg-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 14px;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .vg-step b {
+      font-size: 13px;
+      font-weight: 900;
+      color: #E8912E;
+      flex: none;
+    }
+
+    .vg-stt {
+      font-size: 13px;
+      font-weight: 800;
+      color: #2A2622;
+      flex: none;
+    }
+
+    .vg-std {
+      font-size: 11px;
+      font-weight: 600;
+      color: #9A9080;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .vg-ings {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .vg-ing {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 14px;
+    }
+
+    .vg-ing.c1 {
+      background: #FBF0CE;
+    }
+
+    .vg-ing.c2 {
+      background: #FBE2D2;
+    }
+
+    .vg-ing.c3 {
+      background: #EFEBE6;
+    }
+
+    .vg-inum {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .72);
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: #2A2622;
+      flex: none;
+    }
+
+    .vg-itx {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .vg-itx b {
+      font-size: 15px;
+      font-weight: 800;
+      color: #2A2622;
+    }
+
+    .vg-itx em {
+      font-size: 11.5px;
+      font-weight: 600;
+      font-style: normal;
+      color: #6E6658;
+      line-height: 1.46;
+    }
+
+    .vg-tex {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 22px;
+      aspect-ratio: 3 / 4;
+      flex: none;
+      background: #EADFD6;
+    }
+
+    .vg-tex img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .vg-tex-ov {
+      position: absolute;
+      inset: 0;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: linear-gradient(0deg, rgba(110, 55, 18, .6), transparent 58%);
+    }
+
+    .vg-tex-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .vg-tex-tags span {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(255, 255, 255, .2);
+      border: 1px solid rgba(255, 255, 255, .38);
+      border-radius: 100px;
+      padding: 4px 11px;
+    }
+
+    .vg-hsteps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .vg-hstep {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 13px 14px;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .vg-hstep b {
+      font-size: 10.5px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      color: #E8912E;
+    }
+
+    .vg-hstep span {
+      font-size: 12px;
+      font-weight: 600;
+      color: #5A5346;
+      line-height: 1.5;
+    }
+
+    .vg-cta {
+      margin-top: 22px;
+      padding: 30px 20px 26px;
+      border-radius: 16px;
+      text-align: center;
+      background: linear-gradient(150deg, #F0A03A, #E8801E);
+      flex: none;
+    }
+
+    .vg-cta .vg-h {
+      margin-top: 6px;
+    }
+
+    .vg-ctabtn {
+      margin-top: 18px;
+      width: 100%;
+      height: 46px;
+      border-radius: 100px;
+      border: none;
+      background: #fff;
+      color: #E8801E;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
 
     /* 위젯 (폰 내부) — 빨강 절제: 옅은 테두리 + 태그만 포인트 */
     .upx-wg {
@@ -7997,6 +8376,7 @@
     }
 
     /* 주문 완료 오버레이 — 구매 탭 후 폰 화면을 덮으며 등장 (액션 이후 스토리 요소) */
+    /* 주문 완료 = 모달 (딤 백드롭 + 중앙 카드, 닫기 가능) */
     .upx-done {
       position: absolute;
       inset: 0;
@@ -8004,26 +8384,57 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 28px 24px;
-      background: linear-gradient(158deg, #14141F, #232A3E);
+      padding: 24px;
+      background: rgba(16, 18, 28, .5);
       opacity: 0;
       visibility: hidden;
-      transform: scale(1.04);
-      transition: opacity .5s ease, transform .5s cubic-bezier(.2, .9, .3, 1), visibility .5s;
+      transition: opacity .4s ease, visibility .4s;
     }
 
     .up1s.u-buy .upx-done {
       opacity: 1;
       visibility: visible;
-      transform: scale(1);
     }
 
     .upx-done-in {
+      position: relative;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      background: linear-gradient(158deg, #14141F, #232A3E);
+      border-radius: 20px;
+      padding: 28px 22px 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .42);
+      transform: scale(.92);
+      transition: transform .5s cubic-bezier(.2, .9, .3, 1);
+    }
+
+    .up1s.u-buy .upx-done-in {
+      transform: scale(1);
+    }
+
+    .upx-donex {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, .12);
+      color: rgba(255, 255, 255, .82);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: background .15s;
+    }
+
+    .upx-donex:hover {
+      background: rgba(255, 255, 255, .24);
     }
 
     .upx-done-ic {
@@ -8043,14 +8454,29 @@
     }
 
     @keyframes upxDonePop {
-      0% { transform: scale(.4); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+      0% {
+        transform: scale(.4);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     @keyframes upxDoneRing {
-      0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--dc) 44%, transparent); }
-      70% { box-shadow: 0 0 0 18px transparent; }
-      100% { box-shadow: 0 0 0 0 transparent; }
+      0% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--dc) 44%, transparent);
+      }
+
+      70% {
+        box-shadow: 0 0 0 18px transparent;
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 transparent;
+      }
     }
 
     .upx-done-t {
@@ -8194,30 +8620,15 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 8px;
     }
 
     .upx-aov {
       background: #fff;
       border: 1px solid var(--sds-border-default);
-      border-radius: 18px;
-      padding: 18px 20px;
+      border-radius: 16px;
+      padding: 16px;
       box-shadow: 0 6px 16px rgba(20, 20, 43, .05);
-    }
-
-    .upx-aovh {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--sds-text-primary);
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-    }
-
-    .upx-aovh span {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--sds-text-tertiary);
     }
 
     .upx-aovnum {
@@ -8225,10 +8636,15 @@
       display: flex;
       align-items: baseline;
       gap: 6px;
-      margin: 8px 0 12px;
+      margin: 0 0 12px;
       font-size: 20px;
       font-weight: 800;
       color: var(--sds-text-primary);
+    }
+
+    .upx-aovnum .upx-cntx {
+      margin-left: auto;
+      align-self: center;
     }
 
     .upx-aovnum b {
@@ -8317,9 +8733,8 @@
       display: flex;
       align-items: flex-end;
       gap: 12px;
-      height: 70px;
-      margin-bottom: 16px;
-      padding: 0 4px;
+      height: 112px;
+      margin-top: 12px;
     }
 
     .upx-aovbar i {
@@ -8329,6 +8744,25 @@
       height: var(--h);
       transform: scaleY(0);
       transform-origin: bottom;
+    }
+
+    /* 막대 아래 담긴 개수 축 — 담을수록 객단가가 오르는 근거 */
+    .upx-aovx {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .upx-aovx span {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--sds-text-tertiary);
+    }
+
+    .upx-aovx span:last-child {
+      color: var(--dc);
     }
 
     .upx-aovbar i:nth-child(4) {
@@ -8358,22 +8792,75 @@
       }
     }
 
+    /* 폰 안 장바구니 서랍 — 담을수록 목록이 아래에서 차오른다 (재생 시작 시 슬라이드업) */
+    .upx-cartdrawer {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 64px;
+      z-index: 2;
+      background: #fff;
+      border: 1px solid color-mix(in srgb, var(--dc) 16%, #fff);
+      border-radius: 16px 16px 12px 12px;
+      box-shadow: 0 -6px 20px rgba(20, 20, 43, .12);
+      padding: 10px 12px 12px;
+      transform: translateY(160%);
+      transition: transform .5s cubic-bezier(.3, 1.1, .4, 1);
+    }
+
+    .up1s.on .upx-cartdrawer {
+      transform: translateY(0);
+    }
+
+    .upx-cdh {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--sds-text-primary);
+    }
+
+    .upx-cdh .upx-cdi {
+      font-style: normal;
+      color: var(--dc);
+    }
+
+    .upx-cdh .upx-cdlab {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--sds-text-tertiary);
+    }
+
     .upx-cartlist {
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 6px;
     }
 
     .upx-ci {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 12.5px;
+      gap: 8px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--sds-text-primary);
-      padding: 8px 12px;
+      padding: 6px 10px;
       border-radius: 10px;
       background: #F6F7FA;
+    }
+
+    .upx-ci span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .upx-ci b {
+      flex: none;
     }
 
     .upx-ci b {
@@ -8437,8 +8924,8 @@
       overflow: hidden;
       background: linear-gradient(180deg, color-mix(in srgb, var(--dc) 6%, #fff), #fff);
       border: 1px solid color-mix(in srgb, var(--dc) 18%, #fff);
-      border-radius: 18px;
-      padding: 16px 18px;
+      border-radius: 16px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
     }
@@ -8496,9 +8983,18 @@
     }
 
     @keyframes upxFc {
-      0% { transform: scale(.9); }
-      60% { transform: scale(1.05); }
-      100% { opacity: 1; transform: scale(1); }
+      0% {
+        transform: scale(.9);
+      }
+
+      60% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     /* ── 시퀀스 (클릭 후) — 스크롤·커서·탭 타이밍은 JS(scrollUpx)가 u-hit1~3·u-sheet·u-done 클래스로 구동 ── */
@@ -8512,17 +9008,42 @@
       }
     }
 
-    .up1s.u-hit1 .upx-addbtn.a1 .t2,
-    .up1s.u-hit2 .upx-addbtn.a2 .t2,
-    .up1s.u-hit3 .upx-addbtn.a3 .t2 {
+    /* 탭 순간 — 담김 상태로 스왑 (버튼이 아니라 상품 카드가 클릭 대상) */
+    .up1s.u-hit1 .wg1 .upx-pl.pick .upx-plck .t1,
+    .up1s.u-hit2 .wg2 .upx-pl.pick .upx-plck .t1,
+    .up1s.u-hit3 .upx-msc.pick .upx-msbtn .t1 {
+      opacity: 0;
+    }
+
+    .up1s.u-hit1 .wg1 .upx-pl.pick .upx-plck .t2,
+    .up1s.u-hit2 .wg2 .upx-pl.pick .upx-plck .t2,
+    .up1s.u-hit3 .upx-msc.pick .upx-msbtn .t2 {
       opacity: 1;
     }
 
-    /* 탭된 버튼 팝 — '✓ 담겼어요' 상태 전환을 또렷하게 */
-    .up1s.u-hit1 .upx-addbtn.a1,
-    .up1s.u-hit2 .upx-addbtn.a2,
-    .up1s.u-hit3 .upx-addbtn.a3 {
+    /* 탭된 카드 팝 + 선택 링 — '✓ 담김' 전환을 또렷하게 */
+    .up1s.u-hit1 .wg1 .upx-pl.pick,
+    .up1s.u-hit2 .wg2 .upx-pl.pick {
+      border-color: var(--dc);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--dc) 22%, transparent);
       animation: upxBtnPop .4s cubic-bezier(.2, 1.4, .4, 1);
+    }
+
+    .up1s.u-hit1 .wg1 .upx-pl.pick .upx-plck,
+    .up1s.u-hit2 .wg2 .upx-pl.pick .upx-plck {
+      background: #1B1E2B;
+    }
+
+    .up1s.u-hit3 .upx-msc.pick {
+      border-color: var(--dc);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--dc) 20%, transparent);
+      animation: upxBtnPop .4s cubic-bezier(.2, 1.4, .4, 1);
+    }
+
+    .up1s.u-hit3 .upx-msc.pick .upx-msbtn {
+      background: var(--dc);
+      border-color: transparent;
+      color: #fff;
     }
 
     @keyframes upxBtnPop {
@@ -8560,30 +9081,10 @@
       }
     }
 
-    /* 담긴 상품 수 — 장바구니 목록 헤더로, 탭마다 1→4로 또렷하게 증가 */
-    .upx-cnttag {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 8px;
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--sds-text-primary);
-    }
-
-    .upx-cnttag b {
-      min-width: 14px;
-      text-align: center;
-      font-size: 18px;
-      line-height: 1;
-      font-weight: 900;
-      color: var(--dc);
-    }
-
-    .upx-cnttag .upx-cntx {
-      margin-left: auto;
+    /* 오른쪽 프루프 카드 — '예상 객단가' 캡션 + ×4 배지(마지막에 팝) */
+    .upx-cntx {
       font-style: normal;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 900;
       color: #fff;
       background: var(--dc);
@@ -8593,7 +9094,15 @@
       transform: scale(.8);
     }
 
-    .up1s.u-done .upx-cnttag .upx-cntx {
+    .upx-aovcap {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      color: var(--sds-text-tertiary);
+      margin-bottom: 4px;
+    }
+
+    .up1s.u-done .upx-cntx {
       animation: upxCntX .5s cubic-bezier(.2, 1.4, .4, 1) both;
     }
 
@@ -8640,6 +9149,200 @@
       100% {
         box-shadow: 0 0 0 12px transparent;
       }
+    }
+
+    /* 위젯 3종 중 '담기 대상' 1종 = 카드 자체가 클릭 대상 (별도 버튼 없음) */
+    .upx-pl.pick {
+      border-color: color-mix(in srgb, var(--dc) 46%, #fff);
+      background: color-mix(in srgb, var(--dc) 6%, #fff);
+      cursor: pointer;
+      transition: box-shadow .3s ease, border-color .3s ease;
+    }
+
+    /* 담기 → ✓ 담김 2단 필 — inline-grid 스택으로 폭 점프 없이 스왑 */
+    .upx-plck {
+      flex: none;
+      align-self: center;
+      display: inline-grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 900;
+      color: #fff;
+      background: var(--dc);
+      border-radius: 100px;
+      padding: 4px 12px;
+      transition: background .3s ease;
+    }
+
+    .upx-plck .t1,
+    .upx-plck .t2 {
+      grid-area: 1 / 1;
+      white-space: nowrap;
+      transition: opacity .25s ease;
+    }
+
+    .upx-plck .t2 {
+      opacity: 0;
+    }
+
+    /* ── 시트: 상단 놓친 상품 가로 스트립 ── */
+    .upx-shmiss {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 2px 6px;
+      margin: 0 -2px;
+      scrollbar-width: none;
+    }
+
+    .upx-shmiss::-webkit-scrollbar {
+      display: none;
+    }
+
+    .upx-msc {
+      position: relative;
+      flex: none;
+      width: 128px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: #fff;
+      border: 1px solid var(--sds-border-default);
+      border-radius: 12px;
+      padding: 8px;
+    }
+
+    /* pick 카드는 탭 전엔 일반 카드와 완전히 동일 — 탭(u-hit3) 후에만 담김 강조 */
+    .upx-msc.pick {
+      cursor: pointer;
+      transition: box-shadow .3s ease, border-color .3s ease;
+    }
+
+    .upx-msc img {
+      width: 100%;
+      height: 72px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #F5EEF0;
+    }
+
+    .upx-msnm {
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.32;
+      color: var(--sds-text-primary);
+    }
+
+    .upx-msp {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--sds-text-primary);
+    }
+
+    .upx-msp s {
+      font-size: 10px;
+      font-weight: 700;
+      color: #C2C5CE;
+    }
+
+    .upx-msbtn {
+      position: relative;
+      display: grid;
+      place-items: center;
+      height: 28px;
+      margin-top: 2px;
+      border: 1px solid var(--sds-border-default);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--sds-text-secondary);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .3s ease, color .3s ease, border-color .3s ease;
+    }
+
+    /* pick 카드 버튼만 2단(담기/✓ 담김) — 스택 오버레이, 탭 전엔 일반 담기와 동일 */
+    .upx-msc.pick .upx-msbtn .t1,
+    .upx-msc.pick .upx-msbtn .t2 {
+      grid-area: 1 / 1;
+      transition: opacity .25s ease;
+    }
+
+    .upx-msc.pick .upx-msbtn .t2 {
+      opacity: 0;
+    }
+
+    /* ── 시트: 하단 선택 상품 목록 ── */
+    .upx-selcap {
+      margin-top: 2px;
+      padding-top: 10px;
+      border-top: 1px solid #EFEAE0;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+    }
+
+    .upx-shsel {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 2px 0;
+    }
+
+    .upx-shrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--sds-text-primary);
+    }
+
+    .upx-shrow b {
+      font-weight: 900;
+    }
+
+    .upx-shrow.s4 {
+      display: none;
+    }
+
+    .up1s.u-hit3 .upx-shrow.s4 {
+      display: flex;
+      animation: upxCi .4s ease both;
+    }
+
+    .up1s.u-hit3 .upx-shrow.s4 b {
+      color: var(--dc);
+    }
+
+    /* ── 주문 완료: 선택 상품 4종 목록 ── */
+    .upx-done-list {
+      margin-top: 18px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .upx-done-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .82);
+    }
+
+    .upx-done-row b {
+      font-weight: 800;
+      color: #fff;
     }
 
     /* 무대: 왼쪽 폰 히어로 + 오른쪽 근거 */
@@ -10170,7 +10873,7 @@
     }
 
     .uax-mcard.pick:not(.is-picked)::after {
-      content: '예정';
+      content: none;
       position: absolute;
       top: 10px;
       right: 10px;
@@ -10183,9 +10886,118 @@
       padding: 2px 8px;
     }
 
+    /* featured 선택 카드 — 다다익선 방식 + 대상 + 계단형을 한 카드에 시각화 */
+    .uax-mcard.uax-feat {
+      align-items: stretch;
+      gap: 16px;
+      padding: 16px 18px;
+      background: color-mix(in srgb, var(--dc) 5%, #fff);
+    }
+
+    .uax-mcard.uax-feat::after {
+      display: none;
+    }
+
+    .uax-featmain {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .uax-fhead {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .uax-fhead .uax-mic {
+      font-size: 20px;
+    }
+
+    .uax-fhead b {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+    }
+
+    .uax-fbadge {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--dc);
+      border-radius: 100px;
+      padding: 4px 12px;
+      white-space: nowrap;
+    }
+
+    .uax-fdesc {
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      color: var(--sds-text-tertiary);
+    }
+
+    .uax-faud {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .uax-faudk {
+      font-weight: 700;
+      color: var(--sds-text-tertiary);
+    }
+
+    .uax-faud b {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--sds-text-primary);
+    }
+
+    /* 다다익선 카드 상세 — 재생 전엔 접혀(다른 카드와 동일 위계), 클릭(is-picked) 시 펼침 */
+    .uax-mdetail {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: max-height .5s ease, opacity .4s ease, margin-top .4s ease;
+    }
+
+    .uax-mcard.is-picked .uax-mdetail {
+      max-height: 260px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+
+    .uax-fstair {
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--sds-border-default);
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+
     @keyframes uaxPickHint {
-      0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--dc) 16%, transparent); }
-      50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--dc) 6%, transparent); }
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--dc) 16%, transparent);
+      }
+
+      50% {
+        box-shadow: 0 0 0 6px color-mix(in srgb, var(--dc) 6%, transparent);
+      }
     }
 
     /* 클릭 후 다다익선 선택됨 */
@@ -10248,7 +11060,7 @@
     }
 
     .up2s.on .uax-intro {
-      animation: uaxIntroOut .5s ease 1.05s both;
+      animation: uaxIntroOut .5s ease 2.25s both;
       pointer-events: none;
     }
 
@@ -10312,11 +11124,11 @@
 
     /* 결과 1: A/B/N 테스트 카드 등장 → 결과 2: 최적 구간 등장 */
     .up2s.on .uax-step.s2 {
-      animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) 1.2s both;
+      animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) 2.4s both;
     }
 
     .up2s.on .uax-step.s3 {
-      animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) 2.5s both;
+      animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) 3.7s both;
     }
 
     @keyframes uaxStep {
@@ -10366,7 +11178,7 @@
     }
 
     .up2s.on .uax-arrow.a2 {
-      animation: uaxStep .4s ease 2.3s both;
+      animation: uaxStep .4s ease 3.5s both;
     }
 
     /* 재생 전 셋업 — 대상 오디언스 카드 (계단형과 한 줄) */
@@ -10492,13 +11304,13 @@
       min-height: 0;
       display: flex;
       flex-direction: column;
-      justify-content: stretch;
+      justify-content: flex-start;
       gap: 12px;
     }
 
     .uax-v {
       position: relative;
-      flex: 1 1 0;
+      flex: none;
       border: 1px solid var(--sds-border-default);
       border-radius: 12px;
       padding: 12px 16px;
@@ -10566,7 +11378,7 @@
     }
 
     .up2s.on .uax-v .uax-vbar i {
-      animation: uaxTraf .6s cubic-bezier(.3, 1.1, .5, 1) 1.8s both;
+      animation: uaxTraf .6s cubic-bezier(.3, 1.1, .5, 1) 3s both;
     }
 
     @keyframes uaxTraf {
@@ -10684,15 +11496,15 @@
     }
 
     .up2s.on .uax-b .uax-bfill {
-      animation: uaxBar .7s cubic-bezier(.3, 1.2, .5, 1) 2.9s both;
+      animation: uaxBar .7s cubic-bezier(.3, 1.2, .5, 1) 4.1s both;
     }
 
     .up2s.on .uax-b .uax-bv {
-      animation: uaxStep .4s ease 3.4s both;
+      animation: uaxStep .4s ease 4.6s both;
     }
 
     .up2s.on .uax-b.win .uax-bwin {
-      animation: uaxStep .4s cubic-bezier(.3, 1.6, .4, 1) 3.6s both;
+      animation: uaxStep .4s cubic-bezier(.3, 1.6, .4, 1) 4.8s both;
     }
 
     @keyframes uaxBar {
@@ -10725,7 +11537,7 @@
     }
 
     .up2s.on .uax-apply {
-      animation: uaxStep .5s ease 3.9s both;
+      animation: uaxStep .5s ease 5.1s both;
     }
 
     .uax-win {
@@ -10760,7 +11572,7 @@
     }
 
     .up2s.on .uax-preview {
-      animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) 2.1s both;
+      animation: uaxStep .5s cubic-bezier(.2, 1, .4, 1) 3.3s both;
     }
 
     .uax-pvframe {
@@ -11877,6 +12689,43 @@
 
     .pw-eyebrow b {
       color: var(--dc);
+    }
+
+    /* 전환장치 8개 다 켜진 뒤 — 카피 한 번 더 강조(pop + 글로우) */
+    .ps-wall.wall-done .pw-eyebrow {
+      display: inline-block;
+      transform-origin: left center;
+      animation: pwEyePop .72s cubic-bezier(.3, 1.4, .4, 1) both;
+    }
+
+    .ps-wall.wall-done .pw-eyebrow b {
+      animation: pwEyeGlow .72s ease both;
+    }
+
+    @keyframes pwEyePop {
+      0% {
+        transform: scale(1);
+      }
+
+      38% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes pwEyeGlow {
+
+      0%,
+      100% {
+        text-shadow: none;
+      }
+
+      42% {
+        text-shadow: 0 0 14px color-mix(in srgb, var(--dc) 55%, transparent);
+      }
     }
 
     .pw-count {
@@ -15070,33 +15919,83 @@
     }
 
     /* Figma 좌표 → 스테이지(1050×560) 기준 % */
-    .ccu-card.c1 { left: 2.3%; top: 8%; width: 36.2%; z-index: 1; }
-    .ccu-card.c2 { left: 40%; top: 0%; width: 36.2%; z-index: 3; }
-    .ccu-card.c3 { left: 77.7%; top: 8%; width: 22%; z-index: 2; }
-    .ccu-card.c4 { left: 3.8%; top: 58%; width: 50%; z-index: 1; }
-    .ccu-card.c5 { left: 54.5%; top: 55%; width: 38%; z-index: 4; }
+    .ccu-card.c1 {
+      left: 2.3%;
+      top: 6%;
+      width: 36.2%;
+      z-index: 1;
+    }
+
+    .ccu-card.c2 {
+      left: 40%;
+      top: 0%;
+      width: 36.2%;
+      z-index: 3;
+    }
+
+    .ccu-card.c3 {
+      left: 77.7%;
+      top: 8%;
+      width: 22%;
+      z-index: 2;
+    }
+
+    .ccu-card.c4 {
+      left: 3.8%;
+      top: 50%;
+      width: 49%;
+      z-index: 1;
+    }
+
+    .ccu-card.c5 {
+      left: 54.5%;
+      top: 49%;
+      width: 38%;
+      z-index: 4;
+    }
 
     /* 기승전결: 재생하면 카드가 1→5 순서대로 딜인 */
     .cv-update.on .ccu-card {
       animation: ccuDeal .5s cubic-bezier(.3, 1.3, .5, 1) both;
     }
 
-    .cv-update.on .ccu-card.c1 { animation-delay: .5s; }
-    .cv-update.on .ccu-card.c2 { animation-delay: .74s; }
-    .cv-update.on .ccu-card.c3 { animation-delay: .98s; }
-    .cv-update.on .ccu-card.c4 { animation-delay: 1.22s; }
-    .cv-update.on .ccu-card.c5 { animation-delay: 1.46s; }
+    .cv-update.on .ccu-card.c1 {
+      animation-delay: .5s;
+    }
+
+    .cv-update.on .ccu-card.c2 {
+      animation-delay: .74s;
+    }
+
+    .cv-update.on .ccu-card.c3 {
+      animation-delay: .98s;
+    }
+
+    .cv-update.on .ccu-card.c4 {
+      animation-delay: 1.22s;
+    }
+
+    .cv-update.on .ccu-card.c5 {
+      animation-delay: 1.46s;
+    }
 
     @keyframes ccuDeal {
-      from { opacity: 0; transform: translateY(16px) scale(.9); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     /* 결(結): 카드가 다 뜬 뒤 결론 배너 등장 — 5가지 공개 완료 + 로드맵은 계속 */
     .ccu-foot {
       position: absolute;
       left: 50%;
-      bottom: 13%;
+      bottom: 12%;
       transform: translateX(-50%) translateY(12px);
       display: inline-flex;
       align-items: center;
@@ -15105,7 +16004,7 @@
       border-radius: 100px;
       background: var(--sds-bg-inverse-primary);
       color: #fff;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       white-space: nowrap;
       box-shadow: 0 14px 34px rgba(20, 20, 43, .26);
@@ -15135,7 +16034,10 @@
     }
 
     @keyframes ccuFootIn {
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
     }
 
     /* 다시보기: 시작 버튼 자리에 그대로 교체 */
@@ -15964,18 +16866,13 @@
     /* 헤드 바로 밑 서브라인 — 총 혜택 가치 */
     .cvb-head2 {
       margin-top: -12px;
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 600;
       color: var(--sds-text-tertiary);
       text-align: center;
     }
 
     .cvb-head2 b {
-      color: var(--dc);
-      font-weight: 800;
-    }
-
-    .cvb-head b {
       color: var(--dc);
     }
 
@@ -16034,9 +16931,19 @@
     }
 
     @keyframes cvbSumIn {
-      0% { opacity: 0; transform: translateY(14px) scale(.96); }
-      60% { transform: translateY(0) scale(1.03); }
-      100% { opacity: 1; transform: none; }
+      0% {
+        opacity: 0;
+        transform: translateY(14px) scale(.96);
+      }
+
+      60% {
+        transform: translateY(0) scale(1.03);
+      }
+
+      100% {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     .cvb-list {
@@ -21921,31 +22828,27 @@
         <div class="upx">
           <div class="upx-phone">
             <div class="upx-screen">
-              <div class="upx-status"><span>9:41</span><span class="upx-sig"><i></i><i></i><i></i><b></b></span></div>
+              <div class="upx-status"><span>9:41</span><span class="upx-statr"><span class="upx-sig"><i></i><i></i><i></i><b></b></span><span class="upx-cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2.5 3h2.6l2.2 11.1a1.6 1.6 0 0 0 1.6 1.3h8.2a1.6 1.6 0 0 0 1.6-1.3L21.4 7H6.2"></path></svg><b class="upx-cbadge upx-cnt">1</b></span></span></div>
               <div class="upx-view">
                 <div class="upx-scroll">
                   <div class="vg-hero"><img src="assets/beauty/cosmetic_13.png" alt=""><span class="vg-hlogo">AURA LAB</span></div>
                   <div class="vg-pinfo">
-                    <span class="vg-tag">VITAMIN BRIGHTENING · 30ML</span>
                     <span class="vg-knm">비타 글로우 앰플</span>
-                    <span class="vg-enm">VITA GLOW AMPOULE</span>
                     <p class="vg-tagline">칙칙함은 가볍게, 피부 빛은 선명하게</p>
-                    <div class="vg-priceline"><em>28%</em><b>22,900원</b><s>32,000원</s></div>
+                    <div class="vg-priceline"><b>22,900원</b><em>28%</em><s>32,000원</s></div>
                     <div class="vg-ship">🚚 배송 3,000원 · <b>50,000원 이상 무료배송</b></div>
                     <div class="vg-qty"><span>수량</span><div class="vg-stepper"><i>−</i><b>1</b><i>＋</i></div></div>
-                    <div class="vg-btns"><button class="vg-cart">장바구니 담기</button><button class="vg-buy">바로 구매</button></div>
                   </div>
                   <div class="upx-wg wg1">
                     <div class="upx-wtag">🛒 구매 버튼 상단 위젯 · 옵션 세트 추천</div>
                     <span class="upx-wq">함께 사면 더 좋은 <b>추천 상품</b></span>
                     <div class="upx-plist">
                       <div class="upx-pl"><img src="assets/beauty/17_1_CICA CALM TONER PAD.png" alt=""><div class="upx-plc"><span class="upx-plnm">시카 카밍 토너 패드</span><span class="upx-plsub"><em>토너패드</em>앰플 전 피부 결 정돈·수분 진정</span></div></div>
-                      <div class="upx-pl"><img src="assets/beauty/17_2_VITA CAPSULE GLOW CREAM.png" alt=""><div class="upx-plc"><span class="upx-plnm">비타 캡슐 글로우 크림</span><span class="upx-plsub"><em>캡슐 크림</em>앰플의 수분·광채를 크림으로 마무리</span></div></div>
+                      <div class="upx-pl pick"><img src="assets/beauty/17_2_VITA CAPSULE GLOW CREAM.png" alt=""><div class="upx-plc"><span class="upx-plnm">비타 캡슐 글로우 크림</span><span class="upx-plsub"><em>캡슐 크림</em>앰플의 수분·광채를 크림으로 마무리</span></div><em class="upx-plck"><span class="t1">담기</span><span class="t2">✓ 담김</span></em></div>
                       <div class="upx-pl"><img src="assets/beauty/17_3_VITA SHIELD SUNSCREEN.png" alt=""><div class="upx-plc"><span class="upx-plnm">비타 쉴드 톤업 선크림 SPF50+</span><span class="upx-plsub"><em>선케어</em>브라이트닝 루틴 후 자외선 차단</span></div></div>
                     </div>
                     <div class="upx-route"><span>토너 패드</span><i>→</i><b>비타 글로우 앰플<em>NOW</em></b><i>→</i><span>캡슐 크림</span><i>→</i><span>선크림</span></div>
-                    <div class="upx-setbar"><span class="upx-setlb">추천 루틴 3종 함께</span><span class="upx-spr">+37,800</span></div>
-                    <button class="upx-addbtn a1"><span class="t1">＋ 3종 함께 담기</span><span class="t2">✓ 담겼어요</span></button>
+                    <div class="upx-setbar"><span class="upx-setlb">세트로 담으면</span><span class="upx-spr">+34,000</span></div>
                   </div>
                   <div class="vg-sec">
                     <span class="vg-eyebrow">GLOW ROUTINE</span>
@@ -21977,12 +22880,11 @@
                     <div class="upx-wtag">📄 상품 설명 본문 하단 위젯</div>
                     <span class="upx-wq">이 상품과 <b>함께 자주 산 상품</b></span>
                     <div class="upx-plist">
-                      <div class="upx-pl"><img src="assets/beauty/17_4_PURE BALANCING CLEANSING OIL.png" alt=""><div class="upx-plc"><span class="upx-plnm">퓨어 밸런싱 클렌징 오일</span><span class="upx-plsub"><em>클렌징 오일</em>저녁 스킨케어 전 메이크업 세정</span></div></div>
+                      <div class="upx-pl pick"><img src="assets/beauty/17_4_PURE BALANCING CLEANSING OIL.png" alt=""><div class="upx-plc"><span class="upx-plnm">퓨어 밸런싱 클렌징 오일</span><span class="upx-plsub"><em>클렌징 오일</em>저녁 스킨케어 전 메이크업 세정</span></div><em class="upx-plck"><span class="t1">담기</span><span class="t2">✓ 담김</span></em></div>
                       <div class="upx-pl"><img src="assets/beauty/17_5_PDRN RECOVERY MASK.png" alt=""><div class="upx-plc"><span class="upx-plnm">PDRN 리커버리 마스크</span><span class="upx-plsub"><em>마스크팩</em>집중 수분·탄력 관리 조합</span></div></div>
                       <div class="upx-pl"><img src="assets/beauty/17_6_CERAMIDE BARRIER LOTION.png" alt=""><div class="upx-plc"><span class="upx-plnm">세라마이드 베리어 로션</span><span class="upx-plsub"><em>보습 로션</em>건조·민감 피부 보습 보완</span></div></div>
                     </div>
-                    <div class="upx-setbar"><span class="upx-setlb">함께 산 3종 함께</span><span class="upx-spr">+32,000</span></div>
-                    <button class="upx-addbtn a2"><span class="t1">＋ 3종 함께 담기</span><span class="t2">✓ 담겼어요</span></button>
+                    <div class="upx-setbar"><span class="upx-setlb">함께 담으면</span><span class="upx-spr">+26,000</span></div>
                   </div>
                   <div class="vg-sec">
                     <span class="vg-eyebrow">HOW TO USE</span>
@@ -22002,13 +22904,29 @@
                 <div class="upx-sheet wg3">
                   <div class="upx-sheeth">장바구니에 담긴 상품 <span class="n">3</span><i class="x">✕</i></div>
                   <div class="upx-shrec">💡 전에 보고 놓쳤던 상품, 지금 담으면 할인</div>
-                  <div class="upx-plist miss">
-                    <div class="upx-pl"><img src="assets/beauty/17_7_GLOW FIT CUSHION.png" alt=""><div class="upx-plc"><span class="upx-plnm">글로우 핏 쿠션 SPF40</span><span class="upx-plsub"><em>메이크업 쿠션</em>앰플과 연결되는 촉촉 광채 메이크업</span></div></div>
-                    <div class="upx-pl"><img src="assets/beauty/17_8_AQUA HYALURON MIST.png" alt=""><div class="upx-plc"><span class="upx-plnm">아쿠아 히알루론 미스트</span><span class="upx-plsub"><em>페이스 미스트</em>휴대 수분 보충 가벼운 상품</span></div></div>
-                    <div class="upx-pl"><img src="assets/beauty/17_9_PEPTIDE LIFTING EYE CREAM.png" alt=""><div class="upx-plc"><span class="upx-plnm">펩타이드 리프팅 아이크림</span><span class="upx-plsub"><em>아이케어</em>탄력·주름까지 확장 기능성</span></div></div>
+                  <div class="upx-shmiss">
+                    <div class="upx-msc"><img src="assets/beauty/17_7_GLOW FIT CUSHION.png" alt=""><span class="upx-msnm">글로우 핏 쿠션 SPF40</span><span class="upx-msp"><s>42,000</s>34,900원</span><button class="upx-msbtn">담기</button></div>
+                    <div class="upx-msc pick"><img src="assets/beauty/17_8_AQUA HYALURON MIST.png" alt=""><span class="upx-msnm">아쿠아 히알루론 미스트</span><span class="upx-msp"><s>24,000</s>19,000원</span><button class="upx-msbtn"><span class="t1">담기</span><span class="t2">✓ 담김</span></button></div>
+                    <div class="upx-msc"><img src="assets/beauty/17_9_PEPTIDE LIFTING EYE CREAM.png" alt=""><span class="upx-msnm">펩타이드 리프팅 아이크림</span><span class="upx-msp"><s>48,000</s>39,000원</span><button class="upx-msbtn">담기</button></div>
                   </div>
-                  <div class="upx-shadd"><span class="upx-setlb">놓친 상품 3종 <s>29,600</s> <em>10%↓</em> 26,600원</span><button class="upx-addbtn a3"><span class="t1">＋ 3종 담기</span><span class="t2">✓</span></button></div>
-                  <div class="upx-shfoot"><span class="upx-shtot">결제 예정 <b>92,700원</b></span><span class="upx-buy">바로 구매하기</span></div>
+                  <div class="upx-selcap">🛒 지금 담긴 상품</div>
+                  <div class="upx-shsel">
+                    <div class="upx-shrow"><span>비타 글로우 앰플</span><b>22,900원</b></div>
+                    <div class="upx-shrow"><span>비타 캡슐 글로우 크림</span><b>34,000원</b></div>
+                    <div class="upx-shrow"><span>퓨어 밸런싱 클렌징 오일</span><b>26,000원</b></div>
+                    <div class="upx-shrow s4"><span>아쿠아 히알루론 미스트</span><b>19,000원</b></div>
+                  </div>
+                  <div class="upx-shfoot"><span class="upx-shtot">결제 예정 <b>82,900원</b></span><span class="upx-buy">바로 구매하기</span></div>
+                </div>
+              </div>
+              <div class="vg-btns"><button class="vg-cart">장바구니 담기</button><button class="vg-buy">바로 구매</button></div>
+              <div class="upx-cartdrawer">
+                <div class="upx-cdh"><span class="upx-cdt">🛒 담은 상품</span><span class="upx-cdlab"><b class="upx-cnt upx-cdi">1</b>개</span></div>
+                <div class="upx-cartlist">
+                  <div class="upx-ci c0"><span>비타 글로우 앰플</span><b>22,900</b></div>
+                  <div class="upx-ci c1"><span>비타 캡슐 글로우 크림</span><b>+34,000</b></div>
+                  <div class="upx-ci c2"><span>퓨어 밸런싱 클렌징 오일</span><b>+26,000</b></div>
+                  <div class="upx-ci c3"><span>아쿠아 히알루론 미스트</span><b>+19,000</b></div>
                 </div>
               </div>
               <div class="up1-cta">
@@ -22017,14 +22935,17 @@
               </div>
               <div class="upx-done">
                 <div class="upx-done-in">
+                  <button class="upx-donex" type="button" aria-label="닫기">✕</button>
                   <div class="upx-done-ic">✓</div>
                   <span class="upx-done-t">주문 완료</span>
                   <span class="upx-done-s">상품 4개가 정상적으로 결제되었어요</span>
-                  <div class="upx-done-amt"><span>결제 금액</span><b>119,300원</b></div>
-                  <div class="upx-done-items">
-                    <span>비타 글로우 앰플 · 추천 루틴 3종</span>
-                    <span>함께 산 3종 · 놓친 상품 3종</span>
+                  <div class="upx-done-list">
+                    <div class="upx-done-row"><span>비타 글로우 앰플</span><b>22,900원</b></div>
+                    <div class="upx-done-row"><span>비타 캡슐 글로우 크림</span><b>34,000원</b></div>
+                    <div class="upx-done-row"><span>퓨어 밸런싱 클렌징 오일</span><b>26,000원</b></div>
+                    <div class="upx-done-row"><span>아쿠아 히알루론 미스트</span><b>19,000원</b></div>
                   </div>
+                  <div class="upx-done-amt"><span>결제 금액</span><b>101,900원</b></div>
                   <p class="upx-done-th">클릭 한 번에 장바구니가 4배 커졌어요.<br>알파업셀과 함께한 첫 업셀, 감사합니다 🙌</p>
                 </div>
               </div>
@@ -22032,16 +22953,10 @@
           </div>
           <div class="upx-side">
             <div class="upx-aov">
-              <div class="upx-aovh">객단가 <span>담을 때마다 실시간으로</span></div>
-              <div class="upx-aovnum">₩<b class="upx-aovval">22,900</b><i class="upx-aovup">▲</i><i class="upx-delta"></i></div>
-              <div class="upx-aovbar"><i style="--h:20%"></i><i style="--h:48%"></i><i style="--h:76%"></i><i style="--h:100%"></i></div>
-              <div class="upx-cnttag">담긴 상품 <b class="upx-cnt">1</b>개<i class="upx-cntx">×4</i></div>
-              <div class="upx-cartlist">
-                <div class="upx-ci c0"><span>비타 글로우 앰플</span><b>22,900</b></div>
-                <div class="upx-ci c1"><span>＋ 추천 루틴 3종</span><b>+37,800</b></div>
-                <div class="upx-ci c2"><span>＋ 함께 산 3종</span><b>+32,000</b></div>
-                <div class="upx-ci c3"><span>＋ 놓친 상품 3종</span><b>+26,600</b></div>
-              </div>
+              <div class="upx-aovcap">예상 객단가</div>
+              <div class="upx-aovnum">₩<b class="upx-aovval">22,900</b><i class="upx-aovup">▲</i><i class="upx-cntx">×4</i><i class="upx-delta"></i></div>
+              <div class="upx-aovbar"><i style="--h:22%"></i><i style="--h:56%"></i><i style="--h:82%"></i><i style="--h:100%"></i></div>
+              <div class="upx-aovx"><span>1개</span><span>2개</span><span>3개</span><span>4개</span></div>
             </div>
             <div class="upx-fan">
               <div class="upx-fanh">추천 위젯 <b>12종</b>이 고객 동선 곳곳에서</div>
@@ -22063,7 +22978,7 @@
           </div>
         </div>
         <span class="upx-go"></span>
-        <button class="cmp-replay" type="button" title="다시 보기" aria-label="다시 보기">↻</button>
+        <button class="cmp-replay" type="button">↻ 다시 보기</button>
       </div>`,
 
       up2: `<div class="sc up2s">
@@ -22077,26 +22992,11 @@
                 </div>
                 <div class="uax-mgrid">
                   <div class="uax-mcard"><span class="uax-mic">🏷</span><div class="uax-mtx"><b>단순 할인</b><em>특정·전체 상품에 즉시 할인</em></div></div>
-                  <div class="uax-mcard pick"><span class="uax-mck">✓</span><span class="uax-mic">📈</span><div class="uax-mtx"><b>다다익선 할인</b><em>개수·금액이 늘수록 할인 폭이 커지는 계단형</em></div></div>
+                  <div class="uax-mcard pick"><span class="uax-mck">✓</span><span class="uax-mic">📈</span><div class="uax-mtx"><b>다다익선 할인</b><em>개수·금액이 늘수록 할인 폭이 커지는 계단형</em><div class="uax-mdetail"><div class="uax-faud"><span class="uax-faudk">👥 대상</span><b>재방문 · 장바구니 보유 고객</b><span class="uax-audchip">도달 3,240명</span></div><div class="uax-fstair"><span class="uax-stairh">계단형 할인 구조 — 많이 담을수록 ↑</span><div class="uax-stairviz"><div class="uax-stz" style="--sh:26%"><b>5%</b><i></i><span>1개</span></div><div class="uax-stz" style="--sh:58%"><b>10%</b><i></i><span>2개</span></div><div class="uax-stz" style="--sh:100%"><b>15%</b><i></i><span>3개+</span></div></div></div></div></div></div>
                   <div class="uax-mcard"><span class="uax-mic">🎁</span><div class="uax-mtx"><b>사은품 증정</b><em>구매 조건 충족 시 사은품 지급</em></div></div>
                   <div class="uax-mcard"><span class="uax-mic">⏰</span><div class="uax-mtx"><b>FOMO 할인</b><em>방문 횟수 기준 단계별 할인</em></div></div>
                   <div class="uax-mcard"><span class="uax-mic">🔒</span><div class="uax-mtx"><b>시크릿 할인</b><em>특정 시간 즉시 할인</em></div></div>
                   <div class="uax-mcard"><span class="uax-mic">🛒</span><div class="uax-mtx"><b>장바구니 페이지 할인</b><em>장바구니 이탈 시 할인 노출</em></div></div>
-                </div>
-              </div>
-              <div class="uax-plan">
-                <div class="uax-aud">
-                  <span class="uax-audh">👥 대상 오디언스</span>
-                  <span class="uax-audv">재방문 · 장바구니 보유 고객</span>
-                  <div class="uax-audmeta"><span class="uax-audchip">예상 도달 3,240명</span><span class="uax-audchip">장바구니 보유 68%</span></div>
-                </div>
-                <div class="uax-stair">
-                  <span class="uax-stairh">📈 계단형 할인 구조</span>
-                  <div class="uax-stairviz">
-                    <div class="uax-stz" style="--sh:40%"><b>5%</b><i></i><span>1개</span></div>
-                    <div class="uax-stz" style="--sh:68%"><b>10%</b><i></i><span>2개</span></div>
-                    <div class="uax-stz" style="--sh:100%"><b>15%</b><i></i><span>3개+</span></div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -22505,7 +23405,7 @@
           <div class="ccu-card c3"><div class="ccu-lb"><span class="ccu-n">3</span>메뉴 관리</div><div class="ccu-img"><img src="assets/canvas/canvas_update_3.png" alt=""></div></div>
           <div class="ccu-card c4"><div class="ccu-lb"><span class="ccu-n">4</span>매거진 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_4.png" alt=""></div></div>
           <div class="ccu-card c5"><div class="ccu-lb"><span class="ccu-n">5</span>검색 기능 고도화</div><div class="ccu-img"><img src="assets/canvas/canvas_update_5.png" alt=""></div></div>
-          <div class="ccu-foot"><span class="ccu-foot-ck">✓</span>업데이트 <b>5가지</b> 공개 — 로드맵은 여기서 끝이 아니라 <b>계속</b> 채워져요</div>
+          <div class="ccu-foot"><span class="ccu-foot-ck">✓</span><b>5가지</b> 업데이트 공개! 로드맵은 여기서 끝이 아니라 <b>계속</b> 채워져요</div>
           </div>
         </div>
       </div>`,
@@ -22613,7 +23513,7 @@
       </div>`,
 
       cv3: `<div class="sc cv-benefit">
-        <div class="cvb-head">스킨 하나 구매하면, 시작에 필요한 <b>3가지까지 함께</b></div>
+        <div class="cvb-head">스킨 하나 구매하면, 시작에 필요한 3가지</div>
         <div class="cvb-head2"><b>30만원 상당</b>의 혜택을 바로 받아요</div>
         <div class="cvb-list">
           <div class="cvb-card b1">
@@ -23507,9 +24407,9 @@
       };
       const pop = t => { if (!t) return; t.classList.remove('upx-pop'); void t.offsetWidth; t.classList.add('upx-pop'); };
       const off = t => (t ? Math.max(0, t.offsetTop - 44) : 0);
-      // 담긴 상품 수 — 탭마다 1→4로 증가 + 팝
-      const cnt = sc.querySelector('.upx-cnt');
-      const setCnt = n => { if (cnt) { cnt.textContent = n; pop(cnt); } };
+      // 담긴 상품 수 — 탭마다 1→4로 증가 + 팝 (폰 헤더 배지 + 폰 장바구니 서랍 헤더, 두 .upx-cnt 동기)
+      const cnts = [...sc.querySelectorAll('.upx-cnt')];
+      const setCnt = n => cnts.forEach(c => { c.textContent = n; pop(c); });
       // 플라이 — 탭한 버튼 중심에서 오른쪽 장바구니 행으로 가격 칩이 살짝 아치를 그리며 날아간다.
       // 좌표는 커서(moveTo)와 동일하게 씬 rect·스케일 보정. 도착 시 행에 착지 파동, 노드 제거.
       const fly = (fromSel, toSel, label) => {
@@ -23561,34 +24461,40 @@
       }
       /* 1탭 — 구매버튼 상단 위젯(wg1) 담기 */
       at(200, () => { glide(off(sc.querySelector('.wg1')), 640); moveTo('.upx-screen', 700, 0, -60); });
-      at(900, () => moveTo('.upx-addbtn.a1', 460));
-      at(1440, () => { tap(); fly('.upx-addbtn.a1', '.upx-ci.c1', '+37,800'); });
-      at(1560, () => { sc.classList.add('u-hit1'); bump(22900, 60700); setCnt(2); });
+      at(900, () => moveTo('.wg1 .upx-pl.pick', 460));
+      at(1440, () => { tap(); fly('.wg1 .upx-pl.pick', '.upx-cart', '+34,000'); });
+      at(1560, () => { sc.classList.add('u-hit1'); bump(22900, 56900); setCnt(2); });
       /* 본문 훑기 — 탭 없는 브라우징 비트 */
       at(2500, () => { glide(off(sc.querySelector('.vg-sec')), 800); moveTo('.upx-screen', 900, 100, 40); });
       /* 2탭 — 본문 하단 위젯(wg2) 담기 */
       at(3900, () => glide(off(sc.querySelector('.wg2')), 700));
-      at(4700, () => moveTo('.upx-addbtn.a2', 460));
-      at(5240, () => { tap(); fly('.upx-addbtn.a2', '.upx-ci.c2', '+32,000'); });
-      at(5360, () => { sc.classList.add('u-hit2'); bump(60700, 92700); setCnt(3); });
+      at(4700, () => moveTo('.wg2 .upx-pl.pick', 460));
+      at(5240, () => { tap(); fly('.wg2 .upx-pl.pick', '.upx-cart', '+26,000'); });
+      at(5360, () => { sc.classList.add('u-hit2'); bump(56900, 82900); setCnt(3); });
       /* 3탭 — 장바구니 시트의 놓친 상품 담기 */
       at(6300, () => { glide(el.scrollHeight, 700); sc.classList.add('u-sheet'); });
-      at(7100, () => moveTo('.upx-addbtn.a3', 460));
-      at(7640, () => { tap(); fly('.upx-addbtn.a3', '.upx-ci.c3', '+26,600'); });
+      at(7100, () => moveTo('.upx-msc.pick', 460));
+      at(7640, () => { tap(); fly('.upx-msc.pick', '.upx-cart', '+19,000'); });
       at(7760, () => {
         sc.classList.add('u-hit3');
-        bump(92700, 119300);
+        bump(82900, 101900);
         setCnt(4);
         const n = sc.querySelector('.upx-sheeth .n'), tot = sc.querySelector('.upx-shtot b');
         if (n) { n.textContent = '4'; pop(n); }
-        if (tot) { tot.textContent = '119,300원'; pop(tot); }
+        if (tot) { tot.textContent = '101,900원'; pop(tot); }
       });
       /* 결 — 12종 팬 펼침 (커서는 유지 · 구매 탭까지 이어감) */
       at(8600, () => { sc.classList.add('u-done'); });
       /* 구매 — 커서가 '바로 구매하기'로 활강 후 탭 → 주문 완료 화면 등장 */
       at(8900, () => moveTo('.upx-buy', 520));
       at(9400, () => { tap(); const bb = sc.querySelector('.upx-buy'); if (bb) { bb.classList.remove('press'); void bb.offsetWidth; bb.classList.add('press'); } });
-      at(9700, () => { sc.classList.add('u-buy'); if (go) go.classList.add('bye'); });
+      at(9700, () => {
+        sc.classList.add('u-buy'); if (go) go.classList.add('bye');
+        const dn = sc.querySelector('.upx-done'), dx = sc.querySelector('.upx-donex');
+        const close = () => sc.classList.remove('u-buy');
+        if (dx) dx.onclick = close;
+        if (dn) dn.onclick = (e) => { if (e.target === dn) close(); };
+      });
     }
 
     /* ps3(요금 비교) — 기능을 한 칸씩 또렷하게 켜고, 켤 때마다 경쟁 CRM 요금이 계단식으로 훅 상승 · 알파푸시는 39,000 그대로 */
@@ -23667,6 +24573,8 @@
       if (grid && sc.isConnected) setTimeout(() => { grid.scrollTop = 0; }, 400);
       const lb = sc.querySelector('.pw-head .cl-lb');
       if (lb && sc.isConnected) lb.textContent = '✓ 8개 전환 장치 모두 작동 중';
+      // 카피 한 번 더 강조 — 마지막 플러시
+      if (sc.isConnected) setTimeout(() => { if (sc.isConnected) sc.classList.add('wall-done'); }, 600);
     }
 
     /* 캔버스 씬 1 — 상세페이지 원클릭 편집 투어 (기승전결) */
