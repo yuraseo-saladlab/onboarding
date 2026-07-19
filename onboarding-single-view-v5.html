@@ -7804,7 +7804,7 @@
       display: none;
     }
 
-    .sc.up1s.u-buy .cmp-replay {
+    .sc.up1s.u-complete .cmp-replay {
       display: inline-flex;
       animation: replayIn .45s cubic-bezier(.2, .7, .2, 1) .55s both;
     }
@@ -8988,16 +8988,19 @@
       place-items: center;
       border-radius: 50%;
       background: color-mix(in srgb, var(--dc) 8%, #fff);
-      color: var(--dc);
-      font-size: 40px;
-      font-weight: 900;
-      line-height: 1;
+      color: var(--sds-bg-danger);
+    }
+
+    .upx-aovq svg {
+      display: block;
+      width: 40px;
+      height: 40px;
     }
 
     .upx-aovqt {
       margin: 0;
       text-align: center;
-      font-size: 14px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--sds-text-secondary);
       line-height: 1.5;
@@ -9072,12 +9075,11 @@
     }
 
     .upx-aovup {
+      display: block;
       width: 32px;
       height: 32px;
       align-self: center;
-      background: var(--dc);
-      -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%3Cpath%20d%3D%22M12.0002%204L12.1027%204.00488C12.1261%204.00727%2012.1491%204.01165%2012.172%204.01562C12.1792%204.01686%2012.1864%204.01716%2012.1935%204.01855C12.2094%204.02166%2012.2248%204.02642%2012.2404%204.03027C12.2573%204.03445%2012.2745%204.0379%2012.2912%204.04297C12.3382%204.05724%2012.3832%204.07596%2012.4269%204.09668C12.4705%204.11728%2012.513%204.14072%2012.5539%204.16797C12.609%204.20472%2012.6605%204.24631%2012.7072%204.29297L16.7072%208.29297C17.0976%208.68348%2017.0976%209.31653%2016.7072%209.70703C16.3167%2010.0975%2015.6837%2010.0975%2015.2931%209.70703L13.0002%207.41406V19C13.0002%2019.5523%2012.5524%2020%2012.0002%2020C11.4479%2020%2011.0002%2019.5523%2011.0002%2019V7.41406L8.7072%209.70703C8.3167%2010.0975%207.68367%2010.0975%207.29314%209.70703C6.90261%209.31651%206.90261%208.68349%207.29314%208.29297L11.2931%204.29297C11.3394%204.24669%2011.3899%204.2045%2011.4445%204.16797C11.4837%204.14175%2011.5249%204.1197%2011.5666%204.09961C11.6118%204.07777%2011.6584%204.05787%2011.7072%204.04297C11.7275%204.03678%2011.7482%204.03221%2011.7687%204.02734C11.7801%204.02465%2011.7914%204.02183%2011.8029%204.01953L11.8088%204.01855L11.8976%204.00488C11.9313%204.00146%2011.9656%204%2012.0002%204Z%22%20fill%3D%22%235D6374%22%2F%3E%20%3C%2Fsvg%3E") center / contain no-repeat;
-      mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%3Cpath%20d%3D%22M12.0002%204L12.1027%204.00488C12.1261%204.00727%2012.1491%204.01165%2012.172%204.01562C12.1792%204.01686%2012.1864%204.01716%2012.1935%204.01855C12.2094%204.02166%2012.2248%204.02642%2012.2404%204.03027C12.2573%204.03445%2012.2745%204.0379%2012.2912%204.04297C12.3382%204.05724%2012.3832%204.07596%2012.4269%204.09668C12.4705%204.11728%2012.513%204.14072%2012.5539%204.16797C12.609%204.20472%2012.6605%204.24631%2012.7072%204.29297L16.7072%208.29297C17.0976%208.68348%2017.0976%209.31653%2016.7072%209.70703C16.3167%2010.0975%2015.6837%2010.0975%2015.2931%209.70703L13.0002%207.41406V19C13.0002%2019.5523%2012.5524%2020%2012.0002%2020C11.4479%2020%2011.0002%2019.5523%2011.0002%2019V7.41406L8.7072%209.70703C8.3167%2010.0975%207.68367%2010.0975%207.29314%209.70703C6.90261%209.31651%206.90261%208.68349%207.29314%208.29297L11.2931%204.29297C11.3394%204.24669%2011.3899%204.2045%2011.4445%204.16797C11.4837%204.14175%2011.5249%204.1197%2011.5666%204.09961C11.6118%204.07777%2011.6584%204.05787%2011.7072%204.04297C11.7275%204.03678%2011.7482%204.03221%2011.7687%204.02734C11.7801%204.02465%2011.7914%204.02183%2011.8029%204.01953L11.8088%204.01855L11.8976%204.00488C11.9313%204.00146%2011.9656%204%2012.0002%204Z%22%20fill%3D%22%235D6374%22%2F%3E%20%3C%2Fsvg%3E") center / contain no-repeat;
+      object-fit: contain;
       opacity: 0;
     }
 
@@ -9471,8 +9473,8 @@
       transform: translateY(12px);
     }
 
-    /* 12종 팬 — 주문 완료 카드(upx-done-in)가 먼저 등장한 뒤(u-buy) 이어서 등장 */
-    .up1s.u-buy .upx-fan {
+    /* 12종 팬 — 구매 완료 상태에 진입하면 등장하고, 주문 완료 모달을 닫아도 유지 */
+    .up1s.u-complete .upx-fan {
       animation: upxFanIn .5s cubic-bezier(.2, 1, .4, 1) .5s both;
     }
 
@@ -9531,7 +9533,7 @@
       transform: none;
     }
 
-    .up1s.u-buy .upx-fancards .fc {
+    .up1s.u-complete .upx-fancards .fc {
       animation: upxFc .42s cubic-bezier(.3, 1.4, .5, 1) both;
       animation-delay: calc(.6s + var(--i) * .05s);
     }
@@ -11322,7 +11324,7 @@
       gap: 8px;
       padding: 12px 14px;
       border: 1px solid color-mix(in srgb, var(--dc) 24%, #fff);
-      border-radius: 12px;
+      border-radius: 8px;
       background: color-mix(in srgb, var(--dc) 5%, #fff);
     }
 
@@ -11358,25 +11360,45 @@
     .uax-mcard {
       position: relative;
       display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 12px 14px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 12px;
       border: 1px solid var(--sds-border-default);
-      border-radius: 12px;
-      background: var(--sds-bg-secondary);
+      border-radius: 8px;
+      background: var(--sds-bg-primary);
       transition: border-color .3s ease, background .3s ease, box-shadow .3s ease;
     }
 
-    .uax-mic {
-      font-size: 18px;
-      line-height: 1.2;
-      flex: none;
+    .uax-mrow {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      height: 48px;
+      min-width: 0;
+    }
+
+    .uax-mimgwrap {
+      flex: 0 0 auto;
+      height: 100%;
+      aspect-ratio: 420 / 252;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .uax-mimg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .uax-mtx {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      justify-content: center;
+      gap: 4px;
+      flex: 1 1 auto;
       min-width: 0;
     }
 
@@ -11458,10 +11480,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-
-    .uax-fhead .uax-mic {
-      font-size: 20px;
     }
 
     .uax-fhead b {
@@ -11644,7 +11662,7 @@
       padding: 16px 16px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
       box-shadow: 0 6px 16px rgba(20, 20, 43, .05);
       opacity: 0;
       transform: translateY(14px);
@@ -11670,7 +11688,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 800;
       color: var(--sds-text-primary);
     }
@@ -11691,17 +11709,14 @@
     .uax-arrow {
       flex: none;
       align-self: center;
-      width: 22px;
+      width: 24px;
       opacity: 0;
     }
 
-    .uax-arrow i {
+    .uax-arrow img {
       display: block;
-      width: 10px;
-      height: 10px;
-      border-top: 3px solid var(--dc);
-      border-right: 3px solid var(--dc);
-      transform: rotate(45deg);
+      width: 24px;
+      height: 24px;
       margin: 0 auto;
     }
 
@@ -11982,7 +11997,7 @@
       flex: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: var(--sds-space-8);
     }
 
     /* s3 결과 콘텐츠(대상·차트·결론)를 본문 세로 중앙에 묶어 안정감 (헤더 상단·다시보기 하단 고정) */
@@ -11992,16 +12007,16 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 18px;
+      gap: 16px;
     }
 
     /* 변형 행 = s2(uax-sv)와 동일 결의 카드 + uax-vt 배지. 텍스트 라인/바 라인 분리(반응형 유리) */
     .uax-b {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       border: 1px solid var(--sds-border-default);
-      border-radius: 12px;
+      border-radius: 8px;
       padding: 12px 14px;
     }
 
@@ -12063,7 +12078,7 @@
     .uax-bfill {
       height: 100%;
       width: var(--bw);
-      border-radius: 6px;
+      border-radius: 100px;
       background: #C2CCDB;
       transform: scaleX(0);
       transform-origin: left;
@@ -12121,7 +12136,7 @@
       gap: 6px;
       background: color-mix(in srgb, var(--dc) 8%, #fff);
       border: 1px solid color-mix(in srgb, var(--dc) 22%, #fff);
-      border-radius: 12px;
+      border-radius: 8px;
       padding: 10px 12px;
       opacity: 0;
     }
@@ -12155,7 +12170,7 @@
     }
 
     .uax-win {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 800;
       color: var(--dc);
     }
@@ -12180,8 +12195,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: var(--sds-space-8);
       opacity: 0;
+      margin: 8px 0;
     }
 
     .up2s.on .uax-preview {
@@ -12202,7 +12218,7 @@
 
     .uax-pvcap {
       flex: none;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--sds-text-tertiary);
       text-align: center;
@@ -25549,7 +25565,8 @@
   <section class="view" id="viewInfo1">
     <div class="info-wrap">
       <aside class="info-hero">
-        <h2>클릭 몇 번으로 자사몰을<span class="ih-title-wide"> 성장시키는 솔루션</span><br><span class="ih-title-compact">성장시키는 솔루션 </span>알파앱스를 <br class="ih-br-compact"><span class="hl">14일간 무료</span>로 경험해보세요</h2>
+        <h2>클릭 몇 번으로 자사몰을<span class="ih-title-wide"> 성장시키는 솔루션</span><br><span class="ih-title-compact">성장시키는 솔루션
+          </span>알파앱스를 <br class="ih-br-compact"><span class="hl">14일간 무료</span>로 경험해보세요</h2>
         <div class="ih-visual" aria-hidden="true">
           <span class="orb" style="--oc:#6D58F2; --os:12px; left:2%; top:34%; --od:.4s"></span>
           <span class="orb" style="--oc:#5B45E0; --os:18px; left:16%; top:48%; --od:1.2s"></span>
@@ -25601,7 +25618,8 @@
   <section class="view" id="viewInfo2">
     <div class="info-wrap">
       <aside class="info-hero">
-        <h2>클릭 몇 번으로 자사몰을<span class="ih-title-wide"> 성장시키는 솔루션</span><br><span class="ih-title-compact">성장시키는 솔루션 </span>알파앱스를 <br class="ih-br-compact"><span class="hl">14일간 무료</span>로 경험해보세요</h2>
+        <h2>클릭 몇 번으로 자사몰을<span class="ih-title-wide"> 성장시키는 솔루션</span><br><span class="ih-title-compact">성장시키는 솔루션
+          </span>알파앱스를 <br class="ih-br-compact"><span class="hl">14일간 무료</span>로 경험해보세요</h2>
         <div class="ih-visual" aria-hidden="true">
           <span class="orb" style="--oc:#6D58F2; --os:12px; left:2%; top:34%; --od:.4s"></span>
           <span class="orb" style="--oc:#5B45E0; --os:18px; left:16%; top:48%; --od:1.2s"></span>
@@ -26169,7 +26187,7 @@
           <div class="upx-side">
             <div class="upx-aov">
               <div class="upx-aovpre">
-                <div class="upx-aovq">?</div>
+                <div class="upx-aovq"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" data-icon="assets/question-mark-bold.svg"><path d="M11.082 17.915C11.5498 17.645 12.1269 17.6451 12.5947 17.915C13.0624 18.1853 13.3516 18.6854 13.3516 19.2256C13.3512 20.0604 12.6737 20.7379 11.8389 20.7383C11.0038 20.7383 10.3265 20.0606 10.3262 19.2256C10.3262 18.6853 10.6141 18.1852 11.082 17.915ZM11.9883 3.26172C13.4684 3.26177 14.8957 3.86748 15.9102 4.93359C16.8554 5.92571 17.3425 7.21473 17.2666 8.56152C17.2364 9.12474 17.1616 9.70625 16.7979 10.4268C16.4426 11.1304 15.8253 11.9403 14.7607 13.0049C14.2611 13.5046 13.8729 13.9236 13.6035 14.293C13.3314 14.6662 13.2146 14.9432 13.1934 15.1592C13.1256 15.8544 12.5391 16.3721 11.8564 16.3721C11.8042 16.372 11.755 16.3673 11.7305 16.3652L11.7227 16.3643C10.9841 16.2896 10.4468 15.6327 10.5176 14.8955C10.6691 13.3694 11.7955 12.1674 12.8604 11.1025C13.7509 10.212 14.168 9.65622 14.3701 9.27246C14.5566 8.91844 14.5678 8.7017 14.583 8.41309V8.19238C14.5573 7.68175 14.3451 7.19077 13.96 6.78516C13.521 6.32208 12.9169 6.02964 12.2744 5.96387L11.9971 5.94922H11.9912L11.7285 5.96289C10.4309 6.09706 9.41328 7.20051 9.41309 8.5332C9.41308 9.27575 8.81188 9.87695 8.06934 9.87695C7.32681 9.87693 6.72559 9.27573 6.72559 8.5332C6.72569 7.12851 7.27265 5.80353 8.2666 4.80957C9.26012 3.81375 10.5834 3.26432 11.9883 3.26172Z" fill="currentColor"/></svg></div>
                 <p class="upx-aovqt">담을수록 객단가가<br>얼마나 오를까요?</p>
                 <div class="up1-cta">
                   <button class="cl-start" data-act><span class="cl-lb">객단가 올리기</span></button>
@@ -26178,7 +26196,7 @@
               </div>
               <div class="upx-aovchart">
                 <div class="upx-aovcap">상승한 객단가</div>
-                <div class="upx-aovnum"><b class="upx-aovval">22,900</b><i class="upx-aovup"></i><i class="upx-cntx">×4</i><i class="upx-delta"></i></div>
+                <div class="upx-aovnum"><b class="upx-aovval">22,900</b><img class="upx-aovup" src="assets/arrow-narrow-up-bold.svg" alt="" aria-hidden="true"><i class="upx-cntx">×4</i><i class="upx-delta"></i></div>
                 <div class="upx-aovbar"><span class="upx-aovcol c1" style="--h:20%"><b>22,900</b><i></i></span><span class="upx-aovcol c2" style="--h:48%"><b>56,900</b><i></i></span><span class="upx-aovcol c3" style="--h:68%"><b>82,900</b><i></i></span><span class="upx-aovcol c4" style="--h:84%"><b>101,900</b><i></i></span></div>
                 <div class="upx-aovx"><span>1개</span><span>2개</span><span>3개</span><span>4개</span></div>
               </div>
@@ -26221,12 +26239,12 @@
                   <i class="uax-mtcaret"></i>
                 </div>
                 <div class="uax-mgrid">
-                  <div class="uax-mcard"><span class="uax-mic">🏷</span><div class="uax-mtx"><b>단순 할인</b><em>특정·전체 상품에 즉시 할인</em></div></div>
-                  <div class="uax-mcard pick"><span class="uax-mck">✓</span><span class="uax-mic">📈</span><div class="uax-mtx"><b>다다익선 할인</b><em>개수·금액이 늘수록 할인 폭이 커지는 계단형</em><div class="uax-mdetail"><div class="uax-fstair"><div class="uax-stairviz"><div class="uax-stz" style="--sh:24px"><b>5%</b><i></i><span>1개</span></div><div class="uax-stz" style="--sh:48px"><b>10%</b><i></i><span>2개</span></div><div class="uax-stz" style="--sh:72px"><b>15%</b><i></i><span>3개+</span></div></div></div></div></div></div>
-                  <div class="uax-mcard"><span class="uax-mic">🎁</span><div class="uax-mtx"><b>사은품 증정</b><em>구매 조건 충족 시 사은품 지급</em></div></div>
-                  <div class="uax-mcard"><span class="uax-mic">⏰</span><div class="uax-mtx"><b>FOMO 할인</b><em>방문 횟수 기준 단계별 할인</em></div></div>
-                  <div class="uax-mcard"><span class="uax-mic">🔒</span><div class="uax-mtx"><b>시크릿 할인</b><em>특정 시간 즉시 할인</em></div></div>
-                  <div class="uax-mcard"><span class="uax-mic">🛒</span><div class="uax-mtx"><b>장바구니 페이지 할인</b><em>장바구니 이탈 시 할인 노출</em></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion01.png" alt="단순 할인"></span><div class="uax-mtx"><b>단순 할인</b><em>특정·전체 상품에 즉시 할인</em></div></div></div>
+                  <div class="uax-mcard pick"><span class="uax-mck">✓</span><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion02.png" alt="다다익선 할인"></span><div class="uax-mtx"><b>다다익선 할인</b><em>개수·금액이 늘수록 할인 폭이 커지는 계단형</em></div></div><div class="uax-mdetail"><div class="uax-fstair"><div class="uax-stairviz"><div class="uax-stz" style="--sh:24px"><b>5%</b><i></i><span>1개</span></div><div class="uax-stz" style="--sh:48px"><b>10%</b><i></i><span>2개</span></div><div class="uax-stz" style="--sh:72px"><b>15%</b><i></i><span>3개+</span></div></div></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion03.png" alt="사은품 증정"></span><div class="uax-mtx"><b>사은품 증정</b><em>구매 조건 충족 시 사은품 지급</em></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion04.png" alt="FOMO 할인"></span><div class="uax-mtx"><b>FOMO 할인</b><em>방문 횟수 기준 단계별 할인</em></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion05.png" alt="시크릿 할인"></span><div class="uax-mtx"><b>시크릿 할인</b><em>특정 시간 즉시 할인</em></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion06.png" alt="장바구니 페이지 할인"></span><div class="uax-mtx"><b>장바구니 페이지 할인</b><em>장바구니 이탈 시 할인 노출</em></div></div></div>
                 </div>
               </div>
             </div>
@@ -26246,7 +26264,7 @@
                 <img class="uax-pvimg" src="assets/upsell/promo_b.png" alt="할인 팝업 미리보기">
               </div>
             </div>
-            <div class="uax-arrow a2"><i></i></div>
+            <div class="uax-arrow a2"><img src="assets/chevron-right.svg" alt="" aria-hidden="true"></div>
             <div class="uax-step s3">
               <div class="uax-sh"><span class="uax-n">2</span>테스트 결과</div>
               <div class="uax-s3mid">
@@ -27968,7 +27986,7 @@
       const openCart = () => sc.classList.add('cart-open');
       const closeCart = () => sc.classList.remove('cart-open');
       const closeDone = () => sc.classList.remove('u-buy');
-      const doBuy = () => { closeCart(); sc.classList.add('u-buy'); if (go) { go.classList.remove('tap'); go.classList.add('bye'); } };
+      const doBuy = () => { closeCart(); sc.classList.add('u-buy', 'u-complete'); if (go) { go.classList.remove('tap'); go.classList.add('bye'); } };
       const press = btn => { if (!btn) return; btn.classList.remove('press'); void btn.offsetWidth; btn.classList.add('press'); };
       // 버튼 트리거 — 재생 전 '구매하기'=서랍 열기 / '바로 구매'=결제(주문 완료). '장바구니'는 표시용(클릭 이벤트 없음)
       if (vgOpen) vgOpen.onclick = openCart;
