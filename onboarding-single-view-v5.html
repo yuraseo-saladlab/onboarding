@@ -6366,6 +6366,21 @@
       height: 168px;
     }
 
+    /* 4열(인스타 진입) — 카드가 좁아 버튼 텍스트가 밖으로 넘치지 않도록 축소, 두 버튼 정확히 50/50 채움 */
+    .pick-grid.is-insta-entry .pc-view,
+    .pick-grid.is-insta-entry .pc-add {
+      padding: 0 12px;
+      font-size: 14px;
+    }
+
+    .pick-grid.is-insta-entry .pc-add .pc-ck,
+    .pick-grid.is-insta-entry .pc-add .pc-plus {
+      width: 16px;
+      height: 16px;
+      vertical-align: -3px;
+      margin-right: 2px;
+    }
+
     /* DS: Media Card 계열 (데모 이미지 상단 + 본문 + 액션 버튼) */
     .pcard {
       border: 1px solid var(--sds-border-default);
@@ -6450,6 +6465,7 @@
     .pc-tag {
       font-size: var(--sds-font-size-xs);
       font-weight: var(--sds-font-weight-medium);
+      line-height: 1.4;
       color: var(--sds-text-secondary);
       background: var(--sds-bg-tertiary);
       border-radius: var(--sds-radius-sm);
@@ -6465,7 +6481,8 @@
     /* DS: Neutral Outline · lg */
     /* sds-btn--lg--neutral-outline + 그리드 채움/제품색 hover */
     .pc-view {
-      flex: 1;
+      flex: 1 1 0;
+      min-width: 0;
     }
 
     .pc-view:hover {
@@ -6476,7 +6493,8 @@
     /* DS: Brand Solid · lg (brand 색은 제품 테마 --pc로 주입) */
     /* sds-btn--lg--add (담기 버튼 공용 컴포넌트 사용) */
     .pc-add {
-      flex: 1;
+      flex: 1 1 0;
+      min-width: 0;
     }
 
     .pc-add .pc-ck,
@@ -25469,13 +25487,19 @@
       margin-bottom: 0;
     }
 
-    .spec-note ul {
+    .spec-note ul,
+    .spec-note ol {
       margin: 0;
-      padding-left: 18px;
+      padding-left: 20px;
     }
 
     .spec-note li {
       margin-bottom: 4px;
+    }
+
+    .spec-note li>ul,
+    .spec-note li>ol {
+      margin-top: 4px;
     }
 
     .spec-note code {
@@ -25606,8 +25630,31 @@
       <!-- ▼▼▼ 스펙 설명 메모 — 아래 <p> 텍스트만 자유롭게 수정하세요 (페이지에 그대로 보임) ▼▼▼ -->
       <div class="spec-note">
         <h4>📝 스펙 설명</h4>
-        <p>여기에 스펙 설명을 작성하세요. 이 <code>&lt;p&gt;</code> 안의 텍스트를 바꾸면 페이지에 그대로 보입니다.</p>
-        <p>여러 줄이 필요하면 <code>&lt;p&gt;</code>를 더 추가하거나, 목록은 <code>&lt;ul&gt;&lt;li&gt;</code>로 작성하면 됩니다.</p>
+        <ol>
+          <li>phase1 : step1, step2, step4, 온보딩 완료 페이지 <a
+              href="https://www.figma.com/design/4q73ki3KZ2FXhFIVle521R/-Core--01_%EB%A9%80%ED%8B%B0-%ED%94%84%EB%A1%9C%EB%8D%95%ED%8A%B8-%EC%98%A8%EB%B3%B4%EB%94%A9-UX-%EA%B0%9C%EC%84%A0?node-id=0-1"
+              target="_blank">(피그마)</a></li>
+          <li>phase2 : step3 솔루션 선택페이지 + 번외로 좌측 info-hero 이미지 작업함
+            <ul>
+              <li>개발 체크 리스트
+                <ul>
+                  <li>3스텝-A시퀀스: 카페24에서 선택한 솔루션 소개</li>
+                  <li>3스텝-B시퀀스: 그 외의 솔루션 소개 (어떤 제품을 선택하고 들어왔느냐에 따라 안보여주는 카드있음 - ex 인스타피드)</li>
+                  <li>3스텝-C시퀀스: 리뷰 선택시 위젯설정 단계 노출 (인스타피드 선택시 연동 단계 있으나, 그건 구현하지 않음. Phase1 스펙에 설명해뒀기 때문에)</li>
+                </ul>
+              </li>
+              <li>기타 체크 리스트
+                <ul>
+                  <li>1: 개인정보처리방침 설정 안내 모달 게시 권한 오픈 > 변경된 링크 전달하기</li>
+                  <li>2: 마케팅 정보 수신 동의 정책 작성 완료시점 파악</li>
+                  <li>3: 이용약관과 개인정보 처리방침 내용 같은데 링크 분리된 이유 파악, 체크박스 하나로 처리한 이유 파악</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>세 번째 스펙</li>
+        </ol>
+        <!-- 여기에 스펙 설명을 작성하세요. 이 <code>&lt;p&gt;</code> 안의 텍스트를 바꾸면 페이지에 그대로 보입니다. -->
       </div>
       <!-- ▲▲▲ 스펙 설명 메모 끝 ▲▲▲ -->
     </div>
