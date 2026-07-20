@@ -553,50 +553,49 @@
       margin-top: 18px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
 
     .fc-agree {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--sds-text-secondary);
+      gap: 8px;
+      height: 32px;
+      font-size: 14px;
+      line-height: 1.5;
+      letter-spacing: -0.14px;
+      color: #2A2D38;
       cursor: pointer;
     }
 
     .fc-agree input {
-      width: 18px;
-      height: 18px;
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
       margin: 0;
-      accent-color: var(--sds-bg-brand);
-      cursor: pointer;
       flex: 0 0 auto;
+      border: 1px solid #8E929E;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      transition: background .12s, border-color .12s;
     }
 
-    .fc-agree em {
-      margin-left: auto;
-      font-size: 12px;
-      font-weight: 700;
-      font-style: normal;
-    }
-
-    .fc-agree .req {
-      color: var(--sds-bg-brand);
-    }
-
-    .fc-agree .opt {
-      color: var(--sds-text-placeholder);
+    .fc-agree input:checked {
+      border-color: #2A2D38;
+      background: #2A2D38 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 8.4 6.8 11 12 5' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / 16px;
     }
 
     .fc-agree a {
       color: inherit;
       text-decoration: underline;
       text-underline-offset: 2px;
+      text-decoration-thickness: from-font;
     }
 
     .fc-agree a:hover {
-      color: var(--sds-bg-brand);
+      color: #6D58F2;
     }
 
     .form-actions {
@@ -25596,8 +25595,8 @@
           <div class="field"><label>담당자 이메일</label><input value="alpha@alphamall.co.kr"></div>
           <div class="field"><label>담당자 연락처</label><input value="010-1111-2222"></div>
           <div class="fc-agrees">
-            <label class="fc-agree"><input type="checkbox" checked> <span><a href="https://alph.kr/policy/#section1" target="_blank" rel="noopener" onclick="event.stopPropagation()">이용 약관</a> 및 <a href="https://alph.kr/policy/#section2" target="_blank" rel="noopener" onclick="event.stopPropagation()">개인정보 처리 방침</a> 동의</span> <em class="req">필수</em></label>
-            <label class="fc-agree"><input type="checkbox" checked> <span><a href="https://alph.kr/policy/#section2" target="_blank" rel="noopener" onclick="event.stopPropagation()">마케팅 정보 수신 동의</a></span> <em class="opt">선택</em></label>
+            <label class="fc-agree"><input type="checkbox" checked> <span><a href="https://alph.kr/policy/#section1" target="_blank" rel="noopener" onclick="event.stopPropagation()">이용 약관</a> 및 <a href="https://alph.kr/policy/#section2" target="_blank" rel="noopener" onclick="event.stopPropagation()">개인정보 처리 방침</a> 동의 (필수)</span></label>
+            <label class="fc-agree"><input type="checkbox"> <span><a href="https://alph.kr/policy/#section2" target="_blank" rel="noopener" onclick="event.stopPropagation()">마케팅 정보 수신 동의 (선택)</a></span></label>
           </div>
           <div class="form-actions"><button class="btn primary" data-go="info2">다음</button></div>
         </div>
