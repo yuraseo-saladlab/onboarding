@@ -6,3 +6,5 @@
 - 빈공간은 콘텐츠로 채울 것(레이아웃 stretch로 때우지 말 것).
 - 컬러는 파란색 위주. 성공 상태도 초록색 대신 파랑·검정·흰색.
 - 모든 CSS 수치는 짝수(×2).
+
+## Imported Claude Cowork project instructions
