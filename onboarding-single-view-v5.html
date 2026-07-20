@@ -549,6 +549,56 @@
       color: var(--sds-text-placeholder);
     }
 
+    .fc-agrees {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .fc-agree {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--sds-text-secondary);
+      cursor: pointer;
+    }
+
+    .fc-agree input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: var(--sds-bg-brand);
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+
+    .fc-agree em {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    .fc-agree .req {
+      color: var(--sds-bg-brand);
+    }
+
+    .fc-agree .opt {
+      color: var(--sds-text-placeholder);
+    }
+
+    .fc-agree a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .fc-agree a:hover {
+      color: var(--sds-bg-brand);
+    }
+
     .form-actions {
       display: flex;
       gap: 10px;
@@ -25545,6 +25595,10 @@
           </div>
           <div class="field"><label>담당자 이메일</label><input value="alpha@alphamall.co.kr"></div>
           <div class="field"><label>담당자 연락처</label><input value="010-1111-2222"></div>
+          <div class="fc-agrees">
+            <label class="fc-agree"><input type="checkbox" checked> <span><a href="https://alph.kr/policy/#section1" target="_blank" rel="noopener" onclick="event.stopPropagation()">이용 약관</a> 및 <a href="https://alph.kr/policy/#section2" target="_blank" rel="noopener" onclick="event.stopPropagation()">개인정보 처리 방침</a> 동의</span> <em class="req">필수</em></label>
+            <label class="fc-agree"><input type="checkbox" checked> <span><a href="https://alph.kr/policy/#section2" target="_blank" rel="noopener" onclick="event.stopPropagation()">마케팅 정보 수신 동의</a></span> <em class="opt">선택</em></label>
+          </div>
           <div class="form-actions"><button class="btn primary" data-go="info2">다음</button></div>
         </div>
       </div>
