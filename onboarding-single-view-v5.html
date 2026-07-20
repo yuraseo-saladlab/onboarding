@@ -25435,6 +25435,57 @@
       max-width: 1040px;
     }
 
+    /* 페이지에 그대로 노출되는 스펙 설명 메모 (HTML에서 직접 작성) */
+    .spec-note {
+      width: 100%;
+      max-width: 1040px;
+      margin-top: 24px;
+      text-align: left;
+      background: #fff;
+      border: 2px dashed var(--sds-border-default);
+      border-radius: 16px;
+      padding: 20px 24px;
+      color: var(--sds-text-secondary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .spec-note h4 {
+      margin: 0 0 10px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      color: var(--sds-text-tertiary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .spec-note p {
+      margin: 0 0 8px;
+    }
+
+    .spec-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .spec-note ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .spec-note li {
+      margin-bottom: 4px;
+    }
+
+    .spec-note code {
+      background: #F2F3F5;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--sds-text-primary);
+    }
+
     .ent-card {
       background: #fff;
       border: 2px solid var(--sds-border-default);
@@ -25551,6 +25602,14 @@
       <h1 class="ent-head">카페24 앱스토어에서<br><b>어떤 앱으로 들어오셨나요?</b></h1>
       <p class="ent-sub">선택한 앱으로 온보딩이 시작돼요</p>
       <div class="ent-grid" id="entGrid"></div>
+
+      <!-- ▼▼▼ 스펙 설명 메모 — 아래 <p> 텍스트만 자유롭게 수정하세요 (페이지에 그대로 보임) ▼▼▼ -->
+      <div class="spec-note">
+        <h4>📝 스펙 설명</h4>
+        <p>여기에 스펙 설명을 작성하세요. 이 <code>&lt;p&gt;</code> 안의 텍스트를 바꾸면 페이지에 그대로 보입니다.</p>
+        <p>여러 줄이 필요하면 <code>&lt;p&gt;</code>를 더 추가하거나, 목록은 <code>&lt;ul&gt;&lt;li&gt;</code>로 작성하면 됩니다.</p>
+      </div>
+      <!-- ▲▲▲ 스펙 설명 메모 끝 ▲▲▲ -->
     </div>
   </section>
 
