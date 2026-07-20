@@ -51,6 +51,7 @@
       --sds-button-padding-x-md: 16px;
       --sds-button-padding-x-lg: 20px;
       --sds-bg-brand: #6D58F2;
+      --sds-icon-brand: #6D58F2;
       /* = --c-review (제품 리뷰 = DS brand) */
       --sds-bg-inverse-primary: #1A1D24;
       /* neutral solid 버튼 배경 */
@@ -63,6 +64,7 @@
       --sds-chip-border-brand-outline: #BFC1FF;
       /* Tag (DS component) — weak neutral */
       --sds-bg-tertiary: #F5F5F6;
+      --sds-bg-quaternary: #E3E4E7;
       --sds-text-secondary: #424756;
       --sds-font-weight-medium: 500;
       /* semantic color (DS) — 프로토 코어 변수 매핑용 */
@@ -188,7 +190,7 @@
       place-items: center;
       font-size: 12px;
       font-weight: 700;
-      background: var(--sds-bg-tertiary);
+      background: var(--sds-bg-quaternary);
       color: var(--sds-text-placeholder);
       transition: .2s;
     }
@@ -202,12 +204,12 @@
     }
 
     .st.done .n {
-      background: #D6E6FF;
-      color: #307AF3;
+      background: var(--sds-bg-brand-subtle);
+      color: var(--sds-icon-brand);
     }
 
     .st.done:hover .n {
-      box-shadow: 0 0 0 4px #D6E6FF;
+      box-shadow: 0 0 0 4px var(--sds-bg-brand-subtle);
     }
 
     .st.active {
@@ -215,7 +217,7 @@
     }
 
     .st.active .n {
-      background: #307AF3;
+      background: var(--sds-bg-brand);
       color: #fff;
     }
 
@@ -25620,16 +25622,25 @@
       <!-- ▼▼▼ 스펙 설명 메모 — 아래 <p> 텍스트만 자유롭게 수정하세요 (페이지에 그대로 보임) ▼▼▼ -->
       <div class="spec-note">
         <h4>📝 스펙 설명</h4>
+        <p><a href="https://app.notion.com/p/saladlab/37546f3e549c802e9f5be617e58ed693?source=copy_link"
+            target="_blank">PRD : [대통합] 멀티프로덕트 온보딩 개편</a></p>
         <ol>
           <li>phase1 : step1, step2, step4, 온보딩 완료 페이지 <a
               href="https://www.figma.com/design/4q73ki3KZ2FXhFIVle521R/-Core--01_%EB%A9%80%ED%8B%B0-%ED%94%84%EB%A1%9C%EB%8D%95%ED%8A%B8-%EC%98%A8%EB%B3%B4%EB%94%A9-UX-%EA%B0%9C%EC%84%A0?node-id=0-1"
-              target="_blank">(피그마)</a></li>
-          <li>phase2 : step3 솔루션 선택페이지 + 번외로 좌측 info-hero 이미지 작업함
+              target="_blank">(작업 파일 : 피그마)</a></li>
+          <li>phase2 : step3 솔루션 선택페이지 + 번외로 좌측 info-hero 이미지 작업 (작업 파일 : 현재 링크)
             <ul>
               <li>개발 체크 리스트
                 <ul>
                   <li>3스텝-A시퀀스: 카페24에서 선택한 솔루션 소개</li>
                   <li>3스텝-B시퀀스: 그 외의 솔루션 소개 (어떤 제품을 선택하고 들어왔느냐에 따라 안보여주는 카드있음 - ex 인스타피드)</li>
+                  <ul>
+                    <li><b style="color:var(--c-canvas)">알파캔버스 노출카드</b>: 리뷰, 푸시, 업셀<br>설정 시퀀스 노출 여부 : 위젯설정(리뷰선택시)</li>
+                    <li><b style="color:var(--c-insta)">인스타피드 노출카드</b>: 캔버스, 리뷰, 푸시, 업셀<br>설정 시퀀스 노출 여부 : 위젯설정(리뷰선택시) > 인스타 연동(필수)</li>
+                    <li><b style="color:var(--sds-bg-brand)">알파리뷰 노출카드</b>: 캔버스, 푸시, 업셀<br>설정 시퀀스 노출 여부 : 위젯설정(필수)</li>
+                    <li><b style="color:var(--sds-bg-info)">알파푸시 노출카드</b>: 캔버스, 리뷰, 업셀<br>설정 시퀀스 노출 여부 : 위젯설정(리뷰선택시)</li>
+                    <li><b style="color:var(--sds-bg-danger)">알파업셀 노출카드</b>: 캔버스, 리뷰, 푸시<br>설정 시퀀스 노출 여부 : 위젯설정(리뷰선택시)</li>
+                  </ul>
                   <li>3스텝-C시퀀스: 리뷰 선택시 위젯설정 단계 노출 (인스타피드 선택시 연동 단계 있으나, 그건 구현하지 않음. Phase1 스펙에 설명해뒀기 때문에)</li>
                 </ul>
               </li>
