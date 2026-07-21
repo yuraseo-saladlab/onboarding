@@ -419,6 +419,10 @@
       // 해당 비트의 씬 파일로 iframe 교체 → 씬이 iframe 안에서 자동재생 (autoplay 기본 ON)
       const fr = $('heroFrame');
       if (fr) fr.src = `scene-${SCENE_SLUG[ENTRY] || ENTRY}${i + 1}.html`;
+      // 비트 전환 시 프로그레스바(--beat-ms 애니)와 자동전환 타이머를 새 비트 기준으로 동기화.
+      // 재생 중이면 새 길이로 타이머 재시작, 정지 중이면 remain만 갱신(이어보기 처음부터). heroPaused 상태는 그대로 따라감.
+      heroRemain = beatMs(i);
+      restartHeroTimer(beatMs(i));
     }
 
     /* 진행 게이지 스크럽 — 다른 비트면 처음부터, 현재 비트면 누른 위치(f:0~1)로 씬·게이지 시크 (v2와 동일, iframe은 postMessage로) */
@@ -891,7 +895,8 @@
       stage.innerHTML = `<iframe class="dt-scene-frame" src="scene-${slug}${i + 1}.html" title="${d.name} ${i + 1}번 씬" loading="lazy"></iframe>`;
       const _dp = $('dtPrev'); if (_dp) _dp.disabled = (i === 0);
       const _dn = $('dtNext'); if (_dn) _dn.textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
-      restartDtTimer();
+      dtRemain = dtBeatMs(i);         // 새 기능은 처음부터 (정지 상태 이어보기 대비)
+      restartDtTimer(dtBeatMs(i));    // 재생 중이면 새 길이로 타이머 재시작(게이지와 동기), 정지면 no-op
     }
 
     /* 3-B 진행 게이지 스크럽 — 3-A scrubBeat와 동일 (다른 기능이면 처음부터, 현재 기능이면 시크) */
