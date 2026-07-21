@@ -743,33 +743,65 @@
       d.feats.forEach((f, i) => {
         const b = document.createElement('button');
         b.className = 'fn-item';
+        b.style.setProperty('--beat-ms', dtBeatMs(i) + 'ms');
         b.innerHTML = `<span class="fn-kicker"><span class="no">${i + 1}</span>${f.kicker}</span>
           <div class="fn-title">${f.title}</div>
           <p class="fn-desc">${f.desc}</p>
-          <div class="fn-chips">${f.chips.map(c => `<span>${c}</span>`).join('')}</div>`;
+          <div class="fn-chips">${f.chips.map(c => `<span>${c}</span>`).join('')}</div>
+          <span class="prog"></span>`;
         b.onclick = () => dtGo(i);
         nav.appendChild(b);
       });
       syncDetailAdd();
       dt.classList.add('on');
       stopHero();
+      dtPaused = false; nav.classList.remove('paused'); syncDtCtrl();
       dtGo(0);
     }
 
     // 제품키 → 씬 파일 슬러그 (파일명 scene-<슬러그><표시번호>.html)
     const SCENE_SLUG = { review: 'review', upsell: 'upsell', push: 'push', canvas: 'canvas', instafeed: 'insta' };
 
+    /* 3-B 상세모달 자동 넘김 — 3-A 히어로와 동일: beatMs 타이머로 다음 기능(씬)으로 전환, 진행 게이지·정지 지원 */
+    let dtTimer = null, dtPaused = false, dtBeatStart = 0, dtRemain = 0;
+    const dtBeatMs = i => (BEAT_DUR[dtKey] || [])[i] || BEAT_MS;
+    function stopDtTimer() { if (dtTimer) { clearTimeout(dtTimer); dtTimer = null; } }
+    function restartDtTimer(ms) {
+      stopDtTimer();
+      if (dtPaused) return;
+      dtRemain = (typeof ms === 'number') ? ms : dtBeatMs(dtIdx);
+      dtBeatStart = Date.now();
+      dtTimer = setTimeout(() => {
+        const n = (P[dtKey].feats || []).length || 1;
+        dtGo((dtIdx + 1) % n);
+      }, dtRemain);
+    }
+    function syncDtCtrl() {
+      const b = $('dtCtrl'); if (!b) return;
+      b.classList.toggle('paused', dtPaused);
+      const tx = b.querySelector('.hc-tx'); if (tx) tx.textContent = dtPaused ? '자동 넘김 재생' : '자동 넘김 멈춤';
+    }
+    function pauseDt() {
+      dtRemain = Math.max(300, dtRemain - (Date.now() - dtBeatStart));
+      dtPaused = true; $('featNav')?.classList.add('paused'); stopDtTimer(); syncDtCtrl();
+    }
+    function resumeDt() {
+      dtPaused = false; $('featNav')?.classList.remove('paused'); syncDtCtrl(); restartDtTimer(dtRemain);
+    }
+    { const c = $('dtCtrl'); if (c) c.onclick = () => (dtPaused ? resumeDt() : pauseDt()); }
+
     function dtGo(i) {
       dtIdx = i;
-      const d = P[dtKey], f = d.feats[i];
+      const d = P[dtKey];
       [...$('featNav').children].forEach((el, j) => el.classList.toggle('on', j === i));
       const stage = $('dtStage');
-      // 3-B 상세 씬 = 독립 씬 파일을 iframe으로 임베드 — 실제 제품(Angular) 임베드와 "완전히 동일한 구조".
-      // ?autoplay=0 → 포스터(첫 프레임)만 노출, 씬 안 버튼으로 재생 (기존 UX 유지)
+      // 3-B 상세 씬 = 독립 씬 파일을 iframe으로 임베드 — 제품(Angular) 임베드와 동일 구조.
+      // 3-A 히어로처럼 씬은 iframe 안에서 자동재생, beatMs 타이머로 다음 기능 자동 넘김.
       const slug = SCENE_SLUG[dtKey] || dtKey;
-      stage.innerHTML = `<iframe class="dt-scene-frame" src="scene-${slug}${i + 1}.html?autoplay=0" title="${d.name} ${i + 1}번 씬" loading="lazy"></iframe>`;
+      stage.innerHTML = `<iframe class="dt-scene-frame" src="scene-${slug}${i + 1}.html" title="${d.name} ${i + 1}번 씬" loading="lazy"></iframe>`;
       const _dp = $('dtPrev'); if (_dp) _dp.disabled = (i === 0);
       const _dn = $('dtNext'); if (_dn) _dn.textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
+      restartDtTimer();
     }
 
     /* rv2(AI 리뷰 대응) — AI 답글을 한 글자씩 스트리밍한 뒤, 부정 리뷰 행을 '대응 완료'로 전환 */
@@ -1308,6 +1340,7 @@
     }
 
     function closeDetail() {
+      stopDtTimer();
       $('detail').classList.remove('on');
       if (curView === 'hero') startHero();
       renderPick(); renderDock();

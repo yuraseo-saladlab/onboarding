@@ -875,16 +875,6 @@
       transform: none !important;
     }
 
-    /* 자동재생 폐지 → 하단 자동넘김 컨트롤 + 진행 게이지 숨김 */
-    #heroCtrl {
-      display: none !important;
-    }
-
-    #heroBeats .prog,
-    #heroBeats .prog-hit {
-      display: none !important;
-    }
-
     .hero-ctrl {
       margin-top: 16px;
       display: inline-flex;
@@ -908,7 +898,8 @@
       color: #fff;
     }
 
-    .hero-ctrl .hc-ic {
+    .hero-ctrl .hc-ic,
+    .dt-ctrl .hc-ic {
       width: 12px;
       height: 12px;
       background-color: currentColor;
@@ -916,7 +907,8 @@
       mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cpath%20d%3D%22M9.66699%204C10.0205%204.00013%2010.3594%204.21098%2010.6094%204.58594C10.8594%204.961%2011%205.46959%2011%206V18C11%2018.5304%2010.8594%2019.039%2010.6094%2019.4141C10.3594%2019.789%2010.0205%2019.9999%209.66699%2020H8.33301C7.9795%2019.9999%207.6406%2019.789%207.39062%2019.4141C7.1406%2019.039%207%2018.5304%207%2018V6C7%205.46959%207.1406%204.961%207.39062%204.58594C7.6406%204.21098%207.9795%204.00013%208.33301%204H9.66699Z%22%20fill%3D%22%235D6374%22/%3E%20%3Cpath%20d%3D%22M16.667%204C17.0205%204.00013%2017.3594%204.21098%2017.6094%204.58594C17.8594%204.961%2018%205.46959%2018%206V18C18%2018.5304%2017.8594%2019.039%2017.6094%2019.4141C17.3594%2019.789%2017.0205%2019.9999%2016.667%2020H15.333C14.9795%2019.9999%2014.6406%2019.789%2014.3906%2019.4141C14.1406%2019.039%2014%2018.5304%2014%2018V6C14%205.46959%2014.1406%204.961%2014.3906%204.58594C14.6406%204.21098%2014.9795%204.00013%2015.333%204H16.667Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/svg%3E") center / contain no-repeat;
     }
 
-    .hero-ctrl.paused .hc-ic {
+    .hero-ctrl.paused .hc-ic,
+    .dt-ctrl.paused .hc-ic {
       -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2534_2912%29%22%3E%20%3Cpath%20d%3D%22M6.51172%203.12696C6.82797%202.95024%207.21587%202.95857%207.52441%203.14844L20.5244%2011.1484C20.82%2011.3305%2021%2011.6529%2021%2012C21%2012.3472%2020.82%2012.6695%2020.5244%2012.8516L7.52441%2020.8516C7.21587%2021.0414%206.82797%2021.0498%206.51172%2020.8731C6.19565%2020.6963%206%2020.3622%206%2020V4C6%203.63785%206.19565%203.30373%206.51172%203.12696ZM8%2018.21L18.0918%2012L8%205.78907V18.21Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2534_2912%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
       mask-image: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%20%3Cg%20clip-path%3D%22url%28%23clip0_2534_2912%29%22%3E%20%3Cpath%20d%3D%22M6.51172%203.12696C6.82797%202.95024%207.21587%202.95857%207.52441%203.14844L20.5244%2011.1484C20.82%2011.3305%2021%2011.6529%2021%2012C21%2012.3472%2020.82%2012.6695%2020.5244%2012.8516L7.52441%2020.8516C7.21587%2021.0414%206.82797%2021.0498%206.51172%2020.8731C6.19565%2020.6963%206%2020.3622%206%2020V4C6%203.63785%206.19565%203.30373%206.51172%203.12696ZM8%2018.21L18.0918%2012L8%205.78907V18.21Z%22%20fill%3D%22%235D6374%22/%3E%20%3C/g%3E%20%3Cdefs%3E%20%3CclipPath%20id%3D%22clip0_2534_2912%22%3E%20%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22white%22/%3E%20%3C/clipPath%3E%20%3C/defs%3E%20%3C/svg%3E");
     }
@@ -929,6 +921,49 @@
       to {
         width: 100%;
       }
+    }
+
+    /* 3-B 상세모달: feat-nav 진행 게이지 (3-A beat와 동일 메커니즘, 색만 제품 --dc) */
+    .fn-item .prog {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 0;
+      background: var(--dc, #6D58F2);
+      border-radius: 0 3px 3px 0;
+    }
+
+    .fn-item.on .prog {
+      animation: beatProg var(--beat-ms, 3400ms) linear forwards;
+    }
+
+    .feat-nav.paused .fn-item.on .prog {
+      animation-play-state: paused;
+    }
+
+    /* 3-B 자동넘김 정지 버튼 (라이트 배경 — 3-A .hero-ctrl과 동일 형식) */
+    .dt-ctrl {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--sds-bg-tertiary);
+      color: var(--sds-text-tertiary);
+      border: 1px solid var(--sds-border-default);
+      border-radius: 100px;
+      padding: 7px 13px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .15s;
+    }
+
+    .dt-ctrl:hover {
+      background: var(--sds-bg-quaternary);
+      color: var(--sds-text-primary);
     }
 
     /* 완료 상태 — 퍼플 원 + 흰색 체크 (Figma) */
