@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파캔버스 2번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-scene="cv1">
+            <div class="sc cv-roadmap cv-update">
+        <div class="ccu">
+          <div class="ccu-stage">
+          <div class="crm-cta ccu-cta"><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
+          <div class="ccu-locked">
+            <div class="ccl-chrome"><i></i><i></i><i></i><span class="ccl-url">alphacanvas.app · 업데이트 로드맵</span><span class="ccl-priv"><img class="ccl-lockmini" src="assets/lock.svg" alt="">비공개</span></div>
+            <div class="ccl-body">
+              <div class="ccl-lead"><img class="ccl-ic" src="assets/lock.svg" alt=""><div><div class="ccl-t">곧 공개될 업데이트 <b>5가지</b></div><div class="ccl-s">지금은 비공개 상태예요 — 재생하면 로드맵이 순서대로 공개돼요</div></div></div>
+              <div class="ccl-rows">
+                <span class="ccl-row"><i>1</i>숏츠 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>2</i>메인 상품 info 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>3</i>메뉴 관리<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>4</i>매거진 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>5</i>검색 기능 고도화<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+              </div>
+              <div class="ccl-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">업데이트 로드맵 재생</span></button><span class="cl-cursor"></span></div>
+            </div>
+          </div>
+          <div class="ccu-card c1"><div class="ccu-lb"><span class="ccu-n">1</span>숏츠 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_1.png" alt=""></div></div>
+          <div class="ccu-card c2"><div class="ccu-lb"><span class="ccu-n">2</span>메인 상품 info 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_2.png" alt=""></div></div>
+          <div class="ccu-card c3"><div class="ccu-lb"><span class="ccu-n">3</span>메뉴 관리</div><div class="ccu-img"><img src="assets/canvas/canvas_update_3.png" alt=""></div></div>
+          <div class="ccu-card c4"><div class="ccu-lb"><span class="ccu-n">4</span>매거진 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_4.png" alt=""></div></div>
+          <div class="ccu-card c5"><div class="ccu-lb"><span class="ccu-n">5</span>검색 기능 고도화</div><div class="ccu-img"><img src="assets/canvas/canvas_update_5.png" alt=""></div></div>
+          <div class="ccu-foot"><span class="ccu-foot-ck">✓</span><b>5가지</b> 업데이트 공개! 로드맵은 여기서 끝이 아니라 <b>계속</b> 채워져요</div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('cv1', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>

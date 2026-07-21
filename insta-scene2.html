@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인스타피드 2번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-scene="if2">
+            <div class="sc if-sc if2s">
+        <div class="if-shop">
+          <div class="if-chrome"><i></i><i></i><i></i><span class="if-url">alphamall.cafe24.com</span></div>
+          <div class="if-shopbody">
+            <div class="if-shophero"><span class="if-shoplogo">ALPHA MALL</span><span class="if-shopnav"><em>NEW</em><em>BEST</em><em>SALE</em></span></div>
+            <div class="if-wgtitle"><span class="if-ig sm"></span>우리 쇼핑몰 인스타 피드<span class="if-live"><i></i>실시간 연동</span></div>
+            <div class="if-wgfeed">
+              <i class="if-new n2"><img src="assets/insta/f6.png" alt=""><span class="if-newtag">NEW</span></i>
+              <i class="if-new"><img src="assets/insta/f7.png" alt=""><span class="if-newtag">NEW</span></i>
+              <i><img src="assets/insta/f1.png" alt=""></i>
+              <i><img src="assets/insta/f2.png" alt=""></i>
+              <i><img src="assets/insta/f5.png" alt=""></i>
+            </div>
+            <div class="if-prods">
+              <div class="if-prod"><i style="background-image:url('assets/insta/f3.png')"></i><b>린넨 원피스</b><em>42,000원</em></div>
+              <div class="if-prod"><i style="background-image:url('assets/insta/f4.png')"></i><b>코튼 셔츠</b><em>29,900원</em></div>
+              <div class="if-prod"><i style="background-image:url('assets/insta/f8.png')"></i><b>플리츠 스커트</b><em>38,000원</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="if-cta"><div class="if-toast"><span class="if-ig sm"></span>새 게시물 업로드 → <b>피드 위젯 자동 반영</b></div><button class="cl-start" data-act type="button"><span class="cl-lb">새 게시물 올려보기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
+      </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('if2', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>

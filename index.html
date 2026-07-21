@@ -143,6 +143,64 @@
   .card.v6 .diff b { color: #6D58F2; }
   .card.v6:hover .open { background: #6D58F2; }
 
+  /* 씬 파일 디렉토리 */
+  .scenes-note {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.65;
+    margin: -4px 0 18px;
+  }
+  .scenes-note b { color: var(--ink); font-weight: 700; }
+  code {
+    background: #EDEAF7;
+    color: #4B3B9E;
+    padding: 1px 6px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .scene-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  .scene-col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 12px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--card);
+  }
+  .scene-col b {
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .scene-col .sc-rv { color: #6D58F2; }
+  .scene-col .sc-up { color: #E62C35; }
+  .scene-col .sc-ps { color: #307AF3; }
+  .scene-col .sc-cv { color: #00B7A8; }
+  .scene-col .sc-if { color: #EC4A7F; }
+  .scene-col a {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    text-decoration: none;
+    padding: 7px 9px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    transition: color .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .scene-col a:hover {
+    color: var(--accent);
+    border-color: #D6D0EA;
+    background: #FAF9FE;
+  }
+  @media (max-width: 760px) {
+    .scene-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
   /* 레거시(이전) 시안 — 눈에 덜 띄게 분류 */
   .legacy { margin-top: 52px; }
   .legacy-h {
@@ -224,6 +282,38 @@
         <div class="diff">자세히 보기 → <b>플로팅 오버레이</b> 모달</div>
         <span class="open">시안 열기 →</span>
       </a>
+    </div>
+
+    <div class="legacy scenes-sec">
+      <div class="legacy-h">씬 파일 · 스쿼드 작업 / 임베드용</div>
+      <p class="scenes-note">각 씬은 <b>독립 HTML</b>입니다. <b>core.css · core.js</b>를 공유하고, iframe <code>src</code>로 앵귤러 페이지에 바로 끼울 수 있어요. 자동재생을 끄려면 <code>?autoplay=0</code>. 씬 HTML은 파일 안 <code>&lt;template&gt;</code>만 수정하면 됩니다.</p>
+      <div class="scene-grid">
+        <div class="scene-col"><b class="sc-rv">알파리뷰</b>
+          <a href="review-scene1.html" target="_blank" rel="noopener">1번 씬 · 리뷰 수집</a>
+          <a href="review-scene2.html" target="_blank" rel="noopener">2번 씬 · AI 인사이트</a>
+          <a href="review-scene3.html" target="_blank" rel="noopener">3번 씬 · 리뷰 위젯</a>
+        </div>
+        <div class="scene-col"><b class="sc-up">알파업셀</b>
+          <a href="upsell-scene1.html" target="_blank" rel="noopener">1번 씬 · AI 추천</a>
+          <a href="upsell-scene2.html" target="_blank" rel="noopener">2번 씬 · 가격 실험</a>
+          <a href="upsell-scene3.html" target="_blank" rel="noopener">3번 씬 · 객단가</a>
+        </div>
+        <div class="scene-col"><b class="sc-ps">알파푸시</b>
+          <a href="push-scene1.html" target="_blank" rel="noopener">1번 씬 · 전환 장치</a>
+          <a href="push-scene2.html" target="_blank" rel="noopener">2번 씬 · 요금 비교</a>
+          <a href="push-scene3.html" target="_blank" rel="noopener">3번 씬 · 자동 캠페인</a>
+        </div>
+        <div class="scene-col"><b class="sc-cv">알파캔버스</b>
+          <a href="canvas-scene1.html" target="_blank" rel="noopener">1번 씬 · 노코드 빌더</a>
+          <a href="canvas-scene2.html" target="_blank" rel="noopener">2번 씬 · 업그레이드</a>
+          <a href="canvas-scene3.html" target="_blank" rel="noopener">3번 씬 · 시작 혜택</a>
+        </div>
+        <div class="scene-col"><b class="sc-if">인스타피드</b>
+          <a href="insta-scene1.html" target="_blank" rel="noopener">1번 씬 · 피드 연동</a>
+          <a href="insta-scene2.html" target="_blank" rel="noopener">2번 씬 · 자동 노출</a>
+          <a href="insta-scene3.html" target="_blank" rel="noopener">3번 씬 · 체류 증가</a>
+        </div>
+      </div>
     </div>
 
     <div class="legacy">

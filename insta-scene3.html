@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인스타피드 3번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-scene="if3">
+            <div class="sc if-sc if3s">
+        <div class="if-dwell">
+          <div class="if-phone">
+            <div class="if-phead"><span class="if-avatar sm"></span><b>@alphamall_official</b><span class="if-ig sm"></span></div>
+            <div class="if-scrollwrap"><div class="if-scroller">
+              <i><img src="assets/maison/maison-insta1.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta2.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta3.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta4.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta5.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta6.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta7.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta8.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta9.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta10.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta11.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta12.png" alt=""></i>
+            </div></div>
+            <div class="if-scrollhint">↕ 감성 피드를 둘러보는 중</div>
+          </div>
+          <div class="if-metrics">
+            <div class="if-mcard">
+              <span class="if-mlb">평균 체류시간</span>
+              <div class="if-mval"><b class="if-mnum">1:48</b><span class="if-mup">+25%</span></div>
+              <div class="if-mbars"><i style="--h:52%"></i><i style="--h:60%"></i><i style="--h:70%"></i><i style="--h:82%"></i><i style="--h:100%"></i></div>
+              <div class="if-mx"><span>연동 전</span><span>연동 후</span></div>
+            </div>
+            <div class="if-verdict"><span class="if-vk">감성 콘텐츠 효과</span><b class="if-vv"><span class="if-vq">? 얼마나 더 머물게 될까요</span><span class="if-va">머무는 시간 +25% ↑</span></b></div>
+          </div>
+        </div>
+        <div class="if-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">체류 효과 보기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
+      </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('if3', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파업셀 3번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-scene="up3">
+            <div class="sc up3">
+        <div class="u3x">
+          <div class="u3x-before">
+            <div class="u3xb-field"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2" class="win"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6" class="win"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13" class="win"></i><i style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19" class="win"></i><i style="--i:20"></i><i style="--i:21"></i><i style="--i:22"></i><i style="--i:23"></i><i style="--i:24" class="win"></i><i style="--i:25"></i><i style="--i:26"></i><i style="--i:27"></i><i style="--i:28"></i><i style="--i:29"></i><i style="--i:30" class="win"></i><i style="--i:31"></i><i style="--i:32"></i><i style="--i:33"></i><i style="--i:34"></i><i style="--i:35" class="win"></i><i style="--i:36"></i><i style="--i:37"></i><i style="--i:38"></i><i style="--i:39"></i><i style="--i:40"></i><i style="--i:41" class="win"></i><i style="--i:42"></i><i style="--i:43"></i><i style="--i:44"></i><i style="--i:45"></i><i style="--i:46" class="win"></i><i style="--i:47"></i></div>
+            <div class="u3xb-core">
+              <span class="u3xb-eyebrow">🧪 자동 A/B 실험</span>
+              <div class="u3xb-h">추천 상품·위젯 자리·가격·문구<br><b>수많은 조합</b>을 자동으로 실험했어요</div>
+              <div class="u3xb-s">어떤 조합이 <b>가장 잘 팔리는지</b> 알파업셀이 쉬지 않고 테스트했어요.</div>
+              <div class="u3xb-hint">그 결과를 숫자로 보여드릴게요 ↓</div>
+              <div class="ps-cta">
+                <button class="cl-start" data-act><span class="cl-lb">성과·다음 액션 보기</span></button>
+                <span class="cl-cursor"></span>
+              </div>
+            </div>
+          </div>
+          <div class="u3x-insights">
+            <div class="u3x-grid">
+              <div class="u3x-m">
+                <div class="u3x-mt">1. 총 매출 상승</div>
+                <div class="u3x-md">쇼핑몰 전체 매출의 <b>12.1%</b>가 알파업셀을 통해 발생</div>
+                <div class="u3x-single"><span class="u3x-sfill">12.1%</span><span class="u3x-sbase">87.9%</span></div>
+                <div class="u3x-cap">매출액</div>
+              </div>
+              <div class="u3x-m">
+                <div class="u3x-mt">2. 객단가 상승</div>
+                <div class="u3x-md">업셀 프로모션으로 추가 주문된 경우 상품 객단가가 <b>2배!</b></div>
+                <div class="u3x-bars">
+                  <div class="u3x-col" style="--h:38%"><b class="u3x-bv">40,150원</b><div class="u3x-bar base"></div></div>
+                  <div class="u3x-col win" style="--h:80%"><span class="u3x-up">+112%</span><b class="u3x-bv">85,100원</b><div class="u3x-bar win"></div></div>
+                </div>
+                <div class="u3x-x"><span>일반 주문</span><span>업셀 주문</span></div>
+              </div>
+              <div class="u3x-m">
+                <div class="u3x-mt">3. 판매 개수 상승</div>
+                <div class="u3x-md">업셀 프로모션으로 추가 주문된 경우 상품 개수가 <b>약 1.4배!</b></div>
+                <div class="u3x-bars">
+                  <div class="u3x-col" style="--h:55%"><b class="u3x-bv">3.8개</b><div class="u3x-bar base"></div></div>
+                  <div class="u3x-col win" style="--h:80%"><span class="u3x-up">+44%</span><b class="u3x-bv">5.5개</b><div class="u3x-bar win"></div></div>
+                </div>
+                <div class="u3x-x"><span>일반 주문</span><span>업셀 주문</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="u3x-actions">
+            <div class="u3x-ah"><span class="u3x-aht">이 인사이트로 <b>다음 성장 액션</b>을 바로 적용해요</span><button class="cmp-replay" type="button">↻ 다시 보기</button></div>
+            <div class="u3x-acards">
+              <div class="u3x-ac a1">
+                <div class="u3x-actop"><span class="u3x-acn">액션 1</span></div>
+                <div class="u3x-act"><span class="u3x-actx"><i class="u3x-aci u3x-aci-spark"></i>AI 추천 위젯 더 넓히기</span></div>
+                <div class="u3x-acd">전환이 높은 자리에 추천 위젯을 추가해 <b>객단가</b>를 더 끌어올려요.</div>
+              </div>
+              <div class="u3x-ac a2">
+                <div class="u3x-actop"><span class="u3x-acn">액션 2</span></div>
+                <div class="u3x-act"><span class="u3x-actx"><i class="u3x-aci u3x-aci-growth"></i>가격 A/B 테스트 다시 돌리기</span></div>
+                <div class="u3x-acd">최적가 구간을 재탐색해 <b>마진과 매출</b>을 함께 키워요.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('up3', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>

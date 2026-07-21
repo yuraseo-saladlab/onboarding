@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파리뷰 2번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-hero="review:1">
+            <div class="hero-pane hp-ai">
+          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">리뷰 인사이트 보기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
+          <div class="ai-pipe">
+            <div class="ai-before">
+              <div class="aib-revs">
+                <div class="aib-rev"><span class="st">★★★★★</span><p>핏이 딱 맞아요, 또 살래요!</p><i class="aib-tag">핏</i></div>
+                <div class="aib-rev"><span class="st">★★★★☆</span><p>배송이 조금 늦었어요</p><i class="aib-tag neg">배송</i></div>
+                <div class="aib-rev"><span class="st">★★★★★</span><p>색감이 사진 그대로예요</p><i class="aib-tag">색감</i></div>
+                <div class="aib-rev"><span class="st">★★★★★</span><p>재질이 튼튼하고 좋아요</p><i class="aib-tag">재질</i></div>
+                <div class="aib-rev"><span class="st">★★★★★</span><p>정사이즈라 딱이에요</p><i class="aib-tag">사이즈</i></div>
+              </div>
+              <div class="aib-q">이 리뷰들, <b>어떻게 활용해야 하지?</b> 🤔</div>
+              <button class="cl-start aib-btn" type="button" data-heroplay><span class="cl-lb">리뷰 인사이트 요약하기</span></button><span class="cl-cursor aib-cursor"></span>
+            </div>
+            <div class="apx-topbar hero-payoff"><span class="apx-tx"><i class="apx-live"></i>리뷰 <b class="cnt" data-to="12480" data-from="0" data-delay="1900">0</b>건 <b>실시간</b> 처리 · 매주 자동 반복! 담당자 <b>3명 몫</b>을 AI가 대신</span></div>
+            <div class="apx-flow">
+              <div class="stg s1 hero-payoff">
+                <div class="stg-top"><span class="stg-no">1</span><span class="stg-lb">리뷰 수집·분류</span></div>
+                <div class="stg-ui">
+                  <div class="mstat"><span class="ms-l">리뷰 수</span><b class="cnt" data-to="52400" data-from="0" data-fmt="num" data-delay="500">0</b><span class="ms-up">▲ 1,381</span></div>
+                  <div class="mrv"><img src="assets/insta/f1.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>핏이 딱 맞아요</em></span><i class="tg">핏</i></div>
+                  <div class="mrv"><img src="assets/insta/f4.png" alt=""><span class="mrv-b"><span class="st">★★★★☆</span><em>배송이 늦었어요</em></span><i class="tg neg">배송</i></div>
+                  <div class="mrv"><img src="assets/insta/f7.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>색감이 사진 그대로</em></span><i class="tg">색감</i></div>
+                  <div class="mrv"><img src="assets/insta/f2.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>재질이 튼튼해요</em></span><i class="tg">재질</i></div>
+                  <div class="mrv"><img src="assets/insta/f5.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>정사이즈예요</em></span><i class="tg">사이즈</i></div>
+                </div>
+                <div class="stg-cap">쌓이는 리뷰를 AI가 자동 수집 · 오늘 +12,480건</div>
+              </div>
+              <span class="arw a1"></span>
+              <div class="stg s2 hero-payoff">
+                <div class="stg-top"><span class="stg-no">2</span><span class="stg-lb">AI 리뷰 요약</span></div>
+                <div class="stg-ui">
+                  <div class="msum-h">🤖 <b>92%</b> 고객 만족</div>
+                  <div class="msum-t ok">👍 좋았던 점</div>
+                  <div class="msum-row ok">핏·색감·재질이 좋아요</div>
+                  <div class="msum-row ok">사이즈가 정사이즈예요</div>
+                  <div class="msum-t cau">💬 참고할 점</div>
+                  <div class="msum-row cau">배송이 조금 아쉬워요</div>
+                  <div class="mrv-thumbs"><img src="assets/insta/f2.png" alt=""><img src="assets/insta/f5.png" alt=""><img src="assets/insta/f1.png" alt=""></div>
+                </div>
+                <div class="stg-cap">핵심만 요약해 상세페이지에 자동 게시</div>
+              </div>
+              <span class="arw a2"></span>
+              <div class="stg s3 hot hero-payoff">
+                <div class="stg-top"><span class="stg-no">3</span><span class="stg-lb">최상단 고정</span></div>
+                <div class="stg-ui">
+                  <div class="pin-rec">✦ AI 추천 리뷰<span>32개</span></div>
+                  <div class="pin-card">
+                    <div class="pin-user"><img src="assets/insta/f2.png" alt=""><span class="pin-who"><b>이지은</b><em>24.8.6 · 구매 인증</em></span></div>
+                    <div class="pin-thumbs"><img src="assets/insta/f1.png" alt=""><img src="assets/insta/f4.png" alt=""><img src="assets/insta/f5.png" alt=""></div>
+                    <p class="pin-tx">“군더더기 없이 예쁘고 몸에도 불편감이 없어서 좋았어요”</p>
+                    <div class="pin-reason"><i>실제경험5/5</i><i>긍정적5/5</i><i>구체적4/5</i></div>
+                    <button class="pin-btn">최상단 고정<span class="lf-cursor"></span></button>
+                  </div>
+                  <div class="pin-list">
+                    <div class="pin-li"><b>1</b><img src="assets/insta/f2.png" alt=""><span>이지은 · 라이프 린넨</span><i class="up"></i></div>
+                    <div class="pin-li"><b>2</b><img src="assets/insta/f5.png" alt=""><span>강수아 · 크롭 나시</span></div>
+                    <div class="pin-li"><b>3</b><img src="assets/insta/f7.png" alt=""><span>최시우 · UNISEX</span></div>
+                  </div>
+                </div>
+                <div class="stg-cap">좋은 리뷰를 위젯 맨 위로 올려 · 리뷰 순서 조정 > 구매 전환율 ▲</div>
+              </div>
+              <span class="arw a3"></span>
+              <div class="stg s4 hero-payoff">
+                <div class="stg-top"><span class="stg-no">4</span><span class="stg-lb">월간 브리핑</span></div>
+                <div class="stg-ui">
+                  <div class="mc-bars"><i style="--h:38%"></i><i style="--h:56%"></i><i style="--h:48%"></i><i style="--h:72%"></i><i style="--h:62%"></i><i style="--h:88%"></i><i style="--h:100%"></i></div>
+                  <div class="mc-stat">부정 리뷰 <b>5%</b> <span class="dn">▼ 1%p</span></div>
+                  <div class="mstat sm"><span class="ms-l">분석</span><b>12,480</b><span class="ms-up">▲ 2,458</span></div>
+                  <div class="mscat"><span class="mscat-vx"></span><span class="mscat-thr"></span><i style="left:16%;top:16%"></i><i style="left:25%;top:27%"></i><i style="left:12%;top:33%"></i><i style="left:30%;top:20%"></i><i style="left:21%;top:52%"></i><i style="left:14%;top:66%"></i><i style="left:23%;top:80%"></i><i style="left:10%;top:84%"></i><i style="left:30%;top:72%"></i><i style="left:34%;top:88%"></i><i style="left:46%;top:72%"></i><i style="left:54%;top:83%"></i><i style="left:60%;top:69%"></i><i style="left:68%;top:79%"></i><i style="left:76%;top:71%"></i><i style="left:85%;top:81%"></i><i style="left:50%;top:63%"></i><i style="left:64%;top:88%"></i><i style="left:90%;top:67%"></i><i style="left:52%;top:50%"></i><i class="bad" style="left:70%;top:26%"></i><i class="bad" style="left:80%;top:34%"></i><i class="bad" style="left:88%;top:21%"></i></div>
+                  <div class="mscat-cap">🔥 개선 필요 상품 3건</div>
+                  <div class="mprod"><img src="assets/insta/f4.png" alt=""><b>체크 트위드</b><span class="pneg">6.5%</span></div>
+                  <div class="mprod"><img src="assets/insta/f7.png" alt=""><b>울 블렌드</b><span class="pneg">5.8%</span></div>
+                </div>
+                <div class="stg-cap">지표·추세와 개선 상품을 매달 리포트</div>
+              </div>
+              <span class="arw a4"></span>
+              <div class="stg s5 hero-payoff">
+                <div class="stg-top"><span class="stg-no">5</span><span class="stg-lb">브랜드 인사이트</span></div>
+                <div class="stg-ui">
+                  <div class="ins-tag"><svg class="ins-donut" viewBox="0 0 36 36"><circle class="d-neg" cx="18" cy="18" r="14" pathLength="100" stroke-dasharray="28 100" stroke-dashoffset="-72"></circle><circle class="d-pos" cx="18" cy="18" r="14" pathLength="100" stroke-dasharray="72 100"></circle></svg><span class="ins-t"><b>#핏 · 색감</b><em>언급량 1,573</em></span></div>
+                  <div class="ins-set">
+                    <div class="ins-ratio">
+                      <div class="mratio-lb"><span class="pos">긍정 92%</span><span class="neg2">부정 8%</span></div>
+                      <div class="mratio"><i></i></div>
+                    </div>
+                    <div class="mkw-risk">⚠ 위험 태그 · 배송 지연 점검</div>
+                  </div>
+                  <div class="ins-cloud">
+                    <div class="ic-hd">브랜드 강점 키워드</div>
+                    <div class="ic-map">
+                      <span class="icb pu" style="left:24%;top:42%;width:50px;height:50px;font-size:9.5px">핏 좋아요</span>
+                      <span class="icb gr" style="left:59%;top:31%;width:42px;height:42px;font-size:10px">색감</span>
+                      <span class="icb bl" style="left:85%;top:45%;width:34px;height:34px;font-size:9px">재질</span>
+                      <span class="icb am" style="left:43%;top:76%;width:34px;height:34px;font-size:9px">가성비</span>
+                      <span class="icb pk" style="left:71%;top:77%;width:30px;height:30px;font-size:8.5px">사이즈</span>
+                      <span class="icb gy" style="left:13%;top:82%;width:26px;height:26px;font-size:8px">배송</span>
+                      <span class="icb pu" style="left:90%;top:79%;width:24px;height:24px;font-size:8px">포장</span>
+                    </div>
+                  </div>
+                  <div class="ins-kw">
+                    <div class="ikw-card"><span class="ikw-l">최근 많이 보이는 키워드</span><span class="ikw-v"><i class="ikw-ic"></i><b>색감</b></span></div>
+                    <div class="ikw-card"><span class="ikw-l">가장 많은 비중을 차지하는 키워드</span><span class="ikw-v"><i class="ikw-ic"></i><b>핏 좋아요</b></span></div>
+                  </div>
+                </div>
+                <div class="stg-cap">강점·위험 키워드를 한눈에</div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('rv2', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>
