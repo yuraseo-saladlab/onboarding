@@ -346,8 +346,17 @@
         el.className = 'beat';
         el.style.setProperty('--beat-ms', beatMs(i) + 'ms');
         el.innerHTML = `<span class="brow"><span class="bn">${i + 1}</span><span class="bt">${b[0]}</span></span><span class="bd">${b[1]}</span><span class="prog"></span><span class="prog-hit" title="게이지를 누르면 그 지점으로 이동"></span>`;
-        // beat 클릭 = 해당 씬으로 전환(클릭 전 대기 상태, 우측상단 버튼으로 재생)
-        el.onclick = () => heroGo(i);
+        // beat 클릭 = 현재 비트면 재생/정지 토글, 다른 비트면 처음부터 (prog-hit 영역 제외)
+        el.onclick = () => { if (i === heroIdx) { heroPaused ? resumeHero() : pauseHero(); } else scrubBeat(i, 0); };
+        // 진행 게이지(prog-hit) 클릭 = 누른 위치로 시크 (현재 비트) / 다른 비트면 처음부터
+        const hit = el.querySelector('.prog-hit');
+        if (hit) hit.onclick = (ev) => {
+          ev.stopPropagation();
+          if (i !== heroIdx) { scrubBeat(i, 0); return; }
+          const rect = hit.getBoundingClientRect();
+          const f = Math.max(0, Math.min(1, (ev.clientX - rect.left) / rect.width));
+          scrubBeat(i, f);
+        };
         beats.appendChild(el);
       });
       const panes = $('heroPanes');
@@ -411,10 +420,23 @@
       [...$('heroBeats').children].forEach((el, j) => {
         el.classList.toggle('on', j === i);
         el.classList.toggle('done', j < i);
+        if (j === i) { const p = el.querySelector('.prog'); if (p) { p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; } } // 게이지 리스타트
       });
       // 해당 비트의 씬 파일로 iframe 교체 → 씬이 iframe 안에서 자동재생 (autoplay 기본 ON)
       const fr = $('heroFrame');
       if (fr) fr.src = `scene-${SCENE_SLUG[ENTRY] || ENTRY}${i + 1}.html`;
+    }
+
+    /* 진행 게이지 스크럽 — 다른 비트면 처음부터, 현재 비트면 누른 위치(f:0~1)로 씬·게이지 시크 (v2와 동일, iframe은 postMessage로) */
+    function scrubBeat(i, f) {
+      if (i !== heroIdx) { heroGo(i); return; }
+      const ms = f * beatMs(i);
+      const beatEl = $('heroBeats').children[i];
+      const prog = beatEl && beatEl.querySelector('.prog');
+      if (prog && prog.getAnimations) prog.getAnimations().forEach(a => { try { a.currentTime = ms; } catch (e) { } });
+      postScene($('heroFrame'), { __alphaScene: 'seek', ms, paused: heroPaused });
+      if (!heroPaused) restartHeroTimer(Math.max(400, beatMs(i) - ms));
+      else heroRemain = Math.max(400, beatMs(i) - ms);
     }
 
     // 셋업 카운트는 최종값으로 고정(ran 처리 → runCounts에서 스킵), 페이오프 카운트는 0으로(클릭 시 카운트업)
@@ -533,30 +555,15 @@
       heroRemain = Math.max(300, heroRemain - (Date.now() - heroBeatStart)); // 남은 시간 저장
       heroPaused = true; stopHero();
       $('heroBeats').classList.add('paused'); $('heroPanes').classList.add('paused');
+      postScene($('heroFrame'), { __alphaScene: 'pause' });   // iframe 씬도 정지
       syncHeroCtrl();
     }
     function resumeHero() { // 처음부터가 아니라 멈춘 지점부터 이어서
       heroPaused = false;
       $('heroBeats').classList.remove('paused'); $('heroPanes').classList.remove('paused');
+      postScene($('heroFrame'), { __alphaScene: 'play' });    // iframe 씬도 재개
       syncHeroCtrl();
       restartHeroTimer(heroRemain);
-    }
-    /* 진행 게이지 스크럽 — 클릭한 지점(0~1)으로 씬을 이동.
-       재생/정지 상태는 그대로 유지 (재생 중이면 그 지점부터 이어 재생, 정지 중이면 그 자리에서 홀드) */
-    function scrubBeat(i, f) {
-      if (i !== heroIdx) heroGo(i);            // 다른 비트면 먼저 전환(씬 초기화)
-      const ms = f * beatMs(i);
-      const playing = !heroPaused;
-      // 우측 실사 플로우 애니메이션 시크
-      const pane = $('heroPanes').children[i];
-      if (pane && pane.getAnimations) pane.getAnimations({ subtree: true }).forEach(a => { try { a.currentTime = ms; } catch (e) { } });
-      // 좌측 진행 게이지도 같은 위치로
-      const beatEl = $('heroBeats').children[i];
-      const prog = beatEl && beatEl.querySelector('.prog');
-      if (prog && prog.getAnimations) prog.getAnimations().forEach(a => { try { a.currentTime = ms; } catch (e) { } });
-      seekCounts(pane, ms, playing);
-      if (playing) restartHeroTimer(Math.max(400, beatMs(i) - ms));  // 이어서 자동 넘김
-      else heroRemain = Math.max(400, beatMs(i) - ms);               // 정지 지점 유지
     }
 
     /* 카운트업(JS 기반)은 CSS 시크에 안 잡히므로 직접 계산.
@@ -748,8 +755,17 @@
           <div class="fn-title">${f.title}</div>
           <p class="fn-desc">${f.desc}</p>
           <div class="fn-chips">${f.chips.map(c => `<span>${c}</span>`).join('')}</div>
-          <span class="prog"></span>`;
-        b.onclick = () => dtGo(i);
+          <span class="prog"></span><span class="prog-hit" title="게이지를 누르면 그 지점으로 이동"></span>`;
+        // 현재 기능이면 재생/정지 토글, 다른 기능이면 처음부터 (prog-hit 영역 제외)
+        b.onclick = () => { if (i === dtIdx) { dtPaused ? resumeDt() : pauseDt(); } else scrubDt(i, 0); };
+        const hit = b.querySelector('.prog-hit');
+        if (hit) hit.onclick = (ev) => {
+          ev.stopPropagation();
+          if (i !== dtIdx) { scrubDt(i, 0); return; }
+          const rect = hit.getBoundingClientRect();
+          const f2 = Math.max(0, Math.min(1, (ev.clientX - rect.left) / rect.width));
+          scrubDt(i, f2);
+        };
         nav.appendChild(b);
       });
       syncDetailAdd();
@@ -783,17 +799,45 @@
     }
     function pauseDt() {
       dtRemain = Math.max(300, dtRemain - (Date.now() - dtBeatStart));
-      dtPaused = true; $('featNav')?.classList.add('paused'); stopDtTimer(); syncDtCtrl();
+      dtPaused = true; $('featNav')?.classList.add('paused'); stopDtTimer();
+      postScene($('dtStage').querySelector('iframe'), { __alphaScene: 'pause' });   // iframe 씬도 정지
+      syncDtCtrl();
     }
     function resumeDt() {
-      dtPaused = false; $('featNav')?.classList.remove('paused'); syncDtCtrl(); restartDtTimer(dtRemain);
+      dtPaused = false; $('featNav')?.classList.remove('paused');
+      postScene($('dtStage').querySelector('iframe'), { __alphaScene: 'play' });    // iframe 씬도 재개
+      syncDtCtrl(); restartDtTimer(dtRemain);
     }
     { const c = $('dtCtrl'); if (c) c.onclick = () => (dtPaused ? resumeDt() : pauseDt()); }
+
+    /* ── iframe 씬 제어: 부모(v6)가 재생/정지/시크를 씬 iframe 안으로 postMessage. 3-A·3-B 공용 ── */
+    function postScene(frame, data) { try { if (frame && frame.contentWindow) frame.contentWindow.postMessage(data, '*'); } catch (e) { } }
+    // (씬 파일 컨텍스트에서 수신) 자기 #embedStage 애니메이션을 재생/정지/시크
+    window.addEventListener('message', (e) => {
+      const m = e.data; if (!m || m.__alphaScene == null) return;
+      const stage = document.getElementById('embedStage');
+      if (!stage || !stage.getAnimations) return;
+      const anims = stage.getAnimations({ subtree: true });
+      const cmd = m.__alphaScene;
+      if (cmd === 'pause') {
+        anims.forEach(a => { try { a.pause(); } catch (e) { } });
+        stage.querySelectorAll('.cnt').forEach(c => { if (c._ct) { clearTimeout(c._ct); c._ct = null; } if (c._cr) { cancelAnimationFrame(c._cr); c._cr = null; } });
+      } else if (cmd === 'play') {
+        anims.forEach(a => { try { a.play(); } catch (e) { } });
+      } else if (cmd === 'seek') {
+        const ms = m.ms || 0;
+        anims.forEach(a => { try { a.currentTime = ms; } catch (e) { } });
+        if (typeof seekCounts === 'function') seekCounts(stage, ms, !m.paused);
+      }
+    });
 
     function dtGo(i) {
       dtIdx = i;
       const d = P[dtKey];
-      [...$('featNav').children].forEach((el, j) => el.classList.toggle('on', j === i));
+      [...$('featNav').children].forEach((el, j) => {
+        el.classList.toggle('on', j === i);
+        if (j === i) { const p = el.querySelector('.prog'); if (p) { p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; } } // 게이지 리스타트
+      });
       const stage = $('dtStage');
       // 3-B 상세 씬 = 독립 씬 파일을 iframe으로 임베드 — 제품(Angular) 임베드와 동일 구조.
       // 3-A 히어로처럼 씬은 iframe 안에서 자동재생, beatMs 타이머로 다음 기능 자동 넘김.
@@ -802,6 +846,18 @@
       const _dp = $('dtPrev'); if (_dp) _dp.disabled = (i === 0);
       const _dn = $('dtNext'); if (_dn) _dn.textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
       restartDtTimer();
+    }
+
+    /* 3-B 진행 게이지 스크럽 — 3-A scrubBeat와 동일 (다른 기능이면 처음부터, 현재 기능이면 시크) */
+    function scrubDt(i, f) {
+      if (i !== dtIdx) { dtGo(i); return; }
+      const ms = f * dtBeatMs(i);
+      const navEl = $('featNav').children[i];
+      const prog = navEl && navEl.querySelector('.prog');
+      if (prog && prog.getAnimations) prog.getAnimations().forEach(a => { try { a.currentTime = ms; } catch (e) { } });
+      postScene($('dtStage').querySelector('iframe'), { __alphaScene: 'seek', ms, paused: dtPaused });
+      if (!dtPaused) restartDtTimer(Math.max(400, dtBeatMs(i) - ms));
+      else dtRemain = Math.max(400, dtBeatMs(i) - ms);
     }
 
     /* rv2(AI 리뷰 대응) — AI 답글을 한 글자씩 스트리밍한 뒤, 부정 리뷰 행을 '대응 완료'로 전환 */
