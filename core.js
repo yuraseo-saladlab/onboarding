@@ -776,53 +776,18 @@
       dtGo(0);
     }
 
+    // 제품키 → 씬 파일 슬러그 (파일명 scene-<슬러그><표시번호>.html)
+    const SCENE_SLUG = { review: 'review', upsell: 'upsell', push: 'push', canvas: 'canvas', instafeed: 'insta' };
+
     function dtGo(i) {
       dtIdx = i;
       const d = P[dtKey], f = d.feats[i];
       [...$('featNav').children].forEach((el, j) => el.classList.toggle('on', j === i));
       const stage = $('dtStage');
-      // 3-A 히어로 애니가 있는 앱(리뷰)은 상세에서도 동일 애니 재활용 — 단일 소스
-      const _hp = HERO_PANES[dtKey];
-      if (_hp && _hp[i]) {
-        stage.innerHTML = _hp[i];
-        const pane = stage.querySelector('.hero-pane');
-        if (pane) {
-          pane.classList.add('on', 'poster');   // 히어로와 동일: 셋업 포스터 노출, 버튼으로 재생
-          heroPrimeCounts(pane);
-          renderStars(stage);
-          stage.querySelectorAll('[data-heroplay]').forEach(b => b.onclick = () => {
-            syncRvhCardTargets(pane);
-            pane.classList.add('played');
-            runCounts(pane);
-            if (pane.querySelector('.rvh-gather')) setTimeout(() => drawRvhLines(pane), 1000);
-          });
-          stage.querySelectorAll('[data-heroreplay]').forEach(b => b.onclick = () => {
-            pane.classList.remove('played');
-            heroResetPayoffCounts(pane);
-          });
-        }
-        const _dp0 = $('dtPrev'); if (_dp0) _dp0.disabled = (i === 0);
-        const _dn0 = $('dtNext'); if (_dn0) _dn0.textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
-        return;
-      }
-      stage.innerHTML = SCENES[f.scene] || '';
-      // 씬 클릭 액션
-      stage.querySelectorAll('[data-act]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const sc = stage.querySelector('.sc');
-          const act = btn.dataset.act;
-          if (act && act.startsWith('theme-')) sc.dataset.theme = act.split('-')[1];
-          sc.classList.add('on');
-          playScene(sc, stage);
-        });
-      });
-      // '레시피 시작'은 유저가 직접 클릭 (자동 실행 없음)
-      const _rb = stage.querySelector('.cmp-replay');
-      if (_rb) _rb.onclick = () => dtGo(dtIdx);
-      // 캔버스 씬 2 — 위젯 조립 빌더
-      if (stage.querySelector('.cv2-sc')) initCvBuilder(stage);
-      // 캔버스 씬 1 — 상세페이지 편집 투어
-      if (stage.querySelector('.cv1-sc')) initCvDetail(stage);
+      // 3-B 상세 씬 = 독립 씬 파일을 iframe으로 임베드 — 실제 제품(Angular) 임베드와 "완전히 동일한 구조".
+      // ?autoplay=0 → 포스터(첫 프레임)만 노출, 씬 안 버튼으로 재생 (기존 UX 유지)
+      const slug = SCENE_SLUG[dtKey] || dtKey;
+      stage.innerHTML = `<iframe class="dt-scene-frame" src="scene-${slug}${i + 1}.html?autoplay=0" title="${d.name} ${i + 1}번 씬" loading="lazy"></iframe>`;
       const _dp = $('dtPrev'); if (_dp) _dp.disabled = (i === 0);
       const _dn = $('dtNext'); if (_dn) _dn.textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
     }

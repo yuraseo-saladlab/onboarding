@@ -7385,6 +7385,14 @@
       pointer-events: none;
     }
 
+    /* 3-B 상세 씬 iframe — 씬 파일을 그대로 임베드(제품 임베드와 동일 구조) */
+    .dt-scene-frame {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
     /* ═══ 임베드 모드: ?embed=<씬키> → 온보딩 껍데기 없이 단일 씬만 뷰포트 꽉 채워 렌더 ═══ */
     #embedRoot { display: none; }
 
