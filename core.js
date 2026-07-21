@@ -418,7 +418,11 @@
       });
       // 해당 비트의 씬 파일로 iframe 교체 → 씬이 iframe 안에서 자동재생 (autoplay 기본 ON)
       const fr = $('heroFrame');
-      if (fr) fr.src = `scene-${SCENE_SLUG[ENTRY] || ENTRY}${i + 1}.html`;
+      if (fr) {
+        // 정지 중 전환이면 새 씬 로드 즉시 정지(autoplay setTimeout까지 동결) → 게이지·씬 모두 멈춤 유지
+        fr.onload = heroPaused ? () => postScene(fr, { __alphaScene: 'pause' }) : null;
+        fr.src = `scene-${SCENE_SLUG[ENTRY] || ENTRY}${i + 1}.html`;
+      }
       // 비트 전환 시 프로그레스바(--beat-ms 애니)와 자동전환 타이머를 새 비트 기준으로 동기화.
       // 재생 중이면 새 길이로 타이머 재시작, 정지 중이면 remain만 갱신(이어보기 처음부터). heroPaused 상태는 그대로 따라감.
       heroRemain = beatMs(i);
@@ -893,6 +897,8 @@
       // 3-A 히어로처럼 씬은 iframe 안에서 자동재생, beatMs 타이머로 다음 기능 자동 넘김.
       const slug = SCENE_SLUG[dtKey] || dtKey;
       stage.innerHTML = `<iframe class="dt-scene-frame" src="scene-${slug}${i + 1}.html" title="${d.name} ${i + 1}번 씬" loading="lazy"></iframe>`;
+      // 정지 중 전환이면 새 씬도 로드 즉시 정지
+      if (dtPaused) { const fr = stage.querySelector('iframe'); if (fr) fr.onload = () => postScene(fr, { __alphaScene: 'pause' }); }
       const _dp = $('dtPrev'); if (_dp) _dp.disabled = (i === 0);
       const _dn = $('dtNext'); if (_dn) _dn.textContent = (i === d.feats.length - 1) ? '기능 다 봤어요 ✓' : '다음 기능 →';
       dtRemain = dtBeatMs(i);         // 새 기능은 처음부터 (정지 상태 이어보기 대비)
