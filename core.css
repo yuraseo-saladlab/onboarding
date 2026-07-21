@@ -726,7 +726,6 @@
       cursor: pointer;
       transition: .25s;
       position: relative;
-      overflow: hidden;
     }
 
     .beat .bn {
@@ -794,11 +793,12 @@
       margin-top: 8px;
     }
 
-    /* 진행 게이지 (자동 넘김 시각화 + 클릭 스크럽) — 둥근 모서리에 안 잘리게 좌우 여백 + 바닥에서 살짝 띄움 */
+    /* 진행 게이지 — 카드 바닥에 붙임(bottom:0). 둥근 모서리 폭만큼 좌우 인셋 + 라운드로 코너 삐져나옴 방지.
+       카드 overflow:hidden 제거로 스크러버 노브는 안 잘림 */
     .beat .prog {
       position: absolute;
-      left: 12px;
-      bottom: 5px;
+      left: 16px;
+      bottom: 0;
       height: 3px;
       width: 0;
       border-radius: 2px;
@@ -817,10 +817,10 @@
     /* 게이지 클릭 스크럽 히트존 (게이지와 동일 좌우 범위, 넉넉한 하단 영역) */
     .beat .prog-hit {
       position: absolute;
-      left: 12px;
-      right: 12px;
+      left: 16px;
+      right: 16px;
       bottom: 0;
-      height: 14px;
+      height: 16px;
       z-index: 3;
     }
 
@@ -829,12 +829,16 @@
     }
 
     /* 재생바 스크러버 노브 — 채워지는 게이지(.prog) 끝을 자동으로 따라가고, prog-hit 드래그로 위치 조정 */
+    .beat .prog,
+    .fn-item .prog {
+      transition: height .12s ease;
+    }
+
     .beat .prog-knob,
     .fn-item .prog-knob {
       position: absolute;
       right: -6px;
-      top: 50%;
-      margin-top: -6px;
+      bottom: -4px;
       width: 12px;
       height: 12px;
       border-radius: 50%;
@@ -851,10 +855,15 @@
       opacity: 1;
     }
 
+    /* 유튜브식 — 게이지 영역 호버 시 바가 두꺼워지고 스크러버가 커짐 */
+    .beat.on .prog-hit:hover ~ .prog,
+    .fn-item.on .prog-hit:hover ~ .prog {
+      height: 6px;
+    }
+
     .beat.on .prog-hit:hover ~ .prog .prog-knob,
-    .beats.paused .beat.on .prog-knob,
-    .feat-nav.paused .fn-item.on .prog-knob {
-      transform: scale(1.25);
+    .fn-item.on .prog-hit:hover ~ .prog .prog-knob {
+      transform: scale(1.35);
     }
 
     /* 멈춤 상태: 우측 실사 플로우 애니메이션도 그 자리에서 정지 (이어보기 가능) */
@@ -967,15 +976,15 @@
       }
 
       to {
-        width: calc(100% - 24px);
+        width: calc(100% - 32px);
       }
     }
 
     /* 3-B 상세모달: feat-nav 진행 게이지 (3-A beat와 동일 메커니즘, 색만 제품 --dc) */
     .fn-item .prog {
       position: absolute;
-      left: 12px;
-      bottom: 5px;
+      left: 16px;
+      bottom: 0;
       height: 3px;
       width: 0;
       background: var(--dc, #6D58F2);
@@ -992,10 +1001,10 @@
 
     .fn-item .prog-hit {
       position: absolute;
-      left: 12px;
-      right: 12px;
+      left: 16px;
+      right: 16px;
       bottom: 0;
-      height: 14px;
+      height: 16px;
       z-index: 3;
     }
 
@@ -7346,7 +7355,6 @@
       color: var(--sds-text-primary);
       transition: .22s;
       position: relative;
-      overflow: hidden;
     }
 
     .fn-item:hover {

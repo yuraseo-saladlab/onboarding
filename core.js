@@ -345,7 +345,7 @@
         const el = document.createElement('div');
         el.className = 'beat';
         el.style.setProperty('--beat-ms', beatMs(i) + 'ms');
-        el.innerHTML = `<span class="brow"><span class="bn">${i + 1}</span><span class="bt">${b[0]}</span></span><span class="bd">${b[1]}</span><span class="prog"><span class="prog-knob"></span></span><span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span>`;
+        el.innerHTML = `<span class="brow"><span class="bn">${i + 1}</span><span class="bt">${b[0]}</span></span><span class="bd">${b[1]}</span><span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span><span class="prog"><span class="prog-knob"></span></span>`;
         // beat 클릭 = 현재 비트면 재생/정지 토글, 다른 비트면 처음부터 (prog-hit 영역 제외)
         el.onclick = () => { if (i === heroIdx) { heroPaused ? resumeHero() : pauseHero(); } else scrubBeat(i, 0); };
         // 진행 게이지(prog-hit) 클릭·드래그 = 위치 시크
@@ -749,7 +749,7 @@
           <div class="fn-title">${f.title}</div>
           <p class="fn-desc">${f.desc}</p>
           <div class="fn-chips">${f.chips.map(c => `<span>${c}</span>`).join('')}</div>
-          <span class="prog"><span class="prog-knob"></span></span><span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span>`;
+          <span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span><span class="prog"><span class="prog-knob"></span></span>`;
         // 현재 기능이면 재생/정지 토글, 다른 기능이면 처음부터 (prog-hit 영역 제외)
         b.onclick = () => { if (i === dtIdx) { dtPaused ? resumeDt() : pauseDt(); } else scrubDt(i, 0); };
         const hit = b.querySelector('.prog-hit');
@@ -801,7 +801,8 @@
     /* ── iframe 씬 제어: 부모(v6)가 재생/정지/시크를 씬 iframe 안으로 postMessage. 3-A·3-B 공용 ── */
     function postScene(frame, data) { try { if (frame && frame.contentWindow) frame.contentWindow.postMessage(data, '*'); } catch (e) { } }
 
-    /* 재생바 스크럽 — prog-hit에 클릭+드래그 바인딩 (3-A·3-B 공용). doScrub(i,f), getActive()=현재 인덱스 */
+    /* 재생바 스크럽 — prog-hit에 클릭+드래그 바인딩 (3-A·3-B 공용). doScrub(i,f), getActive()=현재 인덱스.
+       prog는 '위치조정' 전용 — 클릭이 beat(재생/정지)로 전파되지 않게 막는다(유튜브식). */
     function bindScrub(hit, i, doScrub, getActive) {
       let dragging = false;
       const seek = (clientX) => {
@@ -814,6 +815,7 @@
       const end = (ev) => { if (dragging) { dragging = false; try { hit.releasePointerCapture(ev.pointerId); } catch (e) { } } };
       hit.addEventListener('pointerup', end);
       hit.addEventListener('pointercancel', end);
+      hit.addEventListener('click', (ev) => ev.stopPropagation());   // 위치조정만 — 재생/정지(beat 클릭)로 전파 금지
     }
 
     // (씬 컨텍스트 전용) setTimeout/rAF를 일시정지 가능하게 래핑 →
