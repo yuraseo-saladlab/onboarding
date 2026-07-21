@@ -794,13 +794,14 @@
       margin-top: 8px;
     }
 
-    /* 진행 게이지 (자동 넘김 시각화 + 클릭 스크럽) */
+    /* 진행 게이지 (자동 넘김 시각화 + 클릭 스크럽) — 둥근 모서리에 안 잘리게 좌우 여백 + 바닥에서 살짝 띄움 */
     .beat .prog {
       position: absolute;
-      left: 0;
-      bottom: 0;
+      left: 12px;
+      bottom: 5px;
       height: 3px;
       width: 0;
+      border-radius: 2px;
       background: linear-gradient(90deg, #A058F2, #6D58F2, #5877F2);
     }
 
@@ -813,18 +814,47 @@
       animation-play-state: paused;
     }
 
-    /* 게이지 클릭 스크럽 히트존 (얇은 게이지 대신 넉넉한 하단 영역) */
+    /* 게이지 클릭 스크럽 히트존 (게이지와 동일 좌우 범위, 넉넉한 하단 영역) */
     .beat .prog-hit {
       position: absolute;
-      left: 0;
-      right: 0;
+      left: 12px;
+      right: 12px;
       bottom: 0;
-      height: 13px;
+      height: 14px;
       z-index: 3;
     }
 
     .beat.on .prog-hit {
       cursor: ew-resize;
+    }
+
+    /* 재생바 스크러버 노브 — 채워지는 게이지(.prog) 끝을 자동으로 따라가고, prog-hit 드래그로 위치 조정 */
+    .beat .prog-knob,
+    .fn-item .prog-knob {
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      margin-top: -6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--dc, #6D58F2);
+      box-shadow: 0 1px 4px rgba(20, 18, 40, .3);
+      opacity: 0;
+      transition: opacity .18s ease, transform .12s ease;
+      pointer-events: none;
+    }
+
+    .beat.on .prog-knob,
+    .fn-item.on .prog-knob {
+      opacity: 1;
+    }
+
+    .beat.on .prog-hit:hover ~ .prog .prog-knob,
+    .beats.paused .beat.on .prog-knob,
+    .feat-nav.paused .fn-item.on .prog-knob {
+      transform: scale(1.25);
     }
 
     /* 멈춤 상태: 우측 실사 플로우 애니메이션도 그 자리에서 정지 (이어보기 가능) */
@@ -875,14 +905,13 @@
       transform: none !important;
     }
 
-    .hero-ctrl {
+    /* 자동넘김 재생/정지 컨트롤 — 3-A(hero-ctrl)·3-B(dt-ctrl) 단일 소스: 레이아웃 공유, 색만 배경에 맞게 */
+    .hero-ctrl,
+    .dt-ctrl {
       margin-top: 16px;
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: rgba(255, 255, 255, .08);
-      color: rgba(255, 255, 255, .8);
-      border: 1px solid rgba(255, 255, 255, .08);
       border-radius: 100px;
       padding: 7px 13px;
       font-size: 12px;
@@ -893,9 +922,28 @@
       transition: .15s;
     }
 
+    /* 3-A: 다크 히어로 배경 */
+    .hero-ctrl {
+      background: rgba(255, 255, 255, .08);
+      color: rgba(255, 255, 255, .8);
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
     .hero-ctrl:hover {
       background: rgba(255, 255, 255, .17);
       color: #fff;
+    }
+
+    /* 3-B: 라이트 오버레이 배경 */
+    .dt-ctrl {
+      background: var(--sds-bg-tertiary);
+      color: var(--sds-text-tertiary);
+      border: 1px solid var(--sds-border-default);
+    }
+
+    .dt-ctrl:hover {
+      background: var(--sds-bg-quaternary);
+      color: var(--sds-text-primary);
     }
 
     .hero-ctrl .hc-ic,
@@ -919,19 +967,19 @@
       }
 
       to {
-        width: 100%;
+        width: calc(100% - 24px);
       }
     }
 
     /* 3-B 상세모달: feat-nav 진행 게이지 (3-A beat와 동일 메커니즘, 색만 제품 --dc) */
     .fn-item .prog {
       position: absolute;
-      left: 0;
-      bottom: 0;
+      left: 12px;
+      bottom: 5px;
       height: 3px;
       width: 0;
       background: var(--dc, #6D58F2);
-      border-radius: 0 3px 3px 0;
+      border-radius: 2px;
     }
 
     .fn-item.on .prog {
@@ -944,39 +992,15 @@
 
     .fn-item .prog-hit {
       position: absolute;
-      left: 0;
-      right: 0;
+      left: 12px;
+      right: 12px;
       bottom: 0;
-      height: 13px;
+      height: 14px;
       z-index: 3;
     }
 
     .fn-item.on .prog-hit {
       cursor: ew-resize;
-    }
-
-    /* 3-B 자동넘김 정지 버튼 (라이트 배경 — 3-A .hero-ctrl과 동일 형식) */
-    .dt-ctrl {
-      margin-top: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: var(--sds-bg-tertiary);
-      color: var(--sds-text-tertiary);
-      border: 1px solid var(--sds-border-default);
-      border-radius: 100px;
-      padding: 7px 13px;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      cursor: pointer;
-      font-family: inherit;
-      transition: .15s;
-    }
-
-    .dt-ctrl:hover {
-      background: var(--sds-bg-quaternary);
-      color: var(--sds-text-primary);
     }
 
     /* 완료 상태 — 퍼플 원 + 흰색 체크 (Figma) */
