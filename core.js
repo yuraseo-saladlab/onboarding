@@ -658,7 +658,7 @@
             <div class="pc-tags">${d.tags.map(t => `<span class="pc-tag">${t}</span>`).join('')}</div>
             <div class="pc-btns">
               <button class="sds-btn sds-btn--lg sds-btn--neutral-outline pc-view">기능 자세히 보기</button>
-              <button class="sds-btn sds-btn--lg sds-btn--add pc-add${cart.has(k) ? ' is-added' : ''}">${cart.has(k) ? '<i class="pc-ck"></i>담김 · 빼기' : '<i class="pc-plus"></i>담기'}</button>
+              <button class="sds-btn sds-btn--lg sds-btn--add pc-add${cart.has(k) ? ' is-added' : ''}">${cart.has(k) ? '<i class="pc-ck"></i>담김' : '<i class="pc-plus"></i>담기'}</button>
             </div>
           </div>`;
         card.querySelector('.pc-view').onclick = () => openDetail(k);
@@ -1434,7 +1434,7 @@
       const isEntry = (dtKey === ENTRY);
       btn.classList.toggle('is-added', added);
       btn.innerHTML = isEntry ? '✓ 앱스토어에서 선택한 앱이에요'
-        : added ? '✓ 담김 · 빼기' : `<i class="dt-cart"></i>${P[dtKey].name} 담기`;
+        : added ? '✓ 담김' : `<i class="dt-cart"></i>${P[dtKey].name} 담기`;
       btn.onclick = () => {
         if (isEntry) { closeDetail(); return; }
         toggleCart(dtKey, btn); syncDetailAdd();

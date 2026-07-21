@@ -797,7 +797,7 @@
        카드 overflow:hidden 제거로 스크러버 노브는 안 잘림 */
     .beat .prog {
       position: absolute;
-      left: 16px;
+      left: 0;
       bottom: 0;
       height: 3px;
       width: 0;
@@ -817,8 +817,8 @@
     /* 게이지 클릭 스크럽 히트존 (게이지와 동일 좌우 범위, 넉넉한 하단 영역) */
     .beat .prog-hit {
       position: absolute;
-      left: 16px;
-      right: 16px;
+      left: 0;
+      right: 0;
       bottom: 0;
       height: 16px;
       z-index: 3;
@@ -977,14 +977,14 @@
       }
 
       to {
-        width: calc(100% - 32px);
+        width: 100%;
       }
     }
 
     /* 3-B 상세모달: feat-nav 진행 게이지 (3-A beat와 동일 메커니즘, 색만 제품 --dc) */
     .fn-item .prog {
       position: absolute;
-      left: 16px;
+      left: 0;
       bottom: 0;
       height: 3px;
       width: 0;
@@ -1002,8 +1002,8 @@
 
     .fn-item .prog-hit {
       position: absolute;
-      left: 16px;
-      right: 16px;
+      left: 0;
+      right: 0;
       bottom: 0;
       height: 16px;
       z-index: 3;
