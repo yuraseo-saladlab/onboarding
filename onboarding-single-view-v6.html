@@ -7395,6 +7395,29 @@
       pointer-events: none;
     }
 
+    /* ═══ 임베드 모드: ?embed=<씬키> → 온보딩 껍데기 없이 단일 씬만 뷰포트 꽉 채워 렌더 ═══ */
+    #embedRoot { display: none; }
+
+    body.embed-mode { overflow: hidden; background: transparent; }
+
+    body.embed-mode > *:not(#embedRoot) { display: none !important; }
+
+    body.embed-mode #embedRoot {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      padding: clamp(8px, 2vmin, 20px);
+      box-sizing: border-box;
+    }
+
+    body.embed-mode #embedStage {
+      flex: 1 1 auto;
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      min-height: 0;
+    }
+
     .dt-hint {
       display: flex;
       align-items: center;
@@ -25943,6 +25966,9 @@
     </div>
   </div>
 
+  <!-- 임베드 모드 스테이지 (?embed=<씬키>일 때만 노출, 단일 씬 단독 렌더용) -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
   <!-- ═══════════ 애니메이션 씬 정의 (하드코딩 HTML — 씬 교체는 이 블록만 수정) ═══════════ -->
   <div id="sceneDefs" hidden aria-hidden="true">
     <!-- ── 알파리뷰: 히어로 애니 3씬 (data-hero="review:인덱스") ── -->
@@ -28578,13 +28604,61 @@
       });
     }
 
+    /* 임베드 렌더 — 단일 씬을 #embedStage에 단독 렌더 + (기본) 자동재생.
+       rv1~3 = 알파리뷰 히어로 애니(HERO_PANES), 그 외 = SCENES. */
+    function renderEmbed(key, autoplay) {
+      const stage = $('embedStage');
+      if (!stage) return;
+      const COLOR = { rv: '#6D58F2', up: '#E62C35', ps: '#307AF3', cv: '#00B7A8', if: '#EC4A7F' };
+      stage.style.setProperty('--dc', COLOR[key.slice(0, 2)] || '#6D58F2');
+      const hm = key.match(/^rv([123])$/);
+      if (hm) {
+        const pane0 = (HERO_PANES.review && HERO_PANES.review[+hm[1] - 1]) || '';
+        stage.innerHTML = pane0;
+        const pane = stage.querySelector('.hero-pane');
+        if (!pane) return;
+        pane.classList.add('on', 'poster');
+        heroPrimeCounts(pane);
+        renderStars(stage);
+        stage.querySelectorAll('[data-heroplay]').forEach(b => b.onclick = () => {
+          syncRvhCardTargets(pane); pane.classList.add('played'); runCounts(pane);
+          if (pane.querySelector('.rvh-gather')) setTimeout(() => drawRvhLines(pane), 1000);
+        });
+        stage.querySelectorAll('[data-heroreplay]').forEach(b => b.onclick = () => {
+          pane.classList.remove('played'); heroResetPayoffCounts(pane);
+        });
+        if (autoplay) setTimeout(() => { const b = stage.querySelector('[data-heroplay]'); if (b) b.click(); }, 800);
+      } else {
+        stage.dataset.scene = key;
+        stage.innerHTML = SCENES[key] || '';
+        if (!stage.querySelector('.sc')) return;
+        renderStars(stage);
+        bindHeroScene(stage);
+        if (autoplay) setTimeout(() => {
+          const b = stage.querySelector('[data-act]') || stage.querySelector('.cl-start');
+          if (b) { b.click(); return; }
+          const sc = stage.querySelector('.sc'); if (sc) { sc.classList.add('on'); playScene(sc, stage); }
+        }, 800);
+      }
+    }
+
     /* ═══════════════════════════════════════════════
        부팅 — 진입 앱 선택 화면부터. (기본값 review는 미리 렌더해 둠)
+       ?embed=<씬키>[&autoplay=0] 이면 온보딩 껍데기 없이 그 씬만 단독 렌더.
     ═══════════════════════════════════════════════ */
-    renderEntry();
-    initHero();
-    renderPick();
-    go('entry');
+    {
+      const _q = new URLSearchParams(location.search);
+      const _embed = _q.get('embed');
+      if (_embed) {
+        document.body.classList.add('embed-mode');
+        renderEmbed(_embed, _q.get('autoplay') !== '0');
+      } else {
+        renderEntry();
+        initHero();
+        renderPick();
+        go('entry');
+      }
+    }
   </script>
 </body>
 
