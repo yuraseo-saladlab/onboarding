@@ -917,7 +917,7 @@
     /* 자동넘김 재생/정지 컨트롤 — 3-A(hero-ctrl)·3-B(dt-ctrl) 단일 소스: 레이아웃 공유, 색만 배경에 맞게 */
     .hero-ctrl,
     .dt-ctrl {
-      margin-top: 16px;
+      align-self: flex-start;
       display: inline-flex;
       align-items: center;
       gap: 5px;
@@ -931,8 +931,9 @@
       transition: .15s;
     }
 
-    /* 3-A: 다크 히어로 배경 */
+    /* 3-A: 다크 히어로 배경 (hero-copy는 gap 없음 → margin-top으로 16px) */
     .hero-ctrl {
+      margin-top: 16px;
       background: rgba(255, 255, 255, .08);
       color: rgba(255, 255, 255, .8);
       border: 1px solid rgba(255, 255, 255, .08);
@@ -7288,7 +7289,7 @@
     .dt-side {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
       min-height: 0;
     }
 
@@ -7340,7 +7341,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      flex: 1 1 auto;
+      flex: 0 0 auto;
       min-height: 0;
       overflow: visible;
     }
