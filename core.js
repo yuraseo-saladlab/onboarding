@@ -812,18 +812,56 @@
 
     /* ── iframe 씬 제어: 부모(v6)가 재생/정지/시크를 씬 iframe 안으로 postMessage. 3-A·3-B 공용 ── */
     function postScene(frame, data) { try { if (frame && frame.contentWindow) frame.contentWindow.postMessage(data, '*'); } catch (e) { } }
-    // (씬 파일 컨텍스트에서 수신) 자기 #embedStage 애니메이션을 재생/정지/시크
+
+    // (씬 컨텍스트 전용) setTimeout/rAF를 일시정지 가능하게 래핑 →
+    // getAnimations().pause()가 못 잡는 setTimeout 드라이버(seqWall·빌더·seqUp2 등)까지 '진짜' 정지.
+    if (document.getElementById('embedStage') && !window.__sceneClock) {
+      window.__sceneClock = 1;
+      (function () {
+        const realTO = window.setTimeout.bind(window), realCT = window.clearTimeout.bind(window), realRAF = window.requestAnimationFrame.bind(window);
+        let paused = false, seq = 1;
+        const tos = new Map();      // vid -> {arm, remaining, startedAt, realId}
+        const pendingRAF = [];      // 정지 중 대기한 rAF 콜백
+        window.setTimeout = function (cb, delay) {
+          const args = [].slice.call(arguments, 2), vid = 'v' + (seq++);
+          const rec = { remaining: +delay || 0 };
+          rec.arm = function () { rec.startedAt = Date.now(); rec.realId = realTO(function () { tos.delete(vid); cb.apply(null, args); }, rec.remaining); };
+          tos.set(vid, rec); if (!paused) rec.arm(); return vid;
+        };
+        window.clearTimeout = function (vid) { const rec = tos.get(vid); if (rec) { if (rec.realId) realCT(rec.realId); tos.delete(vid); } else if (typeof vid === 'number') realCT(vid); };
+        window.requestAnimationFrame = function (cb) { if (paused) { pendingRAF.push(cb); return 0; } return realRAF(cb); };
+        window.__scenePause = function () {
+          if (paused) return; paused = true;
+          tos.forEach(function (rec) { if (rec.realId) { realCT(rec.realId); rec.realId = null; rec.remaining = Math.max(0, rec.remaining - (Date.now() - rec.startedAt)); } });
+        };
+        window.__sceneResume = function () {
+          if (!paused) return; paused = false;
+          tos.forEach(function (rec) { rec.arm(); });
+          const q = pendingRAF.splice(0); q.forEach(function (cb) { realRAF(cb); });
+        };
+      })();
+    }
+
+    // (씬 파일 컨텍스트에서 수신) 자기 #embedStage 애니메이션 + 타이머 드라이버를 재생/정지/시크
     window.addEventListener('message', (e) => {
       const m = e.data; if (!m || m.__alphaScene == null) return;
       const stage = document.getElementById('embedStage');
-      if (!stage || !stage.getAnimations) return;
-      const anims = stage.getAnimations({ subtree: true });
+      if (!stage) return;
+      const anims = stage.getAnimations ? stage.getAnimations({ subtree: true }) : [];
       const cmd = m.__alphaScene;
       if (cmd === 'pause') {
-        anims.forEach(a => { try { a.pause(); } catch (e) { } });
-        stage.querySelectorAll('.cnt').forEach(c => { if (c._ct) { clearTimeout(c._ct); c._ct = null; } if (c._cr) { cancelAnimationFrame(c._cr); c._cr = null; } });
+        if (window.__scenePause) window.__scenePause();               // setTimeout/rAF 드라이버 정지
+        anims.forEach(a => { try { a.pause(); } catch (e) { } });      // CSS/WAAPI 애니 정지
+        // 진행 중인 네이티브 스무스 스크롤 고정 (scrollUpx 등)
+        stage.querySelectorAll('*').forEach(el => {
+          if (el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1) {
+            const sb = el.style.scrollBehavior; el.style.scrollBehavior = 'auto';
+            el.scrollTop = el.scrollTop; el.scrollLeft = el.scrollLeft; el.style.scrollBehavior = sb;
+          }
+        });
       } else if (cmd === 'play') {
         anims.forEach(a => { try { a.play(); } catch (e) { } });
+        if (window.__sceneResume) window.__sceneResume();
       } else if (cmd === 'seek') {
         const ms = m.ms || 0;
         anims.forEach(a => { try { a.currentTime = ms; } catch (e) { } });
