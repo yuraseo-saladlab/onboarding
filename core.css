@@ -1019,6 +1019,17 @@
       pointer-events: none;
     }
 
+    /* 히어로 씬 iframe — 씬 파일을 그대로 임베드(제품 임베드와 동일 구조), beatMs로 v6가 전환 */
+    .hero-frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: linear-gradient(165deg, #FCFCFF, #F2F2F9);
+    }
+
     .hero-pane.on {
       opacity: 1;
       transform: none;

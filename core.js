@@ -351,24 +351,10 @@
         beats.appendChild(el);
       });
       const panes = $('heroPanes');
-      if (HERO_PANES[ENTRY]) {
-        // 전용 히어로 목업(알파리뷰)
-        panes.style.removeProperty('--dc');
-        panes.innerHTML = HERO_PANES[ENTRY].join('');
-      } else {
-        // 비-리뷰 앱: 상세 피처 씬을 그대로 재활용해 히어로 스테이지를 구성
-        panes.style.setProperty('--dc', d.color);
-        panes.innerHTML = d.feats.map(f => `<div class="hero-pane hp-scene" data-scene="${f.scene}"></div>`).join('');
-      }
-      renderStars(panes);
-      // 우측상단 재생/다시보기 버튼(알파리뷰 전용 목업) — 위임. initHero가 여러 번 불려도 1회만 바인딩
-      if (!panes._heroBound) {
-        panes._heroBound = 1;
-        panes.addEventListener('click', (e) => {
-          if (e.target.closest('[data-heroplay]')) heroPlay();
-          else if (e.target.closest('[data-heroreplay]')) heroReplay();
-        });
-      }
+      panes.style.setProperty('--dc', d.color);
+      // 히어로 씬 = 독립 씬 파일을 iframe으로 임베드(제품 임베드와 완전히 동일한 구조).
+      // 각 씬은 iframe 안에서 자동재생하고, v6는 beatMs 타이머로 다음 씬(iframe src)만 교체한다.
+      panes.innerHTML = `<iframe class="hero-frame" id="heroFrame" title="${d.name} 씬"></iframe>`;
     }
 
     /* 히어로 스테이지에 상세 씬을 렌더 + 상세 오버레이와 동일하게 클릭 액션·드라이버를 바인딩.
@@ -426,16 +412,9 @@
         el.classList.toggle('on', j === i);
         el.classList.toggle('done', j < i);
       });
-      // 클릭 전: 활성 씬을 '포스터'(완성 프레임 고정)로 노출 — 빈 화면 대신 꽉 찬 미리보기, 버튼 눌러야 애니 재생
-      [...$('heroPanes').children].forEach((el, j) => {
-        const on = j === i;
-        el.classList.toggle('on', on);
-        el.classList.remove('played');
-        el.classList.toggle('poster', on);   // 셋업만 정지 노출, 페이오프는 .played 전까지 숨김
-        if (!on) return;
-        if (el.classList.contains('hp-scene')) renderHeroScene(el);  // 재활용 씬: 첫 프레임부터 새로 그림
-        else heroPrimeCounts(el);
-      });
+      // 해당 비트의 씬 파일로 iframe 교체 → 씬이 iframe 안에서 자동재생 (autoplay 기본 ON)
+      const fr = $('heroFrame');
+      if (fr) fr.src = `scene-${SCENE_SLUG[ENTRY] || ENTRY}${i + 1}.html`;
     }
 
     // 셋업 카운트는 최종값으로 고정(ran 처리 → runCounts에서 스킵), 페이오프 카운트는 0으로(클릭 시 카운트업)
@@ -536,7 +515,8 @@
 
     let heroPaused = false;
     let heroBeatStart = 0, heroRemain = 0; // 이어보기용: 현재 비트의 남은 시간 기억
-    function startHero() { heroGo(0); }   // 자동재생 폐지 — 우측상단 버튼 클릭으로 재생
+    // 히어로 진입 → 첫 씬부터 beatMs 타이머로 자동 넘김 (heroCtrl로 멈춤/재생)
+    function startHero() { heroPaused = false; $('heroBeats')?.classList.remove('paused'); $('heroPanes')?.classList.remove('paused'); syncHeroCtrl(); heroGo(0); restartHeroTimer(); }
     function restartHeroTimer(ms) {
       stopHero();
       if (heroPaused) return;
