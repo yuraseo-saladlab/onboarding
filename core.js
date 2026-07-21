@@ -843,15 +843,17 @@
     }
 
     // (씬 파일 컨텍스트에서 수신) 자기 #embedStage 애니메이션 + 타이머 드라이버를 재생/정지/시크
+    let _heldAnims = [];   // 정지 시점에 '재생 중'이던 애니만 기억 → 재개 때 그것만 이어감(끝난 애니 되감기 방지)
     window.addEventListener('message', (e) => {
       const m = e.data; if (!m || m.__alphaScene == null) return;
       const stage = document.getElementById('embedStage');
       if (!stage) return;
-      const anims = stage.getAnimations ? stage.getAnimations({ subtree: true }) : [];
       const cmd = m.__alphaScene;
       if (cmd === 'pause') {
         if (window.__scenePause) window.__scenePause();               // setTimeout/rAF 드라이버 정지
-        anims.forEach(a => { try { a.pause(); } catch (e) { } });      // CSS/WAAPI 애니 정지
+        // 재생 중(running)인 애니만 정지·기억 (finished는 건드리지 않음 → 재개 시 되감기 없음)
+        _heldAnims = (stage.getAnimations ? stage.getAnimations({ subtree: true }) : []).filter(a => a.playState === 'running');
+        _heldAnims.forEach(a => { try { a.pause(); } catch (e) { } });
         // 진행 중인 네이티브 스무스 스크롤 고정 (scrollUpx 등)
         stage.querySelectorAll('*').forEach(el => {
           if (el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1) {
@@ -860,11 +862,12 @@
           }
         });
       } else if (cmd === 'play') {
-        anims.forEach(a => { try { a.play(); } catch (e) { } });
+        _heldAnims.forEach(a => { try { a.play(); } catch (e) { } });  // 정지 때 멈춘 것만 이어서 재생
+        _heldAnims = [];
         if (window.__sceneResume) window.__sceneResume();
       } else if (cmd === 'seek') {
         const ms = m.ms || 0;
-        anims.forEach(a => { try { a.currentTime = ms; } catch (e) { } });
+        (stage.getAnimations ? stage.getAnimations({ subtree: true }) : []).forEach(a => { try { a.currentTime = ms; } catch (e) { } });
         if (typeof seekCounts === 'function') seekCounts(stage, ms, !m.paused);
       }
     });
