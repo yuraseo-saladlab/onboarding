@@ -25943,6 +25943,1221 @@
     </div>
   </div>
 
+  <!-- ═══════════ 애니메이션 씬 정의 (하드코딩 HTML — 씬 교체는 이 블록만 수정) ═══════════ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <!-- ── 알파리뷰: 히어로 애니 3씬 (data-hero="review:인덱스") ── -->
+    <template data-hero="review:0">
+      <div class="hero-pane hp-live">
+          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">리뷰 모두 수집하기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
+          <div class="rvh rvh-gather">
+            <div class="rvh-rc" data-rvh-target="naver" style="--x:-300px;--y:-150px;--r:-8deg;--d:0s"><div class="rc-top"><span class="rc-src" style="--sc:#03C75A">네이버</span><span class="st">★★★★★</span></div><div class="rc-tx">핏이 딱 맞아요, 또 살래요</div></div>
+            <div class="rvh-rc" data-rvh-target="social" style="--x:-322px;--y:26px;--r:6deg;--d:.04s"><div class="rc-top"><span class="rc-src" style="--sc:#E1306C">인스타</span><span class="st">★★★★★</span></div><img class="rc-photo" src="assets/insta/f1.png" alt=""></div>
+            <div class="rvh-rc" data-rvh-target="coupang" style="--x:-250px;--y:170px;--r:-5deg;--d:.08s"><div class="rc-top"><span class="rc-src" style="--sc:#F94C4C">쿠팡</span><span class="st">★★★★★</span></div><div class="rc-tx">배송 빨라요 만족!</div></div>
+            <div class="rvh-rc" data-rvh-target="quick" style="--x:-24px;--y:-180px;--r:4deg;--d:.02s"><div class="rc-top"><span class="rc-src" style="--sc:#6D58F2">알림톡</span><span class="st">★★★★★</span></div><div class="rc-tx">만족해요 ❤️</div></div>
+            <div class="rvh-rc" data-rvh-target="musinsa" style="--x:290px;--y:-138px;--r:8deg;--d:.06s"><div class="rc-top"><span class="rc-src" style="--sc:#1A1A1A">무신사</span><span class="st">★★★★☆</span></div><div class="rc-tx">재질이 튼튼해요</div></div>
+            <div class="rvh-rc" data-rvh-target="olive" style="--x:320px;--y:0px;--r:-6deg;--d:.12s"><div class="rc-top"><span class="rc-src" style="--sc:#8DB825">올리브영</span><span class="st">★★★★★</span></div><div class="rc-tx">색감 사진 그대로</div></div>
+            <div class="rvh-rc" data-rvh-target="qr" style="--x:258px;--y:150px;--r:5deg;--d:.10s"><div class="rc-top"><span class="rc-src" style="--sc:#20242E">QR·매장</span><span class="st">★★★★★</span></div><div class="rc-tx">실물이 더 예뻐요</div></div>
+            <div class="rvh-rc" data-rvh-target="lotte" style="--x:40px;--y:190px;--r:-4deg;--d:.14s"><div class="rc-top"><span class="rc-src" style="--sc:#DA291C">롯데온</span><span class="st">★★★★★</span></div><div class="rc-tx">가격 대비 최고예요</div></div>
+            <div class="rvh-stage">
+            <div class="rvh-sources">
+              <div class="rvs s1">
+                <div class="rvs-h">빠른 리뷰</div>
+                <div class="rvx rvx-talk" data-rvh-source="quick" style="--rvh-hit-delay:.86s">
+                  <div class="rvx-noti"><span class="rvx-app">α</span><b>알파리뷰 알림톡</b><span class="rvx-tm">방금</span></div>
+                  <div class="rvx-msg">구매하신 <b>여름 원피스</b>는 어떠셨나요?<br>만족하셨다면 별점을 남겨주세요 😊</div>
+                  <div class="rvx-btns"><span class="rvx-b on">만족해요 ❤️</span><span class="rvx-b">괜찮아요</span><span class="rvx-b">아쉬워요</span></div>
+                </div>
+              </div>
+              <div class="rvs s2">
+                <div class="rvs-h">외부몰 연동</div>
+                <div class="rvx rvx-sync" data-rvh-source="social" style="--rvh-hit-delay:.88s">
+                  <div class="rvx-mcloud">
+                    <span class="rvx-mall" data-rvh-source="coupang" style="--rvh-hit-delay:.92s"><i class="rvx-mlg" style="--lg:#F94C4C">쿠</i>쿠팡</span><span class="rvx-mall" data-rvh-source="musinsa" style="--rvh-hit-delay:.90s"><i class="rvx-mlg" style="--lg:#1A1A1A">무</i>무신사</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#1A1A1A">29</i>29cm</span><span class="rvx-mall" data-rvh-source="naver" style="--rvh-hit-delay:.84s"><i class="rvx-mlg" style="--lg:#03C75A">N</i>네이버</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E23838">S</i>SSG</span><span class="rvx-mall" data-rvh-source="lotte" style="--rvh-hit-delay:.98s"><i class="rvx-mlg" style="--lg:#DA291C">롯</i>롯데온</span><span class="rvx-mall" data-rvh-source="olive" style="--rvh-hit-delay:.96s"><i class="rvx-mlg" style="--lg:#8DB825">올</i>올리브영</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF0038">11</i>11번가</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#23305C">L</i>LF몰</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5007D">C</i>CJ온스타일</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#0A8B3F">G</i>GS SHOP</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF4E7E">브</i>브랜디</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#22BFB8">오</i>오늘의집</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5344A">위</i>위메프</span><span class="rvx-mall rvx-more">+80</span>
+                  </div>
+                </div>
+              </div>
+              <div class="rvs s3">
+                <div class="rvs-h">QR 코드</div>
+                <div class="rvx rvx-qr" data-rvh-source="qr" style="--rvh-hit-delay:.94s">
+                  <svg class="rvx-qrbox" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="6" width="3" height="3" fill="#20242E"></rect><rect x="27" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="31" y="6" width="3" height="3" fill="#20242E"></rect><rect x="2" y="27" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="31" width="3" height="3" fill="#20242E"></rect><g fill="#20242E"><rect x="18" y="3" width="3" height="3"></rect><rect x="23" y="7" width="3" height="3"></rect><rect x="18" y="11" width="3" height="3"></rect><rect x="34" y="18" width="3" height="3"></rect><rect x="27" y="18" width="3" height="3"></rect><rect x="31" y="22" width="3" height="3"></rect><rect x="18" y="18" width="3" height="3"></rect><rect x="22" y="22" width="3" height="3"></rect><rect x="18" y="26" width="3" height="3"></rect><rect x="23" y="30" width="3" height="3"></rect><rect x="27" y="27" width="3" height="3"></rect><rect x="31" y="31" width="3" height="3"></rect><rect x="34" y="34" width="3" height="3"></rect><rect x="18" y="34" width="3" height="3"></rect></g></svg>
+                  <span class="rvx-arrow">→</span>
+                  <div class="rvx-rvcard">
+                    <div class="rvx-rv-top"><img src="assets/insta/f8.png" alt=""><span class="st">★★★★★</span><span class="rvx-rv-who">김민**님 · 오프라인 구매</span></div>
+                    <p class="rvx-rv-tx">매장에서 받아봤는데 실물이 더 예뻐요!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <svg class="rvh-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0,50 L100,50"></path>
+              <path d="M0,50 L100,50"></path>
+              <path d="M0,50 L100,50"></path>
+            </svg>
+            <div class="rvh-mall">
+              <div class="rvh-empty">
+                <div class="rve-head">🛍️ 우리 쇼핑몰 · 상품 리뷰</div>
+                <div class="rve-body">
+                  <div class="rve-ic">💬</div>
+                  <div class="rve-t">아직 등록된 리뷰가 <b>0개</b></div>
+                  <div class="rve-s">리뷰가 채널마다 흩어져 있어요</div>
+                  <button class="cl-start rve-btn" type="button" data-heroplay><span class="cl-lb">리뷰 모두 수집하기</span></button><span class="cl-cursor rve-cursor"></span>
+                </div>
+              </div>
+              <div class="rvh-panel hero-payoff">
+                <div class="rvh-top">
+                  <div class="rvh-topL">
+                    <div class="rvh-title">모든 리뷰<br><b>실시간 수집중</b></div>
+                  </div>
+                  <div class="rvh-count">
+                    <span class="rvh-live"><i class="rd"></i>LIVE</span>
+                  </div>
+                </div>
+                <div class="rvh-metric">
+                  <div class="rvh-mt"><div class="v"><b class="cnt" data-to="5967" data-from="0" data-fmt="num" data-delay="1440">0</b></div><div class="l">누적 리뷰</div></div>
+                  <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="32" data-from="0" data-delay="1440">0</b>%</div><div class="l">구매 전환율</div></div>
+                  <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="27" data-from="0" data-delay="1440">0</b>%</div><div class="l">재구매율</div></div>
+                  <div class="rvh-mt"><div class="v"><b class="cnt" data-to="49" data-from="40" data-fmt="star" data-delay="1440">4.0</b></div><div class="l">평균 별점</div></div>
+                </div>
+                <div class="rvh-chart"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:68%"></i><i style="--h:84%"></i><i style="--h:100%"></i></div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+    </template>
+
+    <template data-hero="review:1">
+      <div class="hero-pane hp-ai">
+          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">리뷰 인사이트 보기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
+          <div class="ai-pipe">
+            <div class="ai-before">
+              <div class="aib-revs">
+                <div class="aib-rev"><span class="st">★★★★★</span><p>핏이 딱 맞아요, 또 살래요!</p><i class="aib-tag">핏</i></div>
+                <div class="aib-rev"><span class="st">★★★★☆</span><p>배송이 조금 늦었어요</p><i class="aib-tag neg">배송</i></div>
+                <div class="aib-rev"><span class="st">★★★★★</span><p>색감이 사진 그대로예요</p><i class="aib-tag">색감</i></div>
+                <div class="aib-rev"><span class="st">★★★★★</span><p>재질이 튼튼하고 좋아요</p><i class="aib-tag">재질</i></div>
+                <div class="aib-rev"><span class="st">★★★★★</span><p>정사이즈라 딱이에요</p><i class="aib-tag">사이즈</i></div>
+              </div>
+              <div class="aib-q">이 리뷰들, <b>어떻게 활용해야 하지?</b> 🤔</div>
+              <button class="cl-start aib-btn" type="button" data-heroplay><span class="cl-lb">리뷰 인사이트 요약하기</span></button><span class="cl-cursor aib-cursor"></span>
+            </div>
+            <div class="apx-topbar hero-payoff"><span class="apx-tx"><i class="apx-live"></i>리뷰 <b class="cnt" data-to="12480" data-from="0" data-delay="1900">0</b>건 <b>실시간</b> 처리 · 매주 자동 반복! 담당자 <b>3명 몫</b>을 AI가 대신</span></div>
+            <div class="apx-flow">
+              <div class="stg s1 hero-payoff">
+                <div class="stg-top"><span class="stg-no">1</span><span class="stg-lb">리뷰 수집·분류</span></div>
+                <div class="stg-ui">
+                  <div class="mstat"><span class="ms-l">리뷰 수</span><b class="cnt" data-to="52400" data-from="0" data-fmt="num" data-delay="500">0</b><span class="ms-up">▲ 1,381</span></div>
+                  <div class="mrv"><img src="assets/insta/f1.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>핏이 딱 맞아요</em></span><i class="tg">핏</i></div>
+                  <div class="mrv"><img src="assets/insta/f4.png" alt=""><span class="mrv-b"><span class="st">★★★★☆</span><em>배송이 늦었어요</em></span><i class="tg neg">배송</i></div>
+                  <div class="mrv"><img src="assets/insta/f7.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>색감이 사진 그대로</em></span><i class="tg">색감</i></div>
+                  <div class="mrv"><img src="assets/insta/f2.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>재질이 튼튼해요</em></span><i class="tg">재질</i></div>
+                  <div class="mrv"><img src="assets/insta/f5.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>정사이즈예요</em></span><i class="tg">사이즈</i></div>
+                </div>
+                <div class="stg-cap">쌓이는 리뷰를 AI가 자동 수집 · 오늘 +12,480건</div>
+              </div>
+              <span class="arw a1"></span>
+              <div class="stg s2 hero-payoff">
+                <div class="stg-top"><span class="stg-no">2</span><span class="stg-lb">AI 리뷰 요약</span></div>
+                <div class="stg-ui">
+                  <div class="msum-h">🤖 <b>92%</b> 고객 만족</div>
+                  <div class="msum-t ok">👍 좋았던 점</div>
+                  <div class="msum-row ok">핏·색감·재질이 좋아요</div>
+                  <div class="msum-row ok">사이즈가 정사이즈예요</div>
+                  <div class="msum-t cau">💬 참고할 점</div>
+                  <div class="msum-row cau">배송이 조금 아쉬워요</div>
+                  <div class="mrv-thumbs"><img src="assets/insta/f2.png" alt=""><img src="assets/insta/f5.png" alt=""><img src="assets/insta/f1.png" alt=""></div>
+                </div>
+                <div class="stg-cap">핵심만 요약해 상세페이지에 자동 게시</div>
+              </div>
+              <span class="arw a2"></span>
+              <div class="stg s3 hot hero-payoff">
+                <div class="stg-top"><span class="stg-no">3</span><span class="stg-lb">최상단 고정</span></div>
+                <div class="stg-ui">
+                  <div class="pin-rec">✦ AI 추천 리뷰<span>32개</span></div>
+                  <div class="pin-card">
+                    <div class="pin-user"><img src="assets/insta/f2.png" alt=""><span class="pin-who"><b>이지은</b><em>24.8.6 · 구매 인증</em></span></div>
+                    <div class="pin-thumbs"><img src="assets/insta/f1.png" alt=""><img src="assets/insta/f4.png" alt=""><img src="assets/insta/f5.png" alt=""></div>
+                    <p class="pin-tx">“군더더기 없이 예쁘고 몸에도 불편감이 없어서 좋았어요”</p>
+                    <div class="pin-reason"><i>실제경험5/5</i><i>긍정적5/5</i><i>구체적4/5</i></div>
+                    <button class="pin-btn">최상단 고정<span class="lf-cursor"></span></button>
+                  </div>
+                  <div class="pin-list">
+                    <div class="pin-li"><b>1</b><img src="assets/insta/f2.png" alt=""><span>이지은 · 라이프 린넨</span><i class="up"></i></div>
+                    <div class="pin-li"><b>2</b><img src="assets/insta/f5.png" alt=""><span>강수아 · 크롭 나시</span></div>
+                    <div class="pin-li"><b>3</b><img src="assets/insta/f7.png" alt=""><span>최시우 · UNISEX</span></div>
+                  </div>
+                </div>
+                <div class="stg-cap">좋은 리뷰를 위젯 맨 위로 올려 · 리뷰 순서 조정 > 구매 전환율 ▲</div>
+              </div>
+              <span class="arw a3"></span>
+              <div class="stg s4 hero-payoff">
+                <div class="stg-top"><span class="stg-no">4</span><span class="stg-lb">월간 브리핑</span></div>
+                <div class="stg-ui">
+                  <div class="mc-bars"><i style="--h:38%"></i><i style="--h:56%"></i><i style="--h:48%"></i><i style="--h:72%"></i><i style="--h:62%"></i><i style="--h:88%"></i><i style="--h:100%"></i></div>
+                  <div class="mc-stat">부정 리뷰 <b>5%</b> <span class="dn">▼ 1%p</span></div>
+                  <div class="mstat sm"><span class="ms-l">분석</span><b>12,480</b><span class="ms-up">▲ 2,458</span></div>
+                  <div class="mscat"><span class="mscat-vx"></span><span class="mscat-thr"></span><i style="left:16%;top:16%"></i><i style="left:25%;top:27%"></i><i style="left:12%;top:33%"></i><i style="left:30%;top:20%"></i><i style="left:21%;top:52%"></i><i style="left:14%;top:66%"></i><i style="left:23%;top:80%"></i><i style="left:10%;top:84%"></i><i style="left:30%;top:72%"></i><i style="left:34%;top:88%"></i><i style="left:46%;top:72%"></i><i style="left:54%;top:83%"></i><i style="left:60%;top:69%"></i><i style="left:68%;top:79%"></i><i style="left:76%;top:71%"></i><i style="left:85%;top:81%"></i><i style="left:50%;top:63%"></i><i style="left:64%;top:88%"></i><i style="left:90%;top:67%"></i><i style="left:52%;top:50%"></i><i class="bad" style="left:70%;top:26%"></i><i class="bad" style="left:80%;top:34%"></i><i class="bad" style="left:88%;top:21%"></i></div>
+                  <div class="mscat-cap">🔥 개선 필요 상품 3건</div>
+                  <div class="mprod"><img src="assets/insta/f4.png" alt=""><b>체크 트위드</b><span class="pneg">6.5%</span></div>
+                  <div class="mprod"><img src="assets/insta/f7.png" alt=""><b>울 블렌드</b><span class="pneg">5.8%</span></div>
+                </div>
+                <div class="stg-cap">지표·추세와 개선 상품을 매달 리포트</div>
+              </div>
+              <span class="arw a4"></span>
+              <div class="stg s5 hero-payoff">
+                <div class="stg-top"><span class="stg-no">5</span><span class="stg-lb">브랜드 인사이트</span></div>
+                <div class="stg-ui">
+                  <div class="ins-tag"><svg class="ins-donut" viewBox="0 0 36 36"><circle class="d-neg" cx="18" cy="18" r="14" pathLength="100" stroke-dasharray="28 100" stroke-dashoffset="-72"></circle><circle class="d-pos" cx="18" cy="18" r="14" pathLength="100" stroke-dasharray="72 100"></circle></svg><span class="ins-t"><b>#핏 · 색감</b><em>언급량 1,573</em></span></div>
+                  <div class="ins-set">
+                    <div class="ins-ratio">
+                      <div class="mratio-lb"><span class="pos">긍정 92%</span><span class="neg2">부정 8%</span></div>
+                      <div class="mratio"><i></i></div>
+                    </div>
+                    <div class="mkw-risk">⚠ 위험 태그 · 배송 지연 점검</div>
+                  </div>
+                  <div class="ins-cloud">
+                    <div class="ic-hd">브랜드 강점 키워드</div>
+                    <div class="ic-map">
+                      <span class="icb pu" style="left:24%;top:42%;width:50px;height:50px;font-size:9.5px">핏 좋아요</span>
+                      <span class="icb gr" style="left:59%;top:31%;width:42px;height:42px;font-size:10px">색감</span>
+                      <span class="icb bl" style="left:85%;top:45%;width:34px;height:34px;font-size:9px">재질</span>
+                      <span class="icb am" style="left:43%;top:76%;width:34px;height:34px;font-size:9px">가성비</span>
+                      <span class="icb pk" style="left:71%;top:77%;width:30px;height:30px;font-size:8.5px">사이즈</span>
+                      <span class="icb gy" style="left:13%;top:82%;width:26px;height:26px;font-size:8px">배송</span>
+                      <span class="icb pu" style="left:90%;top:79%;width:24px;height:24px;font-size:8px">포장</span>
+                    </div>
+                  </div>
+                  <div class="ins-kw">
+                    <div class="ikw-card"><span class="ikw-l">최근 많이 보이는 키워드</span><span class="ikw-v"><i class="ikw-ic"></i><b>색감</b></span></div>
+                    <div class="ikw-card"><span class="ikw-l">가장 많은 비중을 차지하는 키워드</span><span class="ikw-v"><i class="ikw-ic"></i><b>핏 좋아요</b></span></div>
+                  </div>
+                </div>
+                <div class="stg-cap">강점·위험 키워드를 한눈에</div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </template>
+
+    <template data-hero="review:2">
+      <div class="hero-pane hp-wg">
+          <div class="hero-cta"><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
+          <div class="wg-head">
+            <div class="wg-title">리뷰 기능 <b class="cnt" data-to="20" data-from="0" data-delay="300">0</b>여 종, 알파리뷰 하나에 전부 있어요</div>
+          </div>
+          <div class="wg-wallwrap">
+            <div class="wg-before">
+              <div class="wgb-note">지금은 리뷰 기능을 <b>회사마다 하나씩</b> 흩어져 쓰고 있어요</div>
+              <div class="wgb-group">
+                <div class="wgb-vendors">
+                  <div class="wgb-v"><span class="wgb-tag">A사</span><div class="wgb-feat"><span class="wgb-ic">📷</span>포토 리뷰</div></div>
+                  <div class="wgb-v"><span class="wgb-tag">B사</span><div class="wgb-feat"><span class="wgb-ic">📊</span>별점 통계</div></div>
+                  <div class="wgb-v"><span class="wgb-tag">C사</span><div class="wgb-feat"><span class="wgb-ic">💬</span>리뷰 게시판</div></div>
+                </div>
+                <button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">알파리뷰 한 곳에서 모든 위젯 사용하기</span></button>
+                <span class="cl-cursor hero-cursor"></span>
+              </div>
+            </div>
+            <div class="wg-wall">
+              <div class="wg-col hero-payoff">
+                <div class="wg wg-stat w1">
+                  <div class="wg-h">📊 리뷰 통계 위젯</div>
+                  <div class="ws-score"><i class="star"></i><b>4.7</b><em><b class="cnt" data-to="682" data-from="0" data-delay="700">0</b>개 리뷰</em></div>
+                  <div class="wsb top"><span>매우 만족</span><span class="wsb-track"><i style="--w:93%"></i></span><span class="wsb-p">93%</span></div>
+                  <div class="wsb"><span>만족</span><span class="wsb-track"><i style="--w:4%"></i></span><span class="wsb-p">4%</span></div>
+                  <div class="wsb"><span>보통</span><span class="wsb-track"><i style="--w:1%"></i></span><span class="wsb-p">1%</span></div>
+                  <div class="wsb"><span>그저 그래요</span><span class="wsb-track"><i style="--w:1%"></i></span><span class="wsb-p">1%</span></div>
+                  <div class="wsb"><span>아쉬워요</span><span class="wsb-track"><i style="--w:1%"></i></span><span class="wsb-p">1%</span></div>
+                </div>
+                <div class="wg wg-board w5">
+                  <div class="wg-h">🗂️ 상품 리뷰 게시판</div>
+                  <div class="wb-row"><img class="wb-ava" src="assets/insta/f4.png" alt=""><span class="wb-tx"><span class="st">★★★★★</span><p>색감이 사진 그대로예요, 재질도 튼튼하고 정말 만족합니다 😊</p></span></div>
+                  <div class="wb-row"><img class="wb-ava" src="assets/insta/f1.png" alt=""><span class="wb-tx"><span class="st">★★★★★</span><p>핏이 딱 맞아요. 착용 영상 리뷰도 남겼어요!</p></span></div>
+                </div>
+                <div class="wg wg-sale w8">
+                  <span class="wsl-fire">🔥</span>
+                  <span class="wsl-tx">지금 <b>5,780명</b>이 이 상품을<br>보고 있어요 · 실시간 세일 중</span>
+                </div>
+                <div class="wg wg-airep w10">
+                  <div class="wg-h">🤖 AI 자동 답글</div>
+                  <div class="wa-q"><span class="st">★★★★★</span><p>배송 빠르고 화면 그대로예요!</p></div>
+                  <div class="wa-re"><i>AI</i><p>소중한 리뷰 감사해요 😊 다음 구매에 쓰실 적립금 1,000P를 드렸어요.</p></div>
+                </div>
+              </div>
+              <div class="wg-col hero-payoff">
+                <div class="wg wg-photo w2">
+                  <div class="wg-h">📷 포토 리뷰 그리드</div>
+                  <div class="wg-pg">
+                    <img src="assets/insta/f1.png" alt=""><img src="assets/insta/f4.png" alt=""><img src="assets/insta/f5.png" alt="">
+                    <img src="assets/insta/f7.png" alt=""><img src="assets/insta/f2.png" alt=""><img src="assets/insta/f8.png" alt="">
+                  </div>
+                  <div class="wg-meta"><i class="star"></i><b>4.9</b>&nbsp;·&nbsp;포토 리뷰 <b class="cnt" data-to="1284" data-from="0" data-delay="900">0</b>개</div>
+                </div>
+                <div class="wg wg-vid w4">
+                  <div class="wg-h">🎬 포토·영상 리뷰</div>
+                  <div class="wv-img">
+                    <img src="assets/hero-product.png" alt="">
+                    <span class="wv-play"><i>▶</i></span>
+                    <span class="wv-rate"><i class="star"></i>4.8</span>
+                  </div>
+                  <div class="wv-prod">
+                    <img src="assets/hero-product.png" alt="">
+                    <span><span class="wp-nm">여름 청순 바람막이</span><span class="wp-mt"><i class="star"></i>4.7 · 리뷰 111개</span></span>
+                  </div>
+                </div>
+                <div class="wg wg-filter w11">
+                  <div class="wg-h">🔍 리뷰 필터링</div>
+                  <div class="wf-chips"><span class="on">포토 리뷰만</span><span>사이즈</span><span>배송</span><span>재질</span></div>
+                  <div class="wf-note">조건에 맞는 리뷰 <b>328</b>개</div>
+                </div>
+              </div>
+              <div class="wg-col hero-payoff">
+                <div class="wg wg-best w3">
+                  <span class="wb-badge">BEST 리뷰</span>
+                  <span class="st">★★★★★</span>
+                  <p>“핏이 예뻐서 인생 아우터예요. 벌써 세 번째 구매!”</p>
+                  <div class="wb-author"><img class="wb-av" src="assets/insta/f2.png" alt="">김지**님 · 구매 인증</div>
+                </div>
+                <div class="wg wg-story w6">
+                  <div class="wg-h">⚡ 생생후기 스토리</div>
+                  <div class="ws-avatars">
+                    <span class="wsa-add">＋</span>
+                    <span class="wsa"><img src="assets/insta/f2.png" alt=""></span>
+                    <span class="wsa"><img src="assets/insta/f5.png" alt=""></span>
+                    <span class="wsa"><img src="assets/insta/f7.png" alt=""></span>
+                  </div>
+                </div>
+                <div class="wg wg-list w7">
+                  <div class="wg-h">🛍️ 상품별 리뷰 모아보기</div>
+                  <div class="wl-grid">
+                    <div class="wl-card"><img src="assets/insta/f1.png" alt=""><div class="wl-nm">카멜 벨티드 코트</div><div class="wl-mt"><i class="star"></i>4.9 · 320</div></div>
+                    <div class="wl-card"><img src="assets/insta/f4.png" alt=""><div class="wl-nm">체크 트위드 자켓</div><div class="wl-mt"><i class="star"></i>4.8 · 210</div></div>
+                  </div>
+                  <div class="wl-page"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+                </div>
+                <div class="wg wg-notice w9">
+                  <div class="wg-h">📢 공지사항</div>
+                  <div class="wn-row"><span class="wn-tag event">이벤트</span><span class="wn-t">포토리뷰 작성 시 3,000P 적립</span><span class="wn-d">D-3</span></div>
+                  <div class="wn-row"><span class="wn-tag">필독</span><span class="wn-t">여름 신상 배송 안내드립니다</span><span class="wn-d">신규</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </template>
+
+    <!-- ── SCENES (data-scene): 리뷰 미니 rv·업셀 up·푸시 ps·캔버스 cv·인스타 if ── -->
+    <template data-scene="rv1">
+      <div class="sc sc-rv rv1s">
+        <div class="sc-eyebrow">배송 완료 알림톡 → 상세페이지 리뷰</div>
+        <div class="kko"><div class="kko-b">
+          <div class="kh"><i>톡</i>알파리뷰 알림톡</div>
+          주문하신 <b>알파 데스크 오거나이저</b>, 잘 받으셨나요?<br>지금 후기를 남기면 <b>적립금 1,000원</b>을 드려요 😊
+          <button class="sds-btn sds-btn--md sds-btn--neutral-solid sc-btn" data-act>⭐ 별점·사진 남기기</button>
+        </div></div>
+        <div class="sc-result">
+          <div class="mini-shop">
+            <div class="ms-head">상세페이지 리뷰 <span class="stars">★ 4.9</span> · 리뷰 <b class="cnt" data-from="1240" data-to="1285" data-delay="260">1,240</b>건</div>
+            <div class="ms-review new">📷 “재질이 생각보다 훨씬 좋아요. 재구매 각!”</div>
+            <div class="ms-review">📷 “책상이 넓어진 기분. 배송도 빨랐어요”</div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template data-scene="rv2">
+      <div class="sc sc-rv rv2s">
+        <div class="sc-eyebrow">AI 리뷰 관리 인박스</div>
+        <div class="rv-inbox">
+          <div class="rvi-row"><span class="st5">★★★★★</span>“포장 꼼꼼하고 예뻐요”<span class="done-tag">답글 완료</span></div>
+          <div class="rvi-row neg"><span class="st5">★☆☆☆☆</span>“배송이 늦고 응대가 없어요”<span class="flag">⚠ 부정 감지</span></div>
+        </div>
+        <button class="sds-btn sds-btn--md sds-btn--brand-solid sc-btn" data-act style="margin-top:16px">🤖 AI로 대응하기</button>
+        <div class="sc-result">
+          <div class="ai-reply">
+            <div class="ar-head">✨ AI 답글 초안 <span class="ok-tag">감지 → 대응 완료</span></div>
+            <span class="ar-tx" data-full="“불편을 드려 죄송합니다. 주문 건을 확인해 오늘 중 개별 연락드릴게요. 같은 일이 없도록 배송 프로세스를 점검하겠습니다.”"><span class="ar-caret"></span></span>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template data-scene="rv3">
+      <div class="sc sc-rv rv3s">
+        <div class="sc-eyebrow">리뷰 위젯 라이브러리</div>
+        <div class="widget-wall" style="max-width:460px">
+          <div class="ww-tile"><span class="wwm wwm-photo"><i style="background-image:url('assets/insta/f1.png')"></i><i style="background-image:url('assets/insta/f2.png')"></i><i style="background-image:url('assets/insta/f3.png')"></i><i style="background-image:url('assets/insta/f4.png')"></i><i style="background-image:url('assets/insta/f5.png')"></i><i style="background-image:url('assets/insta/f6.png')"></i><i style="background-image:url('assets/insta/f7.png')"></i><i style="background-image:url('assets/insta/f8.png')"></i><i style="background-image:url('assets/insta/f1.png')"></i></span>포토 그리드</div>
+          <div class="ww-tile"><span class="wwm wwm-video" style="background-image:url('assets/maison/maison-rev1.png')"><b class="wwm-play"></b></span>영상 리뷰</div>
+          <div class="ww-tile"><span class="wwm wwm-shorts"><i class="sh sd"></i><i class="sh" style="background-image:url('assets/maison/maison-rev2.png')"><b class="wwm-play sm"></b></i><i class="sh sd"></i></span>숏츠 위젯</div>
+          <div class="ww-tile"><span class="wwm wwm-stars"><b class="wwm-num">4.9</b><u class="wwm-str">★★★★★</u><s class="wwm-line"><em style="--w:96%"></em></s></span>별점 요약</div>
+        </div>
+        <button class="sds-btn sds-btn--md sds-btn--brand-solid sc-btn" data-act style="margin-top:16px">위젯 20여 종 모두 펼치기</button>
+        <div class="sc-result">
+          <div class="widget-wall" style="margin-top:12px">
+            <div class="ww-tile" style="animation-delay:.02s"><span class="wwm wwm-badge"><b class="wwm-rosette">★</b></span>리뷰 뱃지</div>
+            <div class="ww-tile" style="animation-delay:.06s"><span class="wwm wwm-pin"><i class="top"></i><i></i><i></i></span>상단 고정</div>
+            <div class="ww-tile" style="animation-delay:.10s"><span class="wwm wwm-survey"><i><s style="--w:80%"></s></i><i><s style="--w:54%"></s></i><i><s style="--w:32%"></s></i></span>설문 리뷰</div>
+            <div class="ww-tile" style="animation-delay:.14s"><span class="wwm wwm-oneline"><u class="wwm-str sm">★★★★★</u><i class="wwm-txline"></i></span>한 줄 리뷰</div>
+            <div class="ww-tile" style="animation-delay:.18s"><span class="wwm wwm-gallery"><i style="background-image:url('assets/insta/f4.png')"></i><i style="background-image:url('assets/insta/f7.png')"></i><i style="background-image:url('assets/insta/f2.png')"></i></span>갤러리</div>
+            <div class="ww-tile" style="animation-delay:.22s"><span class="wwm wwm-sns"><i class="ig"></i><i class="nv">N</i><i class="kk"></i></span>SNS 연동</div>
+            <div class="ww-tile" style="animation-delay:.26s"><span class="wwm wwm-stats"><i style="--h:42%"></i><i style="--h:64%"></i><i style="--h:52%"></i><i style="--h:82%"></i><i style="--h:100%"></i></span>통계 위젯</div>
+            <div class="ww-tile" style="animation-delay:.30s"><span class="wwm wwm-more"><b>+12</b></span>그 외 12종</div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template data-scene="up1">
+      <div class="sc up1s">
+        <div class="upx">
+          <div class="upx-phone">
+            <div class="upx-screen">
+              <div class="upx-status"><span>9:41</span><span class="upx-sig"><i></i><i></i><i></i><b></b></span></div>
+              <div class="upx-view">
+                <div class="upx-scroll">
+                  <div class="vg-hero"><img src="assets/beauty/cosmetic_13.png" alt=""><span class="vg-hlogo">AURA LAB</span></div>
+                  <div class="vg-pinfo">
+                    <span class="vg-knm">비타 글로우 앰플</span>
+                    <p class="vg-tagline">칙칙함은 가볍게, 피부 빛은 선명하게</p>
+                    <div class="vg-priceline"><b>22,900원</b><em>28%</em><s>32,000원</s></div>
+                    <div class="vg-ship">🚚 배송 3,000원 · <b>50,000원 이상 무료배송</b></div>
+                    <div class="vg-qty"><span>수량</span><div class="vg-stepper"><i>−</i><b>1</b><i>＋</i></div></div>
+                  </div>
+                  <div class="upx-wg wg1">
+                    <div class="upx-wtag">구매 버튼 상단 위젯 · 옵션 세트 추천</div>
+                    <span class="upx-wq">함께 사면 더 좋은 <b>추천 상품</b></span>
+                    <div class="upx-plist">
+                      <div class="upx-pl"><img src="assets/beauty/17_1_CICA CALM TONER PAD.png" alt=""><div class="upx-plc"><span class="upx-plnm">시카 카밍 토너 패드</span><span class="upx-plsub"><em>토너패드</em>앰플 전 피부 결 정돈·수분 진정</span></div></div>
+                      <div class="upx-pl pick"><img src="assets/beauty/17_2_VITA CAPSULE GLOW CREAM.png" alt=""><div class="upx-plc"><span class="upx-plnm">비타 캡슐 글로우 크림</span><span class="upx-plsub"><em>캡슐 크림</em>앰플의 수분·광채를 크림으로 마무리</span></div><em class="upx-plck"><span class="t1">+</span><span class="t2">✓</span></em></div>
+                      <div class="upx-pl"><img src="assets/beauty/17_3_VITA SHIELD SUNSCREEN.png" alt=""><div class="upx-plc"><span class="upx-plnm">비타 쉴드 톤업 선크림 SPF50+</span><span class="upx-plsub"><em>선케어</em>브라이트닝 루틴 후 자외선 차단</span></div></div>
+                    </div>
+                    <div class="upx-route"><span>토너 패드</span><i>→</i><b>비타 글로우 앰플<em>NOW</em></b><i>→</i><span>캡슐 크림</span><i>→</i><span>선크림</span></div>
+                  </div>
+                  <div class="vg-sec">
+                    <span class="vg-eyebrow">GLOW ROUTINE</span>
+                    <h3 class="vg-h">오늘보다 맑은 내일을 위한<br>세 가지 비타 루틴</h3>
+                    <div class="vg-steps">
+                      <div class="vg-step s1"><b>01</b><span class="vg-stt">맑은 빛</span><span class="vg-std">칙칙함이 신경 쓰일 때</span></div>
+                      <div class="vg-step s2"><b>02</b><span class="vg-stt">수분 광채</span><span class="vg-std">푸석하고 건조해 보일 때</span></div>
+                      <div class="vg-step s3"><b>03</b><span class="vg-stt">산뜻 흡수</span><span class="vg-std">무거운 텍스처가 부담스러울 때</span></div>
+                    </div>
+                  </div>
+                  <div class="vg-sec">
+                    <span class="vg-eyebrow">KEY INGREDIENTS</span>
+                    <h3 class="vg-h">한 방울에 담은<br>맑은 광채 시너지</h3>
+                    <div class="vg-ings">
+                      <div class="vg-ing c1"><span class="vg-inum">01</span><div class="vg-itx"><b>글루타치온</b><em>칙칙해 보이는 피부에 생기 있는 광채를 더해 맑은 인상으로 가꿔줘요.</em></div></div>
+                      <div class="vg-ing c2"><span class="vg-inum">02</span><div class="vg-itx"><b>비타민 C 유도체</b><em>매일 부담 없이 사용하는 데일리 비타 에너지로 피부 컨디션을 깨워줘요.</em></div></div>
+                      <div class="vg-ing c3"><span class="vg-inum">03</span><div class="vg-itx"><b>나이아신아마이드</b><em>피부 톤을 균일하고 매끄럽게 가꾸는 브라이트닝 성분이에요.</em></div></div>
+                    </div>
+                  </div>
+                  <div class="vg-tex">
+                    <img src="assets/beauty/cosmetic_13.png" alt="">
+                    <div class="vg-tex-ov">
+                      <span class="vg-eyebrow lt">LIGHT & FRESH TEXTURE</span>
+                      <h3 class="vg-h lt">끈적임은 덜고<br>수분감은 산뜻하게</h3>
+                      <div class="vg-tex-tags"><span>산뜻함</span><span>촉촉한 마무리</span><span>데일리 케어</span></div>
+                    </div>
+                  </div>
+                  <div class="upx-wg wg2">
+                    <div class="upx-wtag">상품 설명 본문 하단 위젯</div>
+                    <span class="upx-wq">이 상품과 <b>함께 자주 산 상품</b></span>
+                    <div class="upx-plist">
+                      <div class="upx-pl pick"><img src="assets/beauty/17_4_PURE BALANCING CLEANSING OIL.png" alt=""><div class="upx-plc"><span class="upx-plnm">퓨어 밸런싱 클렌징 오일</span><span class="upx-plsub"><em>클렌징 오일</em>저녁 스킨케어 전 메이크업 세정</span></div><em class="upx-plck"><span class="t1">+</span><span class="t2">✓</span></em></div>
+                      <div class="upx-pl"><img src="assets/beauty/17_5_PDRN RECOVERY MASK.png" alt=""><div class="upx-plc"><span class="upx-plnm">PDRN 리커버리 마스크</span><span class="upx-plsub"><em>마스크팩</em>집중 수분·탄력 관리 조합</span></div></div>
+                      <div class="upx-pl"><img src="assets/beauty/17_6_CERAMIDE BARRIER LOTION.png" alt=""><div class="upx-plc"><span class="upx-plnm">세라마이드 베리어 로션</span><span class="upx-plsub"><em>보습 로션</em>건조·민감 피부 보습 보완</span></div></div>
+                    </div>
+                  </div>
+                  <div class="vg-sec">
+                    <span class="vg-eyebrow">HOW TO USE</span>
+                    <h3 class="vg-h">매일 두 번,<br>두세 방울이면 충분해요</h3>
+                    <div class="vg-hsteps">
+                      <div class="vg-hstep"><b>STEP 1</b><span>세안 후 토너로 피부 결을 정돈해 주세요.</span></div>
+                      <div class="vg-hstep"><b>STEP 2</b><span>스포이드로 앰플을 두세 방울 얼굴에 떨어뜨려요.</span></div>
+                      <div class="vg-hstep"><b>STEP 3</b><span>손바닥 온기로 가볍게 눌러 흡수시킨 뒤 크림으로 마무리해요.</span></div>
+                    </div>
+                  </div>
+                  <div class="vg-cta">
+                    <span class="vg-eyebrow lt">VITA GLOW AMPOULE · 30ML</span>
+                    <h3 class="vg-h lt">매일 쌓이는<br>나만의 비타 광채</h3>
+                    <button class="vg-ctabtn">22,900원에 만나보기</button>
+                  </div>
+                </div>
+              </div>
+              <div class="vg-btns"><button class="vg-open">구매하기<b class="upx-cbadge upx-cnt">1</b></button><button class="vg-cart">장바구니</button><button class="vg-buy">바로 구매</button></div>
+              <div class="upx-cartbd"></div>
+              <div class="upx-cartdrawer">
+                <div class="upx-cdh"><span class="upx-cdt">담은 상품</span><span class="upx-cdlab"><b class="upx-cnt upx-cdi">1</b>개</span></div>
+                <div class="upx-shrec">전에 보고 놓쳤던 상품, 지금 담으면 할인</div>
+                <div class="upx-shmiss">
+                  <div class="upx-msc"><img src="assets/beauty/17_7_GLOW FIT CUSHION.png" alt=""><span class="upx-msnm">글로우 핏 쿠션 SPF40</span><span class="upx-msp"><s>42,000</s>34,900원</span><button class="upx-msbtn">담기</button></div>
+                  <div class="upx-msc pick"><img src="assets/beauty/17_8_AQUA HYALURON MIST.png" alt=""><span class="upx-msnm">아쿠아 히알루론 미스트</span><span class="upx-msp"><s>24,000</s>19,000원</span><button class="upx-msbtn"><span class="t1">담기</span><span class="t2">✓ 담김</span></button></div>
+                  <div class="upx-msc"><img src="assets/beauty/17_9_PEPTIDE LIFTING EYE CREAM.png" alt=""><span class="upx-msnm">펩타이드 리프팅 아이크림</span><span class="upx-msp"><s>48,000</s>39,000원</span><button class="upx-msbtn">담기</button></div>
+                </div>
+                <div class="upx-cartlist">
+                  <div class="upx-ci c0"><span>비타 글로우 앰플</span><b>22,900</b></div>
+                  <div class="upx-ci c1"><span>비타 캡슐 글로우 크림</span><b>+34,000</b></div>
+                  <div class="upx-ci c2"><span>퓨어 밸런싱 클렌징 오일</span><b>+26,000</b></div>
+                  <div class="upx-ci c3"><span>아쿠아 히알루론 미스트</span><b>+19,000</b></div>
+                </div>
+                <div class="upx-cdfoot"><span class="upx-cdtot">합계<b>22,900원</b></span></div>
+              </div>
+              <div class="upx-done">
+                <div class="upx-done-in">
+                  <button class="upx-donex" type="button" aria-label="닫기">✕</button>
+                  <div class="upx-done-ic">✓</div>
+                  <span class="upx-done-t">주문 완료</span>
+                  <div class="upx-done-list">
+                    <div class="upx-done-row"><span>비타 글로우 앰플</span><b>22,900원</b></div>
+                    <div class="upx-done-row"><span>비타 캡슐 글로우 크림</span><b>34,000원</b></div>
+                    <div class="upx-done-row"><span>퓨어 밸런싱 클렌징 오일</span><b>26,000원</b></div>
+                    <div class="upx-done-row"><span>아쿠아 히알루론 미스트</span><b>19,000원</b></div>
+                  </div>
+                  <div class="upx-done-amt"><span>결제 금액</span><b>101,900원</b></div>
+                  <p class="upx-done-th">객단가가 약 4배 커졌어요!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="upx-side">
+            <div class="upx-aov">
+              <div class="upx-aovpre">
+                <div class="upx-aovq"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" data-icon="assets/question-mark-bold.svg"><path d="M11.082 17.915C11.5498 17.645 12.1269 17.6451 12.5947 17.915C13.0624 18.1853 13.3516 18.6854 13.3516 19.2256C13.3512 20.0604 12.6737 20.7379 11.8389 20.7383C11.0038 20.7383 10.3265 20.0606 10.3262 19.2256C10.3262 18.6853 10.6141 18.1852 11.082 17.915ZM11.9883 3.26172C13.4684 3.26177 14.8957 3.86748 15.9102 4.93359C16.8554 5.92571 17.3425 7.21473 17.2666 8.56152C17.2364 9.12474 17.1616 9.70625 16.7979 10.4268C16.4426 11.1304 15.8253 11.9403 14.7607 13.0049C14.2611 13.5046 13.8729 13.9236 13.6035 14.293C13.3314 14.6662 13.2146 14.9432 13.1934 15.1592C13.1256 15.8544 12.5391 16.3721 11.8564 16.3721C11.8042 16.372 11.755 16.3673 11.7305 16.3652L11.7227 16.3643C10.9841 16.2896 10.4468 15.6327 10.5176 14.8955C10.6691 13.3694 11.7955 12.1674 12.8604 11.1025C13.7509 10.212 14.168 9.65622 14.3701 9.27246C14.5566 8.91844 14.5678 8.7017 14.583 8.41309V8.19238C14.5573 7.68175 14.3451 7.19077 13.96 6.78516C13.521 6.32208 12.9169 6.02964 12.2744 5.96387L11.9971 5.94922H11.9912L11.7285 5.96289C10.4309 6.09706 9.41328 7.20051 9.41309 8.5332C9.41308 9.27575 8.81188 9.87695 8.06934 9.87695C7.32681 9.87693 6.72559 9.27573 6.72559 8.5332C6.72569 7.12851 7.27265 5.80353 8.2666 4.80957C9.26012 3.81375 10.5834 3.26432 11.9883 3.26172Z" fill="currentColor"/></svg></div>
+                <p class="upx-aovqt">담을수록 객단가가<br>얼마나 오를까요?</p>
+                <div class="up1-cta">
+                  <button class="cl-start" data-act><span class="cl-lb">객단가 올리기</span></button>
+                  <span class="cl-cursor"></span>
+                </div>
+              </div>
+              <div class="upx-aovchart">
+                <div class="upx-aovcap">상승한 객단가</div>
+                <div class="upx-aovnum"><b class="upx-aovval">22,900</b><svg class="upx-aovup" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" data-icon="assets/arrow-narrow-up-bold.svg"><path d="M12.0236 4.75098L12.1261 4.75586C12.1351 4.75629 12.1445 4.7569 12.1535 4.75781C12.1949 4.76205 12.237 4.77057 12.2531 4.77344C12.2481 4.77263 12.2441 4.77185 12.2413 4.77148C12.2445 4.77184 12.2495 4.77172 12.255 4.77246C12.2633 4.77359 12.2761 4.77556 12.2902 4.77832L12.2892 4.7793C12.3134 4.78403 12.3341 4.78818 12.3449 4.79102C12.3487 4.79203 12.3571 4.79382 12.3576 4.79395C12.3596 4.7945 12.3605 4.79492 12.3605 4.79492C12.3669 4.79652 12.3633 4.7956 12.381 4.7998L12.4367 4.81445L12.546 4.85352C12.5801 4.86718 12.612 4.8809 12.6408 4.89453C12.703 4.92398 12.7672 4.95929 12.8312 5.00195C12.9113 5.05539 12.9888 5.11761 13.0607 5.18945L17.0607 9.18945L17.1632 9.30371C17.6436 9.89282 17.6097 10.7614 17.0607 11.3105C16.4749 11.8963 15.5253 11.8961 14.9396 11.3105L13.5001 9.87109V17.75C13.5001 18.5784 12.8284 19.2499 12.0001 19.25C11.1717 19.25 10.5001 18.5784 10.5001 17.75V9.87109L9.06068 11.3105C8.47489 11.8963 7.52533 11.8961 6.93958 11.3105C6.3538 10.7248 6.3538 9.77524 6.93958 9.18945L10.9396 5.18945C11.0069 5.12216 11.0821 5.05817 11.1661 5.00195C11.2313 4.95833 11.2949 4.92536 11.3488 4.89941C11.407 4.87131 11.4799 4.83945 11.5617 4.81445C11.6013 4.80238 11.6435 4.79338 11.6535 4.79102C11.6576 4.79002 11.6826 4.78382 11.7052 4.7793L11.7208 4.77637L11.7326 4.77441L11.8214 4.76074C11.8298 4.75945 11.8384 4.75867 11.8468 4.75781C11.9001 4.75239 11.9517 4.75 12.0001 4.75L12.0236 4.75098Z" fill="currentColor"/></svg><i class="upx-cntx">×4</i><i class="upx-delta"></i></div>
+                <div class="upx-aovbar"><span class="upx-aovcol c1" style="--h:20%"><b>22,900</b><i></i></span><span class="upx-aovcol c2" style="--h:48%"><b>56,900</b><i></i></span><span class="upx-aovcol c3" style="--h:68%"><b>82,900</b><i></i></span><span class="upx-aovcol c4" style="--h:84%"><b>101,900</b><i></i></span></div>
+                <div class="upx-aovx"><span>1개</span><span>2개</span><span>3개</span><span>4개</span></div>
+              </div>
+            </div>
+            <div class="upx-fan">
+              <div class="upx-fanh">이 외 다양한 추천 위젯 <b>12종</b>을<br>고객 동선 곳곳에 배치할 수 있어요</div>
+              <div class="upx-fancards">
+                <span class="fc" style="--i:0">옵션 세트 추천</span>
+                <span class="fc" style="--i:1">구매버튼 상단</span>
+                <span class="fc" style="--i:2">본문 상단</span>
+                <span class="fc" style="--i:3">본문 하단</span>
+                <span class="fc" style="--i:4">우상단 고정</span>
+                <span class="fc" style="--i:5">최하단 추천</span>
+                <span class="fc" style="--i:6">장바구니</span>
+                <span class="fc" style="--i:7">검색 결과</span>
+                <span class="fc" style="--i:8">홈 추천</span>
+                <span class="fc" style="--i:9">결제 이탈</span>
+                <span class="fc" style="--i:10">구매 완료</span>
+                <span class="fc" style="--i:11">재구매 유도</span>
+              </div>
+              <button class="cmp-replay" type="button">↻ 다시 보기</button>
+            </div>
+          </div>
+        </div>
+        <span class="upx-go"></span>
+      </div>
+    </template>
+
+    <template data-scene="up2">
+      <div class="sc up2s">
+        <div class="uax">
+          <div class="uax-intro">
+            <div class="uax-setup">
+              <div class="uax-method">
+                <div class="uax-mhead">
+                  <span class="uax-mtitle">누구에게 프로모션을 적용할까요?</span>
+                  <span class="uax-mtoggle">고급 오디언스 설정<i></i></span>
+                </div>
+                <div class="uax-mtarget">
+                  <span class="uax-mtk">적용 대상</span>
+                  <b class="uax-mtv">재방문 · 장바구니 보유 고객</b>
+                  <i class="uax-mtcaret"></i>
+                </div>
+                <div class="uax-mgrid">
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion01.png" alt="단순 할인"></span><div class="uax-mtx"><b>단순 할인</b><em>특정·전체 상품에 즉시 할인</em></div></div></div>
+                  <div class="uax-mcard pick"><span class="uax-mck">✓</span><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion02.png" alt="다다익선 할인"></span><div class="uax-mtx"><b>다다익선 할인</b><em>개수·금액이 늘수록 할인 폭이 커지는 계단형</em></div></div><div class="uax-mdetail"><div class="uax-fstair"><div class="uax-stairviz"><div class="uax-stz" style="--sh:24px"><b>5%</b><i></i><span>1개</span></div><div class="uax-stz" style="--sh:48px"><b>10%</b><i></i><span>2개</span></div><div class="uax-stz" style="--sh:72px"><b>15%</b><i></i><span>3개+</span></div></div></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion03.png" alt="사은품 증정"></span><div class="uax-mtx"><b>사은품 증정</b><em>구매 조건 충족 시 사은품 지급</em></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion04.png" alt="FOMO 할인"></span><div class="uax-mtx"><b>FOMO 할인</b><em>방문 횟수 기준 단계별 할인</em></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion05.png" alt="시크릿 할인"></span><div class="uax-mtx"><b>시크릿 할인</b><em>특정 시간 즉시 할인</em></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion06.png" alt="장바구니 페이지 할인"></span><div class="uax-mtx"><b>장바구니 페이지 할인</b><em>장바구니 이탈 시 할인 노출</em></div></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="uax-introcta"><button class="cl-start" data-act><span class="cl-lb">이 설정으로 A/B/N 테스트 돌려보기</span></button><span class="cl-cursor"></span></div>
+            <span class="uax-go"></span>
+          </div>
+          <div class="uax-flow">
+            <div class="uax-step s2">
+              <div class="uax-sh"><span class="uax-n">1</span>다다익선 프로모션 A/B/N 테스트</div>
+              <div class="uax-setvars">
+                <div class="uax-sv"><span class="uax-vt">A</span><b>+5,000원 할인</b><span class="uax-svtr">트래픽 33%</span></div>
+                <div class="uax-sv"><span class="uax-vt">B</span><b>+10,000원 할인</b><span class="uax-svtr">트래픽 33%</span></div>
+                <div class="uax-sv"><span class="uax-vt">C</span><b>+15,000원 할인</b><span class="uax-svtr">트래픽 33%</span></div>
+              </div>
+              <div class="uax-preview">
+                <span class="uax-pvcap">Preview · 구매 직전 고객에게 이렇게 노출돼요</span>
+                <img class="uax-pvimg" src="assets/upsell/promo_b.png" alt="할인 팝업 미리보기">
+              </div>
+            </div>
+            <div class="uax-arrow a2"><img src="assets/chevron-right.svg" alt="" aria-hidden="true"></div>
+            <div class="uax-step s3">
+              <div class="uax-sh"><span class="uax-n">2</span>테스트 결과</div>
+              <div class="uax-s3mid">
+                <div class="uax-target"><b>재방문 · 장바구니 보유 고객</b><span class="uax-audchip">도달 3,240명</span></div>
+                <div class="uax-plot">
+                  <div class="uax-b va"><div class="uax-btxt"><span class="uax-vt">A</span><b class="uax-bl">+5,000원</b><b class="uax-bv">88만</b><span class="uax-bcv">전환 2.1%</span></div><div class="uax-btrack"><div class="uax-bfill"></div></div></div>
+                  <div class="uax-b vb win"><div class="uax-btxt"><span class="uax-vt">B</span><b class="uax-bl">+10,000원</b><em class="uax-bwin">최고</em><b class="uax-bv">132만</b><span class="uax-bcv">전환 4.6%</span></div><div class="uax-btrack"><div class="uax-bfill"></div></div></div>
+                  <div class="uax-b vc"><div class="uax-btxt"><span class="uax-vt">C</span><b class="uax-bl">+15,000원</b><b class="uax-bv">104만</b><span class="uax-bcv">전환 2.4%</span></div><div class="uax-btrack"><div class="uax-bfill"></div></div></div>
+                </div>
+                <div class="uax-apply"><span class="uax-win">✦ 최적가 B · 트래픽 자동 집중 완료 ✓</span></div>
+              </div>
+              <button class="cmp-replay" type="button">↻ 다시 보기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template data-scene="up3">
+      <div class="sc up3">
+        <div class="u3x">
+          <div class="u3x-before">
+            <div class="u3xb-field"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2" class="win"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6" class="win"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13" class="win"></i><i style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19" class="win"></i><i style="--i:20"></i><i style="--i:21"></i><i style="--i:22"></i><i style="--i:23"></i><i style="--i:24" class="win"></i><i style="--i:25"></i><i style="--i:26"></i><i style="--i:27"></i><i style="--i:28"></i><i style="--i:29"></i><i style="--i:30" class="win"></i><i style="--i:31"></i><i style="--i:32"></i><i style="--i:33"></i><i style="--i:34"></i><i style="--i:35" class="win"></i><i style="--i:36"></i><i style="--i:37"></i><i style="--i:38"></i><i style="--i:39"></i><i style="--i:40"></i><i style="--i:41" class="win"></i><i style="--i:42"></i><i style="--i:43"></i><i style="--i:44"></i><i style="--i:45"></i><i style="--i:46" class="win"></i><i style="--i:47"></i></div>
+            <div class="u3xb-core">
+              <span class="u3xb-eyebrow">🧪 자동 A/B 실험</span>
+              <div class="u3xb-h">추천 상품·위젯 자리·가격·문구<br><b>수많은 조합</b>을 자동으로 실험했어요</div>
+              <div class="u3xb-s">어떤 조합이 <b>가장 잘 팔리는지</b> 알파업셀이 쉬지 않고 테스트했어요.</div>
+              <div class="u3xb-hint">그 결과를 숫자로 보여드릴게요 ↓</div>
+              <div class="ps-cta">
+                <button class="cl-start" data-act><span class="cl-lb">성과·다음 액션 보기</span></button>
+                <span class="cl-cursor"></span>
+              </div>
+            </div>
+          </div>
+          <div class="u3x-insights">
+            <div class="u3x-grid">
+              <div class="u3x-m">
+                <div class="u3x-mt">1. 총 매출 상승</div>
+                <div class="u3x-md">쇼핑몰 전체 매출의 <b>12.1%</b>가 알파업셀을 통해 발생</div>
+                <div class="u3x-single"><span class="u3x-sfill">12.1%</span><span class="u3x-sbase">87.9%</span></div>
+                <div class="u3x-cap">매출액</div>
+              </div>
+              <div class="u3x-m">
+                <div class="u3x-mt">2. 객단가 상승</div>
+                <div class="u3x-md">업셀 프로모션으로 추가 주문된 경우 상품 객단가가 <b>2배!</b></div>
+                <div class="u3x-bars">
+                  <div class="u3x-col" style="--h:38%"><b class="u3x-bv">40,150원</b><div class="u3x-bar base"></div></div>
+                  <div class="u3x-col win" style="--h:80%"><span class="u3x-up">+112%</span><b class="u3x-bv">85,100원</b><div class="u3x-bar win"></div></div>
+                </div>
+                <div class="u3x-x"><span>일반 주문</span><span>업셀 주문</span></div>
+              </div>
+              <div class="u3x-m">
+                <div class="u3x-mt">3. 판매 개수 상승</div>
+                <div class="u3x-md">업셀 프로모션으로 추가 주문된 경우 상품 개수가 <b>약 1.4배!</b></div>
+                <div class="u3x-bars">
+                  <div class="u3x-col" style="--h:55%"><b class="u3x-bv">3.8개</b><div class="u3x-bar base"></div></div>
+                  <div class="u3x-col win" style="--h:80%"><span class="u3x-up">+44%</span><b class="u3x-bv">5.5개</b><div class="u3x-bar win"></div></div>
+                </div>
+                <div class="u3x-x"><span>일반 주문</span><span>업셀 주문</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="u3x-actions">
+            <div class="u3x-ah"><span class="u3x-aht">이 인사이트로 <b>다음 성장 액션</b>을 바로 적용해요</span><button class="cmp-replay" type="button">↻ 다시 보기</button></div>
+            <div class="u3x-acards">
+              <div class="u3x-ac a1">
+                <div class="u3x-actop"><span class="u3x-acn">액션 1</span></div>
+                <div class="u3x-act"><span class="u3x-actx"><i class="u3x-aci u3x-aci-spark"></i>AI 추천 위젯 더 넓히기</span></div>
+                <div class="u3x-acd">전환이 높은 자리에 추천 위젯을 추가해 <b>객단가</b>를 더 끌어올려요.</div>
+              </div>
+              <div class="u3x-ac a2">
+                <div class="u3x-actop"><span class="u3x-acn">액션 2</span></div>
+                <div class="u3x-act"><span class="u3x-actx"><i class="u3x-aci u3x-aci-growth"></i>가격 A/B 테스트 다시 돌리기</span></div>
+                <div class="u3x-acd">최적가 구간을 재탐색해 <b>마진과 매출</b>을 함께 키워요.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template data-scene="ps1">
+      <div class="sc ps-wall">
+        <div class="pw-head">
+          <div class="pw-headtx">
+            <span class="pw-eyebrow">이 많은 전환 장치, <b>알파푸시 하나로</b> 다 써요</span>
+          </div>
+          <div class="ps-cta">
+            <button class="cl-start" data-act><span class="cl-lb">전환 장치 작동 보기</span></button>
+            <span class="cl-cursor"></span>
+          </div>
+        </div>
+        <div class="pw-grid">
+          <div class="pwc c1">
+            <div class="pwc-h"><span class="pwc-nm">초스피드 회원가입</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="su">
+                <div class="su-title">회원가입</div>
+                <span class="su-oauth kko"><i class="su-ico">💬</i>카카오 1초 회원가입</span>
+                <span class="su-oauth nvr"><i class="su-ico">N</i>네이버 1초 회원가입</span>
+                <div class="su-coupon"><b>1000원</b><em>신규 회원 웰컴 할인 쿠폰</em></div>
+                <div class="su-give">회원가입 하시면 즉시 사용 가능한 쿠폰을 드려요!</div>
+                <div class="su-or"><span>또는</span></div>
+                <span class="su-idpw">ID/PW로 회원가입</span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">회원 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+38%</span></span></div>
+          </div>
+          <div class="pwc c2">
+            <div class="pwc-h"><span class="pwc-nm">탐색 유도 장치</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="bw">
+                <!-- 사진 슬롯: 모델 이미지 (스크롤 필름스트립) -->
+                <div class="bw-photo">
+                  <div class="bw-strip">
+                    <img src="assets/push/browse-model.png" alt="">
+                    <img src="assets/push/browse-model2.png" alt="">
+                  </div>
+                  <span class="bw-ph">모델 이미지</span>
+                </div>
+                <!-- 스크롤할 때만 감지 -->
+                <span class="bw-scroll">↕ 스크롤 감지 중</span>
+                <!-- ① 탐색 시간 적립 타이머 -->
+                <span class="bw-timer">
+                  <span class="tt"><span class="ic">⏱</span>탐색하면 <b>100원</b><span class="clk">00:02</span></span>
+                  <span class="bar"><i></i></span>
+                </span>
+                <!-- ② 시간 완료 후 등장 -->
+                <span class="bw-reward"><span class="coin">🪙</span>적립금 <b>100원</b> 받았어요!</span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">체류시간</span><span class="mt-val"><span class="v0">×1.0</span><span class="v1">×2.3</span></span></div>
+          </div>
+          <div class="pwc c3">
+            <div class="pwc-h"><span class="pwc-nm">온사이트 캠페인</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="oc">
+                <div class="oc-page">
+                  <div class="oc-pimg"><img src="assets/hero-product.png" alt=""></div>
+                  <div class="oc-pnm">봄 여신 바람막이</div>
+                  <div class="oc-ppr">39,800원</div>
+                </div>
+                <div class="oc-modal">
+                  <span class="oc-close">×</span>
+                  <div class="oc-cp"><img src="assets/push/ocp003.png" alt=""></div>
+                  <div class="oc-body">
+                    <div class="oc-title">고민 중인 상품,<br>특별 쿠폰 드려요 🤭</div>
+                    <div class="oc-desc">몇 번이나 살펴보셨네요 👀<br>이 쿠폰으로 저렴하게 구매해보세요!</div>
+                    <button class="oc-btn"><span class="l0">쿠폰 받고 구매하기</span><span class="l1">✓ 구매 완료!</span></button>
+                  </div>
+                </div>
+                <span class="oc-cursor"></span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">구매 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+37%</span></span></div>
+          </div>
+          <div class="pwc c4">
+            <div class="pwc-h"><span class="pwc-nm">카톡 선물하기</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="gf">
+                <div class="gf-detail">
+                  <div class="gf-img"><img src="assets/push/animalcookie1.png" alt=""></div>
+                  <div class="gf-thumbs">
+                    <img src="assets/push/animalcookie2.png" alt="">
+                    <img src="assets/push/animalcookie3.png" alt="">
+                    <img src="assets/push/animalcookie4.png" alt="">
+                    <img src="assets/push/animalcookie5.png" alt="">
+                    <img src="assets/push/animalcookie6.png" alt="">
+                  </div>
+                  <div class="gf-nm">고단백 저당 애니멀 쿠키</div>
+                  <div class="gf-price"><b>16,900원</b><em>30%</em></div>
+                  <div class="gf-btns">
+                    <button class="gf-buy">바로 구매</button>
+                    <button class="gf-gift"><span class="l0">선물하기</span><span class="l1">✓ 선물 완료</span></button>
+                  </div>
+                </div>
+                <!-- 선물 폭주 — 많이들 선물함 -->
+                <div class="gf-burst"><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span></div>
+                <!-- 선물이 많아 → 구매 전환 상승 -->
+                <div class="gf-conv"><span class="gc-lb">🛒 구매 전환</span><span class="gc-v">+2.4배 ↑</span></div>
+                <span class="gf-cursor"></span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">구매 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+2.4배</span></span></div>
+          </div>
+          <div class="pwc c5">
+            <div class="pwc-h"><span class="pwc-nm">첫구매 할인</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="fp">
+                <div class="fp-ttl">
+                  <div class="fp-head">첫 구매 시 인기 상품 <b>100원</b>!</div>
+                  <div class="fp-sub">신규 회원을 위한 기분 좋은 혜택</div>
+                </div>
+                <div class="fp-grid">
+                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics1.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">그린 앰플 세트</span><span class="fp-pr"><s>38,000원</s><b>100원</b></span></div>
+                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics2.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">그린 토마토 크림</span><span class="fp-pr"><s>26,500원</s><b>100원</b></span></div>
+                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics3.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">비건 그린 토너</span><span class="fp-pr"><s>29,900원</s><b>100원</b></span></div>
+                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics4.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">실크 그린 앰플</span><span class="fp-pr"><s>44,000원</s><b>100원</b></span></div>
+                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics5.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">실크 옐로우 앰플</span><span class="fp-pr"><s>34,800원</s><b>100원</b></span></div>
+                </div>
+                <div class="fp-page"><span class="pg">‹</span><em>1 / 2</em><span class="pg">›</span></div>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">첫 구매율</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+26%</span></span></div>
+          </div>
+          <div class="pwc c6">
+            <div class="pwc-h"><span class="pwc-nm">장바구니 리마인드</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="cr">
+                <div class="cr-sender">(광고) @알파몰</div>
+                <div class="cr-card">
+                  <div class="cr-img">
+                    <img src="assets/push/fashion-girl1.png" alt="">
+                    <span class="cr-cart">🛒 장바구니 보관 중</span>                  </div>
+                  <div class="cr-body">
+                    <p class="cr-msg"><b>알파</b>님이 담아두신 <b>그레이 플리츠 스커트</b>가 기다려요 🛍</p>
+                    <button class="cr-btn"><span class="l0">바로 구매하기</span><span class="l1">✓ 결제 완료!</span></button>
+                  </div>
+                </div>
+                <span class="cr-stamp">🎉 구매 전환!</span>
+                <span class="cr-cursor"></span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">장바구니 회수</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+29%</span></span></div>
+          </div>
+          <div class="pwc c7">
+            <div class="pwc-h"><span class="pwc-nm">고객 관리 세그먼트</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="cm">
+                <div class="cm-cap">🎯 지금 관리가 필요한 고객군</div>
+                <div class="cm-grid">
+                  <div class="cm-c hd" style="--i:0"><span class="ic">🌱</span><b class="n">199</b><span class="l">미구매</span></div>
+                  <div class="cm-c hd" style="--i:1"><span class="ic">🌿</span><b class="n">86</b><span class="l">첫구매</span></div>
+                  <div class="cm-c hd f" style="--i:2"><span class="ic">🌷</span><b class="n">4</b><span class="l">재구매</span></div>
+                  <div class="cm-c hd" style="--i:3"><span class="ic">🔥</span><b class="n">0</b><span class="l">고반복</span><span class="cs-gain">+2</span></div>
+                  <div class="cm-c" style="--i:4"><b class="n">2</b><span class="l">담고이탈</span></div>
+                  <div class="cm-c" style="--i:5"><b class="n">1</b><span class="l">담고이탈</span></div>
+                  <div class="cm-c f mut" style="--i:6"><b class="n">0</b><span class="l">담고이탈</span></div>
+                  <div class="cm-c mut" style="--i:7"><b class="n">0</b><span class="l">담고이탈</span></div>
+                  <div class="cm-c" style="--i:8"><b class="n">1</b><span class="l">가입이탈</span></div>
+                  <div class="cm-c" style="--i:9"><b class="n">23</b><span class="l">30일 경과</span></div>
+                  <div class="cm-c f" style="--i:10"><b class="n">2</b><span class="l">30일 경과</span></div>
+                  <div class="cm-c mut" style="--i:11"><b class="n">0</b><span class="l">30일 경과</span></div>
+                  <div class="cm-c" style="--i:12"><b class="n">196</b><span class="l">장기이탈</span></div>
+                  <div class="cm-c" style="--i:13"><b class="n">62</b><span class="l">장기미구매</span></div>
+                  <div class="cm-c f" style="--i:14"><b class="n">2</b><span class="l">장기미구매</span></div>
+                  <div class="cm-c mut" style="--i:15"><b class="n">0</b><span class="l">장기미구매</span></div>
+                </div>
+                <div class="cm-act">
+                  <div class="ca-tx">🌷 재구매 <b>잠재단골 4명</b> → 고반복 단골로 전환</div>
+                  <button class="cm-btn"><span class="l0">＋ 단골 전환 캠페인 실행</span><span class="l1">✓ 4명 단골 전환 완료</span></button>
+                </div>
+                <span class="cm-cursor"></span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">단골 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+34%</span></span></div>
+          </div>
+          <div class="pwc c8">
+            <div class="pwc-h"><span class="pwc-nm">메시지 캠페인</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="mc">
+                <div class="mc-msg">
+                  <div class="mc-card"><img src="assets/push/Img_cart.png" alt=""></div>
+                  <div class="mc-body"><b>{고객명}</b>님, 지금 구매 시 특별 쿠폰을 드려요 😉</div>
+                  <button class="mc-btn"><span class="l0">1,000원 쿠폰 받기</span><span class="l1">✓ 자동 발송 완료</span></button>
+                  <span class="mc-cursor"></span>
+                </div>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">ROAS 상승</span><span class="mt-val"><span class="v0">0%</span><span class="v1">250~600%</span></span></div>
+          </div>
+        </div>
+        <button class="cmp-replay" type="button">↻ 다시 보기</button>
+      </div>
+    </template>
+
+    <template data-scene="ps2">
+      <div class="sc cmp-sc">
+        <div class="cmp-app">
+          <div class="cmp-rail">
+            <span class="rail-logo">α</span>
+            <span class="rail-ic ic-chart"></span>
+            <span class="rail-ic ic-speaker"></span>
+            <span class="rail-ic ic-comment on"></span>
+            <span class="rail-ic ic-gift"></span>
+            <span class="rail-ic ic-users"></span>
+          </div>
+          <div class="cmp-main">
+            <div class="cmp-head"><span class="ch-back">←</span>자동화 캠페인 만들기</div>
+            <div class="cmp-tabs"><span class="on">전체</span><span>첫 구매 유도</span><span>장바구니 구매 전환</span><span>첫 구매 후 관리</span><span>재방문·재구매</span><span>이탈·휴면</span></div>
+            <div class="cmp-list">
+              <div class="cl-sec">🔥 추천 레시피</div>
+              <div class="cl-row pick"><span class="cl-th"><img src="assets/recipe/img1015.png" alt=""></span><span class="cl-tx"><b>장바구니 고객에게 할인 쿠폰 제공</b><em>📈 평균 ROAS 800~2,500%</em></span><button class="cl-start" data-act><span class="cl-lb">레시피 시작</span></button><span class="cl-cursor"></span></div>
+              <div class="cl-sec">첫 구매 유도</div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1012.png" alt=""></span><span class="cl-tx"><b>가입 후 미구매 고객에게 할인 쿠폰 제공</b><em>📈 평균 ROAS 250~600%</em></span></div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1013.png" alt=""></span><span class="cl-tx"><b>가입 후 미구매 고객에게 최근 인기상품 추천</b><em>📈 평균 ROAS 150~400%</em></span></div>
+              <div class="cl-sec">장바구니 구매 전환</div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1014.png" alt=""></span><span class="cl-tx"><b>장바구니 고객에게 담은 상품 리마인드</b><em>📈 평균 ROAS 1,200~4,000%</em></span></div>
+              <div class="cl-sec">첫 구매 후 관리</div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1016.png" alt=""></span><span class="cl-tx"><b>첫 구매 7일 경과 고객에게 감사 쿠폰 발급</b><em>📈 평균 ROAS 500~1,500%</em></span></div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1017.png" alt=""></span><span class="cl-tx"><b>첫 구매 30일 경과 고객에게 인기상품 추천</b><em>📈 평균 ROAS 300~800%</em></span></div>
+              <div class="cl-sec">재방문·재구매 유도</div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1018.png" alt=""></span><span class="cl-tx"><b>상품 리필 시기 알림</b><em>📈 평균 ROAS 600~1,800%</em></span></div>
+            </div>
+          </div>
+          <div class="cmp-drawer">
+            <span class="cmp-cursor"></span>
+            <div class="cd-top"><span class="cd-x">✕</span><button class="cd-preset">프리셋 사용하기</button></div>
+            <div class="cd-title">장바구니 고객에게<br>할인 쿠폰 제공</div>
+            <div class="cd-meta"><span>📈 평균 ROAS 800~2,500%</span></div>
+            <div class="cd-target"><b>발송 대상</b><br/>장바구니 담은 고객이 <em>2일</em> 미구매 시 <em>오전 11:00</em> 자동 발송</div>
+            <div class="cmp-phone">
+              <div class="cp-sender">(광고) @urbanshift</div>
+              <img class="cmp-cardimg" src="assets/recipe/img1015.png" alt="장바구니 쿠폰 친구톡">
+              <p class="cmp-msg">안녕하세요 {고객명}님<br>장바구니에 담아두신 상품들이 기다리고 있어요 🛒<br><br>지금 바로 구매하시면 사용할 수 있는 특별 쿠폰을 준비했어요 😉<br>{쇼핑몰명}에서 24시간 이내 사용할 수 있어요</p>
+              <div class="cp-footer">수신거부 | 홈 &gt; 채널차단</div>
+            </div>
+          </div>
+          <div class="cd-result">
+            <div class="cr-head">실시간 자동 발송</div>
+            <div class="cr-roas"><span class="cr-roasv">ROAS 1,840%</span><span class="cr-roasd">광고비 대비 18배 매출</span></div>            
+            <div class="cr-stats">
+              <div class="cr-stat"><span class="cs-lbl">발송 인원</span><span class="cs-val"><b class="cnt" data-to="12847" data-fmt="num" data-delay="1650">0</b></span></div>
+              <div class="cr-stat pos"><span class="cs-lbl">구매 전환</span><span class="cs-val"><b class="cnt" data-to="486" data-fmt="num" data-delay="1950">0</b></span></div>
+              <div class="cr-stat key"><span class="cs-lbl">추가 매출</span><span class="cs-val"><b class="cnt" data-to="18400000" data-fmt="num" data-delay="2250">0</b></span></div>
+            </div>
+            <div class="cr-foot"><button class="cmp-replay" type="button">↻ 다시 보기</button></div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template data-scene="ps3">
+      <div class="sc pc-scene">
+        <div class="pcx">
+          <div class="pcx-feats">
+            <div class="pcx-fh">기능 리스트</div>
+            <div class="pcx-ctaslot">
+              <div class="ps-cta">
+                <button class="cl-start" data-act><span class="cl-lb">기능 하나씩 켜보기</span></button>
+                <span class="cl-cursor"></span>
+              </div>
+              <button class="cmp-replay" type="button">↻ 다시 보기</button>
+            </div>
+            <div class="pcx-fg">
+              <span class="pcx-f"><i class="pcx-ck"></i>🎯 온사이트 세그먼트</span>
+              <span class="pcx-f"><i class="pcx-ck"></i>💬 메시지 캠페인 세그먼트</span>
+              <span class="pcx-f"><i class="pcx-ck"></i>⚡ 초스피드 회원가입</span>
+              <span class="pcx-f"><i class="pcx-ck"></i>🎁 카톡 선물</span>
+              <span class="pcx-f"><i class="pcx-ck"></i>🖼 배너 관리</span>
+              <span class="pcx-f only"><i class="pcx-ck"></i>🛒 구매 유도 장치<em>타사 미제공</em></span>
+              <span class="pcx-f mau"><i class="pcx-ck"></i>📈 월 방문 고객 급증</span>
+            </div>
+          </div>
+          <div class="pcx-chart">
+            <div class="pcx-plot">
+              <div class="pcx-col">
+                <div class="pcx-btrack"><div class="pcx-bar o"><span class="pcx-bval"><b class="pcx-oval">90,000원 ↑</b></span></div></div>
+                <div class="pcx-name o"><b>경쟁 CRM</b><span>시작가 90,000 → 방문 고객 늘수록 → 100만+</span></div>
+              </div>
+              <div class="pcx-col">
+                <div class="pcx-verdict"><span class="pcx-vk">기능 다 켜도</span><b class="pcx-vv">알파푸시는 그대로</b></div>
+                <div class="pcx-btrack"><div class="pcx-bar u"><span class="pcx-bval"><b>39,000원</b><em>그대로</em></span></div></div>
+                <div class="pcx-name u"><b>알파푸시</b><span>정액 · 전 기능 포함 · 상품·회원 늘어도 동일</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template data-scene="cv1">
+      <div class="sc cv-roadmap cv-update">
+        <div class="ccu">
+          <div class="ccu-stage">
+          <div class="crm-cta ccu-cta"><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
+          <div class="ccu-locked">
+            <div class="ccl-chrome"><i></i><i></i><i></i><span class="ccl-url">alphacanvas.app · 업데이트 로드맵</span><span class="ccl-priv"><img class="ccl-lockmini" src="assets/lock.svg" alt="">비공개</span></div>
+            <div class="ccl-body">
+              <div class="ccl-lead"><img class="ccl-ic" src="assets/lock.svg" alt=""><div><div class="ccl-t">곧 공개될 업데이트 <b>5가지</b></div><div class="ccl-s">지금은 비공개 상태예요 — 재생하면 로드맵이 순서대로 공개돼요</div></div></div>
+              <div class="ccl-rows">
+                <span class="ccl-row"><i>1</i>숏츠 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>2</i>메인 상품 info 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>3</i>메뉴 관리<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>4</i>매거진 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+                <span class="ccl-row"><i>5</i>검색 기능 고도화<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
+              </div>
+              <div class="ccl-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">업데이트 로드맵 재생</span></button><span class="cl-cursor"></span></div>
+            </div>
+          </div>
+          <div class="ccu-card c1"><div class="ccu-lb"><span class="ccu-n">1</span>숏츠 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_1.png" alt=""></div></div>
+          <div class="ccu-card c2"><div class="ccu-lb"><span class="ccu-n">2</span>메인 상품 info 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_2.png" alt=""></div></div>
+          <div class="ccu-card c3"><div class="ccu-lb"><span class="ccu-n">3</span>메뉴 관리</div><div class="ccu-img"><img src="assets/canvas/canvas_update_3.png" alt=""></div></div>
+          <div class="ccu-card c4"><div class="ccu-lb"><span class="ccu-n">4</span>매거진 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_4.png" alt=""></div></div>
+          <div class="ccu-card c5"><div class="ccu-lb"><span class="ccu-n">5</span>검색 기능 고도화</div><div class="ccu-img"><img src="assets/canvas/canvas_update_5.png" alt=""></div></div>
+          <div class="ccu-foot"><span class="ccu-foot-ck">✓</span><b>5가지</b> 업데이트 공개! 로드맵은 여기서 끝이 아니라 <b>계속</b> 채워져요</div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template data-scene="cv2">
+      <div class="sc cv2-sc">
+        <div class="cvb">
+          <div class="cvb-side">
+            <div class="cvb-stat">
+              <div class="cvb-prog"><span>완성도</span><div class="cvb-track"><i class="cvb-fill-bar"></i></div><b class="cvb-pct">0%</b></div>
+              <div class="cvb-conv">예상 구매 전환율<b class="cvb-convval">2.4%</b></div>
+              <div class="cvx-cta">
+                <button class="cl-start cvb-play" type="button"><span class="cl-lb">클릭으로 페이지 조립</span></button><span class="cl-cursor cvb-cursor"></span>
+                <button class="cmp-replay" type="button">↺ 다시 보기</button>
+              </div>
+            </div>
+            <div class="cvb-sec">레이아웃</div>
+            <button class="cvb-item" data-w="header" type="button"><span class="ci"></span><span class="ct"><b>헤더 · 메뉴</b><em>MAISON 로고 + NEW·BEST·SALE</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="footer" type="button"><span class="ci"></span><span class="ct"><b>푸터</b><em>브랜드 · 정책 · SNS 안내</em></span><span class="ck">담기</span></button>
+            <div class="cvb-sec">전환 위젯 <span>담을수록 완성도가 올라요</span></div>
+            <button class="cvb-item" data-w="hero" data-d="2.2" type="button"><span class="ci"></span><span class="ct"><b>콘텐츠 배너</b><em>스프링 컬렉션 카피 + 무드</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="coupon" data-d="2.6" type="button"><span class="ci"></span><span class="ct"><b>띠배너</b><em>첫 구매 할인 쿠폰 상단 노출</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="prods" data-d="2.0" type="button"><span class="ci"></span><span class="ct"><b>상품그리드</b><em>인기 상품 4종 자동 배치</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="review" data-d="3.8" type="button"><span class="ci"></span><span class="ct"><b>포토리뷰 섹션</b><em>베스트 포토·영상 리뷰</em></span><span class="ck">담기</span></button>
+          </div>
+          <div class="cvb-shop">
+            <div class="cvb-chrome"><i></i><i></i><i></i><span>alphamall.cafe24.com/maison/spring</span></div>
+            <div class="cvb-canvas">
+              <div class="cvb-slot cvb-wg" data-s="coupon">
+                <div class="cvb-fill"><div class="mz-coupon"><i>🎟️</i><b>첫 구매 10% 할인 쿠폰! 5만원 이상 무료 배송</b><span>오늘하루 보지 않기 ✕</span></div></div>
+              </div>
+              <div class="cvb-slot" data-s="header">
+                <div class="cvb-empty">🧭 헤더 · 메뉴가 들어갈 자리</div>
+                <div class="cvb-fill"><div class="mz-head"><b class="mz-logo">MAISON</b><span class="mz-nav"><em>NEW</em><em>BEST</em><em>SALE</em><i>🛒</i></span></div></div>
+              </div>
+              <div class="cvb-slot" data-s="hero">
+                <div class="cvb-empty">🖼️ 콘텐츠 배너가 들어갈 자리</div>
+                <div class="cvb-fill"><div class="mz-hero">
+                  <span class="hcopy-a"><em>2026 SPRING COLLECTION</em><b>지금, 새로운 무드</b><u>봄을 여는 신상 컬렉션을 만나보세요</u><s>컬렉션 보기</s></span>
+                  <span class="hcopy-b"><em>BLACK FRIDAY</em><b>단 하루, 전 상품 -70%</b><u>일 년에 단 한 번, 최대 혜택을 만나보세요</u><s>세일 보기</s></span>
+                </div></div>
+              </div>
+              <div class="cvb-slot" data-s="prods">
+                <div class="cvb-empty">🛍️ 상품그리드가 들어갈 자리</div>
+                <div class="cvb-fill"><div class="mz-prods">
+                  <div class="mz-ph"><b>베스트 셀러</b><span>전체보기</span></div>
+                  <div class="mz-pgrid">
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod1.png')"></i><b>여름 청순 바람막이</b><em><span class="pct">48%</span>36,000</em></div>
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod2.png')"></i><b>여름맞이 린넨 카라 반팔티</b><em><span class="pct">50%</span>32,000</em></div>
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod3.png')"></i><b>시원한 워싱 데님 반바지</b><em><span class="pct">50%</span>29,900</em></div>
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod4.png')"></i><b>마린 카라 민소매 플레어 원피스</b><em><span class="pct">25%</span>59,900원</em></div>
+                  </div>
+                </div></div>
+              </div>
+              <div class="cvb-slot cvb-wg" data-s="review">
+                <div class="cvb-fill"><div class="mz-revs">
+                  <div class="mz-ph"><b>베스트 리뷰</b><b class="mz-rcnt"><span class="cnt" data-to="5852" data-fmt="num">0</span>개</b><span>원하는 리뷰를 검색해 보세요 🔍</span></div>
+                  <div class="mz-rgrid">
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev1.png')"><u>▶</u><em>⧉</em></i>
+                      <div class="mz-rstar">★★★<span>옵션 : 네이비/M</span></div>
+                      <p>뒷모습 라인이 정말 예뻐요. 차분한 네이비라 격식 있는 자리에도 잘 어울려요.</p>
+                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
+                      <div class="mz-rprod"><i class="t1"></i><span><b>백라인 슬리브리스 플레어…</b><em>72,000원</em><u><i>★</i> <b>4.9</b> (1,702)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev2.png')"><u>▶</u><em>⧉</em></i>
+                      <div class="mz-rstar">★★★<span>옵션 : 베이지플라워/FREE</span></div>
+                      <p>은은한 플라워 패턴이라 부담스럽지 않고 분위기 있어요. 가디건이랑 잘 어울려요.</p>
+                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
+                      <div class="mz-rprod"><i class="t2"></i><span><b>무드 플라워 쉬폰 미디 원피스</b><em>64,900원</em><u><i>★</i> <b>4.8</b> (537)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev3.png')"><em>📷</em></i>
+                      <div class="mz-rstar"><span>옵션 : 크림아이보리/FREE</span></div>
+                      <p>살랑이는 스커트 핏이 너무 예뻐요. 사진보다 실물이 더 여리여리하고 고급스러워요.</p>
+                      <div class="mz-ruser"><span>📷 UserID · 1일 전</span></div>
+                      <div class="mz-rprod"><i class="t3"></i><span><b>소프트 니트 슬리브리스 롱…</b><em>69,900원</em><u><i>★</i> <b>4.8</b> (124)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev4.png')"><em>blog</em></i>
+                      <div class="mz-rstar"><span>옵션 : 스카이블루/S</span></div>
+                      <p>셔츠가 얇고 가벼워서 한여름에도 부담 없어요. 화이트 쇼츠랑 입으면 청량해요.</p>
+                      <div class="mz-ruser"><span>Ⓝ UserID · 1일 전</span></div>
+                      <div class="mz-rprod"><i class="t4"></i><span><b>스트라이프 오버핏 셔츠 쇼…</b><em>54,000원</em><u><i>★</i> <b>4.7</b> (98)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev5.png')"><u>▶</u><em>⧉</em></i>
+                      <div class="mz-rstar">★★★<span>옵션 : 핑크베이지/M</span></div>
+                      <p>컬러가 너무 사랑스럽고 팬츠 핏도 깔끔해요. 출근룩으로도 데일리로도 좋아요.</p>
+                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
+                      <div class="mz-rprod"><i class="t5"></i><span><b>소프트 가디건 와이드 팬츠…</b><em>58,000원</em><u><i>★</i> <b>4.7</b> (112)</u></span></div>
+                    </div>
+                  </div>
+                  <div class="mz-page"><span class="mz-pol">운영 정책</span><span class="mz-nums"><i>‹</i><i class="on">1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>10</i><i>›</i></span><span class="mz-write">리뷰작성</span></div>
+                </div></div>
+              </div>
+              <div class="cvb-slot" data-s="footer">
+                <div class="cvb-empty">📄 푸터가 들어갈 자리</div>
+                <div class="cvb-fill"><div class="mz-foot"><b>MAISON</b><span><em>이용약관</em><em>고객센터</em><em>@maison.official</em></span></div></div>
+              </div>
+              <div class="cvb-confetti"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template data-scene="cv3">
+      <div class="sc cv-benefit">
+        <div class="cvb-head">스킨 하나 구매하면, 시작에 필요한 3가지</div>
+        <div class="cvb-head2"><b>30만원 상당</b>의 혜택을 바로 받아요</div>
+        <div class="cvb-list">
+          <div class="cvb-card b1">
+            <div class="cvb-cover"><img class="cc-ic" src="assets/gift1.png" alt=""><span class="cc-n">혜택 1</span></div>
+            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-alphaapps.png" alt="AlphaApps"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
+            <div class="cvb-t">알파앱스 2개월 무료</div>
+            <div class="cvb-d">필수 앱 <b>리뷰·업셀·푸시</b>를 <b>2개월 무료</b>로 써보세요.</div>
+          </div>
+          <div class="cvb-card b2">
+            <div class="cvb-cover"><img class="cc-ic" src="assets/gift2.png" alt=""><span class="cc-n">혜택 2</span></div>
+            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-tosspay.png" alt="tosspay"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
+            <div class="cvb-t">토스페이 도입 혜택</div>
+            <div class="cvb-d"><b>도입 비용 0원</b>, 결제 <b>수수료까지 인하</b>해 드려요.</div>
+          </div>
+          <div class="cvb-card b3">
+            <div class="cvb-cover"><img class="cc-ic" src="assets/gift3.png" alt=""><span class="cc-n">혜택 3</span></div>
+            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-saveoffice.png" alt="saveoffice"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
+            <div class="cvb-t">비상주사무실 최대 30% 할인</div>
+            <div class="cvb-d">사업자 등록 전에도 쓰는 사업장 주소, <b>최대 30% 할인</b>.</div>
+          </div>
+        </div>
+        <div class="crm-cta cvb-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">도입 혜택 받기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
+      </div>
+    </template>
+
+    <template data-scene="if1">
+      <div class="sc if-sc if1s">
+        <div class="if1-stage">
+          <div class="if1-screen">
+            <div class="if1-side">
+              <div class="if1-sbhead"><span class="if1-ig sm"></span># 내가 태그된 게시글</div>
+              <div class="if1-empty"></div>
+              <button class="if1-play" data-act type="button"><span class="if1-ig sm"></span>내 태그된 게시글 가져오기</button>
+              <span class="if1-ring"></span>
+              <span class="if1-cursor"></span>
+              <div class="if1-busy"><span class="if1-spin"></span>태그된 게시글 찾는 중…</div>
+              <div class="if1-posts">
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f1.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 데일리 코디 추천 🤍</span><span class="if1-pmeta"><span>♥ 5.3천</span><span>💬 125</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f2.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 린넨 셋업 후기</span><span class="if1-pmeta"><span>♥ 3.2천</span><span>💬 88</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f3.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 스트라이프 팬츠 데일리</span><span class="if1-pmeta"><span>♥ 2.6천</span><span>💬 41</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f4.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 가을 무드 자켓 ✨</span><span class="if1-pmeta"><span>♥ 4.1천</span><span>💬 96</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f5.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 니트 컬러 비교</span><span class="if1-pmeta"><span>♥ 1.9천</span><span>💬 33</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f6.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 데님 코디 추천템</span><span class="if1-pmeta"><span>♥ 2.2천</span><span>💬 57</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f7.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 트렌치 코트 데일리</span><span class="if1-pmeta"><span>♥ 3.7천</span><span>💬 72</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f8.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 오피스 캐주얼 룩</span><span class="if1-pmeta"><span>♥ 2.9천</span><span>💬 64</span></span></div><span class="if1-ptag">태그됨</span></div>
+              </div>
+            </div>
+            <div class="if1-phone">
+              <div class="if1-phscreen">
+                <div class="if1-phbar"><span class="if1-ig sm"></span><b class="if1-phhandle">@ourira</b><span class="if1-phsub">태그된 게시물</span></div>
+                <div class="if1-phgrid">
+                  <i class="if1-rcell"><img src="assets/insta/f1.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f2.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f3.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f4.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f5.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f6.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f7.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f8.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="if1-bz">
+            <div class="if1-bzchrome"><i></i><i></i><i></i><span class="if1-bzurl">🔒 ourira.co.kr</span></div>
+            <div class="if1-bznav"><span class="if1-bzlogo">ourira</span><span class="if1-nl">Shop</span><span class="if1-nl">Content</span><span class="if1-nl">Community</span><span class="if1-nr"><span class="if1-nl">My page</span><span class="if1-nl">Cart</span></span></div>
+            <div class="if1-bzbody">
+              <div class="if1-feed">
+                <i class="if1-cell" style="--n:0"><img src="assets/insta/f2.png" alt=""></i>
+                <i class="if1-cell" style="--n:1"><img src="assets/insta/f7.png" alt=""></i>
+                <i class="if1-cell hl" style="--n:2"><img src="assets/insta/f1.png" alt=""></i>
+                <i class="if1-cell" style="--n:3"><img src="assets/insta/f5.png" alt=""></i>
+                <i class="if1-cell" style="--n:4"><img src="assets/insta/f8.png" alt=""></i>
+                <i class="if1-cell" style="--n:5"><img src="assets/insta/f6.png" alt=""></i>
+                <i class="if1-cell" style="--n:6"><img src="assets/insta/f4.png" alt=""></i>
+                <i class="if1-cell" style="--n:7"><img src="assets/insta/f3.png" alt=""></i>
+              </div>
+              <div class="if1-toast"><span class="if1-tk">✓</span>태그된 게시글 <b class="if1-cnum">0</b>개를 쇼핑몰 홈에 올렸어요</div>
+            </div>
+          </div>
+          <div class="if1-conf"></div>
+        </div>
+        <button class="cmp-replay" type="button">↺ 다시 보기</button>
+      </div>
+    </template>
+
+    <template data-scene="if2">
+      <div class="sc if-sc if2s">
+        <div class="if-shop">
+          <div class="if-chrome"><i></i><i></i><i></i><span class="if-url">alphamall.cafe24.com</span></div>
+          <div class="if-shopbody">
+            <div class="if-shophero"><span class="if-shoplogo">ALPHA MALL</span><span class="if-shopnav"><em>NEW</em><em>BEST</em><em>SALE</em></span></div>
+            <div class="if-wgtitle"><span class="if-ig sm"></span>우리 쇼핑몰 인스타 피드<span class="if-live"><i></i>실시간 연동</span></div>
+            <div class="if-wgfeed">
+              <i class="if-new n2"><img src="assets/insta/f6.png" alt=""><span class="if-newtag">NEW</span></i>
+              <i class="if-new"><img src="assets/insta/f7.png" alt=""><span class="if-newtag">NEW</span></i>
+              <i><img src="assets/insta/f1.png" alt=""></i>
+              <i><img src="assets/insta/f2.png" alt=""></i>
+              <i><img src="assets/insta/f5.png" alt=""></i>
+            </div>
+            <div class="if-prods">
+              <div class="if-prod"><i style="background-image:url('assets/insta/f3.png')"></i><b>린넨 원피스</b><em>42,000원</em></div>
+              <div class="if-prod"><i style="background-image:url('assets/insta/f4.png')"></i><b>코튼 셔츠</b><em>29,900원</em></div>
+              <div class="if-prod"><i style="background-image:url('assets/insta/f8.png')"></i><b>플리츠 스커트</b><em>38,000원</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="if-cta"><div class="if-toast"><span class="if-ig sm"></span>새 게시물 업로드 → <b>피드 위젯 자동 반영</b></div><button class="cl-start" data-act type="button"><span class="cl-lb">새 게시물 올려보기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
+      </div>
+    </template>
+
+    <template data-scene="if3">
+      <div class="sc if-sc if3s">
+        <div class="if-dwell">
+          <div class="if-phone">
+            <div class="if-phead"><span class="if-avatar sm"></span><b>@alphamall_official</b><span class="if-ig sm"></span></div>
+            <div class="if-scrollwrap"><div class="if-scroller">
+              <i><img src="assets/maison/maison-insta1.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta2.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta3.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta4.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta5.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta6.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta7.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta8.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta9.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta10.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta11.png" alt=""></i>
+              <i><img src="assets/maison/maison-insta12.png" alt=""></i>
+            </div></div>
+            <div class="if-scrollhint">↕ 감성 피드를 둘러보는 중</div>
+          </div>
+          <div class="if-metrics">
+            <div class="if-mcard">
+              <span class="if-mlb">평균 체류시간</span>
+              <div class="if-mval"><b class="if-mnum">1:48</b><span class="if-mup">+25%</span></div>
+              <div class="if-mbars"><i style="--h:52%"></i><i style="--h:60%"></i><i style="--h:70%"></i><i style="--h:82%"></i><i style="--h:100%"></i></div>
+              <div class="if-mx"><span>연동 전</span><span>연동 후</span></div>
+            </div>
+            <div class="if-verdict"><span class="if-vk">감성 콘텐츠 효과</span><b class="if-vv"><span class="if-vq">? 얼마나 더 머물게 될까요</span><span class="if-va">머무는 시간 +25% ↑</span></b></div>
+          </div>
+        </div>
+        <div class="if-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">체류 효과 보기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
+      </div>
+    </template>
+
+  </div>
+
   <script>
     /* ═══════════════════════════════════════════════
        설정 — 카페24 앱스토어에서 유입된 앱 (진입 컨텍스트)
@@ -26136,1184 +27351,16 @@
        씬 HTML — 실제 기능 기반 클릭 액션 목업
        ⓘ 수치(리뷰 1,284건·₩8,420,000 등)는 예시값 — 실데이터 확인 후 교체 // TODO
     ═══════════════════════════════════════════════ */
-    const SCENES = {
-      rv1: `<div class="sc sc-rv rv1s">
-        <div class="sc-eyebrow">배송 완료 알림톡 → 상세페이지 리뷰</div>
-        <div class="kko"><div class="kko-b">
-          <div class="kh"><i>톡</i>알파리뷰 알림톡</div>
-          주문하신 <b>알파 데스크 오거나이저</b>, 잘 받으셨나요?<br>지금 후기를 남기면 <b>적립금 1,000원</b>을 드려요 😊
-          <button class="sds-btn sds-btn--md sds-btn--neutral-solid sc-btn" data-act>⭐ 별점·사진 남기기</button>
-        </div></div>
-        <div class="sc-result">
-          <div class="mini-shop">
-            <div class="ms-head">상세페이지 리뷰 <span class="stars">★ 4.9</span> · 리뷰 <b class="cnt" data-from="1240" data-to="1285" data-delay="260">1,240</b>건</div>
-            <div class="ms-review new">📷 “재질이 생각보다 훨씬 좋아요. 재구매 각!”</div>
-            <div class="ms-review">📷 “책상이 넓어진 기분. 배송도 빨랐어요”</div>
-          </div>
-        </div>
-      </div>`,
-
-      rv2: `<div class="sc sc-rv rv2s">
-        <div class="sc-eyebrow">AI 리뷰 관리 인박스</div>
-        <div class="rv-inbox">
-          <div class="rvi-row"><span class="st5">★★★★★</span>“포장 꼼꼼하고 예뻐요”<span class="done-tag">답글 완료</span></div>
-          <div class="rvi-row neg"><span class="st5">★☆☆☆☆</span>“배송이 늦고 응대가 없어요”<span class="flag">⚠ 부정 감지</span></div>
-        </div>
-        <button class="sds-btn sds-btn--md sds-btn--brand-solid sc-btn" data-act style="margin-top:16px">🤖 AI로 대응하기</button>
-        <div class="sc-result">
-          <div class="ai-reply">
-            <div class="ar-head">✨ AI 답글 초안 <span class="ok-tag">감지 → 대응 완료</span></div>
-            <span class="ar-tx" data-full="“불편을 드려 죄송합니다. 주문 건을 확인해 오늘 중 개별 연락드릴게요. 같은 일이 없도록 배송 프로세스를 점검하겠습니다.”"><span class="ar-caret"></span></span>
-          </div>
-        </div>
-      </div>`,
-
-      rv3: `<div class="sc sc-rv rv3s">
-        <div class="sc-eyebrow">리뷰 위젯 라이브러리</div>
-        <div class="widget-wall" style="max-width:460px">
-          <div class="ww-tile"><span class="wwm wwm-photo"><i style="background-image:url('assets/insta/f1.png')"></i><i style="background-image:url('assets/insta/f2.png')"></i><i style="background-image:url('assets/insta/f3.png')"></i><i style="background-image:url('assets/insta/f4.png')"></i><i style="background-image:url('assets/insta/f5.png')"></i><i style="background-image:url('assets/insta/f6.png')"></i><i style="background-image:url('assets/insta/f7.png')"></i><i style="background-image:url('assets/insta/f8.png')"></i><i style="background-image:url('assets/insta/f1.png')"></i></span>포토 그리드</div>
-          <div class="ww-tile"><span class="wwm wwm-video" style="background-image:url('assets/maison/maison-rev1.png')"><b class="wwm-play"></b></span>영상 리뷰</div>
-          <div class="ww-tile"><span class="wwm wwm-shorts"><i class="sh sd"></i><i class="sh" style="background-image:url('assets/maison/maison-rev2.png')"><b class="wwm-play sm"></b></i><i class="sh sd"></i></span>숏츠 위젯</div>
-          <div class="ww-tile"><span class="wwm wwm-stars"><b class="wwm-num">4.9</b><u class="wwm-str">★★★★★</u><s class="wwm-line"><em style="--w:96%"></em></s></span>별점 요약</div>
-        </div>
-        <button class="sds-btn sds-btn--md sds-btn--brand-solid sc-btn" data-act style="margin-top:16px">위젯 20여 종 모두 펼치기</button>
-        <div class="sc-result">
-          <div class="widget-wall" style="margin-top:12px">
-            <div class="ww-tile" style="animation-delay:.02s"><span class="wwm wwm-badge"><b class="wwm-rosette">★</b></span>리뷰 뱃지</div>
-            <div class="ww-tile" style="animation-delay:.06s"><span class="wwm wwm-pin"><i class="top"></i><i></i><i></i></span>상단 고정</div>
-            <div class="ww-tile" style="animation-delay:.10s"><span class="wwm wwm-survey"><i><s style="--w:80%"></s></i><i><s style="--w:54%"></s></i><i><s style="--w:32%"></s></i></span>설문 리뷰</div>
-            <div class="ww-tile" style="animation-delay:.14s"><span class="wwm wwm-oneline"><u class="wwm-str sm">★★★★★</u><i class="wwm-txline"></i></span>한 줄 리뷰</div>
-            <div class="ww-tile" style="animation-delay:.18s"><span class="wwm wwm-gallery"><i style="background-image:url('assets/insta/f4.png')"></i><i style="background-image:url('assets/insta/f7.png')"></i><i style="background-image:url('assets/insta/f2.png')"></i></span>갤러리</div>
-            <div class="ww-tile" style="animation-delay:.22s"><span class="wwm wwm-sns"><i class="ig"></i><i class="nv">N</i><i class="kk"></i></span>SNS 연동</div>
-            <div class="ww-tile" style="animation-delay:.26s"><span class="wwm wwm-stats"><i style="--h:42%"></i><i style="--h:64%"></i><i style="--h:52%"></i><i style="--h:82%"></i><i style="--h:100%"></i></span>통계 위젯</div>
-            <div class="ww-tile" style="animation-delay:.30s"><span class="wwm wwm-more"><b>+12</b></span>그 외 12종</div>
-          </div>
-        </div>
-      </div>`,
-
-      up1: `<div class="sc up1s">
-        <div class="upx">
-          <div class="upx-phone">
-            <div class="upx-screen">
-              <div class="upx-status"><span>9:41</span><span class="upx-sig"><i></i><i></i><i></i><b></b></span></div>
-              <div class="upx-view">
-                <div class="upx-scroll">
-                  <div class="vg-hero"><img src="assets/beauty/cosmetic_13.png" alt=""><span class="vg-hlogo">AURA LAB</span></div>
-                  <div class="vg-pinfo">
-                    <span class="vg-knm">비타 글로우 앰플</span>
-                    <p class="vg-tagline">칙칙함은 가볍게, 피부 빛은 선명하게</p>
-                    <div class="vg-priceline"><b>22,900원</b><em>28%</em><s>32,000원</s></div>
-                    <div class="vg-ship">🚚 배송 3,000원 · <b>50,000원 이상 무료배송</b></div>
-                    <div class="vg-qty"><span>수량</span><div class="vg-stepper"><i>−</i><b>1</b><i>＋</i></div></div>
-                  </div>
-                  <div class="upx-wg wg1">
-                    <div class="upx-wtag">구매 버튼 상단 위젯 · 옵션 세트 추천</div>
-                    <span class="upx-wq">함께 사면 더 좋은 <b>추천 상품</b></span>
-                    <div class="upx-plist">
-                      <div class="upx-pl"><img src="assets/beauty/17_1_CICA CALM TONER PAD.png" alt=""><div class="upx-plc"><span class="upx-plnm">시카 카밍 토너 패드</span><span class="upx-plsub"><em>토너패드</em>앰플 전 피부 결 정돈·수분 진정</span></div></div>
-                      <div class="upx-pl pick"><img src="assets/beauty/17_2_VITA CAPSULE GLOW CREAM.png" alt=""><div class="upx-plc"><span class="upx-plnm">비타 캡슐 글로우 크림</span><span class="upx-plsub"><em>캡슐 크림</em>앰플의 수분·광채를 크림으로 마무리</span></div><em class="upx-plck"><span class="t1">+</span><span class="t2">✓</span></em></div>
-                      <div class="upx-pl"><img src="assets/beauty/17_3_VITA SHIELD SUNSCREEN.png" alt=""><div class="upx-plc"><span class="upx-plnm">비타 쉴드 톤업 선크림 SPF50+</span><span class="upx-plsub"><em>선케어</em>브라이트닝 루틴 후 자외선 차단</span></div></div>
-                    </div>
-                    <div class="upx-route"><span>토너 패드</span><i>→</i><b>비타 글로우 앰플<em>NOW</em></b><i>→</i><span>캡슐 크림</span><i>→</i><span>선크림</span></div>
-                  </div>
-                  <div class="vg-sec">
-                    <span class="vg-eyebrow">GLOW ROUTINE</span>
-                    <h3 class="vg-h">오늘보다 맑은 내일을 위한<br>세 가지 비타 루틴</h3>
-                    <div class="vg-steps">
-                      <div class="vg-step s1"><b>01</b><span class="vg-stt">맑은 빛</span><span class="vg-std">칙칙함이 신경 쓰일 때</span></div>
-                      <div class="vg-step s2"><b>02</b><span class="vg-stt">수분 광채</span><span class="vg-std">푸석하고 건조해 보일 때</span></div>
-                      <div class="vg-step s3"><b>03</b><span class="vg-stt">산뜻 흡수</span><span class="vg-std">무거운 텍스처가 부담스러울 때</span></div>
-                    </div>
-                  </div>
-                  <div class="vg-sec">
-                    <span class="vg-eyebrow">KEY INGREDIENTS</span>
-                    <h3 class="vg-h">한 방울에 담은<br>맑은 광채 시너지</h3>
-                    <div class="vg-ings">
-                      <div class="vg-ing c1"><span class="vg-inum">01</span><div class="vg-itx"><b>글루타치온</b><em>칙칙해 보이는 피부에 생기 있는 광채를 더해 맑은 인상으로 가꿔줘요.</em></div></div>
-                      <div class="vg-ing c2"><span class="vg-inum">02</span><div class="vg-itx"><b>비타민 C 유도체</b><em>매일 부담 없이 사용하는 데일리 비타 에너지로 피부 컨디션을 깨워줘요.</em></div></div>
-                      <div class="vg-ing c3"><span class="vg-inum">03</span><div class="vg-itx"><b>나이아신아마이드</b><em>피부 톤을 균일하고 매끄럽게 가꾸는 브라이트닝 성분이에요.</em></div></div>
-                    </div>
-                  </div>
-                  <div class="vg-tex">
-                    <img src="assets/beauty/cosmetic_13.png" alt="">
-                    <div class="vg-tex-ov">
-                      <span class="vg-eyebrow lt">LIGHT & FRESH TEXTURE</span>
-                      <h3 class="vg-h lt">끈적임은 덜고<br>수분감은 산뜻하게</h3>
-                      <div class="vg-tex-tags"><span>산뜻함</span><span>촉촉한 마무리</span><span>데일리 케어</span></div>
-                    </div>
-                  </div>
-                  <div class="upx-wg wg2">
-                    <div class="upx-wtag">상품 설명 본문 하단 위젯</div>
-                    <span class="upx-wq">이 상품과 <b>함께 자주 산 상품</b></span>
-                    <div class="upx-plist">
-                      <div class="upx-pl pick"><img src="assets/beauty/17_4_PURE BALANCING CLEANSING OIL.png" alt=""><div class="upx-plc"><span class="upx-plnm">퓨어 밸런싱 클렌징 오일</span><span class="upx-plsub"><em>클렌징 오일</em>저녁 스킨케어 전 메이크업 세정</span></div><em class="upx-plck"><span class="t1">+</span><span class="t2">✓</span></em></div>
-                      <div class="upx-pl"><img src="assets/beauty/17_5_PDRN RECOVERY MASK.png" alt=""><div class="upx-plc"><span class="upx-plnm">PDRN 리커버리 마스크</span><span class="upx-plsub"><em>마스크팩</em>집중 수분·탄력 관리 조합</span></div></div>
-                      <div class="upx-pl"><img src="assets/beauty/17_6_CERAMIDE BARRIER LOTION.png" alt=""><div class="upx-plc"><span class="upx-plnm">세라마이드 베리어 로션</span><span class="upx-plsub"><em>보습 로션</em>건조·민감 피부 보습 보완</span></div></div>
-                    </div>
-                  </div>
-                  <div class="vg-sec">
-                    <span class="vg-eyebrow">HOW TO USE</span>
-                    <h3 class="vg-h">매일 두 번,<br>두세 방울이면 충분해요</h3>
-                    <div class="vg-hsteps">
-                      <div class="vg-hstep"><b>STEP 1</b><span>세안 후 토너로 피부 결을 정돈해 주세요.</span></div>
-                      <div class="vg-hstep"><b>STEP 2</b><span>스포이드로 앰플을 두세 방울 얼굴에 떨어뜨려요.</span></div>
-                      <div class="vg-hstep"><b>STEP 3</b><span>손바닥 온기로 가볍게 눌러 흡수시킨 뒤 크림으로 마무리해요.</span></div>
-                    </div>
-                  </div>
-                  <div class="vg-cta">
-                    <span class="vg-eyebrow lt">VITA GLOW AMPOULE · 30ML</span>
-                    <h3 class="vg-h lt">매일 쌓이는<br>나만의 비타 광채</h3>
-                    <button class="vg-ctabtn">22,900원에 만나보기</button>
-                  </div>
-                </div>
-              </div>
-              <div class="vg-btns"><button class="vg-open">구매하기<b class="upx-cbadge upx-cnt">1</b></button><button class="vg-cart">장바구니</button><button class="vg-buy">바로 구매</button></div>
-              <div class="upx-cartbd"></div>
-              <div class="upx-cartdrawer">
-                <div class="upx-cdh"><span class="upx-cdt">담은 상품</span><span class="upx-cdlab"><b class="upx-cnt upx-cdi">1</b>개</span></div>
-                <div class="upx-shrec">전에 보고 놓쳤던 상품, 지금 담으면 할인</div>
-                <div class="upx-shmiss">
-                  <div class="upx-msc"><img src="assets/beauty/17_7_GLOW FIT CUSHION.png" alt=""><span class="upx-msnm">글로우 핏 쿠션 SPF40</span><span class="upx-msp"><s>42,000</s>34,900원</span><button class="upx-msbtn">담기</button></div>
-                  <div class="upx-msc pick"><img src="assets/beauty/17_8_AQUA HYALURON MIST.png" alt=""><span class="upx-msnm">아쿠아 히알루론 미스트</span><span class="upx-msp"><s>24,000</s>19,000원</span><button class="upx-msbtn"><span class="t1">담기</span><span class="t2">✓ 담김</span></button></div>
-                  <div class="upx-msc"><img src="assets/beauty/17_9_PEPTIDE LIFTING EYE CREAM.png" alt=""><span class="upx-msnm">펩타이드 리프팅 아이크림</span><span class="upx-msp"><s>48,000</s>39,000원</span><button class="upx-msbtn">담기</button></div>
-                </div>
-                <div class="upx-cartlist">
-                  <div class="upx-ci c0"><span>비타 글로우 앰플</span><b>22,900</b></div>
-                  <div class="upx-ci c1"><span>비타 캡슐 글로우 크림</span><b>+34,000</b></div>
-                  <div class="upx-ci c2"><span>퓨어 밸런싱 클렌징 오일</span><b>+26,000</b></div>
-                  <div class="upx-ci c3"><span>아쿠아 히알루론 미스트</span><b>+19,000</b></div>
-                </div>
-                <div class="upx-cdfoot"><span class="upx-cdtot">합계<b>22,900원</b></span></div>
-              </div>
-              <div class="upx-done">
-                <div class="upx-done-in">
-                  <button class="upx-donex" type="button" aria-label="닫기">✕</button>
-                  <div class="upx-done-ic">✓</div>
-                  <span class="upx-done-t">주문 완료</span>
-                  <div class="upx-done-list">
-                    <div class="upx-done-row"><span>비타 글로우 앰플</span><b>22,900원</b></div>
-                    <div class="upx-done-row"><span>비타 캡슐 글로우 크림</span><b>34,000원</b></div>
-                    <div class="upx-done-row"><span>퓨어 밸런싱 클렌징 오일</span><b>26,000원</b></div>
-                    <div class="upx-done-row"><span>아쿠아 히알루론 미스트</span><b>19,000원</b></div>
-                  </div>
-                  <div class="upx-done-amt"><span>결제 금액</span><b>101,900원</b></div>
-                  <p class="upx-done-th">객단가가 약 4배 커졌어요!</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="upx-side">
-            <div class="upx-aov">
-              <div class="upx-aovpre">
-                <div class="upx-aovq"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" data-icon="assets/question-mark-bold.svg"><path d="M11.082 17.915C11.5498 17.645 12.1269 17.6451 12.5947 17.915C13.0624 18.1853 13.3516 18.6854 13.3516 19.2256C13.3512 20.0604 12.6737 20.7379 11.8389 20.7383C11.0038 20.7383 10.3265 20.0606 10.3262 19.2256C10.3262 18.6853 10.6141 18.1852 11.082 17.915ZM11.9883 3.26172C13.4684 3.26177 14.8957 3.86748 15.9102 4.93359C16.8554 5.92571 17.3425 7.21473 17.2666 8.56152C17.2364 9.12474 17.1616 9.70625 16.7979 10.4268C16.4426 11.1304 15.8253 11.9403 14.7607 13.0049C14.2611 13.5046 13.8729 13.9236 13.6035 14.293C13.3314 14.6662 13.2146 14.9432 13.1934 15.1592C13.1256 15.8544 12.5391 16.3721 11.8564 16.3721C11.8042 16.372 11.755 16.3673 11.7305 16.3652L11.7227 16.3643C10.9841 16.2896 10.4468 15.6327 10.5176 14.8955C10.6691 13.3694 11.7955 12.1674 12.8604 11.1025C13.7509 10.212 14.168 9.65622 14.3701 9.27246C14.5566 8.91844 14.5678 8.7017 14.583 8.41309V8.19238C14.5573 7.68175 14.3451 7.19077 13.96 6.78516C13.521 6.32208 12.9169 6.02964 12.2744 5.96387L11.9971 5.94922H11.9912L11.7285 5.96289C10.4309 6.09706 9.41328 7.20051 9.41309 8.5332C9.41308 9.27575 8.81188 9.87695 8.06934 9.87695C7.32681 9.87693 6.72559 9.27573 6.72559 8.5332C6.72569 7.12851 7.27265 5.80353 8.2666 4.80957C9.26012 3.81375 10.5834 3.26432 11.9883 3.26172Z" fill="currentColor"/></svg></div>
-                <p class="upx-aovqt">담을수록 객단가가<br>얼마나 오를까요?</p>
-                <div class="up1-cta">
-                  <button class="cl-start" data-act><span class="cl-lb">객단가 올리기</span></button>
-                  <span class="cl-cursor"></span>
-                </div>
-              </div>
-              <div class="upx-aovchart">
-                <div class="upx-aovcap">상승한 객단가</div>
-                <div class="upx-aovnum"><b class="upx-aovval">22,900</b><svg class="upx-aovup" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" data-icon="assets/arrow-narrow-up-bold.svg"><path d="M12.0236 4.75098L12.1261 4.75586C12.1351 4.75629 12.1445 4.7569 12.1535 4.75781C12.1949 4.76205 12.237 4.77057 12.2531 4.77344C12.2481 4.77263 12.2441 4.77185 12.2413 4.77148C12.2445 4.77184 12.2495 4.77172 12.255 4.77246C12.2633 4.77359 12.2761 4.77556 12.2902 4.77832L12.2892 4.7793C12.3134 4.78403 12.3341 4.78818 12.3449 4.79102C12.3487 4.79203 12.3571 4.79382 12.3576 4.79395C12.3596 4.7945 12.3605 4.79492 12.3605 4.79492C12.3669 4.79652 12.3633 4.7956 12.381 4.7998L12.4367 4.81445L12.546 4.85352C12.5801 4.86718 12.612 4.8809 12.6408 4.89453C12.703 4.92398 12.7672 4.95929 12.8312 5.00195C12.9113 5.05539 12.9888 5.11761 13.0607 5.18945L17.0607 9.18945L17.1632 9.30371C17.6436 9.89282 17.6097 10.7614 17.0607 11.3105C16.4749 11.8963 15.5253 11.8961 14.9396 11.3105L13.5001 9.87109V17.75C13.5001 18.5784 12.8284 19.2499 12.0001 19.25C11.1717 19.25 10.5001 18.5784 10.5001 17.75V9.87109L9.06068 11.3105C8.47489 11.8963 7.52533 11.8961 6.93958 11.3105C6.3538 10.7248 6.3538 9.77524 6.93958 9.18945L10.9396 5.18945C11.0069 5.12216 11.0821 5.05817 11.1661 5.00195C11.2313 4.95833 11.2949 4.92536 11.3488 4.89941C11.407 4.87131 11.4799 4.83945 11.5617 4.81445C11.6013 4.80238 11.6435 4.79338 11.6535 4.79102C11.6576 4.79002 11.6826 4.78382 11.7052 4.7793L11.7208 4.77637L11.7326 4.77441L11.8214 4.76074C11.8298 4.75945 11.8384 4.75867 11.8468 4.75781C11.9001 4.75239 11.9517 4.75 12.0001 4.75L12.0236 4.75098Z" fill="currentColor"/></svg><i class="upx-cntx">×4</i><i class="upx-delta"></i></div>
-                <div class="upx-aovbar"><span class="upx-aovcol c1" style="--h:20%"><b>22,900</b><i></i></span><span class="upx-aovcol c2" style="--h:48%"><b>56,900</b><i></i></span><span class="upx-aovcol c3" style="--h:68%"><b>82,900</b><i></i></span><span class="upx-aovcol c4" style="--h:84%"><b>101,900</b><i></i></span></div>
-                <div class="upx-aovx"><span>1개</span><span>2개</span><span>3개</span><span>4개</span></div>
-              </div>
-            </div>
-            <div class="upx-fan">
-              <div class="upx-fanh">이 외 다양한 추천 위젯 <b>12종</b>을<br>고객 동선 곳곳에 배치할 수 있어요</div>
-              <div class="upx-fancards">
-                <span class="fc" style="--i:0">옵션 세트 추천</span>
-                <span class="fc" style="--i:1">구매버튼 상단</span>
-                <span class="fc" style="--i:2">본문 상단</span>
-                <span class="fc" style="--i:3">본문 하단</span>
-                <span class="fc" style="--i:4">우상단 고정</span>
-                <span class="fc" style="--i:5">최하단 추천</span>
-                <span class="fc" style="--i:6">장바구니</span>
-                <span class="fc" style="--i:7">검색 결과</span>
-                <span class="fc" style="--i:8">홈 추천</span>
-                <span class="fc" style="--i:9">결제 이탈</span>
-                <span class="fc" style="--i:10">구매 완료</span>
-                <span class="fc" style="--i:11">재구매 유도</span>
-              </div>
-              <button class="cmp-replay" type="button">↻ 다시 보기</button>
-            </div>
-          </div>
-        </div>
-        <span class="upx-go"></span>
-      </div>`,
-
-      up2: `<div class="sc up2s">
-        <div class="uax">
-          <div class="uax-intro">
-            <div class="uax-setup">
-              <div class="uax-method">
-                <div class="uax-mhead">
-                  <span class="uax-mtitle">누구에게 프로모션을 적용할까요?</span>
-                  <span class="uax-mtoggle">고급 오디언스 설정<i></i></span>
-                </div>
-                <div class="uax-mtarget">
-                  <span class="uax-mtk">적용 대상</span>
-                  <b class="uax-mtv">재방문 · 장바구니 보유 고객</b>
-                  <i class="uax-mtcaret"></i>
-                </div>
-                <div class="uax-mgrid">
-                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion01.png" alt="단순 할인"></span><div class="uax-mtx"><b>단순 할인</b><em>특정·전체 상품에 즉시 할인</em></div></div></div>
-                  <div class="uax-mcard pick"><span class="uax-mck">✓</span><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion02.png" alt="다다익선 할인"></span><div class="uax-mtx"><b>다다익선 할인</b><em>개수·금액이 늘수록 할인 폭이 커지는 계단형</em></div></div><div class="uax-mdetail"><div class="uax-fstair"><div class="uax-stairviz"><div class="uax-stz" style="--sh:24px"><b>5%</b><i></i><span>1개</span></div><div class="uax-stz" style="--sh:48px"><b>10%</b><i></i><span>2개</span></div><div class="uax-stz" style="--sh:72px"><b>15%</b><i></i><span>3개+</span></div></div></div></div></div>
-                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion03.png" alt="사은품 증정"></span><div class="uax-mtx"><b>사은품 증정</b><em>구매 조건 충족 시 사은품 지급</em></div></div></div>
-                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion04.png" alt="FOMO 할인"></span><div class="uax-mtx"><b>FOMO 할인</b><em>방문 횟수 기준 단계별 할인</em></div></div></div>
-                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion05.png" alt="시크릿 할인"></span><div class="uax-mtx"><b>시크릿 할인</b><em>특정 시간 즉시 할인</em></div></div></div>
-                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion06.png" alt="장바구니 페이지 할인"></span><div class="uax-mtx"><b>장바구니 페이지 할인</b><em>장바구니 이탈 시 할인 노출</em></div></div></div>
-                </div>
-              </div>
-            </div>
-            <div class="uax-introcta"><button class="cl-start" data-act><span class="cl-lb">이 설정으로 A/B/N 테스트 돌려보기</span></button><span class="cl-cursor"></span></div>
-            <span class="uax-go"></span>
-          </div>
-          <div class="uax-flow">
-            <div class="uax-step s2">
-              <div class="uax-sh"><span class="uax-n">1</span>다다익선 프로모션 A/B/N 테스트</div>
-              <div class="uax-setvars">
-                <div class="uax-sv"><span class="uax-vt">A</span><b>+5,000원 할인</b><span class="uax-svtr">트래픽 33%</span></div>
-                <div class="uax-sv"><span class="uax-vt">B</span><b>+10,000원 할인</b><span class="uax-svtr">트래픽 33%</span></div>
-                <div class="uax-sv"><span class="uax-vt">C</span><b>+15,000원 할인</b><span class="uax-svtr">트래픽 33%</span></div>
-              </div>
-              <div class="uax-preview">
-                <span class="uax-pvcap">Preview · 구매 직전 고객에게 이렇게 노출돼요</span>
-                <img class="uax-pvimg" src="assets/upsell/promo_b.png" alt="할인 팝업 미리보기">
-              </div>
-            </div>
-            <div class="uax-arrow a2"><img src="assets/chevron-right.svg" alt="" aria-hidden="true"></div>
-            <div class="uax-step s3">
-              <div class="uax-sh"><span class="uax-n">2</span>테스트 결과</div>
-              <div class="uax-s3mid">
-                <div class="uax-target"><b>재방문 · 장바구니 보유 고객</b><span class="uax-audchip">도달 3,240명</span></div>
-                <div class="uax-plot">
-                  <div class="uax-b va"><div class="uax-btxt"><span class="uax-vt">A</span><b class="uax-bl">+5,000원</b><b class="uax-bv">88만</b><span class="uax-bcv">전환 2.1%</span></div><div class="uax-btrack"><div class="uax-bfill"></div></div></div>
-                  <div class="uax-b vb win"><div class="uax-btxt"><span class="uax-vt">B</span><b class="uax-bl">+10,000원</b><em class="uax-bwin">최고</em><b class="uax-bv">132만</b><span class="uax-bcv">전환 4.6%</span></div><div class="uax-btrack"><div class="uax-bfill"></div></div></div>
-                  <div class="uax-b vc"><div class="uax-btxt"><span class="uax-vt">C</span><b class="uax-bl">+15,000원</b><b class="uax-bv">104만</b><span class="uax-bcv">전환 2.4%</span></div><div class="uax-btrack"><div class="uax-bfill"></div></div></div>
-                </div>
-                <div class="uax-apply"><span class="uax-win">✦ 최적가 B · 트래픽 자동 집중 완료 ✓</span></div>
-              </div>
-              <button class="cmp-replay" type="button">↻ 다시 보기</button>
-            </div>
-          </div>
-        </div>
-      </div>`,
-
-      up3: `<div class="sc up3">
-        <div class="u3x">
-          <div class="u3x-before">
-            <div class="u3xb-field"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2" class="win"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6" class="win"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i><i style="--i:12"></i><i style="--i:13" class="win"></i><i style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i style="--i:17"></i><i style="--i:18"></i><i style="--i:19" class="win"></i><i style="--i:20"></i><i style="--i:21"></i><i style="--i:22"></i><i style="--i:23"></i><i style="--i:24" class="win"></i><i style="--i:25"></i><i style="--i:26"></i><i style="--i:27"></i><i style="--i:28"></i><i style="--i:29"></i><i style="--i:30" class="win"></i><i style="--i:31"></i><i style="--i:32"></i><i style="--i:33"></i><i style="--i:34"></i><i style="--i:35" class="win"></i><i style="--i:36"></i><i style="--i:37"></i><i style="--i:38"></i><i style="--i:39"></i><i style="--i:40"></i><i style="--i:41" class="win"></i><i style="--i:42"></i><i style="--i:43"></i><i style="--i:44"></i><i style="--i:45"></i><i style="--i:46" class="win"></i><i style="--i:47"></i></div>
-            <div class="u3xb-core">
-              <span class="u3xb-eyebrow">🧪 자동 A/B 실험</span>
-              <div class="u3xb-h">추천 상품·위젯 자리·가격·문구<br><b>수많은 조합</b>을 자동으로 실험했어요</div>
-              <div class="u3xb-s">어떤 조합이 <b>가장 잘 팔리는지</b> 알파업셀이 쉬지 않고 테스트했어요.</div>
-              <div class="u3xb-hint">그 결과를 숫자로 보여드릴게요 ↓</div>
-              <div class="ps-cta">
-                <button class="cl-start" data-act><span class="cl-lb">성과·다음 액션 보기</span></button>
-                <span class="cl-cursor"></span>
-              </div>
-            </div>
-          </div>
-          <div class="u3x-insights">
-            <div class="u3x-grid">
-              <div class="u3x-m">
-                <div class="u3x-mt">1. 총 매출 상승</div>
-                <div class="u3x-md">쇼핑몰 전체 매출의 <b>12.1%</b>가 알파업셀을 통해 발생</div>
-                <div class="u3x-single"><span class="u3x-sfill">12.1%</span><span class="u3x-sbase">87.9%</span></div>
-                <div class="u3x-cap">매출액</div>
-              </div>
-              <div class="u3x-m">
-                <div class="u3x-mt">2. 객단가 상승</div>
-                <div class="u3x-md">업셀 프로모션으로 추가 주문된 경우 상품 객단가가 <b>2배!</b></div>
-                <div class="u3x-bars">
-                  <div class="u3x-col" style="--h:38%"><b class="u3x-bv">40,150원</b><div class="u3x-bar base"></div></div>
-                  <div class="u3x-col win" style="--h:80%"><span class="u3x-up">+112%</span><b class="u3x-bv">85,100원</b><div class="u3x-bar win"></div></div>
-                </div>
-                <div class="u3x-x"><span>일반 주문</span><span>업셀 주문</span></div>
-              </div>
-              <div class="u3x-m">
-                <div class="u3x-mt">3. 판매 개수 상승</div>
-                <div class="u3x-md">업셀 프로모션으로 추가 주문된 경우 상품 개수가 <b>약 1.4배!</b></div>
-                <div class="u3x-bars">
-                  <div class="u3x-col" style="--h:55%"><b class="u3x-bv">3.8개</b><div class="u3x-bar base"></div></div>
-                  <div class="u3x-col win" style="--h:80%"><span class="u3x-up">+44%</span><b class="u3x-bv">5.5개</b><div class="u3x-bar win"></div></div>
-                </div>
-                <div class="u3x-x"><span>일반 주문</span><span>업셀 주문</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="u3x-actions">
-            <div class="u3x-ah"><span class="u3x-aht">이 인사이트로 <b>다음 성장 액션</b>을 바로 적용해요</span><button class="cmp-replay" type="button">↻ 다시 보기</button></div>
-            <div class="u3x-acards">
-              <div class="u3x-ac a1">
-                <div class="u3x-actop"><span class="u3x-acn">액션 1</span></div>
-                <div class="u3x-act"><span class="u3x-actx"><i class="u3x-aci u3x-aci-spark"></i>AI 추천 위젯 더 넓히기</span></div>
-                <div class="u3x-acd">전환이 높은 자리에 추천 위젯을 추가해 <b>객단가</b>를 더 끌어올려요.</div>
-              </div>
-              <div class="u3x-ac a2">
-                <div class="u3x-actop"><span class="u3x-acn">액션 2</span></div>
-                <div class="u3x-act"><span class="u3x-actx"><i class="u3x-aci u3x-aci-growth"></i>가격 A/B 테스트 다시 돌리기</span></div>
-                <div class="u3x-acd">최적가 구간을 재탐색해 <b>마진과 매출</b>을 함께 키워요.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>`,
-
-      ps1: `<div class="sc ps-wall">
-        <div class="pw-head">
-          <div class="pw-headtx">
-            <span class="pw-eyebrow">이 많은 전환 장치, <b>알파푸시 하나로</b> 다 써요</span>
-          </div>
-          <div class="ps-cta">
-            <button class="cl-start" data-act><span class="cl-lb">전환 장치 작동 보기</span></button>
-            <span class="cl-cursor"></span>
-          </div>
-        </div>
-        <div class="pw-grid">
-          <div class="pwc c1">
-            <div class="pwc-h"><span class="pwc-nm">초스피드 회원가입</span><span class="pwc-live"><i></i>작동 중</span></div>
-            <div class="pwc-ex">
-              <div class="su">
-                <div class="su-title">회원가입</div>
-                <span class="su-oauth kko"><i class="su-ico">💬</i>카카오 1초 회원가입</span>
-                <span class="su-oauth nvr"><i class="su-ico">N</i>네이버 1초 회원가입</span>
-                <div class="su-coupon"><b>1000원</b><em>신규 회원 웰컴 할인 쿠폰</em></div>
-                <div class="su-give">회원가입 하시면 즉시 사용 가능한 쿠폰을 드려요!</div>
-                <div class="su-or"><span>또는</span></div>
-                <span class="su-idpw">ID/PW로 회원가입</span>
-              </div>
-            </div>
-            <div class="pwc-mt"><span class="mt-lb">회원 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+38%</span></span></div>
-          </div>
-          <div class="pwc c2">
-            <div class="pwc-h"><span class="pwc-nm">탐색 유도 장치</span><span class="pwc-live"><i></i>작동 중</span></div>
-            <div class="pwc-ex">
-              <div class="bw">
-                <!-- 사진 슬롯: 모델 이미지 (스크롤 필름스트립) -->
-                <div class="bw-photo">
-                  <div class="bw-strip">
-                    <img src="assets/push/browse-model.png" alt="">
-                    <img src="assets/push/browse-model2.png" alt="">
-                  </div>
-                  <span class="bw-ph">모델 이미지</span>
-                </div>
-                <!-- 스크롤할 때만 감지 -->
-                <span class="bw-scroll">↕ 스크롤 감지 중</span>
-                <!-- ① 탐색 시간 적립 타이머 -->
-                <span class="bw-timer">
-                  <span class="tt"><span class="ic">⏱</span>탐색하면 <b>100원</b><span class="clk">00:02</span></span>
-                  <span class="bar"><i></i></span>
-                </span>
-                <!-- ② 시간 완료 후 등장 -->
-                <span class="bw-reward"><span class="coin">🪙</span>적립금 <b>100원</b> 받았어요!</span>
-              </div>
-            </div>
-            <div class="pwc-mt"><span class="mt-lb">체류시간</span><span class="mt-val"><span class="v0">×1.0</span><span class="v1">×2.3</span></span></div>
-          </div>
-          <div class="pwc c3">
-            <div class="pwc-h"><span class="pwc-nm">온사이트 캠페인</span><span class="pwc-live"><i></i>작동 중</span></div>
-            <div class="pwc-ex">
-              <div class="oc">
-                <div class="oc-page">
-                  <div class="oc-pimg"><img src="assets/hero-product.png" alt=""></div>
-                  <div class="oc-pnm">봄 여신 바람막이</div>
-                  <div class="oc-ppr">39,800원</div>
-                </div>
-                <div class="oc-modal">
-                  <span class="oc-close">×</span>
-                  <div class="oc-cp"><img src="assets/push/ocp003.png" alt=""></div>
-                  <div class="oc-body">
-                    <div class="oc-title">고민 중인 상품,<br>특별 쿠폰 드려요 🤭</div>
-                    <div class="oc-desc">몇 번이나 살펴보셨네요 👀<br>이 쿠폰으로 저렴하게 구매해보세요!</div>
-                    <button class="oc-btn"><span class="l0">쿠폰 받고 구매하기</span><span class="l1">✓ 구매 완료!</span></button>
-                  </div>
-                </div>
-                <span class="oc-cursor"></span>
-              </div>
-            </div>
-            <div class="pwc-mt"><span class="mt-lb">구매 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+37%</span></span></div>
-          </div>
-          <div class="pwc c4">
-            <div class="pwc-h"><span class="pwc-nm">카톡 선물하기</span><span class="pwc-live"><i></i>작동 중</span></div>
-            <div class="pwc-ex">
-              <div class="gf">
-                <div class="gf-detail">
-                  <div class="gf-img"><img src="assets/push/animalcookie1.png" alt=""></div>
-                  <div class="gf-thumbs">
-                    <img src="assets/push/animalcookie2.png" alt="">
-                    <img src="assets/push/animalcookie3.png" alt="">
-                    <img src="assets/push/animalcookie4.png" alt="">
-                    <img src="assets/push/animalcookie5.png" alt="">
-                    <img src="assets/push/animalcookie6.png" alt="">
-                  </div>
-                  <div class="gf-nm">고단백 저당 애니멀 쿠키</div>
-                  <div class="gf-price"><b>16,900원</b><em>30%</em></div>
-                  <div class="gf-btns">
-                    <button class="gf-buy">바로 구매</button>
-                    <button class="gf-gift"><span class="l0">선물하기</span><span class="l1">✓ 선물 완료</span></button>
-                  </div>
-                </div>
-                <!-- 선물 폭주 — 많이들 선물함 -->
-                <div class="gf-burst"><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span></div>
-                <!-- 선물이 많아 → 구매 전환 상승 -->
-                <div class="gf-conv"><span class="gc-lb">🛒 구매 전환</span><span class="gc-v">+2.4배 ↑</span></div>
-                <span class="gf-cursor"></span>
-              </div>
-            </div>
-            <div class="pwc-mt"><span class="mt-lb">구매 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+2.4배</span></span></div>
-          </div>
-          <div class="pwc c5">
-            <div class="pwc-h"><span class="pwc-nm">첫구매 할인</span><span class="pwc-live"><i></i>작동 중</span></div>
-            <div class="pwc-ex">
-              <div class="fp">
-                <div class="fp-ttl">
-                  <div class="fp-head">첫 구매 시 인기 상품 <b>100원</b>!</div>
-                  <div class="fp-sub">신규 회원을 위한 기분 좋은 혜택</div>
-                </div>
-                <div class="fp-grid">
-                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics1.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">그린 앰플 세트</span><span class="fp-pr"><s>38,000원</s><b>100원</b></span></div>
-                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics2.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">그린 토마토 크림</span><span class="fp-pr"><s>26,500원</s><b>100원</b></span></div>
-                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics3.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">비건 그린 토너</span><span class="fp-pr"><s>29,900원</s><b>100원</b></span></div>
-                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics4.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">실크 그린 앰플</span><span class="fp-pr"><s>44,000원</s><b>100원</b></span></div>
-                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics5.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">실크 옐로우 앰플</span><span class="fp-pr"><s>34,800원</s><b>100원</b></span></div>
-                </div>
-                <div class="fp-page"><span class="pg">‹</span><em>1 / 2</em><span class="pg">›</span></div>
-              </div>
-            </div>
-            <div class="pwc-mt"><span class="mt-lb">첫 구매율</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+26%</span></span></div>
-          </div>
-          <div class="pwc c6">
-            <div class="pwc-h"><span class="pwc-nm">장바구니 리마인드</span><span class="pwc-live"><i></i>작동 중</span></div>
-            <div class="pwc-ex">
-              <div class="cr">
-                <div class="cr-sender">(광고) @알파몰</div>
-                <div class="cr-card">
-                  <div class="cr-img">
-                    <img src="assets/push/fashion-girl1.png" alt="">
-                    <span class="cr-cart">🛒 장바구니 보관 중</span>                  </div>
-                  <div class="cr-body">
-                    <p class="cr-msg"><b>알파</b>님이 담아두신 <b>그레이 플리츠 스커트</b>가 기다려요 🛍</p>
-                    <button class="cr-btn"><span class="l0">바로 구매하기</span><span class="l1">✓ 결제 완료!</span></button>
-                  </div>
-                </div>
-                <span class="cr-stamp">🎉 구매 전환!</span>
-                <span class="cr-cursor"></span>
-              </div>
-            </div>
-            <div class="pwc-mt"><span class="mt-lb">장바구니 회수</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+29%</span></span></div>
-          </div>
-          <div class="pwc c7">
-            <div class="pwc-h"><span class="pwc-nm">고객 관리 세그먼트</span><span class="pwc-live"><i></i>작동 중</span></div>
-            <div class="pwc-ex">
-              <div class="cm">
-                <div class="cm-cap">🎯 지금 관리가 필요한 고객군</div>
-                <div class="cm-grid">
-                  <div class="cm-c hd" style="--i:0"><span class="ic">🌱</span><b class="n">199</b><span class="l">미구매</span></div>
-                  <div class="cm-c hd" style="--i:1"><span class="ic">🌿</span><b class="n">86</b><span class="l">첫구매</span></div>
-                  <div class="cm-c hd f" style="--i:2"><span class="ic">🌷</span><b class="n">4</b><span class="l">재구매</span></div>
-                  <div class="cm-c hd" style="--i:3"><span class="ic">🔥</span><b class="n">0</b><span class="l">고반복</span><span class="cs-gain">+2</span></div>
-                  <div class="cm-c" style="--i:4"><b class="n">2</b><span class="l">담고이탈</span></div>
-                  <div class="cm-c" style="--i:5"><b class="n">1</b><span class="l">담고이탈</span></div>
-                  <div class="cm-c f mut" style="--i:6"><b class="n">0</b><span class="l">담고이탈</span></div>
-                  <div class="cm-c mut" style="--i:7"><b class="n">0</b><span class="l">담고이탈</span></div>
-                  <div class="cm-c" style="--i:8"><b class="n">1</b><span class="l">가입이탈</span></div>
-                  <div class="cm-c" style="--i:9"><b class="n">23</b><span class="l">30일 경과</span></div>
-                  <div class="cm-c f" style="--i:10"><b class="n">2</b><span class="l">30일 경과</span></div>
-                  <div class="cm-c mut" style="--i:11"><b class="n">0</b><span class="l">30일 경과</span></div>
-                  <div class="cm-c" style="--i:12"><b class="n">196</b><span class="l">장기이탈</span></div>
-                  <div class="cm-c" style="--i:13"><b class="n">62</b><span class="l">장기미구매</span></div>
-                  <div class="cm-c f" style="--i:14"><b class="n">2</b><span class="l">장기미구매</span></div>
-                  <div class="cm-c mut" style="--i:15"><b class="n">0</b><span class="l">장기미구매</span></div>
-                </div>
-                <div class="cm-act">
-                  <div class="ca-tx">🌷 재구매 <b>잠재단골 4명</b> → 고반복 단골로 전환</div>
-                  <button class="cm-btn"><span class="l0">＋ 단골 전환 캠페인 실행</span><span class="l1">✓ 4명 단골 전환 완료</span></button>
-                </div>
-                <span class="cm-cursor"></span>
-              </div>
-            </div>
-            <div class="pwc-mt"><span class="mt-lb">단골 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+34%</span></span></div>
-          </div>
-          <div class="pwc c8">
-            <div class="pwc-h"><span class="pwc-nm">메시지 캠페인</span><span class="pwc-live"><i></i>작동 중</span></div>
-            <div class="pwc-ex">
-              <div class="mc">
-                <div class="mc-msg">
-                  <div class="mc-card"><img src="assets/push/Img_cart.png" alt=""></div>
-                  <div class="mc-body"><b>{고객명}</b>님, 지금 구매 시 특별 쿠폰을 드려요 😉</div>
-                  <button class="mc-btn"><span class="l0">1,000원 쿠폰 받기</span><span class="l1">✓ 자동 발송 완료</span></button>
-                  <span class="mc-cursor"></span>
-                </div>
-              </div>
-            </div>
-            <div class="pwc-mt"><span class="mt-lb">ROAS 상승</span><span class="mt-val"><span class="v0">0%</span><span class="v1">250~600%</span></span></div>
-          </div>
-        </div>
-        <button class="cmp-replay" type="button">↻ 다시 보기</button>
-      </div>`,
-
-      ps2: `<div class="sc cmp-sc">
-        <div class="cmp-app">
-          <div class="cmp-rail">
-            <span class="rail-logo">α</span>
-            <span class="rail-ic ic-chart"></span>
-            <span class="rail-ic ic-speaker"></span>
-            <span class="rail-ic ic-comment on"></span>
-            <span class="rail-ic ic-gift"></span>
-            <span class="rail-ic ic-users"></span>
-          </div>
-          <div class="cmp-main">
-            <div class="cmp-head"><span class="ch-back">←</span>자동화 캠페인 만들기</div>
-            <div class="cmp-tabs"><span class="on">전체</span><span>첫 구매 유도</span><span>장바구니 구매 전환</span><span>첫 구매 후 관리</span><span>재방문·재구매</span><span>이탈·휴면</span></div>
-            <div class="cmp-list">
-              <div class="cl-sec">🔥 추천 레시피</div>
-              <div class="cl-row pick"><span class="cl-th"><img src="assets/recipe/img1015.png" alt=""></span><span class="cl-tx"><b>장바구니 고객에게 할인 쿠폰 제공</b><em>📈 평균 ROAS 800~2,500%</em></span><button class="cl-start" data-act><span class="cl-lb">레시피 시작</span></button><span class="cl-cursor"></span></div>
-              <div class="cl-sec">첫 구매 유도</div>
-              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1012.png" alt=""></span><span class="cl-tx"><b>가입 후 미구매 고객에게 할인 쿠폰 제공</b><em>📈 평균 ROAS 250~600%</em></span></div>
-              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1013.png" alt=""></span><span class="cl-tx"><b>가입 후 미구매 고객에게 최근 인기상품 추천</b><em>📈 평균 ROAS 150~400%</em></span></div>
-              <div class="cl-sec">장바구니 구매 전환</div>
-              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1014.png" alt=""></span><span class="cl-tx"><b>장바구니 고객에게 담은 상품 리마인드</b><em>📈 평균 ROAS 1,200~4,000%</em></span></div>
-              <div class="cl-sec">첫 구매 후 관리</div>
-              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1016.png" alt=""></span><span class="cl-tx"><b>첫 구매 7일 경과 고객에게 감사 쿠폰 발급</b><em>📈 평균 ROAS 500~1,500%</em></span></div>
-              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1017.png" alt=""></span><span class="cl-tx"><b>첫 구매 30일 경과 고객에게 인기상품 추천</b><em>📈 평균 ROAS 300~800%</em></span></div>
-              <div class="cl-sec">재방문·재구매 유도</div>
-              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1018.png" alt=""></span><span class="cl-tx"><b>상품 리필 시기 알림</b><em>📈 평균 ROAS 600~1,800%</em></span></div>
-            </div>
-          </div>
-          <div class="cmp-drawer">
-            <span class="cmp-cursor"></span>
-            <div class="cd-top"><span class="cd-x">✕</span><button class="cd-preset">프리셋 사용하기</button></div>
-            <div class="cd-title">장바구니 고객에게<br>할인 쿠폰 제공</div>
-            <div class="cd-meta"><span>📈 평균 ROAS 800~2,500%</span></div>
-            <div class="cd-target"><b>발송 대상</b><br/>장바구니 담은 고객이 <em>2일</em> 미구매 시 <em>오전 11:00</em> 자동 발송</div>
-            <div class="cmp-phone">
-              <div class="cp-sender">(광고) @urbanshift</div>
-              <img class="cmp-cardimg" src="assets/recipe/img1015.png" alt="장바구니 쿠폰 친구톡">
-              <p class="cmp-msg">안녕하세요 {고객명}님<br>장바구니에 담아두신 상품들이 기다리고 있어요 🛒<br><br>지금 바로 구매하시면 사용할 수 있는 특별 쿠폰을 준비했어요 😉<br>{쇼핑몰명}에서 24시간 이내 사용할 수 있어요</p>
-              <div class="cp-footer">수신거부 | 홈 &gt; 채널차단</div>
-            </div>
-          </div>
-          <div class="cd-result">
-            <div class="cr-head">실시간 자동 발송</div>
-            <div class="cr-roas"><span class="cr-roasv">ROAS 1,840%</span><span class="cr-roasd">광고비 대비 18배 매출</span></div>            
-            <div class="cr-stats">
-              <div class="cr-stat"><span class="cs-lbl">발송 인원</span><span class="cs-val"><b class="cnt" data-to="12847" data-fmt="num" data-delay="1650">0</b></span></div>
-              <div class="cr-stat pos"><span class="cs-lbl">구매 전환</span><span class="cs-val"><b class="cnt" data-to="486" data-fmt="num" data-delay="1950">0</b></span></div>
-              <div class="cr-stat key"><span class="cs-lbl">추가 매출</span><span class="cs-val"><b class="cnt" data-to="18400000" data-fmt="num" data-delay="2250">0</b></span></div>
-            </div>
-            <div class="cr-foot"><button class="cmp-replay" type="button">↻ 다시 보기</button></div>
-          </div>
-        </div>
-      </div>`,
-
-      ps3: `<div class="sc pc-scene">
-        <div class="pcx">
-          <div class="pcx-feats">
-            <div class="pcx-fh">기능 리스트</div>
-            <div class="pcx-ctaslot">
-              <div class="ps-cta">
-                <button class="cl-start" data-act><span class="cl-lb">기능 하나씩 켜보기</span></button>
-                <span class="cl-cursor"></span>
-              </div>
-              <button class="cmp-replay" type="button">↻ 다시 보기</button>
-            </div>
-            <div class="pcx-fg">
-              <span class="pcx-f"><i class="pcx-ck"></i>🎯 온사이트 세그먼트</span>
-              <span class="pcx-f"><i class="pcx-ck"></i>💬 메시지 캠페인 세그먼트</span>
-              <span class="pcx-f"><i class="pcx-ck"></i>⚡ 초스피드 회원가입</span>
-              <span class="pcx-f"><i class="pcx-ck"></i>🎁 카톡 선물</span>
-              <span class="pcx-f"><i class="pcx-ck"></i>🖼 배너 관리</span>
-              <span class="pcx-f only"><i class="pcx-ck"></i>🛒 구매 유도 장치<em>타사 미제공</em></span>
-              <span class="pcx-f mau"><i class="pcx-ck"></i>📈 월 방문 고객 급증</span>
-            </div>
-          </div>
-          <div class="pcx-chart">
-            <div class="pcx-plot">
-              <div class="pcx-col">
-                <div class="pcx-btrack"><div class="pcx-bar o"><span class="pcx-bval"><b class="pcx-oval">90,000원 ↑</b></span></div></div>
-                <div class="pcx-name o"><b>경쟁 CRM</b><span>시작가 90,000 → 방문 고객 늘수록 → 100만+</span></div>
-              </div>
-              <div class="pcx-col">
-                <div class="pcx-verdict"><span class="pcx-vk">기능 다 켜도</span><b class="pcx-vv">알파푸시는 그대로</b></div>
-                <div class="pcx-btrack"><div class="pcx-bar u"><span class="pcx-bval"><b>39,000원</b><em>그대로</em></span></div></div>
-                <div class="pcx-name u"><b>알파푸시</b><span>정액 · 전 기능 포함 · 상품·회원 늘어도 동일</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>`,
-
-      cv1: `<div class="sc cv-roadmap cv-update">
-        <div class="ccu">
-          <div class="ccu-stage">
-          <div class="crm-cta ccu-cta"><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
-          <div class="ccu-locked">
-            <div class="ccl-chrome"><i></i><i></i><i></i><span class="ccl-url">alphacanvas.app · 업데이트 로드맵</span><span class="ccl-priv"><img class="ccl-lockmini" src="assets/lock.svg" alt="">비공개</span></div>
-            <div class="ccl-body">
-              <div class="ccl-lead"><img class="ccl-ic" src="assets/lock.svg" alt=""><div><div class="ccl-t">곧 공개될 업데이트 <b>5가지</b></div><div class="ccl-s">지금은 비공개 상태예요 — 재생하면 로드맵이 순서대로 공개돼요</div></div></div>
-              <div class="ccl-rows">
-                <span class="ccl-row"><i>1</i>숏츠 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
-                <span class="ccl-row"><i>2</i>메인 상품 info 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
-                <span class="ccl-row"><i>3</i>메뉴 관리<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
-                <span class="ccl-row"><i>4</i>매거진 위젯<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
-                <span class="ccl-row"><i>5</i>검색 기능 고도화<img class="ccl-rlock" src="assets/lock.svg" alt=""></span>
-              </div>
-              <div class="ccl-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">업데이트 로드맵 재생</span></button><span class="cl-cursor"></span></div>
-            </div>
-          </div>
-          <div class="ccu-card c1"><div class="ccu-lb"><span class="ccu-n">1</span>숏츠 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_1.png" alt=""></div></div>
-          <div class="ccu-card c2"><div class="ccu-lb"><span class="ccu-n">2</span>메인 상품 info 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_2.png" alt=""></div></div>
-          <div class="ccu-card c3"><div class="ccu-lb"><span class="ccu-n">3</span>메뉴 관리</div><div class="ccu-img"><img src="assets/canvas/canvas_update_3.png" alt=""></div></div>
-          <div class="ccu-card c4"><div class="ccu-lb"><span class="ccu-n">4</span>매거진 위젯</div><div class="ccu-img"><img src="assets/canvas/canvas_update_4.png" alt=""></div></div>
-          <div class="ccu-card c5"><div class="ccu-lb"><span class="ccu-n">5</span>검색 기능 고도화</div><div class="ccu-img"><img src="assets/canvas/canvas_update_5.png" alt=""></div></div>
-          <div class="ccu-foot"><span class="ccu-foot-ck">✓</span><b>5가지</b> 업데이트 공개! 로드맵은 여기서 끝이 아니라 <b>계속</b> 채워져요</div>
-          </div>
-        </div>
-      </div>`,
-
-      cv2: `<div class="sc cv2-sc">
-        <div class="cvb">
-          <div class="cvb-side">
-            <div class="cvb-stat">
-              <div class="cvb-prog"><span>완성도</span><div class="cvb-track"><i class="cvb-fill-bar"></i></div><b class="cvb-pct">0%</b></div>
-              <div class="cvb-conv">예상 구매 전환율<b class="cvb-convval">2.4%</b></div>
-              <div class="cvx-cta">
-                <button class="cl-start cvb-play" type="button"><span class="cl-lb">클릭으로 페이지 조립</span></button><span class="cl-cursor cvb-cursor"></span>
-                <button class="cmp-replay" type="button">↺ 다시 보기</button>
-              </div>
-            </div>
-            <div class="cvb-sec">레이아웃</div>
-            <button class="cvb-item" data-w="header" type="button"><span class="ci"></span><span class="ct"><b>헤더 · 메뉴</b><em>MAISON 로고 + NEW·BEST·SALE</em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="footer" type="button"><span class="ci"></span><span class="ct"><b>푸터</b><em>브랜드 · 정책 · SNS 안내</em></span><span class="ck">담기</span></button>
-            <div class="cvb-sec">전환 위젯 <span>담을수록 완성도가 올라요</span></div>
-            <button class="cvb-item" data-w="hero" data-d="2.2" type="button"><span class="ci"></span><span class="ct"><b>콘텐츠 배너</b><em>스프링 컬렉션 카피 + 무드</em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="coupon" data-d="2.6" type="button"><span class="ci"></span><span class="ct"><b>띠배너</b><em>첫 구매 할인 쿠폰 상단 노출</em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="prods" data-d="2.0" type="button"><span class="ci"></span><span class="ct"><b>상품그리드</b><em>인기 상품 4종 자동 배치</em></span><span class="ck">담기</span></button>
-            <button class="cvb-item" data-w="review" data-d="3.8" type="button"><span class="ci"></span><span class="ct"><b>포토리뷰 섹션</b><em>베스트 포토·영상 리뷰</em></span><span class="ck">담기</span></button>
-          </div>
-          <div class="cvb-shop">
-            <div class="cvb-chrome"><i></i><i></i><i></i><span>alphamall.cafe24.com/maison/spring</span></div>
-            <div class="cvb-canvas">
-              <div class="cvb-slot cvb-wg" data-s="coupon">
-                <div class="cvb-fill"><div class="mz-coupon"><i>🎟️</i><b>첫 구매 10% 할인 쿠폰! 5만원 이상 무료 배송</b><span>오늘하루 보지 않기 ✕</span></div></div>
-              </div>
-              <div class="cvb-slot" data-s="header">
-                <div class="cvb-empty">🧭 헤더 · 메뉴가 들어갈 자리</div>
-                <div class="cvb-fill"><div class="mz-head"><b class="mz-logo">MAISON</b><span class="mz-nav"><em>NEW</em><em>BEST</em><em>SALE</em><i>🛒</i></span></div></div>
-              </div>
-              <div class="cvb-slot" data-s="hero">
-                <div class="cvb-empty">🖼️ 콘텐츠 배너가 들어갈 자리</div>
-                <div class="cvb-fill"><div class="mz-hero">
-                  <span class="hcopy-a"><em>2026 SPRING COLLECTION</em><b>지금, 새로운 무드</b><u>봄을 여는 신상 컬렉션을 만나보세요</u><s>컬렉션 보기</s></span>
-                  <span class="hcopy-b"><em>BLACK FRIDAY</em><b>단 하루, 전 상품 -70%</b><u>일 년에 단 한 번, 최대 혜택을 만나보세요</u><s>세일 보기</s></span>
-                </div></div>
-              </div>
-              <div class="cvb-slot" data-s="prods">
-                <div class="cvb-empty">🛍️ 상품그리드가 들어갈 자리</div>
-                <div class="cvb-fill"><div class="mz-prods">
-                  <div class="mz-ph"><b>베스트 셀러</b><span>전체보기</span></div>
-                  <div class="mz-pgrid">
-                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod1.png')"></i><b>여름 청순 바람막이</b><em><span class="pct">48%</span>36,000</em></div>
-                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod2.png')"></i><b>여름맞이 린넨 카라 반팔티</b><em><span class="pct">50%</span>32,000</em></div>
-                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod3.png')"></i><b>시원한 워싱 데님 반바지</b><em><span class="pct">50%</span>29,900</em></div>
-                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod4.png')"></i><b>마린 카라 민소매 플레어 원피스</b><em><span class="pct">25%</span>59,900원</em></div>
-                  </div>
-                </div></div>
-              </div>
-              <div class="cvb-slot cvb-wg" data-s="review">
-                <div class="cvb-fill"><div class="mz-revs">
-                  <div class="mz-ph"><b>베스트 리뷰</b><b class="mz-rcnt"><span class="cnt" data-to="5852" data-fmt="num">0</span>개</b><span>원하는 리뷰를 검색해 보세요 🔍</span></div>
-                  <div class="mz-rgrid">
-                    <div class="mz-rev">
-                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev1.png')"><u>▶</u><em>⧉</em></i>
-                      <div class="mz-rstar">★★★<span>옵션 : 네이비/M</span></div>
-                      <p>뒷모습 라인이 정말 예뻐요. 차분한 네이비라 격식 있는 자리에도 잘 어울려요.</p>
-                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
-                      <div class="mz-rprod"><i class="t1"></i><span><b>백라인 슬리브리스 플레어…</b><em>72,000원</em><u><i>★</i> <b>4.9</b> (1,702)</u></span></div>
-                    </div>
-                    <div class="mz-rev">
-                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev2.png')"><u>▶</u><em>⧉</em></i>
-                      <div class="mz-rstar">★★★<span>옵션 : 베이지플라워/FREE</span></div>
-                      <p>은은한 플라워 패턴이라 부담스럽지 않고 분위기 있어요. 가디건이랑 잘 어울려요.</p>
-                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
-                      <div class="mz-rprod"><i class="t2"></i><span><b>무드 플라워 쉬폰 미디 원피스</b><em>64,900원</em><u><i>★</i> <b>4.8</b> (537)</u></span></div>
-                    </div>
-                    <div class="mz-rev">
-                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev3.png')"><em>📷</em></i>
-                      <div class="mz-rstar"><span>옵션 : 크림아이보리/FREE</span></div>
-                      <p>살랑이는 스커트 핏이 너무 예뻐요. 사진보다 실물이 더 여리여리하고 고급스러워요.</p>
-                      <div class="mz-ruser"><span>📷 UserID · 1일 전</span></div>
-                      <div class="mz-rprod"><i class="t3"></i><span><b>소프트 니트 슬리브리스 롱…</b><em>69,900원</em><u><i>★</i> <b>4.8</b> (124)</u></span></div>
-                    </div>
-                    <div class="mz-rev">
-                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev4.png')"><em>blog</em></i>
-                      <div class="mz-rstar"><span>옵션 : 스카이블루/S</span></div>
-                      <p>셔츠가 얇고 가벼워서 한여름에도 부담 없어요. 화이트 쇼츠랑 입으면 청량해요.</p>
-                      <div class="mz-ruser"><span>Ⓝ UserID · 1일 전</span></div>
-                      <div class="mz-rprod"><i class="t4"></i><span><b>스트라이프 오버핏 셔츠 쇼…</b><em>54,000원</em><u><i>★</i> <b>4.7</b> (98)</u></span></div>
-                    </div>
-                    <div class="mz-rev">
-                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev5.png')"><u>▶</u><em>⧉</em></i>
-                      <div class="mz-rstar">★★★<span>옵션 : 핑크베이지/M</span></div>
-                      <p>컬러가 너무 사랑스럽고 팬츠 핏도 깔끔해요. 출근룩으로도 데일리로도 좋아요.</p>
-                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
-                      <div class="mz-rprod"><i class="t5"></i><span><b>소프트 가디건 와이드 팬츠…</b><em>58,000원</em><u><i>★</i> <b>4.7</b> (112)</u></span></div>
-                    </div>
-                  </div>
-                  <div class="mz-page"><span class="mz-pol">운영 정책</span><span class="mz-nums"><i>‹</i><i class="on">1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>10</i><i>›</i></span><span class="mz-write">리뷰작성</span></div>
-                </div></div>
-              </div>
-              <div class="cvb-slot" data-s="footer">
-                <div class="cvb-empty">📄 푸터가 들어갈 자리</div>
-                <div class="cvb-fill"><div class="mz-foot"><b>MAISON</b><span><em>이용약관</em><em>고객센터</em><em>@maison.official</em></span></div></div>
-              </div>
-              <div class="cvb-confetti"></div>
-            </div>
-          </div>
-        </div>
-      </div>`,
-
-      cv3: `<div class="sc cv-benefit">
-        <div class="cvb-head">스킨 하나 구매하면, 시작에 필요한 3가지</div>
-        <div class="cvb-head2"><b>30만원 상당</b>의 혜택을 바로 받아요</div>
-        <div class="cvb-list">
-          <div class="cvb-card b1">
-            <div class="cvb-cover"><img class="cc-ic" src="assets/gift1.png" alt=""><span class="cc-n">혜택 1</span></div>
-            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-alphaapps.png" alt="AlphaApps"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
-            <div class="cvb-t">알파앱스 2개월 무료</div>
-            <div class="cvb-d">필수 앱 <b>리뷰·업셀·푸시</b>를 <b>2개월 무료</b>로 써보세요.</div>
-          </div>
-          <div class="cvb-card b2">
-            <div class="cvb-cover"><img class="cc-ic" src="assets/gift2.png" alt=""><span class="cc-n">혜택 2</span></div>
-            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-tosspay.png" alt="tosspay"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
-            <div class="cvb-t">토스페이 도입 혜택</div>
-            <div class="cvb-d"><b>도입 비용 0원</b>, 결제 <b>수수료까지 인하</b>해 드려요.</div>
-          </div>
-          <div class="cvb-card b3">
-            <div class="cvb-cover"><img class="cc-ic" src="assets/gift3.png" alt=""><span class="cc-n">혜택 3</span></div>
-            <div class="cvb-top"><img class="cvb-blogo" src="assets/logo-saveoffice.png" alt="saveoffice"><span class="cvb-stamp"><i class="cvb-stamp-ck"></i></span></div>
-            <div class="cvb-t">비상주사무실 최대 30% 할인</div>
-            <div class="cvb-d">사업자 등록 전에도 쓰는 사업장 주소, <b>최대 30% 할인</b>.</div>
-          </div>
-        </div>
-        <div class="crm-cta cvb-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">도입 혜택 받기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
-      </div>`,
-
-      /* 인스타피드 — 태그된 게시글을 쇼핑몰 홈으로 (demo-instafeed 이식) */
-      if1: `<div class="sc if-sc if1s">
-        <div class="if1-stage">
-          <div class="if1-screen">
-            <div class="if1-side">
-              <div class="if1-sbhead"><span class="if1-ig sm"></span># 내가 태그된 게시글</div>
-              <div class="if1-empty"></div>
-              <button class="if1-play" data-act type="button"><span class="if1-ig sm"></span>내 태그된 게시글 가져오기</button>
-              <span class="if1-ring"></span>
-              <span class="if1-cursor"></span>
-              <div class="if1-busy"><span class="if1-spin"></span>태그된 게시글 찾는 중…</div>
-              <div class="if1-posts">
-                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f1.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 데일리 코디 추천 🤍</span><span class="if1-pmeta"><span>♥ 5.3천</span><span>💬 125</span></span></div><span class="if1-ptag">태그됨</span></div>
-                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f2.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 린넨 셋업 후기</span><span class="if1-pmeta"><span>♥ 3.2천</span><span>💬 88</span></span></div><span class="if1-ptag">태그됨</span></div>
-                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f3.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 스트라이프 팬츠 데일리</span><span class="if1-pmeta"><span>♥ 2.6천</span><span>💬 41</span></span></div><span class="if1-ptag">태그됨</span></div>
-                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f4.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 가을 무드 자켓 ✨</span><span class="if1-pmeta"><span>♥ 4.1천</span><span>💬 96</span></span></div><span class="if1-ptag">태그됨</span></div>
-                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f5.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 니트 컬러 비교</span><span class="if1-pmeta"><span>♥ 1.9천</span><span>💬 33</span></span></div><span class="if1-ptag">태그됨</span></div>
-                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f6.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 데님 코디 추천템</span><span class="if1-pmeta"><span>♥ 2.2천</span><span>💬 57</span></span></div><span class="if1-ptag">태그됨</span></div>
-                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f7.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 트렌치 코트 데일리</span><span class="if1-pmeta"><span>♥ 3.7천</span><span>💬 72</span></span></div><span class="if1-ptag">태그됨</span></div>
-                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f8.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 오피스 캐주얼 룩</span><span class="if1-pmeta"><span>♥ 2.9천</span><span>💬 64</span></span></div><span class="if1-ptag">태그됨</span></div>
-              </div>
-            </div>
-            <div class="if1-phone">
-              <div class="if1-phscreen">
-                <div class="if1-phbar"><span class="if1-ig sm"></span><b class="if1-phhandle">@ourira</b><span class="if1-phsub">태그된 게시물</span></div>
-                <div class="if1-phgrid">
-                  <i class="if1-rcell"><img src="assets/insta/f1.png" alt=""><span class="if1-tagbadge">태그</span></i>
-                  <i class="if1-rcell"><img src="assets/insta/f2.png" alt=""><span class="if1-tagbadge">태그</span></i>
-                  <i class="if1-rcell"><img src="assets/insta/f3.png" alt=""><span class="if1-tagbadge">태그</span></i>
-                  <i class="if1-rcell"><img src="assets/insta/f4.png" alt=""><span class="if1-tagbadge">태그</span></i>
-                  <i class="if1-rcell"><img src="assets/insta/f5.png" alt=""><span class="if1-tagbadge">태그</span></i>
-                  <i class="if1-rcell"><img src="assets/insta/f6.png" alt=""><span class="if1-tagbadge">태그</span></i>
-                  <i class="if1-rcell"><img src="assets/insta/f7.png" alt=""><span class="if1-tagbadge">태그</span></i>
-                  <i class="if1-rcell"><img src="assets/insta/f8.png" alt=""><span class="if1-tagbadge">태그</span></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="if1-bz">
-            <div class="if1-bzchrome"><i></i><i></i><i></i><span class="if1-bzurl">🔒 ourira.co.kr</span></div>
-            <div class="if1-bznav"><span class="if1-bzlogo">ourira</span><span class="if1-nl">Shop</span><span class="if1-nl">Content</span><span class="if1-nl">Community</span><span class="if1-nr"><span class="if1-nl">My page</span><span class="if1-nl">Cart</span></span></div>
-            <div class="if1-bzbody">
-              <div class="if1-feed">
-                <i class="if1-cell" style="--n:0"><img src="assets/insta/f2.png" alt=""></i>
-                <i class="if1-cell" style="--n:1"><img src="assets/insta/f7.png" alt=""></i>
-                <i class="if1-cell hl" style="--n:2"><img src="assets/insta/f1.png" alt=""></i>
-                <i class="if1-cell" style="--n:3"><img src="assets/insta/f5.png" alt=""></i>
-                <i class="if1-cell" style="--n:4"><img src="assets/insta/f8.png" alt=""></i>
-                <i class="if1-cell" style="--n:5"><img src="assets/insta/f6.png" alt=""></i>
-                <i class="if1-cell" style="--n:6"><img src="assets/insta/f4.png" alt=""></i>
-                <i class="if1-cell" style="--n:7"><img src="assets/insta/f3.png" alt=""></i>
-              </div>
-              <div class="if1-toast"><span class="if1-tk">✓</span>태그된 게시글 <b class="if1-cnum">0</b>개를 쇼핑몰 홈에 올렸어요</div>
-            </div>
-          </div>
-          <div class="if1-conf"></div>
-        </div>
-        <button class="cmp-replay" type="button">↺ 다시 보기</button>
-      </div>`,
-
-      if2: `<div class="sc if-sc if2s">
-        <div class="if-shop">
-          <div class="if-chrome"><i></i><i></i><i></i><span class="if-url">alphamall.cafe24.com</span></div>
-          <div class="if-shopbody">
-            <div class="if-shophero"><span class="if-shoplogo">ALPHA MALL</span><span class="if-shopnav"><em>NEW</em><em>BEST</em><em>SALE</em></span></div>
-            <div class="if-wgtitle"><span class="if-ig sm"></span>우리 쇼핑몰 인스타 피드<span class="if-live"><i></i>실시간 연동</span></div>
-            <div class="if-wgfeed">
-              <i class="if-new n2"><img src="assets/insta/f6.png" alt=""><span class="if-newtag">NEW</span></i>
-              <i class="if-new"><img src="assets/insta/f7.png" alt=""><span class="if-newtag">NEW</span></i>
-              <i><img src="assets/insta/f1.png" alt=""></i>
-              <i><img src="assets/insta/f2.png" alt=""></i>
-              <i><img src="assets/insta/f5.png" alt=""></i>
-            </div>
-            <div class="if-prods">
-              <div class="if-prod"><i style="background-image:url('assets/insta/f3.png')"></i><b>린넨 원피스</b><em>42,000원</em></div>
-              <div class="if-prod"><i style="background-image:url('assets/insta/f4.png')"></i><b>코튼 셔츠</b><em>29,900원</em></div>
-              <div class="if-prod"><i style="background-image:url('assets/insta/f8.png')"></i><b>플리츠 스커트</b><em>38,000원</em></div>
-            </div>
-          </div>
-        </div>
-        <div class="if-cta"><div class="if-toast"><span class="if-ig sm"></span>새 게시물 업로드 → <b>피드 위젯 자동 반영</b></div><button class="cl-start" data-act type="button"><span class="cl-lb">새 게시물 올려보기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
-      </div>`,
-
-      if3: `<div class="sc if-sc if3s">
-        <div class="if-dwell">
-          <div class="if-phone">
-            <div class="if-phead"><span class="if-avatar sm"></span><b>@alphamall_official</b><span class="if-ig sm"></span></div>
-            <div class="if-scrollwrap"><div class="if-scroller">
-              <i><img src="assets/maison/maison-insta1.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta2.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta3.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta4.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta5.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta6.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta7.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta8.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta9.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta10.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta11.png" alt=""></i>
-              <i><img src="assets/maison/maison-insta12.png" alt=""></i>
-            </div></div>
-            <div class="if-scrollhint">↕ 감성 피드를 둘러보는 중</div>
-          </div>
-          <div class="if-metrics">
-            <div class="if-mcard">
-              <span class="if-mlb">평균 체류시간</span>
-              <div class="if-mval"><b class="if-mnum">1:48</b><span class="if-mup">+25%</span></div>
-              <div class="if-mbars"><i style="--h:52%"></i><i style="--h:60%"></i><i style="--h:70%"></i><i style="--h:82%"></i><i style="--h:100%"></i></div>
-              <div class="if-mx"><span>연동 전</span><span>연동 후</span></div>
-            </div>
-            <div class="if-verdict"><span class="if-vk">감성 콘텐츠 효과</span><b class="if-vv"><span class="if-vq">? 얼마나 더 머물게 될까요</span><span class="if-va">머무는 시간 +25% ↑</span></b></div>
-          </div>
-        </div>
-        <div class="if-cta"><button class="cl-start" data-act type="button"><span class="cl-lb">체류 효과 보기</span></button><span class="cl-cursor"></span><button class="cmp-replay" type="button">↺ 다시 보기</button></div>
-      </div>`,
-    };
+    // 씬 HTML은 하단 #sceneDefs의 <template>에 하드코딩되어 있음 — 여기서 로드만 한다
+    const SCENES = {};
+    document.querySelectorAll('#sceneDefs template[data-scene]').forEach(t => { SCENES[t.dataset.scene] = t.innerHTML; });
 
     /* 히어로 우측 패널 (비트별 목업) — ENTRY 제품용 */
-    const HERO_PANES = {
-      review: [
-        `<div class="hero-pane hp-live">
-          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">리뷰 모두 수집하기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
-          <div class="rvh rvh-gather">
-            <div class="rvh-rc" data-rvh-target="naver" style="--x:-300px;--y:-150px;--r:-8deg;--d:0s"><div class="rc-top"><span class="rc-src" style="--sc:#03C75A">네이버</span><span class="st">★★★★★</span></div><div class="rc-tx">핏이 딱 맞아요, 또 살래요</div></div>
-            <div class="rvh-rc" data-rvh-target="social" style="--x:-322px;--y:26px;--r:6deg;--d:.04s"><div class="rc-top"><span class="rc-src" style="--sc:#E1306C">인스타</span><span class="st">★★★★★</span></div><img class="rc-photo" src="assets/insta/f1.png" alt=""></div>
-            <div class="rvh-rc" data-rvh-target="coupang" style="--x:-250px;--y:170px;--r:-5deg;--d:.08s"><div class="rc-top"><span class="rc-src" style="--sc:#F94C4C">쿠팡</span><span class="st">★★★★★</span></div><div class="rc-tx">배송 빨라요 만족!</div></div>
-            <div class="rvh-rc" data-rvh-target="quick" style="--x:-24px;--y:-180px;--r:4deg;--d:.02s"><div class="rc-top"><span class="rc-src" style="--sc:#6D58F2">알림톡</span><span class="st">★★★★★</span></div><div class="rc-tx">만족해요 ❤️</div></div>
-            <div class="rvh-rc" data-rvh-target="musinsa" style="--x:290px;--y:-138px;--r:8deg;--d:.06s"><div class="rc-top"><span class="rc-src" style="--sc:#1A1A1A">무신사</span><span class="st">★★★★☆</span></div><div class="rc-tx">재질이 튼튼해요</div></div>
-            <div class="rvh-rc" data-rvh-target="olive" style="--x:320px;--y:0px;--r:-6deg;--d:.12s"><div class="rc-top"><span class="rc-src" style="--sc:#8DB825">올리브영</span><span class="st">★★★★★</span></div><div class="rc-tx">색감 사진 그대로</div></div>
-            <div class="rvh-rc" data-rvh-target="qr" style="--x:258px;--y:150px;--r:5deg;--d:.10s"><div class="rc-top"><span class="rc-src" style="--sc:#20242E">QR·매장</span><span class="st">★★★★★</span></div><div class="rc-tx">실물이 더 예뻐요</div></div>
-            <div class="rvh-rc" data-rvh-target="lotte" style="--x:40px;--y:190px;--r:-4deg;--d:.14s"><div class="rc-top"><span class="rc-src" style="--sc:#DA291C">롯데온</span><span class="st">★★★★★</span></div><div class="rc-tx">가격 대비 최고예요</div></div>
-            <div class="rvh-stage">
-            <div class="rvh-sources">
-              <div class="rvs s1">
-                <div class="rvs-h">빠른 리뷰</div>
-                <div class="rvx rvx-talk" data-rvh-source="quick" style="--rvh-hit-delay:.86s">
-                  <div class="rvx-noti"><span class="rvx-app">α</span><b>알파리뷰 알림톡</b><span class="rvx-tm">방금</span></div>
-                  <div class="rvx-msg">구매하신 <b>여름 원피스</b>는 어떠셨나요?<br>만족하셨다면 별점을 남겨주세요 😊</div>
-                  <div class="rvx-btns"><span class="rvx-b on">만족해요 ❤️</span><span class="rvx-b">괜찮아요</span><span class="rvx-b">아쉬워요</span></div>
-                </div>
-              </div>
-              <div class="rvs s2">
-                <div class="rvs-h">외부몰 연동</div>
-                <div class="rvx rvx-sync" data-rvh-source="social" style="--rvh-hit-delay:.88s">
-                  <div class="rvx-mcloud">
-                    <span class="rvx-mall" data-rvh-source="coupang" style="--rvh-hit-delay:.92s"><i class="rvx-mlg" style="--lg:#F94C4C">쿠</i>쿠팡</span><span class="rvx-mall" data-rvh-source="musinsa" style="--rvh-hit-delay:.90s"><i class="rvx-mlg" style="--lg:#1A1A1A">무</i>무신사</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#1A1A1A">29</i>29cm</span><span class="rvx-mall" data-rvh-source="naver" style="--rvh-hit-delay:.84s"><i class="rvx-mlg" style="--lg:#03C75A">N</i>네이버</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E23838">S</i>SSG</span><span class="rvx-mall" data-rvh-source="lotte" style="--rvh-hit-delay:.98s"><i class="rvx-mlg" style="--lg:#DA291C">롯</i>롯데온</span><span class="rvx-mall" data-rvh-source="olive" style="--rvh-hit-delay:.96s"><i class="rvx-mlg" style="--lg:#8DB825">올</i>올리브영</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF0038">11</i>11번가</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#23305C">L</i>LF몰</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5007D">C</i>CJ온스타일</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#0A8B3F">G</i>GS SHOP</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF4E7E">브</i>브랜디</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#22BFB8">오</i>오늘의집</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5344A">위</i>위메프</span><span class="rvx-mall rvx-more">+80</span>
-                  </div>
-                </div>
-              </div>
-              <div class="rvs s3">
-                <div class="rvs-h">QR 코드</div>
-                <div class="rvx rvx-qr" data-rvh-source="qr" style="--rvh-hit-delay:.94s">
-                  <svg class="rvx-qrbox" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="6" width="3" height="3" fill="#20242E"></rect><rect x="27" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="31" y="6" width="3" height="3" fill="#20242E"></rect><rect x="2" y="27" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="31" width="3" height="3" fill="#20242E"></rect><g fill="#20242E"><rect x="18" y="3" width="3" height="3"></rect><rect x="23" y="7" width="3" height="3"></rect><rect x="18" y="11" width="3" height="3"></rect><rect x="34" y="18" width="3" height="3"></rect><rect x="27" y="18" width="3" height="3"></rect><rect x="31" y="22" width="3" height="3"></rect><rect x="18" y="18" width="3" height="3"></rect><rect x="22" y="22" width="3" height="3"></rect><rect x="18" y="26" width="3" height="3"></rect><rect x="23" y="30" width="3" height="3"></rect><rect x="27" y="27" width="3" height="3"></rect><rect x="31" y="31" width="3" height="3"></rect><rect x="34" y="34" width="3" height="3"></rect><rect x="18" y="34" width="3" height="3"></rect></g></svg>
-                  <span class="rvx-arrow">→</span>
-                  <div class="rvx-rvcard">
-                    <div class="rvx-rv-top"><img src="assets/insta/f8.png" alt=""><span class="st">★★★★★</span><span class="rvx-rv-who">김민**님 · 오프라인 구매</span></div>
-                    <p class="rvx-rv-tx">매장에서 받아봤는데 실물이 더 예뻐요!</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <svg class="rvh-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M0,50 L100,50"></path>
-              <path d="M0,50 L100,50"></path>
-              <path d="M0,50 L100,50"></path>
-            </svg>
-            <div class="rvh-mall">
-              <div class="rvh-empty">
-                <div class="rve-head">🛍️ 우리 쇼핑몰 · 상품 리뷰</div>
-                <div class="rve-body">
-                  <div class="rve-ic">💬</div>
-                  <div class="rve-t">아직 등록된 리뷰가 <b>0개</b></div>
-                  <div class="rve-s">리뷰가 채널마다 흩어져 있어요</div>
-                  <button class="cl-start rve-btn" type="button" data-heroplay><span class="cl-lb">리뷰 모두 수집하기</span></button><span class="cl-cursor rve-cursor"></span>
-                </div>
-              </div>
-              <div class="rvh-panel hero-payoff">
-                <div class="rvh-top">
-                  <div class="rvh-topL">
-                    <div class="rvh-title">모든 리뷰<br><b>실시간 수집중</b></div>
-                  </div>
-                  <div class="rvh-count">
-                    <span class="rvh-live"><i class="rd"></i>LIVE</span>
-                  </div>
-                </div>
-                <div class="rvh-metric">
-                  <div class="rvh-mt"><div class="v"><b class="cnt" data-to="5967" data-from="0" data-fmt="num" data-delay="1440">0</b></div><div class="l">누적 리뷰</div></div>
-                  <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="32" data-from="0" data-delay="1440">0</b>%</div><div class="l">구매 전환율</div></div>
-                  <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="27" data-from="0" data-delay="1440">0</b>%</div><div class="l">재구매율</div></div>
-                  <div class="rvh-mt"><div class="v"><b class="cnt" data-to="49" data-from="40" data-fmt="star" data-delay="1440">4.0</b></div><div class="l">평균 별점</div></div>
-                </div>
-                <div class="rvh-chart"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:68%"></i><i style="--h:84%"></i><i style="--h:100%"></i></div>
-              </div>
-            </div>
-            </div>
-          </div>
-        </div>`,
-        `<div class="hero-pane hp-ai">
-          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">리뷰 인사이트 보기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
-          <div class="ai-pipe">
-            <div class="ai-before">
-              <div class="aib-revs">
-                <div class="aib-rev"><span class="st">★★★★★</span><p>핏이 딱 맞아요, 또 살래요!</p><i class="aib-tag">핏</i></div>
-                <div class="aib-rev"><span class="st">★★★★☆</span><p>배송이 조금 늦었어요</p><i class="aib-tag neg">배송</i></div>
-                <div class="aib-rev"><span class="st">★★★★★</span><p>색감이 사진 그대로예요</p><i class="aib-tag">색감</i></div>
-                <div class="aib-rev"><span class="st">★★★★★</span><p>재질이 튼튼하고 좋아요</p><i class="aib-tag">재질</i></div>
-                <div class="aib-rev"><span class="st">★★★★★</span><p>정사이즈라 딱이에요</p><i class="aib-tag">사이즈</i></div>
-              </div>
-              <div class="aib-q">이 리뷰들, <b>어떻게 활용해야 하지?</b> 🤔</div>
-              <button class="cl-start aib-btn" type="button" data-heroplay><span class="cl-lb">리뷰 인사이트 요약하기</span></button><span class="cl-cursor aib-cursor"></span>
-            </div>
-            <div class="apx-topbar hero-payoff"><span class="apx-tx"><i class="apx-live"></i>리뷰 <b class="cnt" data-to="12480" data-from="0" data-delay="1900">0</b>건 <b>실시간</b> 처리 · 매주 자동 반복! 담당자 <b>3명 몫</b>을 AI가 대신</span></div>
-            <div class="apx-flow">
-              <div class="stg s1 hero-payoff">
-                <div class="stg-top"><span class="stg-no">1</span><span class="stg-lb">리뷰 수집·분류</span></div>
-                <div class="stg-ui">
-                  <div class="mstat"><span class="ms-l">리뷰 수</span><b class="cnt" data-to="52400" data-from="0" data-fmt="num" data-delay="500">0</b><span class="ms-up">▲ 1,381</span></div>
-                  <div class="mrv"><img src="assets/insta/f1.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>핏이 딱 맞아요</em></span><i class="tg">핏</i></div>
-                  <div class="mrv"><img src="assets/insta/f4.png" alt=""><span class="mrv-b"><span class="st">★★★★☆</span><em>배송이 늦었어요</em></span><i class="tg neg">배송</i></div>
-                  <div class="mrv"><img src="assets/insta/f7.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>색감이 사진 그대로</em></span><i class="tg">색감</i></div>
-                  <div class="mrv"><img src="assets/insta/f2.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>재질이 튼튼해요</em></span><i class="tg">재질</i></div>
-                  <div class="mrv"><img src="assets/insta/f5.png" alt=""><span class="mrv-b"><span class="st">★★★★★</span><em>정사이즈예요</em></span><i class="tg">사이즈</i></div>
-                </div>
-                <div class="stg-cap">쌓이는 리뷰를 AI가 자동 수집 · 오늘 +12,480건</div>
-              </div>
-              <span class="arw a1"></span>
-              <div class="stg s2 hero-payoff">
-                <div class="stg-top"><span class="stg-no">2</span><span class="stg-lb">AI 리뷰 요약</span></div>
-                <div class="stg-ui">
-                  <div class="msum-h">🤖 <b>92%</b> 고객 만족</div>
-                  <div class="msum-t ok">👍 좋았던 점</div>
-                  <div class="msum-row ok">핏·색감·재질이 좋아요</div>
-                  <div class="msum-row ok">사이즈가 정사이즈예요</div>
-                  <div class="msum-t cau">💬 참고할 점</div>
-                  <div class="msum-row cau">배송이 조금 아쉬워요</div>
-                  <div class="mrv-thumbs"><img src="assets/insta/f2.png" alt=""><img src="assets/insta/f5.png" alt=""><img src="assets/insta/f1.png" alt=""></div>
-                </div>
-                <div class="stg-cap">핵심만 요약해 상세페이지에 자동 게시</div>
-              </div>
-              <span class="arw a2"></span>
-              <div class="stg s3 hot hero-payoff">
-                <div class="stg-top"><span class="stg-no">3</span><span class="stg-lb">최상단 고정</span></div>
-                <div class="stg-ui">
-                  <div class="pin-rec">✦ AI 추천 리뷰<span>32개</span></div>
-                  <div class="pin-card">
-                    <div class="pin-user"><img src="assets/insta/f2.png" alt=""><span class="pin-who"><b>이지은</b><em>24.8.6 · 구매 인증</em></span></div>
-                    <div class="pin-thumbs"><img src="assets/insta/f1.png" alt=""><img src="assets/insta/f4.png" alt=""><img src="assets/insta/f5.png" alt=""></div>
-                    <p class="pin-tx">“군더더기 없이 예쁘고 몸에도 불편감이 없어서 좋았어요”</p>
-                    <div class="pin-reason"><i>실제경험5/5</i><i>긍정적5/5</i><i>구체적4/5</i></div>
-                    <button class="pin-btn">최상단 고정<span class="lf-cursor"></span></button>
-                  </div>
-                  <div class="pin-list">
-                    <div class="pin-li"><b>1</b><img src="assets/insta/f2.png" alt=""><span>이지은 · 라이프 린넨</span><i class="up"></i></div>
-                    <div class="pin-li"><b>2</b><img src="assets/insta/f5.png" alt=""><span>강수아 · 크롭 나시</span></div>
-                    <div class="pin-li"><b>3</b><img src="assets/insta/f7.png" alt=""><span>최시우 · UNISEX</span></div>
-                  </div>
-                </div>
-                <div class="stg-cap">좋은 리뷰를 위젯 맨 위로 올려 · 리뷰 순서 조정 > 구매 전환율 ▲</div>
-              </div>
-              <span class="arw a3"></span>
-              <div class="stg s4 hero-payoff">
-                <div class="stg-top"><span class="stg-no">4</span><span class="stg-lb">월간 브리핑</span></div>
-                <div class="stg-ui">
-                  <div class="mc-bars"><i style="--h:38%"></i><i style="--h:56%"></i><i style="--h:48%"></i><i style="--h:72%"></i><i style="--h:62%"></i><i style="--h:88%"></i><i style="--h:100%"></i></div>
-                  <div class="mc-stat">부정 리뷰 <b>5%</b> <span class="dn">▼ 1%p</span></div>
-                  <div class="mstat sm"><span class="ms-l">분석</span><b>12,480</b><span class="ms-up">▲ 2,458</span></div>
-                  <div class="mscat"><span class="mscat-vx"></span><span class="mscat-thr"></span><i style="left:16%;top:16%"></i><i style="left:25%;top:27%"></i><i style="left:12%;top:33%"></i><i style="left:30%;top:20%"></i><i style="left:21%;top:52%"></i><i style="left:14%;top:66%"></i><i style="left:23%;top:80%"></i><i style="left:10%;top:84%"></i><i style="left:30%;top:72%"></i><i style="left:34%;top:88%"></i><i style="left:46%;top:72%"></i><i style="left:54%;top:83%"></i><i style="left:60%;top:69%"></i><i style="left:68%;top:79%"></i><i style="left:76%;top:71%"></i><i style="left:85%;top:81%"></i><i style="left:50%;top:63%"></i><i style="left:64%;top:88%"></i><i style="left:90%;top:67%"></i><i style="left:52%;top:50%"></i><i class="bad" style="left:70%;top:26%"></i><i class="bad" style="left:80%;top:34%"></i><i class="bad" style="left:88%;top:21%"></i></div>
-                  <div class="mscat-cap">🔥 개선 필요 상품 3건</div>
-                  <div class="mprod"><img src="assets/insta/f4.png" alt=""><b>체크 트위드</b><span class="pneg">6.5%</span></div>
-                  <div class="mprod"><img src="assets/insta/f7.png" alt=""><b>울 블렌드</b><span class="pneg">5.8%</span></div>
-                </div>
-                <div class="stg-cap">지표·추세와 개선 상품을 매달 리포트</div>
-              </div>
-              <span class="arw a4"></span>
-              <div class="stg s5 hero-payoff">
-                <div class="stg-top"><span class="stg-no">5</span><span class="stg-lb">브랜드 인사이트</span></div>
-                <div class="stg-ui">
-                  <div class="ins-tag"><svg class="ins-donut" viewBox="0 0 36 36"><circle class="d-neg" cx="18" cy="18" r="14" pathLength="100" stroke-dasharray="28 100" stroke-dashoffset="-72"></circle><circle class="d-pos" cx="18" cy="18" r="14" pathLength="100" stroke-dasharray="72 100"></circle></svg><span class="ins-t"><b>#핏 · 색감</b><em>언급량 1,573</em></span></div>
-                  <div class="ins-set">
-                    <div class="ins-ratio">
-                      <div class="mratio-lb"><span class="pos">긍정 92%</span><span class="neg2">부정 8%</span></div>
-                      <div class="mratio"><i></i></div>
-                    </div>
-                    <div class="mkw-risk">⚠ 위험 태그 · 배송 지연 점검</div>
-                  </div>
-                  <div class="ins-cloud">
-                    <div class="ic-hd">브랜드 강점 키워드</div>
-                    <div class="ic-map">
-                      <span class="icb pu" style="left:24%;top:42%;width:50px;height:50px;font-size:9.5px">핏 좋아요</span>
-                      <span class="icb gr" style="left:59%;top:31%;width:42px;height:42px;font-size:10px">색감</span>
-                      <span class="icb bl" style="left:85%;top:45%;width:34px;height:34px;font-size:9px">재질</span>
-                      <span class="icb am" style="left:43%;top:76%;width:34px;height:34px;font-size:9px">가성비</span>
-                      <span class="icb pk" style="left:71%;top:77%;width:30px;height:30px;font-size:8.5px">사이즈</span>
-                      <span class="icb gy" style="left:13%;top:82%;width:26px;height:26px;font-size:8px">배송</span>
-                      <span class="icb pu" style="left:90%;top:79%;width:24px;height:24px;font-size:8px">포장</span>
-                    </div>
-                  </div>
-                  <div class="ins-kw">
-                    <div class="ikw-card"><span class="ikw-l">최근 많이 보이는 키워드</span><span class="ikw-v"><i class="ikw-ic"></i><b>색감</b></span></div>
-                    <div class="ikw-card"><span class="ikw-l">가장 많은 비중을 차지하는 키워드</span><span class="ikw-v"><i class="ikw-ic"></i><b>핏 좋아요</b></span></div>
-                  </div>
-                </div>
-                <div class="stg-cap">강점·위험 키워드를 한눈에</div>
-              </div>
-            </div>
-          </div>
-        </div>`,
-        `<div class="hero-pane hp-wg">
-          <div class="hero-cta"><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
-          <div class="wg-head">
-            <div class="wg-title">리뷰 기능 <b class="cnt" data-to="20" data-from="0" data-delay="300">0</b>여 종, 알파리뷰 하나에 전부 있어요</div>
-          </div>
-          <div class="wg-wallwrap">
-            <div class="wg-before">
-              <div class="wgb-note">지금은 리뷰 기능을 <b>회사마다 하나씩</b> 흩어져 쓰고 있어요</div>
-              <div class="wgb-group">
-                <div class="wgb-vendors">
-                  <div class="wgb-v"><span class="wgb-tag">A사</span><div class="wgb-feat"><span class="wgb-ic">📷</span>포토 리뷰</div></div>
-                  <div class="wgb-v"><span class="wgb-tag">B사</span><div class="wgb-feat"><span class="wgb-ic">📊</span>별점 통계</div></div>
-                  <div class="wgb-v"><span class="wgb-tag">C사</span><div class="wgb-feat"><span class="wgb-ic">💬</span>리뷰 게시판</div></div>
-                </div>
-                <button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">알파리뷰 한 곳에서 모든 위젯 사용하기</span></button>
-                <span class="cl-cursor hero-cursor"></span>
-              </div>
-            </div>
-            <div class="wg-wall">
-              <div class="wg-col hero-payoff">
-                <div class="wg wg-stat w1">
-                  <div class="wg-h">📊 리뷰 통계 위젯</div>
-                  <div class="ws-score"><i class="star"></i><b>4.7</b><em><b class="cnt" data-to="682" data-from="0" data-delay="700">0</b>개 리뷰</em></div>
-                  <div class="wsb top"><span>매우 만족</span><span class="wsb-track"><i style="--w:93%"></i></span><span class="wsb-p">93%</span></div>
-                  <div class="wsb"><span>만족</span><span class="wsb-track"><i style="--w:4%"></i></span><span class="wsb-p">4%</span></div>
-                  <div class="wsb"><span>보통</span><span class="wsb-track"><i style="--w:1%"></i></span><span class="wsb-p">1%</span></div>
-                  <div class="wsb"><span>그저 그래요</span><span class="wsb-track"><i style="--w:1%"></i></span><span class="wsb-p">1%</span></div>
-                  <div class="wsb"><span>아쉬워요</span><span class="wsb-track"><i style="--w:1%"></i></span><span class="wsb-p">1%</span></div>
-                </div>
-                <div class="wg wg-board w5">
-                  <div class="wg-h">🗂️ 상품 리뷰 게시판</div>
-                  <div class="wb-row"><img class="wb-ava" src="assets/insta/f4.png" alt=""><span class="wb-tx"><span class="st">★★★★★</span><p>색감이 사진 그대로예요, 재질도 튼튼하고 정말 만족합니다 😊</p></span></div>
-                  <div class="wb-row"><img class="wb-ava" src="assets/insta/f1.png" alt=""><span class="wb-tx"><span class="st">★★★★★</span><p>핏이 딱 맞아요. 착용 영상 리뷰도 남겼어요!</p></span></div>
-                </div>
-                <div class="wg wg-sale w8">
-                  <span class="wsl-fire">🔥</span>
-                  <span class="wsl-tx">지금 <b>5,780명</b>이 이 상품을<br>보고 있어요 · 실시간 세일 중</span>
-                </div>
-                <div class="wg wg-airep w10">
-                  <div class="wg-h">🤖 AI 자동 답글</div>
-                  <div class="wa-q"><span class="st">★★★★★</span><p>배송 빠르고 화면 그대로예요!</p></div>
-                  <div class="wa-re"><i>AI</i><p>소중한 리뷰 감사해요 😊 다음 구매에 쓰실 적립금 1,000P를 드렸어요.</p></div>
-                </div>
-              </div>
-              <div class="wg-col hero-payoff">
-                <div class="wg wg-photo w2">
-                  <div class="wg-h">📷 포토 리뷰 그리드</div>
-                  <div class="wg-pg">
-                    <img src="assets/insta/f1.png" alt=""><img src="assets/insta/f4.png" alt=""><img src="assets/insta/f5.png" alt="">
-                    <img src="assets/insta/f7.png" alt=""><img src="assets/insta/f2.png" alt=""><img src="assets/insta/f8.png" alt="">
-                  </div>
-                  <div class="wg-meta"><i class="star"></i><b>4.9</b>&nbsp;·&nbsp;포토 리뷰 <b class="cnt" data-to="1284" data-from="0" data-delay="900">0</b>개</div>
-                </div>
-                <div class="wg wg-vid w4">
-                  <div class="wg-h">🎬 포토·영상 리뷰</div>
-                  <div class="wv-img">
-                    <img src="assets/hero-product.png" alt="">
-                    <span class="wv-play"><i>▶</i></span>
-                    <span class="wv-rate"><i class="star"></i>4.8</span>
-                  </div>
-                  <div class="wv-prod">
-                    <img src="assets/hero-product.png" alt="">
-                    <span><span class="wp-nm">여름 청순 바람막이</span><span class="wp-mt"><i class="star"></i>4.7 · 리뷰 111개</span></span>
-                  </div>
-                </div>
-                <div class="wg wg-filter w11">
-                  <div class="wg-h">🔍 리뷰 필터링</div>
-                  <div class="wf-chips"><span class="on">포토 리뷰만</span><span>사이즈</span><span>배송</span><span>재질</span></div>
-                  <div class="wf-note">조건에 맞는 리뷰 <b>328</b>개</div>
-                </div>
-              </div>
-              <div class="wg-col hero-payoff">
-                <div class="wg wg-best w3">
-                  <span class="wb-badge">BEST 리뷰</span>
-                  <span class="st">★★★★★</span>
-                  <p>“핏이 예뻐서 인생 아우터예요. 벌써 세 번째 구매!”</p>
-                  <div class="wb-author"><img class="wb-av" src="assets/insta/f2.png" alt="">김지**님 · 구매 인증</div>
-                </div>
-                <div class="wg wg-story w6">
-                  <div class="wg-h">⚡ 생생후기 스토리</div>
-                  <div class="ws-avatars">
-                    <span class="wsa-add">＋</span>
-                    <span class="wsa"><img src="assets/insta/f2.png" alt=""></span>
-                    <span class="wsa"><img src="assets/insta/f5.png" alt=""></span>
-                    <span class="wsa"><img src="assets/insta/f7.png" alt=""></span>
-                  </div>
-                </div>
-                <div class="wg wg-list w7">
-                  <div class="wg-h">🛍️ 상품별 리뷰 모아보기</div>
-                  <div class="wl-grid">
-                    <div class="wl-card"><img src="assets/insta/f1.png" alt=""><div class="wl-nm">카멜 벨티드 코트</div><div class="wl-mt"><i class="star"></i>4.9 · 320</div></div>
-                    <div class="wl-card"><img src="assets/insta/f4.png" alt=""><div class="wl-nm">체크 트위드 자켓</div><div class="wl-mt"><i class="star"></i>4.8 · 210</div></div>
-                  </div>
-                  <div class="wl-page"><i class="on"></i><i></i><i></i><i></i><i></i></div>
-                </div>
-                <div class="wg wg-notice w9">
-                  <div class="wg-h">📢 공지사항</div>
-                  <div class="wn-row"><span class="wn-tag event">이벤트</span><span class="wn-t">포토리뷰 작성 시 3,000P 적립</span><span class="wn-d">D-3</span></div>
-                  <div class="wn-row"><span class="wn-tag">필독</span><span class="wn-t">여름 신상 배송 안내드립니다</span><span class="wn-d">신규</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>`,
-      ],
-    };
+    const HERO_PANES = {};
+    document.querySelectorAll('#sceneDefs template[data-hero]').forEach(t => {
+      const p = t.dataset.hero.split(':');
+      (HERO_PANES[p[0]] = HERO_PANES[p[0]] || [])[+p[1]] = t.innerHTML;
+    });
 
     /* 완료 화면 설치 안내 */
     const INSTALL = {
