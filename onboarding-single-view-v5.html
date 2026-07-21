@@ -1969,14 +1969,26 @@
       overflow: visible;
     }
 
+    /* 재생 프레임: 소스·연결선·몰을 한 덩어리로 묶어 pane 중앙 정렬 + max 700, 창 축소 시 %로 자연 축소 */
+    .rvh-gather .rvh-stage {
+      position: absolute;
+      left: 50%;
+      top: 12px;
+      bottom: 12px;
+      transform: translateX(-50%);
+      width: min(700px, calc(100% - 24px));
+      z-index: 2;
+    }
+
     .rvh-mall {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      transition: transform .55s cubic-bezier(.4, .1, .3, 1) .45s;
+      transition: left .55s cubic-bezier(.4, .1, .3, 1) .45s, transform .55s cubic-bezier(.4, .1, .3, 1) .45s;
       z-index: 2;
-      width: 300px;
+      width: 43%;
+      max-width: 300px;
       background: #fff;
       border: 1px solid var(--sds-border-default);
       border-radius: 18px;
@@ -1985,17 +1997,19 @@
     }
 
     .hero-pane.played .rvh-mall {
-      transform: translate(-50%, -50%) translateX(184px);
+      left: 100%;
+      transform: translate(-100%, -50%);
     }
 
     /* 클릭 후 등장: 흩어진 리뷰보다 먼저 자리를 잡아 흡수 종착점으로 보이게 함 */
     .rvh-sources {
       position: absolute;
-      left: 38px;
-      top: 12px;
-      bottom: 12px;
+      left: 0;
+      top: 0;
+      bottom: 0;
       z-index: 2;
-      width: 286px;
+      width: 41%;
+      max-width: 286px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -27018,6 +27032,7 @@
             <div class="rvh-rc" data-rvh-target="olive" style="--x:320px;--y:0px;--r:-6deg;--d:.12s"><div class="rc-top"><span class="rc-src" style="--sc:#8DB825">올리브영</span><span class="st">★★★★★</span></div><div class="rc-tx">색감 사진 그대로</div></div>
             <div class="rvh-rc" data-rvh-target="qr" style="--x:258px;--y:150px;--r:5deg;--d:.10s"><div class="rc-top"><span class="rc-src" style="--sc:#20242E">QR·매장</span><span class="st">★★★★★</span></div><div class="rc-tx">실물이 더 예뻐요</div></div>
             <div class="rvh-rc" data-rvh-target="lotte" style="--x:40px;--y:190px;--r:-4deg;--d:.14s"><div class="rc-top"><span class="rc-src" style="--sc:#DA291C">롯데온</span><span class="st">★★★★★</span></div><div class="rc-tx">가격 대비 최고예요</div></div>
+            <div class="rvh-stage">
             <div class="rvh-sources">
               <div class="rvs s1">
                 <div class="rvs-h">빠른 리뷰</div>
@@ -27079,6 +27094,7 @@
                 </div>
                 <div class="rvh-chart"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:68%"></i><i style="--h:84%"></i><i style="--h:100%"></i></div>
               </div>
+            </div>
             </div>
           </div>
         </div>`,
@@ -27594,7 +27610,8 @@
       const svg = pane.querySelector('.rvh-lines');
       const mall = pane.querySelector('.rvh-mall');
       if (!rvh || !svg || !mall) return;
-      const R = rvh.getBoundingClientRect();
+      // 연결선 좌표계 = .rvh-stage(래퍼) 기준 (SVG가 stage를 덮음)
+      const R = (pane.querySelector('.rvh-stage') || rvh).getBoundingClientRect();
       if (!R.width || !R.height) return;
       const m = mall.getBoundingClientRect();
       const mx = ((m.left - R.left) / R.width) * 100;
