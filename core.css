@@ -6603,8 +6603,7 @@
     }
 
     .pc-view:hover {
-      border-color: var(--pc);
-      color: var(--pc);
+      background: var(--sds-bg-tertiary);
     }
 
     /* DS: Brand Solid · lg (brand 색은 제품 테마 --pc로 주입) */
