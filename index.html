@@ -142,6 +142,9 @@
   .card.v6 .ver { background: #6D58F2; }
   .card.v6 .diff b { color: #6D58F2; }
   .card.v6:hover .open { background: #6D58F2; }
+  .card.v7 .ver { background: #307AF3; }
+  .card.v7 .diff b { color: #307AF3; }
+  .card.v7:hover .open { background: #307AF3; }
 
   /* 씬 파일 디렉토리 */
   .scenes-note {
@@ -268,17 +271,17 @@
     <p class="lead">현재 메인 시안입니다. 카드를 눌러 새 탭에서 확인하세요. 이전 시안은 아래 <b style="color:var(--ink)">레거시</b>에서 볼 수 있어요.</p>
 
     <div class="grid">
-      <a class="card v5" href="onboarding-single-view-v5.html" target="_blank" rel="noopener">
-        <span class="ver">v5</span>
-        <h2>솔루션 소개·추천·선택 <small style="color:#6D58F2;font-size:12px;">MAIN</small></h2>
-        <p class="desc">카드 그리드로 솔루션을 한눈에 탐색. 자동 재생 미리보기(beats)와 담은 솔루션 하단 바 구성. 현재 작업 중인 메인 시안입니다.</p>
+      <a class="card v6" href="onboarding-single-view-v6.html" target="_blank" rel="noopener">
+        <span class="ver">v6</span>
+        <h2>솔루션 소개·추천·선택 <small style="color:#6D58F2;font-size:12px;">원본</small></h2>
+        <p class="desc">기준이 되는 <b style="color:#6D58F2">원본</b>입니다. 그대로 보존하고, 수정은 v7에서 진행합니다.</p>
         <div class="diff">자세히 보기 → <b>플로팅 오버레이</b> 모달</div>
         <span class="open">시안 열기 →</span>
       </a>
-      <a class="card v6" href="onboarding-single-view-v6.html" target="_blank" rel="noopener">
-        <span class="ver">v6</span>
-        <h2>솔루션 소개·추천·선택 <small style="color:#6D58F2;font-size:12px;">v5 복제</small></h2>
-        <p class="desc">v5를 그대로 복제한 새 작업본입니다. 동일한 구성에서 갈라져 별도로 발전시키기 위한 브랜치.</p>
+      <a class="card v7" href="onboarding-single-view-v7.html" target="_blank" rel="noopener">
+        <span class="ver">v7</span>
+        <h2>솔루션 소개·추천·선택 <small style="color:#307AF3;font-size:12px;">수정용</small></h2>
+        <p class="desc">v6를 복제한 <b style="color:#307AF3">수정용</b> 작업본입니다. 변경은 여기서 진행 — 히어로(3-A)·상세(3-B) 모두 씬을 iframe으로 임베드하는 autoplay 구조.</p>
         <div class="diff">자세히 보기 → <b>플로팅 오버레이</b> 모달</div>
         <span class="open">시안 열기 →</span>
       </a>
@@ -337,6 +340,11 @@
         <a class="leg-item" href="onboarding-single-view-v4.html" target="_blank" rel="noopener">
           <span class="leg-ver">v4</span>
           <span class="leg-tx"><b>작업 전 원본 (6/29)</b><span>개편 이전 원본 · 비교·참고용</span></span>
+          <span class="leg-go">열기 →</span>
+        </a>
+        <a class="leg-item" href="onboarding-single-view-v5.html" target="_blank" rel="noopener">
+          <span class="leg-ver">v5</span>
+          <span class="leg-tx"><b>클릭 버전 완성형</b><span>카드 그리드 탐색 · 클릭 시작형 미리보기 완성본 · 자세히 보기는 플로팅 오버레이 모달</span></span>
           <span class="leg-go">열기 →</span>
         </a>
       </div>

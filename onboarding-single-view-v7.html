@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파앱스 온보딩 v7 — autoplay 버전</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+
+  <!-- ═══════════ 프론트 핸드오프 노트 (SaladLab 디자인시스템) ═══════════
+    · DS: SaladLabInc/saladlab-design-system (packages/sds-core/src/tokens)
+    · 토큰: :root의 --sds-* 블록 = DS 값 미러. 개발 시 실제 SDS CSS 변수 import로 교체.
+    · 버튼: 각 규칙에 /* DS: <intent> <emphasis> · <size> */ 주석. 사이즈 lg48 / md40 / sm32,
+      radius lg8·md6·sm4, font lg16·md14·xs12, padX 20·16·12, weight semibold(600).
+    · 제품색 버튼(캔버스 teal·업셀 red·푸시 blue) = "Brand Solid"에 --sds-bg-brand를
+      제품 테마색으로 주입한 것. 개발 시 제품별 brand 토큰만 갈아끼우면 됨.
+    · 카드: .pcard = Media Card / .fn-item·.rvs = Callout Card 계열.
+    · 태그(작은 라벨): .pc-tag·.fn-chips span = DS Tag.
+    · 칩: .cd-chip = DS Display Chip (담은 솔루션, height36·pill). .cd-chip.added는 현재
+      솔리드 제품색 — DS엔 primary-strong 없음(weak #E4E6FF만). 변형 선택 필요.
+    · 아이콘: 현재 이모지(🎁 🛒 ⭐ 💡 🧭 📄 등) 사용 → 개발 시 SDS Icon 컴포넌트로 매핑 필요.
+    · 반응형: 메인 레이아웃 브레이크포인트 @1080 (hero-inner·pick-grid·dt-grid).
+      (오버레이 씬 내부 620/720/760은 개별 튜닝값 — 별도 검토)
+  ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- ═══════════ 상단바 + 스텝퍼 ═══════════ -->
+  <header class="topbar">
+    <div class="logo"><i>α</i> AlphaApps</div>
+    <div class="steps" id="steps"></div>
+  </header>
+
+  <!-- ═══════════ 진입 앱 선택 (카페24 앱스토어) ═══════════ -->
+  <section class="view" id="viewEntry">
+    <div class="ent-wrap">
+      <span class="ent-kicker">카페24 앱스토어</span>
+      <h1 class="ent-head">카페24 앱스토어에서<br><b>어떤 앱으로 들어오셨나요?</b></h1>
+      <p class="ent-sub">선택한 앱으로 온보딩이 시작돼요</p>
+      <div class="ent-grid" id="entGrid"></div>
+
+      <!-- ▼▼▼ 스펙 설명 메모 — 아래 <p> 텍스트만 자유롭게 수정하세요 (페이지에 그대로 보임) ▼▼▼ -->
+      <div class="spec-note">
+        <h4>📝 스펙 설명</h4>
+        <p><a href="https://app.notion.com/p/saladlab/37546f3e549c802e9f5be617e58ed693?source=copy_link"
+            target="_blank">PRD : [대통합] 멀티프로덕트 온보딩 개편</a></p>
+        <ol>
+          <li>phase1 : step1, step2, step4, 온보딩 완료 페이지 <a
+              href="https://www.figma.com/design/4q73ki3KZ2FXhFIVle521R/-Core--01_%EB%A9%80%ED%8B%B0-%ED%94%84%EB%A1%9C%EB%8D%95%ED%8A%B8-%EC%98%A8%EB%B3%B4%EB%94%A9-UX-%EA%B0%9C%EC%84%A0?node-id=0-1"
+              target="_blank">(작업 파일 : 피그마)</a></li>
+          <li>phase2 : step3 솔루션 선택페이지 + 번외로 좌측 info-hero 이미지 작업 (작업 파일 : 현재 링크)
+            <ul>
+              <li><b style="color:var(--sds-text-primary)">개발 체크 리스트</b>
+                <ul>
+                  <li><b style="color:var(--sds-text-primary)">3스텝-A시퀀스</b>: 카페24에서 선택한 솔루션 소개</li>
+                  <li><b style="color:var(--sds-text-primary)">3스텝-B시퀀스</b>: 그 외의 솔루션 소개 (어떤 제품을 선택하고 진입했냐에 따라 카드노출다름,
+                    인스타피드는 3-B단계에서 카드 없음 < 리뷰 안 기능이라서)</li>
+                      <ul>
+                        <li><b style="color:var(--c-canvas)">캔버스로 진입시 노출카드</b>: 리뷰, 푸시, 업셀<br>설정 시퀀스 노출 여부 : 위젯설정(리뷰선택시)
+                        </li>
+                        <li><b style="color:var(--c-insta)">인스타로 진입시 노출카드</b>: 캔버스, 리뷰, 푸시, 업셀<br>설정 시퀀스 노출 여부 :
+                          위젯설정(리뷰선택시)
+                          > 인스타 연동(필수)</li>
+                        <li><b style="color:var(--sds-bg-brand)">리뷰로 진입시 노출카드</b>: 캔버스, 푸시, 업셀<br>설정 시퀀스 노출 여부 :
+                          위젯설정(필수)
+                        </li>
+                        <li><b style="color:var(--sds-bg-info)">푸시로 진입시 노출카드</b>: 캔버스, 리뷰, 업셀<br>설정 시퀀스 노출 여부 :
+                          위젯설정(리뷰선택시)
+                        </li>
+                        <li><b style="color:var(--sds-bg-danger)">업셀로 진입시 노출카드</b>: 캔버스, 리뷰, 푸시<br>설정 시퀀스 노출 여부 :
+                          위젯설정(리뷰선택시)</li>
+                      </ul>
+                  <li><b style="color:var(--sds-text-primary)">3스텝-C시퀀스</b>: 기능 사용을 위한 필수 설정 단계 노출 (리뷰 선택시 위젯설정, 인스타피드
+                    선택시 계정연동 - 이 부분은 Phase1 스펙에 설명해둠)</li>
+                </ul>
+              </li>
+              <li><b style="color:var(--sds-text-primary)">기타 체크 리스트</b>
+                <ul>
+                  <li>1: 개인정보처리방침 설정 안내 모달 게시 권한 오픈 > 변경된 링크 전달하기</li>
+                  <li>2: 마케팅 정보 수신 동의 정책 작성 완료시점 파악</li>
+                  <li>3: 이용약관과 개인정보 처리방침 내용 같은데 링크 분리된 이유 파악, 체크박스 하나로 처리한 이유 파악</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>기타</li>
+        </ol>
+        <!-- 여기에 스펙 설명을 작성하세요. 이 <code>&lt;p&gt;</code> 안의 텍스트를 바꾸면 페이지에 그대로 보입니다. -->
+      </div>
+      <!-- ▲▲▲ 스펙 설명 메모 끝 ▲▲▲ -->
+    </div>
+  </section>
+
+  <!-- ═══════════ 스텝 1 — 담당자 정보, 부유하는 애니메이션 위치 조정 ═══════════ -->
+  <section class="view" id="viewInfo1">
+    <div class="info-wrap">
+      <aside class="info-hero">
+        <h2>클릭 몇 번으로 자사몰을<span class="ih-title-wide"> 성장시키는 솔루션</span><br><span class="ih-title-compact">성장시키는 솔루션
+          </span>알파앱스로 <br class="ih-br-compact"><span class="hl">더 큰 매출</span>을 올려보세요</h2>
+        <div class="ih-visual" aria-hidden="true">
+          <span class="orb" style="--oc:#6D58F2; --os:12px; left:2%; top:34%; --od:.4s"></span>
+          <span class="orb" style="--oc:#5B45E0; --os:18px; left:16%; top:48%; --od:1.2s"></span>
+          <span class="orb" style="--oc:#7A66FF; --os:10px; left:50%; top:27%; --od:2s"></span>
+          <span class="orb" style="--oc:#8B76FF; --os:16px; left:88%; top:34%; --od:.8s"></span>
+          <span class="orb" style="--oc:#6D58F2; --os:12px; left:74%; top:44%; --od:2.8s"></span>
+          <span class="orb" style="--oc:#22C4A6; --os:10px; left:76%; top:51%; --od:1.6s"></span>
+          <span class="orb" style="--oc:#FFB020; --os:14px; left:94%; top:54%; --od:3.2s"></span>
+          <span class="orb" style="--oc:#6D58F2; --os:14px; left:2%; top:90%; --od:.2s"></span>
+          <span class="orb" style="--oc:#FFB020; --os:10px; left:28%; top:94%; --od:2.4s"></span>
+          <span class="orb" style="--oc:#5B45E0; --os:12px; left:50%; top:92%; --od:1s"></span>
+          <img class="ihv-el e1" src="assets/hero/01-review-card.png" alt="">
+          <img class="ihv-el e2" src="assets/hero/02-sales-card.png" alt="">
+          <img class="ihv-el e4" src="assets/hero/04-push-card.png" alt="">
+          <img class="ihv-el e5" src="assets/hero/05-canvas-card.png" alt="">
+          <img class="ihv-el e3" src="assets/hero/03-center-logo.png" alt="">
+        </div>
+        <div class="ih-social">
+          <p>알파앱스를 선택한 고객사 <b><span class="ih-social-count" data-count-to="42000">42,000</span>+</b></p>
+        </div>
+      </aside>
+      <div class="info-form-area">
+        <div class="form-card">
+          <h3>담당자 정보 입력</h3>
+          <p class="fc-sub">알파앱스 사용을 위해 정보를 입력해주세요</p>
+          <div class="field"><label>담당자 이름</label><input value="신알파"></div>
+          <div class="field"><label>담당자 직책</label>
+            <div class="sel"><span>대표</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6" />
+              </svg></div>
+          </div>
+          <div class="field"><label>담당자 이메일</label><input value="alpha@alphamall.co.kr"></div>
+          <div class="field"><label>담당자 연락처</label><input value="010-1111-2222"></div>
+          <div class="fc-agrees">
+            <label class="fc-agree"><input type="checkbox" checked> <span><a href="https://alph.kr/policy/#section1"
+                  target="_blank" rel="noopener" onclick="event.stopPropagation()">이용 약관</a> 및 <a
+                  href="https://alph.kr/policy/#section2" target="_blank" rel="noopener"
+                  onclick="event.stopPropagation()">개인정보 처리 방침</a> 동의 (필수)</span></label>
+            <label class="fc-agree"><input type="checkbox"> <span><a href="https://alph.kr/policy/#section2"
+                  target="_blank" rel="noopener" onclick="event.stopPropagation()">마케팅 정보 수신 동의 (선택)</a></span></label>
+          </div>
+          <div class="form-actions"><button class="btn primary" data-go="info2">다음</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 스텝 2 — 쇼핑몰 정보 ═══════════ -->
+  <section class="view" id="viewInfo2">
+    <div class="info-wrap">
+      <aside class="info-hero">
+        <h2>클릭 몇 번으로 자사몰을<span class="ih-title-wide"> 성장시키는 솔루션</span><br><span class="ih-title-compact">성장시키는 솔루션
+          </span>알파앱스로 <br class="ih-br-compact"><span class="hl">더 큰 매출</span>을 올려보세요</h2>
+        <div class="ih-visual" aria-hidden="true">
+          <span class="orb" style="--oc:#6D58F2; --os:12px; left:2%; top:34%; --od:.4s"></span>
+          <span class="orb" style="--oc:#5B45E0; --os:18px; left:16%; top:48%; --od:1.2s"></span>
+          <span class="orb" style="--oc:#7A66FF; --os:10px; left:50%; top:30%; --od:2s"></span>
+          <span class="orb" style="--oc:#8B76FF; --os:16px; left:88%; top:34%; --od:.8s"></span>
+          <span class="orb" style="--oc:#6D58F2; --os:12px; left:74%; top:44%; --od:2.8s"></span>
+          <span class="orb" style="--oc:#22C4A6; --os:10px; left:76%; top:54%; --od:1.6s"></span>
+          <span class="orb" style="--oc:#FFB020; --os:14px; left:94%; top:54%; --od:3.2s"></span>
+          <span class="orb" style="--oc:#6D58F2; --os:14px; left:2%; top:90%; --od:.2s"></span>
+          <span class="orb" style="--oc:#FFB020; --os:10px; left:28%; top:94%; --od:2.4s"></span>
+          <span class="orb" style="--oc:#5B45E0; --os:12px; left:50%; top:92%; --od:1s"></span>
+          <img class="ihv-el e1" src="assets/hero/01-review-card.png" alt="">
+          <img class="ihv-el e2" src="assets/hero/02-sales-card.png" alt="">
+          <img class="ihv-el e4" src="assets/hero/04-push-card.png" alt="">
+          <img class="ihv-el e5" src="assets/hero/05-canvas-card.png" alt="">
+          <img class="ihv-el e3" src="assets/hero/03-center-logo.png" alt="">
+        </div>
+        <div class="ih-social">
+          <p>알파앱스를 선택한 고객사 <b><span class="ih-social-count" data-count-to="42000">42,000</span>+</b></p>
+        </div>
+      </aside>
+      <div class="info-form-area">
+        <div class="form-card">
+          <h3>쇼핑몰 정보 입력</h3>
+          <p class="fc-sub">맞춤 서비스 제공을 위해 쇼핑몰 정보를 입력해주세요</p>
+          <div class="field"><label>쇼핑몰 이름</label><input value="알파몰"></div>
+          <div class="field"><label>쇼핑몰 카테고리</label>
+            <div class="sel"><span>데스크테리어</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6" />
+              </svg></div>
+          </div>
+          <div class="field"><label>카페24 ID</label><input value="alphamall24"></div>
+          <div class="field"><label>카페24 PW</label><input type="password" value="password1234"></div>
+          <div class="form-actions">
+            <button class="btn ghost" data-go="info1">이전</button>
+            <button class="btn primary" data-go="hero">다음</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 스텝 3-A — 선택한 앱 소개 (히어로) ═══════════ -->
+  <section class="view" id="viewHero">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="hc-kicker" id="heroKicker"><span class="dot"></span>카페24 앱스토어에서 선택하신 앱 · 알파리뷰</span>
+          <h1 id="heroTitle"></h1>
+          <div class="hc-trust" id="heroTrust"></div>
+          <div class="beats" id="heroBeats"></div>
+          <button class="hero-ctrl" id="heroCtrl" type="button"><i class="hc-ic"></i><span class="hc-tx">자동 넘김
+              멈춤</span></button>
+        </div>
+        <div class="hero-stage">
+          <div class="browser">
+            <div class="bw-body" id="heroPanes"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 스텝 3-B — 추천 & 담기 ═══════════ -->
+  <section class="view" id="viewPick">
+    <div class="pick">
+      <div class="pick-head">
+        <span class="ph-kicker">함께 쓰면 더 커지는 성장</span>
+        <h1 id="pickTitle"></h1>
+        <p class="ph-sub">카드를 눌러 30초 만에 훑어보고, 마음에 들면 담아두세요 — 언제든 뺄 수 있어요</p>
+      </div>
+      <div class="pick-grid" id="pickGrid"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 자세히 보기 오버레이 ═══════════ -->
+  <div class="detail" id="detail">
+    <div class="dt-inner">
+      <div class="dt-grid">
+        <div class="dt-side">
+          <h2 id="dtMain"></h2>
+          <div class="feat-nav" id="featNav"></div>
+          <button class="dt-ctrl" id="dtCtrl" type="button"><i class="hc-ic"></i><span class="hc-tx">자동 넘김 멈춤</span></button>
+        </div>
+        <div class="dt-stagewrap">
+          <div class="dt-stage" id="dtStage"></div>
+        </div>
+      </div>
+      <div class="dt-foot">
+        <button class="sds-btn sds-btn--lg sds-btn--neutral-outline dt-close" id="dtClose" type="button">닫기</button>
+        <button class="sds-btn sds-btn--lg sds-btn--add dt-add" id="dtAdd"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 스텝 3-C — 리뷰 위젯 설정 ═══════════ -->
+  <section class="view" id="viewWidget">
+    <div class="setup">
+      <div class="setup-head">
+        <span class="setup-kicker">3-C · 리뷰 위젯 설정</span>
+        <h1><b>알파리뷰</b> 위젯, 어디에 보여줄까요?</h1>
+        <p>선택하신 위치에 리뷰 위젯이 자동으로 설치돼요 — 나중에 언제든 바꿀 수 있어요</p>
+      </div>
+      <div class="widget-tabs">
+        <button class="wt active">상세페이지</button>
+        <button class="wt">리뷰 게시판</button>
+        <button class="wt">메인 페이지</button>
+      </div>
+      <div class="shop-preview">
+        <div class="sp-top">신규 회원가입 시 5,000원 할인 쿠폰 지급!</div>
+        <div class="sp-brand">ALPHA MALL</div>
+        <div class="sp-hero"></div>
+        <div class="sp-name">알파 데스크 오거나이저 세트</div>
+        <div class="sp-price"><s>52,000원</s> <b>39,800원</b></div>
+        <div class="sp-review">
+          <div class="sr-head">⭐ 4.9 · 리뷰 1,284</div>
+          <div class="sr-row"><span class="th"></span><span class="ln"><i></i><i class="s"></i></span></div>
+          <div class="sr-row"><span class="th"></span><span class="ln"><i></i><i class="s"></i></span></div>
+        </div>
+      </div>
+      <div class="setup-foot">
+        <button class="skip" data-go="card">건너뛰기</button>
+        <span class="spacer"></span>
+        <button class="btn ghost" data-go="pick">이전</button>
+        <button class="btn primary" style="flex:0 0 auto; padding:0 34px" data-go="card">다음</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 스텝 4 — 카드 등록 ═══════════ -->
+  <section class="view" id="viewCard">
+    <div class="setup">
+      <div class="card-form">
+        <h1>카드를 등록하면<br><b>14일간 무료체험</b>이 시작돼요!</h1>
+        <label class="cf-label">카드 유형</label>
+        <div class="cf-seg"><button class="active">개인</button><button>법인</button></div>
+        <label class="cf-label">카드 번호</label>
+        <div class="cf-card"><input placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"><input
+            placeholder="1234" maxlength="4"><input placeholder="1234" maxlength="4"></div>
+        <label class="cf-label">유효 기간</label>
+        <div class="cf-exp"><input placeholder="MM" maxlength="2"><input placeholder="YYYY" maxlength="4"></div>
+        <label class="cf-agree"><input type="checkbox" checked> 카드 정보 결제 서비스 업체 제공 동의</label>
+        <p class="cf-note">자동결제는 공인된 결제 대행사에서 진행되며, 알파앱스에 저장되지 않습니다. 카드 정보는 언제든 삭제 가능합니다.</p>
+        <div class="setup-foot" style="width:100%">
+          <button class="skip" data-go="done">건너뛰기</button>
+          <span class="spacer"></span>
+          <button class="btn ghost" id="cardBack">이전</button>
+          <button class="btn primary" style="flex:0 0 auto; padding:0 34px" data-go="done">완료</button>
+        </div>
+        <p class="cf-trust">25,000+ 라이브 쇼핑몰이 선택한 솔루션</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 완료 ═══════════ -->
+  <section class="view" id="viewDone">
+    <div class="done-wrap">
+      <div>
+        <h1 class="done-title">쇼핑몰을 성장시키는<br><b>알파앱스 무료체험 신청 완료!</b></h1>
+        <div class="done-sec">
+          <h3>담은 솔루션</h3>
+          <div id="doneSols"></div>
+        </div>
+        <div class="done-sec" id="autoSec">
+          <h3>자동 설치</h3>
+          <p id="autoList"></p>
+        </div>
+        <div class="done-sec" id="manualSec">
+          <h3>수동 설치</h3>
+          <p id="manualList"></p>
+          <p class="done-note">수동 설치는 <b>설치 완료까지 영업일 기준 3~5일 소요</b>됩니다.<br>쇼핑몰에 위젯이 설치되면 카톡으로 안내해 드릴게요.</p>
+        </div>
+        <button class="done-cta" onclick="alert('대시보드로 이동합니다 🎉')">대시보드 둘러보기</button>
+      </div>
+      <div class="done-visual">
+        <div class="dv-check"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 12.5l5 5 10-11" />
+          </svg></div>
+        <span class="dv-orbit" style="top:14%; left:22%">⭐</span>
+        <span class="dv-orbit" style="top:24%; right:18%; animation-delay:.5s">🛒</span>
+        <span class="dv-orbit" style="bottom:20%; left:16%; animation-delay:1s">🔔</span>
+        <span class="dv-orbit" style="bottom:14%; right:24%; animation-delay:1.5s">🎨</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 장바구니 도크 ═══════════ -->
+  <div class="cart-dock" id="cartDock">
+    <span class="cd-label"><span class="cd-bag"><i class="cart-ico"></i><span class="cd-count"
+          id="cdCount">1</span></span>담은 솔루션</span>
+    <span class="cd-chips" id="cdChips"></span>
+    <div class="cd-btns">
+      <button class="sds-btn sds-btn--md sds-btn--neutral-outline cd-back" id="cdBack">이전</button>
+      <button class="sds-btn sds-btn--md sds-btn--neutral-solid cd-next" id="cdNext">다음</button>
+    </div>
+  </div>
+
+  <!-- 씬 애니메이션은 scene-<제품><N>.html 로 분리 — v7은 히어로(3-A)·상세(3-B) 모두 iframe으로 임베드(단일 소스) -->
+
+  <script src="core.js"></script>
+  <script>
+    /* ═══════════════════════════════════════════════
+       부팅 — 진입 앱 선택 화면부터. 씬은 scene-<제품><N>.html을 iframe으로 임베드.
+    ═══════════════════════════════════════════════ */
+    renderEntry();
+    initHero();
+    renderPick();
+    go('entry');
+  </script>
+</body>
+
+</html>
