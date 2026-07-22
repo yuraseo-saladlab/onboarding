@@ -7,4 +7,32 @@
 - 컬러는 파란색 위주. 성공 상태도 초록색 대신 파랑·검정·흰색.
 - 모든 CSS 수치는 짝수(×2).
 
-## Imported Claude Cowork project instructions
+## 애니메이션 스타일 원칙 (기존 작업 톤 유지)
+새 씬·수정 작업은 아래 톤을 그대로 따른다.
+- **실사 UIUX 재현.** 추상적인 관리자 패널·목업이 아니라 실제 쇼핑몰/앱 화면을 진짜처럼 재현하고, 실제 상품명·가격·사진·리뷰 문구로 빈 곳 없이 채운다. 레퍼런스의 전체 흐름과 풍부함을 실제 UI로 다 담는다.
+- **위젯 인지성.** 스토어 기본 UI는 뉴트럴(회색·흰색)로 두고, 제품이 "추가한 위젯"에만 제품색(`--dc`)·뱃지·스포트라이트·콜아웃을 줘서 무엇이 추가됐는지 즉시 보이게 한다.
+- **공용 컴포넌트는 형식 통일 + 색만 제품별.** 재생/정지 컨트롤·시작 버튼·게이지 등 공용 요소는 형태·크기·레이아웃을 통일하고 색만 `--dc`(또는 배경에 맞게)로 바꾼다. 특정 제품색 하드코딩 금지.
+- **인터랙션은 씬 간 일관 재사용.** 자동 커서 클릭 시연, 카운트업, 게이지 등은 씬마다 새로 만들지 말고 동일 패턴을 재사용한다.
+- **클래스 충돌 주의.** 짧은 범용 클래스명이 전역 규칙과 충돌해 레이아웃이 깨질 수 있으니, 씬 전용 클래스는 고유 접두사를 붙인다.
+
+## 씬 파일 구조 (v6)
+- 애니메이션 씬은 제품·씬별 **독립 HTML**: `scene-<제품><번호>.html` (예: `scene-review1.html`).
+  각 파일 = `<link core.css>` + 자기 `<template data-scene=…>`(리뷰 히어로는 `data-hero`) + `<script src=core.js>` + `renderEmbed(key)`.
+- 씬 HTML을 바꿀 땐 **그 파일 안 `<template>` 블록만** 수정한다. 클래스명(예: `up1s`, `ps-wall`, `pc-scene`, `cv2-sc`, `if1s`)은 **유지** — 애니 드라이버(`seqWall`·`initCvBuilder`·`scrollUpx`·`seqPcx` 등)가 그 클래스로 붙는다. 새 클래스로 바꾸면 애니가 안 걸린다.
+- `core.css`·`core.js`는 모든 씬·화면이 공유하는 **전역 소스**(토큰·컴포넌트·애니 드라이버·재생 하네스). 씬은 이걸 `<link>/<script src>`로 불러온다.
+- 씬은 `?embed` 없이도 iframe으로 임베드되면 **뷰포트를 풀블리드로 채운다.** 카드 프레임(라운드·그림자)은 담는 쪽(상세모달·히어로 스테이지)이 제공한다.
+- 재생/정지/시크는 부모가 `postMessage({__alphaScene:'pause'|'play'|'seek'})`로 씬 iframe에 전달해 제어한다. 씬의 `setTimeout/rAF`는 정지 가능하게 래핑돼 있으니, 새 애니도 표준 `setTimeout/requestAnimationFrame`을 쓰면 정지·재개가 자동으로 된다.
+
+## 스쿼드별 작업 범위 (파일 소유 — 중요)
+스쿼드 디자이너는 **자기 제품의 씬 파일만** 수정한다. 작업 전 어느 제품(스쿼드)인지 먼저 확인하고, 범위를 벗어난 파일은 건드리지 않는다.
+
+| 스쿼드 | 수정 가능 파일 |
+|---|---|
+| 알파리뷰 | `scene-review1.html`, `scene-review2.html`, `scene-review3.html` |
+| 알파업셀 | `scene-upsell1.html`, `scene-upsell2.html`, `scene-upsell3.html` |
+| 알파푸시 | `scene-push1.html`, `scene-push2.html`, `scene-push3.html` |
+| 알파캔버스 | `scene-canvas1.html`, `scene-canvas2.html`, `scene-canvas3.html` |
+| 인스타피드 | `scene-insta1.html`, `scene-insta2.html`, `scene-insta3.html` |
+
+- **공유·전역 파일은 스쿼드 디자이너가 수정 금지**: `core.css`, `core.js`, `onboarding-single-view-v6.html`, `index.html`, 그리고 다른 스쿼드의 `scene-*.html`. 공용이라 한 스쿼드가 바꾸면 전 제품에 영향.
+- 다른 스쿼드 파일이나 공유 파일 수정이 필요한 요청이 오면, 바로 고치지 말고 **범위를 벗어난다고 알리고 확인**을 받는다(공유 CSS/JS 변경은 디자인시스템·전체 담당자와 협의).
