@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파업셀 2번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-scene="up2">
+            <div class="sc up2s">
+        <div class="uax">
+          <div class="uax-intro">
+            <div class="uax-setup">
+              <div class="uax-method">
+                <div class="uax-mhead">
+                  <span class="uax-mtitle">누구에게 프로모션을 적용할까요?</span>
+                  <span class="uax-mtoggle">고급 오디언스 설정<i></i></span>
+                </div>
+                <div class="uax-mtarget">
+                  <span class="uax-mtk">적용 대상</span>
+                  <b class="uax-mtv">재방문 · 장바구니 보유 고객</b>
+                  <i class="uax-mtcaret"></i>
+                </div>
+                <div class="uax-mgrid">
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion01.png" alt="단순 할인"></span><div class="uax-mtx"><b>단순 할인</b><em>특정·전체 상품에 즉시 할인</em></div></div></div>
+                  <div class="uax-mcard pick"><span class="uax-mck">✓</span><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion02.png" alt="다다익선 할인"></span><div class="uax-mtx"><b>다다익선 할인</b><em>개수·금액이 늘수록 할인 폭이 커지는 계단형</em></div></div><div class="uax-mdetail"><div class="uax-fstair"><div class="uax-stairviz"><div class="uax-stz" style="--sh:24px"><b>5%</b><i></i><span>1개</span></div><div class="uax-stz" style="--sh:48px"><b>10%</b><i></i><span>2개</span></div><div class="uax-stz" style="--sh:72px"><b>15%</b><i></i><span>3개+</span></div></div></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion03.png" alt="사은품 증정"></span><div class="uax-mtx"><b>사은품 증정</b><em>구매 조건 충족 시 사은품 지급</em></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion04.png" alt="FOMO 할인"></span><div class="uax-mtx"><b>FOMO 할인</b><em>방문 횟수 기준 단계별 할인</em></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion05.png" alt="시크릿 할인"></span><div class="uax-mtx"><b>시크릿 할인</b><em>특정 시간 즉시 할인</em></div></div></div>
+                  <div class="uax-mcard"><div class="uax-mrow"><span class="uax-mimgwrap"><img class="uax-mimg" src="assets/upsell/promotion06.png" alt="장바구니 페이지 할인"></span><div class="uax-mtx"><b>장바구니 페이지 할인</b><em>장바구니 이탈 시 할인 노출</em></div></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="uax-introcta"><button class="cl-start" data-act><span class="cl-lb">이 설정으로 A/B/N 테스트 돌려보기</span></button><span class="cl-cursor"></span></div>
+            <span class="uax-go"></span>
+          </div>
+          <div class="uax-flow">
+            <div class="uax-step s2">
+              <div class="uax-sh"><span class="uax-n">1</span>다다익선 프로모션 A/B/N 테스트</div>
+              <div class="uax-setvars">
+                <div class="uax-sv"><span class="uax-vt">A</span><b>+5,000원 할인</b><span class="uax-svtr">트래픽 33%</span></div>
+                <div class="uax-sv"><span class="uax-vt">B</span><b>+10,000원 할인</b><span class="uax-svtr">트래픽 33%</span></div>
+                <div class="uax-sv"><span class="uax-vt">C</span><b>+15,000원 할인</b><span class="uax-svtr">트래픽 33%</span></div>
+              </div>
+              <div class="uax-preview">
+                <span class="uax-pvcap">Preview · 구매 직전 고객에게 이렇게 노출돼요</span>
+                <img class="uax-pvimg" src="assets/upsell/promo_b.png" alt="할인 팝업 미리보기">
+              </div>
+            </div>
+            <div class="uax-arrow a2"><img src="assets/icon/chevron-right.svg" alt="" aria-hidden="true"></div>
+            <div class="uax-step s3">
+              <div class="uax-sh"><span class="uax-n">2</span>테스트 결과</div>
+              <div class="uax-s3mid">
+                <div class="uax-target"><b>재방문 · 장바구니 보유 고객</b><span class="uax-audchip">도달 3,240명</span></div>
+                <div class="uax-plot">
+                  <div class="uax-b va"><div class="uax-btxt"><span class="uax-vt">A</span><b class="uax-bl">+5,000원</b><b class="uax-bv">88만</b><span class="uax-bcv">전환 2.1%</span></div><div class="uax-btrack"><div class="uax-bfill"></div></div></div>
+                  <div class="uax-b vb win"><div class="uax-btxt"><span class="uax-vt">B</span><b class="uax-bl">+10,000원</b><em class="uax-bwin">최고</em><b class="uax-bv">132만</b><span class="uax-bcv">전환 4.6%</span></div><div class="uax-btrack"><div class="uax-bfill"></div></div></div>
+                  <div class="uax-b vc"><div class="uax-btxt"><span class="uax-vt">C</span><b class="uax-bl">+15,000원</b><b class="uax-bv">104만</b><span class="uax-bcv">전환 2.4%</span></div><div class="uax-btrack"><div class="uax-bfill"></div></div></div>
+                </div>
+                <div class="uax-apply"><span class="uax-win">✦ 최적가 B · 트래픽 자동 집중 완료 ✓</span></div>
+              </div>
+              <button class="cmp-replay" type="button">↻ 다시 보기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('up2', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>

@@ -91,7 +91,6 @@
     background: var(--accent);
     margin-bottom: 16px;
   }
-  .card.v2 .ver { background: #307AF3; }
   .card.v3 .ver { background: #00B7A8; }
   .card.v4 .ver { background: #8A8698; }
   .card h2 {
@@ -116,7 +115,6 @@
     line-height: 1.55;
   }
   .diff b { color: var(--accent); font-weight: 700; }
-  .card.v2 .diff b { color: #307AF3; }
   .card.v3 .diff b { color: #00B7A8; }
   .card.v4 .diff b { color: #8A8698; }
   .open {
@@ -133,7 +131,6 @@
     transition: background .15s ease;
   }
   .card:hover .open { background: var(--accent); }
-  .card.v2:hover .open { background: #307AF3; }
   .card.v3:hover .open { background: #00B7A8; }
   .card.v4:hover .open { background: #8A8698; }
   .card.v5 .ver { background: #6D58F2; }
@@ -245,9 +242,6 @@
     color: #fff;
     background: #A9A4B8;
   }
-  /* v2 — 레거시지만 이전 메인이므로 컬러 유지 + 흐리게 처리 안 함 */
-  .leg-item.v2 { opacity: 1; }
-  .leg-item.v2 .leg-ver { background: #307AF3; }
   .leg-tx { flex: 1; min-width: 0; }
   .leg-tx b { display: block; font-size: 13.5px; font-weight: 700; color: var(--ink); }
   .leg-tx span { font-size: 12px; color: var(--ink-dim); }
@@ -278,7 +272,7 @@
         <div class="diff">자세히 보기 → <b>플로팅 오버레이</b> 모달</div>
         <span class="open">시안 열기 →</span>
       </a>
-      <a class="card v7" href="onboarding-single-view-v7.html" target="_blank" rel="noopener">
+      <a class="card v7" href="onboarding-v7/onboarding-single-view-v7.html" target="_blank" rel="noopener">
         <span class="ver">v7</span>
         <h2>솔루션 소개·추천·선택 <small style="color:#307AF3;font-size:12px;">수정용</small></h2>
         <p class="desc">v6를 복제한 <b style="color:#307AF3">수정용</b> 작업본입니다. 변경은 여기서 진행 — 히어로(3-A)·상세(3-B) 모두 씬을 iframe으로 임베드하는 autoplay 구조.</p>
@@ -288,33 +282,33 @@
     </div>
 
     <div class="legacy scenes-sec">
-      <div class="legacy-h">씬 파일 · 스쿼드 작업 / 임베드용</div>
-      <p class="scenes-note">각 씬은 <b>독립 HTML</b>입니다. <b>core.css · core.js</b>를 공유하고, iframe <code>src</code>로 앵귤러 페이지에 바로 끼울 수 있어요. 자동재생을 끄려면 <code>?autoplay=0</code>. 씬 HTML은 파일 안 <code>&lt;template&gt;</code>만 수정하면 됩니다.</p>
+      <div class="legacy-h">씬 파일 · 스쿼드 작업 / 임베드용 (<code>onboarding-v7/</code> — 수정용)</div>
+      <p class="scenes-note"><b>작업은 모두 <code>onboarding-v7/</code> 폴더에서</b> 합니다(v6=원본, 건드리지 않음). 각 씬은 <b>독립 HTML</b>이고 <b>onboarding-v7/core.css · onboarding-v7/core.js</b>를 공유해요. iframe <code>src</code>로 앵귤러 페이지에 바로 끼울 수 있고, 자동재생을 끄려면 <code>?autoplay=0</code>. 씬 HTML은 파일 안 <code>&lt;template&gt;</code>만 수정하면 됩니다.</p>
       <div class="scene-grid">
         <div class="scene-col"><b class="sc-rv">알파리뷰</b>
-          <a href="scene-review1.html" target="_blank" rel="noopener">1번 씬 · 리뷰 수집</a>
-          <a href="scene-review2.html" target="_blank" rel="noopener">2번 씬 · AI 인사이트</a>
-          <a href="scene-review3.html" target="_blank" rel="noopener">3번 씬 · 리뷰 위젯</a>
+          <a href="onboarding-v7/scene-review1.html" target="_blank" rel="noopener">1번 씬 · 리뷰 수집</a>
+          <a href="onboarding-v7/scene-review2.html" target="_blank" rel="noopener">2번 씬 · AI 인사이트</a>
+          <a href="onboarding-v7/scene-review3.html" target="_blank" rel="noopener">3번 씬 · 리뷰 위젯</a>
         </div>
         <div class="scene-col"><b class="sc-up">알파업셀</b>
-          <a href="scene-upsell1.html" target="_blank" rel="noopener">1번 씬 · AI 추천</a>
-          <a href="scene-upsell2.html" target="_blank" rel="noopener">2번 씬 · 가격 실험</a>
-          <a href="scene-upsell3.html" target="_blank" rel="noopener">3번 씬 · 객단가</a>
+          <a href="onboarding-v7/scene-upsell1.html" target="_blank" rel="noopener">1번 씬 · AI 추천</a>
+          <a href="onboarding-v7/scene-upsell2.html" target="_blank" rel="noopener">2번 씬 · 가격 실험</a>
+          <a href="onboarding-v7/scene-upsell3.html" target="_blank" rel="noopener">3번 씬 · 객단가</a>
         </div>
         <div class="scene-col"><b class="sc-ps">알파푸시</b>
-          <a href="scene-push1.html" target="_blank" rel="noopener">1번 씬 · 전환 장치</a>
-          <a href="scene-push2.html" target="_blank" rel="noopener">2번 씬 · 요금 비교</a>
-          <a href="scene-push3.html" target="_blank" rel="noopener">3번 씬 · 자동 캠페인</a>
+          <a href="onboarding-v7/scene-push1.html" target="_blank" rel="noopener">1번 씬 · 전환 장치</a>
+          <a href="onboarding-v7/scene-push2.html" target="_blank" rel="noopener">2번 씬 · 요금 비교</a>
+          <a href="onboarding-v7/scene-push3.html" target="_blank" rel="noopener">3번 씬 · 자동 캠페인</a>
         </div>
         <div class="scene-col"><b class="sc-cv">알파캔버스</b>
-          <a href="scene-canvas1.html" target="_blank" rel="noopener">1번 씬 · 노코드 빌더</a>
-          <a href="scene-canvas2.html" target="_blank" rel="noopener">2번 씬 · 업그레이드</a>
-          <a href="scene-canvas3.html" target="_blank" rel="noopener">3번 씬 · 시작 혜택</a>
+          <a href="onboarding-v7/scene-canvas1.html" target="_blank" rel="noopener">1번 씬 · 노코드 빌더</a>
+          <a href="onboarding-v7/scene-canvas2.html" target="_blank" rel="noopener">2번 씬 · 업그레이드</a>
+          <a href="onboarding-v7/scene-canvas3.html" target="_blank" rel="noopener">3번 씬 · 시작 혜택</a>
         </div>
         <div class="scene-col"><b class="sc-if">인스타피드</b>
-          <a href="scene-insta1.html" target="_blank" rel="noopener">1번 씬 · 피드 연동</a>
-          <a href="scene-insta2.html" target="_blank" rel="noopener">2번 씬 · 자동 노출</a>
-          <a href="scene-insta3.html" target="_blank" rel="noopener">3번 씬 · 체류 증가</a>
+          <a href="onboarding-v7/scene-insta1.html" target="_blank" rel="noopener">1번 씬 · 피드 연동</a>
+          <a href="onboarding-v7/scene-insta2.html" target="_blank" rel="noopener">2번 씬 · 자동 노출</a>
+          <a href="onboarding-v7/scene-insta3.html" target="_blank" rel="noopener">3번 씬 · 체류 증가</a>
         </div>
       </div>
     </div>
@@ -322,19 +316,9 @@
     <div class="legacy">
       <div class="legacy-h">이전 시안 · 레거시</div>
       <div class="legacy-list">
-        <a class="leg-item" href="onboarding-single-view-v1.html" target="_blank" rel="noopener">
-          <span class="leg-ver">v1</span>
-          <span class="leg-tx"><b>온보딩 5단계 플로우</b><span>좌측 추천 rail + 우측 앱 소개 · 자세히 보기는 풀페이지 모달</span></span>
-          <span class="leg-go">열기 →</span>
-        </a>
-        <a class="leg-item v2" href="onboarding-single-view-v2.html" target="_blank" rel="noopener">
-          <span class="leg-ver">v2</span>
-          <span class="leg-tx"><b>솔루션 소개·추천·선택</b><span>카드 그리드 탐색 · 자세히 보기는 플로팅 오버레이 모달 (이전 메인)</span></span>
-          <span class="leg-go">열기 →</span>
-        </a>
         <a class="leg-item" href="onboarding-single-view-v3.html" target="_blank" rel="noopener">
           <span class="leg-ver">v3</span>
-          <span class="leg-tx"><b>카드 그리드 + 드로어</b><span>v2와 동일 선택 화면 · 자세히 보기는 화이트 드로어</span></span>
+          <span class="leg-tx"><b>카드 그리드 + 드로어</b><span>카드 그리드 선택 화면 · 자세히 보기는 화이트 드로어</span></span>
           <span class="leg-go">열기 →</span>
         </a>
         <a class="leg-item" href="onboarding-single-view-v4.html" target="_blank" rel="noopener">

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파캔버스 1번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-scene="cv2">
+            <div class="sc cv2-sc">
+        <div class="cvb">
+          <div class="cvb-side">
+            <div class="cvb-stat">
+              <div class="cvb-prog"><span>완성도</span><div class="cvb-track"><i class="cvb-fill-bar"></i></div><b class="cvb-pct">0%</b></div>
+              <div class="cvb-conv">예상 구매 전환율<b class="cvb-convval">2.4%</b></div>
+              <div class="cvx-cta">
+                <button class="cl-start cvb-play" type="button"><span class="cl-lb">클릭으로 페이지 조립</span></button><span class="cl-cursor cvb-cursor"></span>
+                <button class="cmp-replay" type="button">↺ 다시 보기</button>
+              </div>
+            </div>
+            <div class="cvb-sec">레이아웃</div>
+            <button class="cvb-item" data-w="header" type="button"><span class="ci"></span><span class="ct"><b>헤더 · 메뉴</b><em>MAISON 로고 + NEW·BEST·SALE</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="footer" type="button"><span class="ci"></span><span class="ct"><b>푸터</b><em>브랜드 · 정책 · SNS 안내</em></span><span class="ck">담기</span></button>
+            <div class="cvb-sec">전환 위젯 <span>담을수록 완성도가 올라요</span></div>
+            <button class="cvb-item" data-w="hero" data-d="2.2" type="button"><span class="ci"></span><span class="ct"><b>콘텐츠 배너</b><em>스프링 컬렉션 카피 + 무드</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="coupon" data-d="2.6" type="button"><span class="ci"></span><span class="ct"><b>띠배너</b><em>첫 구매 할인 쿠폰 상단 노출</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="prods" data-d="2.0" type="button"><span class="ci"></span><span class="ct"><b>상품그리드</b><em>인기 상품 4종 자동 배치</em></span><span class="ck">담기</span></button>
+            <button class="cvb-item" data-w="review" data-d="3.8" type="button"><span class="ci"></span><span class="ct"><b>포토리뷰 섹션</b><em>베스트 포토·영상 리뷰</em></span><span class="ck">담기</span></button>
+          </div>
+          <div class="cvb-shop">
+            <div class="cvb-chrome"><i></i><i></i><i></i><span>alphamall.cafe24.com/maison/spring</span></div>
+            <div class="cvb-canvas">
+              <div class="cvb-slot cvb-wg" data-s="coupon">
+                <div class="cvb-fill"><div class="mz-coupon"><i>🎟️</i><b>첫 구매 10% 할인 쿠폰! 5만원 이상 무료 배송</b><span>오늘하루 보지 않기 ✕</span></div></div>
+              </div>
+              <div class="cvb-slot" data-s="header">
+                <div class="cvb-empty">🧭 헤더 · 메뉴가 들어갈 자리</div>
+                <div class="cvb-fill"><div class="mz-head"><b class="mz-logo">MAISON</b><span class="mz-nav"><em>NEW</em><em>BEST</em><em>SALE</em><i>🛒</i></span></div></div>
+              </div>
+              <div class="cvb-slot" data-s="hero">
+                <div class="cvb-empty">🖼️ 콘텐츠 배너가 들어갈 자리</div>
+                <div class="cvb-fill"><div class="mz-hero">
+                  <span class="hcopy-a"><em>2026 SPRING COLLECTION</em><b>지금, 새로운 무드</b><u>봄을 여는 신상 컬렉션을 만나보세요</u><s>컬렉션 보기</s></span>
+                  <span class="hcopy-b"><em>BLACK FRIDAY</em><b>단 하루, 전 상품 -70%</b><u>일 년에 단 한 번, 최대 혜택을 만나보세요</u><s>세일 보기</s></span>
+                </div></div>
+              </div>
+              <div class="cvb-slot" data-s="prods">
+                <div class="cvb-empty">🛍️ 상품그리드가 들어갈 자리</div>
+                <div class="cvb-fill"><div class="mz-prods">
+                  <div class="mz-ph"><b>베스트 셀러</b><span>전체보기</span></div>
+                  <div class="mz-pgrid">
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod1.png')"></i><b>여름 청순 바람막이</b><em><span class="pct">48%</span>36,000</em></div>
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod2.png')"></i><b>여름맞이 린넨 카라 반팔티</b><em><span class="pct">50%</span>32,000</em></div>
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod3.png')"></i><b>시원한 워싱 데님 반바지</b><em><span class="pct">50%</span>29,900</em></div>
+                    <div class="mz-prod"><i style="background-image:url('assets/maison/maison-prod4.png')"></i><b>마린 카라 민소매 플레어 원피스</b><em><span class="pct">25%</span>59,900원</em></div>
+                  </div>
+                </div></div>
+              </div>
+              <div class="cvb-slot cvb-wg" data-s="review">
+                <div class="cvb-fill"><div class="mz-revs">
+                  <div class="mz-ph"><b>베스트 리뷰</b><b class="mz-rcnt"><span class="cnt" data-to="5852" data-fmt="num">0</span>개</b><span>원하는 리뷰를 검색해 보세요 🔍</span></div>
+                  <div class="mz-rgrid">
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev1.png')"><u>▶</u><em>⧉</em></i>
+                      <div class="mz-rstar">★★★<span>옵션 : 네이비/M</span></div>
+                      <p>뒷모습 라인이 정말 예뻐요. 차분한 네이비라 격식 있는 자리에도 잘 어울려요.</p>
+                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
+                      <div class="mz-rprod"><i class="t1"></i><span><b>백라인 슬리브리스 플레어…</b><em>72,000원</em><u><i>★</i> <b>4.9</b> (1,702)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev2.png')"><u>▶</u><em>⧉</em></i>
+                      <div class="mz-rstar">★★★<span>옵션 : 베이지플라워/FREE</span></div>
+                      <p>은은한 플라워 패턴이라 부담스럽지 않고 분위기 있어요. 가디건이랑 잘 어울려요.</p>
+                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
+                      <div class="mz-rprod"><i class="t2"></i><span><b>무드 플라워 쉬폰 미디 원피스</b><em>64,900원</em><u><i>★</i> <b>4.8</b> (537)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev3.png')"><em>📷</em></i>
+                      <div class="mz-rstar"><span>옵션 : 크림아이보리/FREE</span></div>
+                      <p>살랑이는 스커트 핏이 너무 예뻐요. 사진보다 실물이 더 여리여리하고 고급스러워요.</p>
+                      <div class="mz-ruser"><span>📷 UserID · 1일 전</span></div>
+                      <div class="mz-rprod"><i class="t3"></i><span><b>소프트 니트 슬리브리스 롱…</b><em>69,900원</em><u><i>★</i> <b>4.8</b> (124)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev4.png')"><em>blog</em></i>
+                      <div class="mz-rstar"><span>옵션 : 스카이블루/S</span></div>
+                      <p>셔츠가 얇고 가벼워서 한여름에도 부담 없어요. 화이트 쇼츠랑 입으면 청량해요.</p>
+                      <div class="mz-ruser"><span>Ⓝ UserID · 1일 전</span></div>
+                      <div class="mz-rprod"><i class="t4"></i><span><b>스트라이프 오버핏 셔츠 쇼…</b><em>54,000원</em><u><i>★</i> <b>4.7</b> (98)</u></span></div>
+                    </div>
+                    <div class="mz-rev">
+                      <i class="mz-rimg" style="background-image:url('assets/maison/maison-rev5.png')"><u>▶</u><em>⧉</em></i>
+                      <div class="mz-rstar">★★★<span>옵션 : 핑크베이지/M</span></div>
+                      <p>컬러가 너무 사랑스럽고 팬츠 핏도 깔끔해요. 출근룩으로도 데일리로도 좋아요.</p>
+                      <div class="mz-ruser"><span>UserID · 1일 전</span><b>구매 인증</b></div>
+                      <div class="mz-rprod"><i class="t5"></i><span><b>소프트 가디건 와이드 팬츠…</b><em>58,000원</em><u><i>★</i> <b>4.7</b> (112)</u></span></div>
+                    </div>
+                  </div>
+                  <div class="mz-page"><span class="mz-pol">운영 정책</span><span class="mz-nums"><i>‹</i><i class="on">1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>10</i><i>›</i></span><span class="mz-write">리뷰작성</span></div>
+                </div></div>
+              </div>
+              <div class="cvb-slot" data-s="footer">
+                <div class="cvb-empty">📄 푸터가 들어갈 자리</div>
+                <div class="cvb-fill"><div class="mz-foot"><b>MAISON</b><span><em>이용약관</em><em>고객센터</em><em>@maison.official</em></span></div></div>
+              </div>
+              <div class="cvb-confetti"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('cv2', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>

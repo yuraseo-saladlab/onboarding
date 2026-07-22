@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파푸시 2번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-scene="ps3">
+            <div class="sc pc-scene">
+        <div class="pcx">
+          <div class="pcx-feats">
+            <div class="pcx-fh">기능 리스트</div>
+            <div class="pcx-ctaslot">
+              <div class="ps-cta">
+                <button class="cl-start" data-act><span class="cl-lb">기능 하나씩 켜보기</span></button>
+                <span class="cl-cursor"></span>
+              </div>
+              <button class="cmp-replay" type="button">↻ 다시 보기</button>
+            </div>
+            <div class="pcx-fg">
+              <span class="pcx-f"><i class="pcx-ck"></i>🎯 온사이트 세그먼트</span>
+              <span class="pcx-f"><i class="pcx-ck"></i>💬 메시지 캠페인 세그먼트</span>
+              <span class="pcx-f"><i class="pcx-ck"></i>⚡ 초스피드 회원가입</span>
+              <span class="pcx-f"><i class="pcx-ck"></i>🎁 카톡 선물</span>
+              <span class="pcx-f"><i class="pcx-ck"></i>🖼 배너 관리</span>
+              <span class="pcx-f only"><i class="pcx-ck"></i>🛒 구매 유도 장치<em>타사 미제공</em></span>
+              <span class="pcx-f mau"><i class="pcx-ck"></i>📈 월 방문 고객 급증</span>
+            </div>
+          </div>
+          <div class="pcx-chart">
+            <div class="pcx-plot">
+              <div class="pcx-col">
+                <div class="pcx-btrack"><div class="pcx-bar o"><span class="pcx-bval"><b class="pcx-oval">90,000원 ↑</b></span></div></div>
+                <div class="pcx-name o"><b>경쟁 CRM</b><span>시작가 90,000 → 방문 고객 늘수록 → 100만+</span></div>
+              </div>
+              <div class="pcx-col">
+                <div class="pcx-verdict"><span class="pcx-vk">기능 다 켜도</span><b class="pcx-vv">알파푸시는 그대로</b></div>
+                <div class="pcx-btrack"><div class="pcx-bar u"><span class="pcx-bval"><b>39,000원</b><em>그대로</em></span></div></div>
+                <div class="pcx-name u"><b>알파푸시</b><span>정액 · 전 기능 포함 · 상품·회원 늘어도 동일</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('ps3', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>

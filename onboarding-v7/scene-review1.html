@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파리뷰 1번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-hero="review:0">
+            <div class="hero-pane hp-live">
+          <div class="hero-cta"><button class="cl-start hero-start" type="button" data-heroplay><span class="cl-lb">리뷰 모두 수집하기</span></button><button class="cmp-replay hero-replay" type="button" data-heroreplay>↺ 다시 보기</button></div>
+          <div class="rvh rvh-gather">
+            <div class="rvh-rc" data-rvh-target="naver" style="--x:-300px;--y:-150px;--r:-8deg;--d:0s"><div class="rc-top"><span class="rc-src" style="--sc:#03C75A">네이버</span><span class="st">★★★★★</span></div><div class="rc-tx">핏이 딱 맞아요, 또 살래요</div></div>
+            <div class="rvh-rc" data-rvh-target="social" style="--x:-322px;--y:26px;--r:6deg;--d:.04s"><div class="rc-top"><span class="rc-src" style="--sc:#E1306C">인스타</span><span class="st">★★★★★</span></div><img class="rc-photo" src="assets/insta/f1.png" alt=""></div>
+            <div class="rvh-rc" data-rvh-target="coupang" style="--x:-250px;--y:170px;--r:-5deg;--d:.08s"><div class="rc-top"><span class="rc-src" style="--sc:#F94C4C">쿠팡</span><span class="st">★★★★★</span></div><div class="rc-tx">배송 빨라요 만족!</div></div>
+            <div class="rvh-rc" data-rvh-target="quick" style="--x:-24px;--y:-180px;--r:4deg;--d:.02s"><div class="rc-top"><span class="rc-src" style="--sc:#6D58F2">알림톡</span><span class="st">★★★★★</span></div><div class="rc-tx">만족해요 ❤️</div></div>
+            <div class="rvh-rc" data-rvh-target="musinsa" style="--x:290px;--y:-138px;--r:8deg;--d:.06s"><div class="rc-top"><span class="rc-src" style="--sc:#1A1A1A">무신사</span><span class="st">★★★★☆</span></div><div class="rc-tx">재질이 튼튼해요</div></div>
+            <div class="rvh-rc" data-rvh-target="olive" style="--x:320px;--y:0px;--r:-6deg;--d:.12s"><div class="rc-top"><span class="rc-src" style="--sc:#8DB825">올리브영</span><span class="st">★★★★★</span></div><div class="rc-tx">색감 사진 그대로</div></div>
+            <div class="rvh-rc" data-rvh-target="qr" style="--x:258px;--y:150px;--r:5deg;--d:.10s"><div class="rc-top"><span class="rc-src" style="--sc:#20242E">QR·매장</span><span class="st">★★★★★</span></div><div class="rc-tx">실물이 더 예뻐요</div></div>
+            <div class="rvh-rc" data-rvh-target="lotte" style="--x:40px;--y:190px;--r:-4deg;--d:.14s"><div class="rc-top"><span class="rc-src" style="--sc:#DA291C">롯데온</span><span class="st">★★★★★</span></div><div class="rc-tx">가격 대비 최고예요</div></div>
+            <div class="rvh-stage">
+            <div class="rvh-sources">
+              <div class="rvs s1">
+                <div class="rvs-h">빠른 리뷰</div>
+                <div class="rvx rvx-talk" data-rvh-source="quick" style="--rvh-hit-delay:.86s">
+                  <div class="rvx-noti"><span class="rvx-app">α</span><b>알파리뷰 알림톡</b><span class="rvx-tm">방금</span></div>
+                  <div class="rvx-msg">구매하신 <b>여름 원피스</b>는 어떠셨나요?<br>만족하셨다면 별점을 남겨주세요 😊</div>
+                  <div class="rvx-btns"><span class="rvx-b on">만족해요 ❤️</span><span class="rvx-b">괜찮아요</span><span class="rvx-b">아쉬워요</span></div>
+                </div>
+              </div>
+              <div class="rvs s2">
+                <div class="rvs-h">외부몰 연동</div>
+                <div class="rvx rvx-sync" data-rvh-source="social" style="--rvh-hit-delay:.88s">
+                  <div class="rvx-mcloud">
+                    <span class="rvx-mall" data-rvh-source="coupang" style="--rvh-hit-delay:.92s"><i class="rvx-mlg" style="--lg:#F94C4C">쿠</i>쿠팡</span><span class="rvx-mall" data-rvh-source="musinsa" style="--rvh-hit-delay:.90s"><i class="rvx-mlg" style="--lg:#1A1A1A">무</i>무신사</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#1A1A1A">29</i>29cm</span><span class="rvx-mall" data-rvh-source="naver" style="--rvh-hit-delay:.84s"><i class="rvx-mlg" style="--lg:#03C75A">N</i>네이버</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E23838">S</i>SSG</span><span class="rvx-mall" data-rvh-source="lotte" style="--rvh-hit-delay:.98s"><i class="rvx-mlg" style="--lg:#DA291C">롯</i>롯데온</span><span class="rvx-mall" data-rvh-source="olive" style="--rvh-hit-delay:.96s"><i class="rvx-mlg" style="--lg:#8DB825">올</i>올리브영</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF0038">11</i>11번가</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#23305C">L</i>LF몰</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5007D">C</i>CJ온스타일</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#0A8B3F">G</i>GS SHOP</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#FF4E7E">브</i>브랜디</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#22BFB8">오</i>오늘의집</span><span class="rvx-mall"><i class="rvx-mlg" style="--lg:#E5344A">위</i>위메프</span><span class="rvx-mall rvx-more">+80</span>
+                  </div>
+                </div>
+              </div>
+              <div class="rvs s3">
+                <div class="rvs-h">QR 코드</div>
+                <div class="rvx rvx-qr" data-rvh-source="qr" style="--rvh-hit-delay:.94s">
+                  <svg class="rvx-qrbox" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="6" width="3" height="3" fill="#20242E"></rect><rect x="27" y="2" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="31" y="6" width="3" height="3" fill="#20242E"></rect><rect x="2" y="27" width="11" height="11" rx="2" fill="none" stroke="#20242E" stroke-width="3"></rect><rect x="6" y="31" width="3" height="3" fill="#20242E"></rect><g fill="#20242E"><rect x="18" y="3" width="3" height="3"></rect><rect x="23" y="7" width="3" height="3"></rect><rect x="18" y="11" width="3" height="3"></rect><rect x="34" y="18" width="3" height="3"></rect><rect x="27" y="18" width="3" height="3"></rect><rect x="31" y="22" width="3" height="3"></rect><rect x="18" y="18" width="3" height="3"></rect><rect x="22" y="22" width="3" height="3"></rect><rect x="18" y="26" width="3" height="3"></rect><rect x="23" y="30" width="3" height="3"></rect><rect x="27" y="27" width="3" height="3"></rect><rect x="31" y="31" width="3" height="3"></rect><rect x="34" y="34" width="3" height="3"></rect><rect x="18" y="34" width="3" height="3"></rect></g></svg>
+                  <span class="rvx-arrow">→</span>
+                  <div class="rvx-rvcard">
+                    <div class="rvx-rv-top"><img src="assets/insta/f8.png" alt=""><span class="st">★★★★★</span><span class="rvx-rv-who">김민**님 · 오프라인 구매</span></div>
+                    <p class="rvx-rv-tx">매장에서 받아봤는데 실물이 더 예뻐요!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <svg class="rvh-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0,50 L100,50"></path>
+              <path d="M0,50 L100,50"></path>
+              <path d="M0,50 L100,50"></path>
+            </svg>
+            <div class="rvh-mall">
+              <div class="rvh-empty">
+                <div class="rve-head">🛍️ 우리 쇼핑몰 · 상품 리뷰</div>
+                <div class="rve-body">
+                  <div class="rve-ic">💬</div>
+                  <div class="rve-t">아직 등록된 리뷰가 <b>0개</b></div>
+                  <div class="rve-s">리뷰가 채널마다 흩어져 있어요</div>
+                  <button class="cl-start rve-btn" type="button" data-heroplay><span class="cl-lb">리뷰 모두 수집하기</span></button><span class="cl-cursor rve-cursor"></span>
+                </div>
+              </div>
+              <div class="rvh-panel hero-payoff">
+                <div class="rvh-top">
+                  <div class="rvh-topL">
+                    <div class="rvh-title">모든 리뷰<br><b>실시간 수집중</b></div>
+                  </div>
+                  <div class="rvh-count">
+                    <span class="rvh-live"><i class="rd"></i>LIVE</span>
+                  </div>
+                </div>
+                <div class="rvh-metric">
+                  <div class="rvh-mt"><div class="v"><b class="cnt" data-to="5967" data-from="0" data-fmt="num" data-delay="1440">0</b></div><div class="l">누적 리뷰</div></div>
+                  <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="32" data-from="0" data-delay="1440">0</b>%</div><div class="l">구매 전환율</div></div>
+                  <div class="rvh-mt"><div class="v">+<b class="cnt" data-to="27" data-from="0" data-delay="1440">0</b>%</div><div class="l">재구매율</div></div>
+                  <div class="rvh-mt"><div class="v"><b class="cnt" data-to="49" data-from="40" data-fmt="star" data-delay="1440">4.0</b></div><div class="l">평균 별점</div></div>
+                </div>
+                <div class="rvh-chart"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:68%"></i><i style="--h:84%"></i><i style="--h:100%"></i></div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('rv1', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인스타피드 1번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-scene="if1">
+            <div class="sc if-sc if1s">
+        <div class="if1-stage">
+          <div class="if1-screen">
+            <div class="if1-side">
+              <div class="if1-sbhead"><span class="if1-ig sm"></span># 내가 태그된 게시글</div>
+              <div class="if1-empty"></div>
+              <button class="if1-play" data-act type="button"><span class="if1-ig sm"></span>내 태그된 게시글 가져오기</button>
+              <span class="if1-ring"></span>
+              <span class="if1-cursor"></span>
+              <div class="if1-busy"><span class="if1-spin"></span>태그된 게시글 찾는 중…</div>
+              <div class="if1-posts">
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f1.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 데일리 코디 추천 🤍</span><span class="if1-pmeta"><span>♥ 5.3천</span><span>💬 125</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f2.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 린넨 셋업 후기</span><span class="if1-pmeta"><span>♥ 3.2천</span><span>💬 88</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f3.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 스트라이프 팬츠 데일리</span><span class="if1-pmeta"><span>♥ 2.6천</span><span>💬 41</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f4.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 가을 무드 자켓 ✨</span><span class="if1-pmeta"><span>♥ 4.1천</span><span>💬 96</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f5.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 니트 컬러 비교</span><span class="if1-pmeta"><span>♥ 1.9천</span><span>💬 33</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f6.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 데님 코디 추천템</span><span class="if1-pmeta"><span>♥ 2.2천</span><span>💬 57</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f7.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 트렌치 코트 데일리</span><span class="if1-pmeta"><span>♥ 3.7천</span><span>💬 72</span></span></div><span class="if1-ptag">태그됨</span></div>
+                <div class="if1-post"><img class="if1-pthumb" src="assets/insta/f8.png" alt=""><div class="if1-pbody"><span class="if1-pcap">#ourira 오피스 캐주얼 룩</span><span class="if1-pmeta"><span>♥ 2.9천</span><span>💬 64</span></span></div><span class="if1-ptag">태그됨</span></div>
+              </div>
+            </div>
+            <div class="if1-phone">
+              <div class="if1-phscreen">
+                <div class="if1-phbar"><span class="if1-ig sm"></span><b class="if1-phhandle">@ourira</b><span class="if1-phsub">태그된 게시물</span></div>
+                <div class="if1-phgrid">
+                  <i class="if1-rcell"><img src="assets/insta/f1.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f2.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f3.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f4.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f5.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f6.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f7.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                  <i class="if1-rcell"><img src="assets/insta/f8.png" alt=""><span class="if1-tagbadge">태그</span></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="if1-bz">
+            <div class="if1-bzchrome"><i></i><i></i><i></i><span class="if1-bzurl">🔒 ourira.co.kr</span></div>
+            <div class="if1-bznav"><span class="if1-bzlogo">ourira</span><span class="if1-nl">Shop</span><span class="if1-nl">Content</span><span class="if1-nl">Community</span><span class="if1-nr"><span class="if1-nl">My page</span><span class="if1-nl">Cart</span></span></div>
+            <div class="if1-bzbody">
+              <div class="if1-feed">
+                <i class="if1-cell" style="--n:0"><img src="assets/insta/f2.png" alt=""></i>
+                <i class="if1-cell" style="--n:1"><img src="assets/insta/f7.png" alt=""></i>
+                <i class="if1-cell hl" style="--n:2"><img src="assets/insta/f1.png" alt=""></i>
+                <i class="if1-cell" style="--n:3"><img src="assets/insta/f5.png" alt=""></i>
+                <i class="if1-cell" style="--n:4"><img src="assets/insta/f8.png" alt=""></i>
+                <i class="if1-cell" style="--n:5"><img src="assets/insta/f6.png" alt=""></i>
+                <i class="if1-cell" style="--n:6"><img src="assets/insta/f4.png" alt=""></i>
+                <i class="if1-cell" style="--n:7"><img src="assets/insta/f3.png" alt=""></i>
+              </div>
+              <div class="if1-toast"><span class="if1-tk">✓</span>태그된 게시글 <b class="if1-cnum">0</b>개를 쇼핑몰 홈에 올렸어요</div>
+            </div>
+          </div>
+          <div class="if1-conf"></div>
+        </div>
+        <button class="cmp-replay" type="button">↺ 다시 보기</button>
+      </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('if1', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>

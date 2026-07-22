@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파푸시 1번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-scene="ps1">
+            <div class="sc ps-wall">
+        <div class="pw-head">
+          <div class="pw-headtx">
+            <span class="pw-eyebrow">이 많은 전환 장치, <b>알파푸시 하나로</b> 다 써요</span>
+          </div>
+          <div class="ps-cta">
+            <button class="cl-start" data-act><span class="cl-lb">전환 장치 작동 보기</span></button>
+            <span class="cl-cursor"></span>
+          </div>
+        </div>
+        <div class="pw-grid">
+          <div class="pwc c1">
+            <div class="pwc-h"><span class="pwc-nm">초스피드 회원가입</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="su">
+                <div class="su-title">회원가입</div>
+                <span class="su-oauth kko"><i class="su-ico">💬</i>카카오 1초 회원가입</span>
+                <span class="su-oauth nvr"><i class="su-ico">N</i>네이버 1초 회원가입</span>
+                <div class="su-coupon"><b>1000원</b><em>신규 회원 웰컴 할인 쿠폰</em></div>
+                <div class="su-give">회원가입 하시면 즉시 사용 가능한 쿠폰을 드려요!</div>
+                <div class="su-or"><span>또는</span></div>
+                <span class="su-idpw">ID/PW로 회원가입</span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">회원 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+38%</span></span></div>
+          </div>
+          <div class="pwc c2">
+            <div class="pwc-h"><span class="pwc-nm">탐색 유도 장치</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="bw">
+                <!-- 사진 슬롯: 모델 이미지 (스크롤 필름스트립) -->
+                <div class="bw-photo">
+                  <div class="bw-strip">
+                    <img src="assets/push/browse-model.png" alt="">
+                    <img src="assets/push/browse-model2.png" alt="">
+                  </div>
+                  <span class="bw-ph">모델 이미지</span>
+                </div>
+                <!-- 스크롤할 때만 감지 -->
+                <span class="bw-scroll">↕ 스크롤 감지 중</span>
+                <!-- ① 탐색 시간 적립 타이머 -->
+                <span class="bw-timer">
+                  <span class="tt"><span class="ic">⏱</span>탐색하면 <b>100원</b><span class="clk">00:02</span></span>
+                  <span class="bar"><i></i></span>
+                </span>
+                <!-- ② 시간 완료 후 등장 -->
+                <span class="bw-reward"><span class="coin">🪙</span>적립금 <b>100원</b> 받았어요!</span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">체류시간</span><span class="mt-val"><span class="v0">×1.0</span><span class="v1">×2.3</span></span></div>
+          </div>
+          <div class="pwc c3">
+            <div class="pwc-h"><span class="pwc-nm">온사이트 캠페인</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="oc">
+                <div class="oc-page">
+                  <div class="oc-pimg"><img src="assets/common/hero-product.png" alt=""></div>
+                  <div class="oc-pnm">봄 여신 바람막이</div>
+                  <div class="oc-ppr">39,800원</div>
+                </div>
+                <div class="oc-modal">
+                  <span class="oc-close">×</span>
+                  <div class="oc-cp"><img src="assets/push/ocp003.png" alt=""></div>
+                  <div class="oc-body">
+                    <div class="oc-title">고민 중인 상품,<br>특별 쿠폰 드려요 🤭</div>
+                    <div class="oc-desc">몇 번이나 살펴보셨네요 👀<br>이 쿠폰으로 저렴하게 구매해보세요!</div>
+                    <button class="oc-btn"><span class="l0">쿠폰 받고 구매하기</span><span class="l1">✓ 구매 완료!</span></button>
+                  </div>
+                </div>
+                <span class="oc-cursor"></span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">구매 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+37%</span></span></div>
+          </div>
+          <div class="pwc c4">
+            <div class="pwc-h"><span class="pwc-nm">카톡 선물하기</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="gf">
+                <div class="gf-detail">
+                  <div class="gf-img"><img src="assets/push/animalcookie1.png" alt=""></div>
+                  <div class="gf-thumbs">
+                    <img src="assets/push/animalcookie2.png" alt="">
+                    <img src="assets/push/animalcookie3.png" alt="">
+                    <img src="assets/push/animalcookie4.png" alt="">
+                    <img src="assets/push/animalcookie5.png" alt="">
+                    <img src="assets/push/animalcookie6.png" alt="">
+                  </div>
+                  <div class="gf-nm">고단백 저당 애니멀 쿠키</div>
+                  <div class="gf-price"><b>16,900원</b><em>30%</em></div>
+                  <div class="gf-btns">
+                    <button class="gf-buy">바로 구매</button>
+                    <button class="gf-gift"><span class="l0">선물하기</span><span class="l1">✓ 선물 완료</span></button>
+                  </div>
+                </div>
+                <!-- 선물 폭주 — 많이들 선물함 -->
+                <div class="gf-burst"><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span><span>🎁</span></div>
+                <!-- 선물이 많아 → 구매 전환 상승 -->
+                <div class="gf-conv"><span class="gc-lb">🛒 구매 전환</span><span class="gc-v">+2.4배 ↑</span></div>
+                <span class="gf-cursor"></span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">구매 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+2.4배</span></span></div>
+          </div>
+          <div class="pwc c5">
+            <div class="pwc-h"><span class="pwc-nm">첫구매 할인</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="fp">
+                <div class="fp-ttl">
+                  <div class="fp-head">첫 구매 시 인기 상품 <b>100원</b>!</div>
+                  <div class="fp-sub">신규 회원을 위한 기분 좋은 혜택</div>
+                </div>
+                <div class="fp-grid">
+                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics1.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">그린 앰플 세트</span><span class="fp-pr"><s>38,000원</s><b>100원</b></span></div>
+                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics2.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">그린 토마토 크림</span><span class="fp-pr"><s>26,500원</s><b>100원</b></span></div>
+                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics3.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">비건 그린 토너</span><span class="fp-pr"><s>29,900원</s><b>100원</b></span></div>
+                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics4.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">실크 그린 앰플</span><span class="fp-pr"><s>44,000원</s><b>100원</b></span></div>
+                  <div class="fp-card"><div class="fp-img"><img src="assets/push/cosmetics5.png" alt=""><span class="fp-buy">구매</span></div><span class="fp-nm">실크 옐로우 앰플</span><span class="fp-pr"><s>34,800원</s><b>100원</b></span></div>
+                </div>
+                <div class="fp-page"><span class="pg">‹</span><em>1 / 2</em><span class="pg">›</span></div>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">첫 구매율</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+26%</span></span></div>
+          </div>
+          <div class="pwc c6">
+            <div class="pwc-h"><span class="pwc-nm">장바구니 리마인드</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="cr">
+                <div class="cr-sender">(광고) @알파몰</div>
+                <div class="cr-card">
+                  <div class="cr-img">
+                    <img src="assets/push/fashion-girl1.png" alt="">
+                    <span class="cr-cart">🛒 장바구니 보관 중</span>                  </div>
+                  <div class="cr-body">
+                    <p class="cr-msg"><b>알파</b>님이 담아두신 <b>그레이 플리츠 스커트</b>가 기다려요 🛍</p>
+                    <button class="cr-btn"><span class="l0">바로 구매하기</span><span class="l1">✓ 결제 완료!</span></button>
+                  </div>
+                </div>
+                <span class="cr-stamp">🎉 구매 전환!</span>
+                <span class="cr-cursor"></span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">장바구니 회수</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+29%</span></span></div>
+          </div>
+          <div class="pwc c7">
+            <div class="pwc-h"><span class="pwc-nm">고객 관리 세그먼트</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="cm">
+                <div class="cm-cap">🎯 지금 관리가 필요한 고객군</div>
+                <div class="cm-grid">
+                  <div class="cm-c hd" style="--i:0"><span class="ic">🌱</span><b class="n">199</b><span class="l">미구매</span></div>
+                  <div class="cm-c hd" style="--i:1"><span class="ic">🌿</span><b class="n">86</b><span class="l">첫구매</span></div>
+                  <div class="cm-c hd f" style="--i:2"><span class="ic">🌷</span><b class="n">4</b><span class="l">재구매</span></div>
+                  <div class="cm-c hd" style="--i:3"><span class="ic">🔥</span><b class="n">0</b><span class="l">고반복</span><span class="cs-gain">+2</span></div>
+                  <div class="cm-c" style="--i:4"><b class="n">2</b><span class="l">담고이탈</span></div>
+                  <div class="cm-c" style="--i:5"><b class="n">1</b><span class="l">담고이탈</span></div>
+                  <div class="cm-c f mut" style="--i:6"><b class="n">0</b><span class="l">담고이탈</span></div>
+                  <div class="cm-c mut" style="--i:7"><b class="n">0</b><span class="l">담고이탈</span></div>
+                  <div class="cm-c" style="--i:8"><b class="n">1</b><span class="l">가입이탈</span></div>
+                  <div class="cm-c" style="--i:9"><b class="n">23</b><span class="l">30일 경과</span></div>
+                  <div class="cm-c f" style="--i:10"><b class="n">2</b><span class="l">30일 경과</span></div>
+                  <div class="cm-c mut" style="--i:11"><b class="n">0</b><span class="l">30일 경과</span></div>
+                  <div class="cm-c" style="--i:12"><b class="n">196</b><span class="l">장기이탈</span></div>
+                  <div class="cm-c" style="--i:13"><b class="n">62</b><span class="l">장기미구매</span></div>
+                  <div class="cm-c f" style="--i:14"><b class="n">2</b><span class="l">장기미구매</span></div>
+                  <div class="cm-c mut" style="--i:15"><b class="n">0</b><span class="l">장기미구매</span></div>
+                </div>
+                <div class="cm-act">
+                  <div class="ca-tx">🌷 재구매 <b>잠재단골 4명</b> → 고반복 단골로 전환</div>
+                  <button class="cm-btn"><span class="l0">＋ 단골 전환 캠페인 실행</span><span class="l1">✓ 4명 단골 전환 완료</span></button>
+                </div>
+                <span class="cm-cursor"></span>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">단골 전환</span><span class="mt-val"><span class="v0">0%</span><span class="v1">+34%</span></span></div>
+          </div>
+          <div class="pwc c8">
+            <div class="pwc-h"><span class="pwc-nm">메시지 캠페인</span><span class="pwc-live"><i></i>작동 중</span></div>
+            <div class="pwc-ex">
+              <div class="mc">
+                <div class="mc-msg">
+                  <div class="mc-card"><img src="assets/push/Img_cart.png" alt=""></div>
+                  <div class="mc-body"><b>{고객명}</b>님, 지금 구매 시 특별 쿠폰을 드려요 😉</div>
+                  <button class="mc-btn"><span class="l0">1,000원 쿠폰 받기</span><span class="l1">✓ 자동 발송 완료</span></button>
+                  <span class="mc-cursor"></span>
+                </div>
+              </div>
+            </div>
+            <div class="pwc-mt"><span class="mt-lb">ROAS 상승</span><span class="mt-val"><span class="v0">0%</span><span class="v1">250~600%</span></span></div>
+          </div>
+        </div>
+        <button class="cmp-replay" type="button">↻ 다시 보기</button>
+      </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('ps1', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>

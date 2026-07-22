@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파푸시 3번 씬 — 알파앱스</title>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="core.css">
+</head>
+
+<body>
+  <!-- 임베드 스테이지 -->
+  <div id="embedRoot"><div class="dt-stage" id="embedStage"></div></div>
+
+  <!-- ══ 이 씬의 애니메이션 HTML — 여기만 수정하면 됨 ══ -->
+  <div id="sceneDefs" hidden aria-hidden="true">
+    <template data-scene="ps2">
+            <div class="sc cmp-sc">
+        <div class="cmp-app">
+          <div class="cmp-rail">
+            <span class="rail-logo">α</span>
+            <span class="rail-ic ic-chart"></span>
+            <span class="rail-ic ic-speaker"></span>
+            <span class="rail-ic ic-comment on"></span>
+            <span class="rail-ic ic-gift"></span>
+            <span class="rail-ic ic-users"></span>
+          </div>
+          <div class="cmp-main">
+            <div class="cmp-head"><span class="ch-back">←</span>자동화 캠페인 만들기</div>
+            <div class="cmp-tabs"><span class="on">전체</span><span>첫 구매 유도</span><span>장바구니 구매 전환</span><span>첫 구매 후 관리</span><span>재방문·재구매</span><span>이탈·휴면</span></div>
+            <div class="cmp-list">
+              <div class="cl-sec">🔥 추천 레시피</div>
+              <div class="cl-row pick"><span class="cl-th"><img src="assets/recipe/img1015.png" alt=""></span><span class="cl-tx"><b>장바구니 고객에게 할인 쿠폰 제공</b><em>📈 평균 ROAS 800~2,500%</em></span><button class="cl-start" data-act><span class="cl-lb">레시피 시작</span></button><span class="cl-cursor"></span></div>
+              <div class="cl-sec">첫 구매 유도</div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1012.png" alt=""></span><span class="cl-tx"><b>가입 후 미구매 고객에게 할인 쿠폰 제공</b><em>📈 평균 ROAS 250~600%</em></span></div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1013.png" alt=""></span><span class="cl-tx"><b>가입 후 미구매 고객에게 최근 인기상품 추천</b><em>📈 평균 ROAS 150~400%</em></span></div>
+              <div class="cl-sec">장바구니 구매 전환</div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1014.png" alt=""></span><span class="cl-tx"><b>장바구니 고객에게 담은 상품 리마인드</b><em>📈 평균 ROAS 1,200~4,000%</em></span></div>
+              <div class="cl-sec">첫 구매 후 관리</div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1016.png" alt=""></span><span class="cl-tx"><b>첫 구매 7일 경과 고객에게 감사 쿠폰 발급</b><em>📈 평균 ROAS 500~1,500%</em></span></div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1017.png" alt=""></span><span class="cl-tx"><b>첫 구매 30일 경과 고객에게 인기상품 추천</b><em>📈 평균 ROAS 300~800%</em></span></div>
+              <div class="cl-sec">재방문·재구매 유도</div>
+              <div class="cl-row"><span class="cl-th"><img src="assets/recipe/img1018.png" alt=""></span><span class="cl-tx"><b>상품 리필 시기 알림</b><em>📈 평균 ROAS 600~1,800%</em></span></div>
+            </div>
+          </div>
+          <div class="cmp-drawer">
+            <span class="cmp-cursor"></span>
+            <div class="cd-top"><span class="cd-x">✕</span><button class="cd-preset">프리셋 사용하기</button></div>
+            <div class="cd-title">장바구니 고객에게<br>할인 쿠폰 제공</div>
+            <div class="cd-meta"><span>📈 평균 ROAS 800~2,500%</span></div>
+            <div class="cd-target"><b>발송 대상</b><br/>장바구니 담은 고객이 <em>2일</em> 미구매 시 <em>오전 11:00</em> 자동 발송</div>
+            <div class="cmp-phone">
+              <div class="cp-sender">(광고) @urbanshift</div>
+              <img class="cmp-cardimg" src="assets/recipe/img1015.png" alt="장바구니 쿠폰 친구톡">
+              <p class="cmp-msg">안녕하세요 {고객명}님<br>장바구니에 담아두신 상품들이 기다리고 있어요 🛒<br><br>지금 바로 구매하시면 사용할 수 있는 특별 쿠폰을 준비했어요 😉<br>{쇼핑몰명}에서 24시간 이내 사용할 수 있어요</p>
+              <div class="cp-footer">수신거부 | 홈 &gt; 채널차단</div>
+            </div>
+          </div>
+          <div class="cd-result">
+            <div class="cr-head">실시간 자동 발송</div>
+            <div class="cr-roas"><span class="cr-roasv">ROAS 1,840%</span><span class="cr-roasd">광고비 대비 18배 매출</span></div>            
+            <div class="cr-stats">
+              <div class="cr-stat"><span class="cs-lbl">발송 인원</span><span class="cs-val"><b class="cnt" data-to="12847" data-fmt="num" data-delay="1650">0</b></span></div>
+              <div class="cr-stat pos"><span class="cs-lbl">구매 전환</span><span class="cs-val"><b class="cnt" data-to="486" data-fmt="num" data-delay="1950">0</b></span></div>
+              <div class="cr-stat key"><span class="cs-lbl">추가 매출</span><span class="cs-val"><b class="cnt" data-to="18400000" data-fmt="num" data-delay="2250">0</b></span></div>
+            </div>
+            <div class="cr-foot"><button class="cmp-replay" type="button">↻ 다시 보기</button></div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <script src="core.js"></script>
+  <script>
+    document.body.classList.add('embed-mode');
+    renderEmbed('ps2', new URLSearchParams(location.search).get('autoplay') !== '0');
+  </script>
+</body>
+
+</html>
