@@ -820,29 +820,41 @@
       padding: 2px 8px;
     }
 
-    /* 진행 게이지 — 카드 바닥에 붙임(bottom:0). 둥근 모서리 폭만큼 좌우 인셋 + 라운드로 코너 삐져나옴 방지.
-       카드 overflow:hidden 제거로 스크러버 노브는 안 잘림 */
-    .beat .prog {
+    /* 진행 게이지: line은 .prog-track(카드 border-radius 상속 + overflow:hidden) 안에서 카드 라운드 따라 클립,
+       스크러버 노브는 트랙 밖 형제로 빼 카드 밖으로 자유롭게 나옴(자체 knobSlide 애니로 게이지 끝 추적) */
+    .beat .prog-track,
+    .fn-item .prog-track {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .beat .prog,
+    .fn-item .prog {
       position: absolute;
       left: 0;
       bottom: 0;
       height: 3px;
       width: 0;
       border-radius: 2px;
-      background: linear-gradient(90deg, #A058F2, #6D58F2, #5877F2);
+      transition: height .12s ease;
     }
 
-    .beat.on .prog {
+    .beat .prog { background: linear-gradient(90deg, #A058F2, #6D58F2, #5877F2); }
+
+    .fn-item .prog { background: var(--dc, #6D58F2); }
+
+    .beat.on .prog,
+    .fn-item.on .prog {
       animation: beatProg var(--beat-ms, 3400ms) linear forwards;
     }
 
-    /* 멈춤 상태: 게이지 정지 */
-    .beats.paused .beat.on .prog {
-      animation-play-state: paused;
-    }
-
-    /* 게이지 클릭 스크럽 히트존 (게이지와 동일 좌우 범위, 넉넉한 하단 영역) */
-    .beat .prog-hit {
+    /* 게이지 클릭·드래그 스크럽 히트존 */
+    .beat .prog-hit,
+    .fn-item .prog-hit {
       position: absolute;
       left: 0;
       right: 0;
@@ -851,21 +863,18 @@
       z-index: 3;
     }
 
-    .beat.on .prog-hit {
+    .beat.on .prog-hit,
+    .fn-item.on .prog-hit {
       cursor: ew-resize;
     }
 
-    /* 재생바 스크러버 노브 — 채워지는 게이지(.prog) 끝을 자동으로 따라가고, prog-hit 드래그로 위치 조정 */
-    .beat .prog,
-    .fn-item .prog {
-      transition: height .12s ease;
-    }
-
+    /* 스크러버 노브 — 트랙 밖(클립 안 됨), left 0→100% 자체 애니로 게이지 끝을 따라감 */
     .beat .prog-knob,
     .fn-item .prog-knob {
       position: absolute;
-      right: -6px;
+      left: 0;
       bottom: -4px;
+      margin-left: -6px;
       width: 12px;
       height: 12px;
       border-radius: 50%;
@@ -873,6 +882,7 @@
       border: 2px solid var(--dc, #6D58F2);
       box-shadow: 0 1px 4px rgba(20, 18, 40, .3);
       opacity: 0;
+      z-index: 2;
       transition: opacity .18s ease, transform .12s ease;
       pointer-events: none;
     }
@@ -880,16 +890,25 @@
     .beat.on .prog-knob,
     .fn-item.on .prog-knob {
       opacity: 1;
+      animation: knobSlide var(--beat-ms, 3400ms) linear forwards;
     }
 
-    /* 유튜브식 — 게이지 영역 호버 시 바가 두꺼워지고 스크러버가 커짐 */
-    .beat.on .prog-hit:hover ~ .prog,
-    .fn-item.on .prog-hit:hover ~ .prog {
+    /* 멈춤: line·노브 함께 정지 */
+    .beats.paused .beat.on .prog,
+    .beats.paused .beat.on .prog-knob,
+    .feat-nav.paused .fn-item.on .prog,
+    .feat-nav.paused .fn-item.on .prog-knob {
+      animation-play-state: paused;
+    }
+
+    /* 유튜브식 — 게이지 영역 호버 시 바 두꺼워지고 노브 커짐 */
+    .beat.on .prog-hit:hover ~ .prog-track .prog,
+    .fn-item.on .prog-hit:hover ~ .prog-track .prog {
       height: 6px;
     }
 
-    .beat.on .prog-hit:hover ~ .prog .prog-knob,
-    .fn-item.on .prog-hit:hover ~ .prog .prog-knob {
+    .beat.on .prog-hit:hover ~ .prog-knob,
+    .fn-item.on .prog-hit:hover ~ .prog-knob {
       transform: scale(1.35);
     }
 
@@ -1008,36 +1027,15 @@
       }
     }
 
-    /* 3-B 상세모달: feat-nav 진행 게이지 (3-A beat와 동일 메커니즘, 색만 제품 --dc) */
-    .fn-item .prog {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 3px;
-      width: 0;
-      background: var(--dc, #6D58F2);
-      border-radius: 2px;
-    }
+    /* 스크러버 노브 위치 애니 — 게이지 width와 동일 타임라인(left 0→100%)으로 tip 추적 */
+    @keyframes knobSlide {
+      from {
+        left: 0;
+      }
 
-    .fn-item.on .prog {
-      animation: beatProg var(--beat-ms, 3400ms) linear forwards;
-    }
-
-    .feat-nav.paused .fn-item.on .prog {
-      animation-play-state: paused;
-    }
-
-    .fn-item .prog-hit {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 16px;
-      z-index: 3;
-    }
-
-    .fn-item.on .prog-hit {
-      cursor: ew-resize;
+      to {
+        left: 100%;
+      }
     }
 
     /* 완료 상태 — 퍼플 원 + 흰색 체크 (Figma) */
@@ -7436,7 +7434,7 @@
       font-size: 12.5px;
       color: var(--sds-text-tertiary);
       line-height: 1.55;
-      margin-top: 6px;
+      margin-top: 0;
       max-height: 0;
       opacity: 0;
       overflow: hidden;
@@ -7446,13 +7444,14 @@
     .fn-item.on .fn-desc {
       max-height: 80px;
       opacity: 1;
+      margin-top: 6px;
     }
 
     .fn-chips {
       display: flex;
       flex-wrap: wrap;
       gap: var(--sds-space-4);
-      margin-top: var(--sds-space-10);
+      margin-top: 0;
       max-height: 0;
       opacity: 0;
       overflow: hidden;
@@ -7462,6 +7461,7 @@
     .fn-item.on .fn-chips {
       max-height: 70px;
       opacity: 1;
+      margin-top: var(--sds-space-10);
     }
 
     /* DS: Tag · weak · neutral (sm) */

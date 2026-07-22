@@ -346,7 +346,7 @@
         el.className = 'beat';
         el.style.setProperty('--beat-ms', beatMs(i) + 'ms');
         const chips = (d.feats[i] && d.feats[i].chips) || [];   // 3-B feat-nav와 동일한 chip을 3-A 비트에도
-        el.innerHTML = `<span class="brow"><span class="bn">${i + 1}</span><span class="bt">${b[0]}</span></span><span class="bd">${b[1]}</span><span class="bchips">${chips.map(c => `<span>${c}</span>`).join('')}</span><span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span><span class="prog"><span class="prog-knob"></span></span>`;
+        el.innerHTML = `<span class="brow"><span class="bn">${i + 1}</span><span class="bt">${b[0]}</span></span><span class="bd">${b[1]}</span><span class="bchips">${chips.map(c => `<span>${c}</span>`).join('')}</span><span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span><span class="prog-track"><span class="prog"></span></span><span class="prog-knob"></span>`;
         // beat 클릭 = 현재 비트면 재생/정지 토글, 다른 비트면 처음부터 (prog-hit 영역 제외)
         el.onclick = () => { if (i === heroIdx) { heroPaused ? resumeHero() : pauseHero(); } else scrubBeat(i, 0); };
         // 진행 게이지(prog-hit) 클릭·드래그 = 위치 시크
@@ -415,7 +415,7 @@
       [...$('heroBeats').children].forEach((el, j) => {
         el.classList.toggle('on', j === i);
         el.classList.toggle('done', j < i);
-        if (j === i) { const p = el.querySelector('.prog'); if (p) { p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; } } // 게이지 리스타트
+        if (j === i) el.querySelectorAll('.prog, .prog-knob').forEach(p => { p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; }); // 게이지·노브 애니 리스타트
       });
       // 해당 비트의 씬 파일로 iframe 교체 → 씬이 iframe 안에서 자동재생 (autoplay 기본 ON)
       const fr = $('heroFrame');
@@ -435,8 +435,7 @@
       if (i !== heroIdx) { heroGo(i); return; }
       const ms = f * beatMs(i);
       const beatEl = $('heroBeats').children[i];
-      const prog = beatEl && beatEl.querySelector('.prog');
-      if (prog && prog.getAnimations) prog.getAnimations().forEach(a => { try { a.currentTime = ms; } catch (e) { } });
+      if (beatEl) beatEl.querySelectorAll('.prog, .prog-knob').forEach(el => { if (el.getAnimations) el.getAnimations().forEach(a => { try { a.currentTime = ms; } catch (e) { } }); });
       postScene($('heroFrame'), { __alphaScene: 'seek', ms, paused: heroPaused });
       if (!heroPaused) restartHeroTimer(Math.max(400, beatMs(i) - ms));
       else heroRemain = Math.max(400, beatMs(i) - ms);
@@ -758,7 +757,7 @@
           <div class="fn-title">${f.title}</div>
           <p class="fn-desc">${f.desc}</p>
           <div class="fn-chips">${f.chips.map(c => `<span>${c}</span>`).join('')}</div>
-          <span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span><span class="prog"><span class="prog-knob"></span></span>`;
+          <span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span><span class="prog-track"><span class="prog"></span></span><span class="prog-knob"></span>`;
         // 현재 기능이면 재생/정지 토글, 다른 기능이면 처음부터 (prog-hit 영역 제외)
         b.onclick = () => { if (i === dtIdx) { dtPaused ? resumeDt() : pauseDt(); } else scrubDt(i, 0); };
         const hit = b.querySelector('.prog-hit');
@@ -891,7 +890,7 @@
       const d = P[dtKey];
       [...$('featNav').children].forEach((el, j) => {
         el.classList.toggle('on', j === i);
-        if (j === i) { const p = el.querySelector('.prog'); if (p) { p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; } } // 게이지 리스타트
+        if (j === i) el.querySelectorAll('.prog, .prog-knob').forEach(p => { p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; }); // 게이지·노브 애니 리스타트
       });
       const stage = $('dtStage');
       // 3-B 상세 씬 = 독립 씬 파일을 iframe으로 임베드 — 제품(Angular) 임베드와 동일 구조.
@@ -911,8 +910,7 @@
       if (i !== dtIdx) { dtGo(i); return; }
       const ms = f * dtBeatMs(i);
       const navEl = $('featNav').children[i];
-      const prog = navEl && navEl.querySelector('.prog');
-      if (prog && prog.getAnimations) prog.getAnimations().forEach(a => { try { a.currentTime = ms; } catch (e) { } });
+      if (navEl) navEl.querySelectorAll('.prog, .prog-knob').forEach(el => { if (el.getAnimations) el.getAnimations().forEach(a => { try { a.currentTime = ms; } catch (e) { } }); });
       postScene($('dtStage').querySelector('iframe'), { __alphaScene: 'seek', ms, paused: dtPaused });
       if (!dtPaused) restartDtTimer(Math.max(400, dtBeatMs(i) - ms));
       else dtRemain = Math.max(400, dtBeatMs(i) - ms);
