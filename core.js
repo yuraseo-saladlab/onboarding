@@ -345,7 +345,8 @@
         const el = document.createElement('div');
         el.className = 'beat';
         el.style.setProperty('--beat-ms', beatMs(i) + 'ms');
-        el.innerHTML = `<span class="brow"><span class="bn">${i + 1}</span><span class="bt">${b[0]}</span></span><span class="bd">${b[1]}</span><span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span><span class="prog"><span class="prog-knob"></span></span>`;
+        const chips = (d.feats[i] && d.feats[i].chips) || [];   // 3-B feat-nav와 동일한 chip을 3-A 비트에도
+        el.innerHTML = `<span class="brow"><span class="bn">${i + 1}</span><span class="bt">${b[0]}</span></span><span class="bd">${b[1]}</span><span class="bchips">${chips.map(c => `<span>${c}</span>`).join('')}</span><span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span><span class="prog"><span class="prog-knob"></span></span>`;
         // beat 클릭 = 현재 비트면 재생/정지 토글, 다른 비트면 처음부터 (prog-hit 영역 제외)
         el.onclick = () => { if (i === heroIdx) { heroPaused ? resumeHero() : pauseHero(); } else scrubBeat(i, 0); };
         // 진행 게이지(prog-hit) 클릭·드래그 = 위치 시크

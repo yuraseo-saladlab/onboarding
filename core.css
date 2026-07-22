@@ -793,6 +793,33 @@
       margin-top: 8px;
     }
 
+    /* 3-A 비트 chip — 3-B feat-nav와 동일 구성, 다크 히어로용 색. 활성 비트에서만 펼침 */
+    .beat .bchips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-left: 36px;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: .3s;
+    }
+
+    .beat.on .bchips {
+      max-height: 60px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+
+    .beat .bchips span {
+      font-size: 11px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, .1);
+      color: rgba(255, 255, 255, .72);
+      border-radius: 6px;
+      padding: 2px 8px;
+    }
+
     /* 진행 게이지 — 카드 바닥에 붙임(bottom:0). 둥근 모서리 폭만큼 좌우 인셋 + 라운드로 코너 삐져나옴 방지.
        카드 overflow:hidden 제거로 스크러버 노브는 안 잘림 */
     .beat .prog {
@@ -19008,9 +19035,11 @@
       background: color-mix(in srgb, var(--dc) 7%, #fff);
     }
 
+    /* 클릭(재생)하면 start 버튼은 사라짐 — '시작됨' 텍스트 없이 (재생은 '다시 보기'로 재실행) */
     .sc.on .cl-start {
       animation: none;
-      background: color-mix(in srgb, var(--dc) 86%, #000);
+      opacity: 0;
+      pointer-events: none;
     }
 
     .sc.on .cl-start::before {
@@ -19019,20 +19048,6 @@
 
     .sc.on .cl-cursor {
       display: none;
-    }
-
-    .sc.on .cl-start .cl-lb {
-      visibility: hidden;
-    }
-
-    .sc.on .cl-start::after {
-      content: '✓ 시작됨';
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      z-index: 2;
     }
 
     .cmp-list::after {
