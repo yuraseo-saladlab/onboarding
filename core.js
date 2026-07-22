@@ -749,14 +749,15 @@
       { const _n = $('dtName'); if (_n) _n.textContent = d.name; }
       $('dtMain').innerHTML = d.main;
       const nav = $('featNav'); nav.innerHTML = '';
+      // 3-B 네비 문구는 3-A(히어로 비트)와 동일하게 — 리뷰는 d.beats, 나머지는 feats 제목/설명
+      const beatData = d.beats || d.feats.map(f => [f.title, f.desc]);
       d.feats.forEach((f, i) => {
         const b = document.createElement('button');
         b.className = 'fn-item';
         b.style.setProperty('--beat-ms', dtBeatMs(i) + 'ms');
-        b.innerHTML = `<span class="fn-kicker"><span class="no">${i + 1}</span>${f.kicker}</span>
-          <div class="fn-title">${f.title}</div>
-          <p class="fn-desc">${f.desc}</p>
-          <div class="fn-chips">${f.chips.map(c => `<span>${c}</span>`).join('')}</div>
+        b.innerHTML = `<span class="fn-row"><span class="fn-no">${i + 1}</span><span class="fn-title">${beatData[i][0]}</span></span>
+          <p class="fn-desc">${beatData[i][1]}</p>
+          <div class="fn-chips">${(f.chips || []).map(c => `<span>${c}</span>`).join('')}</div>
           <span class="prog-hit" title="게이지를 누르거나 드래그해 위치 이동"></span><span class="prog-track"><span class="prog"></span></span><span class="prog-knob"></span>`;
         // 현재 기능이면 재생/정지 토글, 다른 기능이면 처음부터 (prog-hit 영역 제외)
         b.onclick = () => { if (i === dtIdx) { dtPaused ? resumeDt() : pauseDt(); } else scrubDt(i, 0); };

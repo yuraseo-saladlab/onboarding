@@ -7392,33 +7392,28 @@
       box-shadow: 0 8px 26px color-mix(in srgb, var(--dc) 16%, transparent);
     }
 
-    .fn-kicker {
-      display: inline-flex;
+    /* 3-B 네비: 번호+제목 한 줄(3-A .brow와 동일 구성), kicker 없음 */
+    .fn-row {
+      display: flex;
       align-items: center;
-      gap: 7px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .05em;
-      color: var(--sds-text-placeholder);
-      margin-bottom: 7px;
+      gap: 8px;
     }
 
-    .fn-item.on .fn-kicker {
-      color: var(--dc);
-    }
-
-    .fn-kicker .no {
-      width: 18px;
-      height: 18px;
+    .fn-no {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
       border-radius: 6px;
       background: #EDEDF2;
       color: var(--sds-text-tertiary);
       display: grid;
       place-items: center;
-      font-size: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      transition: .22s;
     }
 
-    .fn-item.on .fn-kicker .no {
+    .fn-item.on .fn-no {
       background: var(--dc);
       color: #fff;
     }
@@ -19141,6 +19136,9 @@
       transition: .15s;
     }
 
+    /* 자동재생 전환: 다시보기 버튼 전역 비활성 (씬이 자동재생·비트 캐러셀로 반복되므로 불필요) */
+    .cmp-replay { display: none !important; }
+
     .cmp-replay:hover {
       border-color: color-mix(in srgb, var(--dc) 55%, #fff);
       background: color-mix(in srgb, var(--dc) 6%, #fff);
@@ -23426,8 +23424,10 @@
         padding: 11px 14px;
       }
 
-      .feat-nav .fn-kicker {
-        margin-bottom: 4px;
+      .feat-nav .fn-no {
+        width: 18px;
+        height: 18px;
+        font-size: 11px;
       }
 
       .feat-nav .fn-title {
