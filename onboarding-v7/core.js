@@ -309,7 +309,29 @@
       if (dockOn) renderDock();
       if (view === 'hero') startHero(); else stopHero();
       if (view === 'done') renderDone();
+      syncHash();
     }
+
+    /* ═══ 스텝별 URL 해시 — #<진입앱>/<스텝> 딥링크·공유·뒤로가기 ═══
+       예) #entry · #review/step1 · #upsell/step3-a(히어로) · #upsell/step3-b(추천) · #review/step3-c/widget(위젯) · #push/step4 · #canvas/done */
+    const VIEW_HASH = { entry: 'entry', info1: 'step1', info2: 'step2', hero: 'step3-a', pick: 'step3-b', widget: 'step3-c/widget', card: 'step4', done: 'done' };
+    const HASH_VIEW = {}; Object.keys(VIEW_HASH).forEach(v => { HASH_VIEW[VIEW_HASH[v]] = v; });
+    HASH_VIEW['step3-c'] = 'widget';   // 축약형도 허용
+    const normHash = h => (!h || h === '#') ? '#entry' : h;
+    function currentHash() { return curView === 'entry' ? '#entry' : `#${ENTRY}/${VIEW_HASH[curView]}`; }
+    function syncHash() { if (normHash(location.hash) !== currentHash()) location.hash = currentHash(); }
+    // 해시 → 화면 복원. 진입 앱이 다르면 setEntry로 파생 상태(추천·장바구니·히어로)까지 재구성.
+    // 부팅(applyHash 직접 호출)·뒤로가기/앞으로가기·주소 직접 입력 모두 이 경로 하나로 처리
+    function applyHash() {
+      let raw; try { raw = decodeURIComponent(normHash(location.hash)).slice(1); } catch (e) { raw = 'entry'; }
+      if (raw === 'entry') { go('entry'); return; }
+      const seg = raw.split('/');
+      const view = HASH_VIEW[seg.slice(1).join('/')];   // 'step3-c/widget'처럼 슬래시 포함 스텝 지원
+      if (!P[seg[0]] || !view || view === 'entry') { go('entry'); return; }
+      if (seg[0] !== ENTRY) { setEntry(seg[0]); initHero(); renderPick(); renderDock(); }
+      go(view);
+    }
+    window.addEventListener('hashchange', () => { if (normHash(location.hash) !== currentHash()) applyHash(); });
 
     document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
     { const _cb = $('cardBack'); if (_cb) _cb.onclick = () => go(cart.has('review') ? 'widget' : 'pick'); }
